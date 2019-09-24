@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'title' => 'Kerono',
+    'title' => 'AdminLTE 2',
 
     'title_prefix' => '',
 
@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'logo' => '<b>Kurono</b>',
+    'logo' => '<b>Admin</b>LTE',
 
     'logo_mini' => '<b>A</b>LT',
 
@@ -155,7 +155,7 @@ return [
             'icon' => 'fas fa-fw fa-lock',
         ],
         [
-            'text'    => 'banyiak',
+            'text'    => 'multilevel',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
                 [
@@ -179,7 +179,7 @@ return [
                                     'url'  => '#',
                                 ],
                                 [
-                                    'text' => 'level_three',
+                                    'text' => 'level_tiga',
                                     'url'  => '#',
                                 ],
                             ],
