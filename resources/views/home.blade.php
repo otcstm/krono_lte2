@@ -4,6 +4,6 @@
 
 @section('content')
 <p>
-  hello world!
+  hoi {{ $uname }} !
 </p>
 @stop

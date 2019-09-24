@@ -18,13 +18,13 @@
             <form action="{{ url(config('adminlte.login_url', 'login')) }}" method="post">
                 {{ csrf_field() }}
 
-                <div class="form-group has-feedback {{ $errors->has('email') ? 'has-error' : '' }}">
-                    <input type="email" name="email" class="form-control" value="{{ old('email') }}"
-                           placeholder="{{ __('adminlte::adminlte.email') }}">
-                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                    @if ($errors->has('email'))
+                <div class="form-group has-feedback {{ $errors->has('staff_no') ? 'has-error' : '' }}">
+                    <input type="text" name="staff_no" class="form-control" value="{{ old('staff_no') }}"
+                           placeholder="Staff No">
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    @if ($errors->has('staff_no'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('email') }}</strong>
+                            <strong>{{ $errors->first('staff_no') }}</strong>
                         </span>
                     @endif
                 </div>
@@ -55,18 +55,6 @@
                 </div>
             </form>
             <br>
-            <p>
-                <a href="{{ url(config('adminlte.password_reset_url', 'password/reset')) }}" class="text-center">
-                    {{ __('adminlte::adminlte.i_forgot_my_password') }}
-                </a>
-            </p>
-            @if (config('adminlte.register_url', 'register'))
-                <p>
-                    <a href="{{ url(config('adminlte.register_url', 'register')) }}" class="text-center">
-                        {{ __('adminlte::adminlte.register_a_new_membership') }}
-                    </a>
-                </p>
-            @endif
         </div>
         <!-- /.login-box-body -->
     </div><!-- /.login-box -->

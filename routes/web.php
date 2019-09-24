@@ -11,7 +11,10 @@
 |
 */
 
-Route::get('/', 'MiscController@index')->name('misc.index');
+Route::redirect('/', '/login');
+Auth::routes(['register' => false]);
 
-
-Route::get('/home', 'MiscController@home')->name('misc.home');
+// Route::get('/', 'MiscController@index')->name('misc.index');
+Route::group(['middleware' => ['auth']], function () {
+  Route::get('/home', 'MiscController@home')->name('misc.home');
+});

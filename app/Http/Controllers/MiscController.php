@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 
 class MiscController extends Controller
 {
-  public function home(){
-    return view('home');
+  public function home(Request $req){
+    // dd($req->user()->name);
+    return view('home', ['uname' => $req->user()->name]);
   }
 
   public function index(){
