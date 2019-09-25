@@ -11,6 +11,10 @@ class UserHelper {
   }
 
   public static function GetUserInfo($staff_no){
-    
+
+  }
+
+  public static function GetRequireAttCount(){
+    return 5;
   }
 }

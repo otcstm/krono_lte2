@@ -1,19 +1,16 @@
 <?php
 
 return [
+    'admin_menu'      => 'ADMIN',
+    'system_config'   => 'System Configuration',
+    'user_menu'       => 'USER',
+    'user_home'       => 'My Dashboard',
+    'ot_menu'         => 'OVERTIME',
+    'ot_apply'        => 'Apply New OT',
+    'ot_approve'      => 'Approve OT',
+    'rpt_menu'        => 'REPORTS',
+    'info_menu'       => 'INFORMATION',
+    'user_guide'      => 'How to use',
+    'calendar_menu'   => 'Calendar',
 
-    'main_navigation'               => 'MAIN NAVIGATION',
-    'blog'                          => 'Blog',
-    'pages'                         => 'Pages',
-    'account_settings'              => 'ACCOUNT SETTINGS',
-    'profile'                       => 'Profile',
-    'change_password'               => 'Change Password',
-    'multilevel'                    => 'Multi Level',
-    'level_one'                     => 'Level 1',
-    'level_two'                     => 'Level dua',
-    'level_three'                   => 'Level tiga',
-    'labels'                        => 'LABELS',
-    'Important'                     => 'Important',
-    'Warning'                       => 'Warning',
-    'Information'                   => 'Information',
 ];
