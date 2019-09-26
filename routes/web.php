@@ -17,4 +17,5 @@ Auth::routes(['register' => false]);
 // Route::get('/', 'MiscController@index')->name('misc.index');
 Route::group(['middleware' => ['auth']], function () {
   Route::get('/home', 'MiscController@home')->name('misc.home');
+  Route::get('/role', 'RoleController@index')->name('role.index');
 });
