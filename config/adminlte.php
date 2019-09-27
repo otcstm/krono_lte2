@@ -1,7 +1,5 @@
 <?php
 
-use App\Shared\UserHelper;
-
 return [
 
     /*
@@ -34,7 +32,7 @@ return [
 
     'logo' => 'KRONO <b>!!</b>',
 
-    'logo_mini' => '<b>K</b>!',
+    'logo_mini' => '<b>A</b>LT',
 
     /*
     |--------------------------------------------------------------------------
@@ -132,9 +130,11 @@ return [
             'text' => 'search',
             'search' => true,
         ],
+        ['header' => 'main_navigation'],
         [
-          'header' => 'admin_menu',
-          // 'can' => 'admin-nav-menu',
+            'text' => 'blog',
+            'url'  => 'admin/blog',
+            'can'  => 'manage-blog',
         ],
         [
             'text' => 'manage_role',
@@ -165,6 +165,7 @@ return [
           'icon' => 'fas fa-fw fa-user',
           // 'can' => 'user-nav-menu',
         ],
+        ['header' => 'account_settings'],
         [
             'text' => 'user_home',
             'url'  => '#',
@@ -208,6 +209,7 @@ return [
             'label_color' => 'warning',
             // 'can' => 'ot-nav-menu',
         ],
+        ['header' => 'labels'],
         [
             'text' => 'staff_list',
             'url'  => '#',
@@ -259,7 +261,6 @@ return [
             'icon' => 'fas fa-business-time',
             // 'can' => 'rpt-nav-menu',
         ],
-        ['header' => 'info_menu'],
         [
             'text' => 'user_guide',
             'icon' => 'fas fa-fw fa-user',
@@ -277,9 +278,8 @@ return [
             ],
         ],
         [
-            'text' => 'calendar_menu',
-            'url'  => '#',
-            'icon' => 'far fa-calendar-alt',
+            'text'       => 'information',
+            'icon_color' => 'aqua',
         ],
     ],
 
