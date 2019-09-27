@@ -132,7 +132,7 @@ return [
             'text' => 'search',
             'search' => true,
         ],
-        ['header' => 'main_navigation', 'color' => 'red'],
+        ['header' => 'main_navigation'],
         [
             'text' => 'blog',
             'url'  => 'admin/blog',
@@ -167,11 +167,16 @@ return [
           'icon' => 'fas fa-fw fa-user',
           // 'can' => 'user-nav-menu',
         ],
-        ['header' => 'account_settings'],
         [
             'text' => 'user_home',
             'url'  => '#',
             'icon' => 'fas fa-home',
+            // 'can' => 'user-nav-menu',
+        ],
+        [
+            'text' => 'user_punch',
+            'url'  => '/punch',
+            'icon' => 'fas fa-clock',
             // 'can' => 'user-nav-menu',
         ],
         ['header' => 'ot_menu'],

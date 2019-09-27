@@ -11,6 +11,7 @@ return [
 
     'user_menu'       => 'USER',
     'user_home'       => 'My Dashboard',
+    'user_punch'      => 'Clock In/Out',
 
     'ot_menu'         => 'OVERTIME',
     'ot_apply'        => 'Apply New OT',
