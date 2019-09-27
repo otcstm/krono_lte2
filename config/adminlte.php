@@ -1,7 +1,5 @@
 <?php
 
-use App\Shared\UserHelper;
-
 return [
 
     /*
@@ -34,7 +32,7 @@ return [
 
     'logo' => 'KRONO <b>!!</b>',
 
-    'logo_mini' => '<b>K</b>!',
+    'logo_mini' => '<b>A</b>LT',
 
     /*
     |--------------------------------------------------------------------------
@@ -132,77 +130,80 @@ return [
             'text' => 'search',
             'search' => true,
         ],
+        ['header' => 'main_navigation'],
         [
-          'header' => 'admin_menu',
-          // 'can' => 'admin-nav-menu',
+            'text' => 'blog',
+            'url'  => 'admin/blog',
+            'can'  => 'manage-blog',
         ],
         [
-            'text' => 'system_config',
-            'url'  => '#',
-            'icon' => 'fas fa-cogs',
-            // 'can' => 'admin-nav-menu',
+            'text'        => 'pages',
+            'url'         => 'admin/pages',
+            'icon'        => 'far fa-file',
+            'label'       => 4,
+            'label_color' => 'success',
         ],
-        [ 'header' => 'user_menu',
-          'icon' => 'fas fa-fw fa-user',
-          // 'can' => 'user-nav-menu',
-        ],
+        ['header' => 'account_settings'],
         [
-            'text' => 'user_home',
-            'url'  => '#',
-            'icon' => 'fas fa-home',
-            // 'can' => 'user-nav-menu',
-        ],
-        ['header' => 'ot_menu'],
-        [
-            'text' => 'ot_apply',
-            'url'  => '#',
-            'icon' => 'fas fa-business-time',
-            // 'can' => 'ot-nav-menu',
-        ],
-        [
-            'text' => 'ot_approve',
-            'url'  => '#',
-            'icon' => 'fas fa-tasks',
-            'label'       => UserHelper::GetRequireAttCount(),
-            'label_color' => 'warning',
-            // 'can' => 'ot-nav-menu',
-        ],
-        [
-          'header' => 'rpt_menu',
-          // 'can' => 'rpt-nav-menu',
-        ],
-        [
-            'text' => 'ot_apply',
-            'url'  => '#',
-            'icon' => 'fas fa-business-time',
-            // 'can' => 'rpt-nav-menu',
-        ],
-        [
-            'text' => 'ot_approve',
-            'url'  => '#',
-            'icon' => 'fas fa-tasks',
-        ],
-        ['header' => 'info_menu'],
-        [
-            'text' => 'user_guide',
+            'text' => 'profile',
+            'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'change_password',
+            'url'  => 'admin/settings',
+            'icon' => 'fas fa-fw fa-lock',
+        ],
+        [
+            'text'    => 'multilevel',
+            'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
-              [
-                'text' => 'admin_menu',
-                'url'  => '#',
-                'icon' => 'fas fa-user-ninja',
-              ],
-              [
-                'text' => 'user_menu',
-                'url'  => '#',
-                'icon' => 'fas fa-users',
-              ],
+                [
+                    'text' => 'level_one',
+                    'url'  => '#',
+                ],
+                [
+                    'text'    => 'level_one',
+                    'url'     => '#',
+                    'submenu' => [
+                        [
+                            'text' => 'level_two',
+                            'url'  => '#',
+                        ],
+                        [
+                            'text'    => 'level_two',
+                            'url'     => '#',
+                            'submenu' => [
+                                [
+                                    'text' => 'level_three',
+                                    'url'  => '#',
+                                ],
+                                [
+                                    'text' => 'level_tiga',
+                                    'url'  => '#',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'text' => 'level_one',
+                    'url'  => '#',
+                ],
             ],
         ],
+        ['header' => 'labels'],
         [
-            'text' => 'calendar_menu',
-            'url'  => '#',
-            'icon' => 'far fa-calendar-alt',
+            'text'       => 'important',
+            'icon_color' => 'red',
+        ],
+        [
+            'text'       => 'warning',
+            'icon_color' => 'yellow',
+        ],
+        [
+            'text'       => 'information',
+            'icon_color' => 'aqua',
         ],
     ],
 
