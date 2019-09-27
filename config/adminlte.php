@@ -1,5 +1,7 @@
 <?php
 
+use App\Shared\UserHelper;
+
 return [
 
     /*
@@ -130,7 +132,7 @@ return [
             'text' => 'search',
             'search' => true,
         ],
-        ['header' => 'main_navigation'],
+        ['header' => 'main_navigation', 'color' => 'red'],
         [
             'text' => 'blog',
             'url'  => 'admin/blog',
