@@ -137,7 +137,26 @@ return [
           // 'can' => 'admin-nav-menu',
         ],
         [
-            'text' => 'system_config',
+            'text' => 'manage_role',
+            'url'  => '#',
+            'icon' => 'fas fa-cogs',
+            // 'can' => 'admin-nav-menu',
+        ],
+        [
+            'text' => 'user_autho',
+            'url'  => '#',
+            'icon' => 'fas fa-cogs',
+            // 'can' => 'admin-nav-menu',
+        ],
+
+        [
+            'text' => 'manage_company',
+            'url'  => '#',
+            'icon' => 'fas fa-cogs',
+            // 'can' => 'admin-nav-menu',
+        ],
+        [
+            'text' => 'manage_state',
             'url'  => '#',
             'icon' => 'fas fa-cogs',
             // 'can' => 'admin-nav-menu',
@@ -160,6 +179,13 @@ return [
             // 'can' => 'ot-nav-menu',
         ],
         [
+            'text' => 'ot_history',
+            'url'  => '#',
+            'icon' => 'fas fa-business-time',
+            // 'can' => 'ot-nav-menu',
+        ],
+
+        [
             'text' => 'ot_approve',
             'url'  => '#',
             'icon' => 'fas fa-tasks',
@@ -168,19 +194,70 @@ return [
             // 'can' => 'ot-nav-menu',
         ],
         [
+            'text' => 'ot_verify',
+            'url'  => '#',
+            'icon' => 'fas fa-tasks',
+            'label'       => UserHelper::GetRequireAttCount(),
+            'label_color' => 'warning',
+            // 'can' => 'ot-nav-menu',
+        ],
+        [
+            'text' => 'ot_list',
+            'url'  => '#',
+            'icon' => 'fas fa-tasks',
+            'label_color' => 'warning',
+            // 'can' => 'ot-nav-menu',
+        ],
+        [
+            'text' => 'staff_list',
+            'url'  => '#',
+            'icon' => 'fas fa-tasks',
+            'label_color' => 'warning',
+            // 'can' => 'ot-nav-menu',
+        ],
+        [
+            'text' => 'reassign_app',
+            'url'  => '#',
+            'icon' => 'fas fa-tasks',
+            'label_color' => 'warning',
+            // 'can' => 'ot-nav-menu',
+        ],
+        [
+            'text' => 'reassign_ver',
+            'url'  => '#',
+            'icon' => 'fas fa-tasks',
+            'label_color' => 'warning',
+            // 'can' => 'ot-nav-menu',
+        ],
+        [
+          'header' => 'shift_menu',
+          // 'can' => 'admin-nav-menu',
+        ],
+
+      [
+            'text' => 'shift_plan',
+            'url'  => '#',
+            'icon' => 'far fa-calendar-alt',
+            'label_color' => 'warning',
+            // 'can' => 'ot-nav-menu',
+        ],
+        [
+              'text' => 'shift_template',
+              'url'  => '#',
+              'icon' => 'far fa-calendar-alt',
+              'label_color' => 'warning',
+              // 'can' => 'ot-nav-menu',
+          ],
+
+        [
           'header' => 'rpt_menu',
           // 'can' => 'rpt-nav-menu',
         ],
         [
-            'text' => 'ot_apply',
+            'text' => 'ot_report',
             'url'  => '#',
             'icon' => 'fas fa-business-time',
             // 'can' => 'rpt-nav-menu',
-        ],
-        [
-            'text' => 'ot_approve',
-            'url'  => '#',
-            'icon' => 'fas fa-tasks',
         ],
         ['header' => 'info_menu'],
         [
@@ -188,12 +265,12 @@ return [
             'icon' => 'fas fa-fw fa-user',
             'submenu' => [
               [
-                'text' => 'admin_menu',
+                'text' => 'admin_guideline',
                 'url'  => '#',
                 'icon' => 'fas fa-user-ninja',
               ],
               [
-                'text' => 'user_menu',
+                'text' => 'user_guideline',
                 'url'  => '#',
                 'icon' => 'fas fa-users',
               ],
