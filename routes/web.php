@@ -38,6 +38,6 @@ Route::group(['middleware' => ['auth']], function () {
   //List staff
   Route::get('/staff/list', 'MiscController@listStaff')->name('staff.list');
   Route::get('/staff/search', 'MiscController@searchStaff')->name('staff.search');
-  Route::post('/staff/list', 'MiscController@doSearchStaff')->name('staff.dosearch');
+  Route::post('/staff/search', 'MiscController@doSearchStaff')->name('staff.dosearch');
 
 });
