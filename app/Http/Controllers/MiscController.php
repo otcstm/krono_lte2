@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Shared\UserHelper;
 use App\StaffPunch;
+use App\User;
 use DateTime;
 use DateTimeZone;
 
@@ -80,4 +81,25 @@ class MiscController extends Controller
 
   // end clock in
   // ================================
+
+  // Search User
+  public function listStaff(){
+    $allusers = User::all();
+    return view('staff.liststaff', [
+        'staffs' => $allusers, 
+    ]);
+  }
+
+  public function searchStaff(Request $req){  
+      $staff = User::all();
+      $search = 0;
+      return view('staff.searchstaff', ['staffs' => $staff], ['search' => $search]);
+  }
+
+  public function doSearchStaff(Request $req){
+      $no = $req->inputstaffid;
+      $search = 1;
+      $staff = User::where ('staff_no', 'LIKE', '%' . $no . '%')->get();
+      return view('staff.searchStaff', ['staffs' => $staff], ['search' => $search]);
+  }
 }
