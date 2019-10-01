@@ -20,4 +20,5 @@ return [
     'reset_password'              => 'Reset Password',
     'send_password_reset_link'    => 'Send Password Reset Link',
     'staff_no'    => 'Staff No',
+    'staff_name'    => 'Staff Name',
 ];
