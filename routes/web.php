@@ -27,6 +27,7 @@ Auth::routes(['register' => false]);
 
 // Route::get('/', 'MiscController@index')->name('misc.index');
 Route::group(['middleware' => ['auth']], function () {
+
   Route::get('/home', 'MiscController@home')->name('misc.home');
   Route::get('/role', 'RoleController@index')->name('role.index');
 
@@ -34,5 +35,14 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/punch', 'MiscController@showPunchView')->name('punch.list');
   Route::post('/punch/in', 'MiscController@doClockIn')->name('punch.in');
   Route::post('/punch/out', 'MiscController@doClockOut')->name('punch.out');
+
+//Company
+Route::get( '/admin/companies','CompanyController@show')->name('company.show');
+Route::post('/admin/company/add','CompanyController@store')->name('company.store');
+Route::get( '/admin/Company/list','CompanyController@list')->name('company.list');
+Route::post('/admin/company/destroy','CompanyController@destroy')->name('company.destroy');
+Route::post( '/admin/company/update','CompanyController@update')->name('company.update');
+
+//test
 
 });
