@@ -25,6 +25,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/punch/out', 'MiscController@doClockOut')->name('punch.out');
 
 
+
   //start state admin
   Route::post('/admin/state/store'    ,'Admin\StateController@store'    )->name('state.store');
   Route::get( '/admin/restState'      ,'Admin\StateController@list'     )->name('state.list');
@@ -33,6 +34,12 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post( '/admin/state/update'  ,'Admin\StateController@update'   )->name('state.update');
   //end state admin
 
+
+
+  //List staff
+  Route::get('/staff/list', 'MiscController@listStaff')->name('staff.list');
+  Route::get('/staff/search', 'MiscController@searchStaff')->name('staff.search');
+  Route::post('/staff/search', 'MiscController@doSearchStaff')->name('staff.dosearch');
 
 
 });
