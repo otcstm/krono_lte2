@@ -24,7 +24,15 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/punch/in',  'MiscController@doClockIn')->name('punch.in');
   Route::post('/punch/out', 'MiscController@doClockOut')->name('punch.out');
 
+  // admins ------------------------------------
+  // Route::get('/admin/shift_pattern', 'ShiftPatternController@index')->name('sp.index');
+  // Route::post('/admin/shift_pattern/add', 'ShiftPatternController@addShiftPattern')->name('sp.add');
+  // Route::post('/admin/shift_pattern/detail', 'ShiftPatternController@viewSPDetail')->name('sp.view');
 
+
+
+  // /admins ------------------------------------
+  Route::get('/admin/cda', 'TempController@loadDummyUser')->name('temp.cda');
 
   //start state admin
   Route::post('/admin/state/store'    ,'Admin\StateController@store'    )->name('state.store');
@@ -33,8 +41,6 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get( '/admin/state/show'     ,'Admin\StateController@show'   )->name('state.show');
   Route::post( '/admin/state/update'  ,'Admin\StateController@update'   )->name('state.update');
   //end state admin
-
-
 
   //List staff
   Route::get('/staff/list', 'MiscController@listStaff')->name('staff.list');

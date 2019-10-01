@@ -2,7 +2,16 @@
 
 namespace App\Shared;
 
+use App\User;
+
 class LdapHelper {
+
+  function errorHandler($errno, $errstr) {
+		return [
+      'error_code' => $errno,
+      'message' => $errstr
+    ];
+	}
 
   // validate login
   public static function DoLogin($username, $password){
@@ -185,6 +194,94 @@ class LdapHelper {
       'code' => $errorcode,
       'msg' => $errm,
       'data' => $retdata
+    ];
+  }
+
+  public static function loadDummyAccount($lob){
+
+    // set_error_handler(array($this, 'errorHandler'));
+
+    // do the ldap things
+    $errm = 'success';
+    $errorcode = 200;
+    $udn= 'cn=novabillviewerldapadmin, ou=serviceAccount, o=Telekom';
+    $password = 'nHQUbG9Z';
+    $hostnameSSL = env('TMLDAP_HOSTNAME', 'ldaps://idssldap.tm.com.my:636');
+    $retdata = [];
+    $counter = 0;
+    //	ldap_set_option(NULL, LDAP_OPT_DEBUG_LEVEL, 7);
+    putenv('LDAPTLS_REQCERT=never');
+
+    $con =  ldap_connect($hostnameSSL);
+    if (is_resource($con)){
+      if (ldap_set_option($con, LDAP_OPT_PROTOCOL_VERSION, 3)){
+        ldap_set_option($con, LDAP_OPT_REFERRALS, 0);
+
+        // try to bind / authenticate
+        try{
+        if (ldap_bind($con,$udn, $password)){
+
+          // perform the search
+          $ldres = ldap_search(
+            $con, 'ou=users,o=data', "departmentnumber=$lob",
+            array('cn', 'mail', 'fullname', 'ppnewic'),
+            0, 0
+          );
+          $ldapdata = ldap_get_entries($con, $ldres);
+
+          // return $ldapdata;
+          $sublist = [];
+
+          if($ldapdata['count'] == 0){
+            $errorcode = 404;
+            $errm = 'LOB not found';
+          } else {
+            for ($i=0; $i < $ldapdata['count']; $i++) {
+
+              $staffno = (isset($ldapdata[$i]['ppnewic']['0'])) ? $ldapdata[$i]['ppnewic']['0'] : 'Empty';
+
+              $cuser = User::where('new_ic', $staffno)->first();
+              if($cuser){
+                continue;
+              }
+
+              $cuser = new User;
+              $cuser->new_ic = $staffno;
+              $cuser->email = (isset($ldapdata[$i]['mail']['0'])) ? $ldapdata[$i]['mail']['0'] : 'Empty';
+              $cuser->name = (isset($ldapdata[$i]['fullname']['0'])) ? $ldapdata[$i]['fullname']['0'] : 'Empty';
+              // $cuser->persno = $udata['data']['PERSNO'];
+              $cuser->staff_no = (isset($ldapdata[$i]['cn']['0'])) ? $ldapdata[$i]['cn']['0'] : 'Empty';
+              $cuser->save();
+              $counter++;
+
+            }
+            //$retdata = $ldapdata;
+          }
+
+        } else {
+          $errorcode = 403;
+          $errm = 'Invalid admin credentials.';
+        }} catch(Exception $e) {
+          $errorcode = 500;
+          $errm = $e->getMessage();
+        }
+
+      } else {
+        $errorcode = 500;
+        $errm = "TLS not supported. Unable to set LDAP protocol version to 3";
+      }
+
+      // clean up after done
+      ldap_close($con);
+
+    } else {
+      $errorcode = 500;
+      $errm = "Unable to connect to $hostnameSSL";
+    }
+
+    return [
+      'data' => $ldapdata['count'],
+      'created' => $counter
     ];
   }
 
