@@ -2,8 +2,10 @@
 <div class="content panel">
 	<div class="row">
 
-		@if(isset($alert))
-		<div class="alert alert-{{$ac}}" role="alert">{{$alert}}</div>
+		@if(session('alert'))
+
+				<div class="alert alert-{{$ac}}" role="alert">{{session('alert')}}</div>
+
 		@endif
 		<!-- left column -->
 		<div class="col-md-12">
@@ -118,13 +120,13 @@ $('#editStateForm').on('show.bs.modal', function(e) {
 });
 
 function delState(stid){
-	
+
      $.post("{{route('state.destroy') }}", { state_id: stid , _token: "{{ csrf_token() }}" },
        function(data) {
          alert(data);
-       
-         
-       }); 
+
+
+       });
      }
 
 function submitDeleteForm(stid){
@@ -136,7 +138,7 @@ function submitDeleteForm(stid){
 	} else {
 	  txt = stid+ " Not deleted!";
 	}
-  }; 
+  };
 
 
 
@@ -148,5 +150,3 @@ function submitDeleteForm(stid){
 
 
 @endsection
-
-

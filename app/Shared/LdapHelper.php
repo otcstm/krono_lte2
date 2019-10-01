@@ -69,7 +69,7 @@ class LdapHelper {
               'JOB_GRADE' => $ldapdata['0']['ppjobgrade']['0'],
               'NIRC' => $ldapdata['0']['ppnewic']['0'],
               'EMAIL' => $ldapdata['0']['mail']['0'],
-              'MOBILE_NO' => $ldapdata['0']['mobile']['0'],
+              //'MOBILE_NO' => $ldapdata['0']['mobile']['0'],
               'SUPERIOR' => $ldapdata['0']['ppreporttoname']['0'],
               'PERSNO' => $ldapdata['0']['employeenumber']['0']
             ];
