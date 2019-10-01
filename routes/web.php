@@ -44,4 +44,10 @@ Route::group(['middleware' => ['auth']], function () {
 
   // /admins ------------------------------------
   Route::get('/admin/cda', 'TempController@loadDummyUser')->name('temp.cda');
+
+  //List staff
+  Route::get('/staff/list', 'MiscController@listStaff')->name('staff.list');
+  Route::get('/staff/search', 'MiscController@searchStaff')->name('staff.search');
+  Route::post('/staff/search', 'MiscController@doSearchStaff')->name('staff.dosearch');
+
 });
