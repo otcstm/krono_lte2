@@ -35,7 +35,8 @@ return [
 
     'logo' => 'KRONO <b>!!</b>',
 
-    'logo_mini' => '<b>A</b>LT',
+    // 'logo_mini' => '<b>A</b>LT',
+    'logo_mini' => '<i class="fas fa-clock"></i>',
 
     /*
     |--------------------------------------------------------------------------
@@ -133,7 +134,7 @@ return [
             'text' => 'search',
             'search' => true,
         ],
-        ['header' => 'main_navigation', 'color' => 'red'],
+        ['header' => 'main_navigation'],
         [
             'text' => 'blog',
             'url'  => 'admin/blog',
@@ -169,11 +170,16 @@ return [
           'icon' => 'fas fa-fw fa-user',
           // 'can' => 'user-nav-menu',
         ],
-        ['header' => 'account_settings'],
         [
             'text' => 'user_home',
             'url'  => '#',
             'icon' => 'fas fa-home',
+            // 'can' => 'user-nav-menu',
+        ],
+        [
+            'text' => 'user_punch',
+            'url'  => '/punch',
+            'icon' => 'fas fa-clock',
             // 'can' => 'user-nav-menu',
         ],
         ['header' => 'ot_menu'],
@@ -215,10 +221,15 @@ return [
         ],
         ['header' => 'labels'],
         [
-            'text' => 'staff_list',
-            'url'  => '#',
+            'text' => 'Seach Staff',
+            'url'  => '/staff/search',
             'icon' => 'fas fa-tasks',
-            'label_color' => 'warning',
+            // 'can' => 'ot-nav-menu',
+        ],
+        [
+            'text' => 'staff_list',
+            'url'  => '/staff/list',
+            'icon' => 'fas fa-tasks',
             // 'can' => 'ot-nav-menu',
         ],
         [
