@@ -11,8 +11,8 @@
                 <thead>
                     <tr>
                         <th>Staff ID</th>
-                        <th>Staff Name</th>
-                        <th>Staff Email</th>
+                        <th>Name</th>
+                        <th>Email</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -47,15 +47,15 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Staff Details</h4>
+        <h4 class="modal-title">Create new Role</h4>
       </div>
-      <div class="modal-body">
-        <p><b>Staff ID:</b></p>
-        <p id="staff_id"></p>
-        <p><b>Staff Name:</b></p>
-        <p id="staff_name"></p>
-        <p><b>Staff Email:</b></p>
-      </div>
+      <form action="{{ route('staff.dosearch') }}" method="POST">
+        @csrf
+        <div class="form-group">
+            <input type="text" class="form-control" id="inputstaff" name="inputstaff" placeholder="{{ __('adminlte::adminlte.input_staff') }}" value="{{ old('inputstaff') }}">
+        </div>
+        <button type="submit" class="btn btn-primary">SEARCH</button>
+      </form>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>

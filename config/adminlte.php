@@ -141,7 +141,7 @@ return [
         ],
         [
             'text' => 'manage_role',
-            'url'  => '#',
+            'url'  => '/admin/role',
             'icon' => 'fas fa-cogs',
             // 'can' => 'admin-nav-menu',
         ],
