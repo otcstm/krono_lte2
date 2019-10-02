@@ -25,14 +25,6 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/punch/in',  'MiscController@doClockIn')->name('punch.in');
   Route::post('/punch/out', 'MiscController@doClockOut')->name('punch.out');
 
-
-//Company
-Route::get( '/admin/companies','CompanyController@show')->name('company.show');
-Route::post('/admin/company/add','CompanyController@store')->name('company.store');
-Route::get( '/admin/Company/list','CompanyController@list')->name('company.list');
-Route::post('/admin/company/destroy','CompanyController@destroy')->name('company.destroy');
-Route::post( '/admin/company/update','CompanyController@update')->name('company.update');
-
 //test
 
   // admins ------------------------------------
@@ -58,5 +50,12 @@ Route::post( '/admin/company/update','CompanyController@update')->name('company.
   Route::get('/staff/search', 'MiscController@searchStaff')->name('staff.search');
   Route::post('/staff/search', 'MiscController@doSearchStaff')->name('staff.dosearch');
 
+
+  //Company
+  Route::get( '/admin/companies','Admin\CompanyController@index')->name('company.index');
+  Route::post('/admin/company/add','Admin\CompanyController@store')->name('company.store');
+  Route::get( '/admin/Company/list','Admin\CompanyController@list')->name('company.list');
+  Route::post('/admin/company/destroy','Admin\CompanyController@destroy')->name('company.destroy');
+  Route::post( '/admin/company/update','Admin\CompanyController@update')->name('company.update');
 
 });
