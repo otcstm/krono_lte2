@@ -3,6 +3,7 @@
 namespace App\Shared;
 
 use App\User;
+use App\UserLog;
 use App\StaffPunch;
 
 class UserHelper {
@@ -67,4 +68,21 @@ class UserHelper {
       'data' => $currentp
     ];
   }
+
+  // Update User Activity
+  public static function LogUserAct($req, $mn, $at)
+    {
+        //$req = Request::all();
+        $user_logs = new UserLog; 
+
+        $user_logs->user_id = $req->user()->id;
+        $user_logs->module_name = strtoupper($mn);
+        $user_logs->activity_type = ucfirst($at);
+        $user_logs->session_id = $req->session()->getId();
+        $user_logs->ip_address = $req->ip();
+        $user_logs->user_agent = $req->userAgent();
+        $user_logs->save();
+
+        return 'OK';
+    }
 }

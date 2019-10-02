@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Shared\UserHelper;
 use App\StaffPunch;
 use App\User;
+use App\UserLog;
 use DateTime;
 use DateTimeZone;
 
@@ -88,7 +89,7 @@ class MiscController extends Controller
     return view('staff.liststaff', ['staffs' => $allusers]);
   }
 
-  public function searchStaff(Request $req){  
+  public function searchStaff(Request $req){
       $staff = User::all();
       $search = 0;
       return view('staff.searchstaff', ['staffs' => $staff], ['search' => $search]);
@@ -115,6 +116,31 @@ class MiscController extends Controller
         return view('staff.searchStaff', ['staffs' => $staff, 'search' => $search]);
       }else{
         return view('staff.searchStaff', ['staffs' => $staff, 'search' => $search, 'message' => 'No maching records found. Try to search again.']);
-      }   
+      }
   }
+
+  //retrive list user logs
+  public function listUserLogs()
+    {
+        //retrieve data from table user_logs
+        $listUserLogs = UserLog::all();
+        //dd($listUserLogs);
+        return view('log.listUserLogs', compact('listUserLogs'))
+        //count row display only
+        ->with('i', (request()->input('page', 1) - 1) * 5);;
+    }
+
+  //update user logs
+  public function doUserLogs(Request $req)
+    {
+
+    $execute = UserHelper::LogUserAct($req, $mn, $at);
+        //retrieve data from table user_logs
+        $listUserLogs = UserLog::all();
+        //dd($listUserLogs);
+        return view('log.listUserLogs', compact('listUserLogs'))
+        //count row display only
+        ->with('i', (request()->input('page', 1) - 1) * 5);;
+    }
+
 }

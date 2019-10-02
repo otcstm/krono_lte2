@@ -25,8 +25,8 @@ Route::post( '/admin/state/update'    ,'StateController@update'   )->name('state
 
 Auth::routes(['register' => false]);
 
-// Route::get('/', 'MiscController@index')->name('misc.index');
-Route::group(['middleware' => ['auth']], function () {
+  // Route::get('/', 'MiscController@index')->name('misc.index');
+  Route::group(['middleware' => ['auth']], function () {
   Route::get('/home', 'MiscController@home')->name('misc.home');
   Route::get('/role', 'RoleController@index')->name('role.index');
 
@@ -39,5 +39,9 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/staff/list', 'MiscController@listStaff')->name('staff.list');
   Route::get('/staff/search', 'MiscController@searchStaff')->name('staff.search');
   Route::post('/staff/search', 'MiscController@doSearchStaff')->name('staff.dosearch');
+
+  //Log activity
+  Route::get('/log/listUserLogs', 'MiscController@listUserLogs')->name('log.listUserLogs');
+  Route::get('/log/updUserLogs', 'MiscController@logUserAct')->name('log.logUserAct');
 
 });
