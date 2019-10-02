@@ -19,6 +19,8 @@ return [
     'password_reset_message'      => 'Reset Password',
     'reset_password'              => 'Reset Password',
     'send_password_reset_link'    => 'Send Password Reset Link',
-    'staff_no'    => 'Staff No',
-    'staff_name'    => 'Staff Name',
+    // 'staff_no'    => 'Staff No',
+    // 'staff_name'    => 'Staff Name',
+    'input_staff'    => 'Enter Staff No/Name',
+    'input_role_name'    => 'Enter role name',
 ];

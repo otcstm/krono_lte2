@@ -10,17 +10,12 @@
         <form action="{{ route('staff.dosearch') }}" method="POST">
             @csrf
             <div class="form-group">
-                <input type="text" class="form-control" id="inputstaffid" name="inputstaffid" placeholder="Enter {{ __('adminlte::adminlte.staff_no') }}" value="{{ old('inputstaffid') }}">
-            </div>
-            <p>or</p>
-            <div class="form-group">
-                <input type="text" class="form-control" id="inputstaffname" name="inputstaffname" placeholder="Enter {{ __('adminlte::adminlte.staff_name') }}" value="{{ old('inputstaffname') }}">
+                <input type="text" class="form-control" id="inputstaff" name="inputstaff" placeholder="{{ __('adminlte::adminlte.input_staff') }}" value="{{ old('inputstaff') }}">
             </div>
             <button type="submit" class="btn btn-primary">SEARCH</button>
         </form>
 
-        @if($search===1)
-            
+        @if($search===1)    
         <h3>Search Result</h3>
             @if(count($staffs)>0)
             <div class="panel panel-default">
@@ -30,8 +25,8 @@
                         <thead>
                             <tr>
                                 <th>Staff ID</th>
-                                <th>Staff Name</th>
-                                <th>Staff Email</th>
+                                <th>Name</th>
+                                <th>Email</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

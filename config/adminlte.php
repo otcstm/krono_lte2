@@ -2,6 +2,7 @@
 
 use App\Shared\UserHelper;
 
+
 return [
 
     /*
@@ -133,7 +134,7 @@ return [
             'text' => 'search',
             'search' => true,
         ],
-        ['header' => 'main_navigation', 'color' => 'red'],
+        ['header' => 'main_navigation'],
         [
             'text' => 'blog',
             'url'  => 'admin/blog',
@@ -141,7 +142,7 @@ return [
         ],
         [
             'text' => 'manage_role',
-            'url'  => '#',
+            'url'  => '/admin/role',
             'icon' => 'fas fa-cogs',
             // 'can' => 'admin-nav-menu',
         ],
@@ -154,13 +155,14 @@ return [
 
         [
             'text' => 'manage_company',
-            'url'  => '#',
+            'url'  => '/admin/companies',
             'icon' => 'fas fa-cogs',
             // 'can' => 'admin-nav-menu',
         ],
         [
             'text' => 'manage_state',
-            'url'  => '#',
+            //'url'  => route('state.show', [], false),
+            'url' => '/admin/state/show',
             'icon' => 'fas fa-cogs',
             // 'can' => 'admin-nav-menu',
         ],
@@ -169,16 +171,15 @@ return [
           // 'can' => 'user-nav-menu',
         ],
         [
-            'text' => 'user_punch',
-            'url'  => '/punch',
-            'icon' => 'fas fa-clock',
-            // 'can' => 'admin-nav-menu',
-        ],
-        ['header' => 'account_settings'],
-        [
             'text' => 'user_home',
             'url'  => '#',
             'icon' => 'fas fa-home',
+            // 'can' => 'user-nav-menu',
+        ],
+        [
+            'text' => 'user_punch',
+            'url'  => '/punch',
+            'icon' => 'fas fa-clock',
             // 'can' => 'user-nav-menu',
         ],
         ['header' => 'ot_menu'],
