@@ -93,28 +93,22 @@ class MiscController extends Controller
       $search = 0;
       return view('staff.searchstaff', ['staffs' => $staff], ['search' => $search]);
   }
-
   public function doSearchStaff(Request $req){
-      $no = $req->inputstaffid;
-      $name = $req->inputstaffname;
+      $input = $req->inputstaff;
+      $message = null;
       $search = 1;
-      $staff = array();;
-      if(!empty($no)){
-        $staff = User::where('staff_no', 'LIKE', '%' .$no. '%')->get();
-        if(!empty($name)){
-          $staff = User::where('staff_no', 'LIKE', '%' .$no. '%')->where('name','LIKE','%'.$name.'%')->get();
+      $staff = [];
+      if(!empty($input)){
+        $staff = User::where('staff_no', trim($input))->get();   
+        if(count($staff)==0){
+          $staff = User::where('name', 'LIKE', '%' .$input. '%')->orderBy('name', 'ASC')->get();
         }
-      }else if(!empty($name)){
-        $staff = User::where('name', 'LIKE', '%' . $name . '%')->get();
-      }
-      else{
-        return view('staff.searchStaff', ['staffs' => $staff,'search' => $search, 'message' => 'Please enter staff no or staff name to search.']);
-      }
-
-      if(count($staff)>0){
-        return view('staff.searchStaff', ['staffs' => $staff, 'search' => $search]);
+        if(count($staff)==0){
+          $message = 'No maching records found. Try to search again.';
+        } 
       }else{
-        return view('staff.searchStaff', ['staffs' => $staff, 'search' => $search, 'message' => 'No maching records found. Try to search again.']);
-      }   
+        $message = 'Please enter staff no or staff name to search.';
+      }
+      return view('staff.searchStaff', ['staffs' => $staff,'search' => $search, 'message' => $message]);
   }
 }

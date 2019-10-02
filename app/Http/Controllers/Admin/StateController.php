@@ -21,8 +21,6 @@ class StateController extends Controller
 
         $alert = Session('alert') ? Session('alert') : 'rest';
         $ac = Session('ac') ? Session('ac') : 'info';
-        //$ac = isset($ac) ? $ac : 'info';
-        //dd(Session('alert'));
         return view('admin.states', ['states' => $states,'alert'=>$alert, 'ac'=>$ac
         ]);
     }
@@ -31,6 +29,7 @@ class StateController extends Controller
     {
         $state_var = State::findOrFail($req->id);
         $state_var->state_descr = $req->state_descr;
+        $state_var->updated_by  = $req->user()->id;
         $state_var->save();
 
 
@@ -38,7 +37,8 @@ class StateController extends Controller
         $alert = 'updated ' . $req->state_code .':' .$req->state_descr;
         $states = $this->list();
         //return view('admin.states',['states' => $states, 'alert'=>$alert, 'ac'=>$ac]);
-        return redirect()->route('state.show', [
+        return redirect(route('state.show', [], false))->
+        with([
           'alert' => $alert,
           'ac'=>$ac
         ]);
@@ -54,13 +54,19 @@ class StateController extends Controller
             $state_var = new State;
             $state_var->id          = $req->state_code;
             $state_var->state_descr = $req->state_descr;
+            $state_var->updated_by  = $req->user()->id;
+            $state_var->created_by  = $req->user()->id;
             $state_var->save();
             $alert = 'created ' . $req->state_code .':' .$req->state_descr;
         } else {
             $ac = 'danger';
             $alert = $req->state_code .' already existed and will not be added';
         }
-        return redirect()->route('state.show')->with(['alert' => $alert, 'ac'=>$ac]);
+        return redirect(route('state.show', [], false))->
+        with([
+          'alert' => $alert,
+          'ac'=>$ac
+        ]);
     }
 
 
@@ -69,11 +75,23 @@ class StateController extends Controller
     {
         $states = $this->list();
         $st = $req->state_id;
+        $state_log = State::find($req->state_id);
+        $state_log->updated_by  = $req->user()->id;
+        $state_log->save();
         State::destroy($st);
+
+
+
+
+
         $ac = 'info';
         $alert = $req->state_id .' has been destroyed';
 
-        return redirect()->route('state.show')->with(['alert' => $alert, 'ac'=>$ac]);
+        return redirect(route('state.show', [], false))->
+        with([
+          'alert' => $alert,
+          'ac'=>$ac
+        ]);
     }
 
     public static function list()
