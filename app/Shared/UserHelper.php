@@ -81,6 +81,7 @@ class UserHelper {
         $user_logs->session_id = $req->session()->getId();
         $user_logs->ip_address = $req->ip();
         $user_logs->user_agent = $req->userAgent();
+        $user_logs->created_by = $req->user()->id;
         $user_logs->save();
 
         return 'OK';

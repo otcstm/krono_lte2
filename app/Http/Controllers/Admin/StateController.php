@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\State;
+use App\Shared\UserHelper;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +33,6 @@ class StateController extends Controller
         $state_var->state_descr = $req->state_descr;
         $state_var->updated_by  = $req->user()->id;
         $state_var->save();
-
 
         $ac = 'info';
         $alert = 'updated ' . $req->state_code .':' .$req->state_descr;
@@ -79,11 +80,7 @@ class StateController extends Controller
         $state_log->updated_by  = $req->user()->id;
         $state_log->save();
         State::destroy($st);
-
-
-
-
-
+        
         $ac = 'info';
         $alert = $req->state_id .' has been destroyed';
 

@@ -6,7 +6,7 @@
 <p>
   Welcome {{ $uname }} !
 </p>
-@include('widget/dashboard')
+
 <div class="row">
 <div class="col-md-4">
 @include('log/listUserLogsDash')

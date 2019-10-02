@@ -129,12 +129,8 @@ class MiscController extends Controller
     {
 
     $execute = UserHelper::LogUserAct($req, $mn, $at);
-        //retrieve data from table user_logs
-        $listUserLogs = UserLog::all();
-        //dd($listUserLogs);
-        return view('log.listUserLogs', compact('listUserLogs'))
-        //count row display only
-        ->with('i', (request()->input('page', 1) - 1) * 5);;
+
+    return $execute;
     }
 
 }

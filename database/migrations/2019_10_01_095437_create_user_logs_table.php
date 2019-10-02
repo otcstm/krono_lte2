@@ -22,6 +22,8 @@ class CreateUserLogsTable extends Migration
             $table->string('session_id');
             $table->string('ip_address');
             $table->string('user_agent');
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
