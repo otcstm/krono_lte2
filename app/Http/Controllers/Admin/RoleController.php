@@ -22,6 +22,12 @@ class RoleController extends Controller{
       return "nom";
     }
 
+    public function show(Role $role){
+        $role = Role::all();   
+        // $role = Role::where('deleted_at', null)->orderBy('title', 'ASC')->get();   
+        return view('admin.rolemgmt', ['roles' => $role]);
+    }
+
     public function store(Request $req){
         $name = $req->inputname;
         $permission = $req->permission;
@@ -32,6 +38,7 @@ class RoleController extends Controller{
             $new_role->title = $name;
             $new_role->created_by = $req->user()->id;
             $new_role->save();
+            $new_role->permissions()->sync($permission);
             $feedback_text = "Successfully created role " .$name. ".";
             $feedback_icon = "ok";
             $feedback_color = "#5CB85C";
@@ -49,17 +56,13 @@ class RoleController extends Controller{
         );
     }
 
-    public function show(Role $role){
-        $role = Role::all();   
-        // $role = Role::where('deleted_at', null)->orderBy('title', 'ASC')->get();   
-        return view('admin.rolemgmt', ['roles' => $role]);
-    }
-
     public function update(Request $req, Role $role){
+        $permission = $req->permission;
         $update_role = Role::find($req->inputid);
         $update_role->title = $req->inputname;
         $update_role->updated_by = $req->user()->id;
         $update_role->save();
+        $update_role->permissions()->sync($permission);
         $feedback = true;
         $feedback_text = "Successfully updated role " .$req->inputname. ".";
         $feedback_icon = "ok";
@@ -70,7 +73,7 @@ class RoleController extends Controller{
             'feedback' => $feedback,
             'feedback_text' => $feedback_text,
             'feedback_icon' => $feedback_icon,
-            'feedback_color' => $feedback_color,e]
+            'feedback_color' => $feedback_color]
         );
     }
 

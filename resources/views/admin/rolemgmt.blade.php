@@ -24,12 +24,13 @@
                         <td>{{ $singleuser->title }}</td>
                         <td>{{ $singleuser->created_at }}</td>
                         <td>{{ $singleuser->createdby->name }}</td>
+                        
                         <td>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editRole" data-role_id="{{$singleuser['id']}}" data-role_name="{{$singleuser['title']}}">
-                                MANAGE
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editRole" data-role_id="{{$singleuser['id']}}" data-role_name="{{$singleuser['title']}}" data-role_permission="@foreach ($singleuser->permissions as $user){{ $user->id }} @endforeach">
+                                <i class="fas fa-cog"></i>
                             </button>
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteRole" data-role_id="{{$singleuser['id']}}" data-role_name="{{$singleuser['title']}}">
-                                DELETE
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteRole" data-role_id="{{$singleuser['id']}}" data-role_name="{{$singleuser['title']}}" data-role_permission="{{$singleuser['permissions']}}">
+                                <i class="fas fa-trash-alt"></i>
                             </button>
                         </td>
                     </tr>
@@ -96,6 +97,15 @@
                         <label for="inputname">Role Name:</label>
                         <input type="text" class="form-control" id="inputname" name="inputname" value="" required>
                     </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" id="checkbox_1" name="permission[]" value="1">Admin</label>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" id="checkbox_2" name="permission[]" value="2">Supervisor</label>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" id="checkbox_3" name="permission[]" value="3">Manager</label>
+                    </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">SAVE</button>
                     </div>
@@ -158,23 +168,28 @@
 $(document).ready(function() {
     $('#tRoleList').DataTable({
       "responsive": "true",
-      "order" : [[2, "asc"]]
-    //   "columns": [
-    //         null,
-    //         { "width": "40%" },
-    //         null,
-    //         null,
-    //         { "width": "20%" }
-    //     ]
+      "order" : [[2, "asc"]],
+      "columns": [
+            null,
+            null,
+            null,
+            null,
+            { "width": "7%" }
+        ]
     });
 } );
 
 function populate(e){
     var role_id = $(e.relatedTarget).data('role_id');
     var role_name = $(e.relatedTarget).data('role_name')
+    var role_permission = $(e.relatedTarget).data(('role_permission'));
+    var role_permissions = role_permission.split(" ");
     $('input[name=inputid]').val(role_id);
     $('input[name=inputname]').val(role_name);
     $('#showname').text(role_name);
+    for(i=0; i<role_permissions.length; i++){
+        $("#checkbox_"+role_permissions[i]).prop('checked', true);
+    }
 }
 
 $('#editRole').on('show.bs.modal', function(e) {
