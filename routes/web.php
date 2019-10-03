@@ -50,6 +50,9 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/staff/search', 'MiscController@searchStaff')->name('staff.search');
   Route::post('/staff/search', 'MiscController@doSearchStaff')->name('staff.dosearch');
 
+  //Log activity
+  Route::get('/log/listUserLogs', 'MiscController@listUserLogs')->name('log.listUserLogs');
+  Route::get('/log/updUserLogs', 'MiscController@logUserAct')->name('log.logUserAct');
 
   //Company
   Route::get( '/admin/companies','Admin\CompanyController@index')->name('company.index');
