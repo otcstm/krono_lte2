@@ -30,6 +30,7 @@ class StateController extends Controller
         $state_var = State::findOrFail($req->id);
         $state_var->state_descr = $req->state_descr;
         $state_var->updated_by  = $req->user()->id;
+        $state_var->source  = 'OT';
         $state_var->save();
 
 
@@ -54,6 +55,7 @@ class StateController extends Controller
             $state_var = new State;
             $state_var->id          = $req->state_code;
             $state_var->state_descr = $req->state_descr;
+            $state_var->source  = 'OT';
             $state_var->updated_by  = $req->user()->id;
             $state_var->created_by  = $req->user()->id;
             $state_var->save();
