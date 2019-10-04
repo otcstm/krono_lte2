@@ -16,9 +16,9 @@
 			<tr>
 				<td>{{ $company->id }}</td>
 				<td>{{ $company->company_descr }}</td>
-				<td class="hidden-xs">{{ $company->creator->name }}</td>
+				<td class="hidden-xs">{{ $company->createdby->name }}</td>
 				<td class="hidden-xs">{{ $company->created_at }}</td>
-				<td class="hidden-xs">{{ $company->creator->name }}</td>
+				<td class="hidden-xs">{{ $company->updatedby->name }}</td>
 				<td class="hidden-xs">{{ $company->updated_at }}</td>
 				<td>
 					<button id="btnedit" type="button" class="btn btn-warning btn-sm"

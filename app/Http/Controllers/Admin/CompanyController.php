@@ -54,8 +54,8 @@ class CompanyController extends Controller
         $company_var->id = $req->company_code;
         $company_var->company_descr = $req->company_descr;
         $company_var->source  = 'OT';
-        $company_var->updated_by  = $req->user()->name;
-        $company_var->created_by  = $req->user()->name;
+        $company_var->updated_by  = $req->user()->id;
+        $company_var->created_by  = $req->user()->id;
         $company_var->save();
 
         $alert = 'created ' . $req->company_code .':' .$req->company_descr;
