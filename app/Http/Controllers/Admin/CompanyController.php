@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Company;
+use App\Shared\UserHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,6 +30,7 @@ class CompanyController extends Controller
         $company_var = Company::findOrFail($req->id);
         $company_var->company_descr = $req->company_descr;
         $company_var->updated_by  = $req->user()->id;
+        $company_var->source  = 'OT';
         $company_var->save();
         $ac = 'info';
         $alert = 'updated ' . $req->company_code .':' .$req->company_descr;
@@ -51,6 +53,7 @@ class CompanyController extends Controller
         $company_var = new Company;
         $company_var->id = $req->company_code;
         $company_var->company_descr = $req->company_descr;
+        $company_var->source  = 'OT';
         $company_var->updated_by  = $req->user()->name;
         $company_var->created_by  = $req->user()->name;
         $company_var->save();
@@ -74,23 +77,25 @@ class CompanyController extends Controller
     public function destroy(Request $req)
     {
         //check id dalam table user
-        $check_dependencies = User::find($req->company_code);
+      //  $check_dependencies = User::find($req->company_code);
 
         $companies = $this->list();
         $cm = $req->company_id;
         $company_log = Company::find($req->company_id);
         $company_log ->updated_by  = $req->user()->id;
         $company_log ->save();
+        Company::destroy($st);
 
 
-        Company::softDeletes($cm);
+      //  Company::softDeletes($cm);
 
 
         $ac = 'info';
         $alert = $req->company_id .' has been destroyed';
       //  $companies = $this->list();
       //  return view('admin.companies',['companies' => $companies,'alert'=>$alert, 'ac'=>$ac]);
-        return redirect(route('company.index', [], false))->with([
+        return redirect(route('company.index', [], false))->
+        with([
           'alert' => $alert,
           'ac'=>$ac
         ]);
