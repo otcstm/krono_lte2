@@ -31,6 +31,7 @@ class CompanyController extends Controller
         $company_var->company_descr = $req->company_descr;
         $company_var->updated_by  = $req->user()->id;
         $company_var->source  = 'OT';
+    //    $LogUserAct = doUserLogs($req,'Company', __FUNCTION__);
         $company_var->save();
         $ac = 'info';
         $alert = 'updated ' . $req->company_code .':' .$req->company_descr;
@@ -83,8 +84,9 @@ class CompanyController extends Controller
         $cm = $req->company_id;
         $company_log = Company::find($req->company_id);
         $company_log ->updated_by  = $req->user()->id;
+    //    $LogUserAct = doUserLogs($req,'Company', __FUNCTION__);
         $company_log ->save();
-        Company::destroy($st);
+        Company::destroy($cm);
 
 
       //  Company::softDeletes($cm);
