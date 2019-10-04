@@ -2,6 +2,7 @@
 
 use App\Shared\UserHelper;
 
+
 return [
 
     /*
@@ -154,13 +155,14 @@ return [
 
         [
             'text' => 'manage_company',
-            'url'  => '#',
+            'url'  => '/admin/companies',
             'icon' => 'fas fa-cogs',
             // 'can' => 'admin-nav-menu',
         ],
         [
             'text' => 'manage_state',
-            'url'  => '#',
+            //'url'  => route('state.show', [], false),
+            'url' => '/admin/state/show',
             'icon' => 'fas fa-cogs',
             // 'can' => 'admin-nav-menu',
         ],

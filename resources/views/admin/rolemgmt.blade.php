@@ -65,10 +65,10 @@
                         <label><input type="checkbox" name="permission[]" value="1">Admin</label>
                     </div>
                     <div class="checkbox">
-                        <label><input type="checkbox" name="permission[]" value="2">Supervisor</label>
+                        <label><input type="checkbox" name="permission[]" value="2">User</label>
                     </div>
                     <div class="checkbox">
-                        <label><input type="checkbox" name="permission[]" value="3">Manager</label>
+                        <label><input type="checkbox" name="permission[]" value="3">OT</label>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">CREATE</button>
@@ -101,10 +101,10 @@
                         <label><input type="checkbox" id="checkbox_1" name="permission[]" value="1">Admin</label>
                     </div>
                     <div class="checkbox">
-                        <label><input type="checkbox" id="checkbox_2" name="permission[]" value="2">Supervisor</label>
+                        <label><input type="checkbox" id="checkbox_2" name="permission[]" value="2">User</label>
                     </div>
                     <div class="checkbox">
-                        <label><input type="checkbox" id="checkbox_3" name="permission[]" value="3">Manager</label>
+                        <label><input type="checkbox" id="checkbox_3" name="permission[]" value="3">OT</label>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">SAVE</button>

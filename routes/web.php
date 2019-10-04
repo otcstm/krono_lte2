@@ -16,6 +16,7 @@ Auth::routes(['register' => false]);
 
 // Route::get('/', 'MiscController@index')->name('misc.index');
 Route::group(['middleware' => ['auth']], function () {
+
   Route::get('/home', 'MiscController@home')->name('misc.home');
   Route::get('/role', 'RoleController@index')->name('role.index');
 
@@ -23,6 +24,8 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/punch',      'MiscController@showPunchView')->name('punch.list');
   Route::post('/punch/in',  'MiscController@doClockIn')->name('punch.in');
   Route::post('/punch/out', 'MiscController@doClockOut')->name('punch.out');
+
+//test
 
   // admins ------------------------------------
   // Route::get('/admin/shift_pattern', 'ShiftPatternController@index')->name('sp.index');
@@ -58,5 +61,15 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('admin/role/create', 'Admin\RoleController@store')->name('role.store');
   Route::post('admin/role/edit', 'Admin\RoleController@update')->name('role.edit');
   Route::post('admin/role/delete', 'Admin\RoleController@destroy')->name('role.delete');
+  //Log activity
+  Route::get('/log/listUserLogs', 'MiscController@listUserLogs')->name('log.listUserLogs');
+  Route::get('/log/updUserLogs', 'MiscController@logUserAct')->name('log.logUserAct');
+
+  //Company
+  Route::get( '/admin/companies','Admin\CompanyController@index')->name('company.index');
+  Route::post('/admin/company/add','Admin\CompanyController@store')->name('company.store');
+  Route::get( '/admin/Company/list','Admin\CompanyController@list')->name('company.list');
+  Route::post('/admin/company/destroy','Admin\CompanyController@destroy')->name('company.destroy');
+  Route::post( '/admin/company/update','Admin\CompanyController@update')->name('company.update');
 
 });
