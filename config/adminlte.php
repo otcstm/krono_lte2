@@ -160,7 +160,7 @@ return [
         ],
         [
             'text' => 'manage_company',
-            'url'  => '/admin/companies',
+            'url'  => '/admin/company',
             'icon' => 'fas fa-cogs',
             // 'can' => 'admin-nav-menu',
         ],

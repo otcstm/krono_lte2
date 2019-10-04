@@ -63,7 +63,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('admin/role/delete', 'Admin\RoleController@destroy')->name('role.delete');
   
   //Company
-  Route::get( '/admin/companies','Admin\CompanyController@index')->name('company.index');
+  Route::get( '/admin/company','Admin\CompanyController@index')->name('company.index');
   Route::post('/admin/company/add','Admin\CompanyController@store')->name('company.store');
   Route::get( '/admin/Company/list','Admin\CompanyController@list')->name('company.list');
   Route::post('/admin/company/destroy','Admin\CompanyController@destroy')->name('company.destroy');
