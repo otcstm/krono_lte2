@@ -114,10 +114,10 @@ class MiscController extends Controller
   }
 
   //retrive list user logs
-  public function listUserLogs()
+  public function listUserLogs(Request $req)
     {
         //retrieve data from table user_logs
-        $listUserLogs = UserLog::all();
+        $listUserLogs = UserLog::where('user_id', $req->user()->id)->get();
         //dd($listUserLogs);
         return view('log.listUserLogs', compact('listUserLogs'))
         //count row display only

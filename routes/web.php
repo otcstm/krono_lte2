@@ -28,11 +28,14 @@ Route::group(['middleware' => ['auth']], function () {
 //test
 
   // admins ------------------------------------
-  // Route::get('/admin/shift_pattern', 'ShiftPatternController@index')->name('sp.index');
-  // Route::post('/admin/shift_pattern/add', 'ShiftPatternController@addShiftPattern')->name('sp.add');
-  // Route::post('/admin/shift_pattern/detail', 'ShiftPatternController@viewSPDetail')->name('sp.view');
+  Route::get('/admin/shift_pattern', 'ShiftPatternController@index')->name('sp.index');
+  Route::post('/admin/shift_pattern/add', 'ShiftPatternController@addShiftPattern')->name('sp.add');
+  Route::post('/admin/shift_pattern/detail', 'ShiftPatternController@viewSPDetail')->name('sp.view');
 
-
+  Route::get('/admin/workday', 'DayTypeController@index')->name('wd.index');
+  Route::post('/admin/workday/add', 'DayTypeController@add')->name('wd.add');
+  Route::post('/admin/workday/edit', 'DayTypeController@edit')->name('wd.edit');
+  Route::post('/admin/workday/delete', 'DayTypeController@delete')->name('wd.delete');
 
   // /admins ------------------------------------
   Route::get('/admin/cda', 'TempController@loadDummyUser')->name('temp.cda');
