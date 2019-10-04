@@ -174,7 +174,7 @@ $(document).ready(function() {
             null,
             null,
             null,
-            { "width": "7%" }
+            { "width": "10%" }
         ]
     });
 } );
