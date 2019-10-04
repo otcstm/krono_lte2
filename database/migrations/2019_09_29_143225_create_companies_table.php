@@ -14,14 +14,14 @@ class CreateCompaniesTable extends Migration
     public function up()
     {
         Schema::create('companies', function (Blueprint $table) {
-
-            $table->string('id',20)->unique();
+            $table->string('id')->unique();
+//          $table->string('id',20)->primary('id')->unsigned();
             $table->string('company_descr', 150)->nullable();
             $table->string('source',10)->nullable();
-            $table->integer('updated_by')->nullable();
-            $table->integer('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->string('created_by')->nullable();
             $table->timestamps();
-            $table->softDeletes();
+            //$table->softDeletes();
 
         });
     }
