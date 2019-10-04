@@ -63,7 +63,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/log/updUserLogs', 'MiscController@logUserAct')->name('log.logUserAct');
 
   //Company
-  Route::get( '/admin/companies','Admin\CompanyController@index')->name('company.index');
+  Route::get( '/admin/company','Admin\CompanyController@index')->name('company.index');
   Route::post('/admin/company/add','Admin\CompanyController@store')->name('company.store');
   Route::get( '/admin/Company/list','Admin\CompanyController@list')->name('company.list');
   Route::post('/admin/company/destroy','Admin\CompanyController@destroy')->name('company.destroy');

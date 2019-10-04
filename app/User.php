@@ -36,4 +36,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class);
     }
+
+    public function punchList()
+    {
+        return $this->hasMany(StaffPunch::class);
+    }
 }
