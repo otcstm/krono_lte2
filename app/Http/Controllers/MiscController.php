@@ -94,6 +94,7 @@ class MiscController extends Controller
       $search = 0;
       return view('staff.searchstaff', ['staffs' => $staff], ['search' => $search]);
   }
+
   public function doSearchStaff(Request $req){
       $input = $req->inputstaff;
       $message = null;
@@ -123,14 +124,4 @@ class MiscController extends Controller
         //count row display only
         ->with('i', (request()->input('page', 1) - 1) * 5);;
     }
-
-  //update user logs
-  public function doUserLogs(Request $req)
-    {
-
-    $execute = UserHelper::LogUserAct($req, $mn, $at);
-
-    return $execute;
-    }
-
 }
