@@ -10,7 +10,7 @@
             <table id="tStaffList" class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Staff ID</th>
+                        <th>Staff No</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Action</th>
@@ -19,12 +19,12 @@
                 <tbody>
                     @foreach($staffs as $singleuser)
                     <tr>
-                        <td>{{ $singleuser->staff_no }}</td>
+                        <td>{{ $singleuser->id }}</td>
                         <td>{{ $singleuser->name }}</td>
                         <td>{{ $singleuser->email }}</td>
                         <td>
-                            <button type="button" class="btn btn-primary">
-                                MANAGE
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editStaff" data-role_id="{{$singleuser['id']}}" data-role_name="{{$singleuser['name']}}" data-role_permission="">
+                                <i class="fas fa-cog"></i>
                             </button>
                             <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewUser" data-staff_id="{{$singleuser['staff_no']}}" data-staff_name="{{$singleuser['name']}}" data-staff_email="{{$singleuser['email']}}">
                                 MANAGE
@@ -70,7 +70,14 @@
 $(document).ready(function() {
     $('#tStaffList').DataTable({
       "responsive": "true",
-      "order" : [[0, "desc"]]
+      "order" : [[0, "desc"]],
+      "columns": [
+            null,
+            null,
+            null,
+            null,
+            { "width": "5%" }
+        ]
     });
 } );
 

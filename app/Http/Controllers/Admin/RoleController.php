@@ -3,8 +3,9 @@
 // namespace App\Http\Controllers;
 namespace App\Http\Controllers\Admin;
 
+use App\Shared\UserHelper;
 use App\Role;
-// use App\User;
+use App\UserLog;
 use Illuminate\Http\Request;
 use Gate;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,6 +40,7 @@ class RoleController extends Controller{
             $new_role->created_by = $req->user()->id;
             $new_role->save();
             $new_role->permissions()->sync($permission);
+            $execute = UserHelper::LogUserAct($req, "Role Management", "Create Role " .$name);
             $feedback_text = "Successfully created role " .$name. ".";
             $feedback_icon = "ok";
             $feedback_color = "#5CB85C";
@@ -47,7 +49,6 @@ class RoleController extends Controller{
             $feedback_icon = "remove";;
             $feedback_color = "#D9534F";
         }
-        
         return redirect(route('role.list',[],false))->with([
             'feedback' => $feedback,
             'feedback_text' => $feedback_text,
@@ -63,6 +64,7 @@ class RoleController extends Controller{
         $update_role->updated_by = $req->user()->id;
         $update_role->save();
         $update_role->permissions()->sync($permission);
+        $execute = UserHelper::LogUserAct($req, "Role Management", "Update Role " .$req->inputname);
         $feedback = true;
         $feedback_text = "Successfully updated role " .$req->inputname. ".";
         $feedback_icon = "ok";
@@ -82,6 +84,7 @@ class RoleController extends Controller{
         $delete_role->deleted_by = $req->user()->id;
         $delete_role->save();
         Role::find($req->inputid)->delete();
+        $execute = UserHelper::LogUserAct($req, "Role Management", "Delete Role " .$req->inputname);
         $feedback = true;
         $feedback_text = "Successfully deleted role " .$req->inputname. ".";
         $feedback_icon = "ok";
