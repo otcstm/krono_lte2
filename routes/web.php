@@ -28,11 +28,14 @@ Route::group(['middleware' => ['auth']], function () {
 //test
 
   // admins ------------------------------------
-  // Route::get('/admin/shift_pattern', 'ShiftPatternController@index')->name('sp.index');
-  // Route::post('/admin/shift_pattern/add', 'ShiftPatternController@addShiftPattern')->name('sp.add');
-  // Route::post('/admin/shift_pattern/detail', 'ShiftPatternController@viewSPDetail')->name('sp.view');
+  Route::get('/admin/shift_pattern', 'ShiftPatternController@index')->name('sp.index');
+  Route::post('/admin/shift_pattern/add', 'ShiftPatternController@addShiftPattern')->name('sp.add');
+  Route::post('/admin/shift_pattern/detail', 'ShiftPatternController@viewSPDetail')->name('sp.view');
 
-
+  Route::get('/admin/workday', 'DayTypeController@index')->name('wd.index');
+  Route::post('/admin/workday/add', 'DayTypeController@add')->name('wd.add');
+  Route::post('/admin/workday/edit', 'DayTypeController@edit')->name('wd.edit');
+  Route::post('/admin/workday/delete', 'DayTypeController@delete')->name('wd.delete');
 
   // /admins ------------------------------------
   Route::get('/admin/cda', 'TempController@loadDummyUser')->name('temp.cda');
@@ -50,6 +53,14 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/staff/search', 'MiscController@searchStaff')->name('staff.search');
   Route::post('/staff/search', 'MiscController@doSearchStaff')->name('staff.dosearch');
 
+  //Role management
+  Route::get('admin/role', 'Admin\RoleController@show')->name('role.list');
+  Route::post('admin/role/create', 'Admin\RoleController@store')->name('role.store');
+  Route::post('admin/role/edit', 'Admin\RoleController@update')->name('role.edit');
+  Route::post('admin/role/delete', 'Admin\RoleController@destroy')->name('role.delete');
+  //Log activity
+  Route::get('/log/listUserLogs', 'MiscController@listUserLogs')->name('log.listUserLogs');
+  Route::get('/log/updUserLogs', 'MiscController@logUserAct')->name('log.logUserAct');
 
   //Company
   Route::get( '/admin/company','Admin\CompanyController@index')->name('company.index');

@@ -18,7 +18,7 @@ return [
 
     'title' => 'Krono!',
 
-    'title_prefix' => '',
+    'title_prefix' => 'Krono! : ',
 
     'title_postfix' => '',
 
@@ -49,7 +49,7 @@ return [
     |
     */
 
-    'skin' => 'blue',
+    'skin' => 'green',
 
     /*
     |--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return [
     |
     */
 
-    'right_sidebar' => false,
+    'right_sidebar' => true,
     'right_sidebar_icon' => 'fas fa-cogs',
     'right_sidebar_theme' => 'dark',
     'right_sidebar_slide' => true,
@@ -116,7 +116,7 @@ return [
 
     'login_url' => 'login',
 
-    'register_url' => 'register',
+    'register_url' => null,
 
     /*
     |--------------------------------------------------------------------------
@@ -152,7 +152,12 @@ return [
             'icon' => 'fas fa-cogs',
             // 'can' => 'admin-nav-menu',
         ],
-
+        [
+            'text' => 'manage_wdays',
+            'url'  => '/admin/workday',
+            'icon' => 'fas fa-cogs',
+            // 'can' => 'admin-nav-menu',
+        ],
         [
             'text' => 'manage_company',
             'url'  => '/admin/company',

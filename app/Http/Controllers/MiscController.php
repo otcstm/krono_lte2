@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Shared\UserHelper;
 use App\StaffPunch;
 use App\User;
+use App\UserLog;
 use DateTime;
 use DateTimeZone;
 
@@ -88,7 +89,7 @@ class MiscController extends Controller
     return view('staff.liststaff', ['staffs' => $allusers]);
   }
 
-  public function searchStaff(Request $req){  
+  public function searchStaff(Request $req){
       $staff = User::all();
       $search = 0;
       return view('staff.searchstaff', ['staffs' => $staff], ['search' => $search]);
@@ -99,16 +100,37 @@ class MiscController extends Controller
       $search = 1;
       $staff = [];
       if(!empty($input)){
-        $staff = User::where('staff_no', trim($input))->get();   
+        $staff = User::where('staff_no', trim($input))->get();
         if(count($staff)==0){
           $staff = User::where('name', 'LIKE', '%' .$input. '%')->orderBy('name', 'ASC')->get();
         }
         if(count($staff)==0){
           $message = 'No maching records found. Try to search again.';
-        } 
+        }
       }else{
         $message = 'Please enter staff no or staff name to search.';
       }
       return view('staff.searchStaff', ['staffs' => $staff,'search' => $search, 'message' => $message]);
   }
+
+  //retrive list user logs
+  public function listUserLogs(Request $req)
+    {
+        //retrieve data from table user_logs
+        $listUserLogs = UserLog::where('user_id', $req->user()->id)->get();
+        //dd($listUserLogs);
+        return view('log.listUserLogs', compact('listUserLogs'))
+        //count row display only
+        ->with('i', (request()->input('page', 1) - 1) * 5);;
+    }
+
+  //update user logs
+  public function doUserLogs(Request $req)
+    {
+
+    $execute = UserHelper::LogUserAct($req, $mn, $at);
+
+    return $execute;
+    }
+
 }
