@@ -53,6 +53,11 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/staff/search', 'MiscController@searchStaff')->name('staff.search');
   Route::post('/staff/search', 'MiscController@doSearchStaff')->name('staff.dosearch');
 
+  //Role management
+  Route::get('admin/role', 'Admin\RoleController@show')->name('role.list');
+  Route::post('admin/role/create', 'Admin\RoleController@store')->name('role.store');
+  Route::post('admin/role/edit', 'Admin\RoleController@update')->name('role.edit');
+  Route::post('admin/role/delete', 'Admin\RoleController@destroy')->name('role.delete');
   //Log activity
   Route::get('/log/listUserLogs', 'MiscController@listUserLogs')->name('log.listUserLogs');
   Route::get('/log/updUserLogs', 'MiscController@logUserAct')->name('log.logUserAct');
