@@ -54,7 +54,7 @@ Route::group(['middleware' => ['auth']], function () {
 
   //List staff admin
   Route::get('/admin/staff', 'Admin\StaffController@show')->name('staff.list.admin');
-  Route::post('/admin/staff', 'Admin\StaffController@search')->name('staff.list.admin');
+  Route::post('/admin/staff', 'Admin\StaffController@search')->name('staff.dosearch');
 
   //Role management
   Route::get('admin/role', 'Admin\RoleController@show')->name('role.list');

@@ -55,6 +55,26 @@
         @endif
     </div>
 </div>
+
+@if(session()->has('feedback'))
+<div id="feedback" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+            <div class="modal-body text-center">
+                <div class="glyphicon glyphicon-{{session()->get('feedback_icon')}}" style="color: {{session()->get('feedback_color')}}; font-size: 32px;"></div>
+                <p>{{session()->get('feedback_text')}}<p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+
 @stop
 
 @section('js')
@@ -64,6 +84,10 @@ $(document).ready(function() {
       "responsive": "true",
       "order" : [[0, "desc"]]
     });
+
+    @if(session()->has('feedback'))
+        $('#feedback').modal('show');   
+    @endif
 } );
 </script>
 @stop

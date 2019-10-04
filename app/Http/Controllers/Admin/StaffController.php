@@ -41,8 +41,16 @@ class StaffController extends Controller
             $message = 'No maching records found. Try to search again.';
           }
         }else{
-          $message = 'Please enter staff no or staff name to search.';
+            $feedback_text = "Please enter staff no or staff name to search.";
+            $feedback_icon = "warning-sign";
+            $feedback_color = "#D9534F";
         }
-        return view('staff.searchStaff', ['staffs' => $staff,'search' => $search, 'message' => $message]);
+        // return view('staff.searchStaff', ['staffs' => $staff,'search' => $search, 'message' => $message]);
+        return redirect(route('staff.list.admin',[],false))->with([
+            'feedback' => $feedback,
+            'feedback_text' => $feedback_text,
+            'feedback_icon' => $feedback_icon,
+            'feedback_color' => $feedback_color]
+        );
     }
 }

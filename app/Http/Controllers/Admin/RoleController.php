@@ -46,7 +46,7 @@ class RoleController extends Controller{
             $feedback_color = "#5CB85C";
         }else{
             $feedback_text = "There is already a role named " .$name. ".";
-            $feedback_icon = "remove";;
+            $feedback_icon = "remove";
             $feedback_color = "#D9534F";
         }
         return redirect(route('role.list',[],false))->with([
