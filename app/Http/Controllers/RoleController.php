@@ -28,6 +28,8 @@ class RoleController extends Controller
     {
       dd($req->user()->can('admin_m_roles'));
       return "nom";
+
+    //  return $req->user()->punchList
     }
 
     /**
@@ -50,7 +52,7 @@ class RoleController extends Controller
     {
         // $check = Role::find($req->inputname);
         $name = $req->inputname;
-        $check = Role::where('title', trim($name))->where('deleted_at', null)->get(); 
+        $check = Role::where('title', trim($name))->where('deleted_at', null)->get();
         $feedback = true;
         if(count($check)==0){
             $new_role = new Role;
@@ -67,7 +69,7 @@ class RoleController extends Controller
             $feedback_title = "Failed";
             $feedback_color = "#D9534F";
         }
-        
+
         return redirect(route('role.list',[],false))->with([
             'feedback' => $feedback,
             'feedback_text' => $feedback_text,
@@ -85,8 +87,8 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        $role = Role::all();   
-        // $role = Role::where('deleted_at', null)->orderBy('title', 'ASC')->get();   
+        $role = Role::all();
+        // $role = Role::where('deleted_at', null)->orderBy('title', 'ASC')->get();
         return view('admin.rolemgmt', ['roles' => $role]);
     }
 
@@ -98,7 +100,7 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        
+
     }
 
     /**
@@ -118,7 +120,7 @@ class RoleController extends Controller
         $feedback_icon = "ok";
         $feedback_title = "Success";
         $feedback_color = "#5CB85C";
-        $role = Role::all(); 
+        $role = Role::all();
         return redirect(route('role.list',[],false))->with([
             'role' => $role,
             'feedback' => $feedback,
@@ -144,7 +146,7 @@ class RoleController extends Controller
         $feedback_icon = "ok";
         $feedback_title = "Success";
         $feedback_color = "#5CB85C";
-        $role = Role::all(); 
+        $role = Role::all();
         return redirect(route('role.list',[],false))->with([
             'role' => $role,
             'feedback' => $feedback,
