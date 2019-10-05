@@ -26,7 +26,12 @@
                         <th>Staff ID</th>
                         <th>Name</th>
                         <th>Email</th>
+                        @if($auth ?? '')
                         <th>Roles</th>
+                        @elseif($mgmt ?? '')
+                        <th>Company</th>
+                        <th>State</th>
+                        @endif
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -120,8 +125,15 @@ $(document).ready(function() {
             null,
             null,
             null,
-            null,
-            { "width": "5%" }
+            null
+            @if($auth ?? '')
+            ,{ "width": "5%" }
+            @elseif($mgmt ?? '')
+            ,null
+            ,{ "width": "5%" }
+            @else
+            ,null
+            @endif
         ]
     });
 });

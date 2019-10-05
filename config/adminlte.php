@@ -153,6 +153,12 @@ return [
             // 'can' => 'admin-nav-menu',
         ],
         [
+            'text' => 'User Management',
+            'url'  => '/admin/staff/role',
+            'icon' => 'fas fa-cogs',
+            // 'can' => 'admin-nav-menu',
+        ],
+        [
             'text' => 'manage_wdays',
             'url'  => '/admin/workday',
             'icon' => 'fas fa-cogs',
@@ -184,7 +190,7 @@ return [
         ],
         [
             'text' => 'user_home',
-            'url'  => '#',
+            'url'  => '/home',
             'icon' => 'fas fa-home',
             // 'can' => 'user-nav-menu',
         ],
@@ -193,6 +199,12 @@ return [
             'url'  => '/punch',
             'icon' => 'fas fa-clock',
             // 'can' => 'user-nav-menu',
+        ],
+        [
+            'text' => 'staff_list',
+            'url'  => '/staff/list',
+            'icon' => 'fas fa-tasks',
+            // 'can' => 'ot-nav-menu',
         ],
         ['header' => 'ot_menu'],
         [
@@ -232,18 +244,6 @@ return [
             // 'can' => 'ot-nav-menu',
         ],
         ['header' => 'labels'],
-        [
-            'text' => 'Seach Staff',
-            'url'  => '/staff/search',
-            'icon' => 'fas fa-tasks',
-            // 'can' => 'ot-nav-menu',
-        ],
-        [
-            'text' => 'staff_list',
-            'url'  => '/staff/list',
-            'icon' => 'fas fa-tasks',
-            // 'can' => 'ot-nav-menu',
-        ],
         [
             'text' => 'reassign_app',
             'url'  => '#',

@@ -29,7 +29,14 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/punch/in',  'MiscController@doClockIn')->name('punch.in');
   Route::post('/punch/out', 'MiscController@doClockOut')->name('punch.out');
 
-//test
+  //List staff
+  Route::get('/staff', 'Admin\StaffController@showMgmt')->name('staff.list');
+
+
+  //test
+  Route::get('/test', 'Admin\StaffController@test1')->name('test1');
+  Route::get('/test/test', 'Admin\StaffController@test2')->name('test2');
+  Route::get('/test/test/test', 'Admin\StaffController@test3')->name('test3');
 
   // admins ------------------------------------
   Route::get('/admin/shift_pattern', 'ShiftPatternController@index')->name('sp.index');
@@ -41,7 +48,6 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/admin/workday/edit', 'DayTypeController@edit')->name('wd.edit');
   Route::post('/admin/workday/delete', 'DayTypeController@delete')->name('wd.delete');
 
-  // /admins ------------------------------------
   Route::get('/admin/cda', 'TempController@loadDummyUser')->name('temp.cda');
 
   //start state admin
@@ -52,9 +58,14 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post( '/admin/state/update'  ,'Admin\StateController@update'   )->name('state.update');
   //end state admin
 
-  //List staff admin
-  Route::get('/admin/staff/role', 'Admin\StaffController@show')->name('staff.list.admin');
-  Route::post('/admin/staff/role/search', 'Admin\StaffController@search')->name('staff.search.admin');
+  //User management
+  Route::get('/admin/staff/', 'Admin\StaffController@showMgmt')->name('staff.list.admin');
+  Route::post('/admin/staff/search', 'Admin\StaffController@searchMgmt')->name('staff.search.admin');
+  Route::post('/admin/staff/edit', 'Admin\StaffController@updateMgmt')->name('staff.editrole.admin');
+
+  //User authorization
+  Route::get('/admin/staff/role', 'Admin\StaffController@showRole')->name('staff.list.admin');
+  Route::post('/admin/staff/role/search', 'Admin\StaffController@searchRole')->name('staff.search.admin');
   Route::post('/admin/staff/role/edit', 'Admin\StaffController@updateRole')->name('staff.editrole.admin');
 
   //Role management
@@ -69,7 +80,8 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get( '/admin/Company/list','Admin\CompanyController@list')->name('company.list');
   Route::post('/admin/company/destroy','Admin\CompanyController@destroy')->name('company.destroy');
   Route::post( '/admin/company/update','Admin\CompanyController@update')->name('company.update');
- 
+
+  // /admins ------------------------------------
  
   //Log activity
   Route::get('/log/listUserLogs', 'MiscController@listUserLogs')->name('log.listUserLogs');
