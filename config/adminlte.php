@@ -148,7 +148,7 @@ return [
         ],
         [
             'text' => 'user_autho',
-            'url'  => '#',
+            'url'  => '/admin/staff/role',
             'icon' => 'fas fa-cogs',
             // 'can' => 'admin-nav-menu',
         ],
@@ -168,6 +168,13 @@ return [
             'text' => 'manage_state',
             //'url'  => route('state.show', [], false),
             'url' => '/admin/state/show',
+            'icon' => 'fas fa-cogs',
+            // 'can' => 'admin-nav-menu',
+        ],
+        [
+            'text' => 'User Logs',
+            //'url'  => route('state.show', [], false),
+            'url' => '/log/listUserLogs',
             'icon' => 'fas fa-cogs',
             // 'can' => 'admin-nav-menu',
         ],

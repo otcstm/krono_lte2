@@ -1,6 +1,5 @@
 <?php
 
-// namespace App\Http\Controllers;
 namespace App\Http\Controllers\Admin;
 
 use App\Shared\UserHelper;
@@ -12,18 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\Controller;
 
 class RoleController extends Controller{
-
-    public function __construct() {
-        // dd(Gate::can('admin_m_roles'));
-        // abort_if(Gate::denies('admin_roles'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-    }
-
-    public function index(Request $req){
-      dd($req->user()->can('admin_m_roles'));
-      return "nom";
-    }
-
-    public function show(Role $role){
+    public function show(){
         $role = Role::all();   
         // $role = Role::where('deleted_at', null)->orderBy('title', 'ASC')->get();   
         return view('admin.rolemgmt', ['roles' => $role]);
@@ -57,7 +45,7 @@ class RoleController extends Controller{
         );
     }
 
-    public function update(Request $req, Role $role){
+    public function update(Request $req){
         $permission = $req->permission;
         $update_role = Role::find($req->inputid);
         $update_role->title = $req->inputname;

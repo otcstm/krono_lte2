@@ -29,7 +29,7 @@
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editRole" data-role_id="{{$singleuser['id']}}" data-role_name="{{$singleuser['title']}}" data-role_permission="@foreach ($singleuser->permissions as $user){{ $user->id }} @endforeach">
                                 <i class="fas fa-cog"></i>
                             </button>
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteRole" data-role_id="{{$singleuser['id']}}" data-role_name="{{$singleuser['title']}}" data-role_permission="{{$singleuser['permissions']}}">
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteRole" data-role_id="{{$singleuser['id']}}" data-role_name="{{$singleuser['title']}}" data-role_permission="@foreach ($singleuser->permissions as $user){{ $user->id }} @endforeach">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                         </td>
@@ -58,9 +58,9 @@
                     @csrf
                     <div class="form-group">
                         <label for="inputname">Role Name:</label>
-                        <input type="text" class="form-control" id="inputname" name="inputname" placeholder="{{ __('adminlte::adminlte.input_role_name') }}" value="{{ old('inputname') }}" required>
+                        <input type="text" class="form-control" id="inputname" name="inputname" placeholder="{{ __('adminlte::adminlte.input_role_name') }}" value="{{ old('inputname') }}" required autofocus>
                     </div>
-                    <p>Set Permissions:</p>
+                    <p><b>Set Permissions:</b></p>
                     <div class="checkbox">
                         <label><input type="checkbox" name="permission[]" value="1">Admin</label>
                     </div>
@@ -95,8 +95,9 @@
                     <input type="text" class="form-control hidden" id="inputid" name="inputid" value="" required>
                     <div class="form-group">
                         <label for="inputname">Role Name:</label>
-                        <input type="text" class="form-control" id="inputname" name="inputname" value="" required>
+                        <input type="text" class="form-control" id="inputname" name="inputname" value="" required autofocus>
                     </div>
+                    <p><b>Set Permissions:</b></p>
                     <div class="checkbox">
                         <label><input type="checkbox" id="checkbox_1" name="permission[]" value="1">Admin</label>
                     </div>
@@ -167,9 +168,9 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $('#tRoleList').DataTable({
-      "responsive": "true",
-      "order" : [[2, "asc"]],
-      "columns": [
+        "responsive": "true",
+        "order" : [[2, "asc"]],
+        "columns": [
             null,
             null,
             null,
@@ -177,7 +178,7 @@ $(document).ready(function() {
             { "width": "10%" }
         ]
     });
-} );
+});
 
 function populate(e){
     var role_id = $(e.relatedTarget).data('role_id');

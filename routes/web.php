@@ -53,8 +53,9 @@ Route::group(['middleware' => ['auth']], function () {
   //end state admin
 
   //List staff admin
-  Route::get('/admin/staff', 'Admin\StaffController@show')->name('staff.list.admin');
-  Route::post('/admin/staff', 'Admin\StaffController@search')->name('staff.dosearch');
+  Route::get('/admin/staff/role', 'Admin\StaffController@show')->name('staff.list.admin');
+  Route::post('/admin/staff/role/search', 'Admin\StaffController@search')->name('staff.search.admin');
+  Route::post('/admin/staff/role/edit', 'Admin\StaffController@updateRole')->name('staff.editrole.admin');
 
   //Role management
   Route::get('admin/role', 'Admin\RoleController@show')->name('role.list');
@@ -76,7 +77,7 @@ Route::group(['middleware' => ['auth']], function () {
 
  
   
-  Route::get('/staff/list', 'MiscController@listStaff')->name('staff.list');
-  Route::get('/staff/search', 'MiscController@searchStaff')->name('staff.search');
-  Route::post('/staff/search', 'MiscController@doSearchStaff')->name('staff.dosearch');
+  // Route::get('/staff/list', 'MiscController@listStaff')->name('staff.list');
+  // Route::get('/staff/search', 'MiscController@searchStaff')->name('staff.search');
+  // Route::post('/staff/search', 'MiscController@doSearchStaff')->name('staff.dosearch');
 });
