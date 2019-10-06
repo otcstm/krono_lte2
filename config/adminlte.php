@@ -148,13 +148,13 @@ return [
         ],
         [
             'text' => 'user_autho',
-            'url'  => '/admin/staff/role',
+            'url'  => '/admin/staff/auth',
             'icon' => 'fas fa-cogs',
             // 'can' => 'admin-nav-menu',
         ],
         [
             'text' => 'User Management',
-            'url'  => '/admin/staff/role',
+            'url'  => '/admin/staff',
             'icon' => 'fas fa-cogs',
             // 'can' => 'admin-nav-menu',
         ],
@@ -202,7 +202,7 @@ return [
         ],
         [
             'text' => 'staff_list',
-            'url'  => '/staff/list',
+            'url'  => '/staff',
             'icon' => 'fas fa-tasks',
             // 'can' => 'ot-nav-menu',
         ],

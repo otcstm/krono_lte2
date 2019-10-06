@@ -29,15 +29,6 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/punch/in',  'MiscController@doClockIn')->name('punch.in');
   Route::post('/punch/out', 'MiscController@doClockOut')->name('punch.out');
 
-  //List staff
-  Route::get('/staff', 'Admin\StaffController@showMgmt')->name('staff.list');
-
-
-  //test
-  Route::get('/test', 'Admin\StaffController@test1')->name('test1');
-  Route::get('/test/test', 'Admin\StaffController@test2')->name('test2');
-  Route::get('/test/test/test', 'Admin\StaffController@test3')->name('test3');
-
   // admins ------------------------------------
   Route::get('/admin/shift_pattern', 'ShiftPatternController@index')->name('sp.index');
   Route::post('/admin/shift_pattern/add', 'ShiftPatternController@addShiftPattern')->name('sp.add');
@@ -59,14 +50,13 @@ Route::group(['middleware' => ['auth']], function () {
   //end state admin
 
   //User management
-  Route::get('/admin/staff/', 'Admin\StaffController@showMgmt')->name('staff.list.admin');
-  Route::post('/admin/staff/search', 'Admin\StaffController@searchMgmt')->name('staff.search.admin');
-  Route::post('/admin/staff/edit', 'Admin\StaffController@updateMgmt')->name('staff.editrole.admin');
+  Route::get('/admin/staff', 'Admin\StaffController@showMgmt')->name('staff.list.mgmt');
+  Route::post('/admin/staff/edit', 'Admin\StaffController@updateMgmt')->name('staff.edit.mgmt');
 
+  
   //User authorization
-  Route::get('/admin/staff/role', 'Admin\StaffController@showRole')->name('staff.list.admin');
-  Route::post('/admin/staff/role/search', 'Admin\StaffController@searchRole')->name('staff.search.admin');
-  Route::post('/admin/staff/role/edit', 'Admin\StaffController@updateRole')->name('staff.editrole.admin');
+  Route::get('/admin/staff/auth', 'Admin\StaffController@showRole')->name('staff.list.auth');
+  Route::post('/admin/staff/role/edit', 'Admin\StaffController@updateRole')->name('staff.edit.auth');
 
   //Role management
   Route::get('admin/role', 'Admin\RoleController@show')->name('role.list');
@@ -74,6 +64,12 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('admin/role/edit', 'Admin\RoleController@update')->name('role.edit');
   Route::post('admin/role/delete', 'Admin\RoleController@destroy')->name('role.delete');
   
+
+  //List staff
+  Route::get('/staff', 'Admin\StaffController@showStaff')->name('staff.list');
+  Route::post('/staff/search', 'Admin\StaffController@searchStaff')->name('staff.search');
+
+
   //Company
   Route::get( '/admin/company','Admin\CompanyController@index')->name('company.index');
   Route::post('/admin/company/add','Admin\CompanyController@store')->name('company.store');
@@ -86,10 +82,4 @@ Route::group(['middleware' => ['auth']], function () {
   //Log activity
   Route::get('/log/listUserLogs', 'MiscController@listUserLogs')->name('log.listUserLogs');
   Route::get('/log/updUserLogs', 'MiscController@logUserAct')->name('log.logUserAct');
-
- 
-  
-  // Route::get('/staff/list', 'MiscController@listStaff')->name('staff.list');
-  // Route::get('/staff/search', 'MiscController@searchStaff')->name('staff.search');
-  // Route::post('/staff/search', 'MiscController@doSearchStaff')->name('staff.dosearch');
 });
