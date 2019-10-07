@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-//use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Company extends Model
 {
@@ -11,13 +11,13 @@ class Company extends Model
 
   public $incrementing = false;
 
-//  use SoftDeletes;
+  use SoftDeletes;
 
   public function createdby()
   {
       return $this->belongsTo(User::class,'created_by');
   }
-  
+
   public function updatedby()
   {
       return $this->belongsTo(User::class,'updated_by');
