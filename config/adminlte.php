@@ -272,9 +272,8 @@ return [
         ],
         [
               'text' => 'shift_template',
-              'url'  => '#',
+              'url'  => '/admin/shift_pattern',
               'icon' => 'far fa-calendar-alt',
-              'label_color' => 'warning',
               // 'can' => 'ot-nav-menu',
           ],
 
