@@ -12,8 +12,8 @@
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
-                        <th>Created at</th>
                         <th>Created by</th>
+                        <th>Permissions</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -22,9 +22,8 @@
                     <tr>
                         <td>{{ $singleuser->id }}</td>
                         <td>{{ $singleuser->title }}</td>
-                        <td>{{ $singleuser->created_at }}</td>
                         <td>{{ $singleuser->createdby->name }}</td>
-                        
+                        <td>@foreach ($singleuser->permissions as $indexKey => $user)<p>{{$indexKey+1}}. {{ $user->title }}</p>@endforeach</td>
                         <td>
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editRole" data-role_id="{{$singleuser['id']}}" data-role_name="{{$singleuser['title']}}" data-role_permission="@foreach ($singleuser->permissions as $user){{ $user->id }} @endforeach">
                                 <i class="fas fa-cog"></i>
@@ -61,14 +60,14 @@
                         <input type="text" class="form-control" id="inputname" name="inputname" placeholder="{{ __('adminlte::adminlte.input_role_name') }}" value="{{ old('inputname') }}" required autofocus>
                     </div>
                     <p><b>Set Permissions:</b></p>
-                    <div class="checkbox">
-                        <label><input type="checkbox" name="permission[]" value="1">Admin</label>
-                    </div>
-                    <div class="checkbox">
-                        <label><input type="checkbox" name="permission[]" value="2">User</label>
-                    </div>
-                    <div class="checkbox">
-                        <label><input type="checkbox" name="permission[]" value="3">OT</label>
+                    <div style="max-height: 210px; overflow-y: scroll">
+                    @if($permissions ?? '')
+                        @foreach($permissions as $singlerole)
+                        <div class="checkbox">
+                            <label><input type="checkbox" id="checkbox_{{$singlerole->id}}" name="permission[]" value="{{$singlerole->id}}">{{$singlerole->title}}</label>
+                        </div>
+                        @endforeach
+                    @endif
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">CREATE</button>
@@ -98,14 +97,14 @@
                         <input type="text" class="form-control" id="inputname" name="inputname" value="" required autofocus>
                     </div>
                     <p><b>Set Permissions:</b></p>
-                    <div class="checkbox">
-                        <label><input type="checkbox" id="checkbox_1" name="permission[]" value="1">Admin</label>
-                    </div>
-                    <div class="checkbox">
-                        <label><input type="checkbox" id="checkbox_2" name="permission[]" value="2">User</label>
-                    </div>
-                    <div class="checkbox">
-                        <label><input type="checkbox" id="checkbox_3" name="permission[]" value="3">OT</label>
+                    <div style="max-height: 210px; overflow-y: scroll">
+                    @if($permissions ?? '')
+                        @foreach($permissions as $singlerole)
+                        <div class="checkbox">
+                            <label><input type="checkbox" class="checkbox_{{$singlerole->id}}" name="permission[]" value="{{$singlerole->id}}">{{$singlerole->title}}</label>
+                        </div>
+                        @endforeach
+                    @endif
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">SAVE</button>
@@ -189,7 +188,7 @@ function populate(e){
     $('input[name=inputname]').val(role_name);
     $('#showname').text(role_name);
     for(i=0; i<role_permissions.length; i++){
-        $("#checkbox_"+role_permissions[i]).prop('checked', true);
+        $(".checkbox_"+role_permissions[i]).prop('checked', true);
     }
 }
 

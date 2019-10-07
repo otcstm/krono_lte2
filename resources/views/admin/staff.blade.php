@@ -98,9 +98,9 @@
                     <p><b>Set Roles:</b></p>
                     <div style="max-height: 210px; overflow-y: scroll">
                     @if($roles ?? '')
-                        @foreach($roles as $indexKey => $singlerole)
+                        @foreach($roles as $singlerole)
                         <div class="checkbox">
-                            <label><input type="checkbox" id="checkbox_{{$indexKey+1}}" name="role[]" value="{{$singlerole->id}}">{{$singlerole->title}}</label>
+                            <label><input type="checkbox" id="checkbox_{{$singlerole->id}}" name="role[]" value="{{$singlerole->id}}">{{$singlerole->title}}</label>
                         </div>
                         @endforeach
                     @endif

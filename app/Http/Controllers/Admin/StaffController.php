@@ -87,36 +87,6 @@ class StaffController extends Controller
       }
     }
     
-    // public function searchRole(Request $req){
-    //   $input = $req->inputstaff;
-    //   $staff = [];
-    //   $feedback = null;
-    //   $feedback_text = null;
-    //   $feedback_icon = null;
-    //   $feedback_color = null;
-    //   $staff = User::where('staff_no', trim($input))->get();
-    //   if(!empty($input)){
-    //     if(count($staff)==0){
-    //       $staff = User::where('name', 'LIKE', '%' .$input. '%')->orderBy('name', 'ASC')->get();
-    //     }
-    //     if(count($staff)==0){
-    //       $feedback = true;
-    //       $feedback_text = "No maching records found. Try to search again.";
-    //       $feedback_icon = "remove";
-    //       $feedback_color = "#D9534F";
-    //     }
-    //   }else{
-    //     $staff = User::all();
-    //   }
-    //   return redirect(route('staff.list.auth',[],false))->with([
-    //     'staffs'=>$staff, 
-    //     'feedback' => $feedback,
-    //     'feedback_text' => $feedback_text,
-    //     'feedback_icon' => $feedback_icon,
-    //     'feedback_color' => $feedback_color]
-    //   );
-    // }
-
     public function updateRole(Request $req){
       $role = $req->role;
       $update_staff = User::find($req->inputid);

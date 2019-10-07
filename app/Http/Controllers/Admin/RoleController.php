@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Shared\UserHelper;
 use App\Role;
+use App\Permission;
 use App\UserLog;
 use Illuminate\Http\Request;
 use Gate;
@@ -13,8 +14,9 @@ use App\Http\Controllers\Controller;
 class RoleController extends Controller{
     public function show(){
         $role = Role::all();   
+        $permission = Permission::all();   
         // $role = Role::where('deleted_at', null)->orderBy('title', 'ASC')->get();   
-        return view('admin.rolemgmt', ['roles' => $role]);
+        return view('admin.rolemgmt', ['roles' => $role, 'permissions' => $permission]);
     }
 
     public function store(Request $req){
