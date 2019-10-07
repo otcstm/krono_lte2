@@ -88,7 +88,7 @@ class MiscController extends Controller
     return view('staff.liststaff', ['staffs' => $allusers]);
   }
 
-  public function searchStaff(Request $req){  
+  public function searchStaff(Request $req){
       $staff = User::all();
       $search = 0;
       return view('staff.searchstaff', ['staffs' => $staff], ['search' => $search]);
@@ -99,16 +99,16 @@ class MiscController extends Controller
       $search = 1;
       $staff = [];
       if(!empty($input)){
-        $staff = User::where('staff_no', trim($input))->get();   
+        $staff = User::where('staff_no', trim($input))->get();
         if(count($staff)==0){
           $staff = User::where('name', 'LIKE', '%' .$input. '%')->orderBy('name', 'ASC')->get();
         }
         if(count($staff)==0){
           $message = 'No maching records found. Try to search again.';
-        } 
+        }
       }else{
         $message = 'Please enter staff no or staff name to search.';
       }
-      return view('staff.searchStaff', ['staffs' => $staff,'search' => $search, 'message' => $message]);
+      return view('staff.searchstaff', ['staffs' => $staff,'search' => $search, 'message' => $message]);
   }
 }

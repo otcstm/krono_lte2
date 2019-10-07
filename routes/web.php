@@ -28,14 +28,11 @@ Route::group(['middleware' => ['auth']], function () {
 //test
 
   // admins ------------------------------------
-  Route::get('/admin/shift_pattern', 'ShiftPatternController@index')->name('sp.index');
-  Route::post('/admin/shift_pattern/add', 'ShiftPatternController@addShiftPattern')->name('sp.add');
-  Route::post('/admin/shift_pattern/detail', 'ShiftPatternController@viewSPDetail')->name('sp.view');
 
-  Route::get('/admin/workday', 'DayTypeController@index')->name('wd.index');
-  Route::post('/admin/workday/add', 'DayTypeController@add')->name('wd.add');
-  Route::post('/admin/workday/edit', 'DayTypeController@edit')->name('wd.edit');
-  Route::post('/admin/workday/delete', 'DayTypeController@delete')->name('wd.delete');
+  Route::get('/admin/workday', 'Admin\DayTypeController@index')->name('wd.index');
+  Route::post('/admin/workday/add', 'Admin\DayTypeController@add')->name('wd.add');
+  Route::post('/admin/workday/edit', 'Admin\DayTypeController@edit')->name('wd.edit');
+  Route::post('/admin/workday/delete', 'Admin\DayTypeController@delete')->name('wd.delete');
 
   // /admins ------------------------------------
   Route::get('/admin/cda', 'TempController@loadDummyUser')->name('temp.cda');
@@ -61,4 +58,14 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/admin/company/destroy','Admin\CompanyController@destroy')->name('company.destroy');
   Route::post( '/admin/company/update','Admin\CompanyController@update')->name('company.update');
 
+});
+
+Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
+  Route::get('/', 'ShiftPatternController@index')->name('index');
+  Route::post('/add', 'ShiftPatternController@addShiftPattern')->name('add');
+  Route::get('/detail', 'ShiftPatternController@viewSPDetail')->name('view');
+  Route::post('/edit', 'ShiftPatternController@editShiftPattern')->name('edit');
+  Route::post('/del', 'ShiftPatternController@delShiftPattern')->name('delete');
+  Route::post('/day/push', 'ShiftPatternController@pushDay')->name('day.add');
+  Route::post('/day/pop', 'ShiftPatternController@popDay')->name('day.del');
 });
