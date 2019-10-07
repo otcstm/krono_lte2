@@ -48,7 +48,7 @@ class LoginController extends Controller
           // temporary: use ldap data to create user
           // $udata = LdapHelper::FetchUser($req->staff_no, 'cn');
           $persno_str = $udata['data']['PERSNO'];
-          $persno = str_replace("SP", "", $persno_str);
+          $persno = substr($persno_str, -7);
           $cuser = new User;
           $cuser->id = $persno;
           $cuser->staff_no = $udata['data']['STAFF_NO'];
