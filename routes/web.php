@@ -29,7 +29,9 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/punch/in',  'MiscController@doClockIn')->name('punch.in');
   Route::post('/punch/out', 'MiscController@doClockOut')->name('punch.out');
 
-//test
+  //List staff & search
+  Route::get('/staff', 'Admin\StaffController@showStaff')->name('staff.list');
+  Route::post('/staff/search', 'Admin\StaffController@searchStaff')->name('staff.search');
 
   // admins ------------------------------------
   Route::get('/admin/shift_pattern', 'ShiftPatternController@index')->name('sp.index');
@@ -41,7 +43,6 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/admin/workday/edit', 'DayTypeController@edit')->name('wd.edit');
   Route::post('/admin/workday/delete', 'DayTypeController@delete')->name('wd.delete');
 
-  // /admins ------------------------------------
   Route::get('/admin/cda', 'TempController@loadDummyUser')->name('temp.cda');
 
   //start state admin
@@ -52,31 +53,30 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post( '/admin/state/update'  ,'Admin\StateController@update'   )->name('state.update');
   //end state admin
 
-  //List staff admin
-  Route::get('/admin/staff', 'Admin\StaffController@show')->name('staff.list.admin');
-  Route::post('/admin/staff', 'Admin\StaffController@search')->name('staff.list.admin');
+  //User management
+  Route::get('/admin/staff', 'Admin\StaffController@showMgmt')->name('staff.list.mgmt');
+  Route::post('/admin/staff/edit', 'Admin\StaffController@updateMgmt')->name('staff.edit.mgmt');
+
+  //User authorization
+  Route::get('/admin/staff/auth', 'Admin\StaffController@showRole')->name('staff.list.auth');
+  Route::post('/admin/staff/auth/edit', 'Admin\StaffController@updateRole')->name('staff.edit.auth');
 
   //Role management
   Route::get('admin/role', 'Admin\RoleController@show')->name('role.list');
   Route::post('admin/role/create', 'Admin\RoleController@store')->name('role.store');
   Route::post('admin/role/edit', 'Admin\RoleController@update')->name('role.edit');
   Route::post('admin/role/delete', 'Admin\RoleController@destroy')->name('role.delete');
-  
+
   //Company
   Route::get( '/admin/company','Admin\CompanyController@index')->name('company.index');
   Route::post('/admin/company/add','Admin\CompanyController@store')->name('company.store');
   Route::get( '/admin/Company/list','Admin\CompanyController@list')->name('company.list');
   Route::post('/admin/company/destroy','Admin\CompanyController@destroy')->name('company.destroy');
   Route::post( '/admin/company/update','Admin\CompanyController@update')->name('company.update');
- 
+
+  // /admins ------------------------------------
  
   //Log activity
   Route::get('/log/listUserLogs', 'MiscController@listUserLogs')->name('log.listUserLogs');
   Route::get('/log/updUserLogs', 'MiscController@logUserAct')->name('log.logUserAct');
-
- 
-  
-  Route::get('/staff/list', 'MiscController@listStaff')->name('staff.list');
-  Route::get('/staff/search', 'MiscController@searchStaff')->name('staff.search');
-  Route::post('/staff/search', 'MiscController@doSearchStaff')->name('staff.dosearch');
 });
