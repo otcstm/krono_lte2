@@ -13,6 +13,11 @@ class Company extends Model
 
   use SoftDeletes;
 
+public function users()
+  {
+    return $this->belongsTo(User::class);
+  }
+
   public function createdby()
   {
       return $this->belongsTo(User::class,'created_by');

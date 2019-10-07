@@ -37,6 +37,26 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
+    public function company()
+    {
+        return $this->hasOne(Company::class);
+    }
+
+    public function state()
+    {
+        return $this->hasOne(State::class);
+    }
+
+    public function companyid()
+    {
+        return $this->belongsTo(Company::class,'company_id');
+    }
+
+    public function stateid()
+    {
+        return $this->belongsTo(State::class,'state_id');
+    }
+
     public function punchList()
     {
         return $this->hasMany(StaffPunch::class);
