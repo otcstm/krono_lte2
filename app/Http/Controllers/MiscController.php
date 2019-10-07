@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Shared\UserHelper;
 use App\StaffPunch;
 use App\User;
+use App\UserLog;
 use DateTime;
 use DateTimeZone;
 
@@ -111,4 +112,15 @@ class MiscController extends Controller
       }
       return view('staff.searchstaff', ['staffs' => $staff,'search' => $search, 'message' => $message]);
   }
+  
+  //retrive list user logs
+  public function listUserLogs(Request $req)
+    {
+        //retrieve data from table user_logs
+        $listUserLogs = UserLog::where('user_id', $req->user()->id)->get();
+        //dd($listUserLogs);
+        return view('log.listUserLogs', compact('listUserLogs'))
+        //count row display only
+        ->with('i', (request()->input('page', 1) - 1) * 5);;
+    }
 }

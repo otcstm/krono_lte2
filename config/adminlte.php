@@ -148,7 +148,13 @@ return [
         ],
         [
             'text' => 'user_autho',
-            'url'  => '#',
+            'url'  => '/admin/staff/auth',
+            'icon' => 'fas fa-cogs',
+            // 'can' => 'admin-nav-menu',
+        ],
+        [
+            'text' => 'User Management',
+            'url'  => '/admin/staff',
             'icon' => 'fas fa-cogs',
             // 'can' => 'admin-nav-menu',
         ],
@@ -160,7 +166,7 @@ return [
         ],
         [
             'text' => 'manage_company',
-            'url'  => '/admin/companies',
+            'url'  => '/admin/company',
             'icon' => 'fas fa-cogs',
             // 'can' => 'admin-nav-menu',
         ],
@@ -171,13 +177,20 @@ return [
             'icon' => 'fas fa-cogs',
             // 'can' => 'admin-nav-menu',
         ],
+        [
+            'text' => 'User Logs',
+            //'url'  => route('state.show', [], false),
+            'url' => '/log/listUserLogs',
+            'icon' => 'fas fa-cogs',
+            // 'can' => 'admin-nav-menu',
+        ],
         [ 'header' => 'user_menu',
           'icon' => 'fas fa-fw fa-user',
           // 'can' => 'user-nav-menu',
         ],
         [
             'text' => 'user_home',
-            'url'  => '#',
+            'url'  => '/home',
             'icon' => 'fas fa-home',
             // 'can' => 'user-nav-menu',
         ],
@@ -186,6 +199,12 @@ return [
             'url'  => '/punch',
             'icon' => 'fas fa-clock',
             // 'can' => 'user-nav-menu',
+        ],
+        [
+            'text' => 'staff_list',
+            'url'  => '/staff',
+            'icon' => 'fas fa-tasks',
+            // 'can' => 'ot-nav-menu',
         ],
         ['header' => 'ot_menu'],
         [
@@ -225,18 +244,6 @@ return [
             // 'can' => 'ot-nav-menu',
         ],
         ['header' => 'labels'],
-        [
-            'text' => 'Seach Staff',
-            'url'  => '/staff/search',
-            'icon' => 'fas fa-tasks',
-            // 'can' => 'ot-nav-menu',
-        ],
-        [
-            'text' => 'staff_list',
-            'url'  => '/staff/list',
-            'icon' => 'fas fa-tasks',
-            // 'can' => 'ot-nav-menu',
-        ],
         [
             'text' => 'reassign_app',
             'url'  => '#',

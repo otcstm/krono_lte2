@@ -224,7 +224,7 @@ class LdapHelper {
           // perform the search
           $ldres = ldap_search(
             $con, 'ou=users,o=data', "departmentnumber=$lob",
-            array('cn', 'mail', 'fullname', 'ppnewic'),
+            array('cn', 'mail', 'fullname', 'ppnewic','employeenumber'),
             0, 0
           );
           $ldapdata = ldap_get_entries($con, $ldres);
@@ -250,6 +250,16 @@ class LdapHelper {
               $cuser->email = (isset($ldapdata[$i]['mail']['0'])) ? $ldapdata[$i]['mail']['0'] : 'Empty';
               $cuser->name = (isset($ldapdata[$i]['fullname']['0'])) ? $ldapdata[$i]['fullname']['0'] : 'Empty';
               // $cuser->persno = $udata['data']['PERSNO'];
+
+              //setting persno as user id
+              //dd($ldapdata);
+              $persno_str = (isset($ldapdata[$i]['employeenumber']['0'])) ? $ldapdata[$i]['employeenumber']['0'] : 'Empty';
+              $persno = substr($persno_str, -7);
+              $cuser->id = $persno;
+              $cuser->persno = $persno;
+
+              //end setting persno as user id
+
               $cuser->staff_no = (isset($ldapdata[$i]['cn']['0'])) ? $ldapdata[$i]['cn']['0'] : 'Empty';
               $cuser->save();
               $counter++;
