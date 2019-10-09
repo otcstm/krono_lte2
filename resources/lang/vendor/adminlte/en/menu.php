@@ -8,6 +8,7 @@ return [
     'manage_company'  => 'Manage Company',
     'manage_state'    => 'Manage State',
     'manage_wdays'    => 'Work Day Type',
+    'admin_user_menu'   => 'User Admin Thingy',
 
 
 
@@ -15,6 +16,8 @@ return [
     'user_punch'      => 'Clock In and Clock Out',
     'user_home'       => 'My Dashboard',
     'user_punch'      => 'Clock In/Out',
+    'user_setting'    => 'My Settings',
+    'user_shift_sc'   => 'My Shift Schedule',
 
     'ot_menu'         => 'OVERTIME',
     'ot_apply'        => 'Apply New OT',

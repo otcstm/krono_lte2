@@ -9,4 +9,10 @@ class State extends Model
     protected $primaryKey = 'id'; // or null
     
     public $incrementing = false;
+
+    public function users()
+  {
+    return $this->belongsTo(User::class);
+  }
+
 }

@@ -94,7 +94,6 @@ class MiscController extends Controller
       $search = 0;
       return view('staff.searchstaff', ['staffs' => $staff], ['search' => $search]);
   }
-
   public function doSearchStaff(Request $req){
       $input = $req->inputstaff;
       $message = null;
@@ -111,9 +110,9 @@ class MiscController extends Controller
       }else{
         $message = 'Please enter staff no or staff name to search.';
       }
-      return view('staff.searchStaff', ['staffs' => $staff,'search' => $search, 'message' => $message]);
+      return view('staff.searchstaff', ['staffs' => $staff,'search' => $search, 'message' => $message]);
   }
-
+  
   //retrive list user logs
   public function listUserLogs(Request $req)
     {

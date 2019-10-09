@@ -1,10 +1,10 @@
 <?php
 
-// namespace App\Http\Controllers;
 namespace App\Http\Controllers\Admin;
 
 use App\Shared\UserHelper;
 use App\Role;
+use App\Permission;
 use App\UserLog;
 use Illuminate\Http\Request;
 use Gate;
@@ -12,21 +12,11 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\Controller;
 
 class RoleController extends Controller{
-
-    public function __construct() {
-        // dd(Gate::can('admin_m_roles'));
-        // abort_if(Gate::denies('admin_roles'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-    }
-
-    public function index(Request $req){
-      dd($req->user()->can('admin_m_roles'));
-      return "nom";
-    }
-
-    public function show(Role $role){
+    public function show(){
         $role = Role::all();   
+        $permission = Permission::all();   
         // $role = Role::where('deleted_at', null)->orderBy('title', 'ASC')->get();   
-        return view('admin.rolemgmt', ['roles' => $role]);
+        return view('admin.rolemgmt', ['roles' => $role, 'permissions' => $permission]);
     }
 
     public function store(Request $req){
@@ -46,7 +36,7 @@ class RoleController extends Controller{
             $feedback_color = "#5CB85C";
         }else{
             $feedback_text = "There is already a role named " .$name. ".";
-            $feedback_icon = "remove";;
+            $feedback_icon = "remove";
             $feedback_color = "#D9534F";
         }
         return redirect(route('role.list',[],false))->with([
@@ -57,7 +47,7 @@ class RoleController extends Controller{
         );
     }
 
-    public function update(Request $req, Role $role){
+    public function update(Request $req){
         $permission = $req->permission;
         $update_role = Role::find($req->inputid);
         $update_role->title = $req->inputname;
