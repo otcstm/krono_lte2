@@ -12,7 +12,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(AmerPermissionSeeder::class);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 292f9cc7dd7a1feaa2825a49c91a43e69196790f
         // $this->call(RolesTableSeeder::class);
         // $this->call(RoleUserTableSeeder::class);
+        $this->call(SapPersdataSeeder::class);
     }
 }
