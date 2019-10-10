@@ -33,8 +33,9 @@ class CompanyController extends Controller
         $company_var->source  = 'OT';
     //    $LogUserAct = doUserLogs($req,'Company', __FUNCTION__);
         $company_var->save();
+        $execute = UserHelper::LogUserAct($req, "Company Management", "Update Company " .$req->company_descr);
         $ac = 'info';
-        $alert = 'updated ' . $req->company_code .':' .$req->company_descr;
+        $alert = 'Successfully updated company ' .$req->company_descr;
         $companies = $this->list();
 
         return redirect(route('company.index', [], false))->
@@ -58,8 +59,9 @@ class CompanyController extends Controller
         $company_var->updated_by  = $req->user()->id;
         $company_var->created_by  = $req->user()->id;
         $company_var->save();
+        $execute = UserHelper::LogUserAct($req, "Company Management", "Create Company " .$req->company_descr);
 
-        $alert = 'created ' . $req->company_code .':' .$req->company_descr;
+        $alert = 'Successfully created company '.$req->company_descr;
         }
         else{
             $ac = 'danger';
@@ -77,25 +79,15 @@ class CompanyController extends Controller
 
     public function destroy(Request $req)
     {
-        //check id dalam table user
-      //  $check_dependencies = User::find($req->company_code);
-
-        $companies = $this->list();
+      //$companies = $this->list();
         $cm = $req->company_id;
         $company_log = Company::find($req->company_id);
-        $company_log ->updated_by  = $req->user()->id;
-    //    $LogUserAct = doUserLogs($req,'Company', __FUNCTION__);
+        $company_log ->deleted_by  = $req->user()->id;
         $company_log ->save();
         Company::destroy($cm);
-
-
-      //  Company::softDeletes($cm);
-
-
+        $execute = UserHelper::LogUserAct($req, "Company Management", "Delete Company " .$company_log->company_descr);
         $ac = 'info';
-        $alert = $req->company_id .' has been destroyed';
-      //  $companies = $this->list();
-      //  return view('admin.companies',['companies' => $companies,'alert'=>$alert, 'ac'=>$ac]);
+        $alert ='Successfully deleted company ' .$company_log->company_descr ;
         return redirect(route('company.index', [], false))->
         with([
           'alert' => $alert,

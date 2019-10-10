@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+//use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Company extends Model
 {
@@ -11,7 +11,7 @@ class Company extends Model
 
   public $incrementing = false;
 
-  use SoftDeletes;
+  //use SoftDeletes;
 
 public function users()
   {
