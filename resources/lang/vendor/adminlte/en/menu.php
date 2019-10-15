@@ -31,7 +31,7 @@ return [
 
     'shift_menu'      => 'SHIFT',
     'shift_plan'      => 'Plan Shifts',
-    'shift_plan'      => 'Shift Groups',
+    'shift_group'      => 'Shift Groups',
     'shift_template'  => 'Shift Template',
 
     'rpt_menu'        => 'REPORTS',
