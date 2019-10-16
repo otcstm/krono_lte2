@@ -54,7 +54,8 @@
 $(document).ready(function() {
     $('#tPunchHIstory').DataTable({
       "responsive": "true",
-      "order" : [[0, "desc"]]
+      "order" : [[0, "desc"]],
+      fixedHeader : true
     });
 } );
 </script>

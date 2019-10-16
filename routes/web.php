@@ -17,12 +17,16 @@ Auth::routes(['register' => false]);
 //Temporary offline login (url /login/offline)
 Route::view('/login/offline', 'loginoffline',[]);
 Route::post('/login/offline', 'TempController@login')->name('login.offline');
+//User record controller
+Route::get('/ur/popbyid/{id}', 'URController@popById')->name('ur.popbyid');
+Route::get('/ur/listAll', 'URController@listAll')->name('ur.listAll');
+
 
 // Route::get('/', 'MiscController@index')->name('misc.index');
 Route::group(['middleware' => ['auth']], function () {
 
   Route::get('/home', 'MiscController@home')->name('misc.home');
-  Route::get('/role', 'RoleController@index')->name('role.index');
+  Route::get('/role', 'Admin\RoleController@index')->name('role.index');
 
   // clock-in related
   Route::get('/punch',      'MiscController@showPunchView')->name('punch.list');
@@ -77,6 +81,10 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/log/listUserLogs', 'MiscController@listUserLogs')->name('log.listUserLogs');
   Route::get('/log/updUserLogs', 'MiscController@logUserAct')->name('log.logUserAct');
 
+<<<<<<< HEAD
+=======
+});
+>>>>>>> 3cf6a0937e8c3f27c924cd6c6f89377307f22e5a
 
 Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
   Route::get('/', 'ShiftPatternController@index')->name('index');
@@ -86,4 +94,30 @@ Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => '
   Route::post('/del', 'ShiftPatternController@delShiftPattern')->name('delete');
   Route::post('/day/push', 'ShiftPatternController@pushDay')->name('day.add');
   Route::post('/day/pop', 'ShiftPatternController@popDay')->name('day.del');
+});
+
+Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth']], function () {
+  Route::get('/', 'ShiftPlanController@index')->name('index');
+  // ShiftPlan crud
+  Route::post('/add', 'ShiftPlanController@addPlan')->name('add');
+  Route::get('/detail', 'ShiftPlanController@viewDetail')->name('view');
+  Route::post('/edit', 'ShiftPlanController@editPlan')->name('edit');
+  Route::post('/del', 'ShiftPlanController@delPlan')->name('delete');
+  Route::post('/submit', 'ShiftPlanController@submitPlan')->name('submit');
+  Route::post('/approve', 'ShiftPlanController@approvePlan')->name('approve');
+  Route::post('/revert', 'ShiftPlanController@revertPlan')->name('revert');
+
+  // shift groups
+  Route::get('/group', 'ShiftGroupController@index')->name('group');
+  Route::post('/group/add', 'ShiftGroupController@addGroup')->name('group.add');
+  Route::get('/group/view', 'ShiftGroupController@viewGroup')->name('group.view');
+  Route::post('/group/delete', 'ShiftGroupController@delGroup')->name('group.del');
+  Route::post('/group/edit', 'ShiftGroupController@editGroup')->name('group.edit');
+  Route::post('/staff/add', 'ShiftGroupController@addStaff')->name('staff.add');
+  Route::post('/staff/del', 'ShiftGroupController@removeStaff')->name('staff.del');
+
+  // ShiftPlanStaff
+  Route::get('/staff', 'ShiftPlanController@staffInfo')->name('staff');
+  Route::post('/staff/push', 'ShiftPlanController@staffPushTemplate')->name('staff.push');
+  Route::post('/staff/pop', 'ShiftPlanController@staffPopTemplate')->name('staff.pop');
 });

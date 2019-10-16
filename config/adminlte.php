@@ -330,14 +330,18 @@ return [
                 'text' => 'user_shift_sc',
                 'url'  => '#',
                 'icon' => 'fas fa-calendar-check',
-                'label_color' => 'warning',
                 // 'can' => 'ot-nav-menu',
             ],
             [
                 'text' => 'shift_plan',
                 'url'  => '/shift_plan',
                 'icon' => 'fas fa-calendar-plus',
-                'label_color' => 'warning',
+                // 'can' => 'ot-nav-menu',
+            ],
+            [
+                'text' => 'shift_group',
+                'url'  => '/shift_plan/group',
+                'icon' => 'fas fa-users',
                 // 'can' => 'ot-nav-menu',
             ],
           ]
@@ -473,13 +477,16 @@ return [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js',
+                    // 'location' => '//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js',
+                    'location' => '//cdn.datatables.net/v/bs/dt-1.10.20/b-1.6.0/b-html5-1.6.0/fh-3.1.6/datatables.min.js',
                 ],
                 [
                     'type' => 'css',
                     'asset' => false,
-                    'location' => '//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css',
+                    // 'location' => '//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css',
+                    'location' => '//cdn.datatables.net/v/bs/dt-1.10.20/b-1.6.0/b-html5-1.6.0/fh-3.1.6/datatables.min.css',
                 ],
+
             ],
         ],
         [
