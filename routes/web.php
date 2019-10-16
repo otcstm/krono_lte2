@@ -17,6 +17,10 @@ Auth::routes(['register' => false]);
 //Temporary offline login (url /login/offline)
 Route::view('/login/offline', 'loginoffline',[]);
 Route::post('/login/offline', 'TempController@login')->name('login.offline');
+//User record controller
+Route::get('/ur/popbyid/{id}', 'URController@popById')->name('ur.popbyid');
+Route::get('/ur/listAll', 'URController@listAll')->name('ur.listAll');
+
 
 // Route::get('/', 'MiscController@index')->name('misc.index');
 Route::group(['middleware' => ['auth']], function () {
