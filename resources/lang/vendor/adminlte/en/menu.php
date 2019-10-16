@@ -30,7 +30,8 @@ return [
     'reassign_ver'    => 'Reassign Verifier',
 
     'shift_menu'      => 'SHIFT',
-    'shift_plan'      => 'Shift Plan',
+    'shift_plan'      => 'Plan Shifts',
+    'shift_group'      => 'Shift Groups',
     'shift_template'  => 'Shift Template',
 
     'rpt_menu'        => 'REPORTS',
