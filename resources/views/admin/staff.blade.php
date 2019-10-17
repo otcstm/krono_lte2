@@ -169,7 +169,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">User Details</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="overflow-y: scroll; max-height: 70vh">
                 <p><b>Staff No:</b></p>
                 <p class="showno"><p><br>
                 <p><b>Staff Personal No:</b></p>

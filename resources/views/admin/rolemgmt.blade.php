@@ -53,7 +53,7 @@
                 <h4 class="modal-title">Create New Role</h4>
             </div>
             <div class="modal-body">
-                <form action="{{route('role.store')}}" method="POST">
+                <form action="{{route('role.store')}}" method="POST" onsubmit="return confirm('confirm?')">
                     @csrf
                     <div class="form-group">
                         <label for="inputname">Role Name:</label>

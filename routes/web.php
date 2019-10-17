@@ -76,6 +76,9 @@ Route::group(['middleware' => ['auth']], function () {
   //Log activity
   Route::get('/log/listUserLogs', 'MiscController@listUserLogs')->name('log.listUserLogs');
   Route::get('/log/updUserLogs', 'MiscController@logUserAct')->name('log.logUserAct');
+
+  //OT activity
+  Route::get('/overtime', 'OvertimeController@show')->name('ot.show');
 });
 
 Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
