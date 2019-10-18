@@ -12,39 +12,49 @@ class URController extends Controller
 {
     public function popById($id)
     {
-        ini_set('max_execution_time', 3000); // 300 seconds = 5 minutes
+        ini_set('max_execution_time', 30000); // 300 seconds = 5 minutes
         set_time_limit(0);
-        if ($id == 'all') { 
-            $spData = SapPersdata::all();
+        if ($id == 'all') {
+            //$spData = SapPersdata::orderBy('persno')->get();
+            $spData = SapPersdata::whereNotIn('persno', User::all()->pluck('id'))->get();
 
             foreach ($spData as $sp) {
-                $ur = URHelper::regUser(
-                  $sp->persno,
-                  $sp->nic,
-                  $sp->oic,
-                  $sp->staffno,
-                  $sp->complete_name,
-                  $sp->orgunit,
-                  $sp->comp,
-                  $sp->persarea,
-                  $sp->perssubarea,
-                  $sp->empsgroup,
-                  $sp->psgroup,
-                  $sp->empgroup,
-                  $sp->pslvl,
-                  $sp->birthdate,
-                  $sp->email,
-                  $sp->cellno,
-                  $sp->reptto,
-                  $sp->empstats,
-                  $sp->position,
-                  $sp->costcentr,
-                  $sp->upd_sap
-              );
+                try {
+                    $ur = URHelper::regUser(
+                    $sp->persno,
+                    $sp->nic,
+                    $sp->oic,
+                    $sp->staffno,
+                    $sp->complete_name,
+                    $sp->orgunit,
+                    $sp->comp,
+                    $sp->persarea,
+                    $sp->perssubarea,
+                    $sp->empsgroup,
+                    $sp->psgroup,
+                    $sp->empgroup,
+                    $sp->pslvl,
+                    $sp->birthdate,
+                    $sp->email,
+                    $sp->cellno,
+                    $sp->reptto,
+                    $sp->empstats,
+                    $sp->position,
+                    $sp->costcentr,
+                    $sp->upd_sap
+                );
+              } catch (\Exception $e) {
+echo("error <br/>");
+echo($sp->persno);
+
+                }
             }
         } else {
             $sp = SapPersdata::find($id);
-            $ur = URHelper::regUser(
+
+            try {
+
+                $ur = URHelper::regUser(
                 $sp->persno,
                 $sp->nic,
                 $sp->oic,
@@ -67,15 +77,19 @@ class URController extends Controller
                 $sp->costcentr,
                 $sp->upd_sap
             );
+          } catch (\Exception $e) {
+echo("error <br/>");
+                          }
         }
 
 
-        return $ur ;
+        return 'done' ;
     }
 
     public function listAll()
     {
-        $sp = SapPersdata::all();
+        //$sp = SapPersdata::all();
+        $sp = SapPersdata::whereNotIn('persno', User::all()->pluck('id'))->get();
         $arr = [];
 
 
