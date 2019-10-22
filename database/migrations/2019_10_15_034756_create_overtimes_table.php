@@ -14,13 +14,13 @@ class CreateOvertimesTable extends Migration
     public function up()
     {
         Schema::create('overtimes', function (Blueprint $table) {
-            // $table->bigIncrements('id');
-            $table->string('id')->unique();
+            $table->bigIncrements('id');
             $table->timestamps();
+            $table->string('refno')->unique();
             $table->integer('user_id');
-            $table->datetime('start_time');
-            $table->datetime('end_time');
-            $table->integer('daytype_id');
+            $table->datetime('date_created');
+            $table->integer('total_hour');
+            $table->integer('total_minute');
             $table->string('status')->nullable();
             $table->string('company_id')->nullable();
             $table->string('state_id')->nullable();

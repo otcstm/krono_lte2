@@ -53,7 +53,7 @@
                 <h4 class="modal-title">Create New Role</h4>
             </div>
             <div class="modal-body">
-                <form action="{{route('role.store')}}" method="POST" onsubmit="return confirm('confirm?')">
+                <form action="{{route('role.store')}}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="inputname">Role Name:</label>
@@ -89,7 +89,7 @@
                 <h4 class="modal-title">Edit Role</h4>
             </div>
             <div class="modal-body">
-                <form action="{{ route('role.edit') }}" method="POST">
+                <form action="{{ route('role.edit') }}" method="POST" onsubmit="return confirm('Confirm edit role?')">
                     @csrf
                     <input type="text" class="form-control hidden" id="inputid" name="inputid" value="" required>
                     <div class="form-group">

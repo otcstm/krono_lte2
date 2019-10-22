@@ -229,7 +229,7 @@ return [
             ],
             [
                 'text' => 'ot_history',
-                'url'  => '#',
+                'url'  => '/overtime/logs',
                 'icon' => 'fas fa-business-time',
                 // 'can' => 'ot-nav-menu',
             ],
@@ -252,7 +252,7 @@ return [
             ],
             [
                 'text' => 'ot_list',
-                'url'  => '#',
+                'url'  => '/overtime',
                 'icon' => 'fas fa-tasks',
                 'label_color' => 'warning',
                 // 'can' => 'ot-nav-menu',
