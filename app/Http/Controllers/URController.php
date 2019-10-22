@@ -16,7 +16,7 @@ class URController extends Controller
         set_time_limit(0);
         if ($id == 'all') {
             //$spData = SapPersdata::orderBy('persno')->get();
-            $spData = SapPersdata::whereNotIn('persno', User::all()->pluck('id'))->get();
+            $spData = SapPersdata::whereNotIn('persno', User::all()->pluck('id'))->orderBy('persno')->take(5000)->get();
 
             foreach ($spData as $sp) {
                 try {
@@ -45,6 +45,8 @@ class URController extends Controller
                 );
               } catch (\Exception $e) {
 echo("error <br/>");
+echo($e);
+echo("<br/>");
 echo($sp->persno);
 
                 }
