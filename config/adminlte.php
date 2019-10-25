@@ -165,10 +165,6 @@ return [
             // 'can' => 'admin-nav-menu',
         ],
         [
-            'text' => 'manage_company',
-            'url'  => '/admin/company',
-            'icon' => 'fas fa-cogs',
-            // 'can' => 'admin-nav-menu',
           'text' => 'system_config',
           'icon' => 'fas fa-fw fa-tools',
           'submenu' => [
@@ -187,6 +183,12 @@ return [
             [
                 'text' => 'manage_state',
                 'url' => '/admin/state/show',
+                'icon' => 'fas fa-map-marked-alt',
+                // 'can' => 'admin-nav-menu',
+            ],
+            [
+                'text' => 'manage_psubarea',
+                'url' => '/admin/psubarea',
                 'icon' => 'fas fa-map-marked-alt',
                 // 'can' => 'admin-nav-menu',
             ],

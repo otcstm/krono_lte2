@@ -29,11 +29,13 @@ class PsubareaController extends Controller
     $var_parea = $req ->inputparea;
     $var_psubarea = $req ->inputpsubarea;
     $var_state = $req ->inputstate;
+    $var_region = $req ->inputregion;
 
     $check = Psubarea::where('company_id', trim($var_comp))
                       ->where('persarea', trim($var_parea))
                       ->where('perssubarea', trim($var_psubarea))
                       ->where('state_id', trim($var_state))
+                      ->where('region', trim($var_region))
                       ->where('deleted_at', null)
                       ->get();
     if(count($check)==0){
@@ -42,17 +44,16 @@ class PsubareaController extends Controller
       $new_psubarea-> persarea = $var_parea;
       $new_psubarea-> perssubarea = $var_psubarea;
       $new_psubarea-> state_id = $var_state;
+      $new_psubarea-> region = $var_region;
       $new_psubarea-> source = 'OT';
       $new_psubarea-> created_by= $req->user()->id;
       $new_psubarea->save();
       $execute = UserHelper::LogUserAct($req, "Psubarea Management", "Create Psubarea " .$var_state. ", id ".$var_id);
       $a_text = "Successfully created Psubarea for state " .$var_state. ".";
-      // $feedback_icon = "ok";
       $a_type = "success";
   }
   else{
       $a_text = 'Personnel subarea already exist.';
-      // $feedback_icon = "remove";
       $a_type = "warning";
       }
       return redirect(route('psubarea.index', [], false))
@@ -69,18 +70,19 @@ class PsubareaController extends Controller
                           ->where('persarea', trim($req ->inputparea))
                           ->where('perssubarea', trim($req ->inputpsubarea))
                           ->where('state_id', trim($req ->inputstate))
+                          ->where('region', trim($req ->inputregion))
                           ->where('deleted_at', null)
                           ->get();
           if(count($check)==0){
-          //$ps-> company_id = $req->company;
             $ps-> persarea = $req->inputparea;
             $ps-> perssubarea = $req->inputpsubarea;
             $ps-> state_id = $req->inputstate;
+            $ps-> region = $req->inputregion;
             $ps-> source = 'OT';
             $ps-> last_edited_by = $req->user()->id;
             $ps->save();
             $execute = UserHelper::LogUserAct($req, "Psubarea Management", "Update Psubarea " .$req ->inputstate. ", id ".$req->inputid);
-            return redirect(route('psubarea.index', [], false))->with(['a_text' => 'Psubarea for state'. $req->inputstate . ' updated', 'a_type' => 'success']);
+            return redirect(route('psubarea.index', [], false))->with(['a_text' => 'Psubarea for state '. $req->inputstate . ' updated', 'a_type' => 'success']);
           }
           else{
 
@@ -97,13 +99,13 @@ class PsubareaController extends Controller
       $ps = Psubarea::find($req->inputid);
       if($ps){
         $ps->deleted_by = $req->user()->id;
-        $execute = UserHelper::LogUserAct($req, "Psubarea Management", "Delete Psubarea " .$req ->state. ", id ".$req->inputid);
+        $execute = UserHelper::LogUserAct($req, "Psubarea Management", "Delete Psubarea " .$ps ->state_id. ", id ".$req->inputid);
         $ps->save();
         $ps->delete();
 
-        return redirect(route('psubarea.index', [], false))->with(['alert' => 'Psubarea for '.$req ->state. ' deleted', 'a_type' => 'warning']);
+        return redirect(route('psubarea.index', [], false))->with(['alert' => 'Psubarea for '.$ps ->state_id. ' deleted', 'a_type' => 'warning']);
       } else {
-        return redirect(route('psubarea.index', [], false))->with(['alert' => 'Psubarea for '.$req ->state. ' not found', 'a_type' => 'danger']);
+        return redirect(route('psubarea.index', [], false))->with(['alert' => 'Psubarea for '.$ps ->state_id. ' not found', 'a_type' => 'danger']);
       }
     }
   }

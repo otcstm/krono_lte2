@@ -21,6 +21,7 @@ class CreatePsubareasTable extends Migration
             $table->string('persarea', 25);
             $table->string('perssubarea', 25);
             $table->string('state_id', 25);
+            $table->string('region', 25);
             $table->string('source',10)->nullable();
             $table->integer('created_by');
             $table->integer('last_edited_by')->nullable();
