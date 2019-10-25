@@ -74,11 +74,17 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/admin/company/delete','Admin\CompanyController@destroy')->name('company.delete');
   Route::post( '/admin/company/update','Admin\CompanyController@update')->name('company.update');
 
+
   //Personnel subarea
   Route::get( '/admin/psubarea','Admin\PsubareaController@index')->name('psubarea.index');
   Route::post('/admin/psubarea/add','Admin\PsubareaController@store')->name('psubarea.store');
   Route::post( '/admin/psubarea/update','Admin\PsubareaController@update')->name('psubarea.edit');
   Route::post('/admin/psubarea/delete','Admin\PsubareaController@destroy')->name('psubarea.delete');
+
+
+  Route::get('/holiday/createHoliday', 'Admin\HolidayController@create')->name('createHoliday');
+  Route::post('/holiday/insertHoliday', 'Admin\HolidayController@insert')->name('insertHoliday');
+
 
   // /admins ------------------------------------
 
