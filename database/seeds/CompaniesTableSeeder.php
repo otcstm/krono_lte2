@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Company;
 
 class CompaniesTableSeeder extends Seeder
 {
@@ -12,12 +13,12 @@ class CompaniesTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
-        \DB::table('companies')->delete();
-        
-        \DB::table('companies')->insert(array (
-            0 => 
+
+      //  \DB::table('companies')->delete();
+
+        Company::insert(array (
+            0 =>
             array (
                 'id' => '1000',
                 'company_descr' => 'Telekom Malaysia Berhad',
@@ -27,7 +28,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            1 => 
+            1 =>
             array (
                 'id' => '1001',
                 'company_descr' => 'TM Wholesale',
@@ -37,7 +38,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            2 => 
+            2 =>
             array (
                 'id' => '1002',
                 'company_descr' => 'TM Retail',
@@ -47,7 +48,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            3 => 
+            3 =>
             array (
                 'id' => '1003',
                 'company_descr' => 'TM Corporate Center',
@@ -57,7 +58,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            4 => 
+            4 =>
             array (
                 'id' => '1010',
                 'company_descr' => 'GITN Sdn. Berhad',
@@ -67,7 +68,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            5 => 
+            5 =>
             array (
                 'id' => '1020',
                 'company_descr' => 'Menara KL Sdn. Bhd.',
@@ -77,7 +78,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            6 => 
+            6 =>
             array (
                 'id' => '1030',
                 'company_descr' => 'TM Applied Business SB',
@@ -87,7 +88,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            7 => 
+            7 =>
             array (
                 'id' => '1040',
                 'company_descr' => 'TM Info-Media Sdn Bhd',
@@ -97,7 +98,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            8 => 
+            8 =>
             array (
                 'id' => '1050',
                 'company_descr' => 'TM R&D SDN. BHD.',
@@ -107,7 +108,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            9 => 
+            9 =>
             array (
                 'id' => '1060',
                 'company_descr' => 'TSS Sdn. Bhd.',
@@ -117,7 +118,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            10 => 
+            10 =>
             array (
                 'id' => '1070',
                 'company_descr' => 'TM Facilities Sdn Bhd',
@@ -127,7 +128,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            11 => 
+            11 =>
             array (
                 'id' => '1071',
                 'company_descr' => 'TMF Autolease Sdn Bhd',
@@ -137,7 +138,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            12 => 
+            12 =>
             array (
                 'id' => '1072',
                 'company_descr' => 'TMF Services Sdn Bhd',
@@ -147,7 +148,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            13 => 
+            13 =>
             array (
                 'id' => '1080',
                 'company_descr' => 'TM Net Sdn. Bhd.',
@@ -157,7 +158,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            14 => 
+            14 =>
             array (
                 'id' => '1090',
                 'company_descr' => 'TM Payphone Sdn. Bhd.',
@@ -167,7 +168,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            15 => 
+            15 =>
             array (
                 'id' => '1141',
                 'company_descr' => 'Webe Digital Sdn Bhd',
@@ -177,7 +178,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            16 => 
+            16 =>
             array (
                 'id' => '1240',
             'company_descr' => 'Telekom Malaysia (HK) Ltd',
@@ -187,7 +188,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            17 => 
+            17 =>
             array (
                 'id' => '1250',
             'company_descr' => 'Telekom Malaysia(S) P Ltd',
@@ -197,7 +198,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            18 => 
+            18 =>
             array (
                 'id' => '1260',
             'company_descr' => 'Telekom Malaysia (UK) Ltd',
@@ -207,7 +208,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            19 => 
+            19 =>
             array (
                 'id' => '1270',
             'company_descr' => 'Telekom Malaysia (US) Inc',
@@ -217,7 +218,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            20 => 
+            20 =>
             array (
                 'id' => '201',
                 'company_descr' => 'Axiata Group Berhad',
@@ -227,7 +228,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            21 => 
+            21 =>
             array (
                 'id' => '3001',
                 'company_descr' => 'VADS Berhad',
@@ -237,7 +238,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            22 => 
+            22 =>
             array (
                 'id' => '3002',
                 'company_descr' => 'VADS e-Services Sdn Bhd',
@@ -247,7 +248,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            23 => 
+            23 =>
             array (
                 'id' => '3004',
                 'company_descr' => 'VADS Solution',
@@ -257,7 +258,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            24 => 
+            24 =>
             array (
                 'id' => '3005',
                 'company_descr' => 'VADS Business Process',
@@ -267,7 +268,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            25 => 
+            25 =>
             array (
                 'id' => '3006',
                 'company_descr' => 'Meganet Communication',
@@ -277,7 +278,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            26 => 
+            26 =>
             array (
                 'id' => '3007',
                 'company_descr' => 'PT. VADS Indonesia',
@@ -287,7 +288,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            27 => 
+            27 =>
             array (
                 'id' => '3201',
                 'company_descr' => 'Multimedia University',
@@ -297,7 +298,7 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
-            28 => 
+            28 =>
             array (
                 'id' => 'ESOS',
                 'company_descr' => 'NON SAP',
@@ -308,7 +309,7 @@ class CompaniesTableSeeder extends Seeder
                 'updated_at' => '2019-10-25 07:46:16',
             ),
         ));
-        
-        
+
+
     }
 }
