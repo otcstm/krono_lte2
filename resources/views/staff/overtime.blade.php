@@ -11,7 +11,6 @@
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newOT">
                 CREATE NEW OT
             </button>
-            <p>Eligible time remaining: {{$hour}}h {{$minute ?? ''}}m<p>
         </div>
         <div class="table-responsive">
             <table id="tOTList" class="table table-bordered">
@@ -58,7 +57,7 @@
                 <h4 class="modal-title">Create New OT Claim</h4>
             </div>
             <div class="modal-body">
-                <form action="{{route('ot.create')}}" method="POST">
+                <form action="{{route('ot.store')}}" method="POST">
                     @csrf
                     <input type="text" class="form-control hidden" id="hour" name="hour" value="{{$hour}}" required>
                     <input type="text" class="form-control hidden" id="minute" name="minute" value="{{$minute}}" required>
