@@ -76,8 +76,9 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post( '/admin/company/update','Admin\CompanyController@update')->name('company.update');
 
 
-  Route::get('/holiday/createHoliday', 'Admin\HolidayController@create')->name('createHoliday');
-  Route::post('/holiday/insertHoliday', 'Admin\HolidayController@insert')->name('insertHoliday');
+  Route::get('admin/holiday/create', 'Admin\HolidayController@create')->name('createHoliday');
+  Route::post('admin/holiday/insert', 'Admin\HolidayController@insert')->name('insertHoliday');
+  Route::get('admin/holiday/show', 'Admin\HolidayController@show')->name('showHoliday');
 
   // /admins ------------------------------------
 
