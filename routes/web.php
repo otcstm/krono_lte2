@@ -75,6 +75,10 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/admin/company/destroy','Admin\CompanyController@destroy')->name('company.destroy');
   Route::post( '/admin/company/update','Admin\CompanyController@update')->name('company.update');
 
+
+  Route::get('/holiday/createHoliday', 'Admin\HolidayController@create')->name('createHoliday');
+  Route::post('/holiday/insertHoliday', 'Admin\HolidayController@insert')->name('insertHoliday');
+
   // /admins ------------------------------------
 
   //Log activity

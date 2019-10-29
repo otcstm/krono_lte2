@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
 
             $table->integer('id')->primary('id')->unsigned();
-            $table->timestamps();
+
 
             $table->string('name');
             $table->string('email');
@@ -30,6 +30,8 @@ class CreateUsersTable extends Migration
             $table->string('persarea',10)->nullable();
             $table->string('perssubarea',10)->nullable();
             $table->string('state_id')->nullable();
+            $table->integer('reptto')->nullable();
+            $table->timestamps();
 
         });
     }

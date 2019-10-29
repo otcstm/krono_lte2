@@ -24,6 +24,7 @@ class CreateUserRecordsTable extends Migration
             $table->string('company_id',10)->nullable();
             $table->string('persarea',10)->nullable();
             $table->string('perssubarea',10)->nullable();
+            $table->string('state_id')->nullable();
             $table->string('empsgroup',20)->nullable();
             $table->string('empgroup',50)->nullable();
             $table->string('psgroup',20)->nullable();
@@ -35,6 +36,7 @@ class CreateUserRecordsTable extends Migration
             $table->integer('position')->nullable();
             $table->string('costcentr',20)->nullable();
             $table->date('upd_sap',20);
+
             $table->timestamps();
         });
     }
