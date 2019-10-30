@@ -7,6 +7,7 @@ return [
     'manage_role'     => 'Manage Role',
     'manage_company'  => 'Manage Company',
     'manage_state'    => 'Manage State',
+    'manage_psubarea' => 'Manage Psubarea',
     'manage_wdays'    => 'Work Day Type',
     'admin_user_menu'   => 'User Admin Thingy',
 

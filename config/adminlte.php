@@ -136,6 +136,35 @@ return [
         ],
         ['header' => 'admin_menu'],
         [
+            'text' => 'blog',
+            'url'  => 'admin/blog',
+            'can'  => 'manage-blog',
+        ],
+        [
+            'text' => 'manage_role',
+            'url'  => '/admin/role',
+            'icon' => 'fas fa-cogs',
+            // 'can' => 'admin-nav-menu',
+        ],
+        [
+            'text' => 'user_autho',
+            'url'  => '/admin/staff/auth',
+            'icon' => 'fas fa-cogs',
+            // 'can' => 'admin-nav-menu',
+        ],
+        [
+            'text' => 'User Management',
+            'url'  => '/admin/staff',
+            'icon' => 'fas fa-cogs',
+            // 'can' => 'admin-nav-menu',
+        ],
+        [
+            'text' => 'manage_wdays',
+            'url'  => '/admin/workday',
+            'icon' => 'fas fa-cogs',
+            // 'can' => 'admin-nav-menu',
+        ],
+        [
           'text' => 'system_config',
           'icon' => 'fas fa-fw fa-tools',
           'submenu' => [
@@ -154,6 +183,12 @@ return [
             [
                 'text' => 'manage_state',
                 'url' => '/admin/state/show',
+                'icon' => 'fas fa-map-marked-alt',
+                // 'can' => 'admin-nav-menu',
+            ],
+            [
+                'text' => 'manage_psubarea',
+                'url' => '/admin/psubarea',
                 'icon' => 'fas fa-map-marked-alt',
                 // 'can' => 'admin-nav-menu',
             ],
@@ -196,10 +231,40 @@ return [
             ],
           ]
         ],
+        [
+            'text' => 'User Logs',
+            //'url'  => route('state.show', [], false),
+            'url' => '/log/listUserLogs',
+            'icon' => 'fas fa-cogs',
+            // 'can' => 'admin-nav-menu',
+        ],
         [ 'header' => 'user_menu',
           // 'can' => 'user-nav-menu',
         ],
         [
+            'text' => 'user_home',
+            'url'  => '/home',
+            'icon' => 'fas fa-home',
+            // 'can' => 'user-nav-menu',
+        ],
+        [
+            'text' => 'user_punch',
+            'url'  => '/punch',
+            'icon' => 'fas fa-clock',
+            // 'can' => 'user-nav-menu',
+        ],
+        [
+            'text' => 'staff_list',
+            'url'  => '/staff',
+            'icon' => 'fas fa-tasks',
+            // 'can' => 'ot-nav-menu',
+        ],
+        ['header' => 'ot_menu'],
+        [
+            'text' => 'ot_apply',
+            'url'  => '#',
+            'icon' => 'fas fa-business-time',
+            // 'can' => 'ot-nav-menu',
           'text' => 'user_menu',
           'icon' => 'fas fa-fw fa-restroom',
           'submenu' => [
@@ -284,6 +349,41 @@ return [
           ]
         ],
         [
+            'text' => 'reassign_app',
+            'url'  => '#',
+            'icon' => 'fas fa-tasks',
+            'label_color' => 'warning',
+            // 'can' => 'ot-nav-menu',
+        ],
+        [
+            'text' => 'reassign_ver',
+            'url'  => '#',
+            'icon' => 'fas fa-tasks',
+            'label_color' => 'warning',
+            // 'can' => 'ot-nav-menu',
+        ],
+        [
+          'header' => 'shift_menu',
+          // 'can' => 'admin-nav-menu',
+        ],
+
+      [
+            'text' => 'shift_plan',
+            'url'  => '#',
+            'icon' => 'far fa-calendar-alt',
+            'label_color' => 'warning',
+            // 'can' => 'ot-nav-menu',
+        ],
+        [
+              'text' => 'shift_template',
+              'url'  => '#',
+              'icon' => 'far fa-calendar-alt',
+              'label_color' => 'warning',
+              // 'can' => 'ot-nav-menu',
+          ],
+
+        [
+          'header' => 'rpt_menu',
           'text' => 'user_setting',
           'icon' => 'fas fa-user-cog',
           'submenu' => [
