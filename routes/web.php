@@ -71,16 +71,26 @@ Route::group(['middleware' => ['auth']], function () {
   //Company
   Route::get( '/admin/company','Admin\CompanyController@index')->name('company.index');
   Route::post('/admin/company/add','Admin\CompanyController@store')->name('company.store');
-  Route::get( '/admin/Company/list','Admin\CompanyController@list')->name('company.list');
-  Route::post('/admin/company/destroy','Admin\CompanyController@destroy')->name('company.destroy');
+  Route::post('/admin/company/delete','Admin\CompanyController@destroy')->name('company.delete');
   Route::post( '/admin/company/update','Admin\CompanyController@update')->name('company.update');
+
+
+  //Personnel subarea
+  Route::get( '/admin/psubarea','Admin\PsubareaController@index')->name('psubarea.index');
+  Route::post('/admin/psubarea/add','Admin\PsubareaController@store')->name('psubarea.store');
+  Route::post( '/admin/psubarea/update','Admin\PsubareaController@update')->name('psubarea.edit');
+  Route::post('/admin/psubarea/delete','Admin\PsubareaController@destroy')->name('psubarea.delete');
+
+
+  Route::get('/holiday/createHoliday', 'Admin\HolidayController@create')->name('createHoliday');
+  Route::post('/holiday/insertHoliday', 'Admin\HolidayController@insert')->name('insertHoliday');
+
 
   // /admins ------------------------------------
 
   //Log activity
   Route::get('/log/listUserLogs', 'MiscController@listUserLogs')->name('log.listUserLogs');
   Route::get('/log/updUserLogs', 'MiscController@logUserAct')->name('log.logUserAct');
-
 });
 
 Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {

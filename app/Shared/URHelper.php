@@ -52,6 +52,8 @@ class URHelper
         $u->orgunit     = $ou;
         $u->persarea    = $persarea;
         $u->perssubarea = $perssubarea;
+        $u->reptto = $reptto;
+        
 
         $u->save();
 
