@@ -21,6 +21,7 @@
            <th>Description</th>
            <th>Total Days</th>
            <th>Total Hours</th>
+           <th>Is Weekly</th>
            <th>Action</th>
          </tr>
        </thead>
@@ -31,6 +32,13 @@
            <td>{{ $ap->description }}</td>
            <td>{{ $ap->days_count }}</td>
            <td>{{ $ap->total_hours }}</td>
+           <td>
+             @if($ap->is_weekly)
+             &#10004;
+             @else
+             &#10008;
+             @endif
+           </td>
            <td>
              <form method="post" action="{{ route('sp.delete', [], false) }}" onsubmit='return confirm("Confirm delete?")'>
                @csrf
@@ -71,6 +79,16 @@
         @if ($errors->has('description'))
             <span class="help-block">
                 <strong>{{ $errors->first('description') }}</strong>
+            </span>
+        @endif
+      </div>
+
+      <div class="form-group has-feedback {{ $errors->has('is_weekly') ? 'has-error' : '' }}">
+        <input id="is_weekly" type="checkbox" name="is_weekly" value="{{ old('is_weekly') }}">
+        <label for="is_weekly">Weekly Pattern</label>
+        @if ($errors->has('is_weekly'))
+            <span class="help-block">
+                <strong>{{ $errors->first('is_weekly') }}</strong>
             </span>
         @endif
       </div>

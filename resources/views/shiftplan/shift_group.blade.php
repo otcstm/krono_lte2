@@ -101,15 +101,15 @@
          <tr>
            <th>Staff No</th>
            <th>Name</th>
-           <th>Position</th>
+           <th>Unit</th>
          </tr>
        </thead>
        <tbody>
          @foreach($s_list as $ap)
          <tr>
-           <td>{{ $ap['staff_no'] }}</td>
-           <td>{{ $ap['name'] }}</td>
-           <td>{{ $ap['position'] }}</td>
+           <td>{{ $ap->staff_no }}</td>
+           <td>{{ $ap->name }}</td>
+           <td>{{ $ap->orgunit }}</td>
          </tr>
          @endforeach
        </tbody>

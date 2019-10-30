@@ -112,7 +112,7 @@ class MiscController extends Controller
       }
       return view('staff.searchstaff', ['staffs' => $staff,'search' => $search, 'message' => $message]);
   }
-  
+
   //retrive list user logs
   public function listUserLogs(Request $req)
     {
