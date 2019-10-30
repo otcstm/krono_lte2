@@ -17,12 +17,13 @@ class CreateOvertimeDetailsTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->integer('ot_id');
+            $table->datetime('clock_in')->nullable();
+            $table->datetime('clock_out')->nullable();
             $table->datetime('start_time');
             $table->datetime('end_time');
             $table->integer('hour');
             $table->integer('minute');
-            $table->integer('daytype_id');
-
+            $table->string('justification')->nullable();
         });
     }
 

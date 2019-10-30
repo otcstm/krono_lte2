@@ -88,7 +88,9 @@ Route::group(['middleware' => ['auth']], function () {
   //OT activity
   Route::get('/overtime', 'OvertimeController@show')->name('ot.show');
   Route::get('/overtime/logs', 'OvertimeController@logs')->name('ot.logs');
-  Route::post('overtime/create', 'OvertimeController@store')->name('ot.store');
+  Route::post('overtime/create', 'OvertimeController@create')->name('ot.create');
+  Route::post('overtime/addtime', 'OvertimeController@addtime')->name('ot.addtime');
+  Route::post('overtime/store', 'OvertimeController@store')->name('ot.store');
 });
 
 Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {

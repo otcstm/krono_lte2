@@ -19,7 +19,7 @@ class CreateOvertimeMonthsTable extends Migration
             $table->integer('user_id');
             $table->integer('hour');
             $table->integer('minute');
-            $table->integer('year');
+            $table->year('year');
             $table->integer('month');
         });
     }

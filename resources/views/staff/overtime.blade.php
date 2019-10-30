@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Search Staff')
+@section('title', 'Overtime List')
 
 @section('content')
 <div class="panel panel-default">
@@ -9,7 +9,7 @@
     
         <div class="text-center" style="margin-bottom: 15px">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newOT">
-                CREATE NEW OT
+                CREATE NEW CLAIM
             </button>
         </div>
         <div class="table-responsive">
@@ -25,7 +25,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($overtimes as $no=>$singleuser)
+                    @foreach($otlist as $no=>$singleuser)
                     <tr>
                         <td>{{ ++$no }}</td>
                         <td>{{ $singleuser->refno }}</td>
@@ -33,7 +33,6 @@
                         <td>{{ $singleuser->total_hour }}h {{ $singleuser->total_minute }}m</td>
                         <td>{{ $singleuser->status }}</td>
                         <td>
-                        <input type="datetime-local">
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editRole">
                                 <i class="fas fa-cog"></i>
                             </button>
@@ -57,23 +56,11 @@
                 <h4 class="modal-title">Create New OT Claim</h4>
             </div>
             <div class="modal-body">
-                <form action="{{route('ot.store')}}" method="POST">
+                <form action="{{route('ot.create')}}" method="POST">
                     @csrf
-                    <input type="text" class="form-control hidden" id="hour" name="hour" value="{{$hour}}" required>
-                    <input type="text" class="form-control hidden" id="minute" name="minute" value="{{$minute}}" required>
                     <div class="form-group">
                         <label for="inputname">Select Date:</label>
                         <input type="date" class="form-control" id="inputdate" name="inputdate" value="" required>
-                        <!-- <input type="datetime-local" id="inputdatestart" name="inputdatestart" value="">
-                        <input type="datetime-local" id="inputdateend" name="inputdateend" value="3414-01-22T03:02" min="2018-06-07T00:00" max="2018-06-14T00:00"> -->
-                    </div>
-                    <div class="form-group">
-                        <label for="inputname">Start Time:</label>
-                        <input type="time" class="form-control" id="inputtimestart" name="inputtimestart" value="" required>
-                    </div>    
-                    <div class="form-group">
-                        <label for="inputname">End Time:</label>
-                        <input type="time" class="form-control" id="inputtimeend" name="inputtimeend" value="" required>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">CREATE</button>
@@ -100,17 +87,16 @@ $(document).ready(function() {
 
 $('#newOT').on('show.bs.modal', function() {
     var dt = new Date();
-    var m = dt.getMonth();
+    var m = dt.getMonth()+1;
     if(m < 10){
         m = "0"+m;
     }
     $("#inputdate").val(dt.getFullYear()+"-"+m+"-"+dt.getDate());
-    $("#inputtimestart").val(dt.getHours()+":"+dt.getMinutes());
-    $("#inputtimeend").val(dt.getHours()+":"+dt.getMinutes());
+    $("#inputdate").attr("max", dt.getFullYear()+"-"+m+"-"+dt.getDate());
+    
 
     // $("#inputdatestart").val(dt.getFullYear()+"-"+m+"-"+dt.getDate()+"T"+dt.getHours()+":"+dt.getMinutes());
     // $("#inputdateend").val(dt.getFullYear()+"-"+m+"-"+dt.getDate()+"T"+dt.getHours()+":"+dt.getMinutes());
-    
 });
 </script>
 @stop

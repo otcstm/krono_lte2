@@ -18,15 +18,18 @@ class CreateOvertimesTable extends Migration
             $table->timestamps();
             $table->string('refno')->unique();
             $table->integer('user_id');
-            $table->datetime('date_created');
+            $table->date('date');
+            $table->date('date_created');
+            $table->date('date_expiry');
             $table->integer('total_hour');
             $table->integer('total_minute');
             $table->string('status')->nullable();
             $table->string('company_id')->nullable();
             $table->string('state_id')->nullable();
             $table->integer('approver_id')->nullable();
-            $table->integer('verifier_id')->nullable();
-            $table->string('remark')->nullable();
+            $table->integer('verifier_id')->nullable();            
+            $table->integer('daytype_id')->nullable();
+            $table->string('justification')->nullable();
         });
     }
 

@@ -6,7 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-date_default_timezone_set("Asia/Kuala_Lumpur");
+// date_default_timezone_set("Asia/Kuala_Lumpur");
 
 class Controller extends BaseController
 {
