@@ -11,102 +11,66 @@ use App\Http\Controllers\Controller;
 
 class CompanyController extends Controller
 {
-    public function __construct()
-    {
-        //abort_if(Gate::denies('admin_roles'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+  public function index()
+  {
+      $company = Company::all();
+
+      return view('admin.company', ['companies' => $company]);
+  }
+
+  public function store(Request $req)
+  {
+    $check = Company::find($req->inputcomp);
+
+    if(!$check){
+      $company_var = new Company;
+      $company_var->id = $req->inputcomp;
+      $company_var->company_descr = $req->inputdescr;
+      $company_var->source  = 'OT';
+      $company_var->created_by  = $req->user()->id;
+      $company_var->save();
+      $execute = UserHelper::LogUserAct($req, "Company Management", "Create Company " .$req->inputcomp);
+      $a_text = 'Successfully created company '.$req->inputcomp;
+      $a_type = "success";
+  }
+  else{
+      $a_text = 'Company code '.$req->inputcomp .' already exist.';
+      $a_type = "warning";
+      }
+      return redirect(route('company.index', [], false))
+      ->with(['a_text' => $a_text,'a_type' => $a_type]);
     }
 
-    public function index(Request $req)
+  public function update(Request $req)
     {
-        $companies = $this->list();
+    //  dd($req->all());
+      $company_var = Company::find($req->eid);
+      if($company_var){
+            $company_var->company_descr = $req->editdescr;
+            $company_var->updated_by  = $req->user()->id;
+            $company_var->source  = 'OT';
+            $company_var->save();
+            $execute = UserHelper::LogUserAct($req, "Company Management", "Update Company " .$req->eid);
+            return redirect(route('company.index', [], false))->with(['a_text' => 'Successfully updated company '. $req->eid , 'a_type' => 'success']);
 
-        $alert = Session('alert') ? Session('alert') : 'rest';
-        $ac = Session('ac') ? Session('ac') : 'info';
-        return view('admin.companies',['companies' => $companies,'alert'=>$alert, 'ac'=>$ac]);
+      } else {
+        return redirect(route('company.index', [], false))
+        ->with(['a_text' =>'Company' .$req->eid. ' not found.', 'a_type' => 'warning']);
+      }
     }
-
-    public function update(Request $req)
-    {
-        $company_var = Company::findOrFail($req->id);
-        $company_var->company_descr = $req->company_descr;
-        $company_var->updated_by  = $req->user()->id;
-        $company_var->source  = 'OT';
-    //    $LogUserAct = doUserLogs($req,'Company', __FUNCTION__);
-        $company_var->save();
-        $ac = 'info';
-        $alert = 'updated ' . $req->company_code .':' .$req->company_descr;
-        $companies = $this->list();
-
-        return redirect(route('company.index', [], false))->
-        with([
-          'alert' => $alert,
-          'ac'=>$ac
-        ]);
-    }
-
-    public function store(Request $req)
-    {
-        $company_check = Company::find($req->company_code);
-        $alert = "string";
-        $ac = 'info';
-
-        if(!$company_check){
-        $company_var = new Company;
-        $company_var->id = $req->company_code;
-        $company_var->company_descr = $req->company_descr;
-        $company_var->source  = 'OT';
-        $company_var->updated_by  = $req->user()->id;
-        $company_var->created_by  = $req->user()->id;
-        $company_var->save();
-
-        $alert = 'created ' . $req->company_code .':' .$req->company_descr;
-        }
-        else{
-            $ac = 'danger';
-            $alert = $req->company_code .' already existed and will not be added';
-        }
-        return redirect(route('company.index', [], false))->
-        with([
-          'alert' => $alert,
-          'ac'=>$ac
-        ]);
-
-
-    }
-
 
     public function destroy(Request $req)
     {
-        //check id dalam table user
-      //  $check_dependencies = User::find($req->company_code);
 
-        $companies = $this->list();
-        $cm = $req->company_id;
-        $company_log = Company::find($req->company_id);
-        $company_log ->updated_by  = $req->user()->id;
-    //    $LogUserAct = doUserLogs($req,'Company', __FUNCTION__);
-        $company_log ->save();
-        Company::destroy($cm);
+      $cm = Company::find($req->inputid);
+      if($cm){
+        $execute = UserHelper::LogUserAct($req, "Company Management", "Delete Company " .$req->inputid);
+        $cm->save();
+        $cm->delete();
 
-
-      //  Company::softDeletes($cm);
-
-
-        $ac = 'info';
-        $alert = $req->company_id .' has been destroyed';
-      //  $companies = $this->list();
-      //  return view('admin.companies',['companies' => $companies,'alert'=>$alert, 'ac'=>$ac]);
-        return redirect(route('company.index', [], false))->
-        with([
-          'alert' => $alert,
-          'ac'=>$ac
-        ]);
+        return redirect(route('company.index', [], false))->with(['a_text' => 'Company '.$req ->inputid. ' deleted', 'a_type' => 'warning']);
+      } else {
+        return redirect(route('company.index', [], false))->with(['a_text' => 'Company '.$req ->inputid. ' not found', 'a_type' => 'danger']);
+      }
     }
-
-    public static function list()
-    {
-        $companies = Company::all();
-        return $companies;
-    }
-
-}
+  }
