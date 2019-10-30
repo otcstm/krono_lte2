@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Holiday;
+use App\HolidayCalendar;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\StateController;
 use App\State;
@@ -49,26 +50,32 @@ class HolidayController extends Controller
     public function insert(Request $req)
     {
 
+
         $a1 = new Holiday;
+        $user   = $req->user();
+        $states = State::find($req->state_selections);
+
+
         $a1->dt             = $req->dt;
         $a1->descr          = $req->descr;
         $a1->guarantee_flag = $req->guarantee_flag;
-        $a1->states         = $req->state_selections;
+        $a1->update_by     = $user->id;
+
+        $a1->save();
+        foreach ($states as $st) {
+          $hc = new HolidayCalendar;
+          $hc->holiday_id = $a1->id;
+          $hc->state_id   = $st->id;
+          $hc->update_by  = $user->id;
+          $hc->save();
+          echo($hc);
+        }
 
         return $a1;
-        //return view('holiday.insertHolidayTemp',['a1' => $a1]);
-        //return redirect()->route('insertHolidayTemp');
-
-
     }
 
 
-    public function insertHolidayTemp()
-    {
 
-
-        return view('admin.holiday.insertHolidayTemp');
-    }
 
 
     public function store(Request $request)
@@ -87,7 +94,50 @@ class HolidayController extends Controller
 
     public function show(Holiday $holiday)
     {
-        //
+      $hol = Holiday::all();
+      $state = State::all();
+
+
+
+      // first, prepare starting header
+      $header = ['id', 'date', 'event'];
+      $content = [];
+
+      // pastu, tambah state kat header
+      foreach($state as $satustate){
+        array_push($header, $satustate->id);
+      }
+
+      // dd($header);
+
+      // next, prepare table content based on event
+      foreach ($hol as $value) {
+
+        $isi = [$value->id, $value->dt, $value->descr];
+
+        $thisEventStateIDS = [];
+        foreach($value->StatesThatCelebrateThis as $oneholcal){
+          array_push($thisEventStateIDS, $oneholcal->state_id);
+        }
+
+        foreach($state as $satustate){
+          if(in_array($satustate->id, $thisEventStateIDS)){
+            array_push($isi, 'O');
+          } else {
+            array_push($isi, 'X');
+          }
+        }
+
+        array_push($content, $isi);
+      }
+
+      $output = [
+        'header' => $header,
+        'content' => $content
+      ];
+
+      dd($output);
+
     }
 
     /**
