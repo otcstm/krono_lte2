@@ -91,7 +91,6 @@ Route::group(['middleware' => ['auth']], function () {
   //Log activity
   Route::get('/log/listUserLogs', 'MiscController@listUserLogs')->name('log.listUserLogs');
   Route::get('/log/updUserLogs', 'MiscController@logUserAct')->name('log.logUserAct');
-<<<<<<< HEAD
 
   //OT activity
   Route::get('/overtime', 'OvertimeController@show')->name('ot.show');
@@ -99,8 +98,6 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('overtime/create', 'OvertimeController@create')->name('ot.create');
   Route::post('overtime/addtime', 'OvertimeController@addtime')->name('ot.addtime');
   Route::post('overtime/store', 'OvertimeController@store')->name('ot.store');
-=======
->>>>>>> ced930a916fc071066a043717c72d260a554aef9
 });
 
 Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
