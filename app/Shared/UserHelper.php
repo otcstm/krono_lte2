@@ -3,7 +3,9 @@
 namespace App\Shared;
 
 use App\User;
+use App\UserLog;
 use App\StaffPunch;
+use App\SapPersdata;
 
 class UserHelper {
 
@@ -66,5 +68,50 @@ class UserHelper {
       'status' => $msg,
       'data' => $currentp
     ];
+  }
+
+  // Update User Activity
+  public static function LogUserAct($req, $mn, $at)
+    {
+        //$req = Request::all();
+        $user_logs = new UserLog;
+
+        $user_logs->user_id = $req->user()->id;
+        $user_logs->module_name = strtoupper($mn);
+        $user_logs->activity_type = ucfirst($at);
+        $user_logs->session_id = $req->session()->getId();
+        $user_logs->ip_address = $req->ip();
+        $user_logs->user_agent = $req->userAgent();
+        $user_logs->created_by = $req->user()->id;
+        $user_logs->save();
+
+        return 'OK';
+    }
+
+  public static function GetMySubords($persno, $recursive = false){
+    $retval = [];
+
+    $directreporttome = SapPersdata::where('reptto', $persno)->get();
+
+    foreach($directreporttome as $onestaff){
+      $sdata = [
+        'id' => $onestaff->persno,
+        'staff_no' => $onestaff->staffno,
+        'name' => $onestaff->complete_name,
+        'psgroup' => $onestaff->psgroup,
+        'position' => $onestaff->position,
+      ];
+
+      array_push($retval, $sdata);
+
+      if($recursive){
+        // find this person's subs
+        $csubord = UserHelper::GetMySubords($onestaff->persno, $recursive);
+        $retval = array_merge($retval, $csubord);
+      }
+    }
+
+    return $retval;
+
   }
 }

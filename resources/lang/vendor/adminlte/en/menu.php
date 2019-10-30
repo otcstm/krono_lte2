@@ -7,11 +7,17 @@ return [
     'manage_role'     => 'Manage Role',
     'manage_company'  => 'Manage Company',
     'manage_state'    => 'Manage State',
+    'manage_wdays'    => 'Work Day Type',
+    'admin_user_menu'   => 'User Admin Thingy',
+
 
 
     'user_menu'       => 'USER',
     'user_punch'      => 'Clock In and Clock Out',
     'user_home'       => 'My Dashboard',
+    'user_punch'      => 'Clock In/Out',
+    'user_setting'    => 'My Settings',
+    'user_shift_sc'   => 'My Shift Schedule',
 
     'ot_menu'         => 'OVERTIME',
     'ot_apply'        => 'Apply New OT',
@@ -24,7 +30,8 @@ return [
     'reassign_ver'    => 'Reassign Verifier',
 
     'shift_menu'      => 'SHIFT',
-    'shift_plan'      => 'Shift Plan',
+    'shift_plan'      => 'Plan Shifts',
+    'shift_group'      => 'Shift Groups',
     'shift_template'  => 'Shift Template',
 
     'rpt_menu'        => 'REPORTS',

@@ -10,6 +10,10 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    protected $primaryKey = 'id'; // or null
+
+    public $incrementing = false;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -31,5 +35,30 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany(Role::class);
+    }
+
+    public function company()
+    {
+        return $this->hasOne(Company::class);
+    }
+
+    public function state()
+    {
+        return $this->hasOne(State::class);
+    }
+
+    public function companyid()
+    {
+        return $this->belongsTo(Company::class,'company_id')->withDefault(['company_descr' => 'NULL']);
+    }
+
+    public function stateid()
+    {
+        return $this->belongsTo(State::class,'state_id');
+    }
+
+    public function punchList()
+    {
+        return $this->hasMany(StaffPunch::class);
     }
 }
