@@ -82,9 +82,9 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/admin/psubarea/delete','Admin\PsubareaController@destroy')->name('psubarea.delete');
 
 
-  Route::get('/holiday/createHoliday', 'Admin\HolidayController@create')->name('createHoliday');
-  Route::post('/holiday/insertHoliday', 'Admin\HolidayController@insert')->name('insertHoliday');
-
+  Route::get('/admin/holiday/create', 'Admin\HolidayController@create')->name('holiday.create');
+  Route::post('/admin/holiday/insert', 'Admin\HolidayController@insert')->name('holiday.insert');
+  Route::get('/admin/holiday/show', 'Admin\HolidayController@show')->name('holiday.show');
 
   // /admins ------------------------------------
 
