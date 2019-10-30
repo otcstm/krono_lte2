@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateShiftPlanHistoriesTable extends Migration
+class CreateStaffAdditionalInfosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,12 @@ class CreateShiftPlanHistoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('shift_plan_histories', function (Blueprint $table) {
+        Schema::create('staff_additional_infos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->unsignedBigInteger('shift_plan_id');
             $table->integer('user_id');
-            $table->string('action', 30);
-            $table->text('remark')->nullable();
-
-            $table->foreign('shift_plan_id')
-              ->references('id')
-              ->on('shift_plans')
-              ->onDelete('cascade');
+            $table->timestamp('last_planned_day')->nullable();
+            $table->timestamp('last_planning_day')->nullable();
         });
     }
 
@@ -35,6 +29,6 @@ class CreateShiftPlanHistoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shift_plan_histories');
+        Schema::dropIfExists('staff_additional_infos');
     }
 }

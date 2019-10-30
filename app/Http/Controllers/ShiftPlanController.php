@@ -6,8 +6,13 @@ use Illuminate\Http\Request;
 use App\ShiftPlan;
 use App\ShiftPlanHistory;
 use App\ShiftPlanStaff;
+use App\ShiftPlanStaffTemplate;
+use App\ShiftPlanStaffDay;
 use App\ShiftGroup;
+use App\ShiftPattern;
+use App\Shared\UserHelper;
 use \Carbon\Carbon;
+use \Calendar;
 
 class ShiftPlanController extends Controller
 {
@@ -65,6 +70,23 @@ class ShiftPlanController extends Controller
         $sphist->action = 'Create';
         $sphist->save();
 
+        // add the members
+        foreach($sgrp->Members as $amember){
+          $uai = UserHelper::GetUserInfo($amember->user_id)['extra'];
+
+          $numbr = new ShiftPlanStaff;
+          $numbr->shift_plan_id = $sp->id;
+          $numbr->user_id = $amember->user_id;
+          $numbr->plan_month = $sp->plan_month;
+          $numbr->status = 'Planning';
+
+          if(isset($uai->last_planned_day)){
+            $numbr->start_date = $uai->last_planned_day;
+          }
+
+          $numbr->save();
+        }
+
         return redirect(route('shift.view', ['id' => $sp->id], false));
       } else {
         // shift group doesnt exist
@@ -74,9 +96,11 @@ class ShiftPlanController extends Controller
 
     public function viewDetail(Request $req){
       $sp = ShiftPlan::find($req->id);
+      $blankc = Calendar::addEvents([]);
       if($sp){
         return view('shiftplan.plan_detail', [
-          'sp' => $sp
+          'sp' => $sp,
+          'cal' => $blankc
         ]);
       } else {
         return redirect(route('shift.index', [], false))->with(['alert' => 'Selected plan not found', 'a_type' => 'warning']);
@@ -102,13 +126,7 @@ class ShiftPlanController extends Controller
           return redirect()->back()->withInput()->with(['alert' => 'Can only delete shift plans that are in Planning stage', 'a_type' => 'danger']);
         }
 
-        // delete the histories
-        ShiftPlanHistory::where('shift_plan_id', $sp->id)->delete();
-
-        // delete the members
-        ShiftPlanHistory::where('shift_plan_id', $sp->id)->delete();
-
-        // finally, delete the plan itself
+        // delete the plan
         $sp->delete();
 
         return redirect(route('shift.index', [], false))->with([
@@ -136,7 +154,18 @@ class ShiftPlanController extends Controller
     }
 
     public function staffInfo(Request $req){
+      $sps = ShiftPlanStaff::find($req->id);
+      $spattern = ShiftPattern::all();
+      if($sps){
 
+        return view('shiftplan.staff_detail', [
+          'sps' => $sps,
+          'patterns' => $spattern
+        ]);
+
+      } else {
+        return redirect()->back()->with(['alert' => 'Selected staff no longer exist in plan group', 'a_type' => 'danger']);
+      }
     }
 
     public function staffPushTemplate(Request $req){
