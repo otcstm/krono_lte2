@@ -66,7 +66,7 @@
        <tbody>
          @foreach($groupd->Members as $ap)
          <tr>
-           <td>{{ $ap->user_id }}</td>
+           <td>{{ $ap->User->name }}</td>
            <td><form action="{{ route('shift.staff.del', [], false) }}" method="post">
              @csrf
              <input type="hidden" name="group_id" value="{{ $ap->shift_group_id }}" />

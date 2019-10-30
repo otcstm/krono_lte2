@@ -12,7 +12,7 @@ class ShiftGroupController extends Controller
 {
   public function index(Request $req){
 
-    $all_subord = UserHelper::GetMySubords(20229, true);
+    $all_subord = UserHelper::GetMySubords($req->user()->id, true);
     $freesubord = [];
     $ingroup = [];
 
@@ -63,7 +63,10 @@ class ShiftGroupController extends Controller
     $grup = ShiftGroup::find($req->id);
     if($grup){
 
-      $all_subord = UserHelper::GetMySubords(20229, true);
+      $all_subord = UserHelper::GetMySubords($req->user()->id, true);
+
+      // return $all_subord;
+
       $freesubord = [];
 
       foreach($all_subord as $key => $os){

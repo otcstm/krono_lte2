@@ -23,6 +23,7 @@ class ShiftPatternController extends Controller
     $nsp = new ShiftPattern;
     $nsp->code = $req->code;
     $nsp->description = $req->description;
+    $nsp->is_weekly = $req->filled('is_weekly');
     $nsp->created_by = $req->user()->id;
     $nsp->save();
 

@@ -16,7 +16,7 @@ class CreateShiftPlanStaffTable extends Migration
         Schema::create('shift_plan_staff', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->bigInteger('shift_plan_id');
+            $table->unsignedBigInteger('shift_plan_id');
             $table->integer('user_id');
             $table->timestamp('plan_month')->nullable();
             $table->string('status', 20)->nullable();
@@ -24,6 +24,11 @@ class CreateShiftPlanStaffTable extends Migration
             $table->timestamp('end_date')->nullable();
             $table->smallInteger('total_days')->default(0);
             $table->smallInteger('total_minutes')->default(0);
+
+            $table->foreign('shift_plan_id')
+              ->references('id')
+              ->on('shift_plans')
+              ->onDelete('cascade');
         });
     }
 
