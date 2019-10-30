@@ -21,6 +21,8 @@
         </form>
     </div>
 </div>
+
+@if(session()->has('staffs'))
 <div class="panel panel-default">    
     <div class="panel-heading panel-primary">List of Staff</div>
     <div class="panel-body">
@@ -77,7 +79,7 @@
         </div>   
     </div>
 </div>
-
+@endif
 <div id="editRole" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -169,7 +171,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">User Details</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="overflow-y: scroll; max-height: 70vh">
                 <p><b>Staff No:</b></p>
                 <p class="showno"><p><br>
                 <p><b>Staff Personal No:</b></p>
