@@ -15,8 +15,6 @@ class CreatePsubareasTable extends Migration
     {
         Schema::create('psubareas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
-            $table->softDeletes();
             $table->string('company_id',10);
             $table->string('persarea', 25);
             $table->string('perssubarea', 25);
@@ -26,6 +24,8 @@ class CreatePsubareasTable extends Migration
             $table->integer('created_by');
             $table->integer('last_edited_by')->nullable();
             $table->integer('deleted_by')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

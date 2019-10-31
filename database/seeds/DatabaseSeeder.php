@@ -26,5 +26,6 @@ class DatabaseSeeder extends Seeder
         $this->call(UserRecordsTableSeeder::class);
 
 
+        $this->call(PsubareasTableSeeder::class);
     }
 }
