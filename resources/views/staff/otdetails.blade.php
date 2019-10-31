@@ -24,6 +24,7 @@
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newOT">
                 ADD TIME
             </button>
+            <p>Available time to claim: {{$claimtime->hour}}h {{$claimtime->minute}}m</p>
         </div>
         <div class="table-responsive">
             <table id="tOTList" class="table table-bordered">
@@ -41,10 +42,9 @@
                     <tr>
                         <td>{{ ++$no }}</td>
                         <td>{{ $singleuser->refno }}</td>
-                        <td>{{ $singleuser->title }}</td>
-                        <td>{{ $singleuser->total_hour }}h {{ $singleuser->total_minute }}m</td>
+                        <td>{{ date('H:i', strtotime($singleuser->start_time)) }} - {{ date('H:i', strtotime($singleuser->end_time)) }}</td>
+                        <td>{{ $singleuser->hour }}h {{ $singleuser->minute }}m</td>
                         <td>
-                        <input type="datetime-local">
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editRole">
                                 <i class="fas fa-cog"></i>
                             </button>
@@ -71,6 +71,7 @@
                 <form action="{{route('ot.addtime')}}" method="POST">
                     @csrf
                     <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required>
+                    <input type="text" class="form-control hidden" id="inputdate" name="inputdate" value="{{$claimdate}}" required>
                     <div class="form-group">
                         <label for="inputname">Clock In/Out:</label>
                         <!-- <select name="company" id="company" required>
@@ -83,9 +84,13 @@
                     </div>
                     <!-- <div class="form-group"> -->
                         <label for="inputname">Start/End Time:</label>
-                        <input type="time"  id="inputstart" name="inputstart" value="00:00" required>
-                        <input type="time" id="inputend" name="inputend" value="23:59" required>
+                        <input type="time"  id="inputstart" name="inputstart" value="01:00" required>
+                        <input type="time" id="inputend" name="inputend" value="02:00" required>
                     <!-- </div> -->
+                    <div class="form-group">
+                    <label for="inputname">Justification:</label>
+                        <input class="form-control" type="text"  id="inputremark" name="inputremark" value="" placeholder="Write justification" required>
+                    </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">SAVE</button>
                     </div>
@@ -97,6 +102,25 @@
         </div>
     </div>
 </div>
+
+@if(session()->has('feedback'))
+<div id="feedback" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+            <div class="modal-body text-center">
+                <div class="glyphicon glyphicon-{{session()->get('feedback_icon')}}" style="color: {{session()->get('feedback_color')}}; font-size: 32px;"></div>
+                <p>{{session()->get('feedback_text')}}<p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 @stop
 
 @section('js')
@@ -107,6 +131,31 @@
 //         "order" : [[2, "asc"]],
 //     });
 // });
+@if(session()->has('feedback'))
+    $('#feedback').modal('show');   
+@endif
 
+$("#inputstart").change(function(){
+    var t = ($("#inputstart").val()).split(":");
+    var h = parseInt(t[0]);
+    var m = parseInt(t[1])+1;
+    if(m==60){
+        h=h+1;
+        m=0;
+        if(h==24){
+            h=0;
+        }
+    }
+    sh = h.toString();
+    while(sh.length<2){
+        sh = "0"+sh;
+
+    }
+    sm = m.toString();
+    while(sm.length<2){
+        sm = "0"+sm;
+    }
+    $("#inputend").attr("min", sh+":"+sm);
+});
 </script>
 @stop

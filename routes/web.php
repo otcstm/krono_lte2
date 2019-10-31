@@ -93,10 +93,13 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/log/updUserLogs', 'MiscController@logUserAct')->name('log.logUserAct');
 
   //OT activity
-  Route::get('/overtime', 'OvertimeController@show')->name('ot.show');
+  Route::get('/overtime', 'OvertimeController@showOT')->name('ot.showOT');
+  Route::get('/overtime/detail', 'OvertimeController@showDetails')->name('ot.showDetails');
   Route::get('/overtime/logs', 'OvertimeController@logs')->name('ot.logs');
   Route::post('overtime/create', 'OvertimeController@create')->name('ot.create');
+  Route::post('overtime/edit', 'OvertimeController@create')->name('ot.edit');
   Route::post('overtime/addtime', 'OvertimeController@addtime')->name('ot.addtime');
+  Route::post('overtime/updatetime', 'OvertimeController@addtime')->name('ot.updatetime');
   Route::post('overtime/store', 'OvertimeController@store')->name('ot.store');
 });
 
