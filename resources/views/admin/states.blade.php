@@ -18,7 +18,7 @@
 
 				<!-- /.box-header -->
 				<!-- form start -->
-				<form role="form" method="POST" action="{{ route('state.store') }}">
+				<form role="form" method="POST" action="{{ route('state.store',[],false) }}">
 					@csrf
 					<div class="box-body">
 						<div class="form-group">
@@ -60,7 +60,7 @@
 
 			<div class="box-body">
 				<h3 class="box-title">Add New States</h3>
-				<form method="POST" action="{{route('state.update') }}">
+				<form method="POST" action="{{route('state.update',[],false) }}">
 					@csrf
 					<div class="modal-body">
 						<input type="hidden" value="0" name="id" id="edit-id-hidden" />
@@ -90,7 +90,7 @@
 
 
 
-<form method="POST" action="{{route('state.destroy') }}"
+<form method="POST" action="{{route('state.destroy',[],false) }}"
 	id="formDeleteID">
 	@csrf <input name="state_id" id="delete_state_id" type="hidden" />
 
@@ -121,7 +121,7 @@ $('#editStateForm').on('show.bs.modal', function(e) {
 
 function delState(stid){
 
-     $.post("{{route('state.destroy') }}", { state_id: stid , _token: "{{ csrf_token() }}" },
+     $.post("{{route('state.destroy',[],false) }}", { state_id: stid , _token: "{{ csrf_token() }}" },
        function(data) {
          alert(data);
 

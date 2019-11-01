@@ -75,15 +75,7 @@ class HolidayController extends Controller
     }
 
 
-
-
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
+     /**
      * Display the specified resource.
      *
      * @param  \App\Holiday  $holiday
@@ -108,23 +100,21 @@ class HolidayController extends Controller
         array_push($header, $satustate->id);
       }
 
-      // dd($header);
-
       // next, prepare table content based on event
       foreach ($hol as $value) {
 
         $isi = [$value->id, $value->dt, $value->descr];
 
         $thisEventStateIDS = [];
-        foreach($value->StatesThatCelebrateThis as $oneholcal){
-          array_push($thisEventStateIDS, $oneholcal->state_id);
+        foreach($value->StatesThatCelebrateThis as $holCal){
+          array_push($thisEventStateIDS, $holCal->state_id);
         }
 
         foreach($state as $satustate){
           if(in_array($satustate->id, $thisEventStateIDS)){
-            array_push($isi, 'O');
+            array_push($isi, '*');
           } else {
-            array_push($isi, 'X');
+            array_push($isi, '');
           }
         }
 
@@ -136,7 +126,13 @@ class HolidayController extends Controller
         'content' => $content
       ];
 
-      dd($output);
+ //dd($output);
+      $states = State::all();
+      return view('admin.holiday.show',[
+          'header' => $header,
+          'content'=> $content,
+           'states'=> $states]);
+
 
     }
 
@@ -148,6 +144,11 @@ class HolidayController extends Controller
      */
     public function edit(Holiday $holiday)
     {
+      $states = State::all();
+      return view('admin.holiday.edit',[
+
+           'states'=> $states]);
+
         //
     }
 
