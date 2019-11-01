@@ -130,40 +130,7 @@ return [
     */
 
     'menu' => [
-        [
-            'text' => 'search',
-            'search' => true,
-        ],
         ['header' => 'admin_menu'],
-        [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
-        [
-            'text' => 'manage_role',
-            'url'  => '/admin/role',
-            'icon' => 'fas fa-cogs',
-            // 'can' => 'admin-nav-menu',
-        ],
-        [
-            'text' => 'user_autho',
-            'url'  => '/admin/staff/auth',
-            'icon' => 'fas fa-cogs',
-            // 'can' => 'admin-nav-menu',
-        ],
-        [
-            'text' => 'User Management',
-            'url'  => '/admin/staff',
-            'icon' => 'fas fa-cogs',
-            // 'can' => 'admin-nav-menu',
-        ],
-        [
-            'text' => 'manage_wdays',
-            'url'  => '/admin/workday',
-            'icon' => 'fas fa-cogs',
-            // 'can' => 'admin-nav-menu',
-        ],
         [
           'text' => 'system_config',
           'icon' => 'fas fa-fw fa-tools',
@@ -362,26 +329,6 @@ return [
             'label_color' => 'warning',
             // 'can' => 'ot-nav-menu',
         ],
-        [
-          'header' => 'shift_menu',
-          // 'can' => 'admin-nav-menu',
-        ],
-
-      [
-            'text' => 'shift_plan',
-            'url'  => '#',
-            'icon' => 'far fa-calendar-alt',
-            'label_color' => 'warning',
-            // 'can' => 'ot-nav-menu',
-        ],
-        [
-              'text' => 'shift_template',
-              'url'  => '#',
-              'icon' => 'far fa-calendar-alt',
-              'label_color' => 'warning',
-              // 'can' => 'ot-nav-menu',
-          ],
-
         [
           'header' => 'rpt_menu',
           'text' => 'user_setting',
