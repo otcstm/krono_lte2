@@ -6,15 +6,23 @@ use App\User;
 use App\Role;
 use App\Company;
 use App\State;
+use Session;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\Controller;
 
 class StaffController extends Controller
 {
-    public function showStaff(){
-        $staff = User::all();
-        return view('admin.staff', ['staffs' => $staff]);
+    public function showStaff(Request $req){
+        if($req->session()->has('staffs')) {
+          $staff = $req->session()->get('staffs');
+          return view('admin.staff',[
+            'staffs' => $req->session()->get('staffs')
+          ]);
+        }else{
+          $staff = [];
+          return view('admin.staff',['staffs' => $staff]);
+        }
     }
 
     public function searchStaff(Request $req){
@@ -33,15 +41,14 @@ class StaffController extends Controller
           $req->session()->flash('feedback_icon',"remove");
           $req->session()->flash('feedback_color',"#D9534F");
         }
-      }else{
-        $staff = User::all();
       }
+      Session::put(['staffs'=>$staff]);
       if(!empty($auth)){
-        return redirect(route('staff.list.auth',[],false))->with(['staffs'=>$staff]);
+        return redirect(route('staff.list.auth',[],false));
       }else if(!empty($mgmt)){
-        return redirect(route('staff.list.mgmt',[],false))->with(['staffs'=>$staff]);
+        return redirect(route('staff.list.mgmt',[],false));
       }else{
-        return redirect(route('staff.list',[],false))->with(['staffs'=>$staff]);
+        return redirect(route('staff.list',[],false));
       }
     }
 
@@ -60,7 +67,7 @@ class StaffController extends Controller
           'feedback_color' =>  $req->session()->get('feedback_color')
         ]);
       }else{
-        $staff = User::all();
+        $staff = [];
         return view('admin.staff',['staffs' => $staff, 'roles' => $role, 'auth'=>$auth]);
       }
     }
@@ -82,7 +89,7 @@ class StaffController extends Controller
           'feedback_color' =>  $req->session()->get('feedback_color')
         ]);
       }else{
-        $staff = User::all();
+        $staff = [];
         return view('admin.staff',['staffs' => $staff, 'companies' => $company, 'states' => $state, 'mgmt'=>$mgmt]);
       }
     }
@@ -96,9 +103,9 @@ class StaffController extends Controller
       $feedback_text = "Successfully updated " .$req->inputno. " roles.";
       $feedback_icon = "ok";
       $feedback_color = "#5CB85C";
-      $staff = User::all(); 
+      // $staff = User::all(); 
       return redirect(route('staff.list.auth',[],false))->with([
-          'staffs'=>$staff,
+          // 'staffs'=>$staff,
           'feedback' => $feedback,
           'feedback_text' => $feedback_text,
           'feedback_icon' => $feedback_icon,
@@ -116,9 +123,9 @@ class StaffController extends Controller
       $feedback_text = "Successfully updated " .$req->inputno. ".";
       $feedback_icon = "ok";
       $feedback_color = "#5CB85C";
-      $staff = User::all(); 
+      // $staff = User::all(); 
       return redirect(route('staff.list.mgmt',[],false))->with([
-          'staffs'=>$staff,
+          // 'staffs'=>$staff,
           'feedback' => $feedback,
           'feedback_text' => $feedback_text,
           'feedback_icon' => $feedback_icon,

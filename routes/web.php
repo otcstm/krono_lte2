@@ -82,15 +82,22 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/admin/psubarea/delete','Admin\PsubareaController@destroy')->name('psubarea.delete');
 
 
-  Route::get('/holiday/createHoliday', 'Admin\HolidayController@create')->name('createHoliday');
-  Route::post('/holiday/insertHoliday', 'Admin\HolidayController@insert')->name('insertHoliday');
-
+  Route::get('/admin/holiday/create', 'Admin\HolidayController@create')->name('holiday.create');
+  Route::post('/admin/holiday/insert', 'Admin\HolidayController@insert')->name('holiday.insert');
+  Route::get('/admin/holiday/show', 'Admin\HolidayController@show')->name('holiday.show');
 
   // /admins ------------------------------------
 
   //Log activity
   Route::get('/log/listUserLogs', 'MiscController@listUserLogs')->name('log.listUserLogs');
   Route::get('/log/updUserLogs', 'MiscController@logUserAct')->name('log.logUserAct');
+
+  //OT activity
+  Route::get('/overtime', 'OvertimeController@show')->name('ot.show');
+  Route::get('/overtime/logs', 'OvertimeController@logs')->name('ot.logs');
+  Route::post('overtime/create', 'OvertimeController@create')->name('ot.create');
+  Route::post('overtime/addtime', 'OvertimeController@addtime')->name('ot.addtime');
+  Route::post('overtime/store', 'OvertimeController@store')->name('ot.store');
 });
 
 Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {

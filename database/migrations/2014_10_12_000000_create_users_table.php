@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->integer('persno')->nullable();
             $table->string('new_ic')->unique();
             $table->string('company_id')->nullable();
-            $table->integer('orgunit');
+            $table->integer('orgunit')->nullable();
             $table->string('persarea',10)->nullable();
             $table->string('perssubarea',10)->nullable();
             $table->string('state_id')->nullable();

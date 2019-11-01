@@ -15,9 +15,9 @@ class CreateHolidayCalendarsTable extends Migration
     {
         Schema::create('holiday_calendars', function (Blueprint $table) {
             $table->bigIncrements('id');
-	    $table->bigInteger('holiday_id');
-	    $table->string('state_id');
-	    $table->bigInteger('update_by');
+            $table->bigInteger('holiday_id');
+            $table->string('state_id');
+            $table->bigInteger('update_by')->nullable();
             $table->timestamps();
         });
     }
