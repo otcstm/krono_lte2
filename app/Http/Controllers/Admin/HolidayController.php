@@ -29,9 +29,7 @@ class HolidayController extends Controller
     public function create()
     {
       $states = State::all();
-//         $statesCtrl = new StateController();
-//         $states = $statesCtrl->list();
- //       $states = StateController::list();
+
 
         return view('admin.holiday.createHoliday',[
             'states' => $states,]);
@@ -48,19 +46,13 @@ class HolidayController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function insert(Request $req)
-    {
-
-
-        $a1 = new Holiday;
+    {   $a1 = new Holiday;
         $user   = $req->user();
         $states = State::find($req->state_selections);
-
-
         $a1->dt             = $req->dt;
         $a1->descr          = $req->descr;
         $a1->guarantee_flag = $req->guarantee_flag;
         $a1->update_by     = $user->id;
-
         $a1->save();
         foreach ($states as $st) {
           $hc = new HolidayCalendar;
@@ -70,7 +62,6 @@ class HolidayController extends Controller
           $hc->save();
           echo($hc);
         }
-
         return $a1;
     }
 
@@ -126,7 +117,7 @@ class HolidayController extends Controller
         'content' => $content
       ];
 
- //dd($output);
+
       $states = State::all();
       return view('admin.holiday.show',[
           'header' => $header,
@@ -142,11 +133,14 @@ class HolidayController extends Controller
      * @param  \App\Holiday  $holiday
      * @return \Illuminate\Http\Response
      */
-    public function edit(Holiday $holiday)
+    public function edit($id)
     {
+      $holiday = Holiday::find($id);
       $states = State::all();
+      //dd($holiday);
+      //dd($holiday->StatesThatCelebrateThis);
       return view('admin.holiday.edit',[
-
+           'holiday'=>$holiday,
            'states'=> $states]);
 
         //
@@ -159,9 +153,10 @@ class HolidayController extends Controller
      * @param  \App\Holiday  $holiday
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Holiday $holiday)
+    public function update(Request $req)
     {
-        //
+      $holiday = Holiday::find($req->id);
+        dd($holiday);
     }
 
     /**

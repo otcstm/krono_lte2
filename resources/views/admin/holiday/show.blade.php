@@ -13,7 +13,11 @@
   @foreach ($cmain as $c)
   <td>{{ $c }}</td>
   @endforeach
-  <th>{{$cmain[0]}}</th>
+  <th>
+<a href="{{ route('holiday.edit',['id'=>$cmain[0]],false) }}">Edit</a>
+    {{$cmain[0]}}
+
+  </th>
 </tr>
 
 @endforeach

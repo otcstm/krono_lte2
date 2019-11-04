@@ -10,6 +10,7 @@ return [
     'manage_psubarea' => 'Manage Psubarea',
     'manage_wdays'    => 'Work Day Type',
     'admin_user_menu'   => 'User Admin Thingy',
+    'manage_holiday'    => 'Manage Holiday',
 
 
 
