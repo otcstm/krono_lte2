@@ -4,7 +4,7 @@
 	<p><input type="button" class="check" value="Check All" />
    <input type="button" class="uncheck" value="UnCheck All" />
 </p>
-	 <form method="POST" action="{{ route('holiday.insert') }}">
+	 <form method="POST" action="{{ route('holiday.insert',[],false) }}">
 	 @csrf
 		<table>
 			<tr>

@@ -49,7 +49,7 @@ return [
     |
     */
 
-    'skin' => 'yellow',
+    'skin' => 'purple-light',
 
     /*
     |--------------------------------------------------------------------------
@@ -151,6 +151,13 @@ return [
                 'text' => 'manage_state',
                 'url' => '/admin/state/show',
                 'icon' => 'fas fa-map-marked-alt',
+                // 'can' => 'admin-nav-menu',
+            ],
+            [
+                'text' => 'manage_holiday',
+                'url' => '/admin/holiday/show',
+                'icon' => 'fas fa-umbrella-beach',
+                //'icon' => 'fas fa-hiking',
                 // 'can' => 'admin-nav-menu',
             ],
             [
