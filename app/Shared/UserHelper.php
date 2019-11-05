@@ -8,6 +8,7 @@ use App\StaffPunch;
 use App\SapPersdata;
 use \Carbon\Carbon;
 use DateTime;
+use App\StaffAdditionalInfo;
 
 class UserHelper {
 
@@ -15,8 +16,20 @@ class UserHelper {
 
   }
 
-  public static function GetUserInfo($staff_no){
+  public static function GetUserInfo($staff_id){
+    $sai = StaffAdditionalInfo::where('user_id', $staff_id)->first();
+    if($sai){
 
+    } else {
+      // create new
+      $sai = new StaffAdditionalInfo;
+      $sai->user_id = $staff_id;
+      $sai->save();
+    }
+
+    return [
+      'extra' => $sai
+    ];
   }
 
   public static function GetRequireAttCount(){
@@ -146,22 +159,15 @@ class UserHelper {
   public static function GetMySubords($persno, $recursive = false){
     $retval = [];
 
-    $directreporttome = SapPersdata::where('reptto', $persno)->get();
+    $directreporttome = User::where('reptto', $persno)->get();
 
     foreach($directreporttome as $onestaff){
-      $sdata = [
-        'id' => $onestaff->persno,
-        'staff_no' => $onestaff->staffno,
-        'name' => $onestaff->complete_name,
-        'psgroup' => $onestaff->psgroup,
-        'position' => $onestaff->position,
-      ];
 
-      array_push($retval, $sdata);
+      array_push($retval, $onestaff);
 
       if($recursive){
         // find this person's subs
-        $csubord = UserHelper::GetMySubords($onestaff->persno, $recursive);
+        $csubord = UserHelper::GetMySubords($onestaff->id, $recursive);
         $retval = array_merge($retval, $csubord);
       }
     }

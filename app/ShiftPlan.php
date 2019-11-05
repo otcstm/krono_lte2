@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ShiftPlan extends Model
 {
+
+  protected $dates = ['plan_month'];
+
   public function StaffList(){
     return $this->hasMany(ShiftPlanStaff::class, 'shift_plan_id');
   }

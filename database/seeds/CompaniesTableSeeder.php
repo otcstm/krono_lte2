@@ -308,6 +308,16 @@ class CompaniesTableSeeder extends Seeder
                 'created_at' => '2019-10-25 07:46:16',
                 'updated_at' => '2019-10-25 07:46:16',
             ),
+            29 =>
+            array (
+                'id' => '1420',
+                'company_descr' => 'NON SAP',
+                'source' => 'OT',
+                'updated_by' => '19562',
+                'created_by' => '19562',
+                'created_at' => '2019-10-25 07:46:16',
+                'updated_at' => '2019-10-25 07:46:16',
+            ),
         ));
 
 

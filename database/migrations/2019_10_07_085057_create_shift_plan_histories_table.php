@@ -16,9 +16,15 @@ class CreateShiftPlanHistoriesTable extends Migration
         Schema::create('shift_plan_histories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->unsignedBigInteger('shift_plan_id');
             $table->integer('user_id');
             $table->string('action', 30);
             $table->text('remark')->nullable();
+
+            $table->foreign('shift_plan_id')
+              ->references('id')
+              ->on('shift_plans')
+              ->onDelete('cascade');
         });
     }
 
