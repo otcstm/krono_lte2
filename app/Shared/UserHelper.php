@@ -78,15 +78,15 @@ class UserHelper {
       $timeout = new Carbon($out_time->format('Y-m-d'));
 
       // 1. check keluar hari yang sama atau tak
-      if($punchinori->diff($timeout)->d != 0){
+      if($punchinori->diff($timeout)->days != 0){
 
-        while($punchin->diff($timeout)->d > 0){
+        while($punchin->diff($timeout)->days > 0){
           $punchin->addDay();
           $out = $punchin->toDateTimeString();
           $in = new Carbon($timein->format('Y-m-d'));
 
           //cek $punchinori = $in, kalo tak same insert new staffpunch
-          if($punchinori->diff($in)->d != 0){
+          if($punchinori->diff($in)->days != 0){
           //new record punch in nextday 00:00:00
           $currentp = new StaffPunch;
           $currentp->user_id = $staff_id;
