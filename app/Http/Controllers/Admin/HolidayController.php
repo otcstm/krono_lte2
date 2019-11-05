@@ -28,10 +28,10 @@ class HolidayController extends Controller
      */
     public function create()
     {
-      $states = State::all();
+        $states = State::all();
 
 
-        return view('admin.holiday.createHoliday',[
+        return view('admin.holiday.createHoliday', [
             'states' => $states,]);
     }
 
@@ -46,7 +46,8 @@ class HolidayController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function insert(Request $req)
-    {   $a1 = new Holiday;
+    {
+        $a1 = new Holiday;
         $user   = $req->user();
         $states = State::find($req->state_selections);
         $a1->dt             = $req->dt;
@@ -55,76 +56,67 @@ class HolidayController extends Controller
         $a1->update_by     = $user->id;
         $a1->save();
         foreach ($states as $st) {
-          $hc = new HolidayCalendar;
-          $hc->holiday_id = $a1->id;
-          $hc->state_id   = $st->id;
-          $hc->update_by  = $user->id;
-          $hc->save();
-          echo($hc);
+            $hc = new HolidayCalendar;
+            $hc->holiday_id = $a1->id;
+            $hc->state_id   = $st->id;
+            $hc->update_by  = $user->id;
+            $hc->save();
+            //echo($hc);
         }
         return $a1;
     }
 
 
-     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Holiday  $holiday
-     * @return \Illuminate\Http\Response
-     */
+    /**
+    * Display the specified resource.
+    *
+    * @param  \App\Holiday  $holiday
+    * @return \Illuminate\Http\Response
+    */
 
 
 
     public function show(Holiday $holiday)
     {
-      $hol = Holiday::all();
-      $state = State::all();
+        $hol = Holiday::all();
+        $state = State::all();
+        // first, prepare starting header
+        $header = ['id', 'date', 'event'];
+        $content = [];
+        // pastu, tambah state kat header
+        foreach ($state as $satustate) {
+            array_push($header, $satustate->id);
+        }
+        // next, prepare table content based on event
+        foreach ($hol as $value) {
+            $isi = [$value->id, $value->dt, $value->descr];
+            $thisEventStateIDS = [];
+            foreach ($value->StatesThatCelebrateThis as $holCal) {
+                array_push($thisEventStateIDS, $holCal->state_id);
+            }
 
+            foreach ($state as $satustate) {
+                if (in_array($satustate->id, $thisEventStateIDS)) {
+                    array_push($isi, '*');
+                } else {
+                    array_push($isi, '');
+                }
+            }
 
-
-      // first, prepare starting header
-      $header = ['id', 'date', 'event'];
-      $content = [];
-
-      // pastu, tambah state kat header
-      foreach($state as $satustate){
-        array_push($header, $satustate->id);
-      }
-
-      // next, prepare table content based on event
-      foreach ($hol as $value) {
-
-        $isi = [$value->id, $value->dt, $value->descr];
-
-        $thisEventStateIDS = [];
-        foreach($value->StatesThatCelebrateThis as $holCal){
-          array_push($thisEventStateIDS, $holCal->state_id);
+            array_push($content, $isi);
         }
 
-        foreach($state as $satustate){
-          if(in_array($satustate->id, $thisEventStateIDS)){
-            array_push($isi, '*');
-          } else {
-            array_push($isi, '');
-          }
-        }
-
-        array_push($content, $isi);
-      }
-
-      $output = [
+        $output = [
         'header' => $header,
         'content' => $content
       ];
 
 
-      $states = State::all();
-      return view('admin.holiday.show',[
+        $states = State::all();
+        return view('admin.holiday.show', [
           'header' => $header,
           'content'=> $content,
            'states'=> $states]);
-
-
     }
 
     /**
@@ -135,11 +127,13 @@ class HolidayController extends Controller
      */
     public function edit($id)
     {
-      $holiday = Holiday::find($id);
-      $states = State::all();
-      //dd($holiday);
-      //dd($holiday->StatesThatCelebrateThis);
-      return view('admin.holiday.edit',[
+        $holiday = Holiday::find($id);
+        $states = State::all();
+        //dd($holiday);
+        //dd($holiday->StatesThatCelebrateThis);
+
+
+        return view('admin.holiday.edit', [
            'holiday'=>$holiday,
            'states'=> $states]);
 
@@ -147,16 +141,58 @@ class HolidayController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Holiday  $holiday
-     * @return \Illuminate\Http\Response
+     * Update holiday and holiday calendar
      */
     public function update(Request $req)
     {
-      $holiday = Holiday::find($req->id);
-        dd($holiday);
+        //get holiday model
+        $user   = $req->user();
+        //get holiday model
+        $holiday = Holiday::find($req->id);
+        //get list of cuurent states that ties to the holiday in holiday calendar
+        $currentStates = HolidayCalendar::where('holiday_id', $holiday->id)->get('state_id');
+        //$currentStates = $holiday->StatesThatCelebrateThis;
+        $arr = $req->state_selections;
+        echo json_encode($arr);
+        echo('<br/>');
+        //loop through DB data
+        foreach ($currentStates as $cs) {
+            echo('echoing cs');
+            echo($cs->state_id);
+            echo('end echoing cs <br/>');
+
+            if (($key = array_search($cs->state_id, $arr)) !== false) {
+                //if the state already existed in selection array
+                //and existed in db
+                //remove it from the selection array
+                //only new addition would left
+                unset($arr[$key]);
+            } else {
+                //if the state not existed in the selection
+                //but exist in db
+                //remove the state from DB
+                $hcDel = HolidayCalendar::where('holiday_id', $holiday->id)
+               ->where('state_id', $cs->state_id)->delete();
+            }
+        }
+        echo('<br/>');
+        echo json_encode($arr);
+        foreach ($arr as $selectedState) {
+            echo($selectedState);
+
+            $hc= new HolidayCalendar;
+            $hc->holiday_id = $holiday->id;
+            $hc->state_id   = $selectedState;
+            $hc->update_by  = $user->id;
+            $hc->save();
+        }
+
+
+
+
+
+
+        //dd($holiday);
     }
 
     /**
