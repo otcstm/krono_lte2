@@ -6,6 +6,8 @@ use App\User;
 use App\UserLog;
 use App\StaffPunch;
 use App\SapPersdata;
+use \Carbon\Carbon;
+use DateTime;
 use App\StaffAdditionalInfo;
 
 class UserHelper {
@@ -65,13 +67,66 @@ class UserHelper {
 
   public static function StaffPunchOut($staff_id, $out_time, $out_lat = 0.0, $out_long = 0.0){
     $currentp = UserHelper::GetCurrentPunch($staff_id);
+    $ori_punch = $currentp;
     $msg = 'OK';
+
     if($currentp){
-      $currentp->punch_out_time = $out_time;
-      $currentp->out_latitude = $out_lat;
-      $currentp->out_longitude = $out_long;
-      $currentp->status = 'out';
-      $currentp->save();
+
+      $timein = new Carbon($currentp->punch_in_time);
+      $punchinori = new Carbon($timein->format('Y-m-d'));
+      $punchin = new Carbon($timein->format('Y-m-d'));
+      $timeout = new Carbon($out_time->format('Y-m-d'));
+
+      // 1. check keluar hari yang sama atau tak
+      if($punchinori->diff($timeout)->days != 0){
+
+        while($punchin->diff($timeout)->days > 0){
+          $punchin->addDay();
+          $out = $punchin->toDateTimeString();
+          $in = new Carbon($timein->format('Y-m-d'));
+
+          //cek $punchinori = $in, kalo tak same insert new staffpunch
+          if($punchinori->diff($in)->days != 0){
+          //new record punch in nextday 00:00:00
+          $currentp = new StaffPunch;
+          $currentp->user_id = $staff_id;
+          $currentp->punch_in_time = $in;
+          $currentp->in_latitude = $ori_punch->in_latitude;
+          $currentp->in_longitude =  $ori_punch->in_longitude;
+
+          }
+          $currentp->punch_out_time = $out;
+          $currentp->out_latitude = $out_lat;
+          $currentp->out_longitude = $out_long;
+          $currentp->status ='out';
+          $currentp->parent =  $ori_punch->id;
+          $currentp->save();
+          // jadikan current clockout sebagai next clock in
+          $timein = new Carbon($punchin);
+        }
+      // punch out ori = punch in (adday)
+        $currentp = new StaffPunch;
+        $currentp->user_id = $staff_id;
+        $currentp->punch_in_time = $timein;
+        $currentp->in_latitude = $ori_punch->in_latitude;
+        $currentp->in_longitude =  $ori_punch->in_longitude;
+        $currentp->punch_out_time = $out_time;
+        $currentp->out_latitude = $out_lat;
+        $currentp->out_longitude = $out_long;
+        $currentp->status = 'out';
+        $currentp->parent =  $ori_punch->id;
+        $currentp->save();
+
+      }else{
+        //cek out hari sama!!!
+        $currentp->punch_out_time = $out_time;
+        $currentp->out_latitude = $out_lat;
+        $currentp->out_longitude = $out_long;
+        $currentp->status = 'out';
+        $currentp->save();
+      }
+
+
 
     } else {
       $msg = 'Not Punched In';

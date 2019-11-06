@@ -1,26 +1,30 @@
 @extends('adminlte::page')
 @section('content')
 <div class="container">
-	 <form method="POST" action="{{ route('insertHoliday') }}">
+	<p><input type="button" class="check" value="Check All" />
+   <input type="button" class="uncheck" value="UnCheck All" />
+</p>
+	 <form method="POST" action="{{ route('holiday.insert',[],false) }}">
 	 @csrf
 		<table>
 			<tr>
 			<td>Date</td>
-				<td><input type="date" name="dt" /></td>
+				<td><input type="date" name="dt" required /></td>
 
 			</tr>
 				<td>Holiday Description</td>
 
-				<td><input type="text" name="descr" /></td>
+				<td><input type="text" name="descr" required /></td>
 			</tr>
 			<tr>
 				<td>Guarantee Flag </td>
-				<td><input type="number" name="guarantee_flag" /></td>
+				<td><input type="number" name="guarantee_flag" value="0" /></td>
 			</tr>
   			<tr>
   			<td colspan=2>
 			@foreach ($states as $state)
-			<input type="checkbox" name="state_selections[]" value="{{ $state->id }} " />
+			<input type="checkbox" name="state_selections[]" value="{{ $state->id }} "
+			class="questionCheckBox" />
 			{{ $state->id }} :{{$state->state_descr}} <br/>
 			 @endforeach
 			 </td>
@@ -36,6 +40,27 @@
 
 
 		</table>
+
 	</form>
+
+
+
 </div>
+@endsection
+@section('js')
+<script type="text/javascript">
+$(function () {
+	 $('.check').on('click', function () {
+			 $('.questionCheckBox').prop('checked',true);
+	 });
+});
+
+$(function () {
+	 $('.uncheck').on('click', function () {
+			 $('.questionCheckBox').prop('checked',false);
+	 });
+});
+
+</script>
+
 @endsection
