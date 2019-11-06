@@ -30,6 +30,7 @@ class CreateOvertimesTable extends Migration
             $table->integer('approver_id')->nullable();
             $table->integer('verifier_id')->nullable();            
             $table->integer('daytype_id')->nullable();
+            $table->string('charge_type')->nullable();
             $table->string('justification')->nullable();
         });
     }

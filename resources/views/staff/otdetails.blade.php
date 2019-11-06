@@ -11,8 +11,13 @@
             <div class="col-xs-6">
                 <p>Reference No: {{$claim->refno}}</p>
                 <p>State Calendar: </p>
-                <span style="color: red"><p>Due Date: {{$claim->date_expiry}}</p>
-                <p>Unsubmitted claims will be deleted after the due date</p></span>
+                @if($claim->status=="Draft")
+                    <span style="color: red"><p>Due Date: {{$claim->date_expiry}}</p>
+                    <p>Unsubmitted claims will be deleted after the due date</p></span>
+                @else
+                    <p>Chargin type: {{$claim->charge_type}}
+                    <p>Justification: {{$claim->justification}}
+                @endif
             </div>
             <div class="col-xs-6">
                 <p>Status: {{$claim->status}}</p>
@@ -20,13 +25,14 @@
                 <p>Approver:</p>
             </div>
         </div>
-        
-        <div class="text-right" style="margin-bottom: 15px">
-            <button type="button" class="btn btn-primary otadd" data-toggle="modal" data-target="#newOT" data-ot_id="{{$claim->id}}">
-                ADD TIME
-            </button>
-            <p>Available time to claim: {{$claimtime->hour}}h {{$claimtime->minute}}m</p>
-        </div>
+        @if($claim->status=="Draft")
+            <div class="text-right" style="margin-bottom: 15px">
+                <button type="button" class="btn btn-primary otadd" data-toggle="modal" data-target="#newOT" data-ot_id="{{$claim->id}}">
+                    ADD TIME
+                </button>
+                <p>Available time to claim: {{$claimtime->hour}}h {{$claimtime->minute}}m</p>
+            </div>
+        @endif
         <div class="table-responsive">
             <table id="tOTList" class="table table-bordered">
                 <thead>
@@ -35,7 +41,13 @@
                         <th>Clock In/Out</th>
                         <th>OT time</th>
                         <th>Total Hour</th>
-                        <th>Action</th>
+                        <th>
+                            @if($claim->status=="Draft")
+                                Action
+                            @else
+                                Justification
+                            @endif
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,29 +58,72 @@
                         <td>{{ date('H:i', strtotime($singleuser->start_time)) }} - {{ date('H:i', strtotime($singleuser->end_time)) }}</td>
                         <td>{{ $singleuser->hour }}h {{ $singleuser->minute }}m</td>
                         <td>
-                            <button type="button" class="btn btn-primary otedit" data-toggle="modal" data-target="#newOT" data-ot_id="{{$singleuser->id}}" data-ot_start="{{ date('H:i', strtotime($singleuser->start_time)) }}" data-ot_end="{{ date('H:i', strtotime($singleuser->end_time)) }}" data-ot_remark="{{$singleuser->justification}}">
-                                <i class="fas fa-cog"></i>
-                            </button>
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delOT" data-ot_id="{{$singleuser->id}}" data-ot_start="{{ date('H:i', strtotime($singleuser->start_time)) }}" data-ot_end="{{ date('H:i', strtotime($singleuser->end_time)) }}">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
+                            @if($claim->status=="Draft")
+                                <button type="button" class="btn btn-primary otedit" data-toggle="modal" data-target="#newOT" data-ot_id="{{$singleuser->id}}" data-ot_start="{{ date('H:i', strtotime($singleuser->start_time)) }}" data-ot_end="{{ date('H:i', strtotime($singleuser->end_time)) }}" data-ot_remark="{{$singleuser->justification}}">
+                                    <i class="fas fa-cog"></i>
+                                </button>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delOT" data-ot_id="{{$singleuser->id}}" data-ot_start="{{ date('H:i', strtotime($singleuser->start_time)) }}" data-ot_end="{{ date('H:i', strtotime($singleuser->end_time)) }}">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            @else
+                                {{ $singleuser->justification }}
+                            @endif
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
-        <form action="{{route('ot.store')}}" method="POST" onsubmit="return confirm('I understand and agree this to claim. If deemed false I can be taken to disciplinary action.')">
+        @if($claim->status=="Draft")
+        <form id="formot" action="{{route('ot.charge')}}" method="POST">
             @csrf
             <div class="form-group">
+                <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required>
+                <label>Charge Type:</label>
+                <select name="chargetype" class="forminput" id="chargetype" required>
+                    <option value="Cost Center">Cost Center</option>
+                    <option value="Project">Project</option>
+                </select> 
+                <div id="costcenter">
+                    <label>Charging:</label>
+                    <select name="charging" class="forminput" id="charging" required>
+                        <option value="ATAC07">ATAC07</option>
+                    </select> 
+                </div>
+                <div id="project" style="display:none">
+                    <label>Type:</label>
+                    <select name="type" class="forminput" id="type" required>
+                        <option value="CUST23234">CUST23234</option>
+                    </select> 
+                    <label>Header:</label>
+                    <select name="header" class="forminput" id="header" required>
+                        <option value="PRJ123124">PRJ123124</option>
+                    </select> 
+                    <br>
+                    <label>Code:</label>
+                    <select name="code" class="forminput" id="code" required>
+                        <option value="PRJ123124">PRJ123124</option>
+                    </select> 
+                    <label>Activity:</label>
+                    <select name="activity" class="forminput" id="activity" required>
+                        <option value="PRJ123124">PRJ123124</option>
+                    </select> 
+                </div>
+            <div>
+            <div class="form-group">
+                <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required>
+                <label for="inputremark" style="position:relative; top: -90px">Justification:</label>
+                <textarea class="forminput" rows = "5" cols = "50" id="inputremark" name="inputremark" placeholder="Write justification" required>{{$claim->justification}}</textarea>
+            <div>
+        </form>
+        <form action="{{route('ot.store')}}" method="POST" onsubmit="return confirm('I understand and agree this to claim. If deemed false I can be taken to disciplinary action.')">
+            @csrf
             <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required>
-            <label for="inputremark">Justification:</label>
-                <textarea class="form-control" rows = "5" cols = "50" id="inputremark" name="inputremark" value="" placeholder="Write justification" required></textarea>
-            </div>
             <div class="text-center">
                 <button type="submit" class="btn btn-primary">SAVE</button>
             </div>
         </form>
+        @endif
     </div>
 </div>
 
@@ -104,8 +159,8 @@
                         <input type="time" id="inputend" name="inputend" disabled="true">
                     </div>
                     <div class="form-group">
-                    <label for="inputremark">Justification:</label>
-                        <textarea class="form-control" rows = "3" cols = "50" class="form-control" type="text"  id="inputremark" name="inputremark" value="" placeholder="Write justification" required></textarea>
+                    <label for="inputremark" style="position:relative; top: -50px">Justification:</label>
+                        <textarea rows = "3" cols = "50" type="text"  id="inputremark" name="inputremark" value="" placeholder="Write justification" required></textarea>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">SAVE</button>
@@ -128,7 +183,7 @@
             </div>
             <div class="modal-body text-center">
                 <div class="glyphicon glyphicon-warning-sign" style="color: #F0AD4E; font-size: 32px;"></div>
-                <p>Are you sure you want to claim for <span id="otstart"></span>-<span id="otend"></span>?<p>
+                <p>Are you sure you want to delete claim for <span id="otstart"></span>-<span id="otend"></span>?<p>
                 <form action="{{ route('ot.deltime') }}" method="POST">
                     @csrf
                     <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required>
@@ -222,6 +277,26 @@ $("#ifmanual").change(function(){
         $("#inputclock").prop('required',true);
     }
 });
+
+$("form .forminput").change(function(){
+    if($('#chargetype').val()=="Cost Center") {
+        $('#costcenter').css("display", "block");
+        $('#project').css("display", "none");
+    }else{
+        $('#costcenter').css("display", "none");
+        $('#project').css("display", "block");
+    }
+    $("#formot").submit();
+});
+
+$("#chargetype").val("{{$claim->charge_type}}");
+if($('#chargetype').val()=="Cost Center") {
+    $('#costcenter').css("display", "block");
+    $('#project').css("display", "none");
+}else{
+    $('#costcenter').css("display", "none");
+    $('#project').css("display", "block");
+}
 
 $('.otadd').click(function() {
     $('#edit').val("null");

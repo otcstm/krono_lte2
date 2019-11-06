@@ -61,7 +61,7 @@
                             @if($mgmt ?? '')
                             <td>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editMgmt" data-role_id="{{$singleuser['id']}}" data-role_no="{{$singleuser['staff_no']}}" data-role_name="{{$singleuser['name']}}"data-role_company="{{$singleuser['company_id']}}" data-role_state="{{$singleuser['state_id']}}">
-                                    <i class="fas fa-cog"></i>
+                                    <i class="fas fa-pencil-alt"></i>
                                 </button>
                             </td>
                             @else
