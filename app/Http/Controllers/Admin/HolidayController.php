@@ -63,7 +63,14 @@ class HolidayController extends Controller
             $hc->save();
             //echo($hc);
         }
-        return $a1;
+        $ac = 'info';
+        $alert = $a1->descr.' has been inserted';
+        return redirect(route('holiday.show', [], false))->
+        with([
+          'alert' => $alert,
+          'ac'=>$ac
+        ]);
+
     }
 
 
@@ -78,6 +85,10 @@ class HolidayController extends Controller
 
     public function show(Holiday $holiday)
     {
+
+      $alert = Session('alert') ? Session('alert') : 'rest';
+      $ac = Session('ac') ? Session('ac') : 'info';
+
         $hol = Holiday::all();
         $state = State::all();
         // first, prepare starting header
@@ -114,9 +125,11 @@ class HolidayController extends Controller
 
         $states = State::all();
         return view('admin.holiday.show', [
-          'header' => $header,
-          'content'=> $content,
-           'states'=> $states]);
+          'alert'   =>$alert,
+          'ac'      =>$ac,
+          'header'  => $header,
+          'content' => $content,
+          'states' => $states]);
     }
 
     /**
@@ -187,7 +200,13 @@ class HolidayController extends Controller
             $hc->save();
         }
 
-
+        $ac = 'info';
+        $alert = $holiday->descr.' has been updated';
+        return redirect(route('holiday.show', [], false))->
+        with([
+          'alert' => $alert,
+          'ac'=>$ac
+        ]);
 
 
 
@@ -201,8 +220,27 @@ class HolidayController extends Controller
      * @param  \App\Holiday  $holiday
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Holiday $holiday)
+    public function destroy(Request $req)
     {
-        //
+      $holiday = Holiday::find($req->holiday_id);
+      //change update by field first for logging
+      $holiday->update_by  = $req->user()->id;
+      $holiday->save();
+
+      Holiday::destroy($req->holiday_id);
+      $hcDel = HolidayCalendar::where('holiday_id', $holiday->id)
+      ->delete();
+
+
+
+
+      $ac = 'info';
+      $alert = $holiday->descr.' has been destroyed';
+      return redirect(route('holiday.show', [], false))->
+      with([
+        'alert' => $alert,
+        'ac'=>$ac
+      ]);
+
     }
 }
