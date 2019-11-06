@@ -10,53 +10,19 @@ use Session;
 use Illuminate\Http\Request;
 
 class OvertimeController extends Controller{
-    public function showx(Request $req){
-        $hour = 104;
-        $minute = 0;
-        
-        // $claimmonth = date_parse_from_format("Y-m-d", $claimdate);
-        // $claimedHour = Overtime::where('user_id', $req->user()->id)->sum('total_hour');
-        // $claimedMinute = Overtime::where('user_id', $req->user()->id)->sum('total_minute');
-        // for($i = 1, $j = $claimedMinute; $j > 15; $j=$j - 15, $i++){
-        //     if($i==4){
-        //         $claimedHour++;
-        //         $i = 1;
-        //         $claimedMinute = $claimedMinute - 60;
-        //     }
-        // }
-        // $hour = $hour - $claimedHour;
-        // $minute = $claimedMinute;
-        // $carbon = Carbon::now();
-        // $time = new DateTime('NOW');
-        // $time->setTimezone(new DateTimeZone('+0800'));
-        // $claimTime = OvertimeMonth::where('user_id', $req->user()->id)->where('year', $time->year())->where('month', $time->month());
-        // $month = $time->year;
-        
-        $overtime = Overtime::where('user_id', $req->user()->id)->get();
-        dd(date('c'));
-        return view('staff.overtime', ['claimTime' => $claimTime, 'hour' => $hour, 'minute' => $minute, 'overtimes' => $overtime]);
-        
-    }
-
     public function showOT(Request $req){
         $otlist = Overtime::where('user_id', $req->user()->id)->get();
         return view('staff.overtime', ['otlist' => $otlist]);
     }
 
     public function showDetails(Request $req){
-        $claimtime = OvertimeMonth::where('user_id', $req->user()->id)->
-        where('year', date("y", strtotime($req->session()->get('claimdate'))))->where('month', date("m", strtotime($req->session()->get('claimdate'))))->first();
-        $otlist = OvertimeDetail::where('ot_id', $req->session()->get('claim')->id)->get();
-        if($req->session()->has('staffs')) {
-            return view('staff.otdetails',[
-                'claimtime' => $claimtime, 'claimdate' => $req->session()->get('claimdate'), 'claimday' => $req->session()->get('claimday'), 'claim' => $req->session()->get('claim'), 'otlist' =>  $req->session()->get('otlist'),
-              'feedback' => $req->session()->get('feedback'),
-              'feedback_text' => $req->session()->get('feedback_text'),
-              'feedback_icon' => $req->session()->get('feedback_icon'),
-              'feedback_color' =>  $req->session()->get('feedback_color')
-            ]);
-          }else{
+        if($req->session()->has('claim')) {
+            $claimtime = OvertimeMonth::where('user_id', $req->user()->id)->
+            where('year', date("y", strtotime($req->session()->get('claimdate'))))->where('month', date("m", strtotime($req->session()->get('claimdate'))))->first();
+            $otlist = OvertimeDetail::where('ot_id', $req->session()->get('claim')->id)->orderBy('start_time')->get();
             return view('staff.otdetails', ['claimtime' => $claimtime, 'claimdate' => $req->session()->get('claimdate'), 'claimday' => $req->session()->get('claimday'), 'claim' => $req->session()->get('claim'), 'otlist' =>  $otlist]);
+          }else{
+            return redirect(route('ot.showOT',[],false));
           }
     }
 
@@ -94,41 +60,54 @@ class OvertimeController extends Controller{
         return redirect(route('ot.showDetails',[],false));
     }
 
-    public function addtime(Request $req){        
+    public function time(Request $req){
         $dif = (strtotime($req->inputend) - strtotime($req->inputstart))/60;
         $hour = (int) ($dif/60);
         $minute = $dif%60;
-        $availableclaim = OvertimeDetail::where('ot_id', $req->inputid)->get();
-        $x= 0;
-        foreach($availableclaim as $singleuser){
-            if((strtotime($singleuser->start_time)>=strtotime($req->inputstart)&&strtotime($singleuser->start_end)<=strtotime($req->inputstart))
-                ||(strtotime($singleuser->start_time)>=strtotime($req->inputend)&&strtotime($singleuser->start_end)<=strtotime($req->inputend))
-                ||(strtotime($req->inputstart)>=strtotime($singleuser->start_time)&&strtotime($req->inputstart)<=strtotime($singleuser->end_time))
-                ||(strtotime($req->inputend)>=strtotime($singleuser->start_time)&&strtotime($req->inputend)<=strtotime($singleuser->end_time))){
-                return redirect(route('ot.showDetails',[],false))->with([
-                    'feedback' => true,
-                    'feedback_text' => "There is already a duplicate with your time range input!",
-                    'feedback_icon' => "remove",
-                    'feedback_color' => "#D9534F"]
-                );
-                exit();
-            }
+        if($req->edit=="edit"){
+            $availableclaim = OvertimeDetail::where('id', 'not like', $req->editid)->where('ot_id', $req->inputid)->where('start_time', '<', $req->inputdate." ".$req->inputend.":00" )->where('end_time', '>', $req->inputdate." ".$req->inputstart.":00" )->get();
+        }else{
+            $availableclaim = OvertimeDetail::where('ot_id', $req->inputid)->where('start_time', '<', $req->inputdate." ".$req->inputend.":00" )->where('end_time', '>', $req->inputdate." ".$req->inputstart.":00" )->get();
         }
-        
+        if(count($availableclaim)!=0){
+            return redirect(route('ot.showDetails',[],false))->with([
+                'feedback' => true,
+                'feedback_text' => "There is already a duplicate with your time range input!",
+                'feedback_icon' => "remove",
+                'feedback_color' => "#D9534F"]
+            );
+            exit();
+        }
         $claimtime = OvertimeMonth::where('user_id', $req->user()->id)->where('year', date("y", strtotime($req->inputdate)))->where('month', date("m", strtotime($req->inputdate)))->first();
-        $totalleft=($claimtime->hour*60)+$claimtime->minute;
+        $dayclaim = Overtime::where('id', $req->inputid)->first();
+        if($req->edit=="edit"){
+            $oldtime = OvertimeDetail::where('id', $req->editid)->first();
+            $totalleft=(($claimtime->hour*60)+$claimtime->minute)+(($oldtime->hour*60)+$oldtime->minute);
+            $totaltime=(($dayclaim->total_hour*60)+$dayclaim->total_minute)-(($oldtime->hour*60)+$oldtime->minute);
+        }else{
+            $totalleft=($claimtime->hour*60)+$claimtime->minute;
+            $totaltime=($dayclaim->total_hour*60)+$dayclaim->total_minute;
+        }
         if($totalleft>=$dif){
-            $newclaim = new OvertimeDetail;
-            $newclaim->ot_id = $req->inputid;
+            if($req->edit=="edit"){
+                $newclaim = OvertimeDetail::find($req->editid);
+            }else{
+                $newclaim = new OvertimeDetail;
+                $newclaim->ot_id = $req->inputid;
+            }
             $newclaim->start_time = $req->inputdate." ".$req->inputstart.":00";
             $newclaim->end_time = $req->inputdate." ".$req->inputend.":00";
             $newclaim->hour = $hour;
             $newclaim->minute = $minute;
             $newclaim->justification = $req->inputremark;
-            $newclaim->save();
+            $updateclaim = Overtime::find($req->inputid);
+            $updateclaim->total_hour = ((int)(($totaltime+$dif)/60));
+            $updateclaim->total_minute = (($totaltime+$dif)%60);
             $updatemonth = OvertimeMonth::find($claimtime->id);
             $updatemonth->hour = ((int)(($totalleft-$dif)/60));
             $updatemonth->minute = (($totalleft-$dif)%60);
+            $newclaim->save();
+            $updateclaim->save();
             $updatemonth->save();
             return redirect(route('ot.showDetails',[],false));
         }else{
@@ -141,8 +120,32 @@ class OvertimeController extends Controller{
         }
     }
 
+    public function deltime(Request $req){
+        $dif = (strtotime($req->inputend) - strtotime($req->inputstart))/60;
+        $hour = (int) ($dif/60);
+        $minute = $dif%60;
+        $claimtime = OvertimeMonth::where('user_id', $req->user()->id)->where('year', date("y", strtotime($req->inputdate)))->where('month', date("m", strtotime($req->inputdate)))->first();
+        $dayclaim = Overtime::where('id', $req->inputid)->first();
+        $totalleft=($claimtime->hour*60)+$claimtime->minute;
+        $totaltime=($dayclaim->total_hour*60)+$dayclaim->total_minute;
+        $updateclaim = Overtime::find($req->inputid);
+        $updateclaim->total_hour = ((int)(($totaltime-$dif)/60));
+        $updateclaim->total_minute = (($totaltime-$dif)%60);
+        $updatemonth = OvertimeMonth::find($claimtime->id);
+        $updatemonth->hour = ((int)(($totalleft+$dif)/60));
+        $updatemonth->minute = (($totalleft+$dif)%60);
+        $updateclaim->save();
+        $updatemonth->save();
+        OvertimeDetail::find($req->delid)->delete();
+        return redirect(route('ot.showDetails',[],false));
+    }
+
     public function store(Request $req){
-        
+        $updateclaim = Overtime::find($req->inputid);
+        $updateclaim->status = "Submitted";
+        $updateclaim->justification = $req->inputremark;
+        $updateclaim->save();
+        return redirect(route('ot.showOT',[],false));
     }
 
 }

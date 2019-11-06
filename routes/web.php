@@ -97,9 +97,9 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/overtime/detail', 'OvertimeController@showDetails')->name('ot.showDetails');
   Route::get('/overtime/logs', 'OvertimeController@logs')->name('ot.logs');
   Route::post('overtime/create', 'OvertimeController@create')->name('ot.create');
-  Route::post('overtime/edit', 'OvertimeController@create')->name('ot.edit');
-  Route::post('overtime/addtime', 'OvertimeController@addtime')->name('ot.addtime');
-  Route::post('overtime/updatetime', 'OvertimeController@addtime')->name('ot.updatetime');
+  Route::post('overtime/edit', 'OvertimeController@edit')->name('ot.edit');
+  Route::post('overtime/time', 'OvertimeController@time')->name('ot.time');
+  Route::post('overtime/deletetime', 'OvertimeController@deltime')->name('ot.deltime');
   Route::post('overtime/store', 'OvertimeController@store')->name('ot.store');
 });
 

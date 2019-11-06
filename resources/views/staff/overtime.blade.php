@@ -3,6 +3,7 @@
 @section('title', 'Overtime List')
 
 @section('content')
+<p><a href="{{route('misc.home')}}" style="display: inline">Home</a> > OT List</p>
 <div class="panel panel-default">
     <div class="panel-heading panel-primary">OT List</div>
     <div class="panel-body">
@@ -91,8 +92,12 @@ $('#newOT').on('show.bs.modal', function() {
     if(m < 10){
         m = "0"+m;
     }
-    $("#inputdate").val(dt.getFullYear()+"-"+m+"-"+dt.getDate());
-    $("#inputdate").attr("max", dt.getFullYear()+"-"+m+"-"+dt.getDate());
+    d = dt.getDate().toString();
+    while(d.length<2){
+        d = "0"+d;
+    }
+    $("#inputdate").val(dt.getFullYear()+"-"+m+"-"+d);
+    $("#inputdate").attr("max", dt.getFullYear()+"-"+m+"-"+d);
     
 
     // $("#inputdatestart").val(dt.getFullYear()+"-"+m+"-"+dt.getDate()+"T"+dt.getHours()+":"+dt.getMinutes());

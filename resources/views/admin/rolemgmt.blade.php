@@ -89,7 +89,7 @@
                 <h4 class="modal-title">Edit Role</h4>
             </div>
             <div class="modal-body">
-                <form action="{{ route('role.edit') }}" method="POST" onsubmit="return confirm('Confirm edit role?')">
+                <form action="{{ route('role.edit') }}" method="POST">
                     @csrf
                     <input type="text" class="form-control hidden" id="inputid" name="inputid" value="" required>
                     <div class="form-group">
