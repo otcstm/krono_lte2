@@ -7,6 +7,7 @@
 @section('title', 'Shift Plan Details')
 
 @section('content')
+{{ Breadcrumbs::render('shift.view', $sp) }}
 <div class="panel panel-default">
   <div class="panel-heading">Team member for {{ $sp->name }}, month {{$sp->plan_month->format('M-Y')}}</div>
   <div class="panel-body">
@@ -16,13 +17,18 @@
       <strong>{{ session()->get('alert') }}</strong>
     </div>
     @endif
+    <p>
+      Approver: {{ $sp->Group->Manager->name }} <br />
+      Planner: {{ $sp->Group->Planner->name }}
+    </p>
     <div class="table-responsive">
       <table id="tPunchHIstory" class="table table-hover table-bordered">
        <thead>
          <tr>
            <th>Staff No</th>
            <th>Name</th>
-           <th>Total Day</th>
+           <th>Total Days</th>
+           <th>Total Work Hours</th>
            <th>From</th>
            <th>Until</th>
            <th>Status</th>
@@ -30,11 +36,12 @@
          </tr>
        </thead>
        <tbody>
-         @foreach($sp->StaffList as $ap)
+         @foreach($stafflist as $ap)
          <tr>
-           <td>{{ $ap->User->staff_no }}</td>
+           <td style="color: {{ $ap->col['f'] }};background-color:{{ $ap->col['bg'] }}">{{ $ap->User->staff_no }}</td>
            <td>{{ $ap->User->name }}</td>
            <td>{{ $ap->total_days }}</td>
+           <td>{{ $ap->total_minutes / 60 }}</td>
            <td>{{ $ap->start_date }}</td>
            <td>{{ $ap->end_date }}</td>
            <td>{{ $ap->status }}</td>
@@ -49,6 +56,30 @@
          @endforeach
        </tbody>
      </table>
+     @if($role != 'noone')
+     <div class="form-group text-center">
+       <form action="{{ route('shift.takeaction', [], false) }}" method="post">
+         @csrf
+         <input type="hidden" name="plan_id" value="{{ $sp->id }}" />
+         @if($role == 'approver')
+         @if($sp->status != 'Finalized')
+         <button type="submit" class="btn btn-success" name="action" value="approve">{{ __('shift.f_btn_approve') }}</button>
+         @if($sp->status == 'Submit')
+         <button type="submit" class="btn btn-danger" name="action" value="reject">{{ __('shift.f_btn_reject') }}</button>
+         @endif
+         @endif
+         @if($sp->status == 'Finalized')
+         <button type="submit" class="btn btn-warning" name="action" value="revert">{{ __('shift.f_btn_revert') }}</button>
+         @endif
+         @else
+         <!-- is planner -->
+         @if($sp->status == 'Planning')
+         <button type="submit" class="btn btn-success" name="action" value="submit">{{ __('shift.f_btn_submit') }}</button>
+         @endif
+         @endif
+       </form>
+     </div>
+     @endif
     </div>
   </div>
 </div>
