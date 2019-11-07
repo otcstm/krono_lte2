@@ -11,7 +11,7 @@
             @csrf
             <div class="form-group">
                 <label>Date:</label>
-                <input type="date" id="inputdate" name="inputdate" value="" required>asda
+                <input type="date" id="inputdate" name="inputdate" value="" required>
             </div>
         </form>
     </div>
