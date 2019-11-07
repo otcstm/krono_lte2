@@ -49,7 +49,7 @@ return [
     |
     */
 
-    'skin' => 'purple-light',
+    'skin' => 'green',
 
     /*
     |--------------------------------------------------------------------------
@@ -130,6 +130,27 @@ return [
     */
 
     'menu' => [
+      [ 'header' => 'user_menu',
+        // 'can' => 'user-nav-menu',
+      ],
+      [
+          'text' => 'user_home',
+          'url'  => '/home',
+          'icon' => 'fas fa-home',
+          // 'can' => 'user-nav-menu',
+      ],
+      [
+          'text' => 'user_punch',
+          'url'  => '/punch',
+          'icon' => 'fas fa-clock',
+          // 'can' => 'user-nav-menu',
+      ],
+      [
+          'text' => 'staff_list',
+          'url'  => '/staff',
+          'icon' => 'fas fa-tasks',
+          // 'can' => 'ot-nav-menu',
+      ],
         ['header' => 'admin_menu'],
         [
           'text' => 'system_config',
@@ -182,7 +203,7 @@ return [
         ],
         [
           'text' => 'admin_user_menu',
-          'icon' => 'fas fa-fw fa-wheelchair',
+          'icon' => 'fas fa-user-ninja',
           'submenu' => [
             [
                 'text' => 'user_autho',
@@ -191,68 +212,17 @@ return [
                 // 'can' => 'admin-nav-menu',
             ],
             [
-                'text' => 'User Management',
+                'text' => 'user_management',
                 'url'  => '/admin/staff',
                 'icon' => 'far fa-folder-open',
                 // 'can' => 'admin-nav-menu',
             ],
             [
-                'text' => 'User Logs',
+                'text' => 'user_logs',
                 //'url'  => route('state.show', [], false),
                 'url' => '/log/listUserLogs',
                 'icon' => 'fas fa-user-secret',
                 // 'can' => 'admin-nav-menu',
-            ],
-          ]
-        ],
-        [
-            'text' => 'User Logs',
-            //'url'  => route('state.show', [], false),
-            'url' => '/log/listUserLogs',
-            'icon' => 'fas fa-cogs',
-            // 'can' => 'admin-nav-menu',
-        ],
-        [ 'header' => 'user_menu',
-          // 'can' => 'user-nav-menu',
-        ],
-        [
-            'text' => 'user_home',
-            'url'  => '/home',
-            'icon' => 'fas fa-home',
-            // 'can' => 'user-nav-menu',
-        ],
-        [
-            'text' => 'user_punch',
-            'url'  => '/punch',
-            'icon' => 'fas fa-clock',
-            // 'can' => 'user-nav-menu',
-        ],
-        [
-            'text' => 'staff_list',
-            'url'  => '/staff',
-            'icon' => 'fas fa-tasks',
-            // 'can' => 'ot-nav-menu',
-        ],
-        ['header' => 'ot_menu'],
-        [
-            'text' => 'ot_apply',
-            'url'  => '#',
-            'icon' => 'fas fa-business-time',
-            // 'can' => 'ot-nav-menu',
-          'text' => 'user_menu',
-          'icon' => 'fas fa-fw fa-restroom',
-          'submenu' => [
-            [
-                'text' => 'user_home',
-                'url'  => '/home',
-                'icon' => 'fas fa-home',
-                // 'can' => 'user-nav-menu',
-            ],
-            [
-                'text' => 'user_punch',
-                'url'  => '/punch',
-                'icon' => 'fas fa-clock',
-                // 'can' => 'user-nav-menu',
             ],
           ]
         ],
@@ -274,29 +244,22 @@ return [
                 // 'can' => 'ot-nav-menu',
             ],
 
-            [
-                'text' => 'ot_approve',
-                'url'  => '#',
-                'icon' => 'far fa-thumbs-up',
-                'label'       => UserHelper::GetRequireAttCount(),
-                'label_color' => 'warning',
-                // 'can' => 'ot-nav-menu',
-            ],
-            [
-                'text' => 'ot_verify',
-                'url'  => '#',
-                'icon' => 'fas fa-eye',
-                'label'       => UserHelper::GetRequireAttCount(),
-                'label_color' => 'warning',
-                // 'can' => 'ot-nav-menu',
-            ],
-            [
-                'text' => 'ot_list',
-                'url'  => '/overtime',
-                'icon' => 'fas fa-tasks',
-                'label_color' => 'warning',
-                // 'can' => 'ot-nav-menu',
-            ],
+            // [
+            //     'text' => 'ot_approve',
+            //     'url'  => '#',
+            //     'icon' => 'far fa-thumbs-up',
+            //     'label'       => UserHelper::GetRequireAttCount(),
+            //     'label_color' => 'warning',
+            //     // 'can' => 'ot-nav-menu',
+            // ],
+            // [
+            //     'text' => 'ot_verify',
+            //     'url'  => '#',
+            //     'icon' => 'fas fa-eye',
+            //     'label'       => UserHelper::GetRequireAttCount(),
+            //     'label_color' => 'warning',
+            //     // 'can' => 'ot-nav-menu',
+            // ],
           ]
         ],
         [
@@ -324,53 +287,24 @@ return [
           ]
         ],
         [
-            'text' => 'reassign_app',
-            'url'  => '#',
-            'icon' => 'fas fa-tasks',
-            'label_color' => 'warning',
-            // 'can' => 'ot-nav-menu',
-        ],
-        [
-            'text' => 'reassign_ver',
-            'url'  => '#',
-            'icon' => 'fas fa-tasks',
-            'label_color' => 'warning',
-            // 'can' => 'ot-nav-menu',
-        ],
-        [
-          'header' => 'rpt_menu',
-          'text' => 'user_setting',
-          'icon' => 'fas fa-user-cog',
-          'submenu' => [
-            [
-                'text' => 'reassign_app',
-                'url'  => '#',
-                'icon' => 'fas fa-user-check',
-                // 'can' => 'ot-nav-menu',
-            ],
-            [
-                'text' => 'reassign_ver',
-                'url'  => '#',
-                'icon' => 'fas fa-chalkboard-teacher',
-                // 'can' => 'ot-nav-menu',
-            ],
-          ]
-        ],
-        [
-            'text' => 'staff_list',
-            'url'  => '/staff',
-            'icon' => 'fas fa-tasks',
-            // 'can' => 'ot-nav-menu',
-        ],
-        [
-          'header' => 'information',
-          // 'can' => 'rpt-nav-menu',
-        ],
-        [
-            'text' => 'ot_report',
-            'url'  => '#',
+            'text' => 'rpt_menu',
             'icon' => 'fas fa-print',
-            // 'can' => 'rpt-nav-menu',
+            'submenu' => [
+              [
+                'text' => 'Overtime',
+                'url'  => '#',
+                'icon' => 'fas fa-user-ninja',
+              ],
+              [
+                'text' => 'Claim',
+                'url'  => '#',
+                'icon' => 'fas fa-users',
+              ],
+            ],
+        ],
+        [
+          'header' => 'INFO',
+          // 'can' => 'rpt-nav-menu',
         ],
         [
             'text' => 'user_guide',
