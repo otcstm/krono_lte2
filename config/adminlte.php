@@ -231,10 +231,10 @@ return [
           'icon' => 'fas fa-business-time',
           'submenu' => [
             [
-                'text' => 'ot_list',
-                'url'  => '/overtime',
-                'icon' => 'fas fa-tasks',
-                'label_color' => 'warning',
+                'text' => 'ot_apply',
+                // 'url'  => '#applyOT',
+                'otmodal' => '',
+                'icon' => 'fas fa-edit',
                 // 'can' => 'ot-nav-menu',
             ],
             [

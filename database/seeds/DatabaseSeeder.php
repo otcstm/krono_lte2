@@ -11,14 +11,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-      ini_set("memory_limit","256M");
+     ini_set("memory_limit","256M");
       ini_set('max_execution_time', 3000); // 300 seconds = 5 minutes
       set_time_limit(0);
-<<<<<<< HEAD
         $this->call(AmerPermissionSeeder::class);
-=======
-        // $this->call(AmerPermissionSeeder::class);
->>>>>>> 10f9f041136deb7fdb160c22aff52c3bc68d23cb
 
         // $this->call(RolesTableSeeder::class);
         // $this->call(RoleUserTableSeeder::class);

@@ -10,4 +10,8 @@ class OvertimeDetail extends Model
     {
       return $this->belongsTo(Overtime::class, 'ot_id');
     }
+
+    // public function starttime(){
+    //   return $this->start_time; 
+    // }
 }
