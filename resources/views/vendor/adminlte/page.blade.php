@@ -70,12 +70,16 @@
                         @if(config('adminlte.right_sidebar') and (config('adminlte.layout') != 'top-nav'))
                         <!-- Control Sidebar Toggle Button -->
                             <li>
-                                <a href="#" data-toggle="control-sidebar" @if(!config('adminlte.right_sidebar_slide')) data-controlsidebar-slide="false" @endif>
-                                    <i class="{{config('adminlte.right_sidebar_icon')}}"></i>
-                                    <span class="pull-right-container">
-                                        <span class="label label-warning pull-right">10</span>
-                                    </span>
-                                </a>
+                              <a href="#" data-toggle="control-sidebar" @if(!config('adminlte.right_sidebar_slide')) data-controlsidebar-slide="false" @endif>
+                                @if(session()->has('notifycount'))
+                                <i class="{{config('adminlte.right_sidebar_icon')}}"></i>
+                                <span class="pull-right-container">
+                                    <span class="label label-warning pull-right">{{ session()->get('notifycount')}}</span>
+                                </span>
+                                @else
+                                <i class="fas fa-bullhorn"></i>
+                                @endif
+                              </a>
                             </li>
                         @endif
                     </ul>
@@ -137,17 +141,20 @@
         @if(config('adminlte.right_sidebar') and (config('adminlte.layout') != 'top-nav'))
             <aside class="control-sidebar control-sidebar-{{config('adminlte.right_sidebar_theme')}}">
                 <!-- yield('right-sidebar') -->
-                <div class="p-3">
-                  <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action active">
-                      Cras justo odio
+                <ul class="control-sidebar-menu">
+                  @if(session()->has('notifycount') && session()->get('notifycount') > 0)
+                  @foreach(session()->get('notifylist') as $onutifi)
+                  <li>
+                    <a href="{{ $onutifi['href'] }}">
+                      <i class="{{ $onutifi['icon'] }}"></i>
+                      <span>{{ $onutifi['text'] }}</span>
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-                    <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-                    <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-                    <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
-                  </div>
-                </div>
+                  </li>
+                  @endforeach
+                  @else
+                  <li style="text-align:center">Nothing to show here</li>
+                  @endif
+                </ul>
             </aside>
             <!-- /.control-sidebar -->
             <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
