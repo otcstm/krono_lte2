@@ -94,7 +94,7 @@ return [
     */
 
     'right_sidebar' => true,
-    'right_sidebar_icon' => 'fas fa-cogs',
+    'right_sidebar_icon' => 'fas fa-exclamation',
     'right_sidebar_theme' => 'dark',
     'right_sidebar_slide' => true,
 
