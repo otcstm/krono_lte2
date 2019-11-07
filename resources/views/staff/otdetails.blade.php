@@ -76,45 +76,86 @@
         </div>
         @if($claim->status=="Draft")
         <form id="formot" action="{{route('ot.charge')}}" method="POST">
-            @csrf
-            <div class="form-group">
-                <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required>
-                <label>Charge Type:</label>
-                <select name="chargetype" class="forminput" id="chargetype" required>
-                    <option value="Cost Center">Cost Center</option>
-                    <option value="Project">Project</option>
-                </select> 
-                <div id="costcenter">
-                    <label>Charging:</label>
-                    <select name="charging" class="forminput" id="charging" required>
-                        <option value="ATAC07">ATAC07</option>
-                    </select> 
+            <div class="row">
+                <div class="col-xs-6">
+                    @csrf
+                    <div class="form-group">
+                        <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <label>Charge Type:</label>
+                            </div>
+                            <div class="col-xs-9">
+                                <select name="chargetype" class="forminput" id="chargetype" required>
+                                    <option value="Cost Center">Cost Center</option>
+                                    <option value="Project">Project</option>
+                                </select> 
+                            </div>
+                        </div>
+                        <div id="costcenter">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <label>Charging:</label>
+                                </div>
+                                <div class="col-xs-9">
+                                    <select name="charging" class="forminput" id="charging" required>
+                                        <option value="ATAC07">ATAC07</option>
+                                    </select> 
+                                </div>
+                            </div>
+                        </div>
+                        <div id="project" style="display:none;">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <label>Type:</label>
+                                </div>
+                                <div class="col-xs-3">
+                                    <select name="type" class="forminput" id="type" required>
+                                        <option value="CUST23234">CUST23234</option>
+                                    </select> 
+                                </div>
+                                <div class="col-xs-3">
+                                    <label>Header:</label>
+                                </div>
+                                <div class="col-xs-3">
+                                    <select name="header" class="forminput" id="header" required>
+                                        <option value="PRJ123124">PRJ123124</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <label>Code:</label>
+                                </div>
+                                <div class="col-xs-3">
+                                    <select name="code" class="forminput" id="code" required>
+                                        <option value="PRJ123124">PRJ123124</option>
+                                    </select> 
+                                </div>
+                                <div class="col-xs-3">
+                                    <label>Activity:</label>
+                                </div>
+                                <div class="col-xs-3">
+                                    <select name="activity" class="forminput" id="activity" required>
+                                        <option value="PRJ123124">PRJ123124</option>
+                                    </select> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: -10px">
+                        <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <label for="inputremark">Justification:</label>
+                            </div>
+                            <div class="col-xs-9">
+                                <textarea class="forminput" rows = "5" cols = "60" id="inputremark" name="inputremark" placeholder="Write justification" required>{{$claim->justification}}</textarea>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div id="project" style="display:none">
-                    <label>Type:</label>
-                    <select name="type" class="forminput" id="type" required>
-                        <option value="CUST23234">CUST23234</option>
-                    </select> 
-                    <label>Header:</label>
-                    <select name="header" class="forminput" id="header" required>
-                        <option value="PRJ123124">PRJ123124</option>
-                    </select> 
-                    <br>
-                    <label>Code:</label>
-                    <select name="code" class="forminput" id="code" required>
-                        <option value="PRJ123124">PRJ123124</option>
-                    </select> 
-                    <label>Activity:</label>
-                    <select name="activity" class="forminput" id="activity" required>
-                        <option value="PRJ123124">PRJ123124</option>
-                    </select> 
-                </div>
-            <div>
-            <div class="form-group">
-                <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required>
-                <label for="inputremark" style="position:relative; top: -90px">Justification:</label>
-                <textarea class="forminput" rows = "5" cols = "50" id="inputremark" name="inputremark" placeholder="Write justification" required>{{$claim->justification}}</textarea>
-            <div>
+            </div>
         </form>
         <form action="{{route('ot.store')}}" method="POST" onsubmit="return confirm('I understand and agree this to claim. If deemed false I can be taken to disciplinary action.')">
             @csrf
@@ -141,26 +182,37 @@
                     <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required>
                     <input type="text" class="form-control hidden" id="editid" name="editid" value="null" required>
                     <input type="text" class="form-control hidden" id="inputdate" name="inputdate" value="{{$claimdate}}" required>
-                    <div class="form-group">
-                        <label for="inputclock">Clock In/Out:</label>
-                         <select name="inputclock" id="inputclock" required>
-                        {{-- @if($companies ?? '')
-                            <!--@foreach($companies as $singlecompany)
-                            <option value="{{$singlecompany->id}}">{{$singlecompany->company_descr}}</option>
-                            @endforeach
-                        @endif --}}-->
-                        </select> 
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <label for="inputclock">Clock In/Out:</label>
+                        </div>                        
+                        <div class="col-xs-9">
+                            <select name="inputclock" id="inputclock" required>
+                            {{-- @if($companies ?? '')
+                                <!--@foreach($companies as $singlecompany)
+                                <option value="{{$singlecompany->id}}">{{$singlecompany->company_descr}}</option>
+                                @endforeach
+                            @endif --}}-->
+                            </select> 
+                        </div>
+                        <div class="col-xs-9 col-xs-offset-3">
+                            <label><input type="checkbox" id="ifmanual" name="ifmanual">Manual</label>
+                        </div>
+                        <div class="col-xs-3">
+                            <label>Start/End Time:</label>
+                        </div>
+                        <div class="col-xs-9">
+                            <input type="time" id="inputstart" name="inputstart" disabled="true">
+                            <input type="time" id="inputend" name="inputend" disabled="true">
+                        </div>
                     </div>
-                    <label><input type="checkbox" id="ifmanual" name="ifmanual">Manual</label>
-                    
-                    <div class="form-group">
-                        <label>Start/End Time:</label>
-                        <input type="time" id="inputstart" name="inputstart" disabled="true">
-                        <input type="time" id="inputend" name="inputend" disabled="true">
-                    </div>
-                    <div class="form-group">
-                    <label for="inputremark" style="position:relative; top: -50px">Justification:</label>
-                        <textarea rows = "3" cols = "50" type="text"  id="inputremark" name="inputremark" value="" placeholder="Write justification" required></textarea>
+                    <div class="row" style="margin-top: 10px">
+                        <div class="col-xs-3">
+                            <label for="inputremark">Justification:</label>
+                        </div>
+                        <div class="col-xs-9">
+                            <textarea rows = "3" cols = "60" type="text"  id="inputremark" name="inputremark" value="" placeholder="Write justification" required></textarea>
+                        </div>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">SAVE</button>

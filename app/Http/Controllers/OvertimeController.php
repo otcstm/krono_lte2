@@ -28,7 +28,11 @@ class OvertimeController extends Controller{
     }
 
     public function create(Request $req){
-        $claimdate = $req->inputdate;
+        if(empty($req->inputdates)){
+            $claimdate = $req->inputdate;
+        }else{
+            $claimdate = $req->inputdates;
+        }
         $claimmonth = date("m", strtotime($claimdate));
         $claimyear = date("y", strtotime($claimdate));
         $claimday = date("l", strtotime($claimdate));
