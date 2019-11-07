@@ -3,7 +3,7 @@
 @section('title', 'Shift Planning')
 
 @section('content')
-
+{{ Breadcrumbs::render() }}
 <div class="panel panel-default">
   <div class="panel-heading">Plan the Shift Schedule Here</div>
   <div class="panel-body">

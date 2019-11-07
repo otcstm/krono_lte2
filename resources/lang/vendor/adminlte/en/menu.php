@@ -20,6 +20,8 @@ return [
     'user_punch'      => 'Clock In/Out',
     'user_setting'    => 'My Settings',
     'user_shift_sc'   => 'My Shift Schedule',
+    'user_management' => 'User Management',
+    'user_logs'  => 'User Logs',
 
     'ot_menu'         => 'OVERTIME',
     'ot_apply'        => 'Apply New OT',

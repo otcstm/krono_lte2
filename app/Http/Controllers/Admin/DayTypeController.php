@@ -34,6 +34,8 @@ class DayTypeController extends Controller
       $dt->is_work_day = false;
     }
 
+    $dt->bg_color = $r->bgcolor;
+    $dt->font_color = $r->fontcolor;
     $dt->created_by = $r->user()->id;
     $dt->save();
 
@@ -46,9 +48,11 @@ class DayTypeController extends Controller
     if($dt){
       $dt->description = $r->description;
       $dt->last_edited_by = $r->user()->id;
+      $dt->bg_color = $r->bgcolor;
+      $dt->font_color = $r->fontcolor;
       $dt->save();
 
-      return redirect(route('wd.index', [], false))->with(['alert' => $r->code . ' updated', 'a_type' => 'success']);
+      return redirect(route('wd.index', [], false))->with(['alert' => $dt->code . ' updated', 'a_type' => 'success']);
     } else {
       return redirect(route('wd.index', [], false))->with(['alert' => $r->code . ' not found', 'a_type' => 'warning']);
     }

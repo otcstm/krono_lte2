@@ -22,7 +22,7 @@ class CreateShiftPlanStaffDaysTable extends Migration
             $table->integer('user_id');
             $table->smallInteger('day_type_id');
             $table->date('work_date');
-            $table->boolean('is_off_day')->default(false);
+            $table->boolean('is_work_day')->default(true);
             $table->timestamp('start_time')->nullable();
             $table->timestamp('end_time')->nullable();
 
