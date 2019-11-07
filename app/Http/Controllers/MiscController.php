@@ -7,8 +7,9 @@ use App\Shared\UserHelper;
 use App\StaffPunch;
 use App\User;
 use App\UserLog;
+use \Carbon\Carbon;
 use DateTime;
-use DateTimeZone;
+//use DateTimeZone;
 
 class MiscController extends Controller
 {
@@ -58,7 +59,7 @@ class MiscController extends Controller
 
   public function doClockIn(Request $req){
     $time = new DateTime('NOW');
-    $time->setTimezone(new DateTimeZone('+0800'));
+    //$time->setTimezone(new DateTimeZone('+0800'));
 
     $pun = UserHelper::StaffPunchIn($req->user()->id, $time);
     if($pun['status'] == 'OK'){
@@ -69,8 +70,9 @@ class MiscController extends Controller
   }
 
   public function doClockOut(Request $req){
-    $time = new DateTime('NOW');
-    $time->setTimezone(new DateTimeZone('+0800'));
+    $time = Carbon::now('Asia/Kuala_Lumpur');
+    // Carbon::now('Europe/London');
+    //$time->setTimezone(new DateTimeZone('+0800'));
 
     $pun = UserHelper::StaffPunchOut($req->user()->id, $time);
     if($pun['status'] == 'OK'){

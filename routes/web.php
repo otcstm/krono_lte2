@@ -87,6 +87,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/admin/holiday/show', 'Admin\HolidayController@show')->name('holiday.show');
   Route::get('/admin/holiday/edit/{id}', 'Admin\HolidayController@edit')->name('holiday.edit');
   Route::post('/admin/holiday/update', 'Admin\HolidayController@update')->name('holiday.update');
+  Route::post('/admin/holiday/destroy', 'Admin\HolidayController@destroy')->name('holiday.destroy');
 
   // /admins ------------------------------------
 
