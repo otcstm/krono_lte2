@@ -23,13 +23,14 @@ class CreateOvertimesTable extends Migration
             $table->date('date_expiry');
             $table->integer('total_hour');
             $table->integer('total_minute');
-            $table->integer('profile_id');
+            $table->integer('profile_id')->nullable();
             $table->string('status')->nullable();
             $table->string('company_id')->nullable();
             $table->string('state_id')->nullable();
             $table->integer('approver_id')->nullable();
             $table->integer('verifier_id')->nullable();            
             $table->integer('daytype_id')->nullable();
+            $table->string('charge_type')->nullable();
             $table->string('justification')->nullable();
         });
     }

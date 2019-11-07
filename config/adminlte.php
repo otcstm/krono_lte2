@@ -262,7 +262,8 @@ return [
           'submenu' => [
             [
                 'text' => 'ot_apply',
-                'url'  => '#',
+                // 'url'  => '#applyOT',
+                'otmodal' => '',
                 'icon' => 'fas fa-edit',
                 // 'can' => 'ot-nav-menu',
             ],
