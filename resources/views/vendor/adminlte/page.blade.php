@@ -163,10 +163,53 @@
 
     </div>
     <!-- ./wrapper -->
+    
+<div id="applyOT" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Create New OT Claim</h4>
+            </div>
+            <div class="modal-body">
+                <form action="{{route('ot.create')}}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <label for="inputname">Select Date:</label>
+                        <input type="date" class="form-control" id="inputdates" name="inputdates" value="" required>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">CREATE</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
 @stop
 
 @section('adminlte_js')
     <script src="{{ secure_asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
     @stack('js')
     @yield('js')
+    
+    <script type="text/javascript">
+        $('#applyOT').on('show.bs.modal', function() {
+        var dt = new Date();
+        var m = dt.getMonth()+1;
+        if(m < 10){
+            m = "0"+m;
+        }
+        d = dt.getDate().toString();
+        while(d.length<2){
+            d = "0"+d;
+        }
+        $("#inputdates").val(dt.getFullYear()+"-"+m+"-"+d);
+        $("#inputdates").attr("max", dt.getFullYear()+"-"+m+"-"+d);
+        
+        });
+    </script>
 @stop
