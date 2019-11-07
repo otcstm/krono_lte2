@@ -262,8 +262,8 @@ return [
           'submenu' => [
             [
                 'text' => 'ot_apply',
-                // 'url'  => '#applyOT',
-                'otmodal' => '',
+                'url'  => '/overtime/form',
+                // 'otmodal' => '',
                 'icon' => 'fas fa-edit',
                 // 'can' => 'ot-nav-menu',
             ],

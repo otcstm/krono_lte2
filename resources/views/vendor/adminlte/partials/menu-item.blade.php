@@ -16,7 +16,7 @@
         </div>
       </form>
 @elseif (isset($item['otmodal']))
-    <li class="{{ $item['class'] }}">
+    <!-- <li class="{{ $item['class'] }}">
         <a href="#"
         data-toggle="modal" data-target="#applyOT"
         >
@@ -24,7 +24,7 @@
             <span>
                 {{ $item['text'] }}
             </span></a>
-    </li>
+    </li> -->
 @else
     <li class="{{ $item['class'] }}">
         <a href="{{ $item['href'] }}"

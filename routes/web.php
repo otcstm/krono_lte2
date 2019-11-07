@@ -96,16 +96,28 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/log/updUserLogs', 'MiscController@logUserAct')->name('log.logUserAct');
 
   //OT activity
-  Route::get('/overtime', 'OvertimeController@showOT')->name('ot.showOT');
-  Route::get('/overtime/detail', 'OvertimeController@showDetails')->name('ot.showDetails');
-  Route::get('/overtime/logs', 'OvertimeController@logs')->name('ot.logs');
-  Route::post('overtime/create', 'OvertimeController@create')->name('ot.create');
-  Route::post('overtime/edit', 'OvertimeController@edit')->name('ot.edit');
-  Route::post('overtime/delete', 'OvertimeController@delete')->name('ot.delete');
-  Route::post('overtime/time', 'OvertimeController@time')->name('ot.time');
-  Route::post('overtime/deletetime', 'OvertimeController@deltime')->name('ot.deltime');
-  Route::post('overtime/store', 'OvertimeController@store')->name('ot.store');
-  Route::post('overtime/charge', 'OvertimeController@charge')->name('ot.charge');
+  Route::get('/overtime', 'OvertimeController@list')->name('ot.list');
+  Route::get('/overtime/log', 'OvertimeController@log')->name('ot.log');
+  Route::post('/overtime/store', 'OvertimeController@store')->name('ot.store');
+  Route::post('/overtime/update', 'OvertimeController@update')->name('ot.update');
+  Route::post('/overtime/remove', 'OvertimeController@remove')->name('ot.remove');
+  Route::post('/overtime/form', 'OvertimeController@form')->name('ot.form');
+  Route::post('/overtime/form/date', 'OvertimeController@formdate')->name('ot.formdate');
+  Route::post('/overtime/form/draft', 'OvertimeController@formdraft')->name('ot.formdraft');
+  Route::post('/overtime/form/add', 'OvertimeController@formadd')->name('ot.formadd');
+  Route::post('/overtime/form/edit', 'OvertimeController@formedit')->name('ot.formedit');
+  Route::post('/overtime/form/delete', 'OvertimeController@formdelete')->name('ot.formdelete');
+
+  // Route::get('/overtime', 'OvertimeController@showOT')->name('ot.showOT');
+  // Route::get('/overtime/detail', 'OvertimeController@showDetails')->name('ot.showDetails');
+  // Route::get('/overtime/logs', 'OvertimeController@logs')->name('ot.logs');
+  // Route::post('overtime/create', 'OvertimeController@create')->name('ot.create');
+  // Route::post('overtime/edit', 'OvertimeController@edit')->name('ot.edit');
+  // Route::post('overtime/delete', 'OvertimeController@delete')->name('ot.delete');
+  // Route::post('overtime/time', 'OvertimeController@time')->name('ot.time');
+  // Route::post('overtime/deletetime', 'OvertimeController@deltime')->name('ot.deltime');
+  // Route::post('overtime/store', 'OvertimeController@store')->name('ot.store');
+  // Route::post('overtime/charge', 'OvertimeController@charge')->name('ot.charge');
 });
 
 Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {

@@ -271,6 +271,23 @@
     </div>
 </div>
 @endif
+
+<div id="empty" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+            <div class="modal-body text-center">
+                <div class="glyphicon glyphicon-remove" style="color: #D9534F; font-size: 32px;"></div>
+                <p>Please add claim time before submitting!<p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
 @stop
 
 @section('js')

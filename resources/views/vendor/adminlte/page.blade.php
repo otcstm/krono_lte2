@@ -143,7 +143,7 @@
     </div>
     <!-- ./wrapper -->
     
-<div id="applyOT" class="modal fade" role="dialog">
+<!-- <div id="applyOT" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -151,7 +151,7 @@
                 <h4 class="modal-title">Create New OT Claim</h4>
             </div>
             <div class="modal-body">
-                <form action="{{route('ot.create')}}" method="POST">
+                <form action="{{--route('ot.create')--}}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="inputname">Select Date:</label>
@@ -167,7 +167,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 @stop
 
 @section('adminlte_js')
@@ -175,7 +175,7 @@
     @stack('js')
     @yield('js')
     
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         $('#applyOT').on('show.bs.modal', function() {
         var dt = new Date();
         var m = dt.getMonth()+1;
@@ -190,5 +190,5 @@
         $("#inputdates").attr("max", dt.getFullYear()+"-"+m+"-"+d);
         
         });
-    </script>
+    </script> -->
 @stop
