@@ -96,17 +96,20 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/log/updUserLogs', 'MiscController@logUserAct')->name('log.logUserAct');
 
   //OT activity
-  Route::get('/overtime', 'OvertimeController@list')->name('ot.list');
+  Route::get('/overtime', 'OvertimeController@list')->name('ot.list');  //x
   Route::get('/overtime/log', 'OvertimeController@log')->name('ot.log');
+  Route::get('/overtime/form', 'OvertimeController@form')->name('ot.form'); //X
+  Route::post('/overtime/form', 'OvertimeController@form')->name('ot.form'); //x
+  Route::post('/overtime/newform', 'OvertimeController@newform')->name('ot.newform'); //x
   Route::post('/overtime/store', 'OvertimeController@store')->name('ot.store');
-  Route::post('/overtime/update', 'OvertimeController@update')->name('ot.update');
-  Route::post('/overtime/remove', 'OvertimeController@remove')->name('ot.remove');
-  Route::post('/overtime/form', 'OvertimeController@form')->name('ot.form');
-  Route::post('/overtime/form/date', 'OvertimeController@formdate')->name('ot.formdate');
+  Route::post('/overtime/update', 'OvertimeController@update')->name('ot.update'); //x
+  Route::post('/overtime/remove', 'OvertimeController@remove')->name('ot.remove'); //x
+  Route::post('/overtime/form/date', 'OvertimeController@formdate')->name('ot.formdate'); //x
   Route::post('/overtime/form/draft', 'OvertimeController@formdraft')->name('ot.formdraft');
   Route::post('/overtime/form/add', 'OvertimeController@formadd')->name('ot.formadd');
-  Route::post('/overtime/form/edit', 'OvertimeController@formedit')->name('ot.formedit');
+  // Route::post('/overtime/form/edit', 'OvertimeController@formedit')->name('ot.formedit');
   Route::post('/overtime/form/delete', 'OvertimeController@formdelete')->name('ot.formdelete');
+  Route::post('/overtime/test', 'OvertimeController@test')->name('ot.test');
 
   // Route::get('/overtime', 'OvertimeController@showOT')->name('ot.showOT');
   // Route::get('/overtime/detail', 'OvertimeController@showDetails')->name('ot.showDetails');

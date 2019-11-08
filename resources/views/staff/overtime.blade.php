@@ -3,13 +3,12 @@
 @section('title', 'Overtime List')
 
 @section('content')
-<p><a href="{{route('misc.home')}}" style="display: inline">Home</a> > OT List</p>
 <div class="panel panel-default">
     <div class="panel-heading panel-primary">OT List</div>
     <div class="panel-body">
     
         <div class="text-center" style="margin-bottom: 15px">
-            <form action="{{route('ot.form')}}" method="POST" style="display:inline">
+            <form action="{{route('ot.newform')}}" method="POST" style="display:inline">
                 @csrf
                 <button type="submit" class="btn btn-primary">CREATE NEW CLAIM</button>
             </form>
@@ -46,10 +45,10 @@
                                 </button>
                             @else
                             <form action="{{route('ot.update')}}" method="POST" style="display:inline">
-                                    @csrf
-                                    <input type="text" class="hidden" id="inputid" name="inputid" value="{{$singleuser->id}}" required>
-                                    <button type="submit" class="btn btn-primary"><i class="fas fa-eye"></i></button>
-                                </form>
+                                @csrf
+                                <input type="text" class="hidden" id="inputid" name="inputid" value="{{$singleuser->id}}" required>
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-eye"></i></button>
+                            </form>
                             @endif
                         </td>
                     </tr>
