@@ -233,8 +233,16 @@ return [
           'submenu' => [
             [
                 'text' => 'ot_apply',
-                // 'url'  => '#applyOT',
-                'otmodal' => '',
+                'url'  => '/overtime/form',
+                'show' => '',
+                // 'otmodal' => '',
+                'icon' => 'fas fa-edit',
+                // 'can' => 'ot-nav-menu',
+            ],
+            [
+                'text' => 'ot_list',
+                'url'  => '/overtime',
+                // 'otmodal' => '',
                 'icon' => 'fas fa-edit',
                 // 'can' => 'ot-nav-menu',
             ],

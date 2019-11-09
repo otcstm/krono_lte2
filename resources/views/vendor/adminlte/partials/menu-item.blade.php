@@ -16,9 +16,19 @@
         </div>
       </form>
 @elseif (isset($item['otmodal']))
-    <li class="{{ $item['class'] }}">
+    <!-- <li class="{{ $item['class'] }}">
         <a href="#"
         data-toggle="modal" data-target="#applyOT"
+        >
+        <i class="{{ $item['icon'] ?? 'far fa-fw fa-circle' }} {{ isset($item['icon_color']) ? 'text-' . $item['icon_color'] : '' }}"></i>
+            <span>
+                {{ $item['text'] }}
+            </span></a>
+    </li> -->
+@elseif (isset($item['show']))
+    <li class="{{ $item['class'] }}">
+        <a href="{{ route('ot.newform') }}"
+           @if (isset($item['target'])) target="{{ $item['target'] }}" @endif
         >
         <i class="{{ $item['icon'] ?? 'far fa-fw fa-circle' }} {{ isset($item['icon_color']) ? 'text-' . $item['icon_color'] : '' }}"></i>
             <span>
