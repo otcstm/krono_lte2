@@ -145,4 +145,24 @@ class OvertimeController extends Controller{
             ]);
         }
     }
+
+    public function formdelete(Request $req){
+        $dif = (strtotime($req->inputend) - strtotime($req->inputstart))/60;
+        $hour = (int) ($dif/60);
+        $minute = $dif%60;
+        $dayclaim = Overtime::where('id', $req->inputid)->first();
+        $claimtime = OvertimeMonth::where('id', $dayclaim->month_id)->first();
+        $totalleft=($claimtime->hour*60)+$claimtime->minute;
+        $totaltime=($dayclaim->total_hour*60)+$dayclaim->total_minute;
+        $updateclaim = Overtime::find($req->inputid);
+        $updateclaim->total_hour = ((int)(($totaltime-$dif)/60));
+        $updateclaim->total_minute = (($totaltime-$dif)%60);
+        $updatemonth = OvertimeMonth::find($claimtime->id);
+        $updatemonth->hour = ((int)(($totalleft+$dif)/60));
+        $updatemonth->minute = (($totalleft+$dif)%60);
+        $updateclaim->save();
+        $updatemonth->save();
+        OvertimeDetail::find($req->delid)->delete();
+        return redirect(route('ot.form',[],false));
+    }
 }

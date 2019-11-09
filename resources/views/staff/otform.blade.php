@@ -11,24 +11,24 @@
             <p>Date: <input type="date" id="inputdate" name="inputdate" value="@if($show ?? ''){{$claim->date}}@endif" required></p>
         </form>
         @if($show ?? '')
-        <div class="row">
-            <div class="col-xs-6">
-                <p>Reference No: {{$claim->refno}}</p>
-                <p>State Calendar: </p>
-                @if($claim->status=="Draft")
-                    <span style="color: red"><p>Due Date: {{$claim->date_expiry}}</p>
-                    <p>Unsubmitted claims will be deleted after the due date</p></span>
-                @else
-                    <p>Chargin type: {{$claim->charge_type}}
-                    <p>Justification: {{$claim->justification}}
-                @endif
+            <div class="row">
+                <div class="col-xs-6">
+                    <p>Reference No: {{$claim->refno}}</p>
+                    <p>State Calendar: </p>
+                    @if($claim->status=="Draft")
+                        <span style="color: red"><p>Due Date: {{$claim->date_expiry}}</p>
+                        <p>Unsubmitted claims will be deleted after the due date</p></span>
+                    @else
+                        <p>Chargin type: {{$claim->charge_type}}
+                        <p>Justification: {{$claim->justification}}
+                    @endif
+                </div>
+                <div class="col-xs-6">
+                    <p>Status: {{$claim->status}}</p>
+                    <p>Verifier:</p>
+                    <p>Approver:</p>
+                </div>
             </div>
-            <div class="col-xs-6">
-                <p>Status: {{$claim->status}}</p>
-                <p>Verifier:</p>
-                <p>Approver:</p>
-            </div>
-        </div>
             @if($claim->status=="Draft")
             <div class="text-right" style="margin-bottom: 15px">
                 <button type="button" class="btn btn-primary" id="otedit-0">
@@ -128,9 +128,127 @@
                     </tr>
                 </tbody>
             </table>
+            @if($claim->status=="Draft")
+                <form id="formot" action="{{route('ot.formdraft')}}" method="POST">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            @csrf
+                            <div class="form-group">
+                                <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label>Charge Type:</label>
+                                    </div>
+                                    <div class="col-xs-9">
+                                        <select name="chargetype" class="forminput" id="chargetype" required>
+                                            <option value="Cost Center">Cost Center</option>
+                                            <option value="Project">Project</option>
+                                        </select> 
+                                    </div>
+                                </div>
+                                <div id="costcenter">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <label>Charging:</label>
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <select name="charging" class="forminput" id="charging" required>
+                                                <option value="ATAC07">ATAC07</option>
+                                            </select> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="project" style="display:none;">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <label>Type:</label>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <select name="type" class="forminput" id="type" required>
+                                                <option value="CUST23234">CUST23234</option>
+                                            </select> 
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <label>Header:</label>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <select name="header" class="forminput" id="header" required>
+                                                <option value="PRJ123124">PRJ123124</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <label>Code:</label>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <select name="code" class="forminput" id="code" required>
+                                                <option value="PRJ123124">PRJ123124</option>
+                                            </select> 
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <label>Activity:</label>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <select name="activity" class="forminput" id="activity" required>
+                                                <option value="PRJ123124">PRJ123124</option>
+                                            </select> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-top: -10px">
+                                <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label for="inputremark">Justification:</label>
+                                    </div>
+                                    <div class="col-xs-9">
+                                        <textarea class="forminput" rows = "5" cols = "60" id="inputremark" name="inputremark" placeholder="Write justification" required>{{$claim->justification}}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary" style="display: inline"><i class="fas fa-save"></i></button>
+                </form>
+                <form action="{{route('ot.store')}}" method="POST" onsubmit="return confirm('I understand and agree this to claim. If deemed false I can be taken to disciplinary action.')" style="display: inline">
+                    @csrf
+                    <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required style="display: inline">
+                    <button type="submit" class="btn btn-primary" style="display: inline">SUBMIT</button>               
+                </form>
+                </div>
+            @endif
         @endif
     </div>
 </div> 
+
+<div id="delOT" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Delete Claim Time</h4>
+            </div>
+            <div class="modal-body text-center">
+                <div class="glyphicon glyphicon-warning-sign" style="color: #F0AD4E; font-size: 32px;"></div>
+                <p>Are you sure you want to delete claim for <span id="otstart"></span>-<span id="otend"></span>?<p>
+                <form action="{{ route('ot.formdelete') }}" method="POST">
+                    @csrf
+                    <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required>
+                    <input type="text" class="form-control hidden" id="delid" name="delid" value="" required>
+                    <input type="time" class="form-control hidden" id="otinputstart" name="inputstart" required>
+                    <input type="time" class="form-control hidden" id="otinputend" name="inputend" required>
+                    <button type="submit" class="btn btn-primary">DELETE</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 @stop
 
 @section('js')
@@ -165,9 +283,7 @@
 
     //when date input is changed
     $("#inputdate").change(function(){
-        // alert(Date.parse(dt)+" "+(Date.parse($("#inputdate").val())-86399000));
-        // alert(dt+" "+$("#inputdate").val());
-        if((Date.parse($("#inputdate").val())-86399000)<=Date.parse(dt)&&(Date.parse($("#inputdate").val()))>=Date.parse(ot)){
+    if((Date.parse($("#inputdate").val())-86399000)<=Date.parse(dt)&&(Date.parse($("#inputdate").val()))>=Date.parse(ot)){
             $("#formdate").submit();
         }else{
             alert("Claim date must be between "+ot.getFullYear()+"-"+om+"-"+od+" and "+dt.getFullYear()+"-"+m+"-"+d+"!");
@@ -277,5 +393,16 @@
         $('#addNew').css("display", "none");
     });
 
+    //when delete is clocked
+    $('#delOT').on('show.bs.modal', function(e) {
+        var ot_id = $(e.relatedTarget).data('ot_id');
+        var ot_start = $(e.relatedTarget).data('ot_start');
+        var ot_end = $(e.relatedTarget).data('ot_end');
+        $("#delid").val(ot_id);
+        $("#otstart").text(ot_start);
+        $("#otend").text(ot_end);
+        $("#otinputstart").val(ot_start);
+        $("#otinputend").val(ot_end);
+    })
 </script>
 @stop

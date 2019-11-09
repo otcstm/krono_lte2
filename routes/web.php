@@ -101,14 +101,14 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/overtime/form', 'OvertimeController@form')->name('ot.form'); //X
   Route::post('/overtime/form', 'OvertimeController@form')->name('ot.form'); //x
   Route::post('/overtime/newform', 'OvertimeController@newform')->name('ot.newform'); //x
+  Route::post('/overtime/save', 'OvertimeController@save')->name('ot.save');
   Route::post('/overtime/store', 'OvertimeController@store')->name('ot.store');
   Route::post('/overtime/update', 'OvertimeController@update')->name('ot.update'); //x
   Route::post('/overtime/remove', 'OvertimeController@remove')->name('ot.remove'); //x
   Route::post('/overtime/form/date', 'OvertimeController@formdate')->name('ot.formdate'); //x
   Route::post('/overtime/form/draft', 'OvertimeController@formdraft')->name('ot.formdraft');
-  Route::post('/overtime/form/add', 'OvertimeController@formadd')->name('ot.formadd');
-  // Route::post('/overtime/form/edit', 'OvertimeController@formedit')->name('ot.formedit');
-  Route::post('/overtime/form/delete', 'OvertimeController@formdelete')->name('ot.formdelete');
+  Route::post('/overtime/form/add', 'OvertimeController@formadd')->name('ot.formadd');//x
+  Route::post('/overtime/form/delete', 'OvertimeController@formdelete')->name('ot.formdelete');//x
   Route::post('/overtime/test', 'OvertimeController@test')->name('ot.test');
 
   // Route::get('/overtime', 'OvertimeController@showOT')->name('ot.showOT');
