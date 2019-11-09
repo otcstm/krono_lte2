@@ -25,6 +25,16 @@
                 {{ $item['text'] }}
             </span></a>
     </li> -->
+@elseif (isset($item['show']))
+    <li class="{{ $item['class'] }}">
+        <a href="{{ route('ot.newform') }}"
+           @if (isset($item['target'])) target="{{ $item['target'] }}" @endif
+        >
+        <i class="{{ $item['icon'] ?? 'far fa-fw fa-circle' }} {{ isset($item['icon_color']) ? 'text-' . $item['icon_color'] : '' }}"></i>
+            <span>
+                {{ $item['text'] }}
+            </span></a>
+    </li>
 @else
     <li class="{{ $item['class'] }}">
         <a href="{{ $item['href'] }}"

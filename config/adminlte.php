@@ -234,6 +234,7 @@ return [
             [
                 'text' => 'ot_apply',
                 'url'  => '/overtime/form',
+                'show' => '',
                 // 'otmodal' => '',
                 'icon' => 'fas fa-edit',
                 // 'can' => 'ot-nav-menu',

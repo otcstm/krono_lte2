@@ -16,6 +16,8 @@ class OvertimeController extends Controller{
     }
 
     public function form(Request $req){
+        
+        // dd($req->session()->get('show'));
         if($req->session()->get('show')){
             $otlist = OvertimeDetail::where('ot_id', $req->session()->get('claim')->id)->get();
             $claimtime = OvertimeMonth::where('id', $req->session()->get('claim')->month_id)->first();
