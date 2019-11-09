@@ -25,6 +25,8 @@ class ShiftPlanController extends Controller
 
       $nextmon = Carbon::now()->addMonth()->firstOfMonth();
 
+      // dd(session()->all());
+
       return view('shiftplan.splan_list', [
         'p_list' => $planlist,
         'grouplist' => $grouplist,
@@ -212,18 +214,18 @@ class ShiftPlanController extends Controller
         // double check eligibility
         if($cuserid == $grp->manager_id){
           if($req->action == 'approve'){
-            return $this->approvePlan($req);
+            return $this->approvePlan($sifplen, $cuserid);
           } elseif ($req->action == 'reject') {
-            // code...
+            return $this->rejectPlan($sifplen, $cuserid, $req->remark);
           } elseif ($req->action == 'revert') {
-            // code...
+            return $this->revertPlan($sifplen, $cuserid, $req->remark);
           }
         }
 
         // if is planner
         if($cuserid == $grp->planner_id){
           if ($req->action == 'submit') {
-            // code...
+            return $this->submitPlan($sifplen, $cuserid);
           }
         }
 
@@ -242,23 +244,139 @@ class ShiftPlanController extends Controller
 
     }
 
-    private function approvePlan(Request $req){
-      return redirect()->back()->with([
-        'alert' => 'Shift plan approved',
-        'a_type' => 'success'
-      ]);
+    private function approvePlan(ShiftPlan $theplan, $cuserid){
+
+      // double check curren plan status
+      if($theplan->status == 'Approved'){
+        return redirect()->back()->with([
+          'alert' => 'Shift plan is already approved',
+          'a_type' => 'danger'
+        ]);
+      }
+
+      $theplan->status = 'Approved';
+      $theplan->save();
+
+      // add to plan ShiftPlanHistory
+      $sphist = new ShiftPlanHistory;
+      $sphist->shift_plan_id = $theplan->id;
+      $sphist->user_id = $cuserid;
+      $sphist->action = 'Approve';
+      $sphist->save();
+
+      // also updatae the status for each of the staff plan
+      foreach($theplan->StaffList as $asps){
+        $asps->status = 'Approved';
+        $asps->save();
+        // todo: send alert
+      }
+
+      return redirect(route('shift.view', ['id' => $theplan->id], false))
+        ->with([
+          'alert' => 'Shift plan approved',
+          'a_type' => 'success'
+        ]);
+
     }
 
-    private function revertPlan(Request $req){
+    private function revertPlan(ShiftPlan $theplan, $cuserid, $reason){
+      // double check curren plan status
+      if($theplan->status != 'Approved'){
+        return redirect()->back()->with([
+          'alert' => 'Shift plan is not yet approved',
+          'a_type' => 'danger'
+        ]);
+      }
+
+      $theplan->status = 'Planning';
+      $theplan->save();
+
+      // add to plan ShiftPlanHistory
+      $sphist = new ShiftPlanHistory;
+      $sphist->shift_plan_id = $theplan->id;
+      $sphist->user_id = $cuserid;
+      $sphist->remark = $reason;
+      $sphist->action = 'Revert';
+      $sphist->save();
+
+      // also updatae the status for each of the staff plan
+      foreach($theplan->StaffList as $asps){
+        $asps->status = 'Planning';
+        $asps->save();
+        // todo: send alert
+      }
+
+      return redirect(route('shift.view', ['id' => $theplan->id], false))
+        ->with([
+          'alert' => 'Shift plan reverted to planning stage',
+          'a_type' => 'warning'
+        ]);
+    }
+
+    private function submitPlan(ShiftPlan $theplan, $cuserid){
+      if($theplan->status != 'Planning'){
+        return redirect()->back()->with([
+          'alert' => 'Shift plan is not in planning stage',
+          'a_type' => 'danger'
+        ]);
+      }
+
+      $theplan->status = 'Submitted';
+      $theplan->save();
+
+      // add to plan ShiftPlanHistory
+      $sphist = new ShiftPlanHistory;
+      $sphist->shift_plan_id = $theplan->id;
+      $sphist->user_id = $cuserid;
+      $sphist->action = 'Submit';
+      $sphist->save();
+
+      // also updatae the status for each of the staff plan
+      foreach($theplan->StaffList as $asps){
+        $asps->status = 'Submitted';
+        $asps->save();
+        // todo: send alert
+      }
+
+      return redirect(route('shift.view', ['id' => $theplan->id], false))
+        ->with([
+          'alert' => 'Shift plan submitted to approver',
+          'a_type' => 'success'
+        ]);
 
     }
 
-    private function submitPlan(Request $req){
+    private function rejectPlan(ShiftPlan $theplan, $cuserid, $reason){
+      if($theplan->status != 'Submitted'){
+        return redirect()->back()->with([
+          'alert' => 'Shift plan has not being submitted yet',
+          'a_type' => 'danger'
+        ]);
+      }
 
-    }
+      $theplan->status = 'Planning';
+      $theplan->save();
 
-    private function rejectPlan(Request $req){
+      // add to plan ShiftPlanHistory
+      $sphist = new ShiftPlanHistory;
+      $sphist->shift_plan_id = $theplan->id;
+      $sphist->user_id = $cuserid;
+      $sphist->remark = $reason;
+      $sphist->action = 'Reject';
+      $sphist->save();
 
+      // also updatae the status for each of the staff plan
+      foreach($theplan->StaffList as $asps){
+        $asps->status = 'Planning';
+        $asps->save();
+        // todo: send alert
+      }
+
+      return redirect(route('shift.view', ['id' => $theplan->id], false))
+        ->with([
+          'alert' => 'Shift plan rejected. Back to planning stage',
+          'a_type' => 'warning'
+        ]);
     }
 
     public function staffInfo(Request $req){

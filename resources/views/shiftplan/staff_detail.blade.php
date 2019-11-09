@@ -8,6 +8,7 @@
 
 @section('content')
 {{ Breadcrumbs::render('shift.staff', $sps) }}
+@if($sps->status == 'Planning')
 <div class="panel panel-default">
   <div class="panel-heading">{{ __('shift.add_shift_to_staff')}}</div>
   <div class="panel-body">
@@ -52,6 +53,7 @@
     @endif
   </div>
 </div>
+@endif
 
 <div class="panel panel-default">
   <div class="panel-heading">Assigned Schedule</div>
@@ -81,6 +83,7 @@
            <td>{{ $ap->Pattern->total_hours }}</td>
            <td>{{ $ap->end_date }}</td>
            <td>
+             @if($sps->status == 'Planning')
              @if($ap->day_seq == $sps->Templates->count())
              <form method="post" action="{{ route('shift.staff.pop', [], false) }}" onsubmit='return confirm("Confirm delete?")'>
                @csrf
@@ -88,6 +91,7 @@
                <input type="hidden" name="id" value="{{ $ap->id }}" />
                <input type="hidden" name="sps_id" value="{{ $sps->id }}" />
              </form>
+             @endif
              @endif
            </td>
          </tr>

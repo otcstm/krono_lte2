@@ -49,7 +49,7 @@ return [
     |
     */
 
-    'skin' => 'green',
+    'skin' => 'blue-light',
 
     /*
     |--------------------------------------------------------------------------
@@ -95,7 +95,7 @@ return [
 
     'right_sidebar' => true,
     'right_sidebar_icon' => 'fas fa-exclamation',
-    'right_sidebar_theme' => 'dark',
+    'right_sidebar_theme' => 'light',
     'right_sidebar_slide' => true,
 
     /*
@@ -130,6 +130,81 @@ return [
     */
 
     'menu' => [
+      ['header' => 'admin_menu'],
+      [
+        'text' => 'system_config',
+        'icon' => 'fas fa-fw fa-tools',
+        'submenu' => [
+          [
+              'text' => 'manage_role',
+              'url'  => '/admin/role',
+              'icon' => 'fas fa-lock-open',
+              // 'can' => 'admin-nav-menu',
+          ],
+          [
+              'text' => 'manage_company',
+              'url'  => '/admin/company',
+              'icon' => 'fas fa-briefcase',
+              // 'can' => 'admin-nav-menu',
+          ],
+          [
+              'text' => 'manage_state',
+              'url' => '/admin/state/show',
+              'icon' => 'fas fa-map-marked-alt',
+              // 'can' => 'admin-nav-menu',
+          ],
+          [
+              'text' => 'manage_holiday',
+              'url' => '/admin/holiday/show',
+              'icon' => 'fas fa-umbrella-beach',
+              //'icon' => 'fas fa-hiking',
+              // 'can' => 'admin-nav-menu',
+          ],
+          [
+              'text' => 'manage_psubarea',
+              'url' => '/admin/psubarea',
+              'icon' => 'fas fa-map-marked-alt',
+              // 'can' => 'admin-nav-menu',
+          ],
+          [
+              'text' => 'manage_wdays',
+              'url'  => '/admin/workday',
+              'icon' => 'far fa-calendar-alt',
+              // 'can' => 'admin-nav-menu',
+          ],
+          [
+              'text' => 'shift_template',
+              'url'  => '/admin/shift_pattern',
+              'icon' => 'far fa-calendar-alt',
+              // 'can' => 'ot-nav-menu',
+          ],
+        ],
+      ],
+      [
+        'text' => 'admin_user_menu',
+        'icon' => 'fas fa-user-ninja',
+        'submenu' => [
+          [
+              'text' => 'user_autho',
+              'url'  => '/admin/staff/auth',
+              'icon' => 'fas fa-key',
+              // 'can' => 'admin-nav-menu',
+          ],
+          [
+              'text' => 'user_management',
+              'url'  => '/admin/staff',
+              'icon' => 'far fa-folder-open',
+              // 'can' => 'admin-nav-menu',
+          ],
+          [
+              'text' => 'user_logs',
+              //'url'  => route('state.show', [], false),
+              'url' => '/log/listUserLogs',
+              'icon' => 'fas fa-user-secret',
+              // 'can' => 'admin-nav-menu',
+          ],
+        ]
+      ],
       [ 'header' => 'user_menu',
         // 'can' => 'user-nav-menu',
       ],
@@ -151,81 +226,7 @@ return [
           'icon' => 'fas fa-tasks',
           // 'can' => 'ot-nav-menu',
       ],
-        ['header' => 'admin_menu'],
-        [
-          'text' => 'system_config',
-          'icon' => 'fas fa-fw fa-tools',
-          'submenu' => [
-            [
-                'text' => 'manage_role',
-                'url'  => '/admin/role',
-                'icon' => 'fas fa-lock-open',
-                // 'can' => 'admin-nav-menu',
-            ],
-            [
-                'text' => 'manage_company',
-                'url'  => '/admin/company',
-                'icon' => 'fas fa-briefcase',
-                // 'can' => 'admin-nav-menu',
-            ],
-            [
-                'text' => 'manage_state',
-                'url' => '/admin/state/show',
-                'icon' => 'fas fa-map-marked-alt',
-                // 'can' => 'admin-nav-menu',
-            ],
-            [
-                'text' => 'manage_holiday',
-                'url' => '/admin/holiday/show',
-                'icon' => 'fas fa-umbrella-beach',
-                //'icon' => 'fas fa-hiking',
-                // 'can' => 'admin-nav-menu',
-            ],
-            [
-                'text' => 'manage_psubarea',
-                'url' => '/admin/psubarea',
-                'icon' => 'fas fa-map-marked-alt',
-                // 'can' => 'admin-nav-menu',
-            ],
-            [
-                'text' => 'manage_wdays',
-                'url'  => '/admin/workday',
-                'icon' => 'far fa-calendar-alt',
-                // 'can' => 'admin-nav-menu',
-            ],
-            [
-                'text' => 'shift_template',
-                'url'  => '/admin/shift_pattern',
-                'icon' => 'far fa-calendar-alt',
-                // 'can' => 'ot-nav-menu',
-            ],
-          ],
-        ],
-        [
-          'text' => 'admin_user_menu',
-          'icon' => 'fas fa-user-ninja',
-          'submenu' => [
-            [
-                'text' => 'user_autho',
-                'url'  => '/admin/staff/auth',
-                'icon' => 'fas fa-key',
-                // 'can' => 'admin-nav-menu',
-            ],
-            [
-                'text' => 'user_management',
-                'url'  => '/admin/staff',
-                'icon' => 'far fa-folder-open',
-                // 'can' => 'admin-nav-menu',
-            ],
-            [
-                'text' => 'user_logs',
-                //'url'  => route('state.show', [], false),
-                'url' => '/log/listUserLogs',
-                'icon' => 'fas fa-user-secret',
-                // 'can' => 'admin-nav-menu',
-            ],
-          ]
-        ],
+
         [
           'text' => 'ot_menu',
           'icon' => 'fas fa-business-time',
@@ -287,22 +288,6 @@ return [
           ]
         ],
         [
-            'text' => 'rpt_menu',
-            'icon' => 'fas fa-print',
-            'submenu' => [
-              [
-                'text' => 'Overtime',
-                'url'  => '#',
-                'icon' => 'fas fa-user-ninja',
-              ],
-              [
-                'text' => 'Claim',
-                'url'  => '#',
-                'icon' => 'fas fa-users',
-              ],
-            ],
-        ],
-        [
           'header' => 'INFO',
           // 'can' => 'rpt-nav-menu',
         ],
@@ -317,6 +302,22 @@ return [
               ],
               [
                 'text' => 'user_guideline',
+                'url'  => '#',
+                'icon' => 'fas fa-users',
+              ],
+            ],
+        ],
+        [
+            'text' => 'rpt_menu',
+            'icon' => 'fas fa-print',
+            'submenu' => [
+              [
+                'text' => 'Overtime',
+                'url'  => '#',
+                'icon' => 'fas fa-user-ninja',
+              ],
+              [
+                'text' => 'Claim',
                 'url'  => '#',
                 'icon' => 'fas fa-users',
               ],
