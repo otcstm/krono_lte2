@@ -6,13 +6,18 @@
 <div class="panel panel-default">
     <div class="panel-heading panel-primary">OT List</div>
     <div class="panel-body">
-    
         <div class="text-center" style="margin-bottom: 15px">
             <form action="{{route('ot.newform')}}" method="POST" style="display:inline">
                 @csrf
                 <button type="submit" class="btn btn-primary">CREATE NEW CLAIM</button>
             </form>
         </div>
+        @if(session()->has('feedback'))
+        <div class="alert alert-{{session()->get('feedback_type')}} alert-dismissible" id="alert" style="display: none">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{session()->get('feedback_text')}}
+        </div>
+        @endif
         <div class="table-responsive">
             <table id="tOTList" class="table table-bordered">
                 <thead>
@@ -32,7 +37,7 @@
                         <td>{{ $singleuser->refno }}</td>
                         <td>{{ $singleuser->date }}</td>
                         <td>{{ $singleuser->total_hour }}h {{ $singleuser->total_minute }}m</td>
-                        <td>{{ $singleuser->status }}</td>
+                        <td>{{ $singleuser->status }} @if($singleuser->status=="Draft") <p style="color: red">Due: {{$singleuser->date_expiry}}</p> @endif</td>
                         <td>
                             @if($singleuser->status=="Draft")
                                 <form action="{{route('ot.update')}}" method="POST" style="display:inline">

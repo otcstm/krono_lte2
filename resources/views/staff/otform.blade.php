@@ -25,8 +25,8 @@
                 </div>
                 <div class="col-xs-6">
                     <p>Status: {{$claim->status}}</p>
-                    <p>Verifier:</p>
-                    <p>Approver:</p>
+                    <p>Verifier: {{$claim->verifier->name}}</p>
+                    <p>Approver: {{$claim->approver->name}}</p>
                 </div>
             </div>
             @if($claim->status=="Draft")
@@ -71,9 +71,14 @@
                             <button type="button" class="btn btn-primary" id="otedit-{{$no}}" data-toggle="modal">
                                 <i class="fas fa-pencil-alt"></i>
                             </button>
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delOT" data-ot_id="{{$singleuser->id}}" data-ot_start="{{ date('H:i', strtotime($singleuser->start_time)) }}" data-ot_end="{{ date('H:i', strtotime($singleuser->end_time)) }}">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
+                            <form action="{{ route('ot.formdelete') }}" onsubmit="return confirm('Are you sure you want to delete claim for {{ date('H:i', strtotime($singleuser->start_time)) }}-{{ date('H:i', strtotime($singleuser->end_time)) }}?');" method="POST" style="display: inline">
+                                @csrf
+                                <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required>
+                                <input type="text" class="form-control hidden" id="delid" name="delid" value="{{$singleuser->id}}" required>
+                                <input type="time" class="form-control hidden" id="otinputstart" name="inputstart" value="{{ date('H:i', strtotime($singleuser->start_time)) }}" required>
+                                <input type="time" class="form-control hidden" id="otinputend" name="inputend" value="{{ date('H:i', strtotime($singleuser->end_time)) }}" required>
+                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                            </form>
                         </td>
                         @endif
                     </tr>
@@ -108,7 +113,7 @@
                             <td>{{count($otlist)+1}}</td>
                             <td>
                                 <select name="inputclock" id="inputclock-0" required>
-                                    <option hidden disabled selected value="null">Select time</option>
+                                    <option hidden disabled selected value="">Select Time</option>
                                     <option value="na">N/A</option>
                                 </select>
                             </td>
@@ -129,42 +134,44 @@
                 </tbody>
             </table>
             @if($claim->status=="Draft")
-                <form id="formot" action="{{route('ot.formdraft')}}" method="POST">
+                <form id="formot" action="{{route('ot.save')}}" method="POST">
                     <div class="row">
                         <div class="col-xs-6">
                             @csrf
                             <div class="form-group">
                                 <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required>
+                                <input type="text" class="form-control hidden" id="save" name="save" value="submit" required>
                                 <div class="row">
                                     <div class="col-xs-3">
                                         <label>Charge Type:</label>
                                     </div>
                                     <div class="col-xs-9">
-                                        <select name="chargetype" class="forminput" id="chargetype" required>
-                                            <option value="Cost Center">Cost Center</option>
-                                            <option value="Project">Project</option>
+                                        <select name="chargetype" class="forminput inputcheck-{{$i=0}}" id="chargetype" value="{{$claim->charge_type}}" required>
+                                            <option hidden disabled value="" @if($claim->charge_type=="") selected @endif>Select Charge Type</option>
+                                            <option value="Cost Center" @if($claim->charge_type=="Cost Center") selected @endif>Cost Center</option>
+                                            <option value="Project" @if($claim->charge_type=="Project") selected @endif>Project</option>
                                         </select> 
                                     </div>
                                 </div>
-                                <div id="costcenter">
+                                <div id="costcenter" @if($claim->charge_type!="Cost Center") style="display: none" @endif>
                                     <div class="row">
                                         <div class="col-xs-3">
                                             <label>Charging:</label>
                                         </div>
                                         <div class="col-xs-9">
-                                            <select name="charging" class="forminput" id="charging" required>
+                                            <select name="charging" id="charging" class="forminput @if($claim->charge_type=="Cost Center")inputcheck-{{++$i}}" required @else " @endif>
                                                 <option value="ATAC07">ATAC07</option>
                                             </select> 
                                         </div>
                                     </div>
                                 </div>
-                                <div id="project" style="display:none;">
+                                <div id="project"  @if($claim->charge_type!="Project") style="display: none" @endif>
                                     <div class="row">
                                         <div class="col-xs-3">
                                             <label>Type:</label>
                                         </div>
                                         <div class="col-xs-3">
-                                            <select name="type" class="forminput" id="type" required>
+                                            <select name="type" id="type" class="forminput @if($claim->charge_type=="Project")inputcheck-{{++$i}}" required @else " @endif>
                                                 <option value="CUST23234">CUST23234</option>
                                             </select> 
                                         </div>
@@ -172,7 +179,7 @@
                                             <label>Header:</label>
                                         </div>
                                         <div class="col-xs-3">
-                                            <select name="header" class="forminput" id="header" required>
+                                            <select name="header" id="header" class="forminput @if($claim->charge_type=="Project")inputcheck-{{++$i}}" required @else " @endif>
                                                 <option value="PRJ123124">PRJ123124</option>
                                             </select>
                                         </div>
@@ -182,7 +189,7 @@
                                             <label>Code:</label>
                                         </div>
                                         <div class="col-xs-3">
-                                            <select name="code" class="forminput" id="code" required>
+                                            <select name="code" id="code" class="forminput @if($claim->charge_type=="Project")inputcheck-{{++$i}}" required @else " @endif>
                                                 <option value="PRJ123124">PRJ123124</option>
                                             </select> 
                                         </div>
@@ -190,7 +197,7 @@
                                             <label>Activity:</label>
                                         </div>
                                         <div class="col-xs-3">
-                                            <select name="activity" class="forminput" id="activity" required>
+                                            <select name="activity" id="activity" class="forminput @if($claim->charge_type=="Project")inputcheck-{{++$i}}" required @else " @endif>
                                                 <option value="PRJ123124">PRJ123124</option>
                                             </select> 
                                         </div>
@@ -198,57 +205,30 @@
                                 </div>
                             </div>
                             <div class="form-group" style="margin-top: -10px">
-                                <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required>
                                 <div class="row">
                                     <div class="col-xs-3">
                                         <label for="inputremark">Justification:</label>
                                     </div>
                                     <div class="col-xs-9">
-                                        <textarea class="forminput" rows = "5" cols = "60" id="inputremark" name="inputremark" placeholder="Write justification" required>{{$claim->justification}}</textarea>
+                                        <textarea class="forminput inputcheck-{{++$i}}" rows = "5" cols = "60" id="inputremark" name="inputremark" placeholder="Write justification" required>{{$claim->justification}}</textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary" style="display: inline"><i class="fas fa-save"></i></button>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary" style="display: inline"><i class="fas fa-save"></i></button>
                 </form>
-                <form action="{{route('ot.store')}}" method="POST" onsubmit="return confirm('I understand and agree this to claim. If deemed false I can be taken to disciplinary action.')" style="display: inline">
+                <form id="formsubmit" action="{{route('ot.store')}}" method="POST" onsubmit="return confirm('I understand and agree this to claim. If deemed false I can be taken to disciplinary action.')" style="display: inline">
                     @csrf
-                    <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required style="display: inline">
-                    <button type="submit" class="btn btn-primary" style="display: inline">SUBMIT</button>               
+                    <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required>
+                    <button type="button" id="sub" class="btn btn-primary">SAVE</button>
                 </form>
-                </div>
+                    </div>
             @endif
         @endif
     </div>
 </div> 
-
-<div id="delOT" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Delete Claim Time</h4>
-            </div>
-            <div class="modal-body text-center">
-                <div class="glyphicon glyphicon-warning-sign" style="color: #F0AD4E; font-size: 32px;"></div>
-                <p>Are you sure you want to delete claim for <span id="otstart"></span>-<span id="otend"></span>?<p>
-                <form action="{{ route('ot.formdelete') }}" method="POST">
-                    @csrf
-                    <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required>
-                    <input type="text" class="form-control hidden" id="delid" name="delid" value="" required>
-                    <input type="time" class="form-control hidden" id="otinputstart" name="inputstart" required>
-                    <input type="time" class="form-control hidden" id="otinputend" name="inputend" required>
-                    <button type="submit" class="btn btn-primary">DELETE</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
 @stop
 
 @section('js')
@@ -259,6 +239,8 @@
     //set min and max date
     var dt = new Date();
     var ot = new Date();
+    var add = false;
+    var submit = false;
     dt.setDate(dt.getDate() - 1);
     ot.setDate(ot.getDate() - 90);
     var m = dt.getMonth()+1;
@@ -364,6 +346,12 @@
         return function(){
             $('#edit-'+i).css("display", "table-row");
             $('#show-'+i).css("display", "none");
+            if(add){
+                alert("Please save current time input before adding a new one!");
+            }
+            if(i==0){
+                add=true;
+            }
         };
     };
     
@@ -371,6 +359,9 @@
         return function(){
             $('#edit-'+i).css("display", "none");
             $('#show-'+i).css("display", "table-row");
+            if(i==0){
+                add=false;
+            }
         };
     };
     
@@ -393,16 +384,31 @@
         $('#addNew').css("display", "none");
     });
 
-    //when delete is clocked
-    $('#delOT').on('show.bs.modal', function(e) {
-        var ot_id = $(e.relatedTarget).data('ot_id');
-        var ot_start = $(e.relatedTarget).data('ot_start');
-        var ot_end = $(e.relatedTarget).data('ot_end');
-        $("#delid").val(ot_id);
-        $("#otstart").text(ot_start);
-        $("#otend").text(ot_end);
-        $("#otinputstart").val(ot_start);
-        $("#otinputend").val(ot_end);
-    })
+    //submit form when any values are changed
+    $("form .forminput").change(function(){
+        $("#save").val("save");
+        $("#formot").submit();
+    });
+
+    //when submit button is clicked
+    @if($i ?? "")
+    $("#sub").on("click ", function(){
+        for(i=0; i<{{$i}}+1;i++){
+            if($('.inputcheck-'+i).get(0).checkValidity()==false){
+                $('.inputcheck-'+i).get(0).reportValidity();
+                submit = false;
+            }else{
+                submit = true;
+            }
+        }
+        if(submit){
+            @if(count($otlist)!=0)
+                $("#formsubmit").submit();
+            @else
+                alert("Please add claim time before submitting!"); 
+            @endif
+        }
+    }); 
+    @endif
 </script>
 @stop

@@ -16,7 +16,7 @@ class OvertimeController extends Controller{
     }
 
     public function form(Request $req){
-        if($req->session()->has('show')){
+        if($req->session()->get('show')){
             $otlist = OvertimeDetail::where('ot_id', $req->session()->get('claim')->id)->get();
             $claimtime = OvertimeMonth::where('id', $req->session()->get('claim')->month_id)->first();
             return view('staff.otform', ['show' => $req->session()->get('show'), 'claim' => $req->session()->get('claim'), 'claimtime' => $claimtime, 'otlist' => $otlist]);
@@ -39,6 +39,7 @@ class OvertimeController extends Controller{
         $updatemonth->minute = ((($claim->total_hour*60+$claim->total_minute)+($claimtime->hour*60+$claimtime->minute))%60);
         $updatemonth->save();
         Overtime::find($req->delid)->delete();
+        Session::put(['show' => false]);
         return redirect(route('ot.list',[],false));
     }
 
@@ -76,7 +77,9 @@ class OvertimeController extends Controller{
             $newclaim->total_hour = 0;
             $newclaim->total_minute = 0;
             $newclaim->status = 'Draft';
-            $newclaim->charge_type = 'Cost Center';
+            $newclaim->approver_id = 55326; //temp
+            $newclaim->verifier_id =  55326; //temp
+            $newclaim->charge_type = '';
             $newclaim->save();           
             $claim = Overtime::where('user_id', $req->user()->id)->where('date', $claimdate)->first();
         }else{
@@ -164,5 +167,33 @@ class OvertimeController extends Controller{
         $updatemonth->save();
         OvertimeDetail::find($req->delid)->delete();
         return redirect(route('ot.form',[],false));
+    }
+
+    public function save(Request $req){
+        $updateclaim = Overtime::find($req->inputid);
+        $updateclaim->charge_type = $req->chargetype;
+        $updateclaim->justification = $req->inputremark;
+        $updateclaim->save();
+        $claim = Overtime::where('id', $req->inputid)->first();
+        Session::put(['claim' => $claim]);
+        if($req->save=="save"){
+            return redirect(route('ot.form',[],false));
+        }else{
+            return redirect(route('ot.list',[],false)); 
+        }
+    }
+
+    public function store(Request $req){
+        $updateclaim = Overtime::find($req->inputid);
+        $updateclaim->status = "Submitted";
+        $updateclaim->save();
+        return redirect(route('ot.list',[],false))->with([
+            'feedback' => true,
+            'feedback_text' => "Successfully added a new claim!",
+            'feedback_type' => "success"
+        ]);
+    }
+    public function test(Request $req){
+        dd("ngentot");
     }
 }

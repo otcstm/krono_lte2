@@ -15,4 +15,14 @@ class Overtime extends Model
     {
         return $this->belongsToMany(OvertimeDetail::class);
     }
+
+    public function approver()
+    {
+        return $this->belongsTo(User::class, 'approver_id')->withDefault(['name' => 'N/A']);
+    }
+
+    public function verifier()
+    {
+        return $this->belongsTo(User::class, 'verifier_id')->withDefault(['name' => 'N/A']);
+    }
 }
