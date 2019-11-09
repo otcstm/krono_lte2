@@ -21,8 +21,11 @@ class TempController extends Controller
           'staff_no' => 'required', 'password' => 'required',
     ]);
     $cuser = User::where('staff_no', $req->staff_no)->first();
-    Auth::loginUsingId($cuser->id, true);
-    return redirect()->intended(route('misc.home', [], false));
-    return redirect()->back()->with('message', $udata['msg']);
+    if($cuser){
+      Auth::loginUsingId($cuser->id, true);
+      return redirect(route('misc.home', [], false));
+    } else {
+      return redirect()->back()->withErrors('staff_no', 'user not exist');
+    }
   }
 }

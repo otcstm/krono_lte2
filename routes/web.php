@@ -126,9 +126,7 @@ Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth
   Route::get('/detail', 'ShiftPlanController@viewDetail')->name('view');
   Route::post('/edit', 'ShiftPlanController@editPlan')->name('edit');
   Route::post('/del', 'ShiftPlanController@delPlan')->name('delete');
-  Route::post('/submit', 'ShiftPlanController@submitPlan')->name('submit');
-  Route::post('/approve', 'ShiftPlanController@approvePlan')->name('approve');
-  Route::post('/revert', 'ShiftPlanController@revertPlan')->name('revert');
+  Route::post('/takeaction', 'ShiftPlanController@takeActionPlan')->name('takeaction');
 
   // shift groups
   Route::get('/group', 'ShiftGroupController@index')->name('group');
