@@ -16,8 +16,6 @@ class OvertimeController extends Controller{
     }
 
     public function form(Request $req){
-        
-        // dd($req->session()->get('show'));
         if($req->session()->get('show')){
             $otlist = OvertimeDetail::where('ot_id', $req->session()->get('claim')->id)->get();
             $claimtime = OvertimeMonth::where('id', $req->session()->get('claim')->month_id)->first();
@@ -42,7 +40,11 @@ class OvertimeController extends Controller{
         $updatemonth->save();
         Overtime::find($req->delid)->delete();
         Session::put(['show' => false]);
-        return redirect(route('ot.list',[],false));
+        return redirect(route('ot.list',[],false))->with([
+            'feedback' => true,
+            'feedback_text' => "Successfully deleted claim ".$claim->refno.".",
+            'feedback_type' => "warning"
+        ]);
     }
 
     public function newform(Request $req){
@@ -87,8 +89,6 @@ class OvertimeController extends Controller{
         }else{
             $claimtime = OvertimeMonth::where('id', $claim->month_id)->first();
         }
-        // $otlist = OvertimeDetail::where('ot_id', $req->inputid)->get();
-        // Session::put(['show' => true, 'claim' => $claim, 'claimtime' => $claimtime, 'otlist' => $otlist]);
         Session::put(['show' => true, 'claim' => $claim]);
         return redirect(route('ot.form',[],false));
     }
@@ -141,7 +141,11 @@ class OvertimeController extends Controller{
             $newclaim->save();
             $updateclaim->save();
             $updatemonth->save();
-            return redirect(route('ot.form',[],false));
+            return redirect(route('ot.form',[],false))->with([
+                'feedback' => true,
+                'feedback_text' => "Successfully added a new time!",
+                'feedback_type' => "success"
+            ]);
         }else{
             return redirect(route('ot.form ',[],false))->with([
                 'feedback' => true,
@@ -168,7 +172,11 @@ class OvertimeController extends Controller{
         $updateclaim->save();
         $updatemonth->save();
         OvertimeDetail::find($req->delid)->delete();
-        return redirect(route('ot.form',[],false));
+        return redirect(route('ot.form',[],false))->with([
+            'feedback' => true,
+            'feedback_text' => "Successfully deleted time ".$req->inputstart."-".$req->inputend.".",
+            'feedback_type' => "warning"
+        ]);
     }
 
     public function save(Request $req){
@@ -196,6 +204,6 @@ class OvertimeController extends Controller{
         ]);
     }
     public function test(Request $req){
-        dd("ngentot");
+        dd("lol");
     }
 }

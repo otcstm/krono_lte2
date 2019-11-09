@@ -38,7 +38,7 @@
             </div>
             @endif
             @if(session()->has('feedback'))
-            <div class="alert alert-{{session()->get('feedback_type')}} alert-dismissible" id="alert" style="display: none">
+            <div class="alert alert-{{session()->get('feedback_type')}} alert-dismissible" id="alert">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 {{session()->get('feedback_text')}}
             </div>
@@ -222,7 +222,7 @@
                 <form id="formsubmit" action="{{route('ot.store')}}" method="POST" onsubmit="return confirm('I understand and agree this to claim. If deemed false I can be taken to disciplinary action.')" style="display: inline">
                     @csrf
                     <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required>
-                    <button type="button" id="sub" class="btn btn-primary">SAVE</button>
+                    <button type="button" id="sub" class="btn btn-primary">SUBMIT</button>
                 </form>
                     </div>
             @endif

@@ -13,7 +13,7 @@
             </form>
         </div>
         @if(session()->has('feedback'))
-        <div class="alert alert-{{session()->get('feedback_type')}} alert-dismissible" id="alert" style="display: none">
+        <div class="alert alert-{{session()->get('feedback_type')}} alert-dismissible" id="alert">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             {{session()->get('feedback_text')}}
         </div>
