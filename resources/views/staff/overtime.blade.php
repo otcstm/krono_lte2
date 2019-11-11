@@ -22,6 +22,7 @@
             <table id="tOTList" class="table table-bordered">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>No</th>
                         <th>Reference No</th>
                         <th>Date time</th>
@@ -33,13 +34,14 @@
                 <tbody>
                     @foreach($otlist as $no=>$singleuser)
                     <tr>
+                        <td>@if($singleuser->status=="Draft (Complete)")<input type="checkbox" id="checkbox-{{$no}}" value="{{$singleuser->id}}"> @endif</td>
                         <td>{{ ++$no }}</td>
                         <td>{{ $singleuser->refno }}</td>
                         <td>{{ $singleuser->date }}</td>
                         <td>{{ $singleuser->total_hour }}h {{ $singleuser->total_minute }}m</td>
-                        <td>{{ $singleuser->status }} @if($singleuser->status=="Draft") <p style="color: red">Due: {{$singleuser->date_expiry}}</p> @endif</td>
+                        <td>{{ $singleuser->status }} @if(($singleuser->status=="Draft (Incomplete)")||($singleuser->status=="Draft (Complete)")) <p style="color: red">Due: {{$singleuser->date_expiry}}</p> @endif</td>
                         <td>
-                            @if($singleuser->status=="Draft")
+                            @if(($singleuser->status=="Draft (Incomplete)")||($singleuser->status=="Draft (Complete)"))
                                 <form action="{{route('ot.update')}}" method="POST" style="display:inline">
                                     @csrf
                                     <input type="text" class="hidden" id="inputid" name="inputid" value="{{$singleuser->id}}" required>
@@ -60,6 +62,13 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
+        <div id="submitbtn" class="text-center" style="display: none">
+            <form action="{{route('ot.submit')}}" method="POST" onsubmit="return confirm('I understand and agree this to claim. If deemed false I can be taken to disciplinary action.')" style="display:inline">
+                @csrf
+                <input type="text" class="hidden" id="submitid" name="submitid" value="" required>
+                <button type="submit" class="btn btn-primary">SUBMIT</button>
+            </form>
         </div>
     </div>
 </div>
@@ -93,6 +102,7 @@
 $(document).ready(function() {
     $('#tOTList').DataTable({
         "responsive": "true",
+        "order" : [[1, "asc"]],
     });
 });
 
@@ -102,5 +112,33 @@ $('#delOT').on('show.bs.modal', function(e) {
     $("#delid").val(id);
     $("#deldate").text(date);
 })
+
+
+var show = 0;
+
+function submitval(i){
+    return function(){
+        if ($('#checkbox-'+i).is(':checked')) {
+            $("#submitid").val(function() {
+                return this.value + $('#checkbox-'+i).val()+" ";
+            });
+            show++;
+        }else{
+            var str = ($('#submitid').val()).replace($('#checkbox-'+i).val()+" ",'');
+            $('#submitid').val(str);
+            show--;
+        }
+        if(show>0){
+            $('#submitbtn').css("display","block");
+        }else{
+            $('#submitbtn').css("display","none");
+        }
+    };
+};
+
+for(i=0; i<{{count($otlist)}}; i++) {
+    $("#checkbox-"+i).change(submitval(i));
+};
+
 </script>
 @stop

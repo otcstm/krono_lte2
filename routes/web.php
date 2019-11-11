@@ -104,23 +104,15 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/overtime/newform', 'OvertimeController@newform')->name('ot.newform'); //x
   Route::post('/overtime/save', 'OvertimeController@save')->name('ot.save'); //x
   Route::post('/overtime/store', 'OvertimeController@store')->name('ot.store'); //x
+  Route::post('/overtime/submit', 'OvertimeController@submit')->name('ot.submit'); //x
   Route::post('/overtime/update', 'OvertimeController@update')->name('ot.update'); //x
   Route::post('/overtime/remove', 'OvertimeController@remove')->name('ot.remove'); //x
   Route::post('/overtime/form/date', 'OvertimeController@formdate')->name('ot.formdate'); //x
   Route::post('/overtime/form/add', 'OvertimeController@formadd')->name('ot.formadd');//x
   Route::post('/overtime/form/delete', 'OvertimeController@formdelete')->name('ot.formdelete');//x
+  Route::post('/overtime/approval', 'OvertimeController@approval')->name('ot.approval');
+  Route::post('/overtime/query', 'OvertimeController@query')->name('ot.query');
   Route::post('/overtime/test', 'OvertimeController@test')->name('ot.test');
-
-  // Route::get('/overtime', 'OvertimeController@showOT')->name('ot.showOT');
-  // Route::get('/overtime/detail', 'OvertimeController@showDetails')->name('ot.showDetails');
-  // Route::get('/overtime/logs', 'OvertimeController@logs')->name('ot.logs');
-  // Route::post('overtime/create', 'OvertimeController@create')->name('ot.create');
-  // Route::post('overtime/edit', 'OvertimeController@edit')->name('ot.edit');
-  // Route::post('overtime/delete', 'OvertimeController@delete')->name('ot.delete');
-  // Route::post('overtime/time', 'OvertimeController@time')->name('ot.time');
-  // Route::post('overtime/deletetime', 'OvertimeController@deltime')->name('ot.deltime');
-  // Route::post('overtime/store', 'OvertimeController@store')->name('ot.store');
-  // Route::post('overtime/charge', 'OvertimeController@charge')->name('ot.charge');
 });
 
 Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {

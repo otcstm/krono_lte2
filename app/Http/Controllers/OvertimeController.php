@@ -25,6 +25,31 @@ class OvertimeController extends Controller{
         }
     }
 
+    public function store(Request $req){
+        $updateclaim = Overtime::find($req->inputid);
+        $updateclaim->status = "Submitted";
+        $updateclaim->save();
+        return redirect(route('ot.list',[],false))->with([
+            'feedback' => true,
+            'feedback_text' => "Successfully added a new claim!",
+            'feedback_type' => "success"
+        ]);
+    }
+
+    public function submit(Request $req){
+        $id = explode(" ", $req->submitid);
+        for($i = 0; $i<count($id); $i++){
+            $updateclaim = Overtime::find($id[$i]);
+            $updateclaim->status = 'Submitted';
+            $updateclaim->save();
+        }
+        return redirect(route('ot.list',[],false))->with([
+            'feedback' => true,
+            'feedback_text' => "Successfully submitted claim!",
+            'feedback_type' => "success"
+        ]);
+    }
+
     public function update(Request $req){
         $claim = Overtime::where('id', $req->inputid)->first();
         Session::put(['show' => true, 'claim' => $claim]);
@@ -80,7 +105,7 @@ class OvertimeController extends Controller{
             $newclaim->date_expiry = date('Y-m-d', strtotime("+90 days"));;
             $newclaim->total_hour = 0;
             $newclaim->total_minute = 0;
-            $newclaim->status = 'Draft';
+            $newclaim->status = 'Draft (Incomplete)';
             $newclaim->approver_id = 55326; //temp
             $newclaim->verifier_id =  55326; //temp
             $newclaim->charge_type = '';
@@ -138,9 +163,14 @@ class OvertimeController extends Controller{
             $updatemonth = OvertimeMonth::find($claimtime->id);
             $updatemonth->hour = ((int)(($totalleft-$dif)/60));
             $updatemonth->minute = (($totalleft-$dif)%60);
+            if(($req->claimcharge!=null)&&($req->claimremark!=null)){
+                $updateclaim->status = 'Draft (Complete)';
+            }
             $newclaim->save();
             $updateclaim->save();
             $updatemonth->save();
+            $claim = Overtime::where('id', $req->inputid)->first();
+            Session::put(['claim' => $claim]);
             if($req->edit=="edit"){
                 return redirect(route('ot.form',[],false))->with([
                     'feedback' => true,
@@ -177,9 +207,15 @@ class OvertimeController extends Controller{
         $updatemonth = OvertimeMonth::find($claimtime->id);
         $updatemonth->hour = ((int)(($totalleft+$dif)/60));
         $updatemonth->minute = (($totalleft+$dif)%60);
+        OvertimeDetail::find($req->delid)->delete();
+        $claimdetail = OvertimeDetail::where('ot_id', $req->inputid)->get();
+        if(count($claimdetail)==0){
+            $updateclaim->status = 'Draft (Incomplete)';
+        }
         $updateclaim->save();
         $updatemonth->save();
-        OvertimeDetail::find($req->delid)->delete();
+        $claim = Overtime::where('id', $req->inputid)->first();
+        Session::put(['claim' => $claim]);
         return redirect(route('ot.form',[],false))->with([
             'feedback' => true,
             'feedback_text' => "Successfully deleted time ".$req->inputstart."-".$req->inputend.".",
@@ -188,9 +224,15 @@ class OvertimeController extends Controller{
     }
 
     public function save(Request $req){
+        $claim = OvertimeDetail::where('ot_id', $req->inputid)->get();
         $updateclaim = Overtime::find($req->inputid);
         $updateclaim->charge_type = $req->chargetype;
         $updateclaim->justification = $req->inputremark;
+        if(($req->chargetype!=null)&&($req->inputremark!=null)&&(count($claim)!=0)){
+            $updateclaim->status = 'Draft (Complete)';
+        }else{
+            $updateclaim->status = 'Draft (Incomplete)';
+        }
         $updateclaim->save();
         $claim = Overtime::where('id', $req->inputid)->first();
         Session::put(['claim' => $claim]);
@@ -201,16 +243,6 @@ class OvertimeController extends Controller{
         }
     }
 
-    public function store(Request $req){
-        $updateclaim = Overtime::find($req->inputid);
-        $updateclaim->status = "Submitted";
-        $updateclaim->save();
-        return redirect(route('ot.list',[],false))->with([
-            'feedback' => true,
-            'feedback_text' => "Successfully added a new claim!",
-            'feedback_type' => "success"
-        ]);
-    }
     public function test(Request $req){
         dd("lol");
     }

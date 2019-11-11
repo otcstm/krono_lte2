@@ -15,7 +15,7 @@
                 <div class="col-xs-6">
                     <p>Reference No: {{$claim->refno}}</p>
                     <p>State Calendar: </p>
-                    @if($claim->status=="Draft")
+                    @if(($claim->status=="Draft (Incomplete)")||($claim->status=="Draft (Complete)"))
                         <span style="color: red"><p>Due Date: {{$claim->date_expiry}}</p>
                         <p>Unsubmitted claims will be deleted after the due date</p></span>
                     @else
@@ -29,7 +29,7 @@
                     <p>Approver: {{$claim->approver->name}}</p>
                 </div>
             </div>
-            @if($claim->status=="Draft")
+            @if(($claim->status=="Draft (Incomplete)")||($claim->status=="Draft (Complete)"))
             <div class="text-right" style="margin-bottom: 15px">
                 <button type="button" class="btn btn-primary" id="otedit-0">
                     ADD TIME
@@ -51,7 +51,7 @@
                         <th width="20%">Start/End Time</th>
                         <th width="8%">Total Time</th>
                         <th width="40%">Justification</th>
-                        @if($claim->status=="Draft")
+                        @if(($claim->status=="Draft (Incomplete)")||($claim->status=="Draft (Complete)"))
                         <th width="10%">
                             Action
                         </th>
@@ -66,7 +66,7 @@
                         <td>{{ date('H:i', strtotime($singleuser->start_time)) }} - {{ date('H:i', strtotime($singleuser->end_time)) }}</td>
                         <td>{{ $singleuser->hour }}h {{ $singleuser->minute }}m</td>
                         <td>{{ $singleuser->justification }}</td>
-                        @if($claim->status=="Draft")
+                        @if(($claim->status=="Draft (Incomplete)")||($claim->status=="Draft (Complete)"))
                         <td>
                             <button type="button" class="btn btn-primary" id="otedit-{{$no}}" data-toggle="modal">
                                 <i class="fas fa-pencil-alt"></i>
@@ -110,6 +110,8 @@
                             @csrf
                             <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required>
                             <input type="text" class="form-control hidden" id="inputdate" name="inputdate" value="{{$claim->date}}" required>
+                            <input type="text" class="form-control hidden" id="claimcharge" name="claimcharge" value="{{$claim->charge_type}}" required>
+                            <input type="text" class="form-control hidden" id="claimremark" name="claimremark" value="{{$claim->justification}}" required>
                             <td>{{count($otlist)+1}}</td>
                             <td>
                                 <select name="inputclock" id="inputclock-0" required>
@@ -133,7 +135,7 @@
                     </tr>
                 </tbody>
             </table>
-            @if($claim->status=="Draft")
+            @if(($claim->status=="Draft (Incomplete)")||($claim->status=="Draft (Complete)"))
                 <form id="formot" action="{{route('ot.save')}}" method="POST">
                     <div class="row">
                         <div class="col-xs-6">
