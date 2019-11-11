@@ -69,6 +69,11 @@
                 <input type="text" class="hidden" id="submitid" name="submitid" value="" required>
                 <button type="submit" class="btn btn-primary">SUBMIT</button>
             </form>
+            <form action="{{route('ot.delete')}}" method="POST" onsubmit="return confirm('Are you sure you want to delete these claims?')" style="display:inline">
+                @csrf
+                <input type="text" class="hidden" id="deleteid" name="deleteid" value="" required>
+                <button type="submit" class="btn btn-danger">DELETE</button>
+            </form>
         </div>
     </div>
 </div>
@@ -122,10 +127,14 @@ function submitval(i){
             $("#submitid").val(function() {
                 return this.value + $('#checkbox-'+i).val()+" ";
             });
+            $("#deleteid").val(function() {
+                return this.value + $('#checkbox-'+i).val()+" ";
+            });
             show++;
         }else{
             var str = ($('#submitid').val()).replace($('#checkbox-'+i).val()+" ",'');
             $('#submitid').val(str);
+            $('#deleteid').val(str);
             show--;
         }
         if(show>0){

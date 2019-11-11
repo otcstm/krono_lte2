@@ -72,6 +72,25 @@ class OvertimeController extends Controller{
         ]);
     }
 
+    public function delete(Request $req){
+        $id = explode(" ", $req->deleteid);
+        for($i = 0; $i<count($id); $i++){
+            $claim = Overtime::where('id', $id[$i])->first();
+            $claimtime = OvertimeMonth::where('id', $claim->month_id)->first();
+            $updatemonth = OvertimeMonth::find($claim->month_id);
+            $updatemonth->hour = ((int)((($claim->total_hour*60+$claim->total_minute)+($claimtime->hour*60+$claimtime->minute))/60));
+            $updatemonth->minute = ((($claim->total_hour*60+$claim->total_minute)+($claimtime->hour*60+$claimtime->minute))%60);
+            $updatemonth->save();
+            Overtime::find($id[$i])->delete();
+        }
+        Session::put(['show' => false]);
+        return redirect(route('ot.list',[],false))->with([
+            'feedback' => true,
+            'feedback_text' => "Successfully deleted claim",
+            'feedback_type' => "warning"
+        ]);
+    }
+
     public function newform(Request $req){
         Session::put(['show' => null, 'claim' => [], 'claimtime' => [], 'otlist' => []]);
         return redirect(route('ot.form',[],false));

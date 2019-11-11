@@ -105,6 +105,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/overtime/save', 'OvertimeController@save')->name('ot.save'); //x
   Route::post('/overtime/store', 'OvertimeController@store')->name('ot.store'); //x
   Route::post('/overtime/submit', 'OvertimeController@submit')->name('ot.submit'); //x
+  Route::post('/overtime/delete', 'OvertimeController@delete')->name('ot.delete'); //x
   Route::post('/overtime/update', 'OvertimeController@update')->name('ot.update'); //x
   Route::post('/overtime/remove', 'OvertimeController@remove')->name('ot.remove'); //x
   Route::post('/overtime/form/date', 'OvertimeController@formdate')->name('ot.formdate'); //x

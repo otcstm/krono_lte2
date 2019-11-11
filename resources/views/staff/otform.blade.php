@@ -110,8 +110,8 @@
                             @csrf
                             <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required>
                             <input type="text" class="form-control hidden" id="inputdate" name="inputdate" value="{{$claim->date}}" required>
-                            <input type="text" class="form-control hidden" id="claimcharge" name="claimcharge" value="{{$claim->charge_type}}" required>
-                            <input type="text" class="form-control hidden" id="claimremark" name="claimremark" value="{{$claim->justification}}" required>
+                            <input type="text" class="form-control hidden" id="claimcharge" name="claimcharge" value="{{$claim->charge_type}}">
+                            <input type="text" class="form-control hidden" id="claimremark" name="claimremark" value="{{$claim->justification}}">
                             <td>{{count($otlist)+1}}</td>
                             <td>
                                 <select name="inputclock" id="inputclock-0" required>
