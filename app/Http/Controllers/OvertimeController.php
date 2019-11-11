@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class OvertimeController extends Controller{
     public function list(Request $req){
-        $otlist = Overtime::where('user_id', $req->user()->id)->orderBy('status')->orderBy('date')->get();
+        $otlist = Overtime::where('user_id', $req->user()->id)->orderBy('status')->orderBy('date_expiry')->orderBy('date')->get();
         return view('staff.overtime', ['otlist' => $otlist]);
     }
 
@@ -141,11 +141,19 @@ class OvertimeController extends Controller{
             $newclaim->save();
             $updateclaim->save();
             $updatemonth->save();
-            return redirect(route('ot.form',[],false))->with([
-                'feedback' => true,
-                'feedback_text' => "Successfully added a new time!",
-                'feedback_type' => "success"
-            ]);
+            if($req->edit=="edit"){
+                return redirect(route('ot.form',[],false))->with([
+                    'feedback' => true,
+                    'feedback_text' => "Successfully edited time!",
+                    'feedback_type' => "success"
+                ]);
+            }else{    
+                return redirect(route('ot.form',[],false))->with([
+                    'feedback' => true,
+                    'feedback_text' => "Successfully added a new time!",
+                    'feedback_type' => "success"
+                ]);
+            }
         }else{
             return redirect(route('ot.form ',[],false))->with([
                 'feedback' => true,
