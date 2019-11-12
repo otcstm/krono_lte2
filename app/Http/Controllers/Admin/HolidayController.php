@@ -7,6 +7,7 @@ use App\HolidayCalendar;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\StateController;
 use App\State;
+use App\HolidayLog;
 use Illuminate\Http\Request;
 
 class HolidayController extends Controller
@@ -243,4 +244,25 @@ class HolidayController extends Controller
       ]);
 
     }
+
+      public function log($id,$action){
+
+      $holiday = Holiday::find($id);
+      $log     = new HolidayLog;
+
+      $log->holiday_id = $holiday->id;
+      $log->descr      = $holiday->descr;
+
+/**
+      $table->bigInteger('holiday_id');
+      $table->string('descr', 255)->nullable();
+      $table->date('dt');
+      $table->integer('guarantee_flag');
+      $table->string('states', 750)->nullable();
+      $table->bigInteger('update_by');
+      $table->timestamps();
+**/
+      }
+
+
 }
