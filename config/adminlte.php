@@ -188,6 +188,12 @@ return [
                 // 'can' => 'admin-nav-menu',
             ],
             [
+                'text' => 'paymentsch',
+                'url' => '/admin/pay_schedule',
+                'icon' => 'fas fa-calendar-alt',
+                // 'can' => 'admin-nav-menu',
+            ],
+            [
                 'text' => 'manage_wdays',
                 'url'  => '/admin/workday',
                 'icon' => 'far fa-calendar-alt',
