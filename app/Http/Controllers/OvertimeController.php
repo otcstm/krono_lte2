@@ -26,21 +26,19 @@ class OvertimeController extends Controller{
     }
 
     public function store(Request $req){
-        $updateclaim = Overtime::find($req->inputid);
-        $updateclaim->status = "Submitted";
-        $updateclaim->save();
-        return redirect(route('ot.list',[],false))->with([
-            'feedback' => true,
-            'feedback_text' => "Successfully added a new claim!",
-            'feedback_type' => "success"
-        ]);
-    }
-
-    public function submit(Request $req){
-        $id = explode(" ", $req->submitid);
+        if($req->multi=="yes"){
+            $id = explode(" ", $req->submitid);
+        }else{
+            $id[0] = $req->inputid; 
+        }
         for($i = 0; $i<count($id); $i++){
             $updateclaim = Overtime::find($id[$i]);
-            $updateclaim->status = 'Submitted';
+            if($updateclaim->verifier_id==null){
+                $updateclaim->status = 'Pending Approval';
+            }else{
+                $updateclaim->status = 'Pending Verification';
+            }
+            $updateclaim->date_expiry = date('Y-m-d', strtotime("+90 days"));
             $updateclaim->save();
         }
         return redirect(route('ot.list',[],false))->with([
@@ -57,23 +55,12 @@ class OvertimeController extends Controller{
     }
 
     public function remove(Request $req){
-        $claim = Overtime::where('id', $req->delid)->first();
-        $claimtime = OvertimeMonth::where('id', $claim->month_id)->first();
-        $updatemonth = OvertimeMonth::find($claim->month_id);
-        $updatemonth->hour = ((int)((($claim->total_hour*60+$claim->total_minute)+($claimtime->hour*60+$claimtime->minute))/60));
-        $updatemonth->minute = ((($claim->total_hour*60+$claim->total_minute)+($claimtime->hour*60+$claimtime->minute))%60);
-        $updatemonth->save();
-        Overtime::find($req->delid)->delete();
-        Session::put(['show' => false]);
-        return redirect(route('ot.list',[],false))->with([
-            'feedback' => true,
-            'feedback_text' => "Successfully deleted claim ".$claim->refno.".",
-            'feedback_type' => "warning"
-        ]);
-    }
-
-    public function delete(Request $req){
-        $id = explode(" ", $req->deleteid);
+        $output = "";
+        if($req->multi=="yes"){
+            $id = explode(" ", $req->deleteid);
+        }else{
+            $id[0] = $req->delid; 
+        }
         for($i = 0; $i<count($id); $i++){
             $claim = Overtime::where('id', $id[$i])->first();
             $claimtime = OvertimeMonth::where('id', $claim->month_id)->first();
@@ -82,11 +69,16 @@ class OvertimeController extends Controller{
             $updatemonth->minute = ((($claim->total_hour*60+$claim->total_minute)+($claimtime->hour*60+$claimtime->minute))%60);
             $updatemonth->save();
             Overtime::find($id[$i])->delete();
+            if($i==(count($id)-1)){
+                $output = $output.$claim->refno.".";
+            }else{
+                $output = $output.$claim->refno.", ";
+            }
         }
         Session::put(['show' => false]);
         return redirect(route('ot.list',[],false))->with([
             'feedback' => true,
-            'feedback_text' => "Successfully deleted claim",
+            'feedback_text' => "Successfully deleted claim ".$output,
             'feedback_type' => "warning"
         ]);
     }
@@ -260,6 +252,43 @@ class OvertimeController extends Controller{
         }else{
             return redirect(route('ot.list',[],false)); 
         }
+    }
+
+    public function approval(Request $req){
+        $user = $req->user()->id;
+        $otlist = Overtime::whereIn('status', ['Pending Approval', 'Pending Verification'])->where(function($q) use ($user){
+                $q->where('verifier_id', $user)->orWhere('approver_id', $user);
+            })->orderBy('date_expiry')->orderBy('date')->get();
+        return view('staff.otapprove', ['otlist' => $otlist]);
+    }
+
+    public function query(Request $req){
+        $output = "";
+        if($req->multi=="yes"){
+            $id = explode(" ", $req->queryid);
+        }else{
+            $id[0] = $req->inputid; 
+        }
+        for($i = 0; $i<count($id); $i++){
+            $claim = Overtime::where('id', $id[$i])->first();
+            $claimtime = OvertimeMonth::where('id', $claim->month_id)->first();
+            $updatemonth = OvertimeMonth::find($claim->month_id);
+            $updatemonth->hour = ((int)((($claim->total_hour*60+$claim->total_minute)+($claimtime->hour*60+$claimtime->minute))/60));
+            $updatemonth->minute = ((($claim->total_hour*60+$claim->total_minute)+($claimtime->hour*60+$claimtime->minute))%60);
+            $updatemonth->save();
+            Overtime::find($id[$i])->delete();
+            if($i==(count($id)-1)){
+                $output = $output.$claim->refno.".";
+            }else{
+                $output = $output.$claim->refno.", ";
+            }
+        }
+        Session::put(['show' => false]);
+        return redirect(route('ot.list',[],false))->with([
+            'feedback' => true,
+            'feedback_text' => "Successfully deleted claim ".$output,
+            'feedback_type' => "warning"
+        ]);
     }
 
     public function test(Request $req){

@@ -4,14 +4,8 @@
 
 @section('content')
 <div class="panel panel-default">
-    <div class="panel-heading panel-primary">OT List</div>
+    <div class="panel-heading panel-primary">OT List to Approve/Verify</div>
     <div class="panel-body">
-        <div class="text-center" style="margin-bottom: 15px">
-            <form action="{{route('ot.newform')}}" method="POST" style="display:inline">
-                @csrf
-                <button type="submit" class="btn btn-primary">CREATE NEW CLAIM</button>
-            </form>
-        </div>
         @if(session()->has('feedback'))
         <div class="alert alert-{{session()->get('feedback_type')}} alert-dismissible" id="alert">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -22,6 +16,7 @@
             <table id="tOTList" class="table table-bordered">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>No</th>
                         <th>Reference No</th>
                         <th>Date time</th>
@@ -33,56 +28,31 @@
                 <tbody>
                     @foreach($otlist as $no=>$singleuser)
                     <tr>
+                        <td><input type="checkbox" id="checkbox-{{$no}}" value="{{$singleuser->id}}"></td>
                         <td>{{ ++$no }}</td>
-                        <td>{{ $singleuser->refno }}</td>
-                        <td>{{ $singleuser->date }}</td>
+                        <td>{{ $singleuser->refno }}<p>{{ $singleuser->name->name }}</p></td>
+                        <td>{{ $singleuser->date }} @foreach($singleuser->detail as $details)<p>{{date('H:i', strtotime($details->start_time)) }} - {{ date('H:i', strtotime($details->end_time))}}</p>@endforeach</td>
                         <td>{{ $singleuser->total_hour }}h {{ $singleuser->total_minute }}m</td>
-                        <td>{{ $singleuser->status }} @if(($singleuser->status=="Draft (Incomplete)")||($singleuser->status=="Draft (Complete)")) <p style="color: red">Due: {{$singleuser->date_expiry}}</p> @endif</td>
+                        <td>{{ $singleuser->status }} <p style="color: red">Due: {{$singleuser->date_expiry}}</p></td>
                         <td>
-                            @if(($singleuser->status=="Draft (Incomplete)")||($singleuser->status=="Draft (Complete)"))
-                                <form action="{{route('ot.update')}}" method="POST" style="display:inline">
-                                    @csrf
-                                    <input type="text" class="hidden" id="inputid" name="inputid" value="{{$singleuser->id}}" required>
-                                    <button type="submit" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button>
-                                </form>
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delOT" data-id="{{$singleuser->id}}" data-date="{{$singleuser->date}}">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            @else
-                            <form action="{{route('ot.update')}}" method="POST" style="display:inline">
+                            <form action="{{route('ot.query')}}" method="POST" style="display:inline">
                                 @csrf
                                 <input type="text" class="hidden" id="inputid" name="inputid" value="{{$singleuser->id}}" required>
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-eye"></i></button>
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-user-secret"></i></button>
                             </form>
-                            @endif
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
-    </div>
-</div>
-
-<div id="delOT" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Delete Claim Time</h4>
-            </div>
-            <div class="modal-body text-center">
-                <div class="glyphicon glyphicon-warning-sign" style="color: #F0AD4E; font-size: 32px;"></div>
-                <p>Are you sure you want to delete claim for date <span id="deldate"></span>?<p>
-                <form action="{{ route('ot.remove') }}" method="POST">
-                    @csrf
-                    <input type="text" class="hidden" id="delid" name="delid" value="" required>
-                    <button type="submit" class="btn btn-primary">DELETE</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+        <div id="submitbtn" class="text-center" style="display: none">
+            <form action="{{route('ot.query')}}" method="POST" style="display:inline">
+                @csrf
+                <input type="text" class="hidden" id="queryid" name="queryid" value="" required>
+                <input type="text" class="hidden" id="multi" name="multi" value="yes" required>
+                <button type="submit" class="btn btn-primary"><i class="far fa-check-square"></i> APPROVE/VERIFY</button>
+            </form>
         </div>
     </div>
 </div>
@@ -93,14 +63,34 @@
 $(document).ready(function() {
     $('#tOTList').DataTable({
         "responsive": "true",
+        "order" : [[1, "asc"]],
     });
 });
+var show = 0;
 
-$('#delOT').on('show.bs.modal', function(e) {
-    var id = $(e.relatedTarget).data('id');
-    var date = $(e.relatedTarget).data('date');
-    $("#delid").val(id);
-    $("#deldate").text(date);
-})
+function submitval(i){
+    return function(){
+        if ($('#checkbox-'+i).is(':checked')) {
+            $("#queryid").val(function() {
+                return this.value + $('#checkbox-'+i).val()+" ";
+            });
+            show++;
+        }else{
+            var str = ($('#queryid').val()).replace($('#checkbox-'+i).val()+" ",'');
+            $('#queryid').val(str);
+            show--;
+        }
+        if(show>0){
+            $('#submitbtn').css("display","block");
+        }else{
+            $('#submitbtn').css("display","none");
+        }
+    };
+};
+
+for(i=0; i<{{count($otlist)}}; i++) {
+    $("#checkbox-"+i).change(submitval(i));
+};
+
 </script>
 @stop

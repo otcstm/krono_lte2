@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Overtime List')
+@section('title', 'Overtime Form')
 
 @section('content')
 <div class="panel panel-default">
@@ -244,7 +244,7 @@
     var add = false;
     var submit = false;
     dt.setDate(dt.getDate() - 1);
-    ot.setDate(ot.getDate() - 90);
+    ot.setDate(ot.getDate() - 91);
     var m = dt.getMonth()+1;
     var om = ot.getMonth()+1;
     if(m < 10){

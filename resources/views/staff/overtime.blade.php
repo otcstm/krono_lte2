@@ -37,9 +37,9 @@
                         <td>@if($singleuser->status=="Draft (Complete)")<input type="checkbox" id="checkbox-{{$no}}" value="{{$singleuser->id}}"> @endif</td>
                         <td>{{ ++$no }}</td>
                         <td>{{ $singleuser->refno }}</td>
-                        <td>{{ $singleuser->date }}</td>
+                        <td>{{ $singleuser->date }} @foreach($singleuser->detail as $details)<p>{{date('H:i', strtotime($details->start_time)) }} - {{ date('H:i', strtotime($details->end_time))}}</p>@endforeach</td>
                         <td>{{ $singleuser->total_hour }}h {{ $singleuser->total_minute }}m</td>
-                        <td>{{ $singleuser->status }} @if(($singleuser->status=="Draft (Incomplete)")||($singleuser->status=="Draft (Complete)")) <p style="color: red">Due: {{$singleuser->date_expiry}}</p> @endif</td>
+                        <td>@if(($singleuser->status=="Pending Approval")||($singleuser->status=="Pending Verification"))Submitted<p>({{ $singleuser->status }})</p> @else {{ $singleuser->status }} @endif @if(($singleuser->status=="Draft (Incomplete)")||($singleuser->status=="Draft (Complete)")) <p style="color: red">Due: {{$singleuser->date_expiry}}</p> @endif</td>
                         <td>
                             @if(($singleuser->status=="Draft (Incomplete)")||($singleuser->status=="Draft (Complete)"))
                                 <form action="{{route('ot.update')}}" method="POST" style="display:inline">
@@ -64,14 +64,16 @@
             </table>
         </div>
         <div id="submitbtn" class="text-center" style="display: none">
-            <form action="{{route('ot.submit')}}" method="POST" onsubmit="return confirm('I understand and agree this to claim. If deemed false I can be taken to disciplinary action.')" style="display:inline">
+            <form action="{{route('ot.store')}}" method="POST" onsubmit="return confirm('I understand and agree this to claim. If deemed false I can be taken to disciplinary action.')" style="display:inline">
                 @csrf
                 <input type="text" class="hidden" id="submitid" name="submitid" value="" required>
+                <input type="text" class="hidden" id="multi" name="multi" value="yes" required>
                 <button type="submit" class="btn btn-primary">SUBMIT</button>
             </form>
-            <form action="{{route('ot.delete')}}" method="POST" onsubmit="return confirm('Are you sure you want to delete these claims?')" style="display:inline">
+            <form action="{{route('ot.remove')}}" method="POST" onsubmit="return confirm('Are you sure you want to delete these claims?')" style="display:inline">
                 @csrf
                 <input type="text" class="hidden" id="deleteid" name="deleteid" value="" required>
+                <input type="text" class="hidden" id="multi" name="multi" value="yes" required>
                 <button type="submit" class="btn btn-danger">DELETE</button>
             </form>
         </div>
