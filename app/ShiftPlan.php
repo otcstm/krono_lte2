@@ -21,4 +21,8 @@ class ShiftPlan extends Model
     return $this->belongsTo(User::class, 'creator_id');
   }
 
+  public function Group(){
+    return $this->belongsTo(ShiftGroup::class, 'department');
+  }
+
 }

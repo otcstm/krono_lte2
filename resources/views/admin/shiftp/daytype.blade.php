@@ -29,7 +29,7 @@
        <tbody>
          @foreach($p_list as $ap)
          <tr>
-           <td>{{ $ap->code }}</td>
+           <td style="color: {{ $ap->font_color }};background-color:{{ $ap->bg_color }}">{{ $ap->code }}</td>
            <td>{{ $ap->description }}</td>
            <td>
              @if($ap->is_work_day)
@@ -51,6 +51,8 @@
                   data-id="{{ $ap->id }}"
                   data-code="{{ $ap->code }}"
                   data-desc="{{ $ap->description }}"
+                  data-fontc="{{ $ap->font_color }}"
+                  data-bgc="{{ $ap->bg_color }}"
                ><i class="fas fa-pencil-alt"></i></button>
                <button type="submit" class="btn btn-xs btn-danger" title="Delete"><i class="fas fa-trash-alt"></i></button>
                <input type="hidden" name="id" value="{{ $ap->id }}" />
@@ -121,6 +123,24 @@
             </span>
         @endif
       </div>
+      <div class="form-group has-feedback {{ $errors->has('bgcolor') ? 'has-error' : '' }}">
+        <label for="bgcolor">Background color in calendar</label>
+        <input id="bgcolor" type="color" name="bgcolor" value="{{ old('bgcolor', '#ffffff') }}">
+        @if ($errors->has('bgcolor'))
+            <span class="help-block">
+                <strong>{{ $errors->first('bgcolor') }}</strong>
+            </span>
+        @endif
+      </div>
+      <div class="form-group has-feedback {{ $errors->has('fontcolor') ? 'has-error' : '' }}">
+        <label for="fontcolor">Font color in calendar</label>
+        <input id="fontcolor" type="color" name="fontcolor" value="{{ old('fontcolor', '#000000') }}">
+        @if ($errors->has('fontcolor'))
+            <span class="help-block">
+                <strong>{{ $errors->first('fontcolor') }}</strong>
+            </span>
+        @endif
+      </div>
 
       <div class="form-group text-center">
         <button type="submit" class="btn btn-primary">Add</button>
@@ -147,8 +167,16 @@
               <input type="text" class="form-control" id="inputname" name="code" value="" disabled>
           </div>
           <div class="form-group">
-              <label for="inputname">Description:</label>
+              <label for="inputdesc">Description:</label>
               <input type="text" class="form-control" id="inputdesc" name="description" value="" required>
+          </div>
+          <div class="form-group">
+              <label for="inputbgc">Background Color:</label>
+              <input type="color" id="inputbgc" name="bgcolor" value="" required>
+          </div>
+          <div class="form-group">
+              <label for="inputfc">Font Color:</label>
+              <input type="color" id="inputfc" name="fontcolor" value="" required>
           </div>
         </div>
         <div class="modal-footer">
@@ -186,9 +214,13 @@ function populate(e){
     var wd_id = $(e.relatedTarget).data('id');
     var wd_code = $(e.relatedTarget).data('code')
     var wd_desc = $(e.relatedTarget).data('desc')
+    var wd_bgc = $(e.relatedTarget).data('bgc')
+    var wd_fontc = $(e.relatedTarget).data('fontc')
     $('input[id=inputid]').val(wd_id);
     $('input[id=inputname]').val(wd_code);
     $('input[id=inputdesc]').val(wd_desc);
+    $('input[id=inputbgc]').val(wd_bgc);
+    $('input[id=inputfc]').val(wd_fontc);
 }
 
 $('#editwd').on('show.bs.modal', function(e) {

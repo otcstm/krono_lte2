@@ -6,12 +6,18 @@
 <div class="panel panel-default">
     <div class="panel-heading panel-primary">OT List</div>
     <div class="panel-body">
-    
         <div class="text-center" style="margin-bottom: 15px">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newOT">
-                CREATE NEW CLAIM
-            </button>
+            <form action="{{route('ot.newform')}}" method="POST" style="display:inline">
+                @csrf
+                <button type="submit" class="btn btn-primary">CREATE NEW CLAIM</button>
+            </form>
         </div>
+        @if(session()->has('feedback'))
+        <div class="alert alert-{{session()->get('feedback_type')}} alert-dismissible" id="alert">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{session()->get('feedback_text')}}
+        </div>
+        @endif
         <div class="table-responsive">
             <table id="tOTList" class="table table-bordered">
                 <thead>
@@ -19,7 +25,7 @@
                         <th>No</th>
                         <th>Reference No</th>
                         <th>Date time</th>
-                        <th>Day/Hour</th>
+                        <th>Duration</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -29,16 +35,26 @@
                     <tr>
                         <td>{{ ++$no }}</td>
                         <td>{{ $singleuser->refno }}</td>
-                        <td>{{ $singleuser->title }}</td>
+                        <td>{{ $singleuser->date }}</td>
                         <td>{{ $singleuser->total_hour }}h {{ $singleuser->total_minute }}m</td>
-                        <td>{{ $singleuser->status }}</td>
+                        <td>{{ $singleuser->status }} @if($singleuser->status=="Draft") <p style="color: red">Due: {{$singleuser->date_expiry}}</p> @endif</td>
                         <td>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editRole">
-                                <i class="fas fa-cog"></i>
-                            </button>
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteRole">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
+                            @if($singleuser->status=="Draft")
+                                <form action="{{route('ot.update')}}" method="POST" style="display:inline">
+                                    @csrf
+                                    <input type="text" class="hidden" id="inputid" name="inputid" value="{{$singleuser->id}}" required>
+                                    <button type="submit" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button>
+                                </form>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delOT" data-id="{{$singleuser->id}}" data-date="{{$singleuser->date}}">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            @else
+                            <form action="{{route('ot.update')}}" method="POST" style="display:inline">
+                                @csrf
+                                <input type="text" class="hidden" id="inputid" name="inputid" value="{{$singleuser->id}}" required>
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-eye"></i></button>
+                            </form>
+                            @endif
                         </td>
                     </tr>
                     @endforeach
@@ -48,32 +64,28 @@
     </div>
 </div>
 
-<div id="newOT" class="modal fade" role="dialog">
+<div id="delOT" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Create New OT Claim</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Delete Claim Time</h4>
             </div>
-            <div class="modal-body">
-                <form action="{{route('ot.create')}}" method="POST">
+            <div class="modal-body text-center">
+                <div class="glyphicon glyphicon-warning-sign" style="color: #F0AD4E; font-size: 32px;"></div>
+                <p>Are you sure you want to delete claim for date <span id="deldate"></span>?<p>
+                <form action="{{ route('ot.remove') }}" method="POST">
                     @csrf
-                    <div class="form-group">
-                        <label for="inputname">Select Date:</label>
-                        <input type="date" class="form-control" id="inputdate" name="inputdate" value="" required>
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary">CREATE</button>
-                    </div>
+                    <input type="text" class="hidden" id="delid" name="delid" value="" required>
+                    <button type="submit" class="btn btn-primary">DELETE</button>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">CLOSE</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
-
 @stop
 
 @section('js')
@@ -81,22 +93,14 @@
 $(document).ready(function() {
     $('#tOTList').DataTable({
         "responsive": "true",
-        "order" : [[2, "asc"]],
     });
 });
 
-$('#newOT').on('show.bs.modal', function() {
-    var dt = new Date();
-    var m = dt.getMonth()+1;
-    if(m < 10){
-        m = "0"+m;
-    }
-    $("#inputdate").val(dt.getFullYear()+"-"+m+"-"+dt.getDate());
-    $("#inputdate").attr("max", dt.getFullYear()+"-"+m+"-"+dt.getDate());
-    
-
-    // $("#inputdatestart").val(dt.getFullYear()+"-"+m+"-"+dt.getDate()+"T"+dt.getHours()+":"+dt.getMinutes());
-    // $("#inputdateend").val(dt.getFullYear()+"-"+m+"-"+dt.getDate()+"T"+dt.getHours()+":"+dt.getMinutes());
-});
+$('#delOT').on('show.bs.modal', function(e) {
+    var id = $(e.relatedTarget).data('id');
+    var date = $(e.relatedTarget).data('date');
+    $("#delid").val(id);
+    $("#deldate").text(date);
+})
 </script>
 @stop
