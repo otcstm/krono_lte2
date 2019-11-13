@@ -17,8 +17,7 @@ class CreateOvertimeLogsTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->integer('ot_id');
-            $table->integer('action_by');
-            $table->string('status');
+            $table->integer('user_id');
             $table->string('message');
         });
     }

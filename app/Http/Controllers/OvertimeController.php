@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Shared\TimeHelper;
+use App\Shared\UserHelper;
 use App\Overtime;
 use App\OvertimeMonth;
 use App\OvertimeDetail;
+use App\OvertimeLog;
 use Session;
 use Illuminate\Http\Request;
 
@@ -19,7 +20,8 @@ class OvertimeController extends Controller{
         if($req->session()->get('show')){
             $otlist = OvertimeDetail::where('ot_id', $req->session()->get('claim')->id)->get();
             $claimtime = OvertimeMonth::where('id', $req->session()->get('claim')->month_id)->first();
-            return view('staff.otform', ['show' => $req->session()->get('show'), 'claim' => $req->session()->get('claim'), 'claimtime' => $claimtime, 'otlist' => $otlist]);
+            $otlog = OvertimeLog::where('ot_id', $req->session()->get('claim')->id)->get();
+            return view('staff.otform', ['show' => $req->session()->get('show'), 'claim' => $req->session()->get('claim'), 'claimtime' => $claimtime, 'otlist' => $otlist, 'otlog' => $otlog]);
         }else{
             return view('staff.otform', []);
         }
@@ -33,6 +35,7 @@ class OvertimeController extends Controller{
         }
         for($i = 0; $i<count($id); $i++){
             $updateclaim = Overtime::find($id[$i]);
+            $execute = UserHelper::LogOT($id[$i], $req->user()->id, "Submitted ".$updateclaim->refno);   
             if($updateclaim->verifier_id==null){
                 $updateclaim->status = 'Pending Approval';
             }else{
@@ -69,6 +72,7 @@ class OvertimeController extends Controller{
             $updatemonth->minute = ((($claim->total_hour*60+$claim->total_minute)+($claimtime->hour*60+$claimtime->minute))%60);
             $updatemonth->save();
             Overtime::find($id[$i])->delete();
+            OvertimeLog::where('ot_id',$id[$i])->delete();
             if($i==(count($id)-1)){
                 $output = $output.$claim->refno.".";
             }else{
@@ -120,8 +124,9 @@ class OvertimeController extends Controller{
             $newclaim->approver_id = $req->user()->reptto; //temp
             $newclaim->verifier_id =  $req->user()->id; //temp
             $newclaim->charge_type = '';
-            $newclaim->save();           
+            $newclaim->save();   
             $claim = Overtime::where('user_id', $req->user()->id)->where('date', $claimdate)->first();
+            $execute = UserHelper::LogOT($claim->id, $req->user()->id, "Created ".$claim->refno);        
         }else{
             $claimtime = OvertimeMonth::where('id', $claim->month_id)->first();
         }
@@ -247,18 +252,12 @@ class OvertimeController extends Controller{
         $updateclaim->save();
         $claim = Overtime::where('id', $req->inputid)->first();
         Session::put(['claim' => $claim]);
-        // if($req->save=="save"){
-            return redirect(route('ot.form',[],false));
-        // }else{
-        //     return redirect(route('ot.list',[],false)); 
-        // }
+        return redirect(route('ot.form',[],false));
     }
 
     public function approval(Request $req){
         $user = $req->user()->id;
-        $otlist = Overtime::whereIn('status', ['Pending Approval', 'Pending Verification'])->where(function($q) use ($user){
-                $q->where('verifier_id', $user)->orWhere('approver_id', $user);
-            })->orderBy('date_expiry')->orderBy('date')->get();
+        $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', 'Pending Verification')->orWhere('approver_id', $req->user()->id)->where('status', 'Pending Approval')->orderBy('date_expiry')->orderBy('date')->get();
         return view('staff.otapprove', ['otlist' => $otlist]);
     }
 
@@ -294,6 +293,12 @@ class OvertimeController extends Controller{
             $updateclaim->status=$req->inputaction[$i];
             if($req->inputaction[$i]=="Pending Approval"){
                 $updateclaim->date_expiry = date('Y-m-d', strtotime("+90 days"));
+                $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Verified ("'.$req->inputremark[$i].'")');  
+            }else if($req->inputaction[$i]=="Approved"){
+                $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Approved ("'.$req->inputremark[$i].'")');  
+            }else if($req->inputaction[$i]=="Query"){
+                $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Query ("'.$req->inputremark[$i].'")');
+                $updateclaim->date_expiry = date('Y-m-d', strtotime("+90 days"));  
             }
             $updateclaim->save();
         }

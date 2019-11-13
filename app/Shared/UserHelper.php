@@ -4,6 +4,7 @@ namespace App\Shared;
 
 use App\User;
 use App\UserLog;
+use App\OvertimeLog;
 use App\StaffPunch;
 use App\SapPersdata;
 use \Carbon\Carbon;
@@ -183,6 +184,17 @@ class UserHelper {
         $user_logs->user_agent = $req->userAgent();
         $user_logs->created_by = $req->user()->id;
         $user_logs->save();
+
+        return 'OK';
+    }
+    
+  public static function LogOT($otid, $udid, $m)
+    {
+        $ot_logs = new OvertimeLog;
+        $ot_logs->ot_id = $otid;
+        $ot_logs->user_id = $udid;
+        $ot_logs->message = $m;
+        $ot_logs->save();
 
         return 'OK';
     }

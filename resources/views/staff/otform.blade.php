@@ -47,18 +47,24 @@
                     <p>Approver: {{$claim->approver->name}}</p>
                 </div>
             </div>
-
-            @if(in_array($claim->status, $array = array("Draft (Incomplete)", "Draft (Complete)", "Query")))
-            <div class="text-right" style="margin-bottom: 15px">
-                <button type="button" class="btn btn-primary" id="otedit-0">
-                    ADD TIME
-                </button>
-                <p>Available time to claim: {{$claimtime->hour}}h {{$claimtime->minute}}m</p>
+            <div class="row" style="display: flex;;">
+                <div class="col-xs-6" style="display: flex; align-items: flex-end;">
+                    <p><b>TIME LIST</b></p>
+                </div>
+                <div class="col-xs-6">
+                    @if(in_array($claim->status, $array = array("Draft (Incomplete)", "Draft (Complete)", "Query")))
+                    <div class="text-right" >
+                        <button type="button" class="btn btn-primary" id="otedit-0">
+                            ADD TIME
+                        </button>
+                        <p>Available time to claim: {{$claimtime->hour}}h {{$claimtime->minute}}m</p>
+                    </div>
+                    @endif
+                </div>
             </div>
-            @endif
             <table class="table table-bordered">
-                <thead class="bg-info">
-                    <tr>
+                <thead>    
+                    <tr class="info">
                         <th width="2%">No</th>
                         <th width="20%">Clock In/Out</th>
                         <th width="20%">Start/End Time</th>
@@ -235,15 +241,43 @@
                         </div>
                     </div>
                     <div class="text-center">
-                        <a href="{{route('ot.list')}}"><button type="button" class="btn btn-primary" style="display: inline">BACK</button></a>
+                        <a href="{{route('ot.list')}}"><button type="button" class="btn btn-primary" style="display: inline"><i class="fas fa-arrow-left"></i> BACK</button></a>
                         <button type="submit" class="btn btn-primary" style="display: inline"><i class="fas fa-save"></i> SAVE</button>
                 </form>
                 <form id="formsubmit" action="{{route('ot.store')}}" method="POST" onsubmit="return confirm('I understand and agree this to claim. If deemed false I can be taken to disciplinary action.')" style="display: inline">
                     @csrf
                     <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required>
-                    <button type="button" id="sub" class="btn btn-primary">SUBMIT</button>
+                    <button type="button" id="sub" class="btn btn-primary"><i class="fas fa-share-square"></i> SUBMIT</button>
                 </form>
                     </div>
+            @endif
+            <br>
+            <p><b>ACTION LOG</b></p>
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="info">
+                        <th width="10%">Date</th>
+                        <th width="15%">Action</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if(count($otlog)==0)
+                        <tr id="nodata" class="text-center"><td colspan="3"><i>Not Available</i></td></tr>
+                    @endif
+                    @foreach($otlog as $singleuser)
+                    <tr>
+                        <td>{{$singleuser->created_at}}</td>
+                        <td>{{$singleuser->name->name}}</td>
+                        <td>{{$singleuser->message}}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            @if(!(in_array($claim->status, $array = array("Draft (Incomplete)", "Draft (Complete)", "Query"))))
+            <div class="text-center">
+                <a href="{{route('ot.list')}}"><button type="button" class="btn btn-primary" style="display: inline"><i class="fas fa-arrow-left"></i> BACK</button></a>
+            </div>
             @endif
         @endif
     </div>

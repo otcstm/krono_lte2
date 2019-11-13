@@ -250,12 +250,12 @@ return [
                 'icon' => 'fas fa-edit',
                 // 'can' => 'ot-nav-menu',
             ],
-            [
-                'text' => 'ot_history',
-                'url'  => '/overtime/logs',
-                'icon' => 'fas fa-business-time',
-                // 'can' => 'ot-nav-menu',
-            ],
+            // [
+            //     'text' => 'ot_history',
+            //     'url'  => '/overtime/logs',
+            //     'icon' => 'fas fa-business-time',
+            //     // 'can' => 'ot-nav-menu',
+            // ],
 
             // [
             //     'text' => 'ot_approve',

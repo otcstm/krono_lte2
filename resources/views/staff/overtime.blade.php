@@ -37,7 +37,7 @@
                         <td>@if(($singleuser->status=="Draft (Complete)")||($singleuser->status=="Query"))<input type="checkbox" id="checkbox-{{$no++}}" value="{{$singleuser->id}}"> @endif</td>
                         <td></td>
                         <td>{{ $singleuser->refno }}</td>
-                        <td>{{ $singleuser->date }} @foreach($singleuser->detail as $details)<p>{{date('H:i', strtotime($details->start_time)) }} - {{ date('H:i', strtotime($details->end_time))}}</p>@endforeach</td>
+                        <td>{{ $singleuser->date }} @foreach($singleuser->detail as $details)<br>{{date('H:i', strtotime($details->start_time)) }} - {{ date('H:i', strtotime($details->end_time))}}@endforeach</td>
                         <td>{{ $singleuser->total_hour }}h {{ $singleuser->total_minute }}m</td>
                         <td>@if(($singleuser->status=="Pending Approval")||($singleuser->status=="Pending Verification"))Submitted ({{ $singleuser->status }})@else {{ $singleuser->status }} @endif @if(in_array($singleuser->status, $array = array("Draft (Incomplete)", "Draft (Complete)", "Pending Approval", "Pending Verification", "Query"))) <p style="color: red">Due: {{$singleuser->date_expiry}}</p> @endif</td>
                         <td>

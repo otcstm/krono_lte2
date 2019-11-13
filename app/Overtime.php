@@ -33,6 +33,11 @@ class Overtime extends Model
 
     public function detail()
     {
-        return $this->hasMany(OvertimeDetail::class, 'id');
+        return $this->hasMany(OvertimeDetail::class, 'ot_id');
+    }
+
+    public function log()
+    {
+        return $this->hasMany(OvertimeLog::class, 'ot_id');
     }
 }

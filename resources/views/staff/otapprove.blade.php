@@ -31,7 +31,7 @@
                         <td><input type="checkbox" id="checkbox-{{$no}}" value="{{$singleuser->id}}"></td>
                         <td>{{ ++$no }}</td>
                         <td>{{ $singleuser->refno }}<p>{{ $singleuser->name->name }}</p></td>
-                        <td>{{ $singleuser->date }} @foreach($singleuser->detail as $details)<p>{{date('H:i', strtotime($details->start_time)) }} - {{ date('H:i', strtotime($details->end_time))}}</p>@endforeach</td>
+                        <td>{{ $singleuser->date }} @foreach($singleuser->detail as $details)<br>{{date('H:i', strtotime($details->start_time)) }} - {{ date('H:i', strtotime($details->end_time))}}@endforeach</td>
                         <td>{{ $singleuser->total_hour }}h {{ $singleuser->total_minute }}m</td>
                         <td>{{ $singleuser->status }} <p style="color: red">Due: {{$singleuser->date_expiry}}</p></td>
                         <td>

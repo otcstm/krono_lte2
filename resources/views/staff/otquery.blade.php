@@ -66,7 +66,7 @@
                         <tr>
                             @if(session()->get('mass'))<td>{{++$no}}</td>@endif
                             <td><a data-target="#collapsible-{{$no}}" data-toggle="collapse">{{ $singleuser->refno }}</a><p>{{ $singleuser->name->name }}</p></td>
-                            <td>{{ $singleuser->date }} @foreach($singleuser->detail as $details)<p>{{date('H:i', strtotime($details->start_time)) }} - {{ date('H:i', strtotime($details->end_time))}}</p>@endforeach</td>
+                            <td>{{ $singleuser->date }} @foreach($singleuser->detail as $details)<br>{{date('H:i', strtotime($details->start_time)) }} - {{ date('H:i', strtotime($details->end_time))}}@endforeach</td>
                             <td>{{ $singleuser->total_hour }}h {{ $singleuser->total_minute }}m</td>
                             <td></td>
                             <td></td>
@@ -119,8 +119,8 @@
                                             <div id="collapse-{{$no}}-2" class="panel-collapse collapse">
                                                 <div class="panel-body">
                                                     <table class="table table-bordered">
-                                                        <thead class="bg-info">
-                                                            <tr>
+                                                        <thead>
+                                                            <tr class="info">
                                                                 <th width="2%">No</th>
                                                                 <th width="20%">Clock In/Out</th>
                                                                 <th width="20%">Start/End Time</th>
@@ -162,9 +162,25 @@
                                                 </div>
                                             </a>
                                             <div id="collapse-{{$no}}-4" class="panel-collapse collapse">
-                                                <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                                <div class="panel-body">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr class="info">
+                                                                <th width="10%">Date</th>
+                                                                <th width="15%">Action</th>
+                                                                <th>Message</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach($singleuser->log as $logs)
+                                                            <tr>
+                                                                <td>{{$logs->created_at}}</td>
+                                                                <td>{{$logs->name->name}}</td>
+                                                                <td>{{$logs->message}}</td>
+                                                            </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
                                         </div>
@@ -172,8 +188,12 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr style="text-align:center;"><td colspan="@if(session()->get('mass')) 8 @else 7 @endif"><span style="position: relative; top: -30px;"><b>Justification: </b></span><textarea rows = "2" cols = "100" type="text"  id="inputremark" name="inputremark[]" value="" placeholder="Write justification" style="resize: none; display: inline" required></textarea></td></tr>
-                        
+                        <tr style="text-align:center;">
+                            <td colspan="@if(session()->get('mass')) 8 @else 7 @endif">
+                                <span style="position: relative; top: -30px;"><b>Justification: </b></span>
+                                <textarea rows = "2" cols = "100" type="text"  id="inputremark" name="inputremark[]" value="" placeholder="Write justification" style="resize: none; display: inline" required></textarea>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

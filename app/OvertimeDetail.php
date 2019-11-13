@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class OvertimeDetail extends Model
 {
-    public function createdby()
+    public function detail()
     {
       return $this->belongsTo(Overtime::class, 'ot_id');
     }
