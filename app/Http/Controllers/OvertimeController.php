@@ -27,6 +27,22 @@ class OvertimeController extends Controller{
         }
     }
 
+    public function save(Request $req){
+        $claim = OvertimeDetail::where('ot_id', $req->inputid)->get();
+        $updateclaim = Overtime::find($req->inputid);
+        $updateclaim->charge_type = $req->chargetype;
+        $updateclaim->justification = $req->inputremark;
+        if(($req->chargetype!=null)&&($req->inputremark!=null)&&(count($claim)!=0)){
+            $updateclaim->status = 'Draft (Complete)';
+        }else{
+            $updateclaim->status = 'Draft (Incomplete)';
+        }
+        $updateclaim->save();
+        $claim = Overtime::where('id', $req->inputid)->first();
+        Session::put(['claim' => $claim]);
+        return redirect(route('ot.form',[],false));
+    }
+    
     public function store(Request $req){
         if($req->multi=="yes"){
             $id = explode(" ", $req->submitid);
@@ -237,22 +253,6 @@ class OvertimeController extends Controller{
             'feedback_text' => "Successfully deleted time ".$req->inputstart."-".$req->inputend.".",
             'feedback_type' => "warning"
         ]);
-    }
-
-    public function save(Request $req){
-        $claim = OvertimeDetail::where('ot_id', $req->inputid)->get();
-        $updateclaim = Overtime::find($req->inputid);
-        $updateclaim->charge_type = $req->chargetype;
-        $updateclaim->justification = $req->inputremark;
-        if(($req->chargetype!=null)&&($req->inputremark!=null)&&(count($claim)!=0)){
-            $updateclaim->status = 'Draft (Complete)';
-        }else{
-            $updateclaim->status = 'Draft (Incomplete)';
-        }
-        $updateclaim->save();
-        $claim = Overtime::where('id', $req->inputid)->first();
-        Session::put(['claim' => $claim]);
-        return redirect(route('ot.form',[],false));
     }
 
     public function approval(Request $req){
