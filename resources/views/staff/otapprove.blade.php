@@ -35,7 +35,7 @@
                         <td>{{ $singleuser->total_hour }}h {{ $singleuser->total_minute }}m</td>
                         <td>{{ $singleuser->status }} <p style="color: red">Due: {{$singleuser->date_expiry}}</p></td>
                         <td>
-                            <form action="{{route('ot.query')}}" method="POST" style="display:inline">
+                            <form action="{{route('ot.queue')}}" method="POST" style="display:inline">
                                 @csrf
                                 <input type="text" class="hidden" id="inputid" name="inputid" value="{{$singleuser->id}}" required>
                                 <button type="submit" class="btn btn-primary"><i class="fas fa-user-secret"></i></button>
@@ -47,11 +47,11 @@
             </table>
         </div>
         <div id="submitbtn" class="text-center" style="display: none">
-            <form action="{{route('ot.query')}}" method="POST" style="display:inline">
+            <form id="formquery" action="{{route('ot.queue')}}" method="POST" style="display:inline">
                 @csrf
-                <input type="text" class="hidden" id="queryid" name="queryid" value="" required>
+                <input type="text" class="hidden" id="queryid" name="queryid" value='' required>
                 <input type="text" class="hidden" id="multi" name="multi" value="yes" required>
-                <button type="submit" class="btn btn-primary"><i class="far fa-check-square"></i> APPROVE/VERIFY</button>
+                <button type="submit" id="formsubmit" class="btn btn-primary"><i class="far fa-check-square"></i> APPROVE/VERIFY</button>
             </form>
         </div>
     </div>
@@ -82,7 +82,8 @@ function submitval(i){
         }
         if(show>0){
             $('#submitbtn').css("display","block");
-        }else{
+        }
+        else{
             $('#submitbtn').css("display","none");
         }
     };
@@ -90,7 +91,21 @@ function submitval(i){
 
 for(i=0; i<{{count($otlist)}}; i++) {
     $("#checkbox-"+i).change(submitval(i));
+    if ($('#checkbox-'+i).is(':checked')) {
+        show++;
+        $("#queryid").val(function() {
+            return this.value + $('#checkbox-'+i).val()+" ";
+        });
+        $('#submitbtn').css("display","block");
+    }
 };
+
+// $("#formsubmit").on("click", function(){
+//     $("#queryid").val(function() {
+//         return this.value + '"';
+//     });
+//     $("#formquery").submit();
+// });
 
 </script>
 @stop

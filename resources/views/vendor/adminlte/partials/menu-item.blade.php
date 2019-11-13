@@ -27,7 +27,7 @@
     </li> -->
 @elseif (isset($item['show']))
     <li class="{{ $item['class'] }}">
-        <a href="{{ route('ot.newform') }}"
+        <a href="{{ route('ot.formnew') }}"
            @if (isset($item['target'])) target="{{ $item['target'] }}" @endif
         >
         <i class="{{ $item['icon'] ?? 'far fa-fw fa-circle' }} {{ isset($item['icon_color']) ? 'text-' . $item['icon_color'] : '' }}"></i>

@@ -7,7 +7,7 @@
     <div class="panel-heading panel-primary">OT List</div>
     <div class="panel-body">
         <div class="text-center" style="margin-bottom: 15px">
-            <form action="{{route('ot.newform')}}" method="POST" style="display:inline">
+            <form action="{{route('ot.formnew')}}" method="POST" style="display:inline">
                 @csrf
                 <button type="submit" class="btn btn-primary">CREATE NEW CLAIM</button>
             </form>
@@ -39,7 +39,7 @@
                         <td>{{ $singleuser->refno }}</td>
                         <td>{{ $singleuser->date }} @foreach($singleuser->detail as $details)<p>{{date('H:i', strtotime($details->start_time)) }} - {{ date('H:i', strtotime($details->end_time))}}</p>@endforeach</td>
                         <td>{{ $singleuser->total_hour }}h {{ $singleuser->total_minute }}m</td>
-                        <td>@if(($singleuser->status=="Pending Approval")||($singleuser->status=="Pending Verification"))Submitted<p>({{ $singleuser->status }})</p> @else {{ $singleuser->status }} @endif @if(($singleuser->status=="Draft (Incomplete)")||($singleuser->status=="Draft (Complete)")) <p style="color: red">Due: {{$singleuser->date_expiry}}</p> @endif</td>
+                        <td>@if(($singleuser->status=="Pending Approval")||($singleuser->status=="Pending Verification"))Submitted ({{ $singleuser->status }})@else {{ $singleuser->status }} @endif @if(($singleuser->status=="Draft (Incomplete)")||($singleuser->status=="Draft (Complete)")||($singleuser->status=="Pending Approval")||($singleuser->status=="Pending Verification")) <p style="color: red">Due: {{$singleuser->date_expiry}}</p> @endif</td>
                         <td>
                             @if(($singleuser->status=="Draft (Incomplete)")||($singleuser->status=="Draft (Complete)"))
                                 <form action="{{route('ot.update')}}" method="POST" style="display:inline">
