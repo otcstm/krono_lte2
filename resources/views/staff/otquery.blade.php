@@ -53,11 +53,10 @@
                         <tr style="text-align:center;">
                             <td colspan="@if(session()->get('mass')) 8 @else 7 @endif">
                                 <button type="button" class="btn btn-primary" id="collapse-{{$no}}">SHOW DETAILS</button>
-                                <div id="collapsible-{{$no}}" class="collapse">
-                                    <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                    commodo consequat.
+                                <div id="collapsible-{{$no}}" class="collapse panel panel-default">
+                                    <div class="panel-heading">OT Information</div>
+                                    <div class="panel-body">
+
                                     </div>
                                 </div>
                             </td>
