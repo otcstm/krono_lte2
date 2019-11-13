@@ -21,6 +21,7 @@ class CreateHolidayLogsTable extends Migration
             $table->integer('guarantee_flag');
             $table->string('states', 750)->nullable();
             $table->bigInteger('update_by');
+            $table->string('action',50);
             $table->timestamps();
         });
     }
