@@ -117,8 +117,8 @@ class OvertimeController extends Controller{
             $newclaim->total_hour = 0;
             $newclaim->total_minute = 0;
             $newclaim->status = 'Draft (Incomplete)';
-            $newclaim->approver_id = 55326; //temp
-            $newclaim->verifier_id =  55326; //temp
+            $newclaim->approver_id = $req->user()->reptto; //temp
+            $newclaim->verifier_id =  $req->user()->id; //temp
             $newclaim->charge_type = '';
             $newclaim->save();           
             $claim = Overtime::where('user_id', $req->user()->id)->where('date', $claimdate)->first();
@@ -247,11 +247,11 @@ class OvertimeController extends Controller{
         $updateclaim->save();
         $claim = Overtime::where('id', $req->inputid)->first();
         Session::put(['claim' => $claim]);
-        if($req->save=="save"){
+        // if($req->save=="save"){
             return redirect(route('ot.form',[],false));
-        }else{
-            return redirect(route('ot.list',[],false)); 
-        }
+        // }else{
+        //     return redirect(route('ot.list',[],false)); 
+        // }
     }
 
     public function approval(Request $req){
@@ -272,10 +272,14 @@ class OvertimeController extends Controller{
 
     public function queue(Request $req){
         $output = "";
-        if($req->multi=="yes"){
+        if(($req->multi=="yes")||($req->multi=="x")){
             $id = explode(" ", $req->queryid);
             $otlist = Overtime::whereIn("id", $id)->orderBy('date')->get();
-            Session::put(['mass' => true]);
+            if($req->multi=="yes"){
+                Session::put(['mass' => true]);
+            }else if($req->multi=="x"){
+                Session::put(['mass' => false]);
+            }
         }else{
             $otlist = Overtime::where('id', $req->inputid)->get();
             Session::put(['mass' => false]);

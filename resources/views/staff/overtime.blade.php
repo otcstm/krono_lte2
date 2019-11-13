@@ -6,7 +6,7 @@
 <div class="panel panel-default">
     <div class="panel-heading panel-primary">OT List</div>
     <div class="panel-body">
-        <div class="text-center" style="margin-bottom: 15px">
+        <div class="text-right" style="margin-bottom: 15px">
             <form action="{{route('ot.formnew')}}" method="POST" style="display:inline">
                 @csrf
                 <button type="submit" class="btn btn-primary">CREATE NEW CLAIM</button>
@@ -23,7 +23,7 @@
                 <thead>
                     <tr>
                         <th></th>
-                        <th>No</th>
+                        <th></th>
                         <th>Reference No</th>
                         <th>Date time</th>
                         <th>Duration</th>
@@ -34,14 +34,14 @@
                 <tbody>
                     @foreach($otlist as $no=>$singleuser)
                     <tr>
-                        <td>@if($singleuser->status=="Draft (Complete)")<input type="checkbox" id="checkbox-{{$no}}" value="{{$singleuser->id}}"> @endif</td>
-                        <td>{{ ++$no }}</td>
+                        <td>@if(($singleuser->status=="Draft (Complete)")||($singleuser->status=="Query"))<input type="checkbox" id="checkbox-{{$no++}}" value="{{$singleuser->id}}"> @endif</td>
+                        <td></td>
                         <td>{{ $singleuser->refno }}</td>
                         <td>{{ $singleuser->date }} @foreach($singleuser->detail as $details)<p>{{date('H:i', strtotime($details->start_time)) }} - {{ date('H:i', strtotime($details->end_time))}}</p>@endforeach</td>
                         <td>{{ $singleuser->total_hour }}h {{ $singleuser->total_minute }}m</td>
-                        <td>@if(($singleuser->status=="Pending Approval")||($singleuser->status=="Pending Verification"))Submitted ({{ $singleuser->status }})@else {{ $singleuser->status }} @endif @if(($singleuser->status=="Draft (Incomplete)")||($singleuser->status=="Draft (Complete)")||($singleuser->status=="Pending Approval")||($singleuser->status=="Pending Verification")) <p style="color: red">Due: {{$singleuser->date_expiry}}</p> @endif</td>
+                        <td>@if(($singleuser->status=="Pending Approval")||($singleuser->status=="Pending Verification"))Submitted ({{ $singleuser->status }})@else {{ $singleuser->status }} @endif @if(in_array($singleuser->status, $array = array("Draft (Incomplete)", "Draft (Complete)", "Pending Approval", "Pending Verification", "Query"))) <p style="color: red">Due: {{$singleuser->date_expiry}}</p> @endif</td>
                         <td>
-                            @if(($singleuser->status=="Draft (Incomplete)")||($singleuser->status=="Draft (Complete)"))
+                            @if(in_array($singleuser->status, $array = array("Draft (Incomplete)", "Draft (Complete)", "Query")))
                                 <form action="{{route('ot.update')}}" method="POST" style="display:inline">
                                     @csrf
                                     <input type="text" class="hidden" id="inputid" name="inputid" value="{{$singleuser->id}}" required>
@@ -107,10 +107,16 @@
 @section('js')
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#tOTList').DataTable({
+    var t = $('#tOTList').DataTable({
         "responsive": "true",
-        "order" : [[1, "asc"]],
+        "order" : [[0, "desc"]],
     });
+
+    t.on( 'order.dt search.dt', function () {
+        t.column(1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+    } ).draw();
 });
 
 $('#delOT').on('show.bs.modal', function(e) {

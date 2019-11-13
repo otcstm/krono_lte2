@@ -3,9 +3,27 @@
 @section('title', 'Overtime Form')
 
 @section('content')
+<style>
+    table.table-bordered{
+        border:1px solid #A9A9A9;
+    }
+    table.table-bordered > thead > tr > th{
+        border:1px solid #A9A9A9;
+    }
+    table.table-bordered > tbody > tr > td{
+        border:1px solid #A9A9A9;
+    }
+</style>
+
 <div class="panel panel-default">
     <div class="panel-heading panel-primary">OT Application List @if($show ?? '') {{$claim->date}} ({{date('l', strtotime($claim->date))}})@endif</div>
     <div class="panel-body">
+        @if(session()->has('feedback'))
+        <div class="alert alert-{{session()->get('feedback_type')}} alert-dismissible" id="alert">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{session()->get('feedback_text')}}
+        </div>
+        @endif
         <form id="formdate" action="{{route('ot.formdate')}}" method="POST">
             @csrf
             <p>Date: <input type="date" id="inputdate" name="inputdate" value="@if($show ?? ''){{$claim->date}}@endif" required></p>
@@ -19,7 +37,7 @@
                         <span style="color: red"><p>Due Date: {{$claim->date_expiry}}</p>
                         <p>Unsubmitted claims will be deleted after the due date</p></span>
                     @else
-                        <p>Chargin type: {{$claim->charge_type}}
+                        <p>Charging type: {{$claim->charge_type}}
                         <p>Justification: {{$claim->justification}}
                     @endif
                 </div>
@@ -29,7 +47,8 @@
                     <p>Approver: {{$claim->approver->name}}</p>
                 </div>
             </div>
-            @if(($claim->status=="Draft (Incomplete)")||($claim->status=="Draft (Complete)"))
+
+            @if(in_array($claim->status, $array = array("Draft (Incomplete)", "Draft (Complete)", "Query")))
             <div class="text-right" style="margin-bottom: 15px">
                 <button type="button" class="btn btn-primary" id="otedit-0">
                     ADD TIME
@@ -37,21 +56,15 @@
                 <p>Available time to claim: {{$claimtime->hour}}h {{$claimtime->minute}}m</p>
             </div>
             @endif
-            @if(session()->has('feedback'))
-            <div class="alert alert-{{session()->get('feedback_type')}} alert-dismissible" id="alert">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                {{session()->get('feedback_text')}}
-            </div>
-            @endif
             <table class="table table-bordered">
-                <thead>
+                <thead class="bg-info">
                     <tr>
                         <th width="2%">No</th>
                         <th width="20%">Clock In/Out</th>
                         <th width="20%">Start/End Time</th>
                         <th width="8%">Total Time</th>
                         <th width="40%">Justification</th>
-                        @if(($claim->status=="Draft (Incomplete)")||($claim->status=="Draft (Complete)"))
+                        @if(in_array($claim->status, $array = array("Draft (Incomplete)", "Draft (Complete)", "Query")))
                         <th width="10%">
                             Action
                         </th>
@@ -66,7 +79,7 @@
                         <td>{{ date('H:i', strtotime($singleuser->start_time)) }} - {{ date('H:i', strtotime($singleuser->end_time)) }}</td>
                         <td>{{ $singleuser->hour }}h {{ $singleuser->minute }}m</td>
                         <td>{{ $singleuser->justification }}</td>
-                        @if(($claim->status=="Draft (Incomplete)")||($claim->status=="Draft (Complete)"))
+                        @if(in_array($claim->status, $array = array("Draft (Incomplete)", "Draft (Complete)", "Query")))
                         <td>
                             <button type="button" class="btn btn-primary" id="otedit-{{$no}}" data-toggle="modal">
                                 <i class="fas fa-pencil-alt"></i>
@@ -105,6 +118,9 @@
                         </form>
                     </tr>
                     @endforeach
+                    @if(count($otlist)==0)
+                        <tr id="nodata" class="text-center"><td colspan="6"><i>Not Available</i></td></tr>
+                    @endif
                     <tr id="edit-0" style="display: none">
                         <form action="{{route('ot.formadd')}}" method="POST">
                             @csrf
@@ -135,7 +151,7 @@
                     </tr>
                 </tbody>
             </table>
-            @if(($claim->status=="Draft (Incomplete)")||($claim->status=="Draft (Complete)"))
+            @if(in_array($claim->status, $array = array("Draft (Incomplete)", "Draft (Complete)", "Query")))
                 <form id="formot" action="{{route('ot.save')}}" method="POST">
                     <div class="row">
                         <div class="col-xs-6">
@@ -219,7 +235,8 @@
                         </div>
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary" style="display: inline"><i class="fas fa-save"></i></button>
+                        <a href="{{route('ot.list')}}"><button type="button" class="btn btn-primary" style="display: inline">BACK</button></a>
+                        <button type="submit" class="btn btn-primary" style="display: inline"><i class="fas fa-save"></i> SAVE</button>
                 </form>
                 <form id="formsubmit" action="{{route('ot.store')}}" method="POST" onsubmit="return confirm('I understand and agree this to claim. If deemed false I can be taken to disciplinary action.')" style="display: inline">
                     @csrf
@@ -346,23 +363,32 @@
     
     function otedit(i){
         return function(){
-            $('#edit-'+i).css("display", "table-row");
-            $('#show-'+i).css("display", "none");
             if(add){
-                alert("Please save current time input before adding a new one!");
+                if(i==0){
+                    alert("Please save current time input before adding a new one!");
+                }else{
+                    alert("Please save current time input before editing others!");
+                }
+            }else{
+                add=true;
+                $('#edit-'+i).css("display", "table-row");
+                $('#show-'+i).css("display", "none");
             }
             if(i==0){
-                add=true;
+                $('#nodata').css("display","none");
             }
         };
     };
     
     function otx(i){
         return function(){
-            $('#edit-'+i).css("display", "none");
-            $('#show-'+i).css("display", "table-row");
-            if(i==0){
+            if(add){
                 add=false;
+                $('#edit-'+i).css("display", "none");
+                $('#show-'+i).css("display", "table-row");
+            }
+            if(i==0){
+                $('#nodata').css("display","table-row");
             }
         };
     };
@@ -375,11 +401,6 @@
         $("#otx-"+i).on('click',otx(i));
     };
     @endif
-
-    //when click add time
-    $('.otadd').click(function() {
-        $('#addNew').css("display", "table-row");
-    });
 
     //when click x in add time
     $('.otx').click(function() {

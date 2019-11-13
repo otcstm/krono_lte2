@@ -86,6 +86,11 @@ function submitval(i){
         else{
             $('#submitbtn').css("display","none");
         }
+        if(show>1){
+            $("#multi").val("yes");
+        }else{
+            $("#multi").val("x");
+        }
     };
 };
 
@@ -93,10 +98,13 @@ for(i=0; i<{{count($otlist)}}; i++) {
     $("#checkbox-"+i).change(submitval(i));
     if ($('#checkbox-'+i).is(':checked')) {
         show++;
-        $("#queryid").val(function() {
-            return this.value + $('#checkbox-'+i).val()+" ";
-        });
         $('#submitbtn').css("display","block");
+    }
+    
+    if(show>1){
+        $("#multi").val("yes");
+    }else{
+        $("#multi").val("x");
     }
 };
 
