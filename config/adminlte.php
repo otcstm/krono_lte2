@@ -235,23 +235,27 @@ return [
                 'text' => 'ot_apply',
                 'url'  => '/overtime/form',
                 'show' => '',
-                // 'otmodal' => '',
                 'icon' => 'fas fa-edit',
                 // 'can' => 'ot-nav-menu',
             ],
             [
                 'text' => 'ot_list',
                 'url'  => '/overtime',
-                // 'otmodal' => '',
                 'icon' => 'fas fa-edit',
                 // 'can' => 'ot-nav-menu',
             ],
             [
-                'text' => 'ot_history',
-                'url'  => '/overtime/logs',
-                'icon' => 'fas fa-business-time',
+                'text' => 'ot_approve',
+                'url'  => '/overtime/approval',
+                'icon' => 'fas fa-edit',
                 // 'can' => 'ot-nav-menu',
             ],
+            // [
+            //     'text' => 'ot_history',
+            //     'url'  => '/overtime/logs',
+            //     'icon' => 'fas fa-business-time',
+            //     // 'can' => 'ot-nav-menu',
+            // ],
 
             // [
             //     'text' => 'ot_approve',

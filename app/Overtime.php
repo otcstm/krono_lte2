@@ -11,9 +11,14 @@ class Overtime extends Model
     //     return $this->hasMany(StaffPunch::class);
     // }
 
-    public function otdetails()
+    // public function otdetails()
+    // {
+    //     return $this->belongsToMany(OvertimeDetail::class);
+    // }
+
+    public function name()
     {
-        return $this->belongsToMany(OvertimeDetail::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function approver()
@@ -24,5 +29,15 @@ class Overtime extends Model
     public function verifier()
     {
         return $this->belongsTo(User::class, 'verifier_id')->withDefault(['name' => 'N/A']);
+    }
+
+    public function detail()
+    {
+        return $this->hasMany(OvertimeDetail::class, 'ot_id');
+    }
+
+    public function log()
+    {
+        return $this->hasMany(OvertimeLog::class, 'ot_id');
     }
 }
