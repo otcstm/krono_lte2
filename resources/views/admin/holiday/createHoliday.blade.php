@@ -32,7 +32,10 @@
 			 </tr>
 			 <tr>
 			 <td>
-			 <input type="submit">
+			 <input type="submit" class="btn btn-alert btn-sm">
+			 <a   class="btn btn-info btn-sm" href="{{route('holiday.show',[],false)}}" >
+			 Return
+			 </a>
 			 </td>
 
 			 </tr>

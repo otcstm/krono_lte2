@@ -31,7 +31,7 @@
 </form>
 
 
-<a   class="btn btn-danger btn-sm" href="{{route('holiday.show',[],false)}}" >
+<a   class="btn btn-info btn-sm" href="{{route('holiday.show',[],false)}}" >
 Return
 </a>
 
