@@ -22,10 +22,6 @@ class PaymentScheduleController extends Controller
 
   public function store(Request $req)
   {
-    // $ym = $req ->year;
-    // $cdate = Carbon::parse($ym);
-    // $year = $cdate->format('Y');
-    // $month = $cdate->format('m');
     //dapatkan bulan paydate, check if exist
       $pd = $req ->pay_date;
       $paydate = Carbon::parse($pd);
@@ -37,7 +33,6 @@ class PaymentScheduleController extends Controller
             ->get();
 
       if(count($check)==0){
-
       $new_ps = new PaymentSchedule;
       $new_ps-> last_sub_date = $req ->last_sub;
       $new_ps-> last_approval_date = $req ->last_approval;
@@ -46,15 +41,15 @@ class PaymentScheduleController extends Controller
       $new_ps-> source = 'OT';
       $new_ps-> created_by= $req->user()->id;
       $new_ps-> save();
-      $execute = UserHelper::LogUserAct($req, "Payment Schedule", "Create Payment Schedule ");
-      $a_text = "Successfully created.";
+      $execute = UserHelper::LogUserAct($req, "Payment Schedule", "Create Payment Schedule $pmonth/$pyear");
+      $a_text = "Payment Schedule $pmonth/$pyear successfully created.";
       $a_type = "success";
 
       return redirect(route('paymentsc.index', [], false))
       ->with(['a_text' => $a_text,'a_type' => $a_type]);
       }
       else{
-        $a_text = "Payment Schedule already exist.";
+        $a_text = "Payment Schedule $pmonth/$pyear already exist.";
         $a_type = "warning";
         return redirect(route('paymentsc.index', [], false))
         ->with(['a_text' => $a_text,'a_type' => $a_type]);
@@ -64,9 +59,10 @@ class PaymentScheduleController extends Controller
 
   public function update(Request $req)
     {
-      // dd($req->all());
-     // $defdate1 = $req ->inputpay  ;
-     // $defdate = new Carbon($defdate1->format('M Y'));
+     $pd = $req ->pay_date;
+     $paydate = Carbon::parse($pd);
+     $pyear = $paydate->format('Y');
+     $pmonth = $paydate->format('m');
 
      $ps = PaymentSchedule::find($req->inputid);
      if($ps){
@@ -77,8 +73,8 @@ class PaymentScheduleController extends Controller
        $ps-> source = 'OT';
        $ps-> updated_by = $req->user()->id;
        $ps->save();
-       $execute = UserHelper::LogUserAct($req, "Payment Schedule", "Update Payment Schedule " );
-       return redirect(route('paymentsc.index', [], false))->with(['a_text' => 'Payment Schedule updated!', 'a_type' => 'success']);
+       $execute = UserHelper::LogUserAct($req, "Payment Schedule", "Update Payment Schedule $pmonth/$pyear " );
+       return redirect(route('paymentsc.index', [], false))->with(['a_text' => "Payment Schedule $pmonth/$pyear updated!", 'a_type' => 'success']);
      }
      else{
        return redirect(route('paymentsc.index', [], false))
