@@ -27,5 +27,7 @@ class DatabaseSeeder extends Seeder
 
 
         $this->call(PsubareasTableSeeder::class);
+        $this->call(DayTypesTableSeeder::class);
+        $this->call(ShiftPatternsTableSeeder::class);
     }
 }

@@ -64,6 +64,8 @@ class HolidayController extends Controller
             $hc->save();
             //echo($hc);
         }
+
+        $this->log($a1->id,'INSERT');
         $ac = 'info';
         $alert = $a1->descr.' has been inserted';
         return redirect(route('holiday.show', [], false))->
@@ -71,6 +73,8 @@ class HolidayController extends Controller
           'alert' => $alert,
           'ac'=>$ac
         ]);
+
+
 
     }
 
@@ -189,8 +193,8 @@ class HolidayController extends Controller
                ->where('state_id', $cs->state_id)->delete();
             }
         }
-        echo('<br/>');
-        echo json_encode($arr);
+        //echo('<br/>');
+        //echo json_encode($arr);
         foreach ($arr as $selectedState) {
             echo($selectedState);
 
@@ -200,7 +204,7 @@ class HolidayController extends Controller
             $hc->update_by  = $user->id;
             $hc->save();
         }
-
+  $this->log($holiday->id,'UPDATE');
         $ac = 'info';
         $alert = $holiday->descr.' has been updated';
         return redirect(route('holiday.show', [], false))->
@@ -227,6 +231,7 @@ class HolidayController extends Controller
       //change update by field first for logging
       $holiday->update_by  = $req->user()->id;
       $holiday->save();
+        $this->log($holiday->id,'DESTROY');
 
       Holiday::destroy($req->holiday_id);
       $hcDel = HolidayCalendar::where('holiday_id', $holiday->id)
@@ -245,13 +250,25 @@ class HolidayController extends Controller
 
     }
 
-      public function log($id,$action){
+      public function log($id,String $action){
 
       $holiday = Holiday::find($id);
       $log     = new HolidayLog;
+      $states = HolidayCalendar::where('holiday_id', $holiday->id)->pluck('state_id');
+      $states = str_replace("[","",$states);
+      $states = str_replace("]","",$states);
+      $log->holiday_id        = $holiday->id;
+      $log->descr             = $holiday->descr;
+      $log->dt                = $holiday->dt;
+      $log->guarantee_flag    = $holiday->guarantee_flag;
+      $log->update_by         = $holiday->update_by;
+      $log->action            = $action;
+      $log->states            = $states;
 
-      $log->holiday_id = $holiday->id;
-      $log->descr      = $holiday->descr;
+      $log->save();
+
+
+      return $log;
 
 /**
       $table->bigInteger('holiday_id');

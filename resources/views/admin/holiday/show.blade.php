@@ -3,10 +3,17 @@
 
 @if(session('alert'))
 
+
+
     <div class="alert alert-{{$ac}}" role="alert">{{session('alert')}}</div>
 
 @endif
+<form>
+  <select name="s_year">
+  <option>2019</option>
+  </select>
 
+</form>
 <table border="1" style="width:100%">
 <tr>
   @foreach ($header as $h)
