@@ -47,6 +47,29 @@
 </div>
 
 <div class="panel panel-default">
+  <div class="panel-heading">Add day to this shift template</div>
+  <div class="panel-body">
+    <form action="{{ route('sp.day.add', [], false) }}" method="post">
+      @csrf
+      <input type="hidden" name="sp_id" value="{{ $tsp->id }}" />
+      <input type="hidden" name="sp_code" value="{{ $tsp->code }}" />
+      <div class="form-group">
+        <label for="description">Description</label>
+        <select class="form-control" id="daytype" name="daytype" required>
+          @foreach($daytype as $day)
+          <option value="{{ $day->id }}">{{ $day->code }} : {{ $day->description }}</option>
+          @endforeach
+        </select>
+      </div>
+
+      <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary">Add</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="panel panel-default">
   <div class="panel-heading">Days under this Shift Template</div>
   <div class="panel-body">
     <div class="table-responsive">
@@ -99,28 +122,6 @@
   </div>
 </div>
 
-<div class="panel panel-default">
-  <div class="panel-heading">Add day to this shift template</div>
-  <div class="panel-body">
-    <form action="{{ route('sp.day.add', [], false) }}" method="post">
-      @csrf
-      <input type="hidden" name="sp_id" value="{{ $tsp->id }}" />
-      <input type="hidden" name="sp_code" value="{{ $tsp->code }}" />
-      <div class="form-group">
-        <label for="description">Description</label>
-        <select class="form-control" id="daytype" name="daytype" required>
-          @foreach($daytype as $day)
-          <option value="{{ $day->id }}">{{ $day->code }} : {{ $day->description }}</option>
-          @endforeach
-        </select>
-      </div>
-
-      <div class="form-group text-center">
-        <button type="submit" class="btn btn-primary">Add</button>
-      </div>
-    </form>
-  </div>
-</div>
 
 @stop
 

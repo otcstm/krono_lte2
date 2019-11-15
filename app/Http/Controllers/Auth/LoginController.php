@@ -24,7 +24,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    // protected $redirectTo = '/home';
     /**
      * Create a new controller instance.
      *
@@ -62,7 +62,7 @@ class LoginController extends Controller
           // $cuser->roles()->attach(1);
         }
         Auth::loginUsingId($cuser->id, true);
-        return redirect()->intended(route('misc.home', [], false));
+        return redirect()->intended(route('misc.home', [], false), 302, [], true);
       }
       return redirect()->back()->with('message', $udata['msg']);
     }

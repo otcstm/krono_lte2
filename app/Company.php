@@ -11,7 +11,7 @@ class Company extends Model
 
   public $incrementing = false;
 
-//  use SoftDeletes;
+  //use SoftDeletes;
 
 public function users()
   {
@@ -22,7 +22,7 @@ public function users()
   {
       return $this->belongsTo(User::class,'created_by');
   }
-  
+
   public function updatedby()
   {
       return $this->belongsTo(User::class,'updated_by');

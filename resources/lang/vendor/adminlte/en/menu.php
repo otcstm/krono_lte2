@@ -7,8 +7,10 @@ return [
     'manage_role'     => 'Manage Role',
     'manage_company'  => 'Manage Company',
     'manage_state'    => 'Manage State',
+    'manage_psubarea' => 'Manage Psubarea',
     'manage_wdays'    => 'Work Day Type',
     'admin_user_menu'   => 'User Admin Thingy',
+    'manage_holiday'    => 'Manage Holiday',
 
 
 
@@ -18,11 +20,13 @@ return [
     'user_punch'      => 'Clock In/Out',
     'user_setting'    => 'My Settings',
     'user_shift_sc'   => 'My Shift Schedule',
+    'user_management' => 'User Management',
+    'user_logs'  => 'User Logs',
 
     'ot_menu'         => 'OVERTIME',
     'ot_apply'        => 'Apply New OT',
     'ot_history'      => 'OT History',
-    'ot_approve'      => 'Approve OT',
+    'ot_approve'      => 'Approve/Verify OT',
     'ot_verify'       => 'Verify OT',
     'ot_list'         => 'List of OT',
     'staff_list'      => 'List of Staff',

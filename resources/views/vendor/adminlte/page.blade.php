@@ -2,7 +2,7 @@
 
 @section('adminlte_css')
     <link rel="stylesheet"
-          href="{{ asset('vendor/adminlte/dist/css/skins/skin-' . config('adminlte.skin', 'blue') . '.min.css')}} ">
+          href="{{ secure_asset('vendor/adminlte/dist/css/skins/skin-' . config('adminlte.skin', 'blue') . '.min.css')}} ">
     @stack('css')
     @yield('css')
 @stop
@@ -22,7 +22,7 @@
             <nav class="navbar navbar-static-top">
                 <div class="container">
                     <div class="navbar-header">
-                        <a href="{{ url(config('adminlte.dashboard_url', 'home')) }}" class="navbar-brand">
+                        <a href="{{ route('misc.home', [], false) }}" class="navbar-brand">
                             {!! config('adminlte.logo', '<b>Admin</b>LTE') !!}
                         </a>
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
@@ -39,7 +39,7 @@
                     <!-- /.navbar-collapse -->
             @else
             <!-- Logo -->
-            <a href="{{ url(config('adminlte.dashboard_url', 'home')) }}" class="logo">
+            <a href="{{ route('misc.home', [], false) }}" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini">{!! config('adminlte.logo_mini', '<b>A</b>LT') !!}</span>
                 <!-- logo for regular state and mobile devices -->
@@ -63,16 +63,23 @@
                             <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="fa fa-fw fa-power-off"></i> {{ __('adminlte::adminlte.log_out') }}
                             </a>
-                            <form id="logout-form" action="{{ url(config('adminlte.logout_url', 'auth/logout')) }}" method="POST" style="display: none;">
+                            <form id="logout-form" action="{{ route('logout', [], false) }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}
                             </form>
                         </li>
                         @if(config('adminlte.right_sidebar') and (config('adminlte.layout') != 'top-nav'))
                         <!-- Control Sidebar Toggle Button -->
                             <li>
-                                <a href="#" data-toggle="control-sidebar" @if(!config('adminlte.right_sidebar_slide')) data-controlsidebar-slide="false" @endif>
-                                    <i class="{{config('adminlte.right_sidebar_icon')}}"></i>
-                                </a>
+                              <a href="#" data-toggle="control-sidebar" @if(!config('adminlte.right_sidebar_slide')) data-controlsidebar-slide="false" @endif>
+                                @if(session()->has('notifycount'))
+                                <i class="{{config('adminlte.right_sidebar_icon')}}"></i>
+                                <span class="pull-right-container">
+                                    <span class="label label-warning pull-right">{{ session()->get('notifycount')}}</span>
+                                </span>
+                                @else
+                                <i class="fas fa-bullhorn"></i>
+                                @endif
+                              </a>
                             </li>
                         @endif
                     </ul>
@@ -133,7 +140,21 @@
 
         @if(config('adminlte.right_sidebar') and (config('adminlte.layout') != 'top-nav'))
             <aside class="control-sidebar control-sidebar-{{config('adminlte.right_sidebar_theme')}}">
-                @yield('right-sidebar')
+                <!-- yield('right-sidebar') -->
+                <ul class="control-sidebar-menu">
+                  @if(session()->has('notifycount') && session()->get('notifycount') > 0)
+                  @foreach(session()->get('notifylist') as $onutifi)
+                  <li>
+                    <a href="{{ $onutifi['href'] }}">
+                      <i class="{{ $onutifi['icon'] }}"></i>
+                      <span>{{ $onutifi['text'] }}</span>
+                    </a>
+                  </li>
+                  @endforeach
+                  @else
+                  <li style="text-align:center">Nothing to show here</li>
+                  @endif
+                </ul>
             </aside>
             <!-- /.control-sidebar -->
             <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
@@ -145,7 +166,7 @@
 @stop
 
 @section('adminlte_js')
-    <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
+    <script src="{{ secure_asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
     @stack('js')
     @yield('js')
 @stop
