@@ -15,10 +15,12 @@ class CreatePaymentSchedulesTable extends Migration
     {
         Schema::create('payment_schedules', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamp('last_sub_date')->nullable();
-            $table->timestamp('last_approval_date')->nullable();
-            $table->timestamp('interface_date')->nullable();
-            $table->timestamp('payment_date')->nullable();
+            // $table->date('year')->nullable();
+            $table->date('last_sub_date')->nullable();
+            $table->date('last_approval_date')->nullable();
+            $table->date('interface_date')->nullable();
+            $table->date('payment_date')->nullable();
+            $table->string('source')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();

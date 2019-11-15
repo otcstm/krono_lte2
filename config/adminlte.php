@@ -178,6 +178,12 @@ return [
               'icon' => 'far fa-calendar-alt',
               // 'can' => 'ot-nav-menu',
           ],
+          [
+              'text' => 'paymentsch',
+              'url' => '/admin/paymentsc',
+              'icon' => 'fas fa-calendar-alt',
+              // 'can' => 'admin-nav-menu',
+          ],
         ],
       ],
       [
@@ -245,7 +251,12 @@ return [
                 'icon' => 'fas fa-business-time',
                 // 'can' => 'ot-nav-menu',
             ],
-
+            [ 'text' => 'ot_apply',
+                          'url'  => '/overtime/form',
+                          'show' => '',
+                          // 'otmodal' => '',
+                          'icon' => 'fas fa-edit',
+          ],
             // [
             //     'text' => 'ot_approve',
             //     'url'  => '#',

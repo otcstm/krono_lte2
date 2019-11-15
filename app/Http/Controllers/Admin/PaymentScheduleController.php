@@ -7,6 +7,7 @@ use App\Shared\UserHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
+use \Carbon\Carbon;
 use App\Http\Controllers\Controller;
 
 
@@ -15,63 +16,73 @@ class PaymentScheduleController extends Controller
   public function index()
   {
       $ps = PaymentSchedule::all();
-
-      return view('admin.paymentschedule', ['companies' => $company]);
+      // $defdate = $req ->int_date->format('M');
+      return view('admin.paymentschedule', ['ps_list' => $ps]);
   }
 
   public function store(Request $req)
   {
-    $check = Company::find($req->inputcomp);
+    // $ym = $req ->year;
+    // $cdate = Carbon::parse($ym);
+    // $year = $cdate->format('Y');
+    // $month = $cdate->format('m');
 
-    if(!$check){
-      $company_var = new Company;
-      $company_var->id = $req->inputcomp;
-      $company_var->company_descr = $req->inputdescr;
-      $company_var->source  = 'OT';
-      $company_var->created_by  = $req->user()->id;
-      $company_var->save();
-      $execute = UserHelper::LogUserAct($req, "Company Management", "Create Company " .$req->inputcomp);
-      $a_text = 'Successfully created company '.$req->inputcomp;
+      $new_ps = new PaymentSchedule;
+      $new_ps-> last_sub_date = $req ->last_sub;
+      $new_ps-> last_approval_date = $req ->last_approval;
+      $new_ps-> interface_date = $req ->int_date;
+      $new_ps-> payment_date = $req ->pay_date;
+      $new_ps-> source = 'OT';
+      $new_ps-> created_by= $req->user()->id;
+      $new_ps-> save();
+      $execute = UserHelper::LogUserAct($req, "Payment Schedule", "Create Payment Schedule ");
+      $a_text = "Successfully created.";
       $a_type = "success";
-  }
-  else{
-      $a_text = 'Company code '.$req->inputcomp .' already exist.';
-      $a_type = "warning";
-      }
-      return redirect(route('company.index', [], false))
+
+      return redirect(route('paymentsc.index', [], false))
       ->with(['a_text' => $a_text,'a_type' => $a_type]);
-    }
+
+  }
 
   public function update(Request $req)
     {
-    //  dd($req->all());
-      $company_var = Company::find($req->eid);
-      if($company_var){
-            $company_var->company_descr = $req->editdescr;
-            $company_var->updated_by  = $req->user()->id;
-            $company_var->source  = 'OT';
-            $company_var->save();
-            $execute = UserHelper::LogUserAct($req, "Company Management", "Update Company " .$req->eid);
-            return redirect(route('company.index', [], false))->with(['a_text' => 'Successfully updated company '. $req->eid , 'a_type' => 'success']);
+      // dd($req->all());
+     // $defdate1 = $req ->inputpay  ;
+     // $defdate = new Carbon($defdate1->format('M Y'));
 
-      } else {
-        return redirect(route('company.index', [], false))
-        ->with(['a_text' =>'Company' .$req->eid. ' not found.', 'a_type' => 'warning']);
-      }
+     $ps = PaymentSchedule::find($req->inputid);
+     if($ps){
+       $ps-> last_sub_date = $req->inputsub;
+       $ps-> last_approval_date = $req->inputapp;
+       $ps-> interface_date = $req->inputint;
+       $ps-> payment_date = $req->inputpay;
+       $ps-> source = 'OT';
+       $ps-> updated_by = $req->user()->id;
+       $ps->save();
+       $execute = UserHelper::LogUserAct($req, "Payment Schedule", "Update Payment Schedule " );
+       return redirect(route('paymentsc.index', [], false))->with(['a_text' => 'Payment Schedule updated!', 'a_type' => 'success']);
+     }
+     else{
+       return redirect(route('paymentsc.index', [], false))
+       ->with(['a_text' =>'Payment Schedule not found.', 'a_type' => 'warning']);
+     }
+
     }
 
     public function destroy(Request $req)
     {
+      $ps = PaymentSchedule::find($req->inputid);
 
-      $cm = Company::find($req->inputid);
-      if($cm){
-        $execute = UserHelper::LogUserAct($req, "Company Management", "Delete Company " .$req->inputid);
-        $cm->save();
-        $cm->delete();
+      if($ps){
+        $execute = UserHelper::LogUserAct($req, "Payment Schedule", "Delete Payment Schedule ");
+        // $ps->save();
+        $ps->delete();
 
-        return redirect(route('company.index', [], false))->with(['a_text' => 'Company '.$req ->inputid. ' deleted', 'a_type' => 'warning']);
+        return redirect(route('paymentsc.index', [], false))->with(['a_text' => ' Payment Schedule deleted!', 'a_type' => 'warning']);
       } else {
-        return redirect(route('company.index', [], false))->with(['a_text' => 'Company '.$req ->inputid. ' not found', 'a_type' => 'danger']);
+        return redirect(route('paymentsc.index', [], false))->with(['a_text' => ' Payment Schedule not found', 'a_type' => 'danger']);
       }
+
+
     }
   }

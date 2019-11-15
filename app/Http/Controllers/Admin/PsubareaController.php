@@ -27,7 +27,9 @@ class PsubareaController extends Controller
     $var_id = $req ->inputip;
     $var_comp = $req ->inputcomp;
     $var_parea = $req ->inputparea;
+    $var_paread = $req ->inputparead;
     $var_psubarea = $req ->inputpsubarea;
+    $var_psubaread = $req ->inputpsubaread;
     $var_state = $req ->inputstate;
     $var_region = $req ->inputregion;
 
@@ -43,6 +45,8 @@ class PsubareaController extends Controller
       $new_psubarea-> company_id = $var_comp;
       $new_psubarea-> persarea = $var_parea;
       $new_psubarea-> perssubarea = $var_psubarea;
+      $new_psubarea-> persareadesc = $var_paread;
+      $new_psubarea-> perssubareades = $var_psubaread;
       $new_psubarea-> state_id = $var_state;
       $new_psubarea-> region = $var_region;
       $new_psubarea-> source = 'OT';
@@ -76,6 +80,8 @@ class PsubareaController extends Controller
           if(count($check)==0){
             $ps-> persarea = $req->inputparea;
             $ps-> perssubarea = $req->inputpsubarea;
+            $ps-> persareadesc = $req->inputparead;
+            $ps-> perssubareades = $req->inputpsubaread;
             $ps-> state_id = $req->inputstate;
             $ps-> region = $req->inputregion;
             $ps-> source = 'OT';
