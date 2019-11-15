@@ -26,6 +26,17 @@ class PaymentScheduleController extends Controller
     // $cdate = Carbon::parse($ym);
     // $year = $cdate->format('Y');
     // $month = $cdate->format('m');
+    //dapatkan bulan paydate, check if exist
+      $pd = $req ->pay_date;
+      $paydate = Carbon::parse($pd);
+      $pyear = $paydate->format('Y');
+      $pmonth = $paydate->format('m');
+
+      $check = PaymentSchedule::whereYear('payment_date',"=", $pyear)
+            ->whereMonth('payment_date',"=", $pmonth)
+            ->get();
+
+      if(count($check)==0){
 
       $new_ps = new PaymentSchedule;
       $new_ps-> last_sub_date = $req ->last_sub;
@@ -41,6 +52,13 @@ class PaymentScheduleController extends Controller
 
       return redirect(route('paymentsc.index', [], false))
       ->with(['a_text' => $a_text,'a_type' => $a_type]);
+      }
+      else{
+        $a_text = "Payment Schedule already exist.";
+        $a_type = "warning";
+        return redirect(route('paymentsc.index', [], false))
+        ->with(['a_text' => $a_text,'a_type' => $a_type]);
+      }
 
   }
 
