@@ -199,6 +199,28 @@ class UserHelper {
         return 'OK';
     }
 
+    public static function CalOT($salary, $h, $m)
+    {
+      $time = ($h*60)+$m;
+      $work = 26*7*60;
+      $rate = $salary/$work;
+      $pay = 1.5*$rate*$time;
+      return $pay;
+    }
+
+    public static function CheckDay($user, $date)
+    {
+      $day = date('N', strtotime($date));
+      if($day>5){
+        $start = null;
+        $end = null;
+      }else{
+        $start = "08:00";
+        $end = "17:00";
+      }
+      return [$start, $end];
+    }
+
   public static function GetMySubords($persno, $recursive = false){
     $retval = [];
 

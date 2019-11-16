@@ -27,21 +27,23 @@
                         <th>Reference No</th>
                         <th>Date time</th>
                         <th>Duration</th>
+                        <th>Estimated Amount</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($otlist as $no=>$singleuser)
-                    <tr>
-                        <td>@if(($singleuser->status=="Draft (Complete)")||($singleuser->status=="Query"))<input type="checkbox" id="checkbox-{{$no++}}" value="{{$singleuser->id}}"> @endif</td>
+                    <tr {{--php($query = "") @foreach($singleuser->log as $logs) @if(strpos($logs->message,"Query")!==false) @php($query = $logs->message) @endif @endforeach @if($singleuser->status=="Query")title = "{{str_replace('")', '', str_replace('Query ("', '', $query))}}"@endif--}}>
+                        <td>@if(($singleuser->status=="Draft (Complete)")||($singleuser->status=="Query (Complete)"))<input type="checkbox" id="checkbox-{{$no++}}" value="{{$singleuser->id}}"> @endif</td>
                         <td></td>
                         <td>{{ $singleuser->refno }}</td>
                         <td>{{ $singleuser->date }} @foreach($singleuser->detail as $details)<br>{{date('H:i', strtotime($details->start_time)) }} - {{ date('H:i', strtotime($details->end_time))}}@endforeach</td>
                         <td>{{ $singleuser->total_hour }}h {{ $singleuser->total_minute }}m</td>
-                        <td>@if(($singleuser->status=="Pending Approval")||($singleuser->status=="Pending Verification"))Submitted ({{ $singleuser->status }})@else {{ $singleuser->status }} @endif @if(in_array($singleuser->status, $array = array("Draft (Incomplete)", "Draft (Complete)", "Pending Approval", "Pending Verification", "Query"))) <p style="color: red">Due: {{$singleuser->date_expiry}}</p> @endif</td>
+                        <td>RM{{$singleuser->amount}}</td>
+                        <td> @if(($singleuser->status=="Draft (Complete)")||($singleuser->status=="Draft (Incomplete)"))Draft <p style="color: red">Due: {{$singleuser->date_expiry}}</p> @elseif(($singleuser->status=="Query (Complete)")||($singleuser->status=="Query (Incomplete)")) @php($query = "") <p @foreach($singleuser->log as $logs) @if(strpos($logs->message,"Query")!==false) @php($query = $logs->message) @endif @endforeach @if(($singleuser->status=="Query (Complete)")||($singleuser->status=="Query (Incomplete)"))title = "{{str_replace('")', '', str_replace('Query ("', '', $query))}}"@endif>Query</p>@else {{ $singleuser->status }} @endif</td>
                         <td>
-                            @if(in_array($singleuser->status, $array = array("Draft (Incomplete)", "Draft (Complete)", "Query")))
+                            @if(in_array($singleuser->status, $array = array("Draft (Incomplete)", "Draft (Complete)", "Query (Incomplete)", "Query (Complete)")))
                                 <form action="{{route('ot.update')}}" method="POST" style="display:inline">
                                     @csrf
                                     <input type="text" class="hidden" id="inputid" name="inputid" value="{{$singleuser->id}}" required>

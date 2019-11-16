@@ -40,4 +40,9 @@ class Overtime extends Model
     {
         return $this->hasMany(OvertimeLog::class, 'ot_id');
     }
+
+    public function message()
+    {
+        return $this->hasMany(OvertimeLog::class, 'ot_id');
+    }
 }

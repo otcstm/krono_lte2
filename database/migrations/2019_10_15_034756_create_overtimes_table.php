@@ -24,6 +24,7 @@ class CreateOvertimesTable extends Migration
             $table->date('date_expiry');
             $table->integer('total_hour');
             $table->integer('total_minute');
+            $table->decimal('amount', 10,2)->nullable();
             $table->integer('profile_id')->nullable();
             $table->string('status')->nullable();
             $table->string('company_id')->nullable();
