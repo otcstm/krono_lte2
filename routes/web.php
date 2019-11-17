@@ -114,9 +114,6 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/overtime/approval', 'OvertimeController@approval')->name('ot.approval');
   Route::post('/overtime/approval', 'OvertimeController@approval')->name('ot.approval');
   Route::post('/overtime/query', 'OvertimeController@query')->name('ot.query');
-  // Route::post('/overtime/query/queue', 'OvertimeController@queue')->name('ot.queue'); 
-  // Route::post('/overtime/query/action', 'OvertimeController@action')->name('ot.action');  
-  Route::post('/overtime/test', 'OvertimeController@test')->name('ot.test');
 });
 
 Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {

@@ -25,9 +25,9 @@ class OvertimeController extends Controller{
             $day = UserHelper::CheckDay($req->user()->id, $req->session()->get('claim')->date);
             return view('staff.otform', ['draft' =>[], 'claim' => $req->session()->get('claim'), 'claimtime' => $claimtime, 'otlist' => $otlist, 'otlog' => $otlog, 'dt' => $day]);
         }else if($req->session()->get('draft')!=null){
-            $draftt = $req->session()->get('draft');
-            $claimtime = OvertimeMonth::where('id', $draftt[8])->first();
-            $day = UserHelper::CheckDay($req->user()->id, date('Y-m-d', strtotime($draftt[9])));
+            $draft = $req->session()->get('draft');
+            $claimtime = OvertimeMonth::where('id', $draft[5])->first();
+            $day = UserHelper::CheckDay($req->user()->id, date('Y-m-d', strtotime($draft[5])));
             return view('staff.otform', ['draft' => $req->session()->get('draft'), 'claimtime'=>$claimtime, 'dt' => $day]);
         }else{
             return view('staff.otform', []);
@@ -35,18 +35,40 @@ class OvertimeController extends Controller{
     }
 
     public function save(Request $req){
-        $claim = OvertimeDetail::where('ot_id', $req->inputid)->get();
-        $updateclaim = Overtime::find($req->inputid);
+        $claim = Overtime::where('id', $req->inputid)->first();
+        $claimdetail = [];
+        if(empty($claim)){
+            $updateclaim = new Overtime;
+            $updateclaim->refno = ($req->session()->get('draft'))[0];
+            $updateclaim->user_id = $req->user()->id;
+            $updateclaim->month_id = ($req->session()->get('draft'))[5];
+            $updateclaim->date = ($req->session()->get('draft'))[6];
+            $updateclaim->date_created = date("Y-m-d", strtotime(($req->session()->get('draft'))[5]));
+            $updateclaim->date_expiry = ($req->session()->get('draft'))[1];
+            $updateclaim->total_hour = 0;
+            $updateclaim->total_minute = 0;
+            $updateclaim->amount = 0;
+            $updateclaim->approver_id = $req->user()->reptto;
+            $updateclaim->verifier_id =  $req->user()->id; //temp
+        }else{
+            $claimdetail = OvertimeDetail::where('ot_id', $req->inputid)->get();
+            $updateclaim = Overtime::find($req->inputid);
+        }
         $updateclaim->charge_type = $req->chargetype;
         $updateclaim->justification = $req->inputremark;
-        if(($req->chargetype!=null)&&($req->inputremark!=null)&&(count($claim)!=0)){
+        if(($req->chargetype!=null)&&($req->inputremark!=null)&&(count($claimdetail)!=0)){
             $updateclaim->status = 'Draft (Complete)';
         }else{
             $updateclaim->status = 'Draft (Incomplete)';
         }
         $updateclaim->save();
-        $claim = Overtime::where('id', $req->inputid)->first();
-        Session::put(['claim' => $claim]);
+        if(empty($claim)){
+            $claim = Overtime::where('user_id', $req->user()->id)->where('date', ($req->session()->get('draft'))[6])->first();
+            $execute = UserHelper::LogOT($claim->id, $req->user()->id, "Created draft ".$claim->refno);    
+        }else{
+            $claim = Overtime::where('id', $req->inputid)->first();
+        }
+        Session::put(['draft' => [], 'claim' => $claim]);
         return redirect(route('ot.form',[],false));
     }
     
@@ -76,36 +98,23 @@ class OvertimeController extends Controller{
 
     public function update(Request $req){
         $claim = Overtime::where('id', $req->inputid)->first();
-        Session::put(['claim' => $claim]);
+        Session::put(['draft' => [], 'claim' => $claim]);
         return redirect(route('ot.form',[],false));
     }
 
     public function remove(Request $req){
-        $output = "";
-        if($req->multi=="yes"){
-            $id = explode(" ", $req->deleteid);
-        }else{
-            $id[0] = $req->delid; 
-        }
-        for($i = 0; $i<count($id); $i++){
-            $claim = Overtime::where('id', $id[$i])->first();
-            $claimtime = OvertimeMonth::where('id', $claim->month_id)->first();
-            $updatemonth = OvertimeMonth::find($claim->month_id);
-            $updatemonth->hour = ((int)((($claim->total_hour*60+$claim->total_minute)+($claimtime->hour*60+$claimtime->minute))/60));
-            $updatemonth->minute = ((($claim->total_hour*60+$claim->total_minute)+($claimtime->hour*60+$claimtime->minute))%60);
-            $updatemonth->save();
-            Overtime::find($id[$i])->delete();
-            OvertimeLog::where('ot_id',$id[$i])->delete();
-            if($i==(count($id)-1)){
-                $output = $output.$claim->refno.".";
-            }else{
-                $output = $output.$claim->refno.", ";
-            }
-        }
+        $claim = Overtime::where('id', $req->delid)->first();
+        $claimtime = OvertimeMonth::where('id', $claim->month_id)->first();
+        $updatemonth = OvertimeMonth::find($claim->month_id);
+        $updatemonth->hour = ((int)((($claim->total_hour*60+$claim->total_minute)+($claimtime->hour*60+$claimtime->minute))/60));
+        $updatemonth->minute = ((($claim->total_hour*60+$claim->total_minute)+($claimtime->hour*60+$claimtime->minute))%60);
+        $updatemonth->save();
+        OvertimeLog::where('ot_id',$req->delid)->delete();
+        Overtime::find($req->delid)->delete();
         Session::put(['draft' => [], 'claim' => [], 'claimtime' => [], 'otlist' => []]);
         return redirect(route('ot.list',[],false))->with([
             'feedback' => true,
-            'feedback_text' => "Successfully deleted claim ".$output,
+            'feedback_text' => "Successfully deleted claim ".$claim->refno,
             'feedback_type' => "warning"
         ]);
     }
@@ -134,29 +143,11 @@ class OvertimeController extends Controller{
                 $newmonth->save();
                 $claimtime = OvertimeMonth::where('user_id', $req->user()->id)->where('year', $claimyear)->where('month', $claimmonth)->first();
             }
-            $refno = "OT".date("ymd", strtotime($claimdate))."-".sprintf("%08d", $req->user()->id)."-".rand(10000,99999);
             $verify = User::where('id', $req->user()->id)->first();
             $approve = User::where('id', $req->user()->reptto)->first();
-            $draft = array($refno, date('Y-m-d', strtotime("+90 days")), "Draft (Incomplete)", $verify->name, $approve->name, "0.00", date("Y-m-d H:i:s"), "Created draft for ".$refno, $claimtime->id, $req->inputdate);
-            Session::put(['draft' => $draft]);
-            // dd($claim);
-            // $newclaim = new Overtime;
-            // $newclaim->refno = "OT".date("ymd", strtotime($claimdate))."-".sprintf("%08d", $req->user()->id)."-".rand(10000,99999);
-            // $newclaim->user_id = $req->user()->id;
-            // $newclaim->month_id = $claimtime->id;
-            // $newclaim->date = $claimdate;   
-            // $newclaim->date_created = date("Y-m-d");
-            // $newclaim->date_expiry = date('Y-m-d', strtotime("+90 days"));;
-            // $newclaim->total_hour = 0;
-            // $newclaim->total_minute = 0;
-            // $newclaim->amount = 0;
-            // $newclaim->status = 'Draft (Incomplete)';
-            // $newclaim->approver_id = $req->user()->reptto; //temp
-            // $newclaim->verifier_id =  $req->user()->id; //temp
-            // $newclaim->charge_type = '';
-            // $newclaim->save();   
-            // $claim = Overtime::where('user_id', $req->user()->id)->where('date', $claimdate)->first();
-            // $execute = UserHelper::LogOT($claim->id, $req->user()->id, "Created ".$claim->refno);        
+            $draft = array("OT".date("ymd", strtotime($claimdate))."-".sprintf("%08d", $req->user()->id)."-".rand(10000,99999), date('Y-m-d', strtotime("+90 days")), $verify->name, $approve->name, date("Y-m-d H:i:s"), $claimtime->id, $req->inputdate, $req->user()->name);
+            //[0] - refno, [1] - expiry, [2] - verifier name, [3] - approver name, [4] - datetime created, [6] - monthid, [7] - date, [8] - user name
+            Session::put(['draft' => $draft]); 
         }else{
             Session::put(['draft' => []]);
         }
@@ -169,10 +160,29 @@ class OvertimeController extends Controller{
         $hour = (int) ($dif/60);
         $minute = $dif%60;
         $dayclaim = Overtime::where('id', $req->inputid)->first();
+        if(empty($dayclaim)){
+            $draftclaim = new Overtime;
+            $draftclaim->refno = ($req->session()->get('draft'))[0];
+            $draftclaim->user_id = $req->user()->id;
+            $draftclaim->month_id = ($req->session()->get('draft'))[5];
+            $draftclaim->date = ($req->session()->get('draft'))[6];
+            $draftclaim->date_created = date("Y-m-d", strtotime(($req->session()->get('draft'))[5]));
+            $draftclaim->date_expiry = ($req->session()->get('draft'))[1];
+            $draftclaim->total_hour = 0;
+            $draftclaim->total_minute = 0;
+            $draftclaim->amount = 0;
+            $draftclaim->approver_id = $req->user()->reptto;
+            $draftclaim->verifier_id =  $req->user()->id; //temp
+            $draftclaim->status = 'Draft (Incomplete)';
+            $draftclaim->save();
+            $dayclaim = Overtime::where('user_id', $req->user()->id)->where('date', ($req->session()->get('draft'))[6])->first();
+            $execute = UserHelper::LogOT($dayclaim->id, $req->user()->id, "Created draft ".$dayclaim->refno);    
+            Session::put(['draft' => []]);
+        }
         if($req->edit=="edit"){
-            $availableclaim = OvertimeDetail::where('id', 'not like', $req->editid)->where('ot_id', $req->inputid)->where('start_time', '<', $dayclaim->date." ".$req->inputend.":00" )->where('end_time', '>', $dayclaim->date." ".$req->inputstart.":00" )->get();
+            $availableclaim = OvertimeDetail::where('id', 'not like', $req->editid)->where('ot_id',$dayclaim->id)->where('start_time', '<', $dayclaim->date." ".$req->inputend.":00" )->where('end_time', '>', $dayclaim->date." ".$req->inputstart.":00" )->get();
         }else{
-            $availableclaim = OvertimeDetail::where('ot_id', $req->inputid)->where('start_time', '<', $dayclaim->date." ".$req->inputend.":00" )->where('end_time', '>', $dayclaim->date." ".$req->inputstart.":00" )->get();
+            $availableclaim = OvertimeDetail::where('ot_id', $dayclaim->id)->where('start_time', '<', $dayclaim->date." ".$req->inputend.":00" )->where('end_time', '>', $dayclaim->date." ".$req->inputstart.":00" )->get();
         }
         if(count($availableclaim)!=0){
             return redirect(route('ot.form',[],false))->with([
@@ -196,14 +206,14 @@ class OvertimeController extends Controller{
                 $newclaim = OvertimeDetail::find($req->editid);
             }else{
                 $newclaim = new OvertimeDetail;
-                $newclaim->ot_id = $req->inputid;
+                $newclaim->ot_id = $dayclaim->id;
             }
             $newclaim->start_time = $dayclaim->date." ".$req->inputstart.":00";
             $newclaim->end_time = $dayclaim->date." ".$req->inputend.":00";
             $newclaim->hour = $hour;
             $newclaim->minute = $minute;
             $newclaim->justification = $req->inputremark;
-            $updateclaim = Overtime::find($req->inputid);
+            $updateclaim = Overtime::find($dayclaim->id);
             $updateclaim->total_hour = ((int)(($totaltime+$dif)/60));
             $updateclaim->total_minute = (($totaltime+$dif)%60);
             $pay = UserHelper::CalOT($req->user()->salary, ((int)(($totaltime+$dif)/60)), (($totaltime+$dif)%60));  
@@ -217,7 +227,7 @@ class OvertimeController extends Controller{
             $newclaim->save();
             $updateclaim->save();
             $updatemonth->save();
-            $claim = Overtime::where('id', $req->inputid)->first();
+            $claim = Overtime::where('id', $dayclaim->id)->first();
             Session::put(['claim' => $claim]);
             if($req->edit=="edit"){
                 return redirect(route('ot.form',[],false))->with([

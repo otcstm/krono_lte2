@@ -16,7 +16,7 @@
 </style>
 
 <div class="panel panel-default">
-    <div class="panel-heading panel-primary">OT Application List @if($claim ?? '') {{$claim->date}} ({{date('l', strtotime($claim->date))}}) @elseif($draft ?? '') {{date('Y-m-d', strtotime($draft[9]))}}  ({{date('l', strtotime($draft[9]))}}) @endif</div>
+    <div class="panel-heading panel-primary">OT Application List @if($claim ?? '') {{$claim->date}} ({{date('l', strtotime($claim->date))}}) @elseif($draft ?? '') {{date('Y-m-d', strtotime($draft[6]))}}  ({{date('l', strtotime($draft[6]))}}) @endif</div>
     <div class="panel-body">
         @if(session()->has('feedback'))
         <div class="alert alert-{{session()->get('feedback_type')}} alert-dismissible" id="alert">
@@ -26,7 +26,7 @@
         @endif
         <form id="formdate" action="{{route('ot.formdate')}}" method="POST">
             @csrf
-            <p>Date: <input type="date" id="inputdate" name="inputdate" value="@if($claim ?? ''){{$claim->date}}@elseif($draft ?? ''){{date('Y-m-d', strtotime($draft[9]))}}@endif" required></p>
+            <p>Date: <input type="date" id="inputdate" name="inputdate" value="@if($claim ?? ''){{$claim->date}}@elseif($draft ?? ''){{date('Y-m-d', strtotime($draft[6]))}}@endif" required></p>
         </form>
         <div class="row">
             <div class="col-xs-6">
@@ -55,9 +55,9 @@
             </div>
             <div class="col-xs-6">
                 <p>Status: @if($claim ?? '')  @if(($claim->status=="Draft (Complete)")||($claim->status=="Draft (Incomplete)"))Draft @elseif (($claim->status=="Query (Complete)")||($claim->status=="Query (Incomplete)"))Query @else {{ $claim->status }} @endif  @elseif($draft ?? '') Draft @else Null @endif</p>
-                <p>Verifier: @if($claim ?? '') {{$claim->verifier->name}}  @elseif($draft ?? '') {{$draft[3]}} @else Null @endif</p>
-                <p>Approver: @if($claim ?? '') {{$claim->approver->name}}  @elseif($draft ?? '') {{$draft[4]}} @else Null @endif</p>
-                <p>Estimated Amount: RM @if($claim ?? '') {{$claim->amount}}  @elseif($draft ?? '') {{$draft[5]}} @else 0.00 @endif</p>
+                <p>Verifier: @if($claim ?? '') {{$claim->verifier->name}}  @elseif($draft ?? '') {{$draft[2]}} @else Null @endif</p>
+                <p>Approver: @if($claim ?? '') {{$claim->approver->name}}  @elseif($draft ?? '') {{$draft[3]}} @else Null @endif</p>
+                <p>Estimated Amount: RM @if($claim ?? '') {{$claim->amount}} @else 0.00 @endif</p>
             </div>
         </div>
         <div class="row" style="display: flex">
@@ -153,8 +153,8 @@
                 <tr id="edit-0" style="display: none">
                     <form action="{{route('ot.formadd')}}" method="POST">
                         @csrf
-                        <input type="text" class="form-control hidden" id="inputid" name="inputid" value="@if($claim ?? '') {{$claim->id}} @endif" required>
-                        <input type="text" class="form-control hidden" id="inputdate" name="inputdate" value="@if($claim ?? '') {{$claim->date}} @endif" required>
+                        <input type="text" class="form-control hidden" id="inputid" name="inputid" value="@if($claim ?? '') {{$claim->id}} @endif">
+                        <input type="text" class="form-control hidden" id="inputdate" name="inputdate" value="@if($claim ?? '') {{$claim->date}} @endif">
                         <input type="text" class="form-control hidden" id="claimcharge" name="claimcharge" value="@if($claim ?? '') {{$claim->charge_type}} @endif">
                         <input type="text" class="form-control hidden" id="claimremark" name="claimremark" value="@if($claim ?? '') {{$claim->justification}} @endif">
                         <td>@if($otlist ?? '') {{count($otlist)+1}} @else 1 @endif</td>
@@ -296,8 +296,8 @@
                 </tr>
             </thead>
             <tbody>
-                @if($otlist ?? '')
-                    @if(count($otlist)==0)
+                @if($otlog ?? '')
+                    @if(count($otlog)==0)
                         <tr id="nodata" class="text-center"><td colspan="3"><i>Not Available</i></td></tr>
                     @else
                         @foreach($otlog as $singleuser)
@@ -308,8 +308,13 @@
                         </tr>
                         @endforeach
                     @endif
-                @endif
-                @if(($claim ?? '')==""||($draft ?? ''))
+                @elseif($draft ?? '')
+                    <tr>
+                        <td>{{$draft[4]}}</td>
+                        <td>{{$draft[7]}}</td>
+                        <td>Created draft {{$draft[0]}}</td>
+                    </tr>
+                @else
                     <tr id="nodata" class="text-center"><td colspan="3"><i>Not Available</i></td></tr>
                 @endif
             </tbody>
@@ -383,7 +388,7 @@
                 $("#inputstart-"+i).prop('disabled', false);
                 // $("#inputend-"+i).prop('disabled', false);
                 $("#inputstart-"+i).prop('required',true);
-                // $("#inputend-"+i).prop('required',true);
+                $("#inputend-"+i).prop('required',true);
                 // $("#inputclock-"+i).prop('disabled', true);
                 $("#inputclock-"+i).prop('required',false);
             }else{
@@ -399,16 +404,15 @@
         };
     };
 
+    @if(($c ?? '')||($d ?? ''))
     //check start time & end time
     function checktime(i){
         return function(){
             // alert($("#inputstart-"+i).val());
             if($("#inputstart-"+i).val()!=""){
                 $("#inputend-"+i).prop('disabled', false);
-                $("#inputend-"+i).prop('required',true);
             }else{
                 $("#inputend-"+i).prop('disabled', true);
-                $("#inputend-"+i).prop('required',false);
             }
             var st = ($("#inputstart-"+i).val()).split(":");
             var et = ($("#inputend-"+i).val()).split(":");
@@ -438,13 +442,15 @@
             var nstart = ((parseInt(mt[0]))*60)+(parseInt(mt[1]));
             var nend = ((parseInt(mxt[0]))*60)+(parseInt(mxt[1]));
             if(start > nstart && start < nend){
-                alert("Start time cannot be between {{$dt[0]}} and {{$dt[1]}}!");
+                alert("Time input cannot be between {{$dt[0]}} and {{$dt[1]}}!");
                 $("#inputstart-"+i).val("");
+                $("#inputend-"+i).val("");
+                $("#inputend-"+i).prop('disabled', true);
             }
             if($("#inputstart-"+i).val()!="" && $("#inputend-"+i).val()!=""){
                 if(start<end){
-                    if(end>nstart && end<nend){
-                        alert("Start time cannot be between {{$dt[0]}} and {{$dt[1]}}!");
+                    if((end>nstart && end<nend)||(nstart<end && nend>start)){
+                        alert("Time input cannot be between {{$dt[0]}} and {{$dt[1]}}!");
                         $("#inputend-"+i).val("");
                     }else{
                         var total = end-start;
@@ -464,7 +470,8 @@
             }
         };
     };
-    
+    @endif
+
     function otedit(i){
         return function(){
             if(add){

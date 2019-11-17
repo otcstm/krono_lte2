@@ -72,12 +72,6 @@
                 <input type="text" class="hidden" id="multi" name="multi" value="yes" required>
                 <button type="submit" class="btn btn-primary">SUBMIT</button>
             </form>
-            <form action="{{route('ot.remove')}}" method="POST" onsubmit="return confirm('Are you sure you want to delete these claims?')" style="display:inline">
-                @csrf
-                <input type="text" class="hidden" id="deleteid" name="deleteid" value="" required>
-                <input type="text" class="hidden" id="multi" name="multi" value="yes" required>
-                <button type="submit" class="btn btn-danger">DELETE</button>
-            </form>
         </div>
     </div>
 </div>
