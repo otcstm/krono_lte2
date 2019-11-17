@@ -100,7 +100,7 @@
                     @foreach($otlist as $no=>$singleuser)
                     <tr id="show-{{++$no}}">
                         <td>{{$no }}</td>
-                        <td></td>
+                        <td>@if($singleuser->clock_in!="") {{ date('H:i', strtotime($singleuser->clock_in)) }} - {{ date('H:i', strtotime($singleuser->clock_out)) }} @else Manual Input @endif</td>
                         <td>{{ date('H:i', strtotime($singleuser->start_time)) }} - {{ date('H:i', strtotime($singleuser->end_time)) }}</td>
                         <td>{{ $singleuser->hour }}h {{ $singleuser->minute }}m</td>
                         <td>{{ $singleuser->justification }}</td>
@@ -127,7 +127,9 @@
                             <input type="text" class="form-control hidden" id="edit" name="edit" value="edit" required>
                             <input type="text" class="form-control hidden" id="editid" name="editid" value="{{$singleuser->id}}" required>
                             <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required>
-                            <td></td>
+                            <td>
+                            
+                            </td>
                             <td>
                                 <input type="time" id="inputstart-{{$no}}" name="inputstart" value="{{ date('H:i', strtotime($singleuser->start_time))}}">
                                 <input type="time" id="inputend-{{$no}}" name="inputend" value="{{ date('H:i', strtotime($singleuser->end_time)) }}">
@@ -161,11 +163,16 @@
                         <td>
                             <select name="inputclock" id="inputclock-0" required>
                                 <option hidden disabled selected value="">Select Time</option>
-                                <option value="na">N/A</option>
+                                @if($punch ?? '')
+                                    @foreach($punch as $p=>$punches)
+                                        <option value="{{$punches->start_time}}/{{$punches->end_time}}" id="inputclock-0-{{$p}}">{{ date('H:i', strtotime($punches->start_time))}}-{{ date('H:i', strtotime($punches->end_time))}}</option>
+                                    @endforeach
+                                @endif
+                                <option value="na">Manual</option>
                             </select>
                         </td>
                         <td>
-                            <input type="time"  id="inputstart-0" name="inputstart" disabled="true">
+                            <input type="time" id="inputstart-0" name="inputstart" disabled="true">
                             <input type="time" id="inputend-0" name="inputend" disabled="true">
                         </td>
                         <td><span id="inputduration-0"></span></td>

@@ -212,6 +212,12 @@ class OvertimeController extends Controller{
     }
     
     public function formadd(Request $req){
+        if($req->inputclock!="na"){
+            $time = explode("/", $req->inputclock);
+            $req->inputstart = date("H:i", strtotime($time[0]));
+            $req->inputend = date("H:i", strtotime($time[1]));
+            // dd($time);
+        }
         $dif = (strtotime($req->inputend) - strtotime($req->inputstart))/60;
         $hour = (int) ($dif/60);
         $minute = $dif%60;
@@ -263,6 +269,13 @@ class OvertimeController extends Controller{
             }else{
                 $newclaim = new OvertimeDetail;
                 $newclaim->ot_id = $dayclaim->id;
+            }
+            if($req->inputclock!="na"){
+                $newclaim->clock_in = $time[0];
+                $newclaim->clock_out = $time[1];
+            }else{
+                $newclaim->clock_in = null;
+                $newclaim->clock_out = null;
             }
             $newclaim->start_time = $dayclaim->date." ".$req->inputstart.":00";
             $newclaim->end_time = $dayclaim->date." ".$req->inputend.":00";
