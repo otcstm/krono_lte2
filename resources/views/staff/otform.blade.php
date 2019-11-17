@@ -104,7 +104,7 @@
                         <td>{{ date('H:i', strtotime($singleuser->start_time)) }} - {{ date('H:i', strtotime($singleuser->end_time)) }}</td>
                         <td>{{ $singleuser->hour }}h {{ $singleuser->minute }}m</td>
                         <td>{{ $singleuser->justification }}</td>
-                        @if(in_array($claim->status, $array = array("Draft (Incomplete)", "Draft (Complete)", "Query (Complete)", "Query (Incmplete)")))
+                        @if(in_array($claim->status, $array = array("Draft (Incomplete)", "Draft (Complete)", "Query (Complete)", "Query (Incomplete)")))
                         <td>
                             <button type="button" class="btn btn-primary" id="otedit-{{$no}}" data-toggle="modal">
                                 <i class="fas fa-pencil-alt"></i>

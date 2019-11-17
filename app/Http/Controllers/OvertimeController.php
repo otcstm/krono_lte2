@@ -36,7 +36,9 @@ class OvertimeController extends Controller{
 
     public function save(Request $req){
         $claim = Overtime::where('id', $req->inputid)->first();
-        $claimdetail = [];
+
+        // dd($claim);
+        // $claimdetail = [];
         if(empty($claim)){
             $updateclaim = new Overtime;
             $updateclaim->refno = ($req->session()->get('draft'))[0];
@@ -50,17 +52,26 @@ class OvertimeController extends Controller{
             $updateclaim->amount = 0;
             $updateclaim->approver_id = $req->user()->reptto;
             $updateclaim->verifier_id =  $req->user()->id; //temp
+            $updateclaim->status = 'Draft (Incomplete)';
         }else{
             $claimdetail = OvertimeDetail::where('ot_id', $req->inputid)->get();
             $updateclaim = Overtime::find($req->inputid);
+            if(($req->chargetype!=null)&&($req->inputremark!=null)&&(count($claimdetail)!=0)){
+                if(($claim->status=="Query (Incomplete)")||($claim->status=="Query (Complete)")){
+                    $updateclaim->status = 'Query (Complete)';
+                }else{
+                    $updateclaim->status = 'Draft (Complete)';
+                }
+            }else{
+                if($claim->status=="Query (Complete)"){
+                    $updateclaim->status = 'Query (Incomplete)';
+                }else{
+                    $updateclaim->status = 'Draft (Incomplete)';
+                }
+            }
         }
         $updateclaim->charge_type = $req->chargetype;
         $updateclaim->justification = $req->inputremark;
-        if(($req->chargetype!=null)&&($req->inputremark!=null)&&(count($claimdetail)!=0)){
-            $updateclaim->status = 'Draft (Complete)';
-        }else{
-            $updateclaim->status = 'Draft (Incomplete)';
-        }
         $updateclaim->save();
         if(empty($claim)){
             $claim = Overtime::where('user_id', $req->user()->id)->where('date', ($req->session()->get('draft'))[6])->first();
@@ -222,7 +233,11 @@ class OvertimeController extends Controller{
             $updatemonth->hour = ((int)(($totalleft-$dif)/60));
             $updatemonth->minute = (($totalleft-$dif)%60);
             if(($req->claimcharge!=null)&&($req->claimremark!=null)){
-                $updateclaim->status = 'Draft (Complete)';
+                if(($claim->status=="Query (Incomplete)")||($claim->status=="Query (Complete)")){
+                    $updateclaim->status = 'Query (Complete)';
+                }else{
+                    $updateclaim->status = 'Draft (Complete)';
+                }
             }
             $newclaim->save();
             $updateclaim->save();
