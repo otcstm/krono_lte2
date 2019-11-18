@@ -17,10 +17,14 @@
 			<table id="tPsubareaList" class="table table-hover table-bordered" >
 				<thead>
 					<tr>
-							<th>Company Code</th>
-							<th>Personnel Area</th>
-							<th>Personnel Subarea</th>
+							<th>Company</th>
+							<!-- <th>Comp Desc</th> -->
+							<th>Persarea</th>
+							<!-- <th>Persarea Desc</th> -->
+							<th>Perssubarea</th>
+							<!-- <th>Perssubarea Desc</th> -->
 							<th>State</th>
+							<!-- <th>State Desc</th> -->
 							<th>Region</th>
 							<th>Created by</th>
 							<th>Action</th>
@@ -29,12 +33,16 @@
 				<tbody>
 				@foreach ($psubareas as $psubarea)
 					<tr>
-							<td>@if($psubarea->companyid ?? '') {{ $psubarea->companyid->id }}@endif</td>
-							<td>{{ $psubarea->persarea }}</td>
-							<td>{{ $psubarea->perssubarea }}</td>
-							<td>@if($psubarea->stateid ?? '') {{ $psubarea->stateid->id }}@endif </td>
+							<td>@if($psubarea->companyid ?? '') {{ $psubarea->companyid->id }} - {{ $psubarea->companyid->company_descr}} @endif</td>
+							<!-- <td>{{ $psubarea->companyid->company_descr}}</td> -->
+							<td>{{ $psubarea->persarea }} - {{ $psubarea->persareadesc }}</td>
+							<!-- <td>{{ $psubarea->persareadesc }}</td> -->
+							<td>{{ $psubarea->perssubarea }} - {{ $psubarea->perssubareades }}</td>
+							<!-- <td>{{ $psubarea->perssubareades }}</td> -->
+							<td>@if($psubarea->stateid ?? '') {{ $psubarea->stateid->id }} - {{ $psubarea->stateid->state_descr}}@endif </td>
+							<!-- <td>{{ $psubarea->stateid->state_descr}}</td> -->
 							<td>{{ $psubarea->region }}</td>
-							<td>{{ $psubarea->createdby->name }}</td>
+							<td>{{ $psubarea->createdby->id }}</td>
 							<td>
 								<form method="post" action="{{ route('psubarea.delete', [], false) }}" onsubmit="return confirm('Are you sure you want to delete?')">
 									@csrf
@@ -44,7 +52,9 @@
 											data-id="{{$psubarea->id}}"
 											data-comp="{{$psubarea->company_id}}"
 											data-area="{{$psubarea->persarea}}"
+											data-aread="{{$psubarea->persareadesc}}"
 											data-sub="{{$psubarea->perssubarea}}"
+											data-subd="{{$psubarea->perssubareades}}"
 											data-state_id="{{$psubarea->state_id}}"
 											data-reg="{{$psubarea->region}}"
 											>
@@ -72,10 +82,10 @@
       @csrf
 			<div class="form-group">
 					<label for="inputcomp">Company</label><br>
-					<select name="inputcomp" id="inputcomp" required style="width: 100px">
+					<select name="inputcomp" id="inputcomp" required style="width: 250px">
 							<option value="" disabled selected>Select</option>
 							@foreach($companies as $singlecompany)
-							<option value="{{$singlecompany->id}}">{{$singlecompany->id}}</option>
+							<option value="{{$singlecompany->id}}">{{$singlecompany->id}} - {{$singlecompany->company_descr}}</option>
 							@endforeach
 					</select>
 			</div>
@@ -84,15 +94,23 @@
 					<input type="text" class="form-control" id="inputparea" name="inputparea" placeholder="personnel area" value="{{ old('inputparea') }}" required autofocus>
 			</div>
 			<div class="form-group">
+					<label for="inputparead">Personnel Area Desc</label>
+					<input type="text" class="form-control" id="inputparead" name="inputparead" placeholder="personnel area description" value="{{ old('inputparead') }}" required autofocus>
+			</div>
+			<div class="form-group">
 					<label for="inputpsubarea">Personnel Subarea</label>
 					<input type="text" class="form-control" id="inputpsubarea" name="inputpsubarea" placeholder="personnel subarea" value="{{ old('inputpsubarea') }}" required autofocus>
 			</div>
 			<div class="form-group">
+					<label for="inputpsubaread">Personnel Subarea Desc</label>
+					<input type="text" class="form-control" id="inputpsubaread" name="inputpsubaread" placeholder="personnel subarea description" value="{{ old('inputpsubaread') }}" required autofocus>
+			</div>
+			<div class="form-group">
 					<label for="inputstate">State</label><br>
-					<select name="inputstate" id="inputstate" required style="width: 100px">
+					<select name="inputstate" id="inputstate" required style="width: 250px">
 							<option value="" disabled selected>Select</option>
 							@foreach($states as $singlestate)
-							<option value="{{$singlestate->id}}">{{$singlestate->id}}</option>
+							<option value="{{$singlestate->id}}">{{$singlestate->id}} - {{$singlestate->state_descr}}</option>
 							@endforeach
 					</select>
 			</div>
@@ -129,14 +147,22 @@
 										<input type="text" class="form-control" id="editparea" name="inputparea" value="" required autofocus>
 								</div>
 								<div class="form-group">
+										<label for="inputparead">Personnel Area Desc</label>
+										<input type="text" class="form-control" id="editparead" name="inputparead" value="" required autofocus>
+								</div>
+								<div class="form-group">
 										<label for="inputpsubarea">Personnel Subarea</label>
 										<input type="text" class="form-control" id="editpsubarea" name="inputpsubarea" value="" required autofocus>
 								</div>
 								<div class="form-group">
+										<label for="inputpsubaread">Personnel Subarea Desc</label>
+										<input type="text" class="form-control" id="editpsubaread" name="inputpsubaread" value="" required autofocus>
+								</div>
+								<div class="form-group">
 										<label for="inputpsubarea">State</label><br>
-										<select name="inputstate" id="editstate" required style="width: 100px">
+										<select name="inputstate" id="editstate" required style="width: 250px">
                         @foreach($states as $singlestate)
-                        <option value="{{$singlestate->id}}">{{$singlestate->id}}</option>
+                        <option value="{{$singlestate->id}}">{{$singlestate->id}} - {{$singlestate->state_descr}}</option>
                         @endforeach
                     </select>
 								</div>
@@ -170,14 +196,18 @@ function populate(e){
 		var ps_id = $(e.relatedTarget).data('id');
     var ps_comp = $(e.relatedTarget).data('comp');
     var ps_area = $(e.relatedTarget).data('area');
+		var ps_aread = $(e.relatedTarget).data('aread');
 		var ps_sub = $(e.relatedTarget).data('sub');
+		var ps_subd = $(e.relatedTarget).data('subd');
     //var ps_state = $(e.relatedTarget).data('state');
 		var ps_state_id = $(e.relatedTarget).data('state_id');
 		var ps_reg = $(e.relatedTarget).data('reg');
     $('input[name=inputid]').val(ps_id);
     $('input[name=inputcomp]').val(ps_comp);
 		$('input[name=inputparea]').val(ps_area);
+		$('input[name=inputparead]').val(ps_aread);
 		$('input[name=inputpsubarea]').val(ps_sub);
+		$('input[name=inputpsubaread]').val(ps_subd);
 		// $('input[name=inputstate]').val(ps_state_id);
 		// $("#inputstate").val(ps_state);
 		$("#editstate").val(ps_state_id);
