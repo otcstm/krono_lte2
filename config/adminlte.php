@@ -178,6 +178,12 @@ return [
               'icon' => 'far fa-calendar-alt',
               // 'can' => 'ot-nav-menu',
           ],
+          [
+              'text' => 'paymentsch',
+              'url' => '/admin/paymentsc',
+              'icon' => 'fas fa-calendar-alt',
+              // 'can' => 'admin-nav-menu',
+          ],
         ],
       ],
       [
