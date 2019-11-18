@@ -80,6 +80,9 @@ class UserHelper {
   public static function StaffPunchIn($staff_id, $in_time, $in_lat = 0.0, $in_long = 0.0){
     $currentp = UserHelper::GetCurrentPunch($staff_id);
     $msg = 'OK';
+    
+    $in_time =  Carbon::create(2019, 11, 18, 6, 17, 0); //temp
+    // $in_time =  Carbon::create(2019, 11, 14, 16, 42, 0); //temp
     if($currentp){
       // already punched
       $msg = 'Already Punched In';
@@ -108,7 +111,8 @@ class UserHelper {
       $timein = new Carbon($currentp->punch_in_time);
       $punchinori = new Carbon($timein->format('Y-m-d'));
       $punchin = new Carbon($timein->format('Y-m-d'));
-      // $out_time =  Carbon::create(2019, 11, 18, 20, 42, 0); //temp
+      $out_time =  Carbon::create(2019, 11, 18, 18, 17, 0); //temp
+      // $out_time =  Carbon::create(2019, 11, 15, 10, 42, 0); //temp
 
       $timeout = new Carbon($out_time->format('Y-m-d'));
       // 1. check keluar hari yang sama atau tak
@@ -127,7 +131,6 @@ class UserHelper {
             $currentp->punch_in_time = $in;
             $currentp->in_latitude = $ori_punch->in_latitude;
             $currentp->in_longitude =  $ori_punch->in_longitude;
-
           }
           $currentp->punch_out_time = $out;
           $currentp->out_latitude = $out_lat;
@@ -135,8 +138,9 @@ class UserHelper {
           $currentp->status ='out';
           $currentp->parent =  $ori_punch->id;
           $currentp->save();
-          $execute = UserHelper::AddOTPunch($staff_id, $timein, $out);
-          // jadikan current clockout sebagai next clock in
+          $date = new Carbon($punchin->format('Y-m-d'));
+          $date->subDay();
+          $execute = UserHelper::AddOTPunch($staff_id, $date, $timein, $punchin);
           $timein = new Carbon($punchin);
         }
 
@@ -152,7 +156,8 @@ class UserHelper {
         $currentp->status = 'out';
         $currentp->parent =  $ori_punch->id;
         $currentp->save();
-        $execute = UserHelper::AddOTPunch($staff_id, $timein, $out_time);
+        $date = new Carbon($out_time->format('Y-m-d'));      
+        $execute = UserHelper::AddOTPunch($staff_id, $date, $timein, $out_time);
 
       }else{
         //cek out hari sama!!!
@@ -161,7 +166,8 @@ class UserHelper {
         $currentp->out_longitude = $out_long;
         $currentp->status = 'out';
         $currentp->save();
-        $execute = UserHelper::AddOTPunch($staff_id, $timein, $out_time);
+        $date = new Carbon($out_time->format('Y-m-d'));
+        $execute = UserHelper::AddOTPunch($staff_id, $date, $timein, $out_time);
       }
       
 
@@ -177,17 +183,16 @@ class UserHelper {
   }
 
   //Add punch data to overtime punch
-  public static function AddOTPunch($staff_id, $timein, $out_time)
+  public static function AddOTPunch($staff_id, $date, $timein, $out_time)
   {
-    $date = new Carbon($timein->format('Y-m-d'));
-    $start = new Carbon($timein->format('H:i'));
-    $end = new Carbon($out_time->format('H:i'));
+    $start = $timein->format('Y-m-d H:i:s');
+    $end = $out_time->format('Y-m-d H:i:s');
     $day = UserHelper::CheckDay($staff_id, $date);
     $startt = strtotime($start);
     $endt = strtotime($end);
-    $startd = strtotime($day[0]);
-    $endd = strtotime($day[1]);
-    if($startd<$endt && $endd>$startt){
+    $startd = strtotime(date("Y-m-d", strtotime($date))." ".$day[0].":00");
+    $endd = strtotime(date("Y-m-d", strtotime($date))." ".$day[1].":00");
+    if(($startd<$endt && $endd>$startt)){
       if($startt>$startd){
         $newtime = new OvertimePunch;
         $newtime->user_id = $staff_id;
@@ -205,8 +210,8 @@ class UserHelper {
         $newtime->start_time = $start;
         $newtime->end_time = date("Y-m-d", strtotime($date))." ".$day[0].":00";
         $dif = (strtotime(date("Y-m-d", strtotime($date))." ".$day[0].":00") - strtotime($start))/60;
-      $newtime->hour = (int) ($dif/60);
-      $newtime->minute = $dif%60;
+        $newtime->hour = (int) ($dif/60);
+        $newtime->minute = $dif%60;
         $newtime->save();
       }else{
         $newtime = new OvertimePunch;
@@ -280,10 +285,13 @@ class UserHelper {
 
     public static function CheckDay($user, $date)
     {
+      
+      
       $day = date('N', strtotime($date));
+      // dd($day);
       if($day>5){
-        $start = null;
-        $end = null;
+        $start = "00:00";
+        $end =  "00:00";
       }else{
         $start = "08:00";
         $end = "17:00";
