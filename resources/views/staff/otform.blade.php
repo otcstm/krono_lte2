@@ -16,7 +16,7 @@
 </style>
 
 <div class="panel panel-default">
-    <div class="panel-heading panel-primary">OT Application List @if($claim ?? '') {{$claim->date}} ({{date('l', strtotime($claim->date))}}) @elseif($draft ?? '') {{date('Y-m-d', strtotime($draft[6]))}}  ({{date('l', strtotime($draft[6]))}}) @endif</div>
+    <div class="panel-heading panel-primary">OT Application List @if($claim ?? '') {{date('d/m/Y', strtotime($claim->date))}}({{date('l', strtotime($claim->date))}}) @elseif($draft ?? '') {{date('Y-m-d', strtotime($draft[6]))}}  ({{date('l', strtotime($draft[6]))}}) @endif</div>
     <div class="panel-body">
         @if(session()->has('feedback'))
         <div class="alert alert-{{session()->get('feedback_type')}} alert-dismissible" id="alert">
@@ -75,7 +75,7 @@
                     <button type="button" class="btn btn-primary" id="otedit-0">
                         ADD TIME
                     </button>
-                    <p>Available time to claim: {{$claimtime->hour}}h {{$claimtime->minute}}m</p>
+                    <p>Total time: {{$claimtime->hour}}h {{$claimtime->minute}}m / 104h</p>
                 </div>
                 @endif
             </div>
