@@ -81,7 +81,7 @@ class UserHelper {
     $currentp = UserHelper::GetCurrentPunch($staff_id);
     $msg = 'OK';
     
-    $in_time =  Carbon::create(2019, 11, 18, 6, 17, 0); //temp
+    $in_time =  Carbon::create(2019, 11, 18, 6, 17, 0); //testing time
     // $in_time =  Carbon::create(2019, 11, 14, 16, 42, 0); //temp
     if($currentp){
       // already punched
@@ -111,7 +111,7 @@ class UserHelper {
       $timein = new Carbon($currentp->punch_in_time);
       $punchinori = new Carbon($timein->format('Y-m-d'));
       $punchin = new Carbon($timein->format('Y-m-d'));
-      $out_time =  Carbon::create(2019, 11, 18, 18, 17, 0); //temp
+      $out_time =  Carbon::create(2019, 11, 18, 18, 17, 0); //testing time
       // $out_time =  Carbon::create(2019, 11, 15, 10, 42, 0); //temp
 
       $timeout = new Carbon($out_time->format('Y-m-d'));

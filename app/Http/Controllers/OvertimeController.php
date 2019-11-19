@@ -194,8 +194,23 @@ class OvertimeController extends Controller{
                     $newclaim->hour = $punches->hour;
                     $newclaim->minute = $punches->minute;
                     $newclaim->justification = "Punch In/Out";
+                    $updatemonth = OvertimeMonth::find($claimtime->id);
+                    $dif = (strtotime($punches->end_time) - strtotime($punches->start_time))/60;
+                    $totalleft=($updatemonth->hour*60)+$updatemonth->minute;
+                    $updatemonth->hour = ((int)(($totalleft-$dif)/60));
+                    $updatemonth->minute = (($totalleft-$dif)%60);
+                    $updateclaim = Overtime::find($claim->id);
+                    $totaltime=($claim->total_hour*60)+$claim->total_minute;
+                    $pay = UserHelper::CalOT($req->user()->salary, ((int)(($totaltime+$dif)/60)), (($totaltime+$dif)%60));  
+                    $updateclaim->amount = $updateclaim->amount + $pay;
                     $newclaim->save();
+
+                    // dd($totalleft);
+                    // dd(((int)(($totalleft-$dif)/60)));
+                    $updatemonth->save();
+                    $updateclaim->save();
                 }
+                $claim = Overtime::where('user_id', $req->user()->id)->where('date', $req->inputdate)->first();
                 Session::put(['draft' => []]);
             }else{
                 $verify = User::where('id', $req->user()->id)->first();
@@ -212,10 +227,12 @@ class OvertimeController extends Controller{
     }
     
     public function formadd(Request $req){
+
         if($req->inputclock!="na"){
             $time = explode("/", $req->inputclock);
             $req->inputstart = date("H:i", strtotime($time[0]));
             $req->inputend = date("H:i", strtotime($time[1]));
+            $req->inputremark = "Punch In/Out";
             // dd($time);
         }
         $dif = (strtotime($req->inputend) - strtotime($req->inputstart))/60;
@@ -286,12 +303,12 @@ class OvertimeController extends Controller{
             $updateclaim->total_hour = ((int)(($totaltime+$dif)/60));
             $updateclaim->total_minute = (($totaltime+$dif)%60);
             $pay = UserHelper::CalOT($req->user()->salary, ((int)(($totaltime+$dif)/60)), (($totaltime+$dif)%60));  
-            $updateclaim->amount = $pay;
+            $updateclaim->amount = $updateclaim->amount + $pay;
             $updatemonth = OvertimeMonth::find($claimtime->id);
             $updatemonth->hour = ((int)(($totalleft-$dif)/60));
             $updatemonth->minute = (($totalleft-$dif)%60);
             if(($req->claimcharge!=null)&&($req->claimremark!=null)){
-                if(($claim->status=="Query (Incomplete)")||($claim->status=="Query (Complete)")){
+                if(($dayclaim->status=="Query (Incomplete)")||($dayclaim->status=="Query (Complete)")){
                     $updateclaim->status = 'Query (Complete)';
                 }else{
                     $updateclaim->status = 'Draft (Complete)';
@@ -316,7 +333,7 @@ class OvertimeController extends Controller{
                 ]);
             }
         }else{
-            return redirect(route('ot.form ',[],false))->with([
+            return redirect(route('ot.form',[],false))->with([
                 'feedback' => true,
                 'feedback_text' => "Available time left to claim is not enough!",
                 'feedback_type' => "danger"

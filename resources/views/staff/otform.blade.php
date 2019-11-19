@@ -128,7 +128,17 @@
                             <input type="text" class="form-control hidden" id="editid" name="editid" value="{{$singleuser->id}}" required>
                             <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required>
                             <td>
-                            
+                                <select name="inputclock" id="inputclock-{{$no}}" required>
+                                    <!-- <option hidden disabled selected value="">Select Time</option> -->
+                                    @if($punch ?? '')
+                                        @foreach($punch as $p=>$punches)
+                                            @php($x=false)
+                                            @foreach($otlist as $otp) @if(($punches->start_time < $otp->end_time) && ($punches->end_time > $otp->start_time)) {{$x=true}} @endif @endforeach 
+                                            <option @if($x) @if(($singleuser->clock_in < $punches->end_time) && ($singleuser->clock_out > $punches->start_time)) selected @else class="hidden" disabled @endif @endif value="{{$punches->start_time}}/{{$punches->end_time}}" id="inputclock-0-{{$p}}">{{ date('H:i', strtotime($punches->start_time))}}-{{ date('H:i', strtotime($punches->end_time))}}</option>
+                                        @endforeach
+                                    @endif
+                                    <option value="na" @if($singleuser->clock_in==null) selected @endif>Manual</option>
+                                </select>
                             </td>
                             <td>
                                 <input type="time" id="inputstart-{{$no}}" name="inputstart" value="{{ date('H:i', strtotime($singleuser->start_time))}}">
@@ -136,7 +146,7 @@
                             </td>
                             <td><span id="inputduration-{{$no}}">{{$singleuser->hour}}h {{$singleuser->minute}}m</span></td>
                             <td>
-                                <textarea rows = "3" cols = "60" type="text"  id="inputremark" name="inputremark" placeholder="Write justification" style="resize: none" required>{{$singleuser->justification}}</textarea>
+                                <textarea rows = "3" cols = "60" type="text"  id="inputremark-{{$no}}" name="inputremark" placeholder="Write justification" style="resize: none" required>{{$singleuser->justification}}</textarea>
                             </td>
                             <td>
                                 <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i></button>
@@ -165,7 +175,9 @@
                                 <option hidden disabled selected value="">Select Time</option>
                                 @if($punch ?? '')
                                     @foreach($punch as $p=>$punches)
-                                        <option value="{{$punches->start_time}}/{{$punches->end_time}}" id="inputclock-0-{{$p}}">{{ date('H:i', strtotime($punches->start_time))}}-{{ date('H:i', strtotime($punches->end_time))}}</option>
+                                        @php($x=false)
+                                        @foreach($otlist as $otp) @if(($punches->start_time < $otp->end_time) && ($punches->end_time > $otp->start_time)) {{$x=true}} @endif @endforeach 
+                                        <option @if($x) class="hidden" disabled @endif value="{{$punches->start_time}}/{{$punches->end_time}}" id="inputclock-0-{{$p}}">{{ date('H:i', strtotime($punches->start_time))}}-{{ date('H:i', strtotime($punches->end_time))}}</option>
                                     @endforeach
                                 @endif
                                 <option value="na">Manual</option>
@@ -177,7 +189,7 @@
                         </td>
                         <td><span id="inputduration-0"></span></td>
                         <td>
-                            <textarea rows = "3" cols = "60" type="text"  id="inputremark" name="inputremark" value="" placeholder="Write justification" style="resize: none" required></textarea>
+                            <textarea rows = "3" cols = "60" type="text"  id="inputremark-0" name="inputremark" value="test" placeholder="Write justification" style="resize: none" disabled="true" required></textarea>
                         </td>
                         <td>
                             <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i></button>
@@ -393,28 +405,80 @@
         return function(){
             if($("#inputclock-"+i).val()=='na'){
                 $("#inputstart-"+i).prop('disabled', false);
-                // $("#inputend-"+i).prop('disabled', false);
+                $("#inputend-"+i).prop('disabled', true);
                 $("#inputstart-"+i).prop('required',true);
                 $("#inputend-"+i).prop('required',true);
                 // $("#inputclock-"+i).prop('disabled', true);
                 $("#inputclock-"+i).prop('required',false);
+                $("#inputremark-"+i).prop('disabled', false);
+                // $("#inputremark-"+i).prop('required',true);
+                $("#inputremark-"+i).val("");
+                $("#inputstart-"+i).val("");
+                $("#inputend-"+i).val("");
+                $("#inputduration-"+i).text("");
             }else{
                 $("#inputstart-"+i).prop('disabled', true);
                 $("#inputend-"+i).prop('disabled', true);
                 $("#inputstart-"+i).prop('required',false);
                 $("#inputend-"+i).prop('required',false);
-                $("#inputstart-"+i).val("");
-                $("#inputend-"+i).val("");
+                @if($punch ?? '')
+                    var t = $("#inputclock-"+i).val();
+                    var ts = t.split("/");
+                    var s = ts[0];
+                    var e = ts[1];
+                    var sp = s.split(" ");
+                    var ep = e.split(" ");
+                    var sps = sp[1];
+                    var epe = ep[1];
+                    var spst = sps.split(":");
+                    var epet = epe.split(":");
+                    $("#inputstart-"+i).val(spst[0]+":"+spst[1]);
+                    $("#inputend-"+i).val(epet[0]+":"+epet[1]);
+                    var start = ((parseInt(spst[0]))*60)+(parseInt(spst[1]));
+                    var end = ((parseInt(epet[0]))*60)+(parseInt(epet[1]));
+                    var total = end-start;
+                    var dh = 0;
+                    var dm = total;
+                    while(total>=60){
+                        dh++;
+                        total=total-60;
+                        dm=total;
+                    }
+                    $("#inputduration-"+i).text(dh+"h "+dm+"m");
+                @endif
                 // $("#inputclock-"+i).prop('disabled', false);
                 $("#inputclock-"+i).prop('required',true);
+                $("#inputremark-"+i).prop('disabled', true);
+                // $("#inputremark-"+i).prop('required',false);
+                $("#inputremark-"+i).val("Punch In/Out");
             }
         };
     };
 
     @if(($c ?? '')||($d ?? ''))
     //check start time & end time
+    function killview(i, m){
+        alert(m);
+        $("#inputstart-"+i).val("");
+        $("#inputend-"+i).val("");
+        $("#inputend-"+i).prop('disabled', true);
+        $("#inputduration-"+i).text("");
+        return false;
+    }
+
+    function timemaster(st, et){
+        var starto = st.split(":");
+        var endo = et.split(":");
+        var nstarto = ((parseInt(starto[0]))*60)+(parseInt(starto[1]));
+        var nendo = ((parseInt(endo[0]))*60)+(parseInt(endo[1]));
+        var time = [ nstarto, nendo];
+        return time;
+    }
+
     function checktime(i){
         return function(){
+            var check=true;
+            var time=[];
             // alert($("#inputstart-"+i).val());
             if($("#inputstart-"+i).val()!=""){
                 $("#inputend-"+i).prop('disabled', false);
@@ -449,26 +513,44 @@
             var nstart = ((parseInt(mt[0]))*60)+(parseInt(mt[1]));
             var nend = ((parseInt(mxt[0]))*60)+(parseInt(mxt[1]));
             if(start > nstart && start < nend){
-                alert("Time input cannot be between {{$dt[0]}} and {{$dt[1]}}!");
-                $("#inputstart-"+i).val("");
-                $("#inputend-"+i).val("");
-                $("#inputend-"+i).prop('disabled', true);
+                check = killview(i, "Time input cannot be between {{$dt[0]}} and {{$dt[1]}}!");
             }
+            @if($otlist ?? '')
+                @foreach($otlist as $singleuser)
+                    time = timemaster("{{date("H:i", strtotime($singleuser->start_time))}}", "{{date("H:i", strtotime($singleuser->end_time))}}");
+                    if(check){
+                        if(start > time[0] && start < time[1]){
+                            check = killview(i, "Time input cannot be within inserted time range!");    
+                        }
+                    }
+                @endforeach
+            @endif
             if($("#inputstart-"+i).val()!="" && $("#inputend-"+i).val()!=""){
                 if(start<end){
-                    if((end>nstart && end<nend)||(nstart<end && nend>start)){
-                        alert("Time input cannot be between {{$dt[0]}} and {{$dt[1]}}!");
-                        $("#inputend-"+i).val("");
-                    }else{
-                        var total = end-start;
-                        var dh = 0;
-                        var dm = total;
-                        while(total>=60){
-                            dh++;
-                            total=total-60;
-                            dm=total;
+                    @if($otlist ?? '')
+                        @foreach($otlist as $singleuser)
+                            time = timemaster("{{date("H:i", strtotime($singleuser->start_time))}}", "{{date("H:i", strtotime($singleuser->end_time))}}");
+                            if(check){
+                                if((end > time[0] && end < time[1])||(time[0]<end && time[1]>start)){
+                                    check = killview(i, "Time input cannot be within inserted time range!");
+                                }
+                            }
+                        @endforeach
+                    @endif
+                    if(check){
+                        if((end>nstart && end<nend)||(nstart<end && nend>start)){
+                            check = killview(i, "Time input cannot be between {{$dt[0]}} and {{$dt[1]}}!");
+                        }else{
+                            var total = end-start;
+                            var dh = 0;
+                            var dm = total;
+                            while(total>=60){
+                                dh++;
+                                total=total-60;
+                                dm=total;
+                            }
+                            $("#inputduration-"+i).text(dh+"h "+dm+"m");
                         }
-                        $("#inputduration-"+i).text(dh+"h "+dm+"m");
                     }
                 }else{
                     alert("End time must be more than "+sh+":"+sm+me+"!");

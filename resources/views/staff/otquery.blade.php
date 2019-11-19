@@ -70,7 +70,7 @@
                                     <div class="table-responsive" style="margin-bottom: -25px;">
                                         <table class="table table-bordered">
                                             <input type="text" class="form-control hidden" id="inputid" name="inputid[]" value="{{$singleuser->id}}" required>
-                                            <thead>
+                                            <thead style="background: grey">
                                                 <tr>
                                                     <th width="2%">No</th>
                                                     <th width="20%">Reference No</th>
