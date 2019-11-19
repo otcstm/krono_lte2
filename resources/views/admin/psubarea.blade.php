@@ -115,7 +115,7 @@
 					</select>
 			</div>
 			<div class="form-group">
-					<label for="inputpsubarea">Region</label>
+					<label for="inputregion">Region</label>
 					<input type="text" class="form-control" id="inputregion" name="inputregion" placeholder="region" value="{{ old('inputregion') }}" required autofocus>
 			</div>
 
