@@ -9,6 +9,7 @@ use App\Http\Controllers\StateController;
 use App\State;
 use App\HolidayLog;
 use Illuminate\Http\Request;
+use DB;
 
 class HolidayController extends Controller
 {
@@ -88,13 +89,31 @@ class HolidayController extends Controller
 
 
 
-    public function show(Holiday $holiday)
+    public function show(Request $req)
     {
 
       $alert = Session('alert') ? Session('alert') : 'rest';
       $ac = Session('ac') ? Session('ac') : 'info';
+      $curYear = date('Y');
+      $s_year = $req->s_year ? $req->s_year : $curYear;
 
+      $years_in_holiday_table = Holiday::select(DB::raw('YEAR(dt) as year'))
+      ->distinct()->orderBy('year','desc')->get()
+      ->pluck('year')->toArray();
+      //dd($years_in_holiday_table);
+      array_push($years_in_holiday_table,'all');
+
+
+
+
+
+        //dd($s_year);
+        if($s_year == 'all'){
         $hol = Holiday::all();
+      } else {
+        $hol = Holiday::whereRaw("YEAR(dt) = '".$s_year."'")->get();
+      }
+
         $state = State::all();
         // first, prepare starting header
         $header = ['id', 'date', 'event'];
@@ -134,7 +153,9 @@ class HolidayController extends Controller
           'ac'      =>$ac,
           'header'  => $header,
           'content' => $content,
-          'states' => $states]);
+          'states' => $states,
+          's_year' => $s_year,
+          'years'=>$years_in_holiday_table]);
     }
 
     /**

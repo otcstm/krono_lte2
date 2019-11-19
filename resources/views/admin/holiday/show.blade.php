@@ -1,17 +1,21 @@
 @extends('adminlte::page')
 @section('content')
 
+
+
 @if(session('alert'))
-
-
-
     <div class="alert alert-{{$ac}}" role="alert">{{session('alert')}}</div>
-
 @endif
-<form>
-  <select name="s_year">
-  <option>2019</option>
+
+
+<form method="post">
+  	@csrf
+  <select name="s_year" id="s_year_id">
+    @foreach ($years as $y)
+  <option>{{$y}}</option>
+  @endforeach
   </select>
+  <input type="submit" name="submit" value="Search by Year"/>
 
 </form>
 <table border="1" style="width:100%">
@@ -60,6 +64,8 @@ Legends <br/>
 @endsection
 @section('js')
 <script type="text/javascript">
+  $("#s_year_id").val('{{$s_year}}');
+
 function submitDeleteForm(holid){
 	var txt;
 	var r = confirm("Are you sure ? "+holid+" would be destroyed");
