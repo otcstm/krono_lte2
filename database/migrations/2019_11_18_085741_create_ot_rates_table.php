@@ -21,9 +21,12 @@ class CreateOtRatesTable extends Migration
           $table->string('day_type', 25);
           $table->string('wagetype');
           $table->string('descr')->nullable();
-          $table->string('claim_type');
+          $table->integer('min_hour');
+          $table->integer('max_hour');
           $table->string('unit');
-          $table->decimal('rate',2,2);
+          $table->integer('divbyhour');
+          $table->integer('divbyday');
+          $table->decimal('multiple_by',2,2);
           $table->decimal('salary_cap',10,2)->nullable();
           $table->date('start_date')->nullable();
           $table->date('end_date')->nullable();
