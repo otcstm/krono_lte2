@@ -16,7 +16,6 @@ class CreateOvertimeFormulasTable extends Migration
         Schema::create('overtime_formulas', function (Blueprint $table) {
           $table->bigIncrements('id');
           $table->bigInteger('compregconfig_id');
-          $table->string('region', 25);
           $table->string('legacy_codes')->nullable();
           $table->string('day_type', 25);
           $table->string('wagetype')->nullable();
