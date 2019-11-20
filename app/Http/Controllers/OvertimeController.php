@@ -86,7 +86,7 @@ class OvertimeController extends Controller{
         return redirect(route('ot.form',[],false));
     }
     
-    public function store(Request $req){
+    public function submit(Request $req){
         if($req->multi=="yes"){
             $id = explode(" ", $req->submitid);
         }else{

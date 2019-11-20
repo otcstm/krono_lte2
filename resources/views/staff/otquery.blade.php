@@ -86,7 +86,11 @@
                                                 <tr>
                                                     <td>{{++$no}}</td>
                                                     <td><a data-target="#collapsible-{{$no}}" data-toggle="collapse">{{ $singleuser->refno }}</a><p>{{ $singleuser->name->name }}</p></td>
-                                                    <td>{{ $singleuser->date }} @foreach($singleuser->detail as $details)<br>{{date('H:i', strtotime($details->start_time)) }} - {{ date('H:i', strtotime($details->end_time))}}@endforeach</td>
+                                                    <td>{{ $singleuser->date }} 
+                                                        @foreach($singleuser->detail as $details)
+                                                            <br>{{date('H:i', strtotime($details->start_time)) }} - {{ date('H:i', strtotime($details->end_time))}}
+                                                        @endforeach
+                                                    </td>
                                                     <td>{{ $singleuser->total_hour }}h {{ $singleuser->total_minute }}m</td>
                                                     <td>{{$singleuser->charge_type}}</td>
                                                     <td>RM{{$singleuser->amount}}</td>
@@ -95,10 +99,10 @@
                                                         <select name="inputaction[]" id="action-{{$no}}">
                                                             <option selected value="">Select Action</option>
                                                             <!-- <option hidden disabled selected value="">Select Action</option> -->
-                                                            @if($singleuser->status=="Pending Verification")<option value="Pending Approval">Verify</option>
-                                                            @elseif($singleuser->status=="Pending Approval")<option value="Approved">Approve</option>
+                                                            @if($singleuser->status=="PV")<option value="PA">Verify</option>
+                                                            @elseif($singleuser->status=="PA")<option value="A">Approve</option>
                                                             @endif
-                                                            <option value="Query (Complete)">Query</option>
+                                                            <option value="Q2">Query</option>
                                                         </select>
                                                     </td>
                                                 </tr>
@@ -151,13 +155,13 @@
                                                                                 <thead>
                                                                                 <tbody>
                                                                                     @foreach($singleuser->detail as $n=>$details)
-                                                                                    <tr>
-                                                                                        <td>{{++$n }}</td>
-                                                                                        <td></td>
-                                                                                        <td>{{ date('H:i', strtotime($details->start_time)) }} - {{ date('H:i', strtotime($details->end_time)) }}</td>
-                                                                                        <td>{{ $details->hour }}h {{ $details->minute }}m</td>
-                                                                                        <td>{{ $details->justification }}</td>
-                                                                                    </tr>
+                                                                                        <tr>
+                                                                                            <td>{{++$n }}</td>
+                                                                                            <td></td>
+                                                                                            <td>{{ date('H:i', strtotime($details->start_time)) }} - {{ date('H:i', strtotime($details->end_time)) }}</td>
+                                                                                            <td>{{ $details->hour }}h {{ $details->minute }}m</td>
+                                                                                            <td>{{ $details->justification }}</td>
+                                                                                        </tr>
                                                                                     @endforeach
                                                                                 </tbody>
                                                                             </table>
@@ -194,11 +198,11 @@
                                                                                 </thead>
                                                                                 <tbody>
                                                                                     @foreach($singleuser->log as $logs)
-                                                                                    <tr>
-                                                                                        <td>{{$logs->created_at}}</td>
-                                                                                        <td>{{$logs->name->name}}</td>
-                                                                                        <td>{{$logs->message}}</td>
-                                                                                    </tr>
+                                                                                        <tr>
+                                                                                            <td>{{$logs->created_at}}</td>
+                                                                                            <td>{{$logs->name->name}}</td>
+                                                                                            <td>{{$logs->message}}</td>
+                                                                                        </tr>
                                                                                     @endforeach
                                                                                 </tbody>
                                                                             </table>
@@ -268,7 +272,7 @@
     
     function remark(i){
         return function(){
-            if($("#action-"+i).val()=="Query (Complete)"){
+            if($("#action-"+i).val()=="Q2"){
                 $("#inputremark-"+i).prop('required',true);
                 $('#remark-'+i).css("display", "table-row");
             }else{

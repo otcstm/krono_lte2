@@ -31,6 +31,11 @@ class Overtime extends Model
         return $this->belongsTo(User::class, 'verifier_id')->withDefault(['name' => 'N/A']);
     }
 
+    public function time()
+    {
+        return $this->belongsTo(OvertimeMonth::class, 'month_id')->withDefault(['hour' => '0', 'minute' => '0', ]);
+    }
+
     public function detail()
     {
         return $this->hasMany(OvertimeDetail::class, 'ot_id');

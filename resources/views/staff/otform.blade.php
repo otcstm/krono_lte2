@@ -16,7 +16,13 @@
 </style>
 
 <div class="panel panel-default">
-    <div class="panel-heading panel-primary">OT Application List @if($claim ?? '') {{date('d/m/Y', strtotime($claim->date))}}({{date('l', strtotime($claim->date))}}) @elseif($draft ?? '') {{date('Y-m-d', strtotime($draft[6]))}}  ({{date('l', strtotime($draft[6]))}}) @endif</div>
+    <div class="panel-heading panel-primary">OT Application List 
+        @if($claim ?? '') 
+            {{date('d/m/Y', strtotime($claim->date))}}({{date('l', strtotime($claim->date))}}) 
+        @elseif($draft ?? '') 
+            {{date('Y-m-d', strtotime($draft[6]))}} ({{date('l', strtotime($draft[6]))}})
+        @endif
+    </div>
     <div class="panel-body">
         @if(session()->has('feedback'))
         <div class="alert alert-{{session()->get('feedback_type')}} alert-dismissible" id="alert">
@@ -24,18 +30,32 @@
             {{session()->get('feedback_text')}}
         </div>
         @endif
-        <form id="formdate" action="{{route('ot.formdate')}}" method="POST">
-            @csrf
-            <p>Date: <input type="date" id="inputdate" name="inputdate" value="@if($claim ?? ''){{$claim->date}}@elseif($draft ?? ''){{date('Y-m-d', strtotime($draft[6]))}}@endif" required></p>
-        </form>
         <div class="row">
             <div class="col-xs-6">
-                <p>Reference No: @if($claim ?? '') {{$claim->refno}} @elseif($draft ?? '') {{$draft[0]}} @else Null @endif</p>
+                <form id="formdate" action="{{route('ot.formdate')}}" method="POST">
+                    @csrf
+                    <p>Date: <input type="date" id="inputdate" name="inputdate" value=
+                        @if($claim ?? '')
+                            "{{$claim->date}}""
+                        @elseif($draft ?? '')
+                            "{{date('Y-m-d', strtotime($draft[6]))}}""
+                        @endif" required>
+                    </p>
+                </form>
+                <p>Reference No: 
+                    @if($claim ?? '') 
+                        {{$claim->refno}} 
+                    @elseif($draft ?? '') 
+                        {{$draft[0]}} 
+                    @else 
+                        N/A
+                    @endif
+                </p>
                 <p>State Calendar: </p>
                 @if($claim ?? '')
-                    @if(($claim->status=="Draft (Incomplete)")||($claim->status=="Draft (Complete)"))
+                    @if(($claim->status=="D1")||($claim->status=="D2"))
                         @php($c = true)
-                    @elseif(($claim->status=="Query (Incomplete)")||($claim->status=="Query (Complete)"))
+                    @elseif(($claim->status=="Q1")||($claim->status=="Q2"))
                         @php($q = true)
                     @endif
                 @elseif($draft ?? '')
@@ -43,21 +63,76 @@
                 @endif
                 @if(($c ?? '')||($d ?? ''))
                     @if(($claim ?? '')||($draft ?? ''))
-                        <span style="color: red"><p>Due Date: @if($claim ?? '') {{$claim->date_expiry}} @else {{$draft[1]}} @endif</p>
-                        <p>Unsubmitted claims will be deleted after the due date</p></span>
+                        <span style="color: red">
+                            <p>Due Date: 
+                                @if($claim ?? '') 
+                                    {{$claim->date_expiry}}
+                                @else 
+                                    {{$draft[1]}} 
+                                @endif
+                            </p>
+                            <p>Unsubmitted claims will be deleted after the due date</p>
+                        </span>
                     @else
                         <p>Charging type: {{$claim->charge_type}}</p>
                         <p>Justification: {{$claim->justification}}</p>
                     @endif
                 @elseif($q ?? '')
-                    <p>Query Message: @foreach($claim->log as $logs) @if(strpos($logs->message,"Query")!==false) @php($query = $logs->message) @endif @endforeach @if(($claim->status=="Query (Complete)")||($claim->status=="Query (Incomplete)")){{str_replace('")', '', str_replace('Query ("', '', $query))}}@endif</p>
+                    <p>Query Message: 
+                        @foreach($claim->log as $logs) 
+                            @if(strpos($logs->message,"Queried")!==false) 
+                                @php($query = $logs->message) 
+                            @endif 
+                        @endforeach 
+                        @if(($claim->status=="Q2")||($claim->status=="Q1"))
+                            {{str_replace('"', '', str_replace('Queried with message: "', '', $query))}}@endif</p>
                 @endif
             </div>
             <div class="col-xs-6">
-                <p>Status: @if($claim ?? '')  @if(($claim->status=="Draft (Complete)")||($claim->status=="Draft (Incomplete)"))Draft @elseif (($claim->status=="Query (Complete)")||($claim->status=="Query (Incomplete)"))Query @else {{ $claim->status }} @endif  @elseif($draft ?? '') Draft @else Null @endif</p>
-                <p>Verifier: @if($claim ?? '') {{$claim->verifier->name}}  @elseif($draft ?? '') {{$draft[2]}} @else Null @endif</p>
-                <p>Approver: @if($claim ?? '') {{$claim->approver->name}}  @elseif($draft ?? '') {{$draft[3]}} @else Null @endif</p>
-                <p>Estimated Amount: RM @if($claim ?? '') {{$claim->amount}} @else 0.00 @endif</p>
+                <p>Status: 
+                    @if($claim ?? '')  
+                        @if(($claim->status=="D2")||($claim->status=="D1"))
+                            Draft 
+                        @elseif (($claim->status=="Q2")||($claim->status=="Q1"))
+                            Query 
+                        @elseif ($claim->status=="PA")
+                            Pending Approval 
+                        @elseif ($claim->status=="PV")
+                            Pending Verification  
+                        @elseif ($claim->status=="A")
+                            Aproved 
+                        @else 
+                            {{ $claim->status }} 
+                        @endif  
+                    @elseif($draft ?? '') 
+                        Draft 
+                    @else 
+                        N/A
+                    @endif</p>
+                <p>Verifier: 
+                    @if($claim ?? '') 
+                        {{$claim->verifier->name}}
+                    @elseif($draft ?? '')
+                        {{$draft[2]}} 
+                    @else 
+                        N/A 
+                    @endif
+                </p>
+                <p>Approver: 
+                    @if($claim ?? '')
+                        {{$claim->approver->name}}
+                    @elseif($draft ?? '')
+                        {{$draft[3]}}
+                    @else 
+                        N/A
+                    @endif
+                </p>
+                <p>Estimated Amount: RM
+                    @if($claim ?? '') 
+                        {{$claim->amount}} 
+                    @else 
+                        0.00
+                    @endif</p>
             </div>
         </div>
         <div class="row" style="display: flex">
@@ -66,242 +141,105 @@
             </div>
             <div class="col-xs-6">
                 @if($claim ?? '')
-                    @if(in_array($claim->status, $array = array("Draft (Incomplete)", "Draft (Complete)", "Query (Incomplete)", "Query (Complete)")))
+                    @if(in_array($claim->status, $array = array("D1", "D2", "Q1", "Q2")))
                         @php($c = true)
                     @endif
                 @endif
                 @if(($c ?? '')||($d ?? ''))
                 <div class="text-right" >
-                    <button type="button" class="btn btn-primary" id="otedit-0">
+                    <button type="button" class="btn btn-primary" id="otedit">
                         ADD TIME
                     </button>
-                    <p>Total time: {{$claimtime->hour}}h {{$claimtime->minute}}m / 104h</p>
+                    <p>Total time: {{$claim->time->hour}}h {{$claim->time->minute}}m / 104h</p>
                 </div>
                 @endif
             </div>
         </div>
-        <table class="table table-bordered">
-            <thead>    
-                <tr class="info">
-                    <th width="2%">No</th>
-                    <th width="20%">Clock In/Out</th>
-                    <th width="20%">Start/End Time</th>
-                    <th width="8%">Total Time</th>
-                    <th width="40%">Justification</th>
-                    @if(($c ?? '')||($d ?? ''))
-                    <th width="10%">
-                        Action
-                    </th>
-                    @endif
-                </tr>
-            </thead>
-            <tbody>
-                @if($otlist ?? '')
-                    @foreach($otlist as $no=>$singleuser)
-                    <tr id="show-{{++$no}}">
-                        <td>{{$no }}</td>
-                        <td>@if($singleuser->clock_in!="") {{ date('H:i', strtotime($singleuser->clock_in)) }} - {{ date('H:i', strtotime($singleuser->clock_out)) }} @else Manual Input @endif</td>
-                        <td>{{ date('H:i', strtotime($singleuser->start_time)) }} - {{ date('H:i', strtotime($singleuser->end_time)) }}</td>
-                        <td>{{ $singleuser->hour }}h {{ $singleuser->minute }}m</td>
-                        <td>{{ $singleuser->justification }}</td>
-                        @if(in_array($claim->status, $array = array("Draft (Incomplete)", "Draft (Complete)", "Query (Complete)", "Query (Incomplete)")))
-                        <td>
-                            <button type="button" class="btn btn-primary" id="otedit-{{$no}}" data-toggle="modal">
-                                <i class="fas fa-pencil-alt"></i>
-                            </button>
-                            <form action="{{ route('ot.formdelete') }}" onsubmit="return confirm('Are you sure you want to delete claim for {{ date('H:i', strtotime($singleuser->start_time)) }}-{{ date('H:i', strtotime($singleuser->end_time)) }}?');" method="POST" style="display: inline">
-                                @csrf
-                                <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required>
-                                <input type="text" class="form-control hidden" id="delid" name="delid" value="{{$singleuser->id}}" required>
-                                <input type="time" class="form-control hidden" id="otinputstart" name="inputstart" value="{{ date('H:i', strtotime($singleuser->start_time)) }}" required>
-                                <input type="time" class="form-control hidden" id="otinputend" name="inputend" value="{{ date('H:i', strtotime($singleuser->end_time)) }}" required>
-                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                            </form>
-                        </td>
+        <form id="formsave" action="{{route('ot.formsave')}}" method="POST">
+            <table class="table table-bordered">
+                <thead>    
+                    <tr class="info">
+                        @if(($c ?? '')||($d ?? ''))
+                            <th width="2%"></th>
+                        @endif
+                            <th width="2%">No</th>
+                            <th width="20%">Clock In/Out</th>
+                            <th width="20%">Start/End Time</th>
+                            <th width="8%">Total Time</th>
+                            <th width="38%">Justification</th>
+                        @if(($c ?? '')||($d ?? ''))
+                            <th>
+                                Action
+                            </th>
                         @endif
                     </tr>
-                    <tr id="edit-{{$no}}" style="display: none">
-                        <form action="{{route('ot.formadd')}}" method="POST">
-                            <td>{{ $no }}</td>
-                            @csrf
-                            <input type="text" class="form-control hidden" id="edit" name="edit" value="edit" required>
-                            <input type="text" class="form-control hidden" id="editid" name="editid" value="{{$singleuser->id}}" required>
-                            <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$claim->id}}" required>
-                            <td>
-                                <select name="inputclock" id="inputclock-{{$no}}" required>
-                                    <!-- <option hidden disabled selected value="">Select Time</option> -->
-                                    @if($punch ?? '')
-                                        @foreach($punch as $p=>$punches)
-                                            @php($x=false)
-                                            @foreach($otlist as $otp) @if(($punches->start_time < $otp->end_time) && ($punches->end_time > $otp->start_time)) {{$x=true}} @endif @endforeach 
-                                            <option @if($x) @if(($singleuser->clock_in < $punches->end_time) && ($singleuser->clock_out > $punches->start_time)) selected @else class="hidden" disabled @endif @endif value="{{$punches->start_time}}/{{$punches->end_time}}" id="inputclock-0-{{$p}}">{{ date('H:i', strtotime($punches->start_time))}}-{{ date('H:i', strtotime($punches->end_time))}}</option>
-                                        @endforeach
-                                    @endif
-                                    <option value="na" @if($singleuser->clock_in==null) selected @endif>Manual</option>
-                                </select>
-                            </td>
-                            <td>
-                                <input type="time" id="inputstart-{{$no}}" name="inputstart" value="{{ date('H:i', strtotime($singleuser->start_time))}}">
-                                <input type="time" id="inputend-{{$no}}" name="inputend" value="{{ date('H:i', strtotime($singleuser->end_time)) }}">
-                            </td>
-                            <td><span id="inputduration-{{$no}}">{{$singleuser->hour}}h {{$singleuser->minute}}m</span></td>
-                            <td>
-                                <textarea rows = "3" cols = "60" type="text"  id="inputremark-{{$no}}" name="inputremark" placeholder="Write justification" style="resize: none" required>{{$singleuser->justification}}</textarea>
-                            </td>
-                            <td>
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i></button>
-                                <button type="button" class="btn btn-danger" id="otx-{{$no}}"><i class="fas fa-times"></i></button>
-                            </td>
-                        </form>
-                    </tr>
-                    @endforeach
-                    @if(count($otlist)==0)
-                        <tr id="nodata" class="text-center"><td colspan="6"><i>Not Available</i></td></tr>
-                    @endif
-                @endif
-                @if(($claim ?? '')==""||($draft ?? ''))
-                    <tr id="nodata" class="text-center"><td colspan="6"><i>Not Available</i></td></tr>
-                @endif
-                <tr id="edit-0" style="display: none">
-                    <form action="{{route('ot.formadd')}}" method="POST">
-                        @csrf
-                        <input type="text" class="form-control hidden" id="inputid" name="inputid" value="@if($claim ?? '') {{$claim->id}} @endif">
-                        <input type="text" class="form-control hidden" id="inputdate" name="inputdate" value="@if($claim ?? '') {{$claim->date}} @endif">
-                        <input type="text" class="form-control hidden" id="claimcharge" name="claimcharge" value="@if($claim ?? '') {{$claim->charge_type}} @endif">
-                        <input type="text" class="form-control hidden" id="claimremark" name="claimremark" value="@if($claim ?? '') {{$claim->justification}} @endif">
-                        <td>@if($otlist ?? '') {{count($otlist)+1}} @else 1 @endif</td>
-                        <td>
-                            <select name="inputclock" id="inputclock-0" required>
-                                <option hidden disabled selected value="">Select Time</option>
-                                @if($punch ?? '')
-                                    @foreach($punch as $p=>$punches)
-                                        @php($x=false)
-                                        @foreach($otlist as $otp) @if(($punches->start_time < $otp->end_time) && ($punches->end_time > $otp->start_time)) {{$x=true}} @endif @endforeach 
-                                        <option @if($x) class="hidden" disabled @endif value="{{$punches->start_time}}/{{$punches->end_time}}" id="inputclock-0-{{$p}}">{{ date('H:i', strtotime($punches->start_time))}}-{{ date('H:i', strtotime($punches->end_time))}}</option>
-                                    @endforeach
-                                @endif
-                                <option value="na">Manual</option>
-                            </select>
-                        </td>
-                        <td>
-                            <input type="time" id="inputstart-0" name="inputstart" disabled="true">
-                            <input type="time" id="inputend-0" name="inputend" disabled="true">
-                        </td>
-                        <td><span id="inputduration-0"></span></td>
-                        <td>
-                            <textarea rows = "3" cols = "60" type="text"  id="inputremark-0" name="inputremark" value="test" placeholder="Write justification" style="resize: none" disabled="true" required></textarea>
-                        </td>
-                        <td>
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i></button>
-                            <button type="button" class="btn btn-danger" id="otx-0"><i class="fas fa-times"></i></button>
-                        </td>
-                    </form>
-                </tr>
-            </tbody>
-        </table>
-        @if($claim ?? '')
-            @if(in_array($claim->status, $array = array("Draft (Incomplete)", "Draft (Complete)", "Query (Complete)", "Query (Incomplete)")))
-                @php($c = true)
-            @endif
-        @elseif($draft ?? '')
-            @php($d = true)
-        @endif
-        @if(($c ?? '')||($d ?? ''))
-            <form id="formot" action="{{route('ot.save')}}" method="POST">
-                <div class="row">
-                    <div class="col-xs-6">
-                        @csrf
-                        <div class="form-group">
-                            <input type="text" class="form-control hidden" id="inputid" name="inputid" value="@if($claim ?? '') {{$claim->id}}@endif" required>
-                            <input type="text" class="form-control hidden" id="save" name="save" value="submit" required>
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <label>Charge Type:</label>
-                                </div>
-                                <div class="col-xs-9">
-                                    <select name="chargetype" class="forminput inputcheck-{{$i=0}}" id="chargetype" value="@if($claim ?? '') {{$claim->charge_type}} @endif" required>
-                                        <option hidden disabled value="" @if($claim ?? '') @if($claim->charge_type=="") selected @endif @else selected @endif>Select Charge Type</option>
-                                        <option value="Cost Center" @if($claim ?? '') @if($claim->charge_type=="Cost Center") selected @endif @endif>Cost Center</option>
-                                        <option value="Project" @if($claim ?? '') @if($claim->charge_type=="Project") selected @endif @endif>Project</option>
-                                    </select> 
-                                </div>
-                            </div>
-                            @if($claim ?? '')
-                                <div id="costcenter" @if($claim->charge_type!="Cost Center") style="display: none" @endif>
-                                    <div class="row">
-                                        <div class="col-xs-3">
-                                            <label>Charging:</label>
-                                        </div>
-                                        <div class="col-xs-9">
-                                            <select name="charging" id="charging" class="forminput @if($claim->charge_type=="Cost Center")inputcheck-{{++$i}}" required @else " @endif>
-                                                <option value="ATAC07">ATAC07</option>
-                                            </select> 
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="project"  @if($claim->charge_type!="Project") style="display: none" @endif>
-                                    <div class="row">
-                                        <div class="col-xs-3">
-                                            <label>Type:</label>
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <select name="type" id="type" class="forminput @if($claim->charge_type=="Project")inputcheck-{{++$i}}" required @else " @endif>
-                                                <option value="CUST23234">CUST23234</option>
-                                            </select> 
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <label>Header:</label>
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <select name="header" id="header" class="forminput @if($claim->charge_type=="Project")inputcheck-{{++$i}}" required @else " @endif>
-                                                <option value="PRJ123124">PRJ123124</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-3">
-                                            <label>Code:</label>
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <select name="code" id="code" class="forminput @if($claim->charge_type=="Project")inputcheck-{{++$i}}" required @else " @endif>
-                                                <option value="PRJ123124">PRJ123124</option>
-                                            </select> 
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <label>Activity:</label>
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <select name="activity" id="activity" class="forminput @if($claim->charge_type=="Project")inputcheck-{{++$i}}" required @else " @endif>
-                                                <option value="PRJ123124">PRJ123124</option>
-                                            </select> 
-                                        </div>
-                                    </div>
-                                </div>
+                </thead>
+                <tbody>
+                @foreach($claim->detail as $no=>$singleuser)
+                    <tr>
+                        @php($s = false)
+                        @if(($c ?? '')||($d ?? ''))
+                            @php($s = true)
+                        @else
+                            @if($singleuser->checked=="X")
+                                @php($s = true)
                             @endif
-                        </div>
-                        <div class="form-group" style="margin-top: -10px">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <label for="inputremark">Justification:</label>
-                                </div>
-                                <div class="col-xs-9">
-                                    <textarea class="forminput inputcheck-{{++$i}}" rows = "5" cols = "60" id="inputremark" name="inputremark" placeholder="Write justification" required>@if($claim ?? '') {{$claim->justification}} @endif</textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center">
-                    <a href="{{route('ot.list')}}"><button type="button" class="btn btn-primary" style="display: inline"><i class="fas fa-arrow-left"></i> BACK</button></a>
-                    <button type="submit" class="btn btn-primary" style="display: inline"><i class="fas fa-save"></i> SAVE</button>
-            </form>
-            <form id="formsubmit" action="{{route('ot.store')}}" method="POST" onsubmit="return confirm('I understand and agree this to claim. If deemed false I can be taken to disciplinary action.')" style="display: inline">
-                @csrf
-                <input type="text" class="form-control hidden" id="inputid" name="inputid" value="@if($claim ?? '') {{$claim->id}} @endif" required>
-                <button type="button" id="sub" class="btn btn-primary"><i class="fas fa-share-square"></i> SUBMIT</button>
-            </form>
-                </div>
-        @endif
+                        @endif
+                        @if($s)
+                            @if(($c ?? '')||($d ?? ''))
+                                <td><input type="checkbox" id="inputcheck" name="inputcheck[]" value="{{$singleuser->id}}"
+                                    @if($singleuser->checked=="X")
+                                        checked
+                                    @endif >
+                                </td>
+                            @endif
+                            <td>{{++$no}}</td>
+                            <td>
+                                @if($singleuser->clock_in!="")
+                                    {{date('H:i', strtotime($singleuser->clock_in))}} - {{date('H:i', strtotime($singleuser->clock_out))}} 
+                                @else 
+                                    Manual 
+                                @endif
+                            </td>
+                            <td>
+                                @if(($c ?? '')||($d ?? ''))
+                                    {{--<!-- <input type="time" id="inputstart-{{$no}}" name="inputstart[]" value="{{ date('H:i', strtotime($singleuser->start_time))}}">
+                                    <input type="time" id="inputend-{{$no}}" name="inputend[]" value="{{ date('H:i', strtotime($singleuser->end_time)) }}"> --> --}}
+                                    <div class="input-group bootstrap-timepicker timepicker">
+                                        <input id="timepicker1" type="text" class="form-control input-small"></span>
+                                    </div>
+                                @else
+                                    {{ date('H:i', strtotime($singleuser->start_time)) }} - {{ date('H:i', strtotime($singleuser->end_time)) }}
+                                @endif    
+                            </td>
+                            <td><span id="inputduration-{{$no}}">{{ $singleuser->hour }}h {{ $singleuser->minute }}m</span></td>
+                            <td>
+                                @if(($c ?? '')||($d ?? ''))
+                                    <textarea rows = "2" cols = "60" type="text"  id="inputremark-{{$no}}" name="inputremark[]" placeholder="Write justification" style="resize: none" 
+                                        @if($singleuser->clock_in!="") 
+                                            disabled
+                                        @else
+                                            required 
+                                        @endif>{{$singleuser->justification}}
+                                    </textarea>
+                                @else
+                                    {{$singleuser->justification}}
+                                @endif 
+                            </td>
+                            @if(($c ?? '')||($d ?? ''))
+                                <td>
+                                    @if($singleuser->clock_in=="")
+                                        <button type="button" class="btn btn-danger" id="otx-{{$no}}" data-id="{{$singlevalue->id}}"><i class="fas fa-times"></i></button>
+                                    @endif
+                                </td>
+                            @endif
+                        @endif
+                    </tr>
+                @endforeach
+                </tbody>  
+            </table>
+            <button type="submit" class="btn btn-danger"><i class="fas fa-times"></i></button>
+        </form>
         @if(($c ?? '')||($d ?? ''))
         <br>
         @endif
@@ -339,7 +277,7 @@
             </tbody>
         </table>
         @if($claim ?? '')
-            @if(!(in_array($claim->status, $array = array("Draft (Incomplete)", "Draft (Complete)", "Query (Complete)", "Query (Incomplete)"))))
+            @if(!(in_array($claim->status, $array = array("D1", "D2", "Q1", "Q2"))))
                 <div class="text-center">
                     <a href="{{route('ot.list')}}"><button type="button" class="btn btn-primary" style="display: inline"><i class="fas fa-arrow-left"></i> BACK</button></a>
                 </div>
@@ -354,288 +292,19 @@
     @if(session()->has('feedback'))
         $("#alert").css("display","block")
     @endif
-
-    var add = false;
-    var submit = false;
-
-    //set min and max date
-    var today = new Date();
-    var m = today.getMonth()+1;
-    var y = today.getFullYear();
-    var d = today.getDate().toString();
-    var minm = today.getMonth()-1;
-    if (minm<0){
-        minm=minm+12;
-        miny=y-1;
-    }else{
-        miny=y;
-    }
-    if(m < 10){
-        m = "0"+m;
-    }
-    if(minm < 10){
-        minm = "0"+minm;
-    }
-    while(d.length<2){
-        d = "0"+d;
-    }
-    $("#inputdate").attr("min", miny+"-"+minm+"-01");
-    $("#inputdate").attr("max", y+"-"+m+"-"+d);
-
-    // //when date input is changed
     $("#inputdate").change(function(){
-        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        if(
-            ((Date.parse($("#inputdate").val()))<=Date.parse(monthNames[m-1]+" "+d+", "+y+" 23:59:59"))&&
-            ((Date.parse($("#inputdate").val()))>=Date.parse(monthNames[minm-1]+" 01, "+miny+" 00:00:00"))
-            ){
-            $("#formdate").submit();
-        }else{
-            alert("Claim date must be between "+miny+"-"+minm+"-01 and "+y+"-"+m+"-"+d+"!");
-            @if($show ?? '')
-                $("#inputdate").val("{{$claim->date}}");
-            @else
-                $("#inputdate").val("");
-            @endif
-        }
+        alert($("#inputdate").val());
     });
 
-    //when choose NA
-    function clock(i){
-        return function(){
-            if($("#inputclock-"+i).val()=='na'){
-                $("#inputstart-"+i).prop('disabled', false);
-                $("#inputend-"+i).prop('disabled', true);
-                $("#inputstart-"+i).prop('required',true);
-                $("#inputend-"+i).prop('required',true);
-                // $("#inputclock-"+i).prop('disabled', true);
-                $("#inputclock-"+i).prop('required',false);
-                $("#inputremark-"+i).prop('disabled', false);
-                // $("#inputremark-"+i).prop('required',true);
-                $("#inputremark-"+i).val("");
-                $("#inputstart-"+i).val("");
-                $("#inputend-"+i).val("");
-                $("#inputduration-"+i).text("");
-            }else{
-                $("#inputstart-"+i).prop('disabled', true);
-                $("#inputend-"+i).prop('disabled', true);
-                $("#inputstart-"+i).prop('required',false);
-                $("#inputend-"+i).prop('required',false);
-                @if($punch ?? '')
-                    var t = $("#inputclock-"+i).val();
-                    var ts = t.split("/");
-                    var s = ts[0];
-                    var e = ts[1];
-                    var sp = s.split(" ");
-                    var ep = e.split(" ");
-                    var sps = sp[1];
-                    var epe = ep[1];
-                    var spst = sps.split(":");
-                    var epet = epe.split(":");
-                    $("#inputstart-"+i).val(spst[0]+":"+spst[1]);
-                    $("#inputend-"+i).val(epet[0]+":"+epet[1]);
-                    var start = ((parseInt(spst[0]))*60)+(parseInt(spst[1]));
-                    var end = ((parseInt(epet[0]))*60)+(parseInt(epet[1]));
-                    var total = end-start;
-                    var dh = 0;
-                    var dm = total;
-                    while(total>=60){
-                        dh++;
-                        total=total-60;
-                        dm=total;
-                    }
-                    $("#inputduration-"+i).text(dh+"h "+dm+"m");
-                @endif
-                // $("#inputclock-"+i).prop('disabled', false);
-                $("#inputclock-"+i).prop('required',true);
-                $("#inputremark-"+i).prop('disabled', true);
-                // $("#inputremark-"+i).prop('required',false);
-                $("#inputremark-"+i).val("Punch In/Out");
-            }
-        };
-    };
-
-    @if(($c ?? '')||($d ?? ''))
-    //check start time & end time
-    function killview(i, m){
-        alert(m);
-        $("#inputstart-"+i).val("");
-        $("#inputend-"+i).val("");
-        $("#inputend-"+i).prop('disabled', true);
-        $("#inputduration-"+i).text("");
-        return false;
-    }
-
-    function timemaster(st, et){
-        var starto = st.split(":");
-        var endo = et.split(":");
-        var nstarto = ((parseInt(starto[0]))*60)+(parseInt(starto[1]));
-        var nendo = ((parseInt(endo[0]))*60)+(parseInt(endo[1]));
-        var time = [ nstarto, nendo];
-        return time;
-    }
-
-    function checktime(i){
-        return function(){
-            var check=true;
-            var time=[];
-            // alert($("#inputstart-"+i).val());
-            if($("#inputstart-"+i).val()!=""){
-                $("#inputend-"+i).prop('disabled', false);
-            }else{
-                $("#inputend-"+i).prop('disabled', true);
-            }
-            var st = ($("#inputstart-"+i).val()).split(":");
-            var et = ($("#inputend-"+i).val()).split(":");
-            var min = "{{$dt[0]}}";
-            var max = "{{$dt[1]}}";
-            var mt = min.split(":");
-            var mxt = max.split(":");
-            var h = parseInt(st[0]);
-            var m = parseInt(st[1]);
-            var me = "AM";
-            if(h>12){
-                h = h-12;
-                me = "PM"
-            }else if(h==0){
-                h = 12;
-            }
-            sh = h.toString();
-            while(sh.length<2){
-                sh = "0"+sh;
-            }
-            sm = m.toString();
-            while(sm.length<2){
-                sm = "0"+sm;
-            }
-            var start = ((parseInt(st[0]))*60)+(parseInt(st[1]));
-            var end = ((parseInt(et[0]))*60)+(parseInt(et[1]));
-            var nstart = ((parseInt(mt[0]))*60)+(parseInt(mt[1]));
-            var nend = ((parseInt(mxt[0]))*60)+(parseInt(mxt[1]));
-            if(start > nstart && start < nend){
-                check = killview(i, "Time input cannot be between {{$dt[0]}} and {{$dt[1]}}!");
-            }
-            @if($otlist ?? '')
-                @foreach($otlist as $singleuser)
-                    time = timemaster("{{date("H:i", strtotime($singleuser->start_time))}}", "{{date("H:i", strtotime($singleuser->end_time))}}");
-                    if(check){
-                        if(start > time[0] && start < time[1]){
-                            check = killview(i, "Time input cannot be within inserted time range!");    
-                        }
-                    }
-                @endforeach
-            @endif
-            if($("#inputstart-"+i).val()!="" && $("#inputend-"+i).val()!=""){
-                if(start<end){
-                    @if($otlist ?? '')
-                        @foreach($otlist as $singleuser)
-                            time = timemaster("{{date("H:i", strtotime($singleuser->start_time))}}", "{{date("H:i", strtotime($singleuser->end_time))}}");
-                            if(check){
-                                if((end > time[0] && end < time[1])||(time[0]<end && time[1]>start)){
-                                    check = killview(i, "Time input cannot be within inserted time range!");
-                                }
-                            }
-                        @endforeach
-                    @endif
-                    if(check){
-                        if((end>nstart && end<nend)||(nstart<end && nend>start)){
-                            check = killview(i, "Time input cannot be between {{$dt[0]}} and {{$dt[1]}}!");
-                        }else{
-                            var total = end-start;
-                            var dh = 0;
-                            var dm = total;
-                            while(total>=60){
-                                dh++;
-                                total=total-60;
-                                dm=total;
-                            }
-                            $("#inputduration-"+i).text(dh+"h "+dm+"m");
-                        }
-                    }
-                }else{
-                    alert("End time must be more than "+sh+":"+sm+me+"!");
-                    $("#inputend-"+i).val("");
-                }
-            }
-        };
-    };
-    @endif
-
-    function otedit(i){
-        return function(){
-            if(add){
-                if(i==0){
-                    alert("Please save current time input before adding a new one!");
-                }else{
-                    alert("Please save current time input before editing others!");
-                }
-            }else{
-                add=true;
-                $('#edit-'+i).css("display", "table-row");
-                $('#show-'+i).css("display", "none");
-            }
-            if(i==0){
-                $('#nodata').css("display","none");
-            }
-        };
-    };
+    $('#timepicker1').timepicker({
+        minuteStep: 1,
+        showMeridian: false,
+        defaultTime: false
+    });
     
-    function otx(i){
-        return function(){
-            if(add){
-                add=false;
-                $('#edit-'+i).css("display", "none");
-                $('#show-'+i).css("display", "table-row");
-            }
-            if(i==0){
-                $('#nodata').css("display","table-row");
-            }
-        };
-    };
+    $("#timepicker1").change(function(){
+    });
     
-    for (i=0; i<@if($otlist ?? '') {{count($otlist)+1}} @else 1 @endif; i++) {
-        $("#inputclock-"+i).change(clock(i));
-        $("#inputstart-"+i).change(checktime(i));
-        $("#inputend-"+i).change(checktime(i));
-        $("#otedit-"+i).on('click',otedit(i));
-        $("#otx-"+i).on('click',otx(i));
-    };
-
-    //when click x in add time
-    $('.otx').click(function() {
-        $('#addNew').css("display", "none");
-    });
-
-    //submit form when any values are changed
-    $("form .forminput").change(function(){
-        $("#save").val("save");
-        $("#formot").submit();
-    });
-
-    //when submit button is clicked
-    @if($i ?? "")
-    $("#sub").on("click ", function(){
-        for(i=0; i<{{$i}}+1;i++){
-            if($('.inputcheck-'+i).get(0).checkValidity()==false){
-                $('.inputcheck-'+i).get(0).reportValidity();
-                submit = false;
-            }else{
-                submit = true;
-            }
-        }
-        if(submit){
-            @if($otlist ?? '')
-                @if(count($otlist)!=0)
-                    $("#formsubmit").submit();
-                @else
-                    alert("Please add claim time before submitting!"); 
-                @endif
-            @else
-                alert("Please add claim time before submitting!"); 
-            @endif
-        }
-    });
-    @endif 
 </script>
 @stop
            
