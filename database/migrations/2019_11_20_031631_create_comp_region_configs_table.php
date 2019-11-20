@@ -21,6 +21,7 @@ class CreateCompRegionConfigsTable extends Migration
             $table->integer('daypermonth');
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
