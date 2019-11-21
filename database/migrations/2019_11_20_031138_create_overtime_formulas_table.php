@@ -23,7 +23,7 @@ class CreateOvertimeFormulasTable extends Migration
           $table->integer('min_hour');
           $table->integer('max_hour');
           $table->string('unit');
-          $table->decimal('rate',2,2);
+          $table->decimal('rate',4,2)->default(0.0);
           $table->date('start_date')->nullable();
           $table->date('end_date')->nullable();
           $table->integer('created_by');
