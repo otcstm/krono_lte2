@@ -20,8 +20,8 @@ class CreateOvertimePunchesTable extends Migration
             $table->date('date');
             $table->datetime('start_time');
             $table->datetime('end_time');
-            $table->integer('hour');
-            $table->integer('minute');
+            $table->integer('hour')->default(0);
+            $table->integer('minute')->default(0);
         });
     }
 

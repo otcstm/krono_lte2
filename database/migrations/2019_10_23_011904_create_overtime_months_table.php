@@ -17,8 +17,8 @@ class CreateOvertimeMonthsTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->integer('user_id');
-            $table->integer('hour');
-            $table->integer('minute');
+            $table->integer('hour')->default(0);
+            $table->integer('minute')->default(0);
             $table->year('year');
             $table->integer('month');
         });
