@@ -3,7 +3,7 @@
 <div class="container">
 	<p><input type="button" id="check" value="Check All" />
    <input type="button" id="uncheck" value="UnCheck All" />
-	 <input type="button" id="reset" value="Reset" />
+	 <input type="button" id="reset" value="Reset State Selection" />
 </p>
 <form method="POST" action="{{ route('holiday.update',[],false) }}">
  @csrf
@@ -18,7 +18,12 @@
    </tr>
    <tr>
      <td>Guarantee Flag </td>
-     <td><input type="number" name="guarantee_flag" value="{{$holiday->guarantee_flag}}" /></td>
+     <td>
+
+			 <input type="checkbox" name="guarantee_flag"  value="1" @if($holiday->guarantee_flag == 1) checked @endif>
+
+
+		 </td>
    </tr>
  </table>
 
@@ -27,13 +32,14 @@
  {{ $state->id }} :{{$state->state_descr}} <br/>
  @endforeach
 
- <input type="submit">
+ <input type="submit" class="btn btn-success" >
+ <a   class="btn btn-info" href="{{route('holiday.show',[],false)}}" >
+ Return
+ </a>
 </form>
 
 
-<a   class="btn btn-info btn-sm" href="{{route('holiday.show',[],false)}}" >
-Return
-</a>
+
 
 @endsection
 @section('js')

@@ -6,27 +6,41 @@
 @if(session('alert'))
     <div class="alert alert-{{$ac}}" role="alert">{{session('alert')}}</div>
 @endif
+<table width='100%'>
+  <tr>
+    <td style="width:7em">
+      <form method="post" style="display:inline; " id="form_select_year_id" >
+        	@csrf
+        <select name="s_year" id="s_year_id" class="form-control">
+          @foreach ($years as $y)
+        <option>{{$y}}</option>
+        @endforeach
+        </select>
 
 
-<form method="post" style="display:inline; " id="form_select_year_id" >
-  	@csrf
-  <select name="s_year" id="s_year_id">
-    @foreach ($years as $y)
-  <option>{{$y}}</option>
-  @endforeach
-  </select>
+
+      </form>
+    </td>
+    <td>
+      <form action="{{ route('holiday.create',[],false) }}" style="display:inline; float:right">
+        @csrf
+        <input type="hidden" name="s_year" id="s_year_create" value="{{$s_year}}" />
+
+        <input type="submit" name="submit" value="Create New Holiday" class="btn btn-primary"/>
+
+
+      </form>
+
+    </td>
 
 
 
-</form>
-<form action="{{ route('holiday.create',[],false) }}" style="float:right; margin:3px">
-  @csrf
-  <input type="hidden" name="s_year" id="s_year_create" value="{{$s_year}}"/>
 
-  <input type="submit" name="submit" value="Create New Holiday" class="btn btn-info btn-sm"/>
+  </tr>
+</table>
 
 
-</form>
+
 <table border="1" style="width:100%"  >
 <tr>
   @php($col = 0)
