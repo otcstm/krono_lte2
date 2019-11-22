@@ -14,8 +14,8 @@ class AddDecsToPsubareas extends Migration
     public function up()
     {
         Schema::table('psubareas', function (Blueprint $table) {
-          $table->string('persareadesc', 50)->after('persarea');
-          $table->string('perssubareades', 50)->after('perssubarea');
+          $table->string('persareadesc', 50)->after('persarea')->nullable();
+          $table->string('perssubareades', 50)->after('perssubarea')->nullable();
         });
     }
 

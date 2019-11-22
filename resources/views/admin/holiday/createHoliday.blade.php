@@ -1,5 +1,6 @@
 @extends('adminlte::page')
 @section('content')
+
 <div class="container">
 	<p><input type="button" class="check" value="Check All" />
    <input type="button" class="uncheck" value="UnCheck All" />
@@ -33,7 +34,7 @@
 			 <tr>
 			 <td>
 			 <input type="submit" class="btn btn-alert btn-sm">
-			 <a   class="btn btn-info btn-sm" href="{{route('holiday.show',[],false)}}" >
+			 <a class="btn btn-info btn-sm" href="{{route('holiday.show',[],false)}}" >
 			 Return
 			 </a>
 			 </td>

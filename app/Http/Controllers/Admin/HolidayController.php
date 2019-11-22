@@ -28,9 +28,11 @@ class HolidayController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $req)
     {
         $states = State::all();
+
+
 
 
         return view('admin.holiday.createHoliday', [
@@ -111,12 +113,12 @@ class HolidayController extends Controller
         if($s_year == 'all'){
         $hol = Holiday::all();
       } else {
-        $hol = Holiday::whereRaw("YEAR(dt) = '".$s_year."'")->get();
+        $hol = Holiday::whereRaw("YEAR(dt) = '".$s_year."'")->orderBy('dt','asc')->get();
       }
 
         $state = State::all();
         // first, prepare starting header
-        $header = ['id', 'date', 'event'];
+        $header = ['id', 'Date', 'Event'];
         $content = [];
         // pastu, tambah state kat header
         foreach ($state as $satustate) {
@@ -188,6 +190,15 @@ class HolidayController extends Controller
         $user   = $req->user();
         //get holiday model
         $holiday = Holiday::find($req->id);
+
+
+        $holiday->dt             = $req->dt;
+        $holiday->descr          = $req->descr;
+        $holiday->guarantee_flag = $req->guarantee_flag;
+        $holiday->update_by     = $user->id;
+        $holiday->save();
+
+
         //get list of cuurent states that ties to the holiday in holiday calendar
         $currentStates = HolidayCalendar::where('holiday_id', $holiday->id)->get('state_id');
         //$currentStates = $holiday->StatesThatCelebrateThis;
@@ -225,6 +236,9 @@ class HolidayController extends Controller
             $hc->update_by  = $user->id;
             $hc->save();
         }
+
+
+
   $this->log($holiday->id,'UPDATE');
         $ac = 'info';
         $alert = $holiday->descr.' has been updated';
@@ -233,9 +247,6 @@ class HolidayController extends Controller
           'alert' => $alert,
           'ac'=>$ac
         ]);
-
-
-
 
         //dd($holiday);
     }
