@@ -20,6 +20,7 @@ class CreateStatesTable extends Migration
             $table->integer('updated_by')->nullable();
             $table->integer('created_by')->nullable();
             $table->timestamps();
+            $table->primary('id');
         });
     }
 

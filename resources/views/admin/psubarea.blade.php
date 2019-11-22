@@ -34,13 +34,11 @@
 				@foreach ($psubareas as $psubarea)
 					<tr>
 							<td>@if($psubarea->companyid ?? '') {{ $psubarea->companyid->id }} - {{ $psubarea->companyid->company_descr}} @endif</td>
-							<!-- <td>{{ $psubarea->companyid->company_descr}}</td> -->
 							<td>{{ $psubarea->persarea }} - {{ $psubarea->persareadesc }}</td>
 							<!-- <td>{{ $psubarea->persareadesc }}</td> -->
 							<td>{{ $psubarea->perssubarea }} - {{ $psubarea->perssubareades }}</td>
 							<!-- <td>{{ $psubarea->perssubareades }}</td> -->
 							<td>@if($psubarea->stateid ?? '') {{ $psubarea->stateid->id }} - {{ $psubarea->stateid->state_descr}}@endif </td>
-							<!-- <td>{{ $psubarea->stateid->state_descr}}</td> -->
 							<td>{{ $psubarea->region }}</td>
 							<td>{{ $psubarea->createdby->id }}</td>
 							<td>
@@ -115,7 +113,7 @@
 					</select>
 			</div>
 			<div class="form-group">
-					<label for="inputpsubarea">Region</label>
+					<label for="inputregion">Region</label>
 					<input type="text" class="form-control" id="inputregion" name="inputregion" placeholder="region" value="{{ old('inputregion') }}" required autofocus>
 			</div>
 
