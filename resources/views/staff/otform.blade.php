@@ -172,7 +172,13 @@
                 @endif
             </div>
         </div>
-        <form id="formsave" action="{{route('ot.formsave')}}" method="POST">
+        <form id="form" action="{{route('ot.formsubmit')}}" method="POST">
+            @csrf
+            <input type="text" class="form-control hidden" id="inputid" name="inputid" value="@if($claim ?? '') {{$claim->id}} @endif" required>
+            <input class="hidden" id="formnew" type="text" name="formnew" value="no">
+            <input class="hidden" id="formadd" type="text" name="formsave" value="no">
+            <input class="hidden" id="formsave" type="text" name="formsave" value="no">
+            <input class="hidden" id="formsubmit" type="text" name="formsubmit" value="yes">
             <table class="table table-bordered">
                 <thead>    
                     <tr class="info">
@@ -206,7 +212,7 @@
                                     @endif
                                     @if($s)
                                         @if(($c ?? '')||($d ?? '')||($q ?? ''))
-                                            <td><input type="checkbox" id="inputcheck-{{++$no}}" name="inputcheck[]" value="{{$singleuser->id}}"
+                                            <td><input class="forminput" type="checkbox" id="inputcheck-{{++$no}}" name="inputcheck[]" value="{{$singleuser->id}}"
                                                 @if($singleuser->checked=="X")
                                                     checked
                                                 @endif >
@@ -222,15 +228,18 @@
                                         </td>
                                         <td>
                                             @if(($c ?? '')||($d ?? '')||($q ?? ''))
-                                                <input style="width: 40px" id="inputstart-{{$no}}" name="inputstart[]" type="text" class="timepicker" 
+                                            <span id="oldds-{{$no}}" class="hidden">{{$singleuser->start_time}}</span>
+                                            <span id="oldde-{{$no}}" class="hidden">{{$singleuser->end_time}}</span>
+                                                <input style="width: 40px" id="inputstart-{{$no}}" name="inputstart[]" type="text" class="timepicker forminputtime" 
+                                                    data-clock_in="{{ date('H:i', strtotime($singleuser->start_time))}}"
                                                     @if($singleuser->clock_in!="")
-                                                        data-clock_in="{{ date('H:i', strtotime($singleuser->start_time))}}"
-                                                    @endif
+                                                        data-clocker="{{ date('H:i', strtotime($singleuser->start_time))}}"
+                                                        @endif
                                                     value="{{ date('H:i', strtotime($singleuser->start_time))}}" required>
-                                                <input style="width: 40px" id="inputend-{{$no}}" name="inputend[]" type="text" class="timepicker" 
-                                                    @if($singleuser->clock_out!="")
+                                                <input style="width: 40px" id="inputend-{{$no}}" name="inputend[]" type="text" class="timepicker forminputtime" 
+                                                {{--@if($singleuser->clock_out!="")--}}
                                                         data-clock_out="{{ date('H:i', strtotime($singleuser->end_time))}}"
-                                                    @endif
+                                                        {{--@endif--}}
                                                     value="{{ date('H:i', strtotime($singleuser->end_time))}}" required>
                                             @else
                                                 {{ date('H:i', strtotime($singleuser->start_time)) }} - {{ date('H:i', strtotime($singleuser->end_time)) }}
@@ -245,7 +254,7 @@
                                         </td>
                                         <td>
                                             @if(($c ?? '')||($d ?? '')||($q ?? ''))
-                                                <textarea rows = "2" cols = "60" type="text"  id="inputremark-{{$no}}" name="inputremark[]" placeholder="Write justification" style="resize: none" 
+                                                <textarea class="forminput" rows = "2" cols = "60" type="text" id="inputremark-{{$no}}" name="inputremark[]" placeholder="Write justification" style="resize: none" 
                                                     @if($singleuser->clock_in!="") 
                                                         disabled
                                                     @else
@@ -277,28 +286,171 @@
                         <td>@if($claim ?? '') {{count($claim->detail)+1}} @else 1 @endif</td>
                         <td>Manual Input</td>
                         <td>
-                            <input class="hidden" id="inputnew" type="text" name="inputnew" value="">
-                            <input style="width: 40px" id="inputstart-0" type="text" name="inputstartnew" class="timepicker">
-                            <input style="width: 40px" id="inputend-0" type="text" name="inputendnew" class="timepicker" disabled>
+                            <input style="width: 40px" id="inputstart-0" type="text" name="inputstartnew" class="timepicker check-0" 
+                                @if(session()->get('draftform'))
+                                    value="{{session()->get('draftform')[0]}}"
+                                @endif>
+                            <input style="width: 40px" id="inputend-0" type="text" name="inputendnew" class="timepicker check-1" 
+                                @if(session()->get('draftform'))
+                                    @empty(session()->get('draftform')[1])
+                                        disabled
+                                    @else
+                                        value="{{session()->get('draftform')[1]}}"
+                                    @endempty
+                                @else
+                                    disabled
+                                @endif>
                         </td>
                         <td>
                             <span id="olddh-0" class="hidden">0</span>
                             <span id="olddm-0" class="hidden">0</span>
                             <span id="inputduration-0"></span>
-                            </td>
-                        <td><textarea rows = "2" cols = "60" type="text"  id="inputremark-0" name="inputremarknew" placeholder="Write justification" style="resize: none"></textarea></td>
+                        </td>
+                        <td><textarea rows = "2" cols = "60" type="text"  id="inputremark-0" name="inputremarknew" placeholder="Write justification" style="resize: none" class="check-2"></textarea></td>
                         <td>
-                            <button type="button" class="btn btn-primary" id="save"><i class="fas fa-save"></i></button>
+                            <button type="button" class="btn btn-primary" id="btn-add"><i class="fas fa-save"></i></button>
                             <button type="button" class="btn btn-danger" id="cancel" style="display: inline"><i class="fas fa-times"></i></button>
                         </td>
                     </tr>
                 </tbody>  
             </table>
-            <button type="submit" class="btn btn-danger"><i class="fas fa-times"></i></button>
+            @if(($c ?? '')||($d ?? '')||($q ?? ''))
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <label>Charge Type:</label>
+                                </div>
+                                <div class="col-xs-9">
+                                    <select name="chargetype" class="forminput" id="chargetype" value="
+                                        @if($claim ?? '')
+                                            {{$claim->charge_type}}
+                                        @endif" required>
+                                        <option hidden disabled value="" 
+                                            @if($claim ?? '') 
+                                                @if($claim->charge_type=="") 
+                                                    selected 
+                                                @endif 
+                                            @else 
+                                                selected
+                                            @endif>Select Charge Type
+                                        </option>
+                                        <option value="Cost Center" 
+                                            @if($claim ?? '') 
+                                                @if($claim->charge_type=="Cost Center")
+                                                    selected
+                                                @endif 
+                                            @endif>Cost Center</option>
+                                        <option value="Project" 
+                                            @if($claim ?? '') 
+                                                @if($claim->charge_type=="Project") 
+                                                    selected 
+                                                @endif 
+                                            @endif>
+                                            Project
+                                        </option>
+                                    </select> 
+                                </div>
+                                @if($claim ?? '')
+                                    <div id="costcenter" 
+                                        @if($claim->charge_type!="Cost Center") 
+                                            style="display: none" 
+                                        @endif>
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <label>Charging:</label>
+                                            </div>
+                                            <div class="col-xs-9">
+                                                <select name="charging" id="charging" class="forminput" 
+                                                    @if($claim->charge_type=="Cost Center") 
+                                                        required 
+                                                    @endif>
+                                                    <option value="ATAC07">ATAC07</option>
+                                                </select> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="project" 
+                                        @if($claim->charge_type!="Project")
+                                            style="display: none" 
+                                        @endif>
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <label>Type:</label>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <select name="type" id="type" class="forminput" 
+                                                    @if($claim->charge_type=="Project") 
+                                                        required 
+                                                    @endif>
+                                                    <option value="CUST23234">CUST23234</option>
+                                                </select> 
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <label>Header:</label>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <select name="header" id="header" class="forminput" 
+                                                    @if($claim->charge_type=="Project")
+                                                        required
+                                                    @endif>
+                                                    <option value="PRJ123124">PRJ123124</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <label>Code:</label>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <select name="code" id="code" class="forminput" 
+                                                    @if($claim->charge_type=="Project")
+                                                        required
+                                                    @endif>
+                                                    <option value="PRJ123124">PRJ123124</option>
+                                                </select> 
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <label>Activity:</label>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <select name="activity" id="activity" class="forminput" 
+                                                    @if($claim->charge_type=="Project") 
+                                                        required
+                                                    @endif>
+                                                    <option value="PRJ123124">PRJ123124</option>
+                                                </select> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top: -10px">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <label for="inputremark">Justification:</label>
+                                </div>
+                                <div class="col-xs-9">
+                                    <textarea class="forminput" rows = "5" cols = "60" id="inputremark" name="inputremark" placeholder="Write justification" required>
+                                        @if($claim ?? '') 
+                                            {{$claim->justification}} 
+                                        @endif
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="text-center">
+                    <a href="{{route('ot.list')}}"><button type="button" class="btn btn-primary" style="display: inline"><i class="fas fa-arrow-left"></i> BACK</button></a>
+                    <button type="button" id="btn-save" class="btn btn-primary" style="display: inline"><i class="fas fa-save"></i> SAVE</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-share-square"></i> SUBMIT</button>
+                </div>
+            @endif
         </form>
-        @if(($c ?? '')||($d ?? ''))
-        <br>
-        @endif
         <p><b>ACTION LOG</b></p>
         <table class="table table-bordered">
             <thead>
@@ -314,7 +466,7 @@
                         @if(count($claim->log)==0)
                             <tr class="text-center"><td colspan="3"><i>Not Available</i></td></tr>
                         @else
-                            @foreach($otlog as $singleuser)
+                            @foreach($claim->log as $singleuser)
                             <tr>
                                 <td>{{$singleuser->created_at}}</td>
                                 <td>{{$singleuser->name->name}}</td>
@@ -322,27 +474,33 @@
                             </tr>
                             @endforeach
                         @endif
-                    @elseif($draft ?? '')
-                        <tr>
-                            <td>{{$draft[4]}}</td>
-                            <td>{{$draft[7]}}</td>
-                            <td>Created draft {{$draft[0]}}</td>
-                        </tr>
                     @else
                         <tr class="text-center"><td colspan="3"><i>Not Available</i></td></tr>
                     @endif
+                @elseif($draft ?? '')
+                    <tr>
+                        <td>{{$draft[4]}}</td>
+                        <td>{{$draft[7]}}</td>
+                        <td>Created draft {{$draft[0]}}</td>
+                    </tr>
                 @else   
                     <tr class="text-center"><td colspan="3"><i>Not Available</i></td></tr>
                 @endif
             </tbody>
         </table>
-        @if($claim ?? '')
-            @if(!(in_array($claim->status, $array = array("D1", "D2", "Q1", "Q2"))))
+        @empty($claim ?? '')
+            @if(!($d ?? ''))
                 <div class="text-center">
                     <a href="{{route('ot.list')}}"><button type="button" class="btn btn-primary" style="display: inline"><i class="fas fa-arrow-left"></i> BACK</button></a>
                 </div>
             @endif
-        @endif
+        @else
+            @if(!(($c ?? '')||($d ?? '')||($q ?? '')))
+                <div class="text-center">
+                    <a href="{{route('ot.list')}}"><button type="button" class="btn btn-primary" style="display: inline"><i class="fas fa-arrow-left"></i> BACK</button></a>
+                </div>
+            @endif
+        @endempty
     </div>
 </div>
 @stop
@@ -355,6 +513,7 @@
 
     var add = true; //flag when click addtime button
     var checker = true; //since bootstrap timepicker do onchange twice
+    var submit = false; //check validation before adding new time
     //set min and max date
     var today = new Date();
     var m = today.getMonth()+1;
@@ -406,9 +565,9 @@
 
     @if(($c ?? '')||($d ?? '')||($q ?? ''))
         //check start time & end time
-        function killview(i, m, t, s, e){
+        function killview(i, m, s, e){
             alert(m);
-            if(t){
+            if(i!=0){
                 $("#inputstart-"+i).val(s);
                 $("#inputend-"+i).val(e);
             }else{
@@ -460,6 +619,14 @@
             return function(){
                 var clock_in = $("#inputstart-"+i).data('clock_in');
                 var clock_out = $("#inputend-"+i).data('clock_out');
+                if(i!=0){
+                    if($("#inputstart-"+i).val()==""){
+                        $("#inputstart-"+i).val(clock_in);
+                    }else if($("#inputend-"+i).val()==""){
+                        $("#inputend-"+i).val(clock_out);
+                    }
+                }
+                var clocker = $("#inputstart-"+i).data('clocker');
                 if(checker){
                     if(clock_in!=""){
                         if($("#inputstart-"+i).val()==""){
@@ -501,38 +668,44 @@
                         var et = ($("#inputend-"+i).val()).split(":");
                         var end = ((parseInt(et[0]))*60)+(parseInt(et[1]));
                     }
-                    if(clock_in!=undefined){
+                    if(clocker!=undefined){
                         time = timemaster(clock_in, clock_out);
                         if(check){
                             if((time[0]<=start&&time[1]>=start)&&(time[0]<=end&&time[1]>=end)){
                                 calshowtime(i, end-start, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
                             }else{
-                                check = killview(i, "Time input must be within time range from "+clock_in+" to "+clock_out+"!", true, clock_in, clock_out);
+                                check = killview(i, "Time input must be within time range from "+clock_in+" to "+clock_out+"!", clock_in, clock_out);
                                 calshowtime(i, (parseInt($("#fixdh-"+i).text()*60)+parseInt($("#fixdm-"+i).text())), $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
                             }
                         }   
                     }else{
                         if($("#inputstart-"+i).val()!=""){
                             $("#inputend-"+i).prop('disabled', false);
-                            $("#inputend-"+i).prop('required',true)
                         }else{
                             $("#inputend-"+i).prop('disabled', true);
-                            $("#inputend-"+i).prop('required',false)
                         }
                         @if($claim ?? '')
                             @foreach($claim->detail as $singleuser)
                                 time = timemaster("{{date("H:i", strtotime($singleuser->start_time))}}", "{{date("H:i", strtotime($singleuser->end_time))}}");
                                 if(check){
                                     if(start > time[0] && start < time[1]){
-                                        check = killview(i, "Time input cannot be within inserted time range!", false, "", "");  
-                                        calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());  
+                                        if(i!=0){
+                                            if(!("{{date("H:i", strtotime($singleuser->start_time))}}"==clock_in)){
+                                                check = killview(i, "Time input cannot be within inserted time range!", clock_in, clock_out);
+                                                calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());   
+                                            }
+                                        }
+                                        else{
+                                            check = killview(i, "Time input cannot be within inserted time range!", clock_in, clock_out);  
+                                            calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());  
+                                        }
                                     }
                                 }
                             @endforeach
                         @endif
                         if(check){
                             if(start > nstart && start < nend){
-                                check = killview(i, "Time input cannot be between {{$day[0]}} and {{$day[1]}}!", false, "", "");
+                                check = killview(i, "Time input cannot be between {{$day[0]}} and {{$day[1]}}!", clock_in, clock_out);
                                 calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
                             }
                         }
@@ -541,11 +714,17 @@
                                 @if($claim ?? '')
                                     @foreach($claim->detail as $singleuser)
                                         time = timemaster("{{date("H:i", strtotime($singleuser->start_time))}}", "{{date("H:i", strtotime($singleuser->end_time))}}");
-                                        // if((end > time[0] && end < time[1])||(time[0]<end && time[1]>start)){
                                         if(check){
                                             if((time[0]<end&&time[1]>start)){
-                                                check = killview(i, "Time input cannot be within inserted time range!", false, "", "");
-                                                calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
+                                                if(i!=0){
+                                                    if(!("{{date("H:i", strtotime($singleuser->start_time))}}"==clock_in)){
+                                                        check = killview(i, "Time input cannot be within inserted time range!", clock_in, clock_out);
+                                                        calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
+                                                    }
+                                                }else{
+                                                    check = killview(i, "Time input cannot be within inserted time range!", clock_in, clock_out);
+                                                    calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
+                                                }
                                             }
                                         }
                                     @endforeach
@@ -556,11 +735,20 @@
                                         calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
                                     }else{
                                         calshowtime(i, end-start, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
+                                        // if(i!=0){
+                                        //     $("#formchange").val("yes");
+                                        //     $("#formautosave").val("yes");
+                                        //     $("#formsubmit").submit();
+                                        // }
                                     }
                                 }
                             }else{
                                 alert("End time must be more than "+sh+":"+sm+me+"!");
-                                $("#inputend-"+i).val("");
+                                if(i==0){
+                                    $("#inputend-"+i).val("");
+                                }else{
+                                    $("#inputend-"+i).val(clock_out);
+                                }
                             }
                         }
                     } 
@@ -572,7 +760,7 @@
         function checkbox(i){
             return function(){
                 if ($('#inputcheck-'+i).is(':checked')){
-                    calshowtime(0, (parseInt($("#olddh-"+i).text()*60)+parseInt($("#olddm-"+i).text())), 0, 0, $("#oldth").text(), $("#oldtm").text());
+                    calshowtime(i, (parseInt($("#olddh-"+i).text()*60)+parseInt($("#olddm-"+i).text())), 0, 0, $("#oldth").text(), $("#oldtm").text());
                 }else{
                     nhm = showtime((parseInt($("#oldth").text()*60)+parseInt($("#oldtm").text()))-(parseInt($("#olddh-"+i).text()*60)+parseInt($("#olddm-"+i).text())));
                 $("#oldth").text(nhm[0]);
@@ -596,9 +784,11 @@
         //when click add time
         $("#add").on('click', function(){
             if(add){
+                $("#formnew").val("new");
                 $('#addform').css("display", "table-row");
                 $("#inputnew").val("new");
                 $("#inputstart-0").prop('required',true)
+                $("#inputend-0").prop('required',true)
                 $("#inputremark-0").prop('required',true);
                 calshowtime(0, (parseInt($("#olddh-0").text()*60)+parseInt($("#olddm-0").text())), 0, 0, $("#oldth").text(), $("#oldtm").text());
                 $('#nodata').css("display","none");
@@ -610,26 +800,45 @@
         
         //when cancel add time
         $("#cancel").on('click', function(){
-            if(add){
-                $('#nodata').css("display","table-row");
-            }else{
+            if(!(add)){
+                $("#formnew").val("no");
                 $('#addform').css("display", "none");
-                $("#inputnew").val("");
                 $("#inputstart-0").prop('required',false)
+                $("#inputend-0").prop('required',false)
                 $("#inputremark-0").prop('required',false);
                 nhm = showtime((parseInt($("#oldth").text()*60)+parseInt($("#oldtm").text()))-(parseInt($("#olddh-0").text()*60)+parseInt($("#olddm-0").text())));
                 $("#oldth").text(nhm[0]);
                 $("#oldtm").text(nhm[1]);
                 $("#showtime").text(nhm[0]+"h "+nhm[1]+"m");
+                $('#nodata').css("display","table-row");
                 add=true;  
             }
         });
     @endif
 
+    //when adding new time
+    $("#btn-add").on('click', function(){
+        for(i=0; i<3;i++){
+            if($('.check-'+i).get(0).checkValidity()==false){
+                // $('.check-2').get(0).reportValidity();
+                $('.check-'+i).get(0).reportValidity();
+                submit = false;
+            }else{
+                submit = true;
+            }
+        }
+        if(submit){
+            $("#formadd").val("yes");
+            $("#formsubmit").val("yes");
+            $("#form").submit();
+        }
+    });     
 
-    $("#timepicker1").change(function(){
-    });
-    
+    // $("form .forminput").change(function(){
+    //     $("#formchange").val("yes");
+    //     $("#formautosave").val("yes");
+    //     $("#formsubmit").submit();
+    // });    
 </script>
 @stop
            

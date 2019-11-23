@@ -23,11 +23,11 @@ class OvertimeController extends Controller{
         // dd($req->session()->get('claim'));
         if($req->session()->get('claim')!=null){
             $day = UserHelper::CheckDay($req->user()->id, $req->session()->get('claim')->date);
-            return view('staff.otform', ['draft' =>[], 'claim' => $req->session()->get('claim'), 'day' => $day]);
+            return view('staff.otform', ['draft' =>[], 'claim' => $req->session()->get('claim'), 'day' => $day, 'draftform' =>  $req->session()->get('draftform')]);
         }else if($req->session()->get('draft')!=null){
             $draft = $req->session()->get('draft');
             $day = UserHelper::CheckDay($req->user()->id, date('Y-m-d', strtotime($draft[6])));
-            return view('staff.otform', ['draft' => $req->session()->get('draft'), 'day' => $day]);
+            return view('staff.otform', ['draft' => $req->session()->get('draft'), 'day' => $day, 'draftform' =>  $req->session()->get('draftform')]);
         }else{
             return view('staff.otform', []);
         }
@@ -117,8 +117,9 @@ class OvertimeController extends Controller{
         $updatemonth->minute = ((($claimtime->hour*60+$claimtime->minute)-($claim->total_hour*60+$claim->total_minute))%60);
         $updatemonth->save();
         OvertimeLog::where('ot_id',$req->delid)->delete();
+        OvertimeDetail::where('ot_id',$req->delid)->delete();
         Overtime::find($req->delid)->delete();
-        Session::put(['draft' => [], 'claim' => [], 'claimtime' => [], 'otlist' => []]);
+        Session::put(['draft' => [], 'claim' => [], 'draftform' => []]);
         return redirect(route('ot.list',[],false))->with([
             'feedback' => true,
             'feedback_text' => "Successfully deleted claim ".$claim->refno,
@@ -132,7 +133,7 @@ class OvertimeController extends Controller{
     }
 
     public function formdate(Request $req){
-        Session::put(['draft' => []]);        
+        Session::put(['draft' => [], 'draftform' => []]);  
         $claim = Overtime::where('user_id', $req->user()->id)->where('date', $req->inputdate)->first();
         if(empty($claim)){
             $claimdate = $req->inputdate;
@@ -189,6 +190,7 @@ class OvertimeController extends Controller{
                     $updatemonth->save();
                     $updateclaim->save();
                 }
+                $execute = UserHelper::LogOT($claim->id, $req->user()->id, "Created draft for ".$claim->refno);
                 $claim = Overtime::where('user_id', $req->user()->id)->where('date', $req->inputdate)->first();
                 Session::put(['draft' => []]);
             }else{
@@ -205,6 +207,51 @@ class OvertimeController extends Controller{
         return redirect(route('ot.form',[],false));
     }
     
+    public function formsubmit(Request $req){
+        $claim = Overtime::where('id', $req->inputid)->first();
+        if($req->formnew=="new"){
+            if(($req->inputstartnew!="")&&($req->inputendnew!="")&&($req->inputremarknew!="")){
+                $dif = (strtotime($req->inputendnew) - strtotime($req->inputstartnew))/60;
+                $hour = (int) ($dif/60);
+                $minute = $dif%60;
+                $newdetail = new OvertimeDetail;
+                $newdetail->ot_id = $req->inputid;
+                $newdetail->start_time = $claim->date." ".$req->inputstartnew.":00";
+                $newdetail->end_time = $claim->date." ".$req->inputendnew.":00";
+                $newdetail->hour = $hour;
+                $newdetail->minute = $minute;
+                $newdetail->checked = "X";
+                $pay = UserHelper::CalOT($req->user()->salary, $hour, $minute); 
+                $newdetail->amount = $pay;
+                $newdetail->justification = $req->inputremarknew;
+                $updatemonth = OvertimeMonth::find($claim->month_id);
+                $totaltime = (($updatemonth->hour*60)+$updatemonth->minute)+(($hour*60)+$minute);
+                $updatemonth->hour = (int)($totaltime/60);
+                $updatemonth->minute = ($totaltime%60);
+                $updateclaim = Overtime::find($req->inputid);
+                $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)+(($hour*60)+$minute);
+                $updateclaim->total_hour = (int)($totaltime/60);
+                $updateclaim->total_minute = ($totaltime%60);
+                $updateclaim->amount = $updateclaim->amount + $pay;
+                $newdetail->save();
+                $updatemonth->save();
+                $updateclaim->save();
+            }else{
+                $draftform = [$req->inputstartnew, $req->inputendnew, $req->inputremarknew];
+                Session::put(['draftform' => $draftform]);
+            }
+        }
+        $claim = Overtime::where('id', $req->inputid)->first();
+        Session::put(['claim' => $claim]);
+        if($req->formadd){ //if add only
+            return redirect(route('ot.form',[],false))->with([
+                'feedback' => true,
+                'feedback_text' => "Successfully added a new time!",
+                'feedback_type' => "success"
+            ]);
+        }
+    }
+
     public function formadd(Request $req){
         if($req->inputclock!="na"){
             $time = explode("/", $req->inputclock);
