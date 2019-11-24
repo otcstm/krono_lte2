@@ -900,7 +900,7 @@
                 if(whensubmit){
                     if(add){
                         Swal.fire({
-                            title: 'Are you sure?',
+                            title: 'Are you sure to submit form?',
                             text: "I understand and agree this to claim. If deemed false I can be taken to disciplinary action.",
                             icon: 'warning',
                             showCancelButton: true,

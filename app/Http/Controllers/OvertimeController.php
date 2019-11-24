@@ -23,11 +23,11 @@ class OvertimeController extends Controller{
         // dd($req->session()->get('claim'));
         if($req->session()->get('claim')!=null){
             $day = UserHelper::CheckDay($req->user()->id, $req->session()->get('claim')->date);
-            return view('staff.otform', ['draft' =>[], 'claim' => $req->session()->get('claim'), 'day' => $day, 'draftform' =>  $req->session()->get('draftform')]);
+            return view('staff.otform', ['draft' =>[], 'claim' => $req->session()->get('claim'), 'day' => $day]);
         }else if($req->session()->get('draft')!=null){
             $draft = $req->session()->get('draft');
             $day = UserHelper::CheckDay($req->user()->id, date('Y-m-d', strtotime($draft[6])));
-            return view('staff.otform', ['draft' => $req->session()->get('draft'), 'day' => $day, 'draftform' =>  $req->session()->get('draftform')]);
+            return view('staff.otform', ['draft' => $req->session()->get('draft'), 'day' => $day]);
         }else{
             return view('staff.otform', []);
         }
@@ -41,19 +41,59 @@ class OvertimeController extends Controller{
 
     public function remove(Request $req){
         $claim = Overtime::where('id', $req->delid)->first();
-        $claimtime = OvertimeMonth::where('id', $claim->month_id)->first();
         $updatemonth = OvertimeMonth::find($claim->month_id);
-        $updatemonth->hour = ((int)((($claimtime->hour*60+$claimtime->minute)-($claim->total_hour*60+$claim->total_minute))/60));
-        $updatemonth->minute = ((($claimtime->hour*60+$claimtime->minute)-($claim->total_hour*60+$claim->total_minute))%60);
+        $totaltime = (($updatemonth->hour*60)+$updatemonth->minute)-((($claim->hour)*60)+$claim->minute);
+        $updatemonth->hour = (int)($totaltime/60);
+        $updatemonth->minute = ($totaltime%60);
         $updatemonth->save();
         OvertimeLog::where('ot_id',$req->delid)->delete();
         OvertimeDetail::where('ot_id',$req->delid)->delete();
         Overtime::find($req->delid)->delete();
-        Session::put(['draft' => [], 'claim' => [], 'draftform' => []]);
+        Session::put(['draft' => [], 'claim' => []]);
         return redirect(route('ot.list',[],false))->with([
             'feedback' => true,
             'feedback_text' => "Successfully deleted claim ".$claim->refno,
             'feedback_type' => "warning"
+        ]);
+    }
+
+    public function submit(Request $req){
+        $id = explode(" ", $req->submitid);
+        for($i = 0; $i<count($id); $i++){
+            $updateclaim = Overtime::find($id[$i]);
+            $execute = UserHelper::LogOT($id[$i], $req->user()->id, "Submitted ".$updateclaim->refno);   
+            if($updateclaim->verifier_id==null){
+                $updateclaim->status = 'PA';
+            }else{
+                $updateclaim->status = 'PV';
+            }
+            $updateclaim->save();
+        }
+        return redirect(route('ot.list',[],false))->with([
+            'feedback' => true,
+            'feedback_text' => "Successfully submitted claim!",
+            'feedback_type' => "success"
+        ]);
+
+        $claim = Overtime::where('id', $req->delid)->first();
+        $updatemonth = OvertimeMonth::find($claim->month_id);
+        $totaltime = (($updatemonth->hour*60)+$updatemonth->minute)+((($claim->hour)*60)+$claim->minute);
+        $updatemonth->hour = (int)($totaltime/60);
+        $updatemonth->minute = ($totaltime%60);
+        $updatemonth->save();
+        Overtime::find($req->delid)->delete();
+        Session::put(['draft' => [], 'claim' => []]);
+
+        if($updateclaim->verifier_id==null){
+            $updateclaim->status = 'PA';
+        }else{
+            $updateclaim->status = 'PV';
+        }
+        $updateclaim->save();
+        return redirect(route('ot.list',[],false))->with([
+            'feedback' => true,
+            'feedback_text' => "Successfully submitted claim!",
+            'feedback_type' => "success"
         ]);
     }
 
@@ -63,7 +103,7 @@ class OvertimeController extends Controller{
     }
 
     public function formdate(Request $req){
-        Session::put(['draft' => [], 'draftform' => []]);  
+        Session::put(['draft' => []]);  
         $claim = Overtime::where('user_id', $req->user()->id)->where('date', $req->inputdate)->first();
         if(empty($claim)){
             $claimdate = $req->inputdate;
@@ -196,7 +236,7 @@ class OvertimeController extends Controller{
                 if(($req->inputstart[$i]!="")&&$req->inputend[$i]!=""){
                     
                     $operation = null;
-                    if(($req->inputstart[$i]=="")||($req->inputstart[$i]!="")||($req->inputend[$i]!="")){
+                    if(($req->inputremark[$i]=="")||($req->inputstart[$i]=="")||($req->inputend[$i]=="")){
                         $status = false;
                     }
                     $dif = (strtotime($req->inputend[$i]) - strtotime($req->inputstart[$i]))/60;
@@ -248,16 +288,14 @@ class OvertimeController extends Controller{
                 }
             }
         }
-        if(($req->charge_type=="")||($req->inputjustification!="")){
+        
+        if(($req->chargetype=="")||($req->inputjustification=="")){
             $status = false;
         }
+        
+        // dd($status);
         $updateclaim = Overtime::find($claim->id);
         if($status){
-            if($updateclaim->verifier_id==null){
-                $updateclaim->status = 'PA';
-            }else{
-                $updateclaim->status = 'PV';
-            }
             if($updateclaim->status=="D1"){
                 $updateclaim->status = 'D2';
             }elseif($updateclaim->status=="Q1"){
@@ -272,6 +310,14 @@ class OvertimeController extends Controller{
         }
         $updateclaim->charge_type = $req->chargetype;
         $updateclaim->justification = $req->inputjustification;
+        if($req->formsubmit=="yes"){
+            if($updateclaim->verifier_id==null){
+                $updateclaim->status = 'PA';
+            }else{
+                $updateclaim->status = 'PV';
+            }
+        }
+
         $updateclaim->save();
         // dd($claimdetail[0]);
 
@@ -308,18 +354,11 @@ class OvertimeController extends Controller{
         }
     }
 
-
     public function formdelete(Request $req){
-
         $claimdetail = OvertimeDetail::where('id', $req->delid)->first();
-        // dd($claimdetail);
         $claim =  Overtime::where('id', $claimdetail->ot_id)->first();
         $start = $claim->start_time;
         $end = $claim->end_time;
-        // $dif = (strtotime($claim->end_time) - strtotime($claim->start_time))/60;
-        // $hour = (int) ($dif/60);
-        // $minute = $dif%60;
-        $updatedetail = Overtime::find($claim->id);
         $updatemonth = OvertimeMonth::find($claim->month_id);
         $updateclaim = Overtime::find($claim->id);
         $totaltime = (($updatemonth->hour*60)+$updatemonth->minute)-((($claimdetail->hour)*60)+$claimdetail->minute);
@@ -334,7 +373,6 @@ class OvertimeController extends Controller{
         if(count($claimdetail)==0){
             $updateclaim->status = 'D1';
         }
-        $updatedetail->save();
         $updatemonth->save();
         $updateclaim->save();
         $claim = Overtime::where('id', $claim->id)->first();

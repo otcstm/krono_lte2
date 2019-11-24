@@ -166,12 +166,12 @@
                                                                                     </tr>
                                                                                 <thead>
                                                                                 <tbody>
-                                                                                    @php($no = 0)
+                                                                                    @php($ni = 0)
                                                                                     @foreach($singleuser->detail as $details)
                                                                                         @if($details->checked=="Y")
-                                                                                            @php(++$no)
+                                                                                            @php(++$ni)
                                                                                             <tr>
-                                                                                                <td>{{$no}}</td>
+                                                                                                <td>{{$ni}}</td>
                                                                                                 <td>
                                                                                                 @if($details->clock_in!="")
                                                                                                     {{date('H:i', strtotime($details->clock_in))}} - {{date('H:i', strtotime($details->clock_out))}} 
