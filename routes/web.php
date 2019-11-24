@@ -98,7 +98,6 @@ Route::group(['middleware' => ['auth']], function () {
 
   //OT activity - User
   Route::get('/overtime', 'OvertimeController@list')->name('ot.list');  
-  Route::post('/overtime/save', 'OvertimeController@save')->name('ot.save'); 
   Route::post('/overtime/submit', 'OvertimeController@submit')->name('ot.submit');
   Route::post('/overtime/update', 'OvertimeController@update')->name('ot.update');
   Route::post('/overtime/remove', 'OvertimeController@remove')->name('ot.remove');
@@ -108,7 +107,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/overtime/form/new', 'OvertimeController@formnew')->name('ot.formnew');
   Route::post('/overtime/form/date', 'OvertimeController@formdate')->name('ot.formdate'); 
   Route::post('/overtime/form/submit', 'OvertimeController@formsubmit')->name('ot.formsubmit');
-  // Route::post('/overtime/form/delete', 'OvertimeController@formdelete')->name('ot.formdelete');
+  Route::post('/overtime/form/delete', 'OvertimeController@formdelete')->name('ot.formdelete');
   
   //OT activity - Approver
   Route::get('/overtime/approval', 'OvertimeController@approval')->name('ot.approval');

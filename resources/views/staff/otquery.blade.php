@@ -94,7 +94,13 @@
                                                     <td>{{ $singleuser->total_hour }}h {{ $singleuser->total_minute }}m</td>
                                                     <td>{{$singleuser->charge_type}}</td>
                                                     <td>RM{{$singleuser->amount}}</td>
-                                                    <td>{{ $singleuser->status }}</td>
+                                                    <td>
+                                                        @if($singleuser->status=="PA")
+                                                            <p>Pending Approval</p>
+                                                        @elseif($singleuser->status=="PV")
+                                                            <p>Pending Verification</p>
+                                                        @endif
+                                                    </td>
                                                     <td>
                                                         <select name="inputaction[]" id="action-{{$no}}">
                                                             <option selected value="">Select Action</option>
@@ -109,7 +115,7 @@
                                                 <tr>
                                                     <td colspan="8" style="padding: 0">
                                                         <div id="collapsible-{{$no}}" class="collapse panel panel-default" style="margin-bottom: 0 !important"> 
-                                                            <div class="panel-group" id="accordion-{{$no}}">
+                                                            <div class="panel-group">
                                                                 <div class="panel panel-in">
                                                                     <a style="color: #000" data-toggle="collapse" data-parent="#accordion-{{$no}}" href="#collapse-{{$no}}-1">
                                                                         <div class="panel-heading panel-head">
@@ -120,13 +126,19 @@
                                                                         <div class="panel-body">
                                                                             <div class="row">
                                                                                 <div class="col-xs-6">
-                                                                                    <p>Reference No: {{$singleuser->date}}</p>
+                                                                                    <p>Date: {{$singleuser->date}}</p>
                                                                                     <p>Reference No: {{$singleuser->refno}}</p>
                                                                                     <p>State Calendar: </p>
                                                                                     <p>Justification: {{$singleuser->justification}}
                                                                                 </div>
                                                                                 <div class="col-xs-6">
-                                                                                    <p>Status: {{$singleuser->status}}</p>
+                                                                                    <p>Status:
+                                                                                    @if ($singleuser->status=="PA")
+                                                                                        Pending Approval 
+                                                                                    @elseif ($singleuser->status=="PV")
+                                                                                        Pending Verification  
+                                                                                    @endif
+                                                                                    </p>
                                                                                     <p>Verifier: {{$singleuser->verifier->name}}</p>
                                                                                     <p>Approver: {{$singleuser->approver->name}}</p>
                                                                                     <p>Charging type: {{$singleuser->charge_type}}
@@ -143,7 +155,7 @@
                                                                     </a>
                                                                     <div id="collapse-{{$no}}-2" class="panel-collapse collapse">
                                                                         <div class="panel-body">
-                                                                            <table class="table table-bordered">
+                                                                            <table id="time" class="table table-bordered">
                                                                                 <thead>
                                                                                     <tr class="info">
                                                                                         <th width="2%">No</th>
@@ -154,14 +166,24 @@
                                                                                     </tr>
                                                                                 <thead>
                                                                                 <tbody>
-                                                                                    @foreach($singleuser->detail as $n=>$details)
-                                                                                        <tr>
-                                                                                            <td>{{++$n }}</td>
-                                                                                            <td></td>
-                                                                                            <td>{{ date('H:i', strtotime($details->start_time)) }} - {{ date('H:i', strtotime($details->end_time)) }}</td>
-                                                                                            <td>{{ $details->hour }}h {{ $details->minute }}m</td>
-                                                                                            <td>{{ $details->justification }}</td>
-                                                                                        </tr>
+                                                                                    @php($no = 0)
+                                                                                    @foreach($singleuser->detail as $details)
+                                                                                        @if($details->checked=="Y")
+                                                                                            @php(++$no)
+                                                                                            <tr>
+                                                                                                <td>{{$no}}</td>
+                                                                                                <td>
+                                                                                                @if($details->clock_in!="")
+                                                                                                    {{date('H:i', strtotime($details->clock_in))}} - {{date('H:i', strtotime($details->clock_out))}} 
+                                                                                                @else 
+                                                                                                    Manual 
+                                                                                                @endif
+                                                                                                </td>
+                                                                                                <td>{{ date('H:i', strtotime($details->start_time)) }} - {{ date('H:i', strtotime($details->end_time)) }}</td>
+                                                                                                <td>{{ $details->hour }}h {{ $details->minute }}m</td>
+                                                                                                <td>{{ $details->justification }}</td>
+                                                                                            </tr>
+                                                                                        @endif
                                                                                     @endforeach
                                                                                 </tbody>
                                                                             </table>
@@ -268,6 +290,19 @@
             "searching": false,
             "bSort": false
         });
+
+        // var t = $('#time').DataTable({
+        //     "responsive": "true",
+        //     // "order" : [[1, "asc"]],
+        //     "searching": false,
+        //     "bSort": false
+        // });
+
+        // t.on( 'order.dt search.dt', function () {
+        //     t.column(1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+        //         cell.innerHTML = i+1;
+        //     });
+        // }).draw();
     });
     
     function remark(i){
