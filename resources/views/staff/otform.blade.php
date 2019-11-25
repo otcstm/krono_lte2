@@ -50,6 +50,7 @@
                         @elseif($draft ?? '')
                             "{{date('Y-m-d', strtotime($draft[6]))}}"
                         @endif required>
+                        <button type="button" id="btn-date" class="btn btn-primary" style="padding: 5px 5px 0; margin: 0; margin-left: 5px"><i class="fas fa-share-square"></i></button>
                     </p>
                 </form>
                 <div>
@@ -206,7 +207,7 @@
                                     @if(($c ?? '')||($d ?? '')||($q ?? ''))
                                         @php($s = true)
                                     @else
-                                        @if($singleuser->checked=="X")
+                                        @if($singleuser->checked=="Y")
                                             @php($s = true)
                                         @endif
                                     @endif
@@ -218,6 +219,8 @@
                                                 @endif >
                                                 <input type="text" class="hidden" id="inputcheckdata-{{$no}}" name="inputcheck[]" value="{{$singleuser->checked}}">
                                             </td>
+                                        @else
+                                            @php(++$no)
                                         @endif
                                         <td>{{$no}}</td>
                                         <td>
@@ -437,7 +440,7 @@
             <input type="text" id="delid" name="delid" value="">
         </form>
         <p><b>ACTION LOG</b></p>
-        <table class="table table-bordered">
+        <table id="TLog" class="table table-bordered">
             <thead>
                 <tr class="info">
                     <th width="10%">Date</th>
@@ -493,8 +496,24 @@
 @section('js')
 <script type="text/javascript">
     @if(session()->has('feedback'))
-        $("#alert").css("display","block")
+        $("#alert").css("display","block");
     @endif
+
+    @if(session()->has('error'))
+    Swal.fire(
+        'Failed to submit!',
+        'Your submitted claim time has exceeded eligible claim time',
+        'error'
+    )
+    @endif
+
+        // $('#TLog').DataTable({
+        //     "searching": false,
+        //     "bSort": false,
+        //     "responsive": "true",
+        //     "bLengthChange": false,
+        //     "order" : [[0, "asc"]],
+        // });
 
     var add = true; //flag when click addtime button
     var checker = true; //since bootstrap timepicker do onchange twice
@@ -502,6 +521,7 @@
     var whensubmit = true;
     //set min and max date
     var today = new Date();
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     var m = today.getMonth()+1;
     var y = today.getFullYear();
     var d = today.getDate().toString();
@@ -525,29 +545,44 @@
     $("#inputdate").attr("max", y+"-"+m+"-"+d);
 
     // //when date input is changed
-    $("#inputdate").change(function(){
-        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    // $("#inputdate").change(function(){
+    $("#btn-date").on('click', function(){
+        
         if(
             ((Date.parse($("#inputdate").val()))<=Date.parse(monthNames[m-1]+" "+d+", "+y+" 23:59:59"))&&
             ((Date.parse($("#inputdate").val()))>=Date.parse(monthNames[minm-1]+" 01, "+miny+" 00:00:00"))
             ){
             $("#formdate").submit();
-        }else{
-            alert("Claim date must be between "+miny+"-"+minm+"-01 and "+y+"-"+m+"-"+d+"!");
+        }
+    });
+        
+    $("#inputdate").change(function(){
+        if(
+            !(((Date.parse($("#inputdate").val()))<=Date.parse(monthNames[m-1]+" "+d+", "+y+" 23:59:59"))&&
+            ((Date.parse($("#inputdate").val()))>=Date.parse(monthNames[minm-1]+" 01, "+miny+" 00:00:00")))
+            ){
+            Swal.fire(
+                'Invalid date input!',
+                "Claim date must be between "+miny+"-"+minm+"-01 and "+y+"-"+m+"-"+d+"!",
+                'error'
+            )
+            // alert("Claim date must be between "+miny+"-"+minm+"-01 and "+y+"-"+m+"-"+d+"!");
             @if($show ?? '')
                 $("#inputdate").val("{{$claim->date}}");
             @else
                 $("#inputdate").val("");
             @endif
-        }
-    });
+            }
+        });
 
     //apply timepicker plugin to all time input
     $('.timepicker').timepicker({
         minuteStep: 1,
+        maxHours: 24,
         showMeridian: false,
         defaultTime: false
     });
+
 
     @if(($c ?? '')||($d ?? '')||($q ?? ''))
         //check start time & end time
@@ -613,6 +648,7 @@
                 var clock_out = $("#inputend-"+i).data('clock_out');
                 var start_time = $("#inputstart-"+i).data('start_time');
                 var end_time = $("#inputend-"+i).data('end_time');
+                // alert($("#inputend-"+i).val());
                 if(i!=0){
                     if($("#inputstart-"+i).val()==""){
                         $("#inputstart-"+i).val(start_time);
@@ -640,13 +676,6 @@
                     var mxt = max.split(":");
                     var h = parseInt(st[0]);
                     var m = parseInt(st[1]);
-                    var me = "AM";
-                    if(h>12){
-                        h = h-12;
-                        me = "PM"
-                    }else if(h==0){
-                        h = 12;
-                    }
                     sh = h.toString();
                     while(sh.length<2){
                         sh = "0"+sh;
@@ -655,11 +684,32 @@
                     while(sm.length<2){
                         sm = "0"+sm;
                     }
+                    // var me = "AM";
+                    // if(h>12){
+                    //     h = h-12;
+                    //     me = "PM"
+                    // }else if(h==0){
+                    //     h = 12;
+                    // }
+                    // sh = h.toString();
+                    // while(sh.length<2){
+                    //     sh = "0"+sh;
+                    // }
+                    // sm = m.toString();
+                    // while(sm.length<2){
+                    //     sm = "0"+sm;
+                    // }
                     var start = ((parseInt(st[0]))*60)+(parseInt(st[1]));
                     var nstart = ((parseInt(mt[0]))*60)+(parseInt(mt[1]));
                     var nend = ((parseInt(mxt[0]))*60)+(parseInt(mxt[1]));
                     if($("#inputend-"+i).val()!=""){
-                        var et = ($("#inputend-"+i).val()).split(":");
+                        if($("#inputend-"+i).val()=="0:00"){
+                            var entime = "24:00"
+                        }else{
+                            var entime = $("#inputend-"+i).val();
+                        }
+                        var et = entime.split(":");
+                        // var et = ($("#inputend-"+i).val()).split(":");
                         var end = ((parseInt(et[0]))*60)+(parseInt(et[1]));
                     }
                     if(clocker!=undefined){
@@ -748,7 +798,8 @@
                                     Swal.fire({
                                         icon: 'error',
                                         title: 'Input time error',
-                                        text: "End time must be more than "+sh+":"+sm+me+"!"
+                                        text: "End time must be more than "+sh+":"+sm+"!"
+                                        // text: "End time must be more than "+sh+":"+sm+me+"!"
                                     })
                                     // if(i==0){
                                     $("#inputend-"+i).val("");

@@ -124,6 +124,15 @@
 
 @section('js')
 <script type="text/javascript">
+
+@if(session()->has('error'))
+    Swal.fire(
+        'Failed to submit!',
+        'Your submitted claim time has exceeded eligible claim time',
+        'error'
+    )
+@endif
+
 $(document).ready(function() {
     var t = $('#tOTList').DataTable({
         "responsive": "true",

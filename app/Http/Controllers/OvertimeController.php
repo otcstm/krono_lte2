@@ -42,7 +42,7 @@ class OvertimeController extends Controller{
     public function remove(Request $req){
         $claim = Overtime::where('id', $req->delid)->first();
         $updatemonth = OvertimeMonth::find($claim->month_id);
-        $totaltime = (($updatemonth->hour*60)+$updatemonth->minute)-((($claim->hour)*60)+$claim->minute);
+        $totaltime = (($updatemonth->hour*60)+$updatemonth->minute)-((($claim->total_hour)*60)+$claim->total_minute);
         $updatemonth->hour = (int)($totaltime/60);
         $updatemonth->minute = ($totaltime%60);
         $updatemonth->save();
@@ -58,43 +58,63 @@ class OvertimeController extends Controller{
     }
 
     public function submit(Request $req){
+        $submit = true;
         $id = explode(" ", $req->submitid);
         for($i = 0; $i<count($id); $i++){
-            $updateclaim = Overtime::find($id[$i]);
-            $execute = UserHelper::LogOT($id[$i], $req->user()->id, "Submitted ".$updateclaim->refno);   
-            if($updateclaim->verifier_id==null){
-                $updateclaim->status = 'PA';
-            }else{
-                $updateclaim->status = 'PV';
+            $claim = Overtime::find($id[$i]);
+            $month = OvertimeMonth::where('id', $claim->month_id)->first();
+            $totalsubmit = ($month->hour*60+$month->minute);
+            if($totalsubmit>(100*60)){
+                $submit = false;
             }
-            $updateclaim->save();
         }
-        return redirect(route('ot.list',[],false))->with([
-            'feedback' => true,
-            'feedback_text' => "Successfully submitted claim!",
-            'feedback_type' => "success"
-        ]);
-
-        $claim = Overtime::where('id', $req->delid)->first();
-        $updatemonth = OvertimeMonth::find($claim->month_id);
-        $totaltime = (($updatemonth->hour*60)+$updatemonth->minute)+((($claim->hour)*60)+$claim->minute);
-        $updatemonth->hour = (int)($totaltime/60);
-        $updatemonth->minute = ($totaltime%60);
-        $updatemonth->save();
-        Overtime::find($req->delid)->delete();
-        Session::put(['draft' => [], 'claim' => []]);
-
-        if($updateclaim->verifier_id==null){
-            $updateclaim->status = 'PA';
+        if($submit){
+            for($i = 0; $i<count($id); $i++){
+                $updateclaim = Overtime::find($id[$i]);
+                $execute = UserHelper::LogOT($id[$i], $req->user()->id, "Submitted ".$updateclaim->refno);   
+                if($updateclaim->verifier_id==null){
+                    $updateclaim->status = 'PA';
+                }else{
+                    $updateclaim->status = 'PV';
+                }
+                $updatemonth = OvertimeMonth::find($updateclaim->month_id);
+                $totalsubmit = (($updatemonth->total_hour*60)+$updatemonth->total_minute)+(($updateclaim->total_hour*60)+$updateclaim->total_minute);
+                $updatemonth->total_hour = (int)($totalsubmit/60);
+                $updatemonth->total_minute = $totalsubmit%60;
+                $updatemonth->save();
+                $updateclaim->save();
+            }
+            
+            return redirect(route('ot.list',[],false))->with([
+                'feedback' => true,
+                'feedback_text' => "Successfully submitted claim!",
+                'feedback_type' => "success"
+            ]);
         }else{
-            $updateclaim->status = 'PV';
+            return redirect(route('ot.list',[],false))->with(['error' => true]);
         }
-        $updateclaim->save();
-        return redirect(route('ot.list',[],false))->with([
-            'feedback' => true,
-            'feedback_text' => "Successfully submitted claim!",
-            'feedback_type' => "success"
-        ]);
+        
+
+        // $claim = Overtime::where('id', $req->delid)->first();
+        // $updatemonth = OvertimeMonth::find($claim->month_id);
+        // $totaltime = (($updatemonth->hour*60)+$updatemonth->minute)+((($claim->hour)*60)+$claim->minute);
+        // $updatemonth->hour = (int)($totaltime/60);
+        // $updatemonth->minute = ($totaltime%60);
+        // $updatemonth->save();
+        // Overtime::find($req->delid)->delete();
+        // Session::put(['draft' => [], 'claim' => []]);
+
+        // if($updateclaim->verifier_id==null){
+        //     $updateclaim->status = 'PA';
+        // }else{
+        //     $updateclaim->status = 'PV';
+        // }
+        // $updateclaim->save();
+        // return redirect(route('ot.list',[],false))->with([
+        //     'feedback' => true,
+        //     'feedback_text' => "Successfully submitted claim!",
+        //     'feedback_type' => "success"
+        // ]);
     }
 
     public function formnew(Request $req){
@@ -310,13 +330,13 @@ class OvertimeController extends Controller{
         }
         $updateclaim->charge_type = $req->chargetype;
         $updateclaim->justification = $req->inputjustification;
-        if($req->formsubmit=="yes"){
-            if($updateclaim->verifier_id==null){
-                $updateclaim->status = 'PA';
-            }else{
-                $updateclaim->status = 'PV';
-            }
-        }
+        // if($req->formsubmit=="yes"){
+        //     if($updateclaim->verifier_id==null){
+        //         $updateclaim->status = 'PA';
+        //     }else{
+        //         $updateclaim->status = 'PV';
+        //     }
+        // }
 
         $updateclaim->save();
         // dd($claimdetail[0]);
@@ -338,19 +358,30 @@ class OvertimeController extends Controller{
             ]);
         }
         if($req->formsubmit=="yes"){ //if submit
-            $updateclaim = Overtime::find($claim->id);
-            $execute = UserHelper::LogOT($claim->id, $req->user()->id, "Submitted ".$updateclaim->refno);   
-            if($updateclaim->verifier_id==null){
-                $updateclaim->status = 'PA';
-            }else{
-                $updateclaim->status = 'PV';
+            $month = OvertimeMonth::where('id', $claim->month_id)->first();
+            $totalsubmit = (($claim->total_hour*60)+$claim->total_minute)+(($month->total_hour*60)+$month->total_minute);
+            if($totalsubmit>(104*60)){
+                return redirect(route('ot.form',[],false))->with(['error' => true]);
             }
-            $updateclaim->save();
-            return redirect(route('ot.list',[],false))->with([
-                'feedback' => true,
-                'feedback_text' => "Successfully submitted claim!",
-                'feedback_type' => "success"
-            ]);
+            else{
+                $updatemonth = OvertimeMonth::find($month->id);
+                $updatemonth->total_hour = (int)($totalsubmit/60);
+                $updatemonth->total_minute = $totalsubmit%60;
+                $updatemonth->save();
+                $updateclaim = Overtime::find($claim->id);
+                $execute = UserHelper::LogOT($claim->id, $req->user()->id, "Submitted ".$updateclaim->refno);   
+                if($updateclaim->verifier_id==null){
+                    $updateclaim->status = 'PA';
+                }else{
+                    $updateclaim->status = 'PV';
+                }
+                $updateclaim->save();
+                return redirect(route('ot.list',[],false))->with([
+                    'feedback' => true,
+                    'feedback_text' => "Successfully submitted claim!",
+                    'feedback_type' => "success"
+                ]);
+            }
         }
     }
 
@@ -401,6 +432,13 @@ class OvertimeController extends Controller{
                 }else if($req->inputaction[$i]=="A"){
                     $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Approved ("'.$req->inputremark[$i].'")');  
                 }else if($req->inputaction[$i]=="Q2"){
+                    $updatemonth = OvertimeMonth::find($updateclaim->month_id);
+                    $totaltime = (($updatemonth->total_hour*60)+$updatemonth->total_minute) - (($updateclaim->total_hour*60)+$updateclaim->total_minute);
+                    $updatemonth->total_hour = (int)($totaltime/60);
+                    $updatemonth->total_minute = ($totaltime%60);
+                    $updatemonth->save();
+
+                    // dd($updatemonth->total_hour);
                     $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Queried with message: "'.$req->inputremark[$i].'"');
                     $updateclaim->date_expiry = date('Y-m-d', strtotime("+90 days"));  
                 }
