@@ -49,7 +49,7 @@ class User extends Authenticatable
 
     public function companyid()
     {
-        return $this->belongsTo(Company::class,'company_id')->withDefault(['company_descr' => 'NULL']);
+        return $this->belongsTo(Company::class,'company_id')->withDefault(['company_descr' => 'N/A']);
     }
 
     public function stateid()

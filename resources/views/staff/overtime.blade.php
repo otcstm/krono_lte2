@@ -3,21 +3,27 @@
 @section('title', 'Overtime List')
 
 @section('content')
-<p><a href="{{route('misc.home')}}" style="display: inline">Home</a> > OT List</p>
 <div class="panel panel-default">
     <div class="panel-heading panel-primary">OT List</div>
     <div class="panel-body">
-    
-        <div class="text-center" style="margin-bottom: 15px">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newOT">
-                CREATE NEW CLAIM
-            </button>
+        <div class="text-right" style="margin-bottom: 15px">
+            <form action="{{route('ot.formnew')}}" method="POST" style="display:inline">
+                @csrf
+                <button type="submit" class="btn btn-primary">CREATE NEW CLAIM</button>
+            </form>
         </div>
+        @if(session()->has('feedback'))
+        <div class="alert alert-{{session()->get('feedback_type')}} alert-dismissible" id="alert">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{session()->get('feedback_text')}}
+        </div>
+        @endif
         <div class="table-responsive">
             <table id="tOTList" class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>No</th>
+                        <th></th>
+                        <th></th>
                         <th>Reference No</th>
                         <th>Date time</th>
                         <th>Duration</th>
@@ -28,14 +34,15 @@
                 <tbody>
                     @foreach($otlist as $no=>$singleuser)
                     <tr>
-                        <td>{{ ++$no }}</td>
+                        <td>@if(($singleuser->status=="Draft (Complete)")||($singleuser->status=="Query"))<input type="checkbox" id="checkbox-{{$no++}}" value="{{$singleuser->id}}"> @endif</td>
+                        <td></td>
                         <td>{{ $singleuser->refno }}</td>
-                        <td>{{ $singleuser->date }}</td>
+                        <td>{{ $singleuser->date }} @foreach($singleuser->detail as $details)<br>{{date('H:i', strtotime($details->start_time)) }} - {{ date('H:i', strtotime($details->end_time))}}@endforeach</td>
                         <td>{{ $singleuser->total_hour }}h {{ $singleuser->total_minute }}m</td>
-                        <td>{{ $singleuser->status }}</td>
+                        <td>@if(($singleuser->status=="Pending Approval")||($singleuser->status=="Pending Verification"))Submitted ({{ $singleuser->status }})@else {{ $singleuser->status }} @endif @if(in_array($singleuser->status, $array = array("Draft (Incomplete)", "Draft (Complete)", "Pending Approval", "Pending Verification", "Query"))) <p style="color: red">Due: {{$singleuser->date_expiry}}</p> @endif</td>
                         <td>
-                            @if($singleuser->status=="Draft")
-                                <form action="{{route('ot.edit')}}" method="POST" style="display:inline">
+                            @if(in_array($singleuser->status, $array = array("Draft (Incomplete)", "Draft (Complete)", "Query")))
+                                <form action="{{route('ot.update')}}" method="POST" style="display:inline">
                                     @csrf
                                     <input type="text" class="hidden" id="inputid" name="inputid" value="{{$singleuser->id}}" required>
                                     <button type="submit" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button>
@@ -44,11 +51,11 @@
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             @else
-                            <form action="{{route('ot.edit')}}" method="POST" style="display:inline">
-                                    @csrf
-                                    <input type="text" class="hidden" id="inputid" name="inputid" value="{{$singleuser->id}}" required>
-                                    <button type="submit" class="btn btn-primary"><i class="fas fa-eye"></i></button>
-                                </form>
+                            <form action="{{route('ot.update')}}" method="POST" style="display:inline">
+                                @csrf
+                                <input type="text" class="hidden" id="inputid" name="inputid" value="{{$singleuser->id}}" required>
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-eye"></i></button>
+                            </form>
                             @endif
                         </td>
                     </tr>
@@ -56,31 +63,19 @@
                 </tbody>
             </table>
         </div>
-    </div>
-</div>
-
-<div id="newOT" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Create New OT Claim</h4>
-            </div>
-            <div class="modal-body">
-                <form action="{{route('ot.create')}}" method="POST">
-                    @csrf
-                    <div class="form-group">
-                        <label for="inputname">Select Date:</label>
-                        <input type="date" class="form-control" id="inputdate" name="inputdate" value="" required>
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary">CREATE</button>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">CLOSE</button>
-            </div>
+        <div id="submitbtn" class="text-center" style="display: none">
+            <form action="{{route('ot.store')}}" method="POST" onsubmit="return confirm('I understand and agree this to claim. If deemed false I can be taken to disciplinary action.')" style="display:inline">
+                @csrf
+                <input type="text" class="hidden" id="submitid" name="submitid" value="" required>
+                <input type="text" class="hidden" id="multi" name="multi" value="yes" required>
+                <button type="submit" class="btn btn-primary">SUBMIT</button>
+            </form>
+            <form action="{{route('ot.remove')}}" method="POST" onsubmit="return confirm('Are you sure you want to delete these claims?')" style="display:inline">
+                @csrf
+                <input type="text" class="hidden" id="deleteid" name="deleteid" value="" required>
+                <input type="text" class="hidden" id="multi" name="multi" value="yes" required>
+                <button type="submit" class="btn btn-danger">DELETE</button>
+            </form>
         </div>
     </div>
 </div>
@@ -95,7 +90,7 @@
             <div class="modal-body text-center">
                 <div class="glyphicon glyphicon-warning-sign" style="color: #F0AD4E; font-size: 32px;"></div>
                 <p>Are you sure you want to delete claim for date <span id="deldate"></span>?<p>
-                <form action="{{ route('ot.delete') }}" method="POST">
+                <form action="{{ route('ot.remove') }}" method="POST">
                     @csrf
                     <input type="text" class="hidden" id="delid" name="delid" value="" required>
                     <button type="submit" class="btn btn-primary">DELETE</button>
@@ -112,27 +107,16 @@
 @section('js')
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#tOTList').DataTable({
+    var t = $('#tOTList').DataTable({
         "responsive": "true",
+        "order" : [[0, "desc"]],
     });
-});
 
-$('#newOT').on('show.bs.modal', function() {
-    var dt = new Date();
-    var m = dt.getMonth()+1;
-    if(m < 10){
-        m = "0"+m;
-    }
-    d = dt.getDate().toString();
-    while(d.length<2){
-        d = "0"+d;
-    }
-    $("#inputdate").val(dt.getFullYear()+"-"+m+"-"+d);
-    $("#inputdate").attr("max", dt.getFullYear()+"-"+m+"-"+d);
-    
-
-    // $("#inputdatestart").val(dt.getFullYear()+"-"+m+"-"+dt.getDate()+"T"+dt.getHours()+":"+dt.getMinutes());
-    // $("#inputdateend").val(dt.getFullYear()+"-"+m+"-"+dt.getDate()+"T"+dt.getHours()+":"+dt.getMinutes());
+    t.on( 'order.dt search.dt', function () {
+        t.column(1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+    } ).draw();
 });
 
 $('#delOT').on('show.bs.modal', function(e) {
@@ -141,5 +125,37 @@ $('#delOT').on('show.bs.modal', function(e) {
     $("#delid").val(id);
     $("#deldate").text(date);
 })
+
+
+var show = 0;
+
+function submitval(i){
+    return function(){
+        if ($('#checkbox-'+i).is(':checked')) {
+            $("#submitid").val(function() {
+                return this.value + $('#checkbox-'+i).val()+" ";
+            });
+            $("#deleteid").val(function() {
+                return this.value + $('#checkbox-'+i).val()+" ";
+            });
+            show++;
+        }else{
+            var str = ($('#submitid').val()).replace($('#checkbox-'+i).val()+" ",'');
+            $('#submitid').val(str);
+            $('#deleteid').val(str);
+            show--;
+        }
+        if(show>0){
+            $('#submitbtn').css("display","block");
+        }else{
+            $('#submitbtn').css("display","none");
+        }
+    };
+};
+
+for(i=0; i<{{count($otlist)}}; i++) {
+    $("#checkbox-"+i).change(submitval(i));
+};
+
 </script>
 @stop

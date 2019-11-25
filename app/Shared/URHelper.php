@@ -53,7 +53,7 @@ class URHelper
         $u->persarea    = $persarea;
         $u->perssubarea = $perssubarea;
         $u->reptto = $reptto;
-        
+
 
         $u->save();
 
@@ -84,4 +84,14 @@ class URHelper
         return $ur->user_id;
 
       }
+
+      public static function getUserHistory( $persno)
+      {
+        $ur = UserRecord::where('user_id',$persno)->get();
+
+        return $ur;
+
+      }
+
+
 }

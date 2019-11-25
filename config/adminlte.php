@@ -178,6 +178,12 @@ return [
               'icon' => 'far fa-calendar-alt',
               // 'can' => 'ot-nav-menu',
           ],
+          [
+              'text' => 'paymentsch',
+              'url' => '/admin/paymentsc',
+              'icon' => 'fas fa-calendar-alt',
+              // 'can' => 'admin-nav-menu',
+          ],
         ],
       ],
       [
@@ -233,17 +239,29 @@ return [
           'submenu' => [
             [
                 'text' => 'ot_apply',
-                // 'url'  => '#applyOT',
-                'otmodal' => '',
+                'url'  => '/overtime/form',
+                'show' => '',
                 'icon' => 'fas fa-edit',
                 // 'can' => 'ot-nav-menu',
             ],
             [
-                'text' => 'ot_history',
-                'url'  => '/overtime/logs',
-                'icon' => 'fas fa-business-time',
+                'text' => 'ot_list',
+                'url'  => '/overtime',
+                'icon' => 'fas fa-edit',
                 // 'can' => 'ot-nav-menu',
             ],
+            [
+                'text' => 'ot_approve',
+                'url'  => '/overtime/approval',
+                'icon' => 'fas fa-edit',
+                // 'can' => 'ot-nav-menu',
+            ],
+            // [
+            //     'text' => 'ot_history',
+            //     'url'  => '/overtime/logs',
+            //     'icon' => 'fas fa-business-time',
+            //     // 'can' => 'ot-nav-menu',
+            // ],
 
             // [
             //     'text' => 'ot_approve',

@@ -11,6 +11,7 @@ return [
     'manage_wdays'    => 'Work Day Type',
     'admin_user_menu'   => 'User Admin Thingy',
     'manage_holiday'    => 'Manage Holiday',
+    'paymentsch' => 'Payment Schedule',
 
 
 
@@ -26,7 +27,7 @@ return [
     'ot_menu'         => 'OVERTIME',
     'ot_apply'        => 'Apply New OT',
     'ot_history'      => 'OT History',
-    'ot_approve'      => 'Approve OT',
+    'ot_approve'      => 'Approve/Verify OT',
     'ot_verify'       => 'Verify OT',
     'ot_list'         => 'List of OT',
     'staff_list'      => 'List of Staff',

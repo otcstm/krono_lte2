@@ -15,8 +15,8 @@ class URController extends Controller
         ini_set('max_execution_time', 30000); // 300 seconds = 5 minutes
         set_time_limit(0);
         if ($id == 'all') {
-            //$spData = SapPersdata::orderBy('persno')->get();
-            $spData = SapPersdata::whereNotIn('persno', User::all()->pluck('id'))->orderBy('persno')->take(5000)->get();
+            $spData = SapPersdata::orderBy('persno')->get();
+            //$spData = SapPersdata::whereNotIn('persno', User::all()->pluck('id'))->orderBy('persno')->take(5000)->get();
 
             foreach ($spData as $sp) {
                 try {
@@ -106,6 +106,16 @@ echo("error <br/>");
     }
 
 
+    public function show($persno)
+    {
+        $ur = URHelper::getUserHistory($persno);
+
+
+  echo json_encode($ur);
+
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -137,16 +147,7 @@ echo("error <br/>");
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\UserRecord  $userRecord
-     * @return \Illuminate\Http\Response
-     */
-    public function show(UserRecord $userRecord)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.
