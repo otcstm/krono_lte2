@@ -17,4 +17,8 @@ class ShiftGroup extends Model
   public function Manager(){
     return $this->belongsTo(User::class, 'manager_id');
   }
+
+  public function ShiftPlans(){
+    return $this->hasMany(ShiftPlan::class, 'department');
+  }
 }
