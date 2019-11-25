@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Collection;
+
 use App\UserRecord;
 use App\User;
 use App\SapPersdata;
@@ -16,8 +18,6 @@ class URController extends Controller
         set_time_limit(0);
         if ($id == 'all') {
             $spData = SapPersdata::orderBy('persno')->get();
-            //$spData = SapPersdata::whereNotIn('persno', User::all()->pluck('id'))->orderBy('persno')->take(5000)->get();
-
             foreach ($spData as $sp) {
                 try {
                     $ur = URHelper::regUser(
@@ -90,96 +90,28 @@ echo("error <br/>");
 
     public function listAll()
     {
-        //$sp = SapPersdata::all();
         $sp = SapPersdata::whereNotIn('persno', User::all()->pluck('id'))->get();
         $arr = [];
-
-
         foreach ($sp as $s) {
             array_push($arr, $s->persno);
             echo($s->persno);
             echo('<br/>');
         }
-
-
-        //  return $arr;
     }
-
 
     public function show($persno)
     {
         $ur = URHelper::getUserHistory($persno);
-
-
-  echo json_encode($ur);
+        echo json_encode($ur);
 
     }
 
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function gUR($persno,$dt){
+    $ur = URHelper::gUR($persno,$dt);
+    $u = URHelper::gU($persno);
 
 
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\UserRecord  $userRecord
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(UserRecord $userRecord)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\UserRecord  $userRecord
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, UserRecord $userRecord)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\UserRecord  $userRecord
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(UserRecord $userRecord)
-    {
-        //
+    $collection = collect(['user'=>$u,'user_records'=>$ur]);
+    return $collection;
     }
 }

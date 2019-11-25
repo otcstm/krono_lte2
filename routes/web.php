@@ -21,6 +21,7 @@ Route::post('/login/offline', 'TempController@login')->name('login.offline');
 Route::get('/ur/popbyid/{id}', 'URController@popById')->name('ur.popbyid');
 Route::get('/ur/show/{persno}', 'URController@show')->name('ur.show');
 Route::get('/ur/listAll', 'URController@listAll')->name('ur.listAll');
+Route::get('/ur/show/{persno}/{dt}', 'URController@gUR')->name('ur.listAll');
 
 
 // Route::get('/', 'MiscController@index')->name('misc.index');
@@ -118,7 +119,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/overtime/form/date', 'OvertimeController@formdate')->name('ot.formdate'); //x
   Route::post('/overtime/form/add', 'OvertimeController@formadd')->name('ot.formadd');//x
   Route::post('/overtime/form/delete', 'OvertimeController@formdelete')->name('ot.formdelete');//x
-  
+
   //OT activity - Approver
   Route::get('/overtime/approval', 'OvertimeController@approval')->name('ot.approval'); //x
   Route::get('/overtime/query', 'OvertimeController@query')->name('ot.query');  //x
