@@ -1,8 +1,8 @@
 @extends('adminlte::master')
 
 @section('adminlte_css')
-    <link rel="stylesheet"
-          href="{{ secure_asset('vendor/adminlte/dist/css/skins/skin-' . config('adminlte.skin', 'blue') . '.min.css')}} ">
+    <link rel="stylesheet" href="{{ secure_asset('vendor/adminlte/dist/css/skins/skin-' . config('adminlte.skin', 'blue') . '.min.css')}} ">
+    <link rel="stylesheet" href="{{ secure_asset('vendor/bootstrap-timepicker/css/timepicker.less')}} ">
     @stack('css')
     @yield('css')
 @stop
@@ -167,6 +167,7 @@
 
 @section('adminlte_js')
     <script src="{{ secure_asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
+    <script src="{{ secure_asset('vendor/bootstrap-timepicker/js/bootstrap-timepicker.js') }}"></script>
     @stack('js')
     @yield('js')
 @stop
