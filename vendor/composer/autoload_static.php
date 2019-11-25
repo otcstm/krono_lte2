@@ -7,21 +7,21 @@ namespace Composer\Autoload;
 class ComposerStaticInitf32507f476dbf51f000db115c178c8ab
 {
     public static $files = array (
-        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
-        '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
-        'b6ec61354e97f32c0ae683041c78392a' => __DIR__ . '/..' . '/scrivo/highlight.php/HighlightUtilities/functions.php',
         '9cdd7b9056abc3081735233ba9dd9c7f' => __DIR__ . '/..' . '/facade/flare-client-php/src/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
+        'b6ec61354e97f32c0ae683041c78392a' => __DIR__ . '/..' . '/scrivo/highlight.php/HighlightUtilities/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -146,8 +146,8 @@ class ComposerStaticInitf32507f476dbf51f000db115c178c8ab
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'XdgBaseDir\\' => 
         array (
@@ -432,6 +432,7 @@ class ComposerStaticInitf32507f476dbf51f000db115c178c8ab
 
     public static $classMap = array (
         'AmerPermissionSeeder' => __DIR__ . '/../..' . '/database/seeds/AmerPermissionSeeder.php',
+        'App\\CompRegionConfig' => __DIR__ . '/../..' . '/app/CompRegionConfig.php',
         'App\\Company' => __DIR__ . '/../..' . '/app/Company.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\DayType' => __DIR__ . '/../..' . '/app/DayType.php',
@@ -443,6 +444,8 @@ class ComposerStaticInitf32507f476dbf51f000db115c178c8ab
         'App\\Http\\Controllers\\Admin\\CompanyController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/CompanyController.php',
         'App\\Http\\Controllers\\Admin\\DayTypeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/DayTypeController.php',
         'App\\Http\\Controllers\\Admin\\HolidayController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/HolidayController.php',
+        'App\\Http\\Controllers\\Admin\\OtRateController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/OtRateController.php',
+        'App\\Http\\Controllers\\Admin\\PaymentScheduleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PaymentScheduleController.php',
         'App\\Http\\Controllers\\Admin\\PsubareaController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PsubareaController.php',
         'App\\Http\\Controllers\\Admin\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/RoleController.php',
         'App\\Http\\Controllers\\Admin\\ShiftPatternController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/ShiftPatternController.php',
@@ -453,10 +456,14 @@ class ComposerStaticInitf32507f476dbf51f000db115c178c8ab
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
+        'App\\Http\\Controllers\\CompRegionConfigController' => __DIR__ . '/../..' . '/app/Http/Controllers/CompRegionConfigController.php',
+        'App\\Http\\Controllers\\CompRegionController' => __DIR__ . '/../..' . '/app/Http/Controllers/CompRegionController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\EmplSubgroupController' => __DIR__ . '/../..' . '/app/Http/Controllers/EmplSubgroupController.php',
         'App\\Http\\Controllers\\MiscController' => __DIR__ . '/../..' . '/app/Http/Controllers/MiscController.php',
         'App\\Http\\Controllers\\OvertimeController' => __DIR__ . '/../..' . '/app/Http/Controllers/OvertimeController.php',
+        'App\\Http\\Controllers\\OvertimeFormulaController' => __DIR__ . '/../..' . '/app/Http/Controllers/OvertimeFormulaController.php',
+        'App\\Http\\Controllers\\SetupCodeController' => __DIR__ . '/../..' . '/app/Http/Controllers/SetupCodeController.php',
         'App\\Http\\Controllers\\ShiftGroupController' => __DIR__ . '/../..' . '/app/Http/Controllers/ShiftGroupController.php',
         'App\\Http\\Controllers\\ShiftPlanController' => __DIR__ . '/../..' . '/app/Http/Controllers/ShiftPlanController.php',
         'App\\Http\\Controllers\\TempController' => __DIR__ . '/../..' . '/app/Http/Controllers/TempController.php',
@@ -479,8 +486,10 @@ class ComposerStaticInitf32507f476dbf51f000db115c178c8ab
         'App\\MaddHatter\\LaravelFullcalendar\\SimpleEvent' => __DIR__ . '/../..' . '/app/MaddHatter/LaravelFullcalendar/SimpleEvent.php',
         'App\\Overtime' => __DIR__ . '/../..' . '/app/Overtime.php',
         'App\\OvertimeDetail' => __DIR__ . '/../..' . '/app/OvertimeDetail.php',
+        'App\\OvertimeFormula' => __DIR__ . '/../..' . '/app/OvertimeFormula.php',
         'App\\OvertimeLog' => __DIR__ . '/../..' . '/app/OvertimeLog.php',
         'App\\OvertimeMonth' => __DIR__ . '/../..' . '/app/OvertimeMonth.php',
+        'App\\PaymentSchedule' => __DIR__ . '/../..' . '/app/PaymentSchedule.php',
         'App\\Permission' => __DIR__ . '/../..' . '/app/Permission.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
@@ -490,6 +499,7 @@ class ComposerStaticInitf32507f476dbf51f000db115c178c8ab
         'App\\Psubarea' => __DIR__ . '/../..' . '/app/Psubarea.php',
         'App\\Role' => __DIR__ . '/../..' . '/app/Role.php',
         'App\\SapPersdata' => __DIR__ . '/../..' . '/app/SapPersdata.php',
+        'App\\SetupCode' => __DIR__ . '/../..' . '/app/SetupCode.php',
         'App\\Shared\\AlertHelper' => __DIR__ . '/../..' . '/app/Shared/AlertHelper.php',
         'App\\Shared\\ColorHelper' => __DIR__ . '/../..' . '/app/Shared/ColorHelper.php',
         'App\\Shared\\LdapHelper' => __DIR__ . '/../..' . '/app/Shared/LdapHelper.php',
@@ -545,6 +555,7 @@ class ComposerStaticInitf32507f476dbf51f000db115c178c8ab
         'Carbon\\Traits\\Units' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Units.php',
         'Carbon\\Traits\\Week' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Week.php',
         'Carbon\\Translator' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Translator.php',
+        'CompRegionConfigsTableSeeder' => __DIR__ . '/../..' . '/database/seeds/CompRegionConfigsTableSeeder.php',
         'CompaniesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/CompaniesTableSeeder.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/AbstractField.php',
         'Cron\\CronExpression' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/CronExpression.php',
@@ -2733,6 +2744,7 @@ class ComposerStaticInitf32507f476dbf51f000db115c178c8ab
         'Orangehill\\Iseed\\IseedCommand' => __DIR__ . '/..' . '/orangehill/iseed/src/Orangehill/Iseed/IseedCommand.php',
         'Orangehill\\Iseed\\IseedServiceProvider' => __DIR__ . '/..' . '/orangehill/iseed/src/Orangehill/Iseed/IseedServiceProvider.php',
         'Orangehill\\Iseed\\TableNotFoundException' => __DIR__ . '/..' . '/orangehill/iseed/src/Orangehill/Iseed/Exceptions.php',
+        'OvertimeFormulasTableSeeder' => __DIR__ . '/../..' . '/database/seeds/OvertimeFormulasTableSeeder.php',
         'PHPUnit\\Exception' => __DIR__ . '/..' . '/phpunit/phpunit/src/Exception.php',
         'PHPUnit\\Framework\\Assert' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert.php',
         'PHPUnit\\Framework\\AssertionFailedError' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Exception/AssertionFailedError.php',
