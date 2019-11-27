@@ -29,6 +29,7 @@ class CreateOvertimesTable extends Migration
             $table->string('status')->default("D1");
             $table->string('company_id')->nullable();
             $table->string('state_id')->nullable();
+            $table->string('filename')->nullable();
             $table->integer('approver_id')->unsigned()->nullable();
             $table->integer('verifier_id')->unsigned()->nullable();            
             $table->integer('daytype_id')->nullable();

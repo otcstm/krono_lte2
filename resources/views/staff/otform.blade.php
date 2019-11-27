@@ -50,7 +50,7 @@
                         @elseif($draft ?? '')
                             "{{date('Y-m-d', strtotime($draft[6]))}}"
                         @endif required>
-                        <button type="button" id="btn-date" class="btn btn-primary" style="padding: 5px 5px 0; margin: 0; margin-left: 5px"><i class="fas fa-share-square"></i></button>
+                        <button type="button" id="btn-date" class="btn btn-primary" style="padding: 2px 3px; margin: 0; margin-top: -3px;"><i class="fas fa-share-square"></i></button>
                     </p>
                 </form>
                 <div>
@@ -306,6 +306,19 @@
                 <div class="row">
                     <div class="col-xs-6">
                         <div class="form-group">
+                            <div style="margin-top: -15px"><small>
+                                <p>* Accepted format JPG, JPEG, PDF only
+                                <br>* Maximum size of supporting document is 1MB
+                                <br>* Make sure your PDF document is <u>not password protected</u> and <u>not corrupted</u> </p>
+                            </small></div>
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <label>Document*:</label>
+                                </div>
+                                <div class="col-xs-9">
+                                    <input type="file" name="inputfile" id="inputfile" accept="image/*, .pdf, .png, .jpeg, .jpg" required>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-xs-3">
                                     <label>Charge Type:</label>
@@ -905,6 +918,22 @@
                 $("#showtime").text(nhm[0]+"h "+nhm[1]+"m");
                 $('#nodata').css("display","table-row");
                 add=true;  
+            }
+        });
+
+        $("#inputfile").on("change", function(){
+            var filesize = this.files[0].size;
+            if (filesize > 1000000) { 
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Unable to upload file',
+                    text: 'Uploaded file size has exceeded 1MB!'
+                })
+                $("#inputfile").val("");
+            }else{
+                $("#formsave").val("save");
+                $("#formsubmit").val("no");
+                $("#form").submit();
             }
         });
     @endif
