@@ -88,10 +88,21 @@ class URHelper
       public static function getUserHistory( $persno)
       {
         $ur = UserRecord::where('user_id',$persno)->get();
-
         return $ur;
 
       }
 
+      public static function gUR( $persno,$dt)
+      {
+        $urMaxDate = UserRecord::where('user_id',$persno)->where('upd_sap','<=',$dt)->max('upd_sap');
+        $ur = UserRecord::where('user_id',$persno)->where('upd_sap','=',$urMaxDate)->get();
+        return $ur;
+      }
+
+      public static function gU( $persno)
+      {
+        $u = User::where('id',$persno)->get();
+        return $u;
+      }
 
 }
