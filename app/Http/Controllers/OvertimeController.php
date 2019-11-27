@@ -309,7 +309,7 @@ class OvertimeController extends Controller{
             }
         }
         
-        if(($req->chargetype=="")||($req->inputjustification=="")){
+        if(($req->chargetype=="")||($req->inputfile=="")||($req->inputjustification=="")){
             $status = false;
         }
         
@@ -330,14 +330,17 @@ class OvertimeController extends Controller{
         }
         $updateclaim->charge_type = $req->chargetype;
         $updateclaim->justification = $req->inputjustification;
-        // if($req->formsubmit=="yes"){
-        //     if($updateclaim->verifier_id==null){
-        //         $updateclaim->status = 'PA';
-        //     }else{
-        //         $updateclaim->status = 'PV';
-        //     }
-        // }
-
+        // dd($req->inputfile);
+        if($req->inputfile!=""){
+            $file   =   $req->file('inputfile');
+            $name = date("ymd", strtotime($updateclaim->date))."-".sprintf("%08d", $req->user()->id)."-".rand(10000,99999)."-".$file->getClientOriginalName();
+            $updateclaim->filename =  $name;
+            // dd($req->inputfile->getClientOriginalName());
+            // $name      =   $req->inputfile;
+            $target_path    =   public_path('/upload/');
+            $file->move($target_path, $name);
+            // dd($name);
+        }
         $updateclaim->save();
         // dd($claimdetail[0]);
 

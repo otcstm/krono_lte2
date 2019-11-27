@@ -173,7 +173,7 @@
                 @endif
             </div>
         </div>
-        <form id="form" action="{{route('ot.formsubmit')}}" method="POST" onsubmit="return submission()">
+        <form id="form" action="{{route('ot.formsubmit')}}" method="POST" onsubmit="return submission()" enctype="multipart/form-data">
             @csrf
             <input type="text" class="form-control hidden" id="inputid" name="inputid" value="@if($claim ?? '') {{$claim->id}} @endif">
             <!-- <input class="hidden" id="formnew" type="text" name="formnew" value="no"> -->
@@ -311,12 +311,24 @@
                                 <br>* Maximum size of supporting document is 1MB
                                 <br>* Make sure your PDF document is <u>not password protected</u> and <u>not corrupted</u> </p>
                             </small></div>
-                            <div class="row">
+                            <div class="row" style="margin-bottom: 5px;">
                                 <div class="col-xs-3">
                                     <label>Document*:</label>
                                 </div>
                                 <div class="col-xs-9">
-                                    <input type="file" name="inputfile" id="inputfile" accept="image/*, .pdf, .png, .jpeg, .jpg" required>
+                                    <input type="file" name="inputfile" id="inputfile" accept="image/*, .pdf, .png, .jpeg, .jpg" required style="position:absolute; right:-100vw">
+                                    <button type="button" id="btn-file">Choose File</button>
+                                    <span id="inputfiletext">
+                                        @if($claim ?? '')
+                                            @if($claim->filename!="")
+                                                {{substr($claim->filename, 22)}}
+                                            @else
+                                                No file chosen
+                                            @endif
+                                        @elseif($draft ?? '')
+                                            No file chosen
+                                        @endif
+                                    </span>
                                 </div>
                             </div>
                             <div class="row">
@@ -574,17 +586,20 @@
             !(((Date.parse($("#inputdate").val()))<=Date.parse(monthNames[m-1]+" "+d+", "+y+" 23:59:59"))&&
             ((Date.parse($("#inputdate").val()))>=Date.parse(monthNames[minm-1]+" 01, "+miny+" 00:00:00")))
             ){
-            Swal.fire(
-                'Invalid date input!',
-                "Claim date must be between "+miny+"-"+minm+"-01 and "+y+"-"+m+"-"+d+"!",
-                'error'
-            )
-            // alert("Claim date must be between "+miny+"-"+minm+"-01 and "+y+"-"+m+"-"+d+"!");
-            @if($show ?? '')
-                $("#inputdate").val("{{$claim->date}}");
-            @else
-                $("#inputdate").val("");
-            @endif
+                Swal.fire(
+                    'Invalid date input!',
+                    "Claim date must be between "+miny+"-"+minm+"-01 and "+y+"-"+m+"-"+d+"!",
+                    'error'
+                )
+                // alert("Claim date must be between "+miny+"-"+minm+"-01 and "+y+"-"+m+"-"+d+"!");
+                
+                @if($claim ?? '')
+                    $("#inputdate").val("{{$claim->date}}");
+                @elseif($draft ?? '')
+                    $("#inputdate").val("{{$draft[6]}}");
+                @else
+                    $("#inputdate").val("");
+                @endif
             }
         });
 
@@ -921,19 +936,24 @@
             }
         });
 
+        $("#btn-file").on('click', function(){
+            $('#inputfile').trigger('click');   
+        });
+
         $("#inputfile").on("change", function(){
             var filesize = this.files[0].size;
             if (filesize > 1000000) { 
                 Swal.fire({
                     icon: 'error',
-                    title: 'Unable to upload file',
-                    text: 'Uploaded file size has exceeded 1MB!'
+                    title: 'Unable to choose file',
+                    text: 'File size has exceeded 1MB!'
                 })
                 $("#inputfile").val("");
-            }else{
-                $("#formsave").val("save");
-                $("#formsubmit").val("no");
-                $("#form").submit();
+                $("#inputfiletext").text("No file chosen");
+            }
+            else{
+                var ret = $("#inputfile").val().replace("C:\\fakepath\\",'');
+                $("#inputfiletext").text(ret);
             }
         });
     @endif
