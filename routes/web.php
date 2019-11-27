@@ -21,6 +21,7 @@ Route::post('/login/offline', 'TempController@login')->name('login.offline');
 Route::get('/ur/popbyid/{id}', 'URController@popById')->name('ur.popbyid');
 Route::get('/ur/show/{persno}', 'URController@show')->name('ur.show');
 Route::get('/ur/listAll', 'URController@listAll')->name('ur.listAll');
+Route::get('/ur/show/{persno}/{dt}', 'URController@gUR')->name('ur.listAll');
 
 
 // Route::get('/', 'MiscController@index')->name('misc.index');
@@ -82,13 +83,20 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post( '/admin/psubarea/update','Admin\PsubareaController@update')->name('psubarea.edit');
   Route::post('/admin/psubarea/delete','Admin\PsubareaController@destroy')->name('psubarea.delete');
 
-
+  //Holiday
   Route::get('/admin/holiday/create', 'Admin\HolidayController@create')->name('holiday.create');
   Route::post('/admin/holiday/insert', 'Admin\HolidayController@insert')->name('holiday.insert');
   Route::get('/admin/holiday/show', 'Admin\HolidayController@show')->name('holiday.show');
+  Route::post('/admin/holiday/show', 'Admin\HolidayController@show')->name('holiday.show');
   Route::get('/admin/holiday/edit/{id}', 'Admin\HolidayController@edit')->name('holiday.edit');
   Route::post('/admin/holiday/update', 'Admin\HolidayController@update')->name('holiday.update');
   Route::post('/admin/holiday/destroy', 'Admin\HolidayController@destroy')->name('holiday.destroy');
+
+  //Payment Schedule
+  Route::get( '/admin/paymentsc','Admin\PaymentScheduleController@index')->name('paymentsc.index');
+  Route::post('/admin/paymentsc/add','Admin\PaymentScheduleController@store')->name('paymentsc.store');
+  Route::post( '/admin/paymentsc/update','Admin\PaymentScheduleController@update')->name('paymentsc.edit');
+  Route::post('/admin/paymentsc/delete','Admin\PaymentScheduleController@destroy')->name('paymentsc.delete');
 
   // /admins ------------------------------------
 
@@ -97,18 +105,20 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/log/updUserLogs', 'MiscController@logUserAct')->name('log.logUserAct');
 
   //OT activity - User
-  Route::get('/overtime', 'OvertimeController@list')->name('ot.list');  
+
+  Route::get('/overtime', 'OvertimeController@list')->name('ot.list');
   Route::post('/overtime/submit', 'OvertimeController@submit')->name('ot.submit');
   Route::post('/overtime/update', 'OvertimeController@update')->name('ot.update');
   Route::post('/overtime/remove', 'OvertimeController@remove')->name('ot.remove');
-  Route::get('/overtime/form', 'OvertimeController@form')->name('ot.form'); 
-  Route::post('/overtime/form', 'OvertimeController@form')->name('ot.form'); 
+  Route::get('/overtime/form', 'OvertimeController@form')->name('ot.form');
+  Route::post('/overtime/form', 'OvertimeController@form')->name('ot.form');
   Route::get('/overtime/form/new', 'OvertimeController@formnew')->name('ot.formnew');
   Route::post('/overtime/form/new', 'OvertimeController@formnew')->name('ot.formnew');
-  Route::post('/overtime/form/date', 'OvertimeController@formdate')->name('ot.formdate'); 
+  Route::post('/overtime/form/date', 'OvertimeController@formdate')->name('ot.formdate');
   Route::post('/overtime/form/submit', 'OvertimeController@formsubmit')->name('ot.formsubmit');
   Route::post('/overtime/form/delete', 'OvertimeController@formdelete')->name('ot.formdelete');
-  
+
+
   //OT activity - Approver
   Route::get('/overtime/approval', 'OvertimeController@approval')->name('ot.approval');
   Route::post('/overtime/approval', 'OvertimeController@approval')->name('ot.approval');

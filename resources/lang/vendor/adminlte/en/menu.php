@@ -11,6 +11,7 @@ return [
     'manage_wdays'    => 'Work Day Type',
     'admin_user_menu'   => 'User Admin Thingy',
     'manage_holiday'    => 'Manage Holiday',
+    'paymentsch' => 'Payment Schedule',
 
 
 
