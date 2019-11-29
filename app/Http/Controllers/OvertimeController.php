@@ -330,20 +330,27 @@ class OvertimeController extends Controller{
         }
         $updateclaim->charge_type = $req->chargetype;
         $updateclaim->justification = $req->inputjustification;
-        // dd($req->inputfile);
         if($req->inputfile!=""){
             $file   =   $req->file('inputfile');
             $name = date("ymd", strtotime($updateclaim->date))."-".sprintf("%08d", $req->user()->id)."-".rand(10000,99999)."-".$file->getClientOriginalName();
-            $updateclaim->filename =  $name;
-            // dd($req->inputfile->getClientOriginalName());
-            // $name      =   $req->inputfile;
+            
             $target_path    =   public_path('/upload/');
+            if($file->getClientOriginalExtension()=="pdf"){
+                // $pdf = new \Spatie\PdfToImage\Pdf($file);
+                // $pdf->saveImage($target_path);
+                $imagick = new \Imagick($file.'[0]');
+                // dd($file);
+                $newname = str_replace(".pdf","",$name);
+                $fileName = $newname . '.jpg';
+                $imagick->setImageFormat('jpg');
+                // $imagick->setRegistry('temporary-path', '/upload');
+                // $fileHandle = fopen("/upload/".$fileName, "w");
+                $imagick->writeImage($target_path.$fileName);
+            }
+            $updateclaim->filename =  $name;
             $file->move($target_path, $name);
-            // dd($name);
         }
         $updateclaim->save();
-        // dd($claimdetail[0]);
-
         $claim = Overtime::where('id', $claim->id)->first();
         Session::put(['claim' => $claim]);
         if($req->formadd=="add"){ //if add only
