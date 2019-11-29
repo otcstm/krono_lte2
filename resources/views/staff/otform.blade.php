@@ -340,11 +340,13 @@
                                 <div class="col-xs-9 col-xs-offset-3" style="margin-bottom: 5px;">
                                 
                                     @if($claim ?? '')
-                                        @if(strpos($claim->filename, '.pdf') !== false)
-                                            <a href="/upload/{{ $claim->filename }}" target="_blank"><img src="/upload/{{ str_replace('pdf','jpg',$claim->filename) }} " class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9"></a>
-                                         @else
-                                            <a href="/upload/{{ $claim->filename }}" target="_blank"><img src="/upload/{{ $claim->filename }} " class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9"></a>
-                                        @endif
+                                        @foreach($claim->file as $singlefile)
+                                            @if(strpos($singlefile->filename, '.pdf') !== false)
+                                                <a href="/upload/{{ $singlefile->filename }}" target="_blank"><img src="/upload/{{ str_replace('pdf','jpg',$singlefile->filename) }} " class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9"></a>
+                                            @else
+                                                <a href="/upload/{{ $singlefile->filename }}" target="_blank"><img src="/upload/{{ $singlefile->filename }} " class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9"></a>
+                                            @endif
+                                        @endforeach
                                     @endif
                                 </div>
                             </div>
@@ -965,6 +967,19 @@
             $("#inputfiletext").text("No file chosen*");
             return false;  
         });
+
+        //when uploading file
+        $("#btn-file-3").on('click', function(){
+            $("#inputstart-0").val("");
+            $("#inputend-0").val("");
+            $("#inputremark-0").val("");
+            $("#inputstart-0").prop('required',false);
+            $("#inputend-0").prop('required',false);
+            $("#inputremark-0").prop('required',false);
+            $("#formsave").val("save");
+            $("#formsubmit").val("no");
+            $("#form").submit();
+        });  
 
         $("#inputfile").on("change", function(){
             var filesize = this.files[0].size;

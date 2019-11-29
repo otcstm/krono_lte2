@@ -10,6 +10,7 @@ use App\OvertimeMonth;
 use App\OvertimeDetail;
 use App\OvertimeLog;
 use App\OvertimePunch;
+use App\OvertimeFile;
 use Session;
 use Illuminate\Http\Request;
 
@@ -330,10 +331,10 @@ class OvertimeController extends Controller{
         }
         $updateclaim->charge_type = $req->chargetype;
         $updateclaim->justification = $req->inputjustification;
+        $updateclaim->save();
         if($req->inputfile!=""){
             $file   =   $req->file('inputfile');
             $name = date("ymd", strtotime($updateclaim->date))."-".sprintf("%08d", $req->user()->id)."-".rand(10000,99999)."-".$file->getClientOriginalName();
-            
             $target_path    =   public_path('/upload/');
             if($file->getClientOriginalExtension()=="pdf"){
                 // $pdf = new \Spatie\PdfToImage\Pdf($file);
@@ -347,10 +348,12 @@ class OvertimeController extends Controller{
                 // $fileHandle = fopen("/upload/".$fileName, "w");
                 $imagick->writeImage($target_path.$fileName);
             }
-            $updateclaim->filename =  $name;
+            $claimfile = new OvertimeFile;
+            $claimfile->ot_id = $claim->id;
+            $claimfile->filename =  $name;
+            $claimfile->save();
             $file->move($target_path, $name);
         }
-        $updateclaim->save();
         $claim = Overtime::where('id', $claim->id)->first();
         Session::put(['claim' => $claim]);
         if($req->formadd=="add"){ //if add only
