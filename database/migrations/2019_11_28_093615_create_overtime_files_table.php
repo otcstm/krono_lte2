@@ -18,6 +18,7 @@ class CreateOvertimeFilesTable extends Migration
             $table->timestamps();
             $table->integer('ot_id');
             $table->string('filename')->nullable();
+            $table->string('thumbnail')->nullable();
         });
     }
 

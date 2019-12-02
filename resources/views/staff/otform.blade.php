@@ -176,10 +176,11 @@
         <form id="form" action="{{route('ot.formsubmit')}}" method="POST" onsubmit="return submission()" enctype="multipart/form-data">
             @csrf
             <input type="text" class="form-control hidden" id="inputid" name="inputid" value="@if($claim ?? '') {{$claim->id}} @endif">
-            <!-- <input class="hidden" id="formnew" type="text" name="formnew" value="no"> -->
-            <input class="hidden" id="formadd" type="text" name="formadd" value="no">
+            <input class="hidden" id="formtype" type="text" name="formtype" value="submit">
+            <input class="hidden" id="filedel" type="text" name="filedel" value="">
+            <!-- <input class="hidden" id="formadd" type="text" name="formadd" value="no">
             <input class="hidden" id="formsave" type="text" name="formsave" value="no">
-            <input class="hidden" id="formsubmit" type="text" name="formsubmit" value="yes">
+            <input class="hidden" id="formsubmit" type="text" name="formsubmit" value="yes"> -->
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>    
@@ -318,7 +319,7 @@
                                     <label>Document:</label>
                                 </div>
                                 <div class="col-xs-9" style="display: flex; padding-right: 8px">
-                                    <input type="file" name="inputfile" id="inputfile" accept="image/*, .pdf, .jpeg, .jpg" required style="position:absolute; right:-100vw;">
+                                    <input type="file" name="inputfile" id="inputfile" accept="image/*, .pdf, .jpeg, .jpg" style="position:absolute; right:-100vw;">
                                     <span id="inputfiletext" style="flex: 1; max-height: 26px; overflow: hidden; padding: 3px 0 3px 5px; border: 1px solid #A9A9A9; border-right: 0">No file chosen*</span>
                                     <a href="#" id="btn-file-2" style="position: absolute; right: 95px; top: 3px; color: red; display: none "><i class="fas fa-times-circle"></i></a>
                                     <button type="button" id="btn-file-1" style="min-width: 80px">Choose File</button>
@@ -331,13 +332,9 @@
                                     @if($claim ?? '')
                                         @foreach($claim->file as $f=>$singlefile)
                                             @php(++$f)
-                                            @if(strpos($singlefile->filename, '.pdf') !== false)
-                                                <a href="/upload/{{ $singlefile->filename }}" target="_blank" title="{{ substr($singlefile->filename, 22)}}" data-img="/upload/{{ $singlefile->filename }}" data-name="{{$singlefile->filename}}"><img src="/upload/{{ str_replace('pdf','jpg',$singlefile->filename) }} " class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9"></a>
-                                                <a href="#" id="btn-file-del-{{$f}}" style="position: absolute; margin-left: -22px; top: 3px; color: red;" data-img="/upload/{{ str_replace('pdf','jpg',$singlefile->filename) }}" data-name="{{substr($singlefile->filename, 22)}}"><i class="fas fa-times-circle"></i></a>
-                                            @else
-                                                <a href="/upload/{{ $singlefile->filename }}" target="_blank"><img src="/upload/{{ $singlefile->filename }} " class="img-fluid img-thumbnails"  title="{{ substr($singlefile->filename, 22)}}" style="height: 100px; width: 100px; border: 1px solid #A9A9A9"></a>
-                                                <a href="#" id="btn-file-del-{{$f}}" style="position: absolute; margin-left: -22px; top: 3px; color: red;" data-img="/upload/{{ $singlefile->filename }}" data-name="{{substr($singlefile->filename, 22)}}"><i class="fas fa-times-circle"></i></a>
-                                            @endif
+                                            <a href="{{route('ot.file', ['tid'=>$singlefile->id], false)}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9"></a>
+                                            <a href="#" id="btn-file-del-{{$f}}" style="position: absolute; margin-left: -22px; top: 3px; color: red;" data-id="{{$singlefile->id}}" data-img="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" data-name="{{substr($singlefile->filename, 22)}}"><i class="fas fa-times-circle"></i></a>
+
                                         @endforeach
                                     @endif
                                 </div>
@@ -907,6 +904,7 @@
         //when click delete file
         function deletefile(i){
             return function(){
+                var id = $("#btn-file-del-"+i).data('id');
                 var img = $("#btn-file-del-"+i).data('img');
                 var name = $("#btn-file-del-"+i).data('name');
                 Swal.fire({
@@ -920,14 +918,14 @@
                     confirmButtonText: 'Delete'
                     }).then((result) => {
                     if (result.value) {
+                        $("#filedel").val(id);
                         $("#inputstart-0").val("");
                         $("#inputend-0").val("");
                         $("#inputremark-0").val("");
                         $("#inputstart-0").prop('required',false);
                         $("#inputend-0").prop('required',false);
                         $("#inputremark-0").prop('required',false);
-                        $("#formsave").val("save");
-                        $("#formsubmit").val("no");
+                        $("#formtype").val("delete");
                         $("#form").submit();
                     }
                 })
@@ -1008,8 +1006,9 @@
             $("#inputstart-0").prop('required',false);
             $("#inputend-0").prop('required',false);
             $("#inputremark-0").prop('required',false);
-            $("#formsave").val("save");
-            $("#formsubmit").val("no");
+            // $("#formsave").val("save");
+            // $("#formsubmit").val("no");
+            $("#formtype").val("save");
             $("#form").submit();
         });  
 
@@ -1046,16 +1045,18 @@
             }
         }
         if(submit){
-            $("#formadd").val("add");
-            $("#formsubmit").val("no");
+            // $("#formadd").val("add");
+            // $("#formsubmit").val("no");
+            $("#formtype").val("add");
             $("#form").submit();
         }
     });     
-    //when adding new time
+    //when saving form
     $("#btn-save").on('click', function(){
         if(add){
-            $("#formsave").val("save");
-            $("#formsubmit").val("no");
+            // $("#formsave").val("save");
+            // $("#formsubmit").val("no");
+            $("#formtype").val("save");
             $("#form").submit();
         }else{
             // alert("Please save new time input before saving the form!");
@@ -1068,7 +1069,8 @@
     });  
     
     function submission(){
-        if(($("#formadd").val()=="no")&&($("#formsave").val()=="no")){
+        if(($("#formtype").val()=="submit")){
+        // if(($("#formadd").val()=="no")&&($("#formsave").val()=="no")){
             $("#inputstart-0").prop('required',false);
             $("#inputend-0").prop('required',false);
             $("#inputremark-0").prop('required',false);
