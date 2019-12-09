@@ -98,6 +98,13 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post( '/admin/paymentsc/update','Admin\PaymentScheduleController@update')->name('paymentsc.edit');
   Route::post('/admin/paymentsc/delete','Admin\PaymentScheduleController@destroy')->name('paymentsc.delete');
 
+  //OT Config
+  Route::get('/admin/overtime', 'OvertimeEligibilityController@show')->name('oe.show');
+  Route::post('/admin/overtime', 'OvertimeEligibilityController@show')->name('oe.show');
+  Route::get('/admin/overtime/m', 'OvertimeEligibilityController@otm')->name('oe.otm');
+  Route::get('/admin/overtime/getcompany', 'OvertimeEligibilityController@getCompany')->name('oe.getcompany');
+  Route::post('/admin/overtime/store', 'OvertimeEligibilityController@store')->name('oe.store');
+
   // /admins ------------------------------------
 
   //Log activity
@@ -105,7 +112,6 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/log/updUserLogs', 'MiscController@logUserAct')->name('log.logUserAct');
 
   //OT activity - User
-
   Route::get('/overtime', 'OvertimeController@list')->name('ot.list');
   Route::post('/overtime/submit', 'OvertimeController@submit')->name('ot.submit');
   Route::post('/overtime/update', 'OvertimeController@update')->name('ot.update');
@@ -119,7 +125,6 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/overtime/form/delete', 'OvertimeController@formdelete')->name('ot.formdelete');
   Route::get('/overtime/form/getthumbnail', 'OvertimeController@getthumbnail')->name('ot.thumbnail');
   Route::get('/overtime/form/getfile', 'OvertimeController@getfile')->name('ot.file');
-
 
   //OT activity - Approver
   Route::get('/overtime/approval', 'OvertimeController@approval')->name('ot.approval');

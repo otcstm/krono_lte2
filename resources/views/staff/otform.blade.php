@@ -167,7 +167,7 @@
                                     {{$draft[5]->hour}}h {{$draft[5]->minute}}m
                                 </span>
                             @endif
-                        / 104h
+                        / {{$eligiblehour}}h
                     </p>
                 </div>
                 @endif
@@ -596,7 +596,7 @@
             ){
                 Swal.fire(
                     'Invalid date input!',
-                    "Claim date must be between "+miny+"-"+minm+"-01 and "+y+"-"+m+"-"+d+"!",
+                    "Claim date must be between 01-"+minm+"-"+miny+" and "+d+"-"+m+"-"+y+"!",
                     'error'
                 )
                 // alert("Claim date must be between "+miny+"-"+minm+"-01 and "+y+"-"+m+"-"+d+"!");
