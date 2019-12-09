@@ -50,7 +50,7 @@
                         @elseif($draft ?? '')
                             "{{date('Y-m-d', strtotime($draft[6]))}}"
                         @endif required>
-                        <button type="button" id="btn-date" class="btn btn-primary" style="padding: 5px 5px 0; margin: 0; margin-left: 5px"><i class="fas fa-share-square"></i></button>
+                        <button type="button" id="btn-date" class="btn btn-primary" style="padding: 2px 3px; margin: 0; margin-top: -3px;"><i class="fas fa-share-square"></i></button>
                     </p>
                 </form>
                 <div>
@@ -167,145 +167,178 @@
                                     {{$draft[5]->hour}}h {{$draft[5]->minute}}m
                                 </span>
                             @endif
-                        / 104h
+                        / {{$eligiblehour}}h
                     </p>
                 </div>
                 @endif
             </div>
         </div>
-        <form id="form" action="{{route('ot.formsubmit')}}" method="POST" onsubmit="return submission()">
+        <form id="form" action="{{route('ot.formsubmit')}}" method="POST" onsubmit="return submission()" enctype="multipart/form-data">
             @csrf
             <input type="text" class="form-control hidden" id="inputid" name="inputid" value="@if($claim ?? '') {{$claim->id}} @endif">
-            <!-- <input class="hidden" id="formnew" type="text" name="formnew" value="no"> -->
-            <input class="hidden" id="formadd" type="text" name="formadd" value="no">
+            <input class="hidden" id="formtype" type="text" name="formtype" value="submit">
+            <input class="hidden" id="filedel" type="text" name="filedel" value="">
+            <!-- <input class="hidden" id="formadd" type="text" name="formadd" value="no">
             <input class="hidden" id="formsave" type="text" name="formsave" value="no">
-            <input class="hidden" id="formsubmit" type="text" name="formsubmit" value="yes">
-            <table class="table table-bordered">
-                <thead>    
-                    <tr class="info">
-                        @if(($c ?? '')||($d ?? '')||($q ?? ''))
-                            <th width="2%"></th>
-                        @endif
-                            <th width="2%">No</th>
-                            <th width="20%">Clock In/Out</th>
-                            <th width="20%">Start/End Time</th>
-                            <th width="8%">Total Time</th>
-                            <th>Justification</th>
-                        @if(($c ?? '')||($d ?? '')||($q ?? ''))
-                            <th width="10%">
-                                Action
-                            </th>
-                        @endif
-                    </tr>
-                </thead>
-                <tbody>
-                    @if($claim ?? '')
-                        @if(count($claim->detail)!=0)
-                            @foreach($claim->detail as $no=>$singleuser)
-                                <tr>
-                                    @php($s = false)
-                                    @if(($c ?? '')||($d ?? '')||($q ?? ''))
-                                        @php($s = true)
-                                    @else
-                                        @if($singleuser->checked=="Y")
+            <input class="hidden" id="formsubmit" type="text" name="formsubmit" value="yes"> -->
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>    
+                        <tr class="info">
+                            @if(($c ?? '')||($d ?? '')||($q ?? ''))
+                                <th width="2%"></th>
+                            @endif
+                                <th width="2%">No</th>
+                                <th width="20%">Clock In/Out</th>
+                                <th width="20%">Start/End Time</th>
+                                <th width="8%">Total Time</th>
+                                <th>Justification</th>
+                            @if(($c ?? '')||($d ?? '')||($q ?? ''))
+                                <th width="10%">
+                                    Action
+                                </th>
+                            @endif
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if($claim ?? '')
+                            @if(count($claim->detail)!=0)
+                                @foreach($claim->detail as $no=>$singleuser)
+                                    <tr>
+                                        @php($s = false)
+                                        @if(($c ?? '')||($d ?? '')||($q ?? ''))
                                             @php($s = true)
-                                        @endif
-                                    @endif
-                                    @if($s)
-                                        @if(($c ?? '')||($d ?? '')||($q ?? ''))
-                                            <td><input type="checkbox" id="inputcheck-{{++$no}}"
-                                                @if($singleuser->checked=="Y")
-                                                    checked
-                                                @endif >
-                                                <input type="text" class="hidden" id="inputcheckdata-{{$no}}" name="inputcheck[]" value="{{$singleuser->checked}}">
-                                            </td>
                                         @else
-                                            @php(++$no)
-                                        @endif
-                                        <td>{{$no}}</td>
-                                        <td>
-                                            @if($singleuser->clock_in!="")
-                                                {{date('H:i', strtotime($singleuser->clock_in))}} - {{date('H:i', strtotime($singleuser->clock_out))}} 
-                                            @else 
-                                                Manual 
+                                            @if($singleuser->checked=="Y")
+                                                @php($s = true)
                                             @endif
-                                        </td>
-                                        <td>
+                                        @endif
+                                        @if($s)
                                             @if(($c ?? '')||($d ?? '')||($q ?? ''))
-                                            <span id="oldds-{{$no}}" class="hidden">{{date('H:i', strtotime($singleuser->start_time))}}</span>
-                                            <span id="oldde-{{$no}}" class="hidden">{{date('H:i', strtotime($singleuser->end_time))}}</span>
-                                                <input style="width: 40px" id="inputstart-{{$no}}" name="inputstart[]" type="text" class="timepicker" 
-                                                    data-clock_in="{{ date('H:i', strtotime($singleuser->clock_in))}}"
-                                                    data-start_time="{{ date('H:i', strtotime($singleuser->start_time))}}"
-                                                    @if($singleuser->clock_in!="")
-                                                        data-clocker="{{ date('H:i', strtotime($singleuser->start_time))}}"
-                                                    @endif
-                                                    value="{{ date('H:i', strtotime($singleuser->start_time))}}" required>
-                                                <input style="width: 40px" id="inputend-{{$no}}" name="inputend[]" type="text" class="timepicker" 
-                                                    data-clock_out="{{ date('H:i', strtotime($singleuser->clock_out))}}"
-                                                    data-end_time="{{ date('H:i', strtotime($singleuser->end_time))}}"
-                                                    value="{{ date('H:i', strtotime($singleuser->end_time))}}" required>
+                                                <td><input type="checkbox" id="inputcheck-{{++$no}}"
+                                                    @if($singleuser->checked=="Y")
+                                                        checked
+                                                    @endif >
+                                                    <input type="text" class="hidden" id="inputcheckdata-{{$no}}" name="inputcheck[]" value="{{$singleuser->checked}}">
+                                                </td>
                                             @else
-                                                {{ date('H:i', strtotime($singleuser->start_time)) }} - {{ date('H:i', strtotime($singleuser->end_time)) }}
-                                            @endif    
-                                        </td>
-                                        <td>
-                                            <span id="fixdh-{{$no}}" class="hidden">{{$singleuser->hour}}</span>
-                                            <span id="fixdm-{{$no}}" class="hidden">{{$singleuser->minute}}</span>
-                                            <span id="olddh-{{$no}}" class="hidden">{{$singleuser->hour}}</span>
-                                            <span id="olddm-{{$no}}" class="hidden">{{$singleuser->minute}}</span>
-                                            <span id="inputduration-{{$no}}">{{ $singleuser->hour }}h {{ $singleuser->minute }}m</span>
-                                        </td>
-                                        <td>
-                                            @if(($c ?? '')||($d ?? '')||($q ?? ''))
-                                                <textarea rows = "2" cols = "60" type="text" id="inputremark-{{$no}}" name="inputremark[]" placeholder="Write justification" style="resize: none" @if($singleuser->clock_in!="") readonly @else required @endif >{{$singleuser->justification}}</textarea>
-                                            @else
-                                                {{$singleuser->justification}}
-                                            @endif 
-                                        </td>
-                                        @if(($c ?? '')||($d ?? '')||($q ?? ''))
+                                                @php(++$no)
+                                            @endif
+                                            <td>{{$no}}</td>
                                             <td>
-                                                @if($singleuser->clock_in=="")
-                                                    <button type="button" class="btn btn-danger" id="delete-{{$no}}" data-id="{{$singleuser->id}}" data-start="{{date('H:i', strtotime($singleuser->start_time))}}" data-end="{{date('H:i', strtotime($singleuser->end_time))}}"><i class="fas fa-trash"></i></button>
+                                                @if($singleuser->clock_in!="")
+                                                    {{date('H:i', strtotime($singleuser->clock_in))}} - {{date('H:i', strtotime($singleuser->clock_out))}} 
+                                                @else 
+                                                    Manual 
                                                 @endif
                                             </td>
+                                            <td>
+                                                @if(($c ?? '')||($d ?? '')||($q ?? ''))
+                                                <span id="oldds-{{$no}}" class="hidden">{{date('H:i', strtotime($singleuser->start_time))}}</span>
+                                                <span id="oldde-{{$no}}" class="hidden">{{date('H:i', strtotime($singleuser->end_time))}}</span>
+                                                    <input style="width: 40px" id="inputstart-{{$no}}" name="inputstart[]" type="text" class="timepicker" 
+                                                        data-clock_in="{{ date('H:i', strtotime($singleuser->clock_in))}}"
+                                                        data-start_time="{{ date('H:i', strtotime($singleuser->start_time))}}"
+                                                        @if($singleuser->clock_in!="")
+                                                            data-clocker="{{ date('H:i', strtotime($singleuser->start_time))}}"
+                                                        @endif
+                                                        value="{{ date('H:i', strtotime($singleuser->start_time))}}" required>
+                                                    <input style="width: 40px" id="inputend-{{$no}}" name="inputend[]" type="text" class="timepicker" 
+                                                        data-clock_out="{{ date('H:i', strtotime($singleuser->clock_out))}}"
+                                                        data-end_time="{{ date('H:i', strtotime($singleuser->end_time))}}"
+                                                        value="{{ date('H:i', strtotime($singleuser->end_time))}}" required>
+                                                @else
+                                                    {{ date('H:i', strtotime($singleuser->start_time)) }} - {{ date('H:i', strtotime($singleuser->end_time)) }}
+                                                @endif    
+                                            </td>
+                                            <td>
+                                                <span id="fixdh-{{$no}}" class="hidden">{{$singleuser->hour}}</span>
+                                                <span id="fixdm-{{$no}}" class="hidden">{{$singleuser->minute}}</span>
+                                                <span id="olddh-{{$no}}" class="hidden">{{$singleuser->hour}}</span>
+                                                <span id="olddm-{{$no}}" class="hidden">{{$singleuser->minute}}</span>
+                                                <span id="inputduration-{{$no}}">{{ $singleuser->hour }}h {{ $singleuser->minute }}m</span>
+                                            </td>
+                                            <td>
+                                                @if(($c ?? '')||($d ?? '')||($q ?? ''))
+                                                    <textarea rows = "2" cols = "60" type="text" id="inputremark-{{$no}}" name="inputremark[]" placeholder="Write justification" style="resize: none" @if($singleuser->clock_in!="") readonly @else required @endif >{{$singleuser->justification}}</textarea>
+                                                @else
+                                                    {{$singleuser->justification}}
+                                                @endif 
+                                            </td>
+                                            @if(($c ?? '')||($d ?? '')||($q ?? ''))
+                                                <td>
+                                                    @if($singleuser->clock_in=="")
+                                                        <button type="button" class="btn btn-danger" id="delete-{{$no}}" data-id="{{$singleuser->id}}" data-start="{{date('H:i', strtotime($singleuser->start_time))}}" data-end="{{date('H:i', strtotime($singleuser->end_time))}}"><i class="fas fa-trash"></i></button>
+                                                    @endif
+                                                </td>
+                                            @endif
                                         @endif
-                                    @endif
-                                </tr>
-                            @endforeach
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr id="nodata" class="text-center"><td colspan="7"><i>Not Available</i></td></tr>
+                            @endif
                         @else
                             <tr id="nodata" class="text-center"><td colspan="7"><i>Not Available</i></td></tr>
                         @endif
-                    @else
-                        <tr id="nodata" class="text-center"><td colspan="7"><i>Not Available</i></td></tr>
-                    @endif
-                    <tr id="addform" style="display: none">
-                        <td></td>
-                        <td>@if($claim ?? '') {{count($claim->detail)+1}} @else 1 @endif</td>
-                        <td>Manual Input</td>
-                        <td>
-                            <span id="oldds-0" class="hidden">0</span>
-                            <span id="oldde-0" class="hidden">0</span>
-                            <input style="width: 40px" id="inputstart-0" type="text" name="inputstartnew" class="timepicker check-0">
-                            <input style="width: 40px" id="inputend-0" type="text" name="inputendnew" class="timepicker check-1" disabled>
-                        </td>
-                        <td>
-                            <span id="olddh-0" class="hidden">0</span>
-                            <span id="olddm-0" class="hidden">0</span>
-                            <span id="inputduration-0"></span>
-                        </td>
-                        <td><textarea rows = "2" cols = "60" type="text"  id="inputremark-0" name="inputremarknew" placeholder="Write justification" style="resize: none" class="check-2"></textarea></td>
-                        <td>
-                            <button type="button" class="btn btn-primary" id="btn-add"><i class="fas fa-save"></i></button>
-                            <button type="button" class="btn btn-danger" id="cancel" style="display: inline"><i class="fas fa-times"></i></button>
-                        </td>
-                    </tr>
-                </tbody>  
-            </table>
+                        <tr id="addform" style="display: none">
+                            <td></td>
+                            <td>@if($claim ?? '') {{count($claim->detail)+1}} @else 1 @endif</td>
+                            <td>Manual Input</td>
+                            <td>
+                                <span id="oldds-0" class="hidden">0</span>
+                                <span id="oldde-0" class="hidden">0</span>
+                                <input style="width: 40px" id="inputstart-0" type="text" name="inputstartnew" class="timepicker check-0">
+                                <input style="width: 40px" id="inputend-0" type="text" name="inputendnew" class="timepicker check-1" disabled>
+                            </td>
+                            <td>
+                                <span id="olddh-0" class="hidden">0</span>
+                                <span id="olddm-0" class="hidden">0</span>
+                                <span id="inputduration-0"></span>
+                            </td>
+                            <td><textarea rows = "2" cols = "60" type="text"  id="inputremark-0" name="inputremarknew" placeholder="Write justification" style="resize: none" class="check-2"></textarea></td>
+                            <td>
+                                <button type="button" class="btn btn-primary" id="btn-add"><i class="fas fa-save"></i></button>
+                                <button type="button" class="btn btn-danger" id="cancel" style="display: inline"><i class="fas fa-times"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>  
+                </table>
+            </div>
             @if(($c ?? '')||($d ?? '')||($q ?? ''))
+                <div style="margin-top: -15px"><small>
+                    <p>* Accepted format JPG, JPEG, PDF only
+                    <br>* Maximum size of supporting document is 2MB
+                    <br>* Make sure your PDF document is <u>not password protected</u> and <u>not corrupted</u> </p>
+                </small></div>
                 <div class="row">
                     <div class="col-xs-6">
                         <div class="form-group">
+                            <div class="row" style="margin-bottom: 5px;">
+                                <div class="col-xs-3">
+                                    <label>Document:</label>
+                                </div>
+                                <div class="col-xs-9" style="display: flex; padding-right: 8px">
+                                    <input type="file" name="inputfile" id="inputfile" accept="image/*, .pdf, .jpeg, .jpg" style="position:absolute; right:-100vw;">
+                                    <span id="inputfiletext" style="flex: 1; max-height: 26px; overflow: hidden; padding: 3px 0 3px 5px; border: 1px solid #A9A9A9; border-right: 0">No file chosen*</span>
+                                    <a href="#" id="btn-file-2" style="position: absolute; right: 95px; top: 3px; color: red; display: none "><i class="fas fa-times-circle"></i></a>
+                                    <button type="button" id="btn-file-1" style="min-width: 80px">Choose File</button>
+                                    <button type="button" id="btn-file-3" style="min-width: 80px; display: none;">Upload</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-9 col-xs-offset-3" style="margin-bottom: 5px;">
+                                
+                                    @if($claim ?? '')
+                                        @foreach($claim->file as $f=>$singlefile)
+                                            @php(++$f)
+                                            <a href="{{route('ot.file', ['tid'=>$singlefile->id], false)}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9"></a>
+                                            <a href="#" id="btn-file-del-{{$f}}" style="position: absolute; margin-left: -22px; top: 3px; color: red;" data-id="{{$singlefile->id}}" data-img="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" data-name="{{substr($singlefile->filename, 22)}}"><i class="fas fa-times-circle"></i></a>
+
+                                        @endforeach
+                                    @endif
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-xs-3">
                                     <label>Charge Type:</label>
@@ -561,17 +594,20 @@
             !(((Date.parse($("#inputdate").val()))<=Date.parse(monthNames[m-1]+" "+d+", "+y+" 23:59:59"))&&
             ((Date.parse($("#inputdate").val()))>=Date.parse(monthNames[minm-1]+" 01, "+miny+" 00:00:00")))
             ){
-            Swal.fire(
-                'Invalid date input!',
-                "Claim date must be between "+miny+"-"+minm+"-01 and "+y+"-"+m+"-"+d+"!",
-                'error'
-            )
-            // alert("Claim date must be between "+miny+"-"+minm+"-01 and "+y+"-"+m+"-"+d+"!");
-            @if($show ?? '')
-                $("#inputdate").val("{{$claim->date}}");
-            @else
-                $("#inputdate").val("");
-            @endif
+                Swal.fire(
+                    'Invalid date input!',
+                    "Claim date must be between 01-"+minm+"-"+miny+" and "+d+"-"+m+"-"+y+"!",
+                    'error'
+                )
+                // alert("Claim date must be between "+miny+"-"+minm+"-01 and "+y+"-"+m+"-"+d+"!");
+                
+                @if($claim ?? '')
+                    $("#inputdate").val("{{$claim->date}}");
+                @elseif($draft ?? '')
+                    $("#inputdate").val("{{$draft[6]}}");
+                @else
+                    $("#inputdate").val("");
+                @endif
             }
         });
 
@@ -865,6 +901,47 @@
             $("#delete-"+i).on('click', deleteid(i));
         };
         
+        //when click delete file
+        function deletefile(i){
+            return function(){
+                var id = $("#btn-file-del-"+i).data('id');
+                var img = $("#btn-file-del-"+i).data('img');
+                var name = $("#btn-file-del-"+i).data('name');
+                Swal.fire({
+                    html: 
+                    '<h5>Are you sure to delete file '+name+'?</h5>'+
+                    '<img src="'+img+'" class="img-fluid img-thumbnails" style="height: 300px; width: 300px; border: 1px solid #A9A9A9">',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Delete'
+                    }).then((result) => {
+                    if (result.value) {
+                        $("#filedel").val(id);
+                        $("#inputstart-0").val("");
+                        $("#inputend-0").val("");
+                        $("#inputremark-0").val("");
+                        $("#inputstart-0").prop('required',false);
+                        $("#inputend-0").prop('required',false);
+                        $("#inputremark-0").prop('required',false);
+                        $("#formtype").val("delete");
+                        $("#form").submit();
+                    }
+                })
+                return false;  
+            }
+        }
+
+        for(i=0; i<
+            @if($claim ?? '') 
+                {{count($claim->file)+1}} 
+            @else 
+                1 
+            @endif; i++) {
+            $("#btn-file-del-"+i).on('click', deletefile(i));
+        };
+        
         //when click add time
         $("#add").on('click', function(){
             if(add){
@@ -874,7 +951,7 @@
                 $("#inputstart-0").prop('required',true);
                 $("#inputend-0").prop('required',true);
                 $("#inputremark-0").prop('required',true);
-                // calshowtime(0, (parseInt($("#olddh-0").text()*60)+parseInt($("#olddm-0").text())), 0, 0, $("#oldth").text(), $("#oldtm").text());
+                // calshowtime(0, (parseInt($("#olddh-0").text()*60)+parseInt($("#olddm-0").text())), 0, 0, $("#    oldth").text(), $("#oldtm").text());
                 $('#nodata').css("display","none");
                 add=false;  
             }else{
@@ -907,6 +984,53 @@
                 add=true;  
             }
         });
+
+        $("#btn-file-1").on('click', function(){
+            $('#inputfile').trigger('click');   
+        });
+
+        $("#btn-file-2").on('click', function(){
+            $("#btn-file-1").css("display", "initial");
+            $("#btn-file-2").css("display", "none");
+            $("#btn-file-3").css("display", "none");
+            $("#inputfile").val("");
+            $("#inputfiletext").text("No file chosen*");
+            return false;  
+        });
+
+        //when uploading file
+        $("#btn-file-3").on('click', function(){
+            $("#inputstart-0").val("");
+            $("#inputend-0").val("");
+            $("#inputremark-0").val("");
+            $("#inputstart-0").prop('required',false);
+            $("#inputend-0").prop('required',false);
+            $("#inputremark-0").prop('required',false);
+            // $("#formsave").val("save");
+            // $("#formsubmit").val("no");
+            $("#formtype").val("save");
+            $("#form").submit();
+        });  
+
+        $("#inputfile").on("change", function(){
+            var filesize = this.files[0].size;
+            if (filesize > 2000000) { 
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Unable to choose file',
+                    text: 'File size has exceeded 2MB!'
+                })
+                $("#inputfile").val("");
+                $("#inputfiletext").text("No file chosen*");
+            }
+            else{
+                var ret = $("#inputfile").val().replace("C:\\fakepath\\",'');
+                $("#inputfiletext").text(ret);
+                $("#btn-file-1").css("display", "none");
+                $("#btn-file-2").css("display", "initial");
+                $("#btn-file-3").css("display", "initial");
+            }
+        });
     @endif
 
     //when adding new time
@@ -921,16 +1045,18 @@
             }
         }
         if(submit){
-            $("#formadd").val("add");
-            $("#formsubmit").val("no");
+            // $("#formadd").val("add");
+            // $("#formsubmit").val("no");
+            $("#formtype").val("add");
             $("#form").submit();
         }
     });     
-    //when adding new time
+    //when saving form
     $("#btn-save").on('click', function(){
         if(add){
-            $("#formsave").val("save");
-            $("#formsubmit").val("no");
+            // $("#formsave").val("save");
+            // $("#formsubmit").val("no");
+            $("#formtype").val("save");
             $("#form").submit();
         }else{
             // alert("Please save new time input before saving the form!");
@@ -943,7 +1069,8 @@
     });  
     
     function submission(){
-        if(($("#formadd").val()=="no")&&($("#formsave").val()=="no")){
+        if(($("#formtype").val()=="submit")){
+        // if(($("#formadd").val()=="no")&&($("#formsave").val()=="no")){
             $("#inputstart-0").prop('required',false);
             $("#inputend-0").prop('required',false);
             $("#inputremark-0").prop('required',false);
