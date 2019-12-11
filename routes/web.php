@@ -96,6 +96,13 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/admin/paymentsc/add','Admin\PaymentScheduleController@store')->name('paymentsc.store');
   Route::post( '/admin/paymentsc/update','Admin\PaymentScheduleController@update')->name('paymentsc.edit');
   Route::post('/admin/paymentsc/delete','Admin\PaymentScheduleController@destroy')->name('paymentsc.delete');
+  //Payroll Group
+  Route::get( '/admin/pygroup','Admin\PayrollgroupController@index')->name('pygroup.index');
+  Route::get('/admin/pygroup/create', 'Admin\PayrollgroupController@create')->name('pygroup.create');
+  Route::post('/admin/pygroup/add','Admin\PayrollgroupController@store')->name('pygroup.store');
+  Route::get( '/admin/pygroup/edit/{id}','Admin\PayrollgroupController@edit')->name('pygroup.editnew');
+  Route::post( '/admin/pygroup/update','Admin\PayrollgroupController@update')->name('pygroup.update');
+  Route::post('/admin/pygroup/delete','Admin\PayrollgroupController@destroy')->name('pygroup.delete');
 
   // /admins ------------------------------------
 
@@ -118,7 +125,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/overtime/form/date', 'OvertimeController@formdate')->name('ot.formdate'); //x
   Route::post('/overtime/form/add', 'OvertimeController@formadd')->name('ot.formadd');//x
   Route::post('/overtime/form/delete', 'OvertimeController@formdelete')->name('ot.formdelete');//x
-  
+
   //OT activity - Approver
   Route::get('/overtime/approval', 'OvertimeController@approval')->name('ot.approval'); //x
   Route::get('/overtime/query', 'OvertimeController@query')->name('ot.query');  //x
