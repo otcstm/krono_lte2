@@ -174,6 +174,13 @@ return [
               // 'can' => 'admin-nav-menu',
           ],
           [
+              'text' => 'manage_overtimeex',
+              'url' => '/admin/overtime/expiry',
+              'otm' => '',
+              'icon' => 'fas fas fa-clock',
+              // 'can' => 'admin-nav-menu',
+          ],
+          [
               'text' => 'manage_wdays',
               'url'  => '/admin/workday',
               'icon' => 'far fa-calendar-alt',

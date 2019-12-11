@@ -29,7 +29,7 @@ class OvertimeController extends Controller{
         if($req->session()->get('claim')!=null){
             $day = UserHelper::CheckDay($req->user()->id, $req->session()->get('claim')->date);
             $eligiblehour = CompRegionConfig::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $req->session()->get('claim')->date)->where('end_date','>', $req->session()->get('claim')->date)->first();
-            // dd($eligiblehour);
+            // dd($reg);
             return view('staff.otform', ['draft' =>[], 'claim' => $req->session()->get('claim'), 'day' => $day, 'eligiblehour' => $eligiblehour->hourpermonth]);
         }else if($req->session()->get('draft')!=null){
             $draft = $req->session()->get('draft');
@@ -68,12 +68,17 @@ class OvertimeController extends Controller{
     public function submit(Request $req){
         $submit = true;
         $id = explode(" ", $req->submitid);
-        for($i = 0; $i<count($id); $i++){
-            $claim = Overtime::find($id[$i]);
-            $month = OvertimeMonth::where('id', $claim->month_id)->first();
-            $totalsubmit = ($month->hour*60+$month->minute);
-            if($totalsubmit>(100*60)){
-                $submit = false;
+        if($req->user()->ot_hour_exception!="X"){
+            $reg = Psubarea::where('state_id', $req->user()->state_id)->first();
+            for($i = 0; $i<count($id); $i++){
+                $claim = Overtime::find($id[$i]);
+                $eligiblehour = CompRegionConfig::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $claim->date)->where('end_date','>', $claim->date)->first();          
+                $month = OvertimeMonth::where('id', $claim->month_id)->first();
+                $totalsubmit = ($month->hour*60+$month->minute) + ($claim->total_hour*60+$claim->total_minute);
+                // dd($totalsubmit);
+                if($totalsubmit>($eligiblehour->hourpermonth*60)){
+                    $submit = false;
+                }
             }
         }
         if($submit){
@@ -294,8 +299,7 @@ class OvertimeController extends Controller{
                 }
             }
         }
-        
-        if(($req->chargetype=="")||($req->inputfile=="")||($req->inputjustification=="")){
+        if($req->chargetype==""){
             $status = false;
         }
         
@@ -315,7 +319,6 @@ class OvertimeController extends Controller{
             }
         }
         $updateclaim->charge_type = $req->chargetype;
-        $updateclaim->justification = $req->inputjustification;
         $updateclaim->save();
 
         if(($req->inputfile!="")&&($req->formtype!="delete")){

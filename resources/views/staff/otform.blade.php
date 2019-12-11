@@ -448,16 +448,6 @@
                                 </div>
                             @endif
                         </div>
-                        <div class="form-group" style="margin-top: -10px">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <label for="inputjustification">Justification:</label>
-                                </div>
-                                <div class="col-xs-9">
-                                    <textarea rows = "5" cols = "60" id="inputjustification" name="inputjustification" placeholder="Write justification" required >@if($claim ?? ''){{$claim->justification}}@endif</textarea>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <br>

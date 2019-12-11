@@ -104,7 +104,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/admin/overtime/m', 'OvertimeEligibilityController@otm')->name('oe.otm');
   Route::get('/admin/overtime/getcompany', 'OvertimeEligibilityController@getCompany')->name('oe.getcompany');
   Route::post('/admin/overtime/store', 'OvertimeEligibilityController@store')->name('oe.store');
-
+  Route::get('/admin/overtime/expiry', 'OvertimeExpiryController@show')->name('oex.show');
   // /admins ------------------------------------
 
   //Log activity
