@@ -186,6 +186,12 @@ return [
               // 'can' => 'ot-nav-menu',
           ],
           [
+              'text' => 'payrollgroup',
+              'url' => '/admin/pygroup',
+              'icon' => 'fas fa-calendar-alt',
+              // 'can' => 'admin-nav-menu',
+          ],
+          [
               'text' => 'paymentsch',
               'url' => '/admin/paymentsc',
               'icon' => 'fas fa-calendar-alt',
