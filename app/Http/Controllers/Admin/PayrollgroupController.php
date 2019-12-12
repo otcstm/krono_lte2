@@ -52,6 +52,7 @@ class PayrollgroupController extends Controller
               $cpyg->end_date = $enddt;
               $cpyg->save();
               $a_text = "Successfully created payroll group " .$cekpyg.".";
+              $a_type = "success";
               // dd(trim($comp->id),$pyg->id);
               $oldrecords = CompanyPayrollgroup::where('company_id',$comp->id)
               ->where('payrollgroup_id','!=',$pyg->id)->where('end_date','9999-12-31')->get();
@@ -66,8 +67,9 @@ class PayrollgroupController extends Controller
         }
       }else{
           $a_text = "There is already a group named ".$cekpyg. ".";
+          $a_type = "warning";
       }
-      return redirect(route('pygroup.index',[],false))->with(['a_text'=>$a_text,]);
+      return redirect(route('pygroup.index',[],false))->with(['a_text'=>$a_text,'a_type'=>$a_type]);
   }
 
   public function edit($id)
@@ -127,7 +129,8 @@ class PayrollgroupController extends Controller
         $ncp->start_date = $sdt;
         $ncp->end_date = '9999-12-31';
         $ncp->save();
-
+        $a_text = "Payroll Group $pygroup->pygroup updated!";
+        $a_type = "success";
         $oldrecords = CompanyPayrollgroup::where('company_id',$newselectedCompany)
         ->where('payrollgroup_id','!=',$pygroup->id)->wheredate('end_date','9999-12-31')->get();
         // dd([$oldrecords]);
@@ -139,18 +142,18 @@ class PayrollgroupController extends Controller
         }
       }
       //**check selectedcompany yang enddate 9999-12-31 dalam db, if exist update enddate = $sdt-1
-      return redirect(route('pygroup.index',[],false))->with([]);
+      return redirect(route('pygroup.index',[],false))->with(['a_text'=>$a_text, 'a_type'=>$a_type]);
   }
-  
+
   public function destroy(Request $req)
   {
     $pyg = Payrollgroup::find($req->inputid);
     if($pyg){
       $pyg->delete();
-      $a_text = "Payroll Group deleted!";
+      $a_text = "Payroll Group $pyg->pygroup deleted!";
       $a_type = "warning";
     } else {
-      $a_text = "Payroll Group not found";
+      $a_text = "Payroll Group $pyg->pygroup not found";
       $a_type = "danger";
     }
     return redirect(route('pygroup.index', [], false))->with(['a_text'=>$a_text, 'a_type'=>$a_type]);

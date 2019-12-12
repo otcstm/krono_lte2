@@ -18,7 +18,7 @@
 				<thead>
 					<tr>
 						<!-- <th>Year</th> -->
-						<th>Payroll Group</th>
+						<th>Group</th>
             <th>Last Submission Date</th>
             <th>Last Approval Date</th>
             <th>Interface Date</th>
@@ -31,7 +31,7 @@
          @foreach($ps_list as $ps)
          	<tr>
 					 <!-- <td>{{ $ps->year}}</td> -->
-					 <td>{{ $ps->payrollgroup_id }}</td>
+					 <td>{{ $ps->payrollgroupid->pygroup }}</td>
            <td>{{ $ps->last_sub_date->format('d/m/Y') }}</td>
  					 <td>{{ $ps->last_approval_date->format('d/m/Y') }}</td>
            <td>{{ $ps->interface_date->format('d/m/Y') }}</td>
@@ -44,7 +44,7 @@
 											data-toggle="modal"
 											data-target="#editfPsc"
 											data-id="{{$ps->id}}"
-											data-pyg="{{$ps->pygroup}}"
+											data-payrollgroup_id="{{$ps->payrollgroup_id}}"
 											data-yr="{{$ps->year}}"
 											data-ls="{{$ps->last_sub_date->format('Y-m-d')}}"
 											data-ad="{{$ps->last_approval_date->format('Y-m-d')}}"
@@ -67,14 +67,13 @@
 	</div>
 </div>
 
-<!-- add Psubarea -->
 <div class="panel panel-default">
   <div class="panel-heading"><strong>Add Payment Schedule</strong></div>
   <div class="panel-body">
     <form action="{{ route('paymentsc.store', [], false) }}" method="post" class="form-horizontal">
       @csrf
 			<div class="form-group">
-				<label for="inputpyg" class="control-label col-sm-2">Payroll Group</label>
+				<label for="pyg" class="control-label col-sm-2">Payroll Group</label>
 				<div class="col-sm-10">
 					<select class="form-control" name="pyg" id="pyg" required >
 							<option value="" disabled selected>Select</option>
@@ -115,8 +114,6 @@
   </div>
 </div>
 
-
-<!-- edit Psubarea -->
 <div id="editfPsc" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -127,53 +124,37 @@
 	                <h4 class="modal-title">Edit</h4>
 	            </div>
 							<div class="modal-body">
-									<div class="form-group">
-											<label for="inputsub">Payroll Group</label>
-											<select class="form-control" name="inputpyg" id="editpyg" required>
-													@foreach($pygroups as $pygroup)
-													<option value="{{$pygroup->id}}">{{$pygroup->pygroup}}</option>
-													@endforeach
-											</select>
-									</div>
-							</div>
-							<div class="modal-body">
-									<div class="form-group">
-											<label for="inputsub">Last Submission Date</label>
-											<input type="date" class="form-control" id="editsub" name="inputsub"  value="" required autofocus>
-									</div>
-							</div>
-							<div class="modal-body">
-	                <input type="text" class="form-control hidden" id="editid" name="inputid" value="">
-									<div class="form-group">
-											<label for="inputsub">Last Submission Date</label>
-											<input type="date" class="form-control" id="editsub" name="inputsub"  value="" required autofocus>
-									</div>
-							</div>
-							<div class="modal-body">
-									<div class="form-group">
-											<label for="inputapp">Last Approval Date</label>
-											<input type="date" class="form-control" id="editapp" name="inputapp" value="" required autofocus>
-									</div>
-							</div>
-							<div class="modal-body">
-									<div class="form-group">
-											<label for="inputint">Interface Date</label>
-											<input type="date" class="form-control" id="editint" name="inputint" value="" required autofocus>
-									</div>
-							</div>
-							<div class="modal-body">
-									<div class="form-group">
-											<label for="inputpay">Payment Date</label>
-											<input type="date" class="form-control" id="editpay" name="inputpay" value="" required autofocus>
-									</div>
-							</div>
+								<input type="text" class="form-control hidden" id="editid" name="inputid" value="">
+								<div class="form-group">
+										<label for="inpyg">Payroll Group</label>
+										<select class="form-control" name="inpyg" id="editpyg" required>
+												@foreach($pygroups as $spygroup)
+												<option value="{{$spygroup->id}}">{{$spygroup->pygroup}}</option>
+												@endforeach
+										</select>
+								</div>
+								<div class="form-group">
+										<label for="inputsub">Last Submission Date</label>
+										<input type="date" class="form-control" id="editsub" name="inputsub"  value="" required autofocus>
+								</div>
+								<div class="form-group">
+										<label for="inputapp">Last Approval Date</label>
+										<input type="date" class="form-control" id="editapp" name="inputapp" value="" required autofocus>
+								</div>
+								<div class="form-group">
+										<label for="inputint">Interface Date</label>
+										<input type="date" class="form-control" id="editint" name="inputint" value="" required autofocus>
+								</div>
+								<div class="form-group">
+										<label for="inputpay">Payment Date</label>
+										<input type="date" class="form-control" id="editpay" name="inputpay" value="" required autofocus>
+								</div>
+						</div>
 	            <div class="modal-footer">
 	                <button type="submit" class="btn btn-primary">SAVE</button>
 									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	            </div>
-
-	        </form>
-
+	      </form>
         </div>
     </div>
 </div>
@@ -192,14 +173,16 @@ $(document).ready(function() {
 
 function populate(e){
 		var ps_id = $(e.relatedTarget).data('id');
-		var ps_pyg = $(e.relatedTarget).data('pyg');
+		var ps_payrollgroup_id = $(e.relatedTarget).data('payrollgroup_id');
+
+		// var ps_pyg = $(e.relatedTarget).data('py');
 		// var ps_year = $(e.relatedTarget).data('yr');
     var ps_lastsub = $(e.relatedTarget).data('ls');
     var ps_app = $(e.relatedTarget).data('ad');
 		var ps_int = $(e.relatedTarget).data('intd');
 		var ps_pay = $(e.relatedTarget).data('pd');
 		$('input[name=inputid]').val(ps_id);
-		$('input[name=inputpyg]').val(ps_pyg);
+		$("#editpyg").val(ps_payrollgroup_id);
 		// $('.showyear').text(ps_year);
 		$('input[name=inputsub]').val(ps_lastsub);
 		$('input[name=inputapp]').val(ps_app);

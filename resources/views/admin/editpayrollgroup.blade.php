@@ -28,15 +28,15 @@
 		   <tr>
 		   	<td>
 					<div class="form-group">
-						<label for="comp_selections[]">Companies</label><br/>
-						@foreach ($companies as $company)
-			 		 <input type="checkbox" name="company_selections[]" value="{{ $company->id }} "  id="{{$company->id}}" class="questionCheckBox" />
-			 		 {{ $company->id }} :{{$company->company_descr}} <br/>
-			 		 @endforeach
+					<label for="comp_selections[]">Companies</label><br/>
+					@foreach ($companies as $company)
+					<input type="checkbox" name="company_selections[]" value="{{ $company->id }} "  id="{{$company->id}}" class="questionCheckBox" />
+					{{ $company->id }} :{{$company->company_descr}} <br/>
+					@endforeach
 				 </div>
 				</td>
 		   </tr>
-		 </table>
+		</table>
 	 	</div>
 
 		 <div class="form-group text-center">
@@ -77,8 +77,9 @@ $(function () {
 
 $(function () {
 	 $('#reset').on('click', function () {
-		 @foreach ($pygroup->companyingroup as $var)
-		 checkCompany('{{$var->companyid->id}}');
+		 $('.questionCheckBox').prop('checked',false);
+		 @foreach ($actives as $var)
+		 checkCompany('{{$var->company_id}}');
 			 @endforeach
 	 });
 });

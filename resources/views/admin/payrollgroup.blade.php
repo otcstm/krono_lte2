@@ -6,6 +6,12 @@
 <div class="panel panel-default">
     <div class="panel-heading panel-primary">Payroll Groups</div>
     <div class="panel-body">
+      @if (session()->has('a_text'))
+      <div class="alert alert-{{ session()->get('a_type') }} alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>{{ session()->get('a_text') }}</strong>
+      </div>
+      @endif
         <div class="table-responsive">
             <table id="tRoleList" class="table table-bordered">
                 <thead>
@@ -31,16 +37,15 @@
                  			 @endforeach</td>
                       <td>{{ $pygroup->createdby->id }}</td>
                       <td>
-                        <form method="post" action="{{ route('pygroup.delete', [], false) }}" onsubmit="return confirm('Are you sure you want to delete?')">
-                          @csrf
-                          <a href="{{ route('pygroup.editnew',['id'=>$pygroup['id']],false) }}" class="btn btn-xs btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                          <button type="submit" class="btn btn-xs btn-danger" title="Delete">
-        											<i class="fas fa-trash-alt"></i>
-        									</button>
-        									<input type="hidden" name="inputid" value="{{$pygroup->id}}">
-        								</form>
-
-                        </td>
+                      <form method="post" action="{{ route('pygroup.delete', [], false) }}" onsubmit="return confirm('Are you sure you want to delete?')">
+                        @csrf
+                        <a href="{{ route('pygroup.editnew',['id'=>$pygroup['id']],false) }}" class="btn btn-xs btn-warning"><i class="fas fa-pencil-alt"></i></a>
+                        <button type="submit" class="btn btn-xs btn-danger" title="Delete">
+      											<i class="fas fa-trash-alt"></i>
+      									</button>
+      									<input type="hidden" name="inputid" value="{{$pygroup->id}}">
+      								</form>
+                      </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -50,15 +55,12 @@
           @csrf
           <input type="submit" name="submit" value="Create New PYG" class="btn btn-primary"/>
         </form>
-
     </div>
 </div>
-
 <div id="deletePyg" class="modal fade" role="dialog">
 </div>
 
 @stop
-
 @section('js')
 <script type="text/javascript">
 $(document).ready(function() {
@@ -75,26 +77,8 @@ $(document).ready(function() {
     });
 });
 
-function populate(e){
-  var pyg_id = $(e.relatedTarget).data('pyg_id');
-  var pyg_name = $(e.relatedTarget).data('pyg_name')
-  var pyg_company = $(e.relatedTarget).data(('pyg_company'));
-  var pyg_companies = pyg_company.split(" ");
-  $('input[name=inputid]').val(pyg_id);
-  $('input[name=inputname]').val(pyg_name);
-  $('#showname').text(pyg_name);
-  for(i=0; i<pyg_companies.length; i++){
-      $(".checkbox_"+pyg_companies[i]).prop('checked', true);
-  }
-}
-
-$('#deletePyg').on('show.bs.modal', function(e) {
-    populate(e);
-});
-
 @if(session()->has('feedback'))
     $('#feedback').modal('show');
 @endif
-
 </script>
 @stop

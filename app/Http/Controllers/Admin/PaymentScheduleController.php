@@ -58,14 +58,14 @@ class PaymentScheduleController extends Controller
      $paydate = Carbon::parse($pd);
      $pyear = $paydate->format('Y');
      $pmonth = $paydate->format('m');
-     $inpyg = $req->inputpyg;
+     $inpyg = $req->inpyg;
      $check = PaymentSchedule::whereYear('payment_date',"=", $pyear)
            ->whereMonth('payment_date',"=", $pmonth)
            ->where('payrollgroup_id',$inpyg)
            ->where('id','!=',$req->inputid)
            ->get();
-
-     if($check){
+           // dd([$check]);
+     if(count($check)!=0){
        $a_text = "Payment Schedule $pmonth/$pyear already exist.";
        $a_type = "warning";
      }else{
