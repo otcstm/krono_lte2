@@ -167,6 +167,13 @@ return [
               // 'can' => 'admin-nav-menu',
           ],
           [
+              'text' => 'manage_overtime',
+              'url' => '/admin/overtime',
+              'otm' => '',
+              'icon' => 'fas fas fa-clock',
+              // 'can' => 'admin-nav-menu',
+          ],
+          [
               'text' => 'manage_wdays',
               'url'  => '/admin/workday',
               'icon' => 'far fa-calendar-alt',
@@ -240,7 +247,7 @@ return [
             [
                 'text' => 'ot_apply',
                 'url'  => '/overtime/form',
-                'show' => '',
+                'otnew' => '',
                 'icon' => 'fas fa-edit',
                 // 'can' => 'ot-nav-menu',
             ],
@@ -433,7 +440,7 @@ return [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@9',
                 ],
             ],
         ],

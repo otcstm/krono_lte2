@@ -18,6 +18,7 @@ class CreateCompRegionConfigsTable extends Migration
             $table->string('company_id');
             $table->string('region', 25);
             $table->decimal('salary_cap',10,2)->default(0.0);
+            $table->integer('hourpermonth');
             $table->integer('hourperday');
             $table->integer('daypermonth');
             $table->date('start_date')->nullable();

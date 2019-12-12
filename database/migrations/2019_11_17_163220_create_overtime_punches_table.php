@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOvertimeMonthsTable extends Migration
+class CreateOvertimePunchesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,15 @@ class CreateOvertimeMonthsTable extends Migration
      */
     public function up()
     {
-        Schema::create('overtime_months', function (Blueprint $table) {
+        Schema::create('overtime_punches', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
             $table->integer('user_id');
+            $table->date('date');
+            $table->datetime('start_time');
+            $table->datetime('end_time');
             $table->integer('hour')->default(0);
             $table->integer('minute')->default(0);
-            $table->integer('total_hour')->default(0);
-            $table->integer('total_minute')->default(0);
-            $table->year('year');
-            $table->integer('month');
         });
     }
 
@@ -33,6 +32,6 @@ class CreateOvertimeMonthsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('overtime_months');
+        Schema::dropIfExists('overtime_punches');
     }
 }
