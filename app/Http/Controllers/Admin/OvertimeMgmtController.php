@@ -1,33 +1,38 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\CompRegionConfig;
 use App\Company;
 use Illuminate\Http\Request;
+
+use App\Http\Controllers\Controller;
 use Session;
 
-class OvertimeEligibilityController extends Controller
+class OvertimeMgmtController extends Controller
 {
 
     public function show(Request $req){  
         // dd($req->session()->get('inputregion'));
-        if($req->session()->get('region')!=null){
+        if($req->session()->get('type')!=null){
+            $req->formtype = $req->session()->get('type');
             $req->inputregion = $req->session()->get('region');
             $req->inputcompany = $req->session()->get('company');
         }
-        if($req->inputregion==""){
+        if($req->formtype==""){
             $oe = CompRegionConfig::all();     
-            return view('admin.oteligibilitymain', ['oe' => $oe]);
-        }else{
+            return view('admin.otmgmt', ['oe' => $oe]);
+        }else if($req->formtype=="eligibility"){
             $oe = CompRegionConfig::where('company_id', $req->inputcompany)->where('region', $req->inputregion)->get();  
             // dd($oe);
-            return view('admin.oteligibilitysub', ['oe' => $oe]);
+            return view('admin.otmgmteligibility', ['oe' => $oe]);
         }
     }
 
-    public function otm(){   
-            // Session::put(['inputregion'=>[], 'inputcompany'=>[]]);
+    public function otm(){  
+            Session::put(['type'=>[], 'region'=>[], 'company'=>[]]);
+             
+        // dd($req->session()->get('region'));
             return redirect(route('oe.show',[],false));
         }
 

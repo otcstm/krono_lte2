@@ -99,12 +99,12 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/admin/paymentsc/delete','Admin\PaymentScheduleController@destroy')->name('paymentsc.delete');
 
   //OT Config
-  Route::get('/admin/overtime', 'OvertimeEligibilityController@show')->name('oe.show');
-  Route::post('/admin/overtime', 'OvertimeEligibilityController@show')->name('oe.show');
-  Route::get('/admin/overtime/m', 'OvertimeEligibilityController@otm')->name('oe.otm');
-  Route::get('/admin/overtime/getcompany', 'OvertimeEligibilityController@getCompany')->name('oe.getcompany');
-  Route::post('/admin/overtime/store', 'OvertimeEligibilityController@store')->name('oe.store');
-  Route::get('/admin/overtime/expiry', 'OvertimeExpiryController@show')->name('oex.show');
+  Route::get('/admin/overtime', 'Admin\OvertimeMgmtController@show')->name('oe.show');
+  Route::post('/admin/overtime', 'Admin\OvertimeMgmtController@show')->name('oe.show');
+  Route::get('/admin/overtime/m', 'Admin\OvertimeMgmtController@otm')->name('oe.otm');
+  Route::get('/admin/overtime/getcompany', 'Admin\OvertimeMgmtController@getCompany')->name('oe.getcompany');
+  Route::post('/admin/overtime/store', 'Admin\OvertimeMgmtController@store')->name('oe.store');
+  Route::get('/admin/overtime/expiry', 'Admin\OvertimeMgmtController@show')->name('oex.show');
   // /admins ------------------------------------
 
   //Log activity
