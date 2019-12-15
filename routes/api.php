@@ -14,3 +14,5 @@
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+
+Route::post('/salary/list', 'Datamart/SalaryController@list')->name('salary.list');

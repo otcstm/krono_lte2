@@ -9,12 +9,19 @@ class DataMart extends Controller
 {
   public static function insertSalary(
       $user_id,
+      $upd_sap,
       $start_date,
       $end_date,
       $payscale_type,
       $payscale_area,
-      $salary,
+      $salary
   ) {
+    $s = new Salary;
+
+
+
+
+
 
 
     }
