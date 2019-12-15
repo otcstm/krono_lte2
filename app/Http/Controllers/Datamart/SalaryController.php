@@ -9,9 +9,11 @@ class SalaryController extends Controller
 {
   public function list()
   {
-      $company = Salary::all();
+      $sal = Salary::all();
 
-      return view('admin.company', ['companies' => $company]);
+      return $this->respond_json($sal);
+
+
   }
 
 
