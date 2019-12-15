@@ -1,12 +1,21 @@
 <?php
 
 namespace App\Http\Controllers\Datamart;
+use App\Salary;
 
 use Illuminate\Http\Request;
 
 class SalaryController extends Controller
 {
-  public static function insert(
+  public function list()
+  {
+      $company = Salary::all();
+
+      return view('admin.company', ['companies' => $company]);
+  }
+
+
+    public static function insert(
       $user_id,
       $upd_sap,
       $start_date,
@@ -15,8 +24,6 @@ class SalaryController extends Controller
       $payscale_area,
       $salary
   ) {
-    $s = new Salary;
-
-}
-
+        $s = new Salary;
+    }
 }
