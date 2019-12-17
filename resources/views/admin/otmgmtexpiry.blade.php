@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Overtime Management')
+@section('title', 'Overtime Management (Expiry)')
 
 @section('content')
 <div class="panel panel-default">
-    <div class="panel-heading panel-primary">Overtime</div>
+    <div class="panel-heading panel-primary">Overtime Management (Expiry)</div>
     <div class="panel-body">
         @if(session()->has('feedback'))
         <div class="alert alert-{{session()->get('feedback_type')}} alert-dismissible" id="alert">
@@ -17,26 +17,108 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Salary Cap</th>
-                        <th>Hour per Month</th>
-                        <th>Hour per Day</th>
-                        <th>Day per Month</th>
+                        <th>Status</th>
+                        <th>No of Month</th>
+                        <th>Base Date</th>
+                        <th>Action After</th>
                         <th>Start Time</th>
                         <th>End Time</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($oe as $singleuser)
-                    <tr>
-                        <td></td>
-                        <td>{{ $singleuser->salary_cap }}</td>
-                        <td>{{ $singleuser->hourpermonth }}</td>
-                        <td>{{ $singleuser->hourperday }}</td>
-                        <td>{{ $singleuser->daypermonth }}</td>
-                        <td>{{ $singleuser->start_date }}</td>
-                        <td>{{ $singleuser->end_date }}</td>
-                    </tr>
-                    @endforeach
+                    <form id="form" action="{{route('oe.active')}}" method="POST">
+                        @csrf
+                        <input type="text" class="hidden" id="inputid" name="inputid" value="" required>
+                        <input type="text" class="hidden" id="inputmonth" name="inputmonth" value="" required>
+                        <input type="text" class="hidden" id="inputbase" name="inputbase" value="" required>
+                        <input type="text" class="hidden" id="inputaction" name="inputaction" value="" required>
+                        <input type="text" class="hidden" id="inputactive" name="inputactive" value="" required>
+                        @foreach($oe as $no=>$singleuser)
+                        <tr>
+                            <td></td>
+                            <td>
+                                @if($singleuser->status=="D")
+                                    Draft
+                                @elseif($singleuser->status=="Q")
+                                    Query
+                                @elseif($singleuser->status=="PA")
+                                    Pending Approval
+                                @elseif($singleuser->status=="PV")
+                                    Pending Verification
+                                @endif
+                            </td>
+                            <td>
+                                @if($singleuser->end_date=="9999-12-31")
+                                    <input type="number" id="month-{{$no}}" min="1" data-id="{{$singleuser->id}}" value="{{ $singleuser->noofmonth }}">
+                                @else
+                                    {{ $singleuser->noofmonth }}
+                                @endif
+                            </td>
+                            <td>
+                                @if($singleuser->end_date=="9999-12-31")
+                                    <select id="base-{{$no}}" data-id="{{$singleuser->id}}">
+                                        <option value="Request Date"
+                                            @if($singleuser->based_date=="Request Date")
+                                                selected
+                                            @endif
+                                        >Request Date</option>
+                                        <option value="OT Date"
+                                            @if($singleuser->based_date=="OT Date")
+                                                selected
+                                            @endif
+                                        >OT Date</option>
+                                        <option value="Submit to Verifier Date"
+                                            @if($singleuser->based_date=="Submit to Verifier Date")
+                                                selected
+                                            @endif
+                                        >Submit to Verifier Date</option>
+                                        <option value="Submit to Approver Date"
+                                            @if($singleuser->based_date=="Submit to Approver Date")
+                                                selected
+                                            @endif
+                                        >Submit to Approver Date</option>
+                                        <option value="Query Date"
+                                            @if($singleuser->based_date=="Query Date")
+                                                selected
+                                            @endif
+                                        >Query Date</option>
+                                @else
+                                    {{ $singleuser->based_date }}
+                                @endif
+                            </td>
+                            <td>
+                                @if($singleuser->end_date=="9999-12-31")
+                                    <select id="after-{{$no}}" data-id="{{$singleuser->id}}">
+                                        <option value="Delete"
+                                            @if($singleuser->action_after=="Delete")
+                                                selected
+                                            @endif
+                                        >Delete</option>
+                                        <option value="Archieve"
+                                            @if($singleuser->action_after=="Archieve")
+                                                selected
+                                            @endif
+                                        >Archieve</option>
+                                    </select>
+                                @else
+                                    {{ $singleuser->action_after }}
+                                @endif
+                            </td>
+                            <td>{{ $singleuser->start_date }}</td>
+                            <td>{{ $singleuser->end_date }}</td>
+                            <td>
+                                @if($singleuser->end_date=="9999-12-31")
+                                    <input type="checkbox" id="checkbox-{{$no}}"  data-id="{{$singleuser->id}}"
+                                        @if($singleuser->active=="X")
+                                            checked
+                                        @endif
+                                    >
+                                @endif
+                            </td>
+                        </tr>
+                        @endforeach
+                    </form>
                 </tbody>
             </table>
         </div>

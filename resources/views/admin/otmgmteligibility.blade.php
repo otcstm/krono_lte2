@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Overtime Management')
+@section('title', 'Overtime Management (Eligibility)')
 
 @section('content')
 <div class="panel panel-default">
-    <div class="panel-heading panel-primary">Overtime</div>
+    <div class="panel-heading panel-primary">Overtime Management (Eligibility)</div>
     <div class="panel-body">
         @if(session()->has('feedback'))
         <div class="alert alert-{{session()->get('feedback_type')}} alert-dismissible" id="alert">

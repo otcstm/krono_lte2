@@ -30,5 +30,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ShiftPatternsTableSeeder::class);
         $this->call(OvertimeFormulasTableSeeder::class);
         $this->call(CompRegionConfigsTableSeeder::class);
+        $this->call(OvertimeExpiriesTableSeeder::class);
     }
 }

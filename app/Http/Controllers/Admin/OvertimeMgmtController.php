@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\CompRegionConfig;
+use App\OvertimeExpiry;
 use App\Company;
 use Illuminate\Http\Request;
 
@@ -26,6 +27,10 @@ class OvertimeMgmtController extends Controller
             $oe = CompRegionConfig::where('company_id', $req->inputcompany)->where('region', $req->inputregion)->get();  
             // dd($oe);
             return view('admin.otmgmteligibility', ['oe' => $oe]);
+        }else if($req->formtype=="expiry"){
+            $oe = OvertimeExpiry::where('company_id', $req->inputcompany)->where('region', $req->inputregion)->get();  
+            // dd($oe);
+            return view('admin.otmgmtexpiry', ['oe' => $oe]);
         }
     }
 
