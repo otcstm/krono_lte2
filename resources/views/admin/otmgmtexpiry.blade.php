@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="panel panel-default">
-    <div class="panel-heading panel-primary">Overtime Management (Expiry)</div>
+    <div class="panel-heading panel-primary">Overtime Management (Expiry) - {{$oe->get(0)->companyid->company_descr}} ({{$oe->get(0)->region}})</div>
     <div class="panel-body">
         @if(session()->has('feedback'))
         <div class="alert alert-{{session()->get('feedback_type')}} alert-dismissible" id="alert">

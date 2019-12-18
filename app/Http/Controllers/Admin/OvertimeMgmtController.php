@@ -14,7 +14,7 @@ class OvertimeMgmtController extends Controller
 {
 
     public function show(Request $req){  
-        // dd($req->session()->get('inputregion'));
+        // dd($req->session()->get('type'));
         if($req->session()->get('type')!=null){
             $req->formtype = $req->session()->get('type');
             $req->inputregion = $req->session()->get('region');
@@ -52,7 +52,7 @@ class OvertimeMgmtController extends Controller
 
     public function store(Request $req){
         $latest = CompRegionConfig::where('company_id', $req->inputcompany)->where('region', $req->inputregion)->latest('created_at')->first();
-        if(date($latest->start_date)>date($req->inputdate)){
+        if(date($latest->start_date)>=date($req->inputdate)){
             
             // dd("korbnn");
             $update = CompRegionConfig::find($latest->id);
@@ -76,10 +76,12 @@ class OvertimeMgmtController extends Controller
         $update->end_date = '9999-12-31';
         $update->created_by = $req->user()->id;
         $update->save();
-        Session::put(['region'=>$req->inputregion, 'company'=>$req->inputcompany]);
+        Session::put(['region'=>$req->inputregion, 'company'=>$req->inputcompany, 'type'=>$req->formtype]);
+        // dd($req->formtype);
+        // dd($req->session()->get('type'));
         return redirect(route('oe.show',[],false))->with([
-            'inputregion'=>$req->inputregion, 
-            'inputcompany'=>$req->inputcompany,
+            // 'inputregion'=>$req->inputregion, 
+            // 'inputcompany'=>$req->inputcompany,
             'feedback' => true,
             'feedback_text' => "Successfully updated configuration!",
             'feedback_type' => "success"
