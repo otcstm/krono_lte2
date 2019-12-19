@@ -23,8 +23,8 @@
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', function ($api) {
-  $api->get('salary/retABC', 'App\Http\Controllers\Datamart\SalaryController@returnABC');
-    $api->get('salary/retABC', 'App\Http\Controllers\Datamart\SalaryController@returnABC');
+  $api->get('salary/retABC', 'app\Api\Datamart\SalaryController@returnABC');
+
     //Route::get('/salary/retABC', 'Datamart\SalaryController@returnABC')->name('salary.abc');
 
 
