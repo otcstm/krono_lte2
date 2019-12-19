@@ -15,4 +15,23 @@
 //     return $request->user();
 // });
 
-Route::post('/salary/list', 'Datamart/SalaryController@list')->name('salary.list');
+
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+
+
+
+
+Route::group(['middleware' => ['auth:api']], function () {
+  Route::get('/salary/list', 'Datamart\SalaryController@list')->name('salary.list');
+  Route::post('/salary/insert', 'Datamart\SalaryController@insert')->name('salary.list');
+
+});
+
+
+
+Route::group(['middleware' => ['auth:api']], function () {
+  Route::get('/salary/retABC', 'Datamart\SalaryController@returnABC')->name('salary.abc');
+
+
+});

@@ -22,7 +22,7 @@ class CreateSalariesTable extends Migration
             $table->string('payscale_type',20);
             $table->string('payscale_area',20);
             $table->decimal('salary', 10, 3)->default(0.0);
-            $table->integer('soa_id');
+            $table->integer('soa_id')->nullable();
             $table->timestamps();
         });
     }
