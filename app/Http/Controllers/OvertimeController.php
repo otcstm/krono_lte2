@@ -135,7 +135,7 @@ class OvertimeController extends Controller{
                 $totalhour = 0;
                 $totalminute = 0;
                 $draftclaim = new Overtime;
-                $draftclaim->refno = "OT".date("ymd", strtotime($claimdate))."-".sprintf("%08d", $req->user()->id)."-".rand(10000,99999);
+                $draftclaim->refno = "OT".date("Ymd", strtotime($claimdate))."-".sprintf("%08d", $req->user()->id)."-".rand(10000,99999);
                 $draftclaim->user_id = $req->user()->id;
                 $draftclaim->month_id = $claimtime->id;
                 $draftclaim->date = $req->inputdate;

@@ -229,7 +229,7 @@
                                                 @if($singleuser->clock_in!="")
                                                     {{date('H:i', strtotime($singleuser->clock_in))}} - {{date('H:i', strtotime($singleuser->clock_out))}} 
                                                 @else 
-                                                    Manual 
+                                                    Manual Input
                                                 @endif
                                             </td>
                                             <td>

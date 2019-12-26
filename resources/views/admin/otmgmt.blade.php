@@ -35,7 +35,7 @@
             <button type="button" class="btn btn-primary" id="btn-eligibility">
                 CONFIGURE ELIGIBILITY
             </button>
-            <button type="button" class="btn btn-warning" id="btn-expiry">
+            <button type="button" class="btn btn-success" id="btn-expiry">
                 CONFIGURE EXPIRY
             </button>
         </div>

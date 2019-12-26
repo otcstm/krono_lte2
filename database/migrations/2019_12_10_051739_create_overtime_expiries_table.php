@@ -17,8 +17,8 @@ class CreateOvertimeExpiriesTable extends Migration
             $table->bigIncrements('id');
             $table->string('company_id');
             $table->string('region', 25);
+            $table->string('otstatus');
             $table->string('status');
-            $table->string('active');
             $table->integer('noofmonth');
             $table->string('based_date');
             $table->string('action_after');
