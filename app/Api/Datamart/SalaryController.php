@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Api\Datamart;
+namespace app\Api\Datamart;
+//use App\Api\Datamart;
 
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\Controller;
@@ -56,6 +57,6 @@ class SalaryController extends Controller
 
     public function returnABC()
     {
-        return "ABCD";
+        return "ABCDE";
     }
 }
