@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,10 +9,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::redirect('/', '/login');
 Auth::routes(['register' => false]);
-
 //Temporary offline login (url /login/offline)
 Route::view('/login/offline', 'loginoffline',[]);
 Route::post('/login/offline', 'TempController@login')->name('login.offline');
@@ -22,32 +19,23 @@ Route::get('/ur/popbyid/{id}', 'URController@popById')->name('ur.popbyid');
 Route::get('/ur/show/{persno}', 'URController@show')->name('ur.show');
 Route::get('/ur/listAll', 'URController@listAll')->name('ur.listAll');
 Route::get('/ur/show/{persno}/{dt}', 'URController@gUR')->name('ur.listAll');
-
-
 // Route::get('/', 'MiscController@index')->name('misc.index');
 Route::group(['middleware' => ['auth']], function () {
-
   Route::get('/home', 'MiscController@home')->name('misc.home');
   Route::get('/role', 'Admin\RoleController@index')->name('role.index');
-
   // clock-in related
   Route::get('/punch',      'MiscController@showPunchView')->name('punch.list');
   Route::post('/punch/in',  'MiscController@doClockIn')->name('punch.in');
   Route::post('/punch/out', 'MiscController@doClockOut')->name('punch.out');
-
   //List staff & search
   Route::get('/staff', 'Admin\StaffController@showStaff')->name('staff.list');
   Route::post('/staff/search', 'Admin\StaffController@searchStaff')->name('staff.search');
-
   // admins ------------------------------------
-
   Route::get('/admin/workday', 'Admin\DayTypeController@index')->name('wd.index');
   Route::post('/admin/workday/add', 'Admin\DayTypeController@add')->name('wd.add');
   Route::post('/admin/workday/edit', 'Admin\DayTypeController@edit')->name('wd.edit');
   Route::post('/admin/workday/delete', 'Admin\DayTypeController@delete')->name('wd.delete');
-
   Route::get('/admin/cda', 'TempController@loadDummyUser')->name('temp.cda');
-
   //start state admin
   Route::post('/admin/state/store'    ,'Admin\StateController@store'    )->name('state.store');
   Route::get( '/admin/restState'      ,'Admin\StateController@list'     )->name('state.list');
@@ -55,34 +43,27 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get( '/admin/state/show'     ,'Admin\StateController@show'   )->name('state.show');
   Route::post( '/admin/state/update'  ,'Admin\StateController@update'   )->name('state.update');
   //end state admin
-
   //User management
   Route::get('/admin/staff', 'Admin\StaffController@showMgmt')->name('staff.list.mgmt');
   Route::post('/admin/staff/edit', 'Admin\StaffController@updateMgmt')->name('staff.edit.mgmt');
-
   //User authorization
   Route::get('/admin/staff/auth', 'Admin\StaffController@showRole')->name('staff.list.auth');
   Route::post('/admin/staff/auth/edit', 'Admin\StaffController@updateRole')->name('staff.edit.auth');
-
   //Role management
   Route::get('admin/role', 'Admin\RoleController@show')->name('role.list');
   Route::post('admin/role/create', 'Admin\RoleController@store')->name('role.store');
   Route::post('admin/role/edit', 'Admin\RoleController@update')->name('role.edit');
   Route::post('admin/role/delete', 'Admin\RoleController@destroy')->name('role.delete');
-
   //Company
   Route::get( '/admin/company','Admin\CompanyController@index')->name('company.index');
   Route::post('/admin/company/add','Admin\CompanyController@store')->name('company.store');
   Route::post('/admin/company/delete','Admin\CompanyController@destroy')->name('company.delete');
   Route::post( '/admin/company/update','Admin\CompanyController@update')->name('company.update');
-
-
   //Personnel subarea
   Route::get( '/admin/psubarea','Admin\PsubareaController@index')->name('psubarea.index');
   Route::post('/admin/psubarea/add','Admin\PsubareaController@store')->name('psubarea.store');
   Route::post( '/admin/psubarea/update','Admin\PsubareaController@update')->name('psubarea.edit');
   Route::post('/admin/psubarea/delete','Admin\PsubareaController@destroy')->name('psubarea.delete');
-
   //Holiday
   Route::get('/admin/holiday/create', 'Admin\HolidayController@create')->name('holiday.create');
   Route::post('/admin/holiday/insert', 'Admin\HolidayController@insert')->name('holiday.insert');
@@ -91,26 +72,28 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/admin/holiday/edit/{id}', 'Admin\HolidayController@edit')->name('holiday.edit');
   Route::post('/admin/holiday/update', 'Admin\HolidayController@update')->name('holiday.update');
   Route::post('/admin/holiday/destroy', 'Admin\HolidayController@destroy')->name('holiday.destroy');
-
   //Payment Schedule
   Route::get( '/admin/paymentsc','Admin\PaymentScheduleController@index')->name('paymentsc.index');
   Route::post('/admin/paymentsc/add','Admin\PaymentScheduleController@store')->name('paymentsc.store');
   Route::post( '/admin/paymentsc/update','Admin\PaymentScheduleController@update')->name('paymentsc.edit');
   Route::post('/admin/paymentsc/delete','Admin\PaymentScheduleController@destroy')->name('paymentsc.delete');
-
-  //OT Config
+  //Payroll Group
+  Route::get( '/admin/pygroup','Admin\PayrollgroupController@index')->name('pygroup.index');
+  Route::get('/admin/pygroup/create', 'Admin\PayrollgroupController@create')->name('pygroup.create');
+  Route::post('/admin/pygroup/add','Admin\PayrollgroupController@store')->name('pygroup.store');
+  Route::get( '/admin/pygroup/edit/{id}','Admin\PayrollgroupController@edit')->name('pygroup.editnew');
+  Route::post( '/admin/pygroup/update','Admin\PayrollgroupController@update')->name('pygroup.update');
+  Route::post('/admin/pygroup/delete','Admin\PayrollgroupController@destroy')->name('pygroup.delete');
+ //OT Config
   Route::get('/admin/overtime', 'OvertimeEligibilityController@show')->name('oe.show');
   Route::post('/admin/overtime', 'OvertimeEligibilityController@show')->name('oe.show');
   Route::get('/admin/overtime/m', 'OvertimeEligibilityController@otm')->name('oe.otm');
   Route::get('/admin/overtime/getcompany', 'OvertimeEligibilityController@getCompany')->name('oe.getcompany');
   Route::post('/admin/overtime/store', 'OvertimeEligibilityController@store')->name('oe.store');
-
   // /admins ------------------------------------
-
   //Log activity
   Route::get('/log/listUserLogs', 'MiscController@listUserLogs')->name('log.listUserLogs');
   Route::get('/log/updUserLogs', 'MiscController@logUserAct')->name('log.logUserAct');
-
   //OT activity - User
   Route::get('/overtime', 'OvertimeController@list')->name('ot.list');
   Route::post('/overtime/submit', 'OvertimeController@submit')->name('ot.submit');
@@ -125,13 +108,11 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/overtime/form/delete', 'OvertimeController@formdelete')->name('ot.formdelete');
   Route::get('/overtime/form/getthumbnail', 'OvertimeController@getthumbnail')->name('ot.thumbnail');
   Route::get('/overtime/form/getfile', 'OvertimeController@getfile')->name('ot.file');
-
   //OT activity - Approver
   Route::get('/overtime/approval', 'OvertimeController@approval')->name('ot.approval');
   Route::post('/overtime/approval', 'OvertimeController@approval')->name('ot.approval');
   Route::post('/overtime/query', 'OvertimeController@query')->name('ot.query');
 });
-
 Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
   Route::get('/', 'ShiftPatternController@index')->name('index');
   Route::post('/add', 'ShiftPatternController@addShiftPattern')->name('add');
@@ -141,7 +122,6 @@ Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => '
   Route::post('/day/push', 'ShiftPatternController@pushDay')->name('day.add');
   Route::post('/day/pop', 'ShiftPatternController@popDay')->name('day.del');
 });
-
 Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth']], function () {
   Route::get('/', 'ShiftPlanController@index')->name('index');
   // ShiftPlan crud
@@ -150,7 +130,6 @@ Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth
   Route::post('/edit', 'ShiftPlanController@editPlan')->name('edit');
   Route::post('/del', 'ShiftPlanController@delPlan')->name('delete');
   Route::post('/takeaction', 'ShiftPlanController@takeActionPlan')->name('takeaction');
-
   // shift groups
   Route::get('/group', 'ShiftGroupController@index')->name('group');
   Route::post('/group/add', 'ShiftGroupController@addGroup')->name('group.add');
@@ -159,7 +138,6 @@ Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth
   Route::post('/group/edit', 'ShiftGroupController@editGroup')->name('group.edit');
   Route::post('/staff/add', 'ShiftGroupController@addStaff')->name('staff.add');
   Route::post('/staff/del', 'ShiftGroupController@removeStaff')->name('staff.del');
-
   // ShiftPlanStaff
   Route::get('/staff', 'ShiftPlanController@staffInfo')->name('staff');
   Route::post('/staff/push', 'ShiftPlanController@staffPushTemplate')->name('staff.push');
