@@ -22,10 +22,11 @@ class CreateOvertimesTable extends Migration
             $table->date('date');
             $table->date('date_created');
             $table->date('date_expiry');
-            $table->integer('total_hour');
-            $table->integer('total_minute');
+            $table->integer('total_hour')->default(0);
+            $table->integer('total_minute')->default(0);
+            $table->decimal('amount', 10,2)->default(0);
             $table->integer('profile_id')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status')->default("D1");
             $table->string('company_id')->nullable();
             $table->string('state_id')->nullable();
             $table->integer('approver_id')->unsigned()->nullable();

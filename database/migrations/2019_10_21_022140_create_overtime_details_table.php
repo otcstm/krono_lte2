@@ -23,6 +23,8 @@ class CreateOvertimeDetailsTable extends Migration
             $table->datetime('end_time');
             $table->integer('hour');
             $table->integer('minute');
+            $table->string('checked');
+            $table->decimal('amount', 10,2)->nullable();
             $table->string('justification')->nullable();
         });
     }

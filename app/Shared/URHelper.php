@@ -3,6 +3,7 @@
 namespace App\Shared;
 use App\User;
 use App\UserRecord;
+use App\Salary;
 
 class URHelper
 {
@@ -88,10 +89,25 @@ class URHelper
       public static function getUserHistory( $persno)
       {
         $ur = UserRecord::where('user_id',$persno)->get();
-
         return $ur;
 
       }
+// Return the latest user reord for given persno and date
+      public static function getUserRecordByDate( $persno,$dt)
+      {
+        $urMaxDate = UserRecord::where('user_id',$persno)->where('upd_sap','<=',$dt)->max('upd_sap');
+        $ur = UserRecord::where('user_id',$persno)->where('upd_sap','=',$urMaxDate)->get()->first();
+        return $ur;
+      }
+// Return the user reord for given persno
+      public static function getUser( $persno)
+      {
+        $u = User::where('id','=',$persno)->get();
+        return $u;
+      }
+
+
+
 
 
 }
