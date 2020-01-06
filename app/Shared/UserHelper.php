@@ -81,7 +81,8 @@ class UserHelper {
     $currentp = UserHelper::GetCurrentPunch($staff_id);
     $msg = 'OK';
     
-    $in_time =  Carbon::create(2019, 11, 18, 6, 17, 0); //testing time
+    // $in_time =  Carbon::create(2019, 11, 18, 11, 17, 0); //testing time
+    // $in_time =  Carbon::create(2019, 11, 18, 6, 17, 0); //testing time
     // $in_time =  Carbon::create(2019, 11, 14, 16, 42, 0); //temp
     if($currentp){
       // already punched
@@ -111,7 +112,8 @@ class UserHelper {
       $timein = new Carbon($currentp->punch_in_time);
       $punchinori = new Carbon($timein->format('Y-m-d'));
       $punchin = new Carbon($timein->format('Y-m-d'));
-      $out_time =  Carbon::create(2019, 11, 18, 18, 17, 0); //testing time
+      // $out_time =  Carbon::create(2019, 11, 18, 12, 17, 0); //testing time
+      // $out_time =  Carbon::create(2019, 11, 18, 18, 17, 0); //testing time
       // $out_time =  Carbon::create(2019, 11, 15, 10, 42, 0); //temp
 
       $timeout = new Carbon($out_time->format('Y-m-d'));
@@ -128,6 +130,7 @@ class UserHelper {
             //new record punch in nextday 00:00:00
             $currentp = new StaffPunch;
             $currentp->user_id = $staff_id;
+
             $currentp->punch_in_time = $in;
             $currentp->in_latitude = $ori_punch->in_latitude;
             $currentp->in_longitude =  $ori_punch->in_longitude;
@@ -140,7 +143,7 @@ class UserHelper {
           $currentp->save();
           $date = new Carbon($punchin->format('Y-m-d'));
           $date->subDay();
-          $execute = UserHelper::AddOTPunch($staff_id, $date, $timein, $punchin);
+          $execute = UserHelper::AddOTPunch($staff_id, $date, $timein, $punchin, $currentp->id);
           $timein = new Carbon($punchin);
         }
 
@@ -157,7 +160,7 @@ class UserHelper {
         $currentp->parent =  $ori_punch->id;
         $currentp->save();
         $date = new Carbon($out_time->format('Y-m-d'));      
-        $execute = UserHelper::AddOTPunch($staff_id, $date, $timein, $out_time);
+        $execute = UserHelper::AddOTPunch($staff_id, $date, $timein, $out_time, $currentp->id);
 
       }else{
         //cek out hari sama!!!
@@ -167,7 +170,7 @@ class UserHelper {
         $currentp->status = 'out';
         $currentp->save();
         $date = new Carbon($out_time->format('Y-m-d'));
-        $execute = UserHelper::AddOTPunch($staff_id, $date, $timein, $out_time);
+        $execute = UserHelper::AddOTPunch($staff_id, $date, $timein, $out_time, $currentp->id);
       }
       
 
@@ -183,7 +186,7 @@ class UserHelper {
   }
 
   //Add punch data to overtime punch
-  public static function AddOTPunch($staff_id, $date, $timein, $out_time)
+  public static function AddOTPunch($staff_id, $date, $timein, $out_time, $id)
   {
     $start = $timein->format('Y-m-d H:i:s');
     $end = $out_time->format('Y-m-d H:i:s');
@@ -192,10 +195,16 @@ class UserHelper {
     $endt = strtotime($end);
     $startd = strtotime(date("Y-m-d", strtotime($date))." ".$day[0].":00");
     $endd = strtotime(date("Y-m-d", strtotime($date))." ".$day[1].":00");
-    if(($startd<$endt && $endd>$startt)){
-      if($startt>$startd){
+    // dd($startt." ".$endt." ".$startd." ".$endd);
+    // dd($start." ".$end." - ".date("Y-m-d", strtotime($date))." ".$day[0].":00 ".date("Y-m-d", strtotime($date))." ".$day[1].":00");
+    // dd($startd."<".$endt."&&".$endd.">".$startt);
+    if(($startd<$endt) && ($endd>$startt)){
+      if(($endt>$endd)&&($startt>$startd)){
+
+        // dd("1");
         $newtime = new OvertimePunch;
         $newtime->user_id = $staff_id;
+        $newtime->punch_id = $id;
         $newtime->date = $date;
         $newtime->start_time = date("Y-m-d", strtotime($date))." ".$day[1].":00";
         $newtime->end_time = $end;
@@ -203,9 +212,11 @@ class UserHelper {
         $newtime->hour = (int) ($dif/60);
         $newtime->minute = $dif%60;
         $newtime->save();
-      }else if($endt<$endd){
+      }else if(($endt<$endd)&&($startt<$startd)){
+        // dd("2");
         $newtime = new OvertimePunch;
         $newtime->user_id = $staff_id;
+        $newtime->punch_id = $id;
         $newtime->date = $date;
         $newtime->start_time = $start;
         $newtime->end_time = date("Y-m-d", strtotime($date))." ".$day[0].":00";
@@ -213,9 +224,11 @@ class UserHelper {
         $newtime->hour = (int) ($dif/60);
         $newtime->minute = $dif%60;
         $newtime->save();
-      }else{
+      }else if(!(($startt>$startd)&&($startt<$endd))){
+        // dd("3");
         $newtime = new OvertimePunch;
         $newtime->user_id = $staff_id;
+        $newtime->punch_id = $id;
         $newtime->date = $date;
         $newtime->start_time = $start;
         $newtime->end_time = date("Y-m-d", strtotime($date))." ".$day[0].":00";
@@ -225,6 +238,7 @@ class UserHelper {
         $newtime->save();
         $newtime = new OvertimePunch;
         $newtime->user_id = $staff_id;
+        $newtime->punch_id = $id;
         $newtime->date = $date;
         $newtime->start_time = date("Y-m-d", strtotime($date))." ".$day[1].":00";
         $newtime->end_time = $end;
@@ -236,6 +250,7 @@ class UserHelper {
     }else{
       $newtime = new OvertimePunch;
       $newtime->user_id = $staff_id;
+      $newtime->punch_id = $id;
       $newtime->date = $date;
       $newtime->start_time = $start;
       $newtime->end_time = $end;

@@ -19,7 +19,7 @@ class CreateOvertimesTable extends Migration
             $table->string('refno')->unique();
             $table->integer('user_id');
             $table->integer('month_id');
-            $table->date('date');
+            $table->datetime('date');
             $table->date('date_created');
             $table->date('date_expiry');
             $table->integer('total_hour')->default(0);
@@ -33,6 +33,9 @@ class CreateOvertimesTable extends Migration
             $table->integer('verifier_id')->unsigned()->nullable();            
             $table->integer('daytype_id')->nullable();
             $table->string('charge_type')->nullable();
+            $table->datetime('approved_date')->nullable();
+            $table->datetime('verified_date')->nullable();
+            $table->datetime('queried_date')->nullable();
         });
     }
 

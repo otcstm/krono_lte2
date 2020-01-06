@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/punch',      'MiscController@showPunchView')->name('punch.list');
   Route::post('/punch/in',  'MiscController@doClockIn')->name('punch.in');
   Route::post('/punch/out', 'MiscController@doClockOut')->name('punch.out');
+  Route::post('/punch/delete', 'MiscController@delete')->name('punch.delete');
 
   //List staff & search
   Route::get('/staff', 'Admin\StaffController@showStaff')->name('staff.list');
