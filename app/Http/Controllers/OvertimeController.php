@@ -213,6 +213,7 @@ class OvertimeController extends Controller{
             $claim = Overtime::where('id', $req->inputid)->first();
         }
         if($req->formtype=="add"){
+            // dd($req->inputstartnew);
             $dif = (strtotime($req->inputendnew) - strtotime($req->inputstartnew))/60;
             $hour = (int) ($dif/60);
             $minute = $dif%60;

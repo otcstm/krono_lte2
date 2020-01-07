@@ -19,7 +19,7 @@ class CreateOvertimesTable extends Migration
             $table->string('refno')->unique();
             $table->integer('user_id');
             $table->integer('month_id');
-            $table->datetime('date');
+            $table->date('date');
             $table->date('date_created');
             $table->date('date_expiry');
             $table->integer('total_hour')->default(0);
