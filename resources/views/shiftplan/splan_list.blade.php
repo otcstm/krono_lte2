@@ -64,9 +64,10 @@
          </tr>
        </thead>
        <tbody>
-         @foreach($p_list as $ap)
+         @foreach($grouplist as $agrp)
+         @foreach($agrp->ShiftPlans as $ap)
          <tr>
-           <td>{{ $ap->plan_month->format('M Y') }}</td>
+           <td>{{ $ap->plan_month->format('Ym') }} ({{ $ap->plan_month->format('M Y') }})</td>
            <td>{{ $ap->name }}</td>
            <td>{{ $ap->StaffList->count() }}</td>
            <!-- <td>{{ $ap->Creator->name }}</td> -->
@@ -81,6 +82,7 @@
 
            </td>
          </tr>
+         @endforeach
          @endforeach
        </tbody>
      </table>
