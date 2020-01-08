@@ -15,9 +15,11 @@ class StaffController extends Controller
 {
     public function showStaff(Request $req){
         if($req->session()->has('staffs')) {
-          $staff = $req->session()->get('staffs');
+          // $staff = $req->session()->get('staffs');
+          $staff = User::find($req->session()->get('staffs'));
           return view('admin.staff',[
-            'staffs' => $req->session()->get('staffs')
+            // 'staffs' => $req->session()->get('staffs')
+            'staffs' => $staff
           ]);
         }else{
           $staff = [];
@@ -29,7 +31,7 @@ class StaffController extends Controller
       $input = $req->inputstaff;
       $auth = $req->auth;
       $mgmt = $req->mgmt;
-      $staff = [];
+      $staffr = [];
       $staff = User::where('staff_no', trim($input))->get();
       if(!empty($input)){
         if(count($staff)==0){
@@ -40,9 +42,16 @@ class StaffController extends Controller
           $req->session()->flash('feedback_text',"No maching records found. Try to search again.");
           $req->session()->flash('feedback_icon',"remove");
           $req->session()->flash('feedback_color',"#D9534F");
+        } elseif (count($staff) > 500) {
+          $req->session()->flash('feedback',true);
+          $req->session()->flash('feedback_text',"Too many result. Please refine your search.");
+          $req->session()->flash('feedback_icon',"remove");
+          $req->session()->flash('feedback_color',"#D9534F");
+        } else {
+          $staffr = $staff->pluck('id');
         }
       }
-      Session::put(['staffs'=>$staff]);
+      Session::put(['staffs'=>$staffr]);
       if(!empty($auth)){
         return redirect(route('staff.list.auth',[],false));
       }else if(!empty($mgmt)){
@@ -56,9 +65,11 @@ class StaffController extends Controller
       $auth = true;
       $role = Role::all();
       if($req->session()->has('staffs')) {
-        $staff = $req->session()->get('staffs');
+        // $staff = $req->session()->get('staffs');
+        $staff = User::find($req->session()->get('staffs'));
         return view('admin.staff',[
-          'staffs' => $req->session()->get('staffs'),
+          // 'staffs' => $req->session()->get('staffs'),
+          'staffs' => $staff,
           'auth' => $auth,
           'roles' => $role,
           'feedback' => $req->session()->get('feedback'),
@@ -77,9 +88,11 @@ class StaffController extends Controller
       $company = Company::all();
       $state = State::all();
       if($req->session()->has('staffs')) {
-        $staff = $req->session()->get('staffs');
+        // $staff = $req->session()->get('staffs');
+        $staff = User::find($req->session()->get('staffs'));
         return view('admin.staff',[
-          'staffs' => $req->session()->get('staffs'),
+          // 'staffs' => $req->session()->get('staffs'),
+          'staffs' => $staff,
           'mgmt' => $mgmt,
           'companies' => $company,
           'states' => $state,
@@ -93,7 +106,7 @@ class StaffController extends Controller
         return view('admin.staff',['staffs' => $staff, 'companies' => $company, 'states' => $state, 'mgmt'=>$mgmt]);
       }
     }
-    
+
     public function updateRole(Request $req){
       $role = $req->role;
       $update_staff = User::find($req->inputid);
@@ -103,7 +116,7 @@ class StaffController extends Controller
       $feedback_text = "Successfully updated " .$req->inputno. " roles.";
       $feedback_icon = "ok";
       $feedback_color = "#5CB85C";
-      // $staff = User::all(); 
+      // $staff = User::all();
       return redirect(route('staff.list.auth',[],false))->with([
           // 'staffs'=>$staff,
           'feedback' => $feedback,
@@ -123,7 +136,7 @@ class StaffController extends Controller
       $feedback_text = "Successfully updated " .$req->inputno. ".";
       $feedback_icon = "ok";
       $feedback_color = "#5CB85C";
-      // $staff = User::all(); 
+      // $staff = User::all();
       return redirect(route('staff.list.mgmt',[],false))->with([
           // 'staffs'=>$staff,
           'feedback' => $feedback,
