@@ -26,6 +26,7 @@ class CreateOvertimeDetailsTable extends Migration
             $table->string('checked');
             $table->decimal('amount', 10,2)->nullable();
             $table->string('justification')->nullable();
+            $table->string('is_manual')->nullable();
         });
     }
 
