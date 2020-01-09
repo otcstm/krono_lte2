@@ -102,12 +102,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get( '/admin/pygroup/edit/{id}','Admin\PayrollgroupController@edit')->name('pygroup.editnew');
   Route::post( '/admin/pygroup/update','Admin\PayrollgroupController@update')->name('pygroup.update');
   Route::post('/admin/pygroup/delete','Admin\PayrollgroupController@destroy')->name('pygroup.delete');
- //OT Config
-  Route::get('/admin/overtime', 'OvertimeEligibilityController@show')->name('oe.show');
-  Route::post('/admin/overtime', 'OvertimeEligibilityController@show')->name('oe.show');
-  Route::get('/admin/overtime/m', 'OvertimeEligibilityController@otm')->name('oe.otm');
-  Route::get('/admin/overtime/getcompany', 'OvertimeEligibilityController@getCompany')->name('oe.getcompany');
-  Route::post('/admin/overtime/store', 'OvertimeEligibilityController@store')->name('oe.store');
+  
   // /admins ------------------------------------
   //Log activity
   Route::get('/log/listUserLogs', 'MiscController@listUserLogs')->name('log.listUserLogs');

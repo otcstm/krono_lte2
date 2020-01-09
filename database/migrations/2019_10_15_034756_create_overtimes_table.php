@@ -34,8 +34,13 @@ class CreateOvertimesTable extends Migration
             $table->integer('daytype_id')->nullable();
             $table->string('charge_type')->nullable();
             $table->datetime('approved_date')->nullable();
-            $table->datetime('verified_date')->nullable();
+            $table->datetime('verification_date')->nullable();
             $table->datetime('queried_date')->nullable();
+            $table->integer('queried_id')->nullable();
+            $table->datetime('payment_date')->nullable();
+            $table->string('region', 25)->nullable();
+            $table->string('wage_type')->nullable();
+            $table->integer('punch_id')->nullable();
         });
     }
 

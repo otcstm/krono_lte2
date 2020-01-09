@@ -298,7 +298,7 @@
                             </td>
                             <td><textarea rows = "2" cols = "60" type="text"  id="inputremark-0" name="inputremarknew" placeholder="Write justification" style="resize: none" class="check-2"></textarea></td>
                             <td>
-                                <button type="button" class="btn btn-primary" id="btn-add"><i class="fas fa-save"></i></button>
+                                <!-- <button type="button" class="btn btn-primary" id="btn-add"><i class="fas fa-save"></i></button> -->
                                 <button type="button" class="btn btn-danger" id="cancel" style="display: inline"><i class="fas fa-times"></i></button>
                             </td>
                         </tr>
@@ -308,7 +308,7 @@
             @if(($c ?? '')||($d ?? '')||($q ?? ''))
                 <div style="margin-top: -15px"><small>
                     <p>* Accepted format JPG, JPEG, PDF only
-                    <br>* Maximum size of supporting document is 2MB
+                    <br>* Maximum size of supporting document is 1MB
                     <br>* Make sure your PDF document is <u>not password protected</u> and <u>not corrupted</u> </p>
                 </small></div>
                 <div class="row">
@@ -453,7 +453,7 @@
                 <br>
                 <div class="text-center">
                     <a href="{{route('ot.list')}}"><button type="button" class="btn btn-primary" style="display: inline"><i class="fas fa-arrow-left"></i> BACK</button></a>
-                    <button type="button" id="btn-save" class="btn btn-primary" style="display: inline"><i class="fas fa-save"></i> SAVE</button>
+                    <!-- <button type="button" id="btn-save" class="btn btn-primary" style="display: inline"><i class="fas fa-save"></i> SAVE</button> -->
                     <button type="submit" class="btn btn-primary"><i class="fas fa-share-square"></i> SUBMIT</button>
                 </div>
             @endif
@@ -541,6 +541,7 @@
     var add = true; //flag when click addtime button
     var checker = true; //since bootstrap timepicker do onchange twice
     var submit = false; //check validation before adding new time
+    var check=true;
     var whensubmit = true;
     //set min and max date
     var today = new Date();
@@ -693,7 +694,7 @@
                     }
                     checker = false;
                 }else{
-                    var check=true;
+                    check=true;
                     var time=[];
                     var st = ($("#inputstart-"+i).val()).split(":");
                     var min = "{{$day[0]}}";
@@ -1004,11 +1005,11 @@
 
         $("#inputfile").on("change", function(){
             var filesize = this.files[0].size;
-            if (filesize > 2000000) { 
+            if (filesize > 1000000) { 
                 Swal.fire({
                     icon: 'error',
                     title: 'Unable to choose file',
-                    text: 'File size has exceeded 2MB!'
+                    text: 'File size has exceeded 1MB!'
                 })
                 $("#inputfile").val("");
                 $("#inputfiletext").text("No file chosen*");
@@ -1024,11 +1025,12 @@
     @endif
 
     //when adding new time
+    //oldcode---------------------------------------
     $("#btn-add").on('click', function(){
-        for(i=0; i<3;i++){
-            if($('.check-'+i).get(0).checkValidity()==false){
+        for(j=0; j<3;j++){
+            if($('.check-'+j).get(0).checkValidity()==false){
                 // $('.check-2').get(0).reportValidity();
-                $('.check-'+i).get(0).reportValidity();
+                $('.check-'+j).get(0).reportValidity();
                 submit = false;
             }else{
                 submit = true;
@@ -1040,7 +1042,36 @@
             $("#formtype").val("add");
             $("#form").submit();
         }
-    });     
+    });  
+    //oldcode---------------------------------------
+    
+    function addot(){
+        return function(){
+            submit = true;
+            for(j=0; j<3;j++){
+                if($('.check-'+j).get(0).checkValidity()==false){
+                    submit = false;
+                }
+            }
+            // alert(submit+" "+check+" "+$('.check-1').val());   
+            if(submit){
+                if($('.check-1').val()!=""){
+                    if(checker){
+                        if(check){
+                            $("#formtype").val("add");
+                            $("#form").submit();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    for(i=0; i<3;i++){
+        $('.check-'+i).on('change', addot())
+    }
+
+
     //when saving form
     $("#btn-save").on('click', function(){
         if(add){
