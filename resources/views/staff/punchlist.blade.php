@@ -40,7 +40,13 @@
            <td>{{ $ap->status }}</td>
            <td>
             @if($ap->punch_out_time!=null)
-              <button type="button" class="btn btn-sm btn-primary">Apply Claim</button>
+              <form id="formdate" action="{{route('ot.formdate')}}" method="POST">
+                @csrf
+                <input type="date" id="inputdate" class="hidden" name="inputdate" value="{{ date('Y-m-d', strtotime($ap->punch_in_time)) }}" required>
+                    
+                  <button type="button" class="btn btn-sm btn-primary">Apply Claim</button>
+                </p>
+              </form>
               <button type="button" data-id="{{$ap['id']}}" data-start="{{$ap['punch_in_time']}}" data-end="{{$ap['punch_out_time']}}" class="del btn btn-sm btn-danger" style="color: white"><i class="fas fa-times-circle"></i></button>
             @endif
            </td>
@@ -53,7 +59,7 @@
 </div>
 <form action="{{route('punch.delete')}}" method="POST" class="" id="form">
   @csrf
-  <input type="text" class="" id="inputid" name="inputid" required>
+  <input type="text" class="hidden" id="inputid" name="inputid" required>
 </form>
 @endif
 @stop
