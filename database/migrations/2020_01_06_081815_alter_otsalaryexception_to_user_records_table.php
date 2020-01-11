@@ -14,8 +14,8 @@ class AlterOtsalaryexceptionToUserRecordsTable extends Migration
     public function up()
     {
         Schema::table('user_records', function (Blueprint $table) {
-            $table->string('ot_salary_exception')->default('')->nullable(false)->change();
-            $table->string('ot_hour_exception')->default('')->nullable(false)->change();
+          //  $table->string('ot_salary_exception')->default('')->nullable(false)->change();
+          //  $table->string('ot_hour_exception')->default('')->nullable(false)->change();
              $table->index('user_id');
         });
     }
