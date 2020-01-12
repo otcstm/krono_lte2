@@ -32,5 +32,9 @@ class DatabaseSeeder extends Seeder
         $this->call(CompRegionConfigsTableSeeder::class);
         $this->call(OvertimeExpiriesTableSeeder::class);
         $this->call(CostcentersTableSeeder::class);
+
+        $this->call(HolidayCalendarsTableSeeder::class);
+        $this->call(HolidayLogsTableSeeder::class);
+        $this->call(HolidaysTableSeeder::class);
     }
 }
