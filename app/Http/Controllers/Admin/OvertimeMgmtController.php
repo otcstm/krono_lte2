@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\CompRegionConfig;
+use App\OvertimeConfig;
 use App\OvertimeExpiry;
 use App\Company;
 use Illuminate\Http\Request;
@@ -21,10 +21,10 @@ class OvertimeMgmtController extends Controller
             $req->inputcompany = $req->session()->get('company');
         }
         if($req->formtype==""){
-            $oe = CompRegionConfig::all();     
+            $oe = OvertimeConfig::all();     
             return view('admin.otmgmt', ['oe' => $oe]);
         }else if($req->formtype=="eligibility"){
-            $oe = CompRegionConfig::where('company_id', $req->inputcompany)->where('region', $req->inputregion)->get();  
+            $oe = OvertimeConfig::where('company_id', $req->inputcompany)->where('region', $req->inputregion)->get();  
             // dd($oe);
             return view('admin.otmgmteligibility', ['oe' => $oe]);
         }else if($req->formtype=="expiry"){
@@ -43,7 +43,7 @@ class OvertimeMgmtController extends Controller
         }
 
     public function getCompany(Request $req){   
-        $comp = CompRegionConfig::where('region', $req->region)->get();  
+        $comp = OvertimeConfig::where('region', $req->region)->get();  
         $arr = [];
         foreach($comp as $c){
             array_push($arr, ['id'=>$c->company_id, 'name'=>$c->companyid->company_descr]);
@@ -52,16 +52,16 @@ class OvertimeMgmtController extends Controller
     }
 
     public function getLast(Request $req){   
-        $end = CompRegionConfig::where('company_id', $req->company)->where('region', $req->region)->where('end_date', $req->sd)->first();  
-        $start = CompRegionConfig::where('company_id', $req->company)->where('region', $req->region)->where('start_date', $req->sd)->first();  
+        $end = OvertimeConfig::where('company_id', $req->company)->where('region', $req->region)->where('end_date', $req->sd)->first();  
+        $start = OvertimeConfig::where('company_id', $req->company)->where('region', $req->region)->where('start_date', $req->sd)->first();  
         // dd($comp->start_date);
         return ['min' => date('Y-m-d', strtotime($end->start_date . '+1 days')), 'max' => date('Y-m-d', strtotime($start->end_date . '-1 days'))];
     }
 
     public function eligiblestore(Request $req){
-        $latest = CompRegionConfig::where('company_id', $req->inputcompany)->where('region', $req->inputregion)->latest('created_at')->first();
-        $update = new CompRegionConfig;
-        $old = CompRegionConfig::find($latest->id);
+        $latest = OvertimeConfig::where('company_id', $req->inputcompany)->where('region', $req->inputregion)->latest('created_at')->first();
+        $update = new OvertimeConfig;
+        $old = OvertimeConfig::find($latest->id);
         $old->end_date = $req->inputdate;
         $update->company_id = $req->inputcompany;
         $update->region = $req->inputregion;
@@ -83,14 +83,14 @@ class OvertimeMgmtController extends Controller
     }
 
     public function eligibleupdate(Request $req){
-        $date = CompRegionConfig::where('id',$req->inputid)->first();
-        $update = CompRegionConfig::find($req->inputid);
+        $date = OvertimeConfig::where('id',$req->inputid)->first();
+        $update = OvertimeConfig::find($req->inputid);
         $update->salary_cap = $req->inputesalary;
         $update->hourpermonth = $req->inputehourpm;
         $update->hourperday = $req->inputehourpd;
         $update->daypermonth = $req->inputedaypm;
         $update->start_date = $req->inputedate;
-        $old = CompRegionConfig::where('end_date', $date->start_date)->first();
+        $old = OvertimeConfig::where('end_date', $date->start_date)->first();
         $old->end_date = $req->inputedate;
         $update->save();
         $old->save();
@@ -103,9 +103,9 @@ class OvertimeMgmtController extends Controller
     }
 
     public function eligibledelete(Request $req){
-        $date = CompRegionConfig::where('id',$req->inputid)->first();
-        $delete = CompRegionConfig::find($req->inputid)->delete();
-        $old = CompRegionConfig::where('end_date', $date->start_date)->first();
+        $date = OvertimeConfig::where('id',$req->inputid)->first();
+        $delete = OvertimeConfig::find($req->inputid)->delete();
+        $old = OvertimeConfig::where('end_date', $date->start_date)->first();
         $old->end_date = '9999-12-31';
         $old->save();
         Session::put(['region'=>$req->inputregion, 'company'=>$req->inputcompany, 'type'=>$req->formtype]);

@@ -143,7 +143,7 @@ class UserHelper {
           $currentp->save();
           $date = new Carbon($punchin->format('Y-m-d'));
           $date->subDay();
-          $execute = UserHelper::AddOTPunch($staff_id, $date, $timein, $punchin, $currentp->id);
+          $execute = UserHelper::AddOTPunch($staff_id, $date, $timein, $punchin, $currentp->id, $currentp->in_latitude, $currentp->in_longitude, $out_lat, $out_long);
           $timein = new Carbon($punchin);
         }
 
@@ -160,7 +160,7 @@ class UserHelper {
         $currentp->parent =  $ori_punch->id;
         $currentp->save();
         $date = new Carbon($out_time->format('Y-m-d'));      
-        $execute = UserHelper::AddOTPunch($staff_id, $date, $timein, $out_time, $currentp->id);
+        $execute = UserHelper::AddOTPunch($staff_id, $date, $timein, $out_time, $currentp->id, $currentp->in_latitude, $currentp->in_longitude, $out_lat, $out_long);
 
       }else{
         //cek out hari sama!!!
@@ -170,7 +170,7 @@ class UserHelper {
         $currentp->status = 'out';
         $currentp->save();
         $date = new Carbon($out_time->format('Y-m-d'));
-        $execute = UserHelper::AddOTPunch($staff_id, $date, $timein, $out_time, $currentp->id);
+        $execute = UserHelper::AddOTPunch($staff_id, $date, $timein, $out_time, $currentp->id, $currentp->in_latitude, $currentp->in_longitude, $out_lat, $out_long);
       }
       
 
@@ -186,7 +186,7 @@ class UserHelper {
   }
 
   //Add punch data to overtime punch
-  public static function AddOTPunch($staff_id, $date, $timein, $out_time, $id)
+  public static function AddOTPunch($staff_id, $date, $timein, $out_time, $id, $in_lat, $in_long, $out_lat, $out_long)
   {
     $start = $timein->format('Y-m-d H:i:s');
     $end = $out_time->format('Y-m-d H:i:s');
@@ -211,6 +211,10 @@ class UserHelper {
         $dif = (strtotime($end) - strtotime(date("Y-m-d", strtotime($date))." ".$day[1].":00"))/60;
         $newtime->hour = (int) ($dif/60);
         $newtime->minute = $dif%60;
+        $newtime->in_latitude = $in_lat;
+        $newtime->in_longitude = $in_long;
+        $newtime->out_latitude = $out_lat;
+        $newtime->out_longitude = $out_long;
         $newtime->save();
       }else if(($endt<$endd)&&($startt<$startd)){
         // dd("2");
@@ -223,6 +227,10 @@ class UserHelper {
         $dif = (strtotime(date("Y-m-d", strtotime($date))." ".$day[0].":00") - strtotime($start))/60;
         $newtime->hour = (int) ($dif/60);
         $newtime->minute = $dif%60;
+        $newtime->in_latitude = $in_lat;
+        $newtime->in_longitude = $in_long;
+        $newtime->out_latitude = $out_lat;
+        $newtime->out_longitude = $out_long;
         $newtime->save();
       }else if(!(($startt>$startd)&&($startt<$endd))){
         // dd("3");
@@ -235,6 +243,10 @@ class UserHelper {
         $dif = (strtotime(date("Y-m-d", strtotime($date))." ".$day[0].":00") - strtotime($start))/60;
         $newtime->hour = (int) ($dif/60);
         $newtime->minute = $dif%60;
+        $newtime->in_latitude = $in_lat;
+        $newtime->in_longitude = $in_long;
+        $newtime->out_latitude = $out_lat;
+        $newtime->out_longitude = $out_long;
         $newtime->save();
         $newtime = new OvertimePunch;
         $newtime->user_id = $staff_id;
@@ -245,6 +257,10 @@ class UserHelper {
         $dif = (strtotime($end) - strtotime(date("Y-m-d", strtotime($date))." ".$day[1].":00"))/60;
         $newtime->hour = (int) ($dif/60);
         $newtime->minute = $dif%60;
+        $newtime->in_latitude = $in_lat;
+        $newtime->in_longitude = $in_long;
+        $newtime->out_latitude = $out_lat;
+        $newtime->out_longitude = $out_long;
         $newtime->save();
       }
     }else{
@@ -257,6 +273,10 @@ class UserHelper {
       $dif = (strtotime($end) - strtotime($start))/60;
       $newtime->hour = (int) ($dif/60);
       $newtime->minute = $dif%60;
+      $newtime->in_latitude = $in_lat;
+      $newtime->in_longitude = $in_long;
+      $newtime->out_latitude = $out_lat;
+      $newtime->out_longitude = $out_long;
       $newtime->save();
     }
   }

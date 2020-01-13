@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class CompRegionConfigsTableSeeder extends Seeder
+class OvertimeConfigsTableSeeder extends Seeder
 {
 
     /**
@@ -14,9 +14,9 @@ class CompRegionConfigsTableSeeder extends Seeder
     {
 
 
-        \DB::table('comp_region_configs')->delete();
+        \DB::table('overtime_configs')->delete();
 
-        \DB::table('comp_region_configs')->insert(array (
+        \DB::table('overtime_configs')->insert(array (
             0 =>
             array (
                 'id' => 1,

@@ -64,31 +64,43 @@
                     @endif
                 </p>
                 <p>State Calendar: </p>
-                    @if(($c ?? '')||($d ?? ''))
-                        @if(($claim ?? '')||($draft ?? ''))
-                            <span style="color: red">
-                                <p>Due Date: 
-                                    @if($claim ?? '') 
-                                        {{$claim->date_expiry}}
-                                    @else 
-                                        {{$draft[1]}} 
-                                    @endif
-                                </p>
-                                <p>Unsubmitted claims will be deleted after the due date</p>
-                            </span>
-                        @else
-                            <p>Charging type: {{$claim->charge_type}}</p>
-                            <p>Justification: {{$claim->justification}}</p>
+                @if(($c ?? '')||($d ?? ''))
+                    @php($expiry = true)
+                    @if(($claim ?? ''))
+                        @if($claim->date_expiry==null)
+                            @php($expiry = false)
                         @endif
-                    @elseif($q ?? '')
-                        <p>Query Message: 
-                            @foreach($claim->log as $logs) 
-                                @if(strpos($logs->message,"Queried")!==false) 
-                                    @php($query = $logs->message) 
-                                @endif 
-                            @endforeach 
-                            {{str_replace('"', '', str_replace('Queried with message: "', '', $query))}}</p>
+                    @elseif(($draft ?? ''))
+                        @if($draft[1]==null)
+                            @php($expiry = false)
+                        @endif
                     @endif
+                    @if(($claim ?? '')||($draft ?? ''))
+                        @if($expiry)
+                        <span style="color: red">
+                            <p>Due Date: 
+                                @if($claim ?? '') 
+                                    {{$claim->date_expiry}}
+                                @else 
+                                    {{$draft[1]}} 
+                                @endif
+                            </p>
+                            <p>Unsubmitted claims will be deleted after the due date</p>
+                        </span>
+                        @endif
+                    @else
+                        <p>Charging type: {{$claim->charge_type}}</p>
+                        <p>Justification: {{$claim->justification}}</p>
+                    @endif
+                @elseif($q ?? '')
+                    <p>Query Message: 
+                        @foreach($claim->log as $logs) 
+                            @if(strpos($logs->message,"Queried")!==false) 
+                                @php($query = $logs->message) 
+                            @endif 
+                        @endforeach 
+                        {{str_replace('"', '', str_replace('Queried with message: "', '', $query))}}</p>
+                @endif
                 </div>
             </div>
             <div class="col-xs-6">
@@ -307,7 +319,7 @@
             </div>
             @if(($c ?? '')||($d ?? '')||($q ?? ''))
                 <div style="margin-top: -15px"><small>
-                    <p>* Accepted format JPG, JPEG, PDF only
+                    <p>* Accepted format JPG, JPEG, PNG, BMP & PDF only
                     <br>* Maximum size of supporting document is 1MB
                     <br>* Make sure your PDF document is <u>not password protected</u> and <u>not corrupted</u> </p>
                 </small></div>
@@ -319,7 +331,7 @@
                                     <label>Document:</label>
                                 </div>
                                 <div class="col-xs-9" style="display: flex; padding-right: 8px">
-                                    <input type="file" name="inputfile" id="inputfile" accept="image/*, .pdf, .jpeg, .jpg" style="position:absolute; right:-100vw;">
+                                    <input type="file" name="inputfile" id="inputfile" accept="image/*, .pdf, .jpeg, .jpg, .bmp, .png" style="position:absolute; right:-100vw;">
                                     <span id="inputfiletext" style="flex: 1; max-height: 26px; overflow: hidden; padding: 3px 0 3px 5px; border: 1px solid #A9A9A9; border-right: 0">No file chosen*</span>
                                     <a href="#" id="btn-file-2" style="position: absolute; right: 95px; top: 3px; color: red; display: none "><i class="fas fa-times-circle"></i></a>
                                     <button type="button" id="btn-file-1" style="min-width: 80px">Choose File</button>
