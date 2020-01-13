@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOvertimeConfigsTable extends Migration
+class CreateOvertimeEligibilitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateOvertimeConfigsTable extends Migration
      */
     public function up()
     {
-        Schema::create('overtime_configs', function (Blueprint $table) {
+        Schema::create('overtime_eligibilities', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('company_id');
             $table->string('region', 25);
@@ -36,6 +36,6 @@ class CreateOvertimeConfigsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('overtime_configs');
+        Schema::dropIfExists('overtime_eligibilities');
     }
 }

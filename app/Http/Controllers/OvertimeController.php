@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Shared\UserHelper;
+use App\Shared\URHelper;
 use App\User;
 use App\StaffPunch;
 use App\Overtime;
@@ -11,7 +12,7 @@ use App\OvertimeDetail;
 use App\OvertimeLog;
 use App\OvertimePunch;
 use App\OvertimeFile;
-use App\OvertimeConfig;
+use App\OvertimeEligibility;
 use App\OvertimeFormula;
 use App\OvertimeExpiry;
 use App\Psubarea;
@@ -30,13 +31,13 @@ class OvertimeController extends Controller{
         // dd($reg->region);
         if($req->session()->get('claim')!=null){
             $day = UserHelper::CheckDay($req->user()->id, $req->session()->get('claim')->date);
-            $eligiblehour = OvertimeConfig::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $req->session()->get('claim')->date)->where('end_date','>', $req->session()->get('claim')->date)->first();
+            $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $req->session()->get('claim')->date)->where('end_date','>', $req->session()->get('claim')->date)->first();
             // dd($reg);
             return view('staff.otform', ['draft' =>[], 'claim' => $req->session()->get('claim'), 'day' => $day, 'eligiblehour' => $eligiblehour->hourpermonth]);
         }else if($req->session()->get('draft')!=null){
             $draft = $req->session()->get('draft');
             $day = UserHelper::CheckDay($req->user()->id, date('Y-m-d', strtotime($draft[6])));
-            $eligiblehour = OvertimeConfig::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $draft[6])->where('end_date','>', $draft[6])->first();
+            $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $draft[6])->where('end_date','>', $draft[6])->first();
             return view('staff.otform', ['draft' => $req->session()->get('draft'), 'day' => $day, 'eligiblehour' => $eligiblehour->hourpermonth]);
         }else{
             return view('staff.otform', []);
@@ -79,7 +80,7 @@ class OvertimeController extends Controller{
         if($req->user()->ot_hour_exception!="X"){
             for($i = 0; $i<count($id); $i++){
                 $claim = Overtime::find($id[$i]);
-                $eligiblehour = OvertimeConfig::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $claim->date)->where('end_date','>', $claim->date)->first();          
+                $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $claim->date)->where('end_date','>', $claim->date)->first();          
                 $month = OvertimeMonth::where('id', $claim->month_id)->first();
                 $totalsubmit = ($month->hour*60+$month->minute) + ($claim->total_hour*60+$claim->total_minute);
                 // dd($totalsubmit);
@@ -148,7 +149,7 @@ class OvertimeController extends Controller{
                 $totalhour = 0;
                 $totalminute = 0;
                 $reg = Psubarea::where('state_id', $req->user()->state_id)->first();
-                $wage = OvertimeFormula::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $claimdate)->where('end_date','>', $claimdate)->first();   
+                $wage = OvertimeFormula::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $claimdate)->where('end_date','>', $claimdate)->first();   //temp
                 $expiry = OvertimeExpiry::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $claimdate)->where('end_date','>', $claimdate)->first();   
                 $draftclaim = new Overtime;
                 $draftclaim->refno = "OT".date("Ymd", strtotime($claimdate))."-".sprintf("%08d", $req->user()->id);
@@ -163,13 +164,14 @@ class OvertimeController extends Controller{
                         $draftclaim->date_expiry = date('Y-m-d', strtotime("+".$expiry->noofmonth." months", strtotime($claimdate)));
                     }
                 }
-
                 $draftclaim->approver_id = $req->user()->reptto;
                 $draftclaim->verifier_id =  $req->user()->id; //temp
                 $draftclaim->region =  $req->user()->id;
                 $draftclaim->punch_id =  $punch[0]->punch_id;
                 $draftclaim->region =  $reg->region;
-                $draftclaim->wage_type =  $wage->wagetype;
+                $draftclaim->wage_type =  $wage->wagetype; //temp
+                $userrecid = URHelper::getUserRecordByDate($req->user()->persno, date('Y-m-d', strtotime($claimdate)));   
+                $draftclaim->user_records_id =  $userrecid->id; 
                 $staffpunch = StaffPunch::find($punch[0]->punch_id);
                 $staffpunch->apply_ot = "X";
                 $staffpunch->save();
@@ -186,6 +188,11 @@ class OvertimeController extends Controller{
                     $newclaim->hour = $punches->hour;
                     $newclaim->minute = $punches->minute;
                     $newclaim->checked = "Y";
+                    $salary = $req->user()->salary;
+                    if($req->user()->ot_salary_exception=="X"){
+                        $salarycap = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $claim->date)->where('end_date','>', $claim->date)->first();
+                        $salary = $salarycap->salary_cap;
+                    }
                     $pay = UserHelper::CalOT($req->user()->salary, $punches->hour, $punches->minute); 
                     $newclaim->amount = $pay;
                     $newclaim->justification = "Punch In/Out";
@@ -241,9 +248,9 @@ class OvertimeController extends Controller{
  // =============================================================================================================   
     public function formsubmit(Request $req){
         $status = true;
+        $reg = Psubarea::where('state_id', $req->user()->state_id)->first();
         if($req->inputid==""){
-            $reg = Psubarea::where('state_id', $req->user()->state_id)->first();
-            $wage = OvertimeFormula::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', ($req->session()->get('draft'))[6])->where('end_date','>', ($req->session()->get('draft'))[6])->first();   
+            $wage = OvertimeFormula::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', ($req->session()->get('draft'))[6])->where('end_date','>', ($req->session()->get('draft'))[6])->first();   //temp
             $draftclaim = new Overtime;
             $draftclaim->refno = ($req->session()->get('draft'))[0];
             $draftclaim->user_id = $req->user()->id;
@@ -258,7 +265,9 @@ class OvertimeController extends Controller{
             $draftclaim->verifier_id =  $req->user()->id; //temp
             $draftclaim->punch_id =  $punch[0]->punch_id;
             $draftclaim->region =  $reg->region;
-            $draftclaim->wage_type =  $wage->wagetype;
+            $draftclaim->wage_type =  $wage->wagetype; //temp
+            $userrecid = URHelper::getUserRecordByDate($req->user()->persno, date('Y-m-d', strtotime(($req->session()->get('draft'))[6])));   
+            $draftclaim->user_records_id =  $userrecid->id; 
             $draftclaim->status = 'D1';
             $draftclaim->save();
             $claim = Overtime::where('user_id', $req->user()->id)->where('date', ($req->session()->get('draft'))[6])->first();
@@ -267,12 +276,17 @@ class OvertimeController extends Controller{
         }else{
             $claim = Overtime::where('id', $req->inputid)->first();
         }
+        $salary = $req->user()->salary;
+        if($req->user()->ot_salary_exception=="X"){
+            $salarycap = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $claim->date)->where('end_date','>', $claim->date)->first();
+            $salary = $salarycap->salary_cap;
+        }
         if($req->formtype=="add"){
             // dd($req->inputstartnew);
             $dif = (strtotime($req->inputendnew) - strtotime($req->inputstartnew))/60;
             $hour = (int) ($dif/60);
             $minute = $dif%60;
-            $pay = UserHelper::CalOT($req->user()->salary, $hour, $minute); 
+            $pay = UserHelper::CalOT($salary, $hour, $minute); 
             $newdetail = new OvertimeDetail;
             $newdetail->ot_id = $claim->id;
             $newdetail->start_time = $claim->date." ".$req->inputstartnew.":00";
@@ -310,7 +324,7 @@ class OvertimeController extends Controller{
                     $dif = (strtotime($req->inputend[$i]) - strtotime($req->inputstart[$i]))/60;
                     $hour = (int) ($dif/60);
                     $minute = $dif%60;
-                    $pay = UserHelper::CalOT($req->user()->salary, $hour, $minute); 
+                    $pay = UserHelper::CalOT($salary, $hour, $minute); 
                     $updatedetail = $claimdetail[$i];
                     $updatedetail->start_time = $claim->date." ".$req->inputstart[$i].":00";
                     $updatedetail->end_time = $claim->date." ".$req->inputend[$i].":00";
@@ -432,7 +446,7 @@ class OvertimeController extends Controller{
             $month = OvertimeMonth::where('id', $claim->month_id)->first();
             $totalsubmit = (($claim->total_hour*60)+$claim->total_minute)+(($month->total_hour*60)+$month->total_minute);
             if($req->user()->ot_hour_exception!="X"){
-                $eligiblehour = OvertimeConfig::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $claim->date)->where('end_date','>', $claim->date)->first();
+                $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $claim->date)->where('end_date','>', $claim->date)->first();
                 if($totalsubmit>($eligiblehour->hourpermonth*60)){
                     return redirect(route('ot.form',[],false))->with(['error' => true]);
                 }

@@ -856,17 +856,28 @@
 
         function checkbox(i){
             return function(){
+                $("#inputstart-0").prop('required',false);
+                $("#inputend-0").prop('required',false);
+                $("#inputremark-0").prop('required',false);
+                // alert( $("#inputcheck-1").val());
                 if ($('#inputcheck-'+i).is(':checked')){
                     $('#inputcheckdata-'+i).val("Y");
-                    calshowtime(i, (parseInt($("#olddh-"+i).text()*60)+parseInt($("#olddm-"+i).text())), 0, 0, $("#oldth").text(), $("#oldtm").text());
                 }else{
-                    // $('#inputjustification').val("N");
                     $('#inputcheckdata-'+i).val("N");
-                    nhm = showtime((parseInt($("#oldth").text()*60)+parseInt($("#oldtm").text()))-(parseInt($("#olddh-"+i).text()*60)+parseInt($("#olddm-"+i).text())));
-                    $("#oldth").text(nhm[0]);
-                    $("#oldtm").text(nhm[1]);
-                    $("#showtime").text(nhm[0]+"h "+nhm[1]+"m");
                 }
+                $("#formtype").val("save");
+                $("#form").submit();
+                // if ($('#inputcheck-'+i).is(':checked')){
+                //     $('#inputcheckdata-'+i).val("Y");
+                //     calshowtime(i, (parseInt($("#olddh-"+i).text()*60)+parseInt($("#olddm-"+i).text())), 0, 0, $("#oldth").text(), $("#oldtm").text());
+                // }else{
+                //     // $('#inputjustification').val("N");
+                //     $('#inputcheckdata-'+i).val("N");
+                //     nhm = showtime((parseInt($("#oldth").text()*60)+parseInt($("#oldtm").text()))-(parseInt($("#olddh-"+i).text()*60)+parseInt($("#olddm-"+i).text())));
+                //     $("#oldth").text(nhm[0]);
+                //     $("#oldtm").text(nhm[1]);
+                //     $("#showtime").text(nhm[0]+"h "+nhm[1]+"m");
+                // }
             }
         }
 
@@ -1078,28 +1089,54 @@
             }
         }
     }
-
+    
     for(i=0; i<3;i++){
         $('.check-'+i).on('change', addot())
     }
 
+    // function addot(){
+    //     return function(){
+    //         submit = true;
+    //         for(j=0; j<3;j++){
+    //             if($('.check-'+j).get(0).checkValidity()==false){
+    //                 submit = false;
+    //             }
+    //         }
+    //         // alert(submit+" "+check+" "+$('.check-1').val());   
+    //         if(submit){
+    //             if($('.check-1').val()!=""){
+    //                 if(checker){
+    //                     if(check){
+    //                         $("#formtype").val("add");
+    //                         $("#form").submit();
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+
+    // for(i=0; i<3;i++){
+    //     $('.check-'+i).on('change', addot())
+    // }
+
 
     //when saving form
-    $("#btn-save").on('click', function(){
-        if(add){
-            // $("#formsave").val("save");
-            // $("#formsubmit").val("no");
-            $("#formtype").val("save");
-            $("#form").submit();
-        }else{
-            // alert("Please save new time input before saving the form!");
-            Swal.fire({
-                icon: 'error',
-                title: 'Unable to save form',
-                text: 'Please save new time input before saving the form!'
-            })
-        }
-    });  
+    // $("#btn-save").on('click', function(){
+    //     if(add){
+    //         // $("#formsave").val("save");
+    //         // $("#formsubmit").val("no");
+    //         $("#formtype").val("save");
+    //         $("#form").submit();
+    //     }else{
+    //         // alert("Please save new time input before saving the form!");
+    //         Swal.fire({
+    //             icon: 'error',
+    //             title: 'Unable to save form',
+    //             text: 'Please save new time input before saving the form!'
+    //         })
+    //     }
+    // });  
     
     function submission(){
         if(($("#formtype").val()=="submit")){

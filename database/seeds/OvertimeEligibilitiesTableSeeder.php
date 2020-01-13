@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class OvertimeConfigsTableSeeder extends Seeder
+class OvertimeEligibilitiesTableSeeder extends Seeder
 {
 
     /**
@@ -14,9 +14,9 @@ class OvertimeConfigsTableSeeder extends Seeder
     {
 
 
-        \DB::table('overtime_configs')->delete();
+        \DB::table('overtime_eligibilities')->delete();
 
-        \DB::table('overtime_configs')->insert(array (
+        \DB::table('overtime_eligibilities')->insert(array (
             0 =>
             array (
                 'id' => 1,
