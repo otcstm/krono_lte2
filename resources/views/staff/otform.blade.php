@@ -90,7 +90,6 @@
                         @endif
                     @else
                         <p>Charging type: {{$claim->charge_type}}</p>
-                        <p>Justification: {{$claim->justification}}</p>
                     @endif
                 @elseif($q ?? '')
                     <p>Query Message: 
@@ -204,7 +203,7 @@
                                 <th width="20%">Clock In/Out</th>
                                 <th width="20%">Start/End Time</th>
                                 <th width="8%">Total Time</th>
-                                <th>Justification</th>
+                                <th>Remark</th>
                             @if(($c ?? '')||($d ?? '')||($q ?? ''))
                                 <th width="10%">
                                     Action
@@ -246,19 +245,22 @@
                                             </td>
                                             <td>
                                                 @if(($c ?? '')||($d ?? '')||($q ?? ''))
-                                                <span id="oldds-{{$no}}" class="hidden">{{date('H:i', strtotime($singleuser->start_time))}}</span>
-                                                <span id="oldde-{{$no}}" class="hidden">{{date('H:i', strtotime($singleuser->end_time))}}</span>
-                                                    <input style="width: 40px" id="inputstart-{{$no}}" name="inputstart[]" type="text" class="timepicker" 
+                                                    <span id="oldds-{{$no}}" class="hidden">{{date('H:i', strtotime($singleuser->start_time))}}</span>
+                                                    <span id="oldde-{{$no}}" class="hidden">{{date('H:i', strtotime($singleuser->end_time))}}</span>
+                                                    <input style="width: 40px" id="inputstart-{{$no}}" name="inputstart[]" type="text" class="timepicker check-{{$no}} check-{{$no}}-0 @if($singleuser->checked=="N") hidden @endif" 
                                                         data-clock_in="{{ date('H:i', strtotime($singleuser->clock_in))}}"
                                                         data-start_time="{{ date('H:i', strtotime($singleuser->start_time))}}"
                                                         @if($singleuser->clock_in!="")
                                                             data-clocker="{{ date('H:i', strtotime($singleuser->start_time))}}"
                                                         @endif
                                                         value="{{ date('H:i', strtotime($singleuser->start_time))}}" required>
-                                                    <input style="width: 40px" id="inputend-{{$no}}" name="inputend[]" type="text" class="timepicker" 
+                                                    <input style="width: 40px" id="inputend-{{$no}}" name="inputend[]" type="text" class="timepicker check-{{$no}} check-{{$no}}-1 @if($singleuser->checked=="N") hidden @endif" 
                                                         data-clock_out="{{ date('H:i', strtotime($singleuser->clock_out))}}"
                                                         data-end_time="{{ date('H:i', strtotime($singleuser->end_time))}}"
                                                         value="{{ date('H:i', strtotime($singleuser->end_time))}}" required>
+                                                    @if($singleuser->checked=="N")
+                                                        {{ date('H:i', strtotime($singleuser->start_time)) }} - {{ date('H:i', strtotime($singleuser->end_time)) }}
+                                                    @endif
                                                 @else
                                                     {{ date('H:i', strtotime($singleuser->start_time)) }} - {{ date('H:i', strtotime($singleuser->end_time)) }}
                                                 @endif    
@@ -272,7 +274,10 @@
                                             </td>
                                             <td>
                                                 @if(($c ?? '')||($d ?? '')||($q ?? ''))
-                                                    <textarea rows = "2" cols = "60" type="text" id="inputremark-{{$no}}" name="inputremark[]" placeholder="Write justification" style="resize: none" @if($singleuser->clock_in!="") readonly @else required @endif >{{$singleuser->justification}}</textarea>
+                                                    <textarea rows = "2" cols = "60" type="text" id="inputremark-{{$no}}" name="inputremark[]" placeholder="Write justification" class="check-{{$no}} check-{{$no}}-2 @if($singleuser->checked=="N") hidden @endif" style="resize: none" @if($singleuser->clock_in!="") readonly @else required @endif >{{$singleuser->justification}}</textarea>
+                                                    @if($singleuser->checked=="N")
+                                                        {{$singleuser->justification}}
+                                                    @endif
                                                 @else
                                                     {{$singleuser->justification}}
                                                 @endif 
@@ -300,15 +305,15 @@
                             <td>
                                 <span id="oldds-0" class="hidden">0</span>
                                 <span id="oldde-0" class="hidden">0</span>
-                                <input style="width: 40px" id="inputstart-0" type="text" name="inputstartnew" class="timepicker check-0">
-                                <input style="width: 40px" id="inputend-0" type="text" name="inputendnew" class="timepicker check-1" disabled>
+                                <input style="width: 40px" id="inputstart-0" type="text" name="inputstartnew" class="timepicker check-0 check-0-0">
+                                <input style="width: 40px" id="inputend-0" type="text" name="inputendnew" class="timepicker check-0 check-0-1" disabled>
                             </td>
                             <td>
                                 <span id="olddh-0" class="hidden">0</span>
                                 <span id="olddm-0" class="hidden">0</span>
                                 <span id="inputduration-0"></span>
                             </td>
-                            <td><textarea rows = "2" cols = "60" type="text"  id="inputremark-0" name="inputremarknew" placeholder="Write justification" style="resize: none" class="check-2"></textarea></td>
+                            <td><textarea rows = "2" cols = "60" type="text"  id="inputremark-0" name="inputremarknew" placeholder="Write justification" style="resize: none" class="check-0 check-0-2"></textarea></td>
                             <td>
                                 <!-- <button type="button" class="btn btn-primary" id="btn-add"><i class="fas fa-save"></i></button> -->
                                 <button type="button" class="btn btn-danger" id="cancel" style="display: inline"><i class="fas fa-times"></i></button>
@@ -1068,20 +1073,24 @@
     });  
     //oldcode---------------------------------------
     
-    function addot(){
+    function addot(i){
         return function(){
             submit = true;
             for(j=0; j<3;j++){
-                if($('.check-'+j).get(0).checkValidity()==false){
+                if($('.check-'+i+'-'+j).get(0).checkValidity()==false){
                     submit = false;
                 }
             }
             // alert(submit+" "+check+" "+$('.check-1').val());   
             if(submit){
-                if($('.check-1').val()!=""){
+                if($('.check-'+i+'-1').val()!=""){
                     if(checker){
                         if(check){
-                            $("#formtype").val("add");
+                            if(i==0){
+                                $("#formtype").val("add");
+                            }else{
+                                $("#formtype").val("save");
+                            }
                             $("#form").submit();
                         }
                     }
@@ -1089,9 +1098,8 @@
             }
         }
     }
-    
-    for(i=0; i<3;i++){
-        $('.check-'+i).on('change', addot())
+    for(i=0; i<{{$no}}+1;i++){
+        $('.check-'+i).on('change', addot(i))
     }
 
     // function addot(){
@@ -1149,7 +1157,8 @@
                     if(add){
                         Swal.fire({
                             title: 'Are you sure to submit form?',
-                            text: "I understand and agree this to claim. If deemed false I can be taken to disciplinary action.",
+                            // text: "I hereby certify that my claim is compliance with company's term and condition on PERJANJIAN BERSAMA, HUMAN RESOURCE MANUAL, and BUSINESS PROCESS MANUAL If deemed falsed, disciplinary can be imposed on me.",
+                            html: "<p style='color: red'>I hereby certify that my claim is compliance with company's term and condition on PERJANJIAN BERSAMA, HUMAN RESOURCE MANUAL, and BUSINESS PROCESS MANUAL If deemed falsed, disciplinary can be imposed on me.</p>",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
@@ -1191,13 +1200,15 @@
 
     $("#chargetype").change(function(){
         // alert()
-        if($("#chargetype").val()=="Cost Center"){
-            $("#costcenter").css("display", "block");
-            $("#project").css("display", "none");
-        }else if($("#chargetype").val()=="Project"){
-            $("#project").css("display", "block");
-            $("#costcenter").css("display", "none");
-        }
+        $("#formtype").val("save");
+        $("#form").submit();
+        // if($("#chargetype").val()=="Cost Center"){
+        //     $("#costcenter").css("display", "block");
+        //     $("#project").css("display", "none");
+        // }else if($("#chargetype").val()=="Project"){
+        //     $("#project").css("display", "block");
+        //     $("#costcenter").css("display", "none");
+        // }
     });    
 </script>
 @stop
