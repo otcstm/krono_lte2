@@ -143,3 +143,6 @@ Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth
   Route::post('/staff/push', 'ShiftPlanController@staffPushTemplate')->name('staff.push');
   Route::post('/staff/pop', 'ShiftPlanController@staffPopTemplate')->name('staff.pop');
 });
+
+Route::get('/verifier/staff/search', 'UserVerifierController@index')->name('verifier.staff');
+Route::get('/verifier/staff/persno', 'UserVerifierController@search')->name('verifier.search');
