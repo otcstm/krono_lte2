@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOvertimeLogsTable extends Migration
+class CreateCostcentersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreateOvertimeLogsTable extends Migration
      */
     public function up()
     {
-        Schema::create('overtime_logs', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('costcenters', function (Blueprint $table) {
+            $table->string('id',100)->primary('id');
+            $table->string('descr', 100)->nullable();
+            $table->string('company_id')->nullable();
+            $table->integer('is_exist')->nullable();
+
+
+
             $table->timestamps();
-            $table->integer('ot_id');
-            $table->integer('user_id');
-            $table->string('action');
-            $table->string('message');
         });
     }
 
@@ -30,6 +32,6 @@ class CreateOvertimeLogsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('overtime_logs');
+        Schema::dropIfExists('costcenters');
     }
 }

@@ -14,7 +14,7 @@ class AddPygroupToPaymentSchedules extends Migration
     public function up()
     {
         Schema::table('payment_schedules', function (Blueprint $table) {
-          $table->unsignedBigInteger('payrollgroup_id')->after('id');
+            $table->unsignedBigInteger('payrollgroup_id')->after('id');
             $table->foreign('payrollgroup_id')
               ->references('id')
               ->on('payrollgroups')
@@ -29,6 +29,12 @@ class AddPygroupToPaymentSchedules extends Migration
      */
     public function down()
     {
+        try {
+            Schema::table('payment_schedules', function ($table) {
+                $table->dropForeign('payment_schedules_payrollgroup_id_foreign');
+            });
+        } catch (Exception $e) {}
+
         Schema::table('payment_schedules', function (Blueprint $table) {
             $table->dropColumn('payrollgroup_id');
         });

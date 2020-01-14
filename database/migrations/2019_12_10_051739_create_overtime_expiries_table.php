@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCompRegionConfigsTable extends Migration
+class CreateOvertimeExpiriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateCompRegionConfigsTable extends Migration
      */
     public function up()
     {
-        Schema::create('comp_region_configs', function (Blueprint $table) {
+        Schema::create('overtime_expiries', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('company_id');
             $table->string('region', 25);
-            $table->decimal('salary_cap',10,2)->default(0.0);
-            $table->integer('hourpermonth');
-            $table->integer('hourperday');
-            $table->integer('daypermonth');
+            $table->string('otstatus');
+            $table->string('status');
+            $table->integer('noofmonth');
+            $table->string('based_date');
+            $table->string('action_after');
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->integer('created_by');
@@ -36,6 +37,6 @@ class CreateCompRegionConfigsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comp_region_configs');
+        Schema::dropIfExists('overtime_expiries');
     }
 }

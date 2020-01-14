@@ -128,6 +128,7 @@ class UserHelper {
             //new record punch in nextday 00:00:00
             $currentp = new StaffPunch;
             $currentp->user_id = $staff_id;
+
             $currentp->punch_in_time = $in;
             $currentp->in_latitude = $ori_punch->in_latitude;
             $currentp->in_longitude =  $ori_punch->in_longitude;
@@ -140,7 +141,7 @@ class UserHelper {
           $currentp->save();
           $date = new Carbon($punchin->format('Y-m-d'));
           $date->subDay();
-          $execute = UserHelper::AddOTPunch($staff_id, $date, $timein, $punchin);
+          $execute = UserHelper::AddOTPunch($staff_id, $date, $timein, $punchin, $currentp->id, $currentp->in_latitude, $currentp->in_longitude, $out_lat, $out_long);
           $timein = new Carbon($punchin);
         }
 
@@ -157,7 +158,7 @@ class UserHelper {
         $currentp->parent =  $ori_punch->id;
         $currentp->save();
         $date = new Carbon($out_time->format('Y-m-d'));
-        $execute = UserHelper::AddOTPunch($staff_id, $date, $timein, $out_time);
+        $execute = UserHelper::AddOTPunch($staff_id, $date, $timein, $out_time, $currentp->id, $currentp->in_latitude, $currentp->in_longitude, $out_lat, $out_long);
 
       }else{
         //cek out hari sama!!!
@@ -167,7 +168,7 @@ class UserHelper {
         $currentp->status = 'out';
         $currentp->save();
         $date = new Carbon($out_time->format('Y-m-d'));
-        $execute = UserHelper::AddOTPunch($staff_id, $date, $timein, $out_time);
+        $execute = UserHelper::AddOTPunch($staff_id, $date, $timein, $out_time, $currentp->id, $currentp->in_latitude, $currentp->in_longitude, $out_lat, $out_long);
       }
 
 
@@ -183,7 +184,7 @@ class UserHelper {
   }
 
   //Add punch data to overtime punch
-  public static function AddOTPunch($staff_id, $date, $timein, $out_time)
+  public static function AddOTPunch($staff_id, $date, $timein, $out_time, $id, $in_lat, $in_long, $out_lat, $out_long)
   {
     $start = $timein->format('Y-m-d H:i:s');
     $end = $out_time->format('Y-m-d H:i:s');
@@ -192,56 +193,88 @@ class UserHelper {
     $endt = strtotime($end);
     $startd = strtotime(date("Y-m-d", strtotime($date))." ".$day[0].":00");
     $endd = strtotime(date("Y-m-d", strtotime($date))." ".$day[1].":00");
-    if(($startd<$endt && $endd>$startt)){
-      if($startt>$startd){
+    // dd($startt." ".$endt." ".$startd." ".$endd);
+    // dd($start." ".$end." - ".date("Y-m-d", strtotime($date))." ".$day[0].":00 ".date("Y-m-d", strtotime($date))." ".$day[1].":00");
+    // dd($startd."<".$endt."&&".$endd.">".$startt);
+    if(($startd<$endt) && ($endd>$startt)){
+      if(($endt>$endd)&&($startt>$startd)){
+
+        // dd("1");
         $newtime = new OvertimePunch;
         $newtime->user_id = $staff_id;
+        $newtime->punch_id = $id;
         $newtime->date = $date;
         $newtime->start_time = date("Y-m-d", strtotime($date))." ".$day[1].":00";
         $newtime->end_time = $end;
         $dif = (strtotime($end) - strtotime(date("Y-m-d", strtotime($date))." ".$day[1].":00"))/60;
         $newtime->hour = (int) ($dif/60);
         $newtime->minute = $dif%60;
+        $newtime->in_latitude = $in_lat;
+        $newtime->in_longitude = $in_long;
+        $newtime->out_latitude = $out_lat;
+        $newtime->out_longitude = $out_long;
         $newtime->save();
-      }else if($endt<$endd){
+      }else if(($endt<$endd)&&($startt<$startd)){
+        // dd("2");
         $newtime = new OvertimePunch;
         $newtime->user_id = $staff_id;
+        $newtime->punch_id = $id;
         $newtime->date = $date;
         $newtime->start_time = $start;
         $newtime->end_time = date("Y-m-d", strtotime($date))." ".$day[0].":00";
         $dif = (strtotime(date("Y-m-d", strtotime($date))." ".$day[0].":00") - strtotime($start))/60;
         $newtime->hour = (int) ($dif/60);
         $newtime->minute = $dif%60;
+        $newtime->in_latitude = $in_lat;
+        $newtime->in_longitude = $in_long;
+        $newtime->out_latitude = $out_lat;
+        $newtime->out_longitude = $out_long;
         $newtime->save();
-      }else{
+      }else if(!(($startt>$startd)&&($startt<$endd))){
+        // dd("3");
         $newtime = new OvertimePunch;
         $newtime->user_id = $staff_id;
+        $newtime->punch_id = $id;
         $newtime->date = $date;
         $newtime->start_time = $start;
         $newtime->end_time = date("Y-m-d", strtotime($date))." ".$day[0].":00";
         $dif = (strtotime(date("Y-m-d", strtotime($date))." ".$day[0].":00") - strtotime($start))/60;
         $newtime->hour = (int) ($dif/60);
         $newtime->minute = $dif%60;
+        $newtime->in_latitude = $in_lat;
+        $newtime->in_longitude = $in_long;
+        $newtime->out_latitude = $out_lat;
+        $newtime->out_longitude = $out_long;
         $newtime->save();
         $newtime = new OvertimePunch;
         $newtime->user_id = $staff_id;
+        $newtime->punch_id = $id;
         $newtime->date = $date;
         $newtime->start_time = date("Y-m-d", strtotime($date))." ".$day[1].":00";
         $newtime->end_time = $end;
         $dif = (strtotime($end) - strtotime(date("Y-m-d", strtotime($date))." ".$day[1].":00"))/60;
         $newtime->hour = (int) ($dif/60);
         $newtime->minute = $dif%60;
+        $newtime->in_latitude = $in_lat;
+        $newtime->in_longitude = $in_long;
+        $newtime->out_latitude = $out_lat;
+        $newtime->out_longitude = $out_long;
         $newtime->save();
       }
     }else{
       $newtime = new OvertimePunch;
       $newtime->user_id = $staff_id;
+      $newtime->punch_id = $id;
       $newtime->date = $date;
       $newtime->start_time = $start;
       $newtime->end_time = $end;
       $dif = (strtotime($end) - strtotime($start))/60;
       $newtime->hour = (int) ($dif/60);
       $newtime->minute = $dif%60;
+      $newtime->in_latitude = $in_lat;
+      $newtime->in_longitude = $in_long;
+      $newtime->out_latitude = $out_lat;
+      $newtime->out_longitude = $out_long;
       $newtime->save();
     }
   }
@@ -263,11 +296,12 @@ class UserHelper {
         return 'OK';
     }
 
-  public static function LogOT($otid, $udid, $m)
+  public static function LogOT($otid, $udid, $a, $m)
     {
         $ot_logs = new OvertimeLog;
         $ot_logs->ot_id = $otid;
         $ot_logs->user_id = $udid;
+        $ot_logs->action = $a;
         $ot_logs->message = $m;
         $ot_logs->save();
 

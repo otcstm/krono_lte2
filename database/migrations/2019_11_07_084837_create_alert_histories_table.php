@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOvertimeLogsTable extends Migration
+class CreateAlertHistoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreateOvertimeLogsTable extends Migration
      */
     public function up()
     {
-        Schema::create('overtime_logs', function (Blueprint $table) {
+        Schema::create('alert_histories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->integer('ot_id');
             $table->integer('user_id');
-            $table->string('action');
-            $table->string('message');
+            $table->string('type');
+            $table->boolean('send_email')->default(false);
+            $table->string('email_addr')->nullable();
+            $table->boolean('send_pushnoti')->default(false);
+            $table->string('pushnoti_id')->nullable();
         });
     }
 
@@ -30,6 +32,6 @@ class CreateOvertimeLogsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('overtime_logs');
+        Schema::dropIfExists('alert_histories');
     }
 }
