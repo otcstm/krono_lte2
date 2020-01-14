@@ -64,31 +64,42 @@
                     @endif
                 </p>
                 <p>State Calendar: </p>
-                    @if(($c ?? '')||($d ?? ''))
-                        @if(($claim ?? '')||($draft ?? ''))
-                            <span style="color: red">
-                                <p>Due Date: 
-                                    @if($claim ?? '') 
-                                        {{$claim->date_expiry}}
-                                    @else 
-                                        {{$draft[1]}} 
-                                    @endif
-                                </p>
-                                <p>Unsubmitted claims will be deleted after the due date</p>
-                            </span>
-                        @else
-                            <p>Charging type: {{$claim->charge_type}}</p>
-                            <p>Justification: {{$claim->justification}}</p>
+                @if(($c ?? '')||($d ?? ''))
+                    @php($expiry = true)
+                    @if(($claim ?? ''))
+                        @if($claim->date_expiry==null)
+                            @php($expiry = false)
                         @endif
-                    @elseif($q ?? '')
-                        <p>Query Message: 
-                            @foreach($claim->log as $logs) 
-                                @if(strpos($logs->message,"Queried")!==false) 
-                                    @php($query = $logs->message) 
-                                @endif 
-                            @endforeach 
-                            {{str_replace('"', '', str_replace('Queried with message: "', '', $query))}}</p>
+                    @elseif(($draft ?? ''))
+                        @if($draft[1]==null)
+                            @php($expiry = false)
+                        @endif
                     @endif
+                    @if(($claim ?? '')||($draft ?? ''))
+                        @if($expiry)
+                        <span style="color: red">
+                            <p>Due Date: 
+                                @if($claim ?? '') 
+                                    {{$claim->date_expiry}}
+                                @else 
+                                    {{$draft[1]}} 
+                                @endif
+                            </p>
+                            <p>Unsubmitted claims will be deleted after the due date</p>
+                        </span>
+                        @endif
+                    @else
+                        <p>Charging type: {{$claim->charge_type}}</p>
+                    @endif
+                @elseif($q ?? '')
+                    <p>Query Message: 
+                        @foreach($claim->log as $logs) 
+                            @if(strpos($logs->message,"Queried")!==false) 
+                                @php($query = $logs->message) 
+                            @endif 
+                        @endforeach 
+                        {{str_replace('"', '', str_replace('Queried with message: "', '', $query))}}</p>
+                @endif
                 </div>
             </div>
             <div class="col-xs-6">
@@ -192,7 +203,7 @@
                                 <th width="20%">Clock In/Out</th>
                                 <th width="20%">Start/End Time</th>
                                 <th width="8%">Total Time</th>
-                                <th>Justification</th>
+                                <th>Remark</th>
                             @if(($c ?? '')||($d ?? '')||($q ?? ''))
                                 <th width="10%">
                                     Action
@@ -229,24 +240,27 @@
                                                 @if($singleuser->clock_in!="")
                                                     {{date('H:i', strtotime($singleuser->clock_in))}} - {{date('H:i', strtotime($singleuser->clock_out))}} 
                                                 @else 
-                                                    Manual 
+                                                    Manual Input
                                                 @endif
                                             </td>
                                             <td>
                                                 @if(($c ?? '')||($d ?? '')||($q ?? ''))
-                                                <span id="oldds-{{$no}}" class="hidden">{{date('H:i', strtotime($singleuser->start_time))}}</span>
-                                                <span id="oldde-{{$no}}" class="hidden">{{date('H:i', strtotime($singleuser->end_time))}}</span>
-                                                    <input style="width: 40px" id="inputstart-{{$no}}" name="inputstart[]" type="text" class="timepicker" 
+                                                    <span id="oldds-{{$no}}" class="hidden">{{date('H:i', strtotime($singleuser->start_time))}}</span>
+                                                    <span id="oldde-{{$no}}" class="hidden">{{date('H:i', strtotime($singleuser->end_time))}}</span>
+                                                    <input style="width: 40px" id="inputstart-{{$no}}" name="inputstart[]" type="text" class="timepicker check-{{$no}} check-{{$no}}-0 @if($singleuser->checked=="N") hidden @endif" 
                                                         data-clock_in="{{ date('H:i', strtotime($singleuser->clock_in))}}"
                                                         data-start_time="{{ date('H:i', strtotime($singleuser->start_time))}}"
                                                         @if($singleuser->clock_in!="")
                                                             data-clocker="{{ date('H:i', strtotime($singleuser->start_time))}}"
                                                         @endif
                                                         value="{{ date('H:i', strtotime($singleuser->start_time))}}" required>
-                                                    <input style="width: 40px" id="inputend-{{$no}}" name="inputend[]" type="text" class="timepicker" 
+                                                    <input style="width: 40px" id="inputend-{{$no}}" name="inputend[]" type="text" class="timepicker check-{{$no}} check-{{$no}}-1 @if($singleuser->checked=="N") hidden @endif" 
                                                         data-clock_out="{{ date('H:i', strtotime($singleuser->clock_out))}}"
                                                         data-end_time="{{ date('H:i', strtotime($singleuser->end_time))}}"
                                                         value="{{ date('H:i', strtotime($singleuser->end_time))}}" required>
+                                                    @if($singleuser->checked=="N")
+                                                        {{ date('H:i', strtotime($singleuser->start_time)) }} - {{ date('H:i', strtotime($singleuser->end_time)) }}
+                                                    @endif
                                                 @else
                                                     {{ date('H:i', strtotime($singleuser->start_time)) }} - {{ date('H:i', strtotime($singleuser->end_time)) }}
                                                 @endif    
@@ -260,7 +274,10 @@
                                             </td>
                                             <td>
                                                 @if(($c ?? '')||($d ?? '')||($q ?? ''))
-                                                    <textarea rows = "2" cols = "60" type="text" id="inputremark-{{$no}}" name="inputremark[]" placeholder="Write justification" style="resize: none" @if($singleuser->clock_in!="") readonly @else required @endif >{{$singleuser->justification}}</textarea>
+                                                    <textarea rows = "2" cols = "60" type="text" id="inputremark-{{$no}}" name="inputremark[]" placeholder="Write justification" class="check-{{$no}} check-{{$no}}-2 @if($singleuser->checked=="N") hidden @endif" style="resize: none" @if($singleuser->clock_in!="") readonly @else required @endif >{{$singleuser->justification}}</textarea>
+                                                    @if($singleuser->checked=="N")
+                                                        {{$singleuser->justification}}
+                                                    @endif
                                                 @else
                                                     {{$singleuser->justification}}
                                                 @endif 
@@ -288,17 +305,17 @@
                             <td>
                                 <span id="oldds-0" class="hidden">0</span>
                                 <span id="oldde-0" class="hidden">0</span>
-                                <input style="width: 40px" id="inputstart-0" type="text" name="inputstartnew" class="timepicker check-0">
-                                <input style="width: 40px" id="inputend-0" type="text" name="inputendnew" class="timepicker check-1" disabled>
+                                <input style="width: 40px" id="inputstart-0" type="text" name="inputstartnew" class="timepicker check-0 check-0-0">
+                                <input style="width: 40px" id="inputend-0" type="text" name="inputendnew" class="timepicker check-0 check-0-1" disabled>
                             </td>
                             <td>
                                 <span id="olddh-0" class="hidden">0</span>
                                 <span id="olddm-0" class="hidden">0</span>
                                 <span id="inputduration-0"></span>
                             </td>
-                            <td><textarea rows = "2" cols = "60" type="text"  id="inputremark-0" name="inputremarknew" placeholder="Write justification" style="resize: none" class="check-2"></textarea></td>
+                            <td><textarea rows = "2" cols = "60" type="text"  id="inputremark-0" name="inputremarknew" placeholder="Write justification" style="resize: none" class="check-0 check-0-2"></textarea></td>
                             <td>
-                                <button type="button" class="btn btn-primary" id="btn-add"><i class="fas fa-save"></i></button>
+                                <!-- <button type="button" class="btn btn-primary" id="btn-add"><i class="fas fa-save"></i></button> -->
                                 <button type="button" class="btn btn-danger" id="cancel" style="display: inline"><i class="fas fa-times"></i></button>
                             </td>
                         </tr>
@@ -307,8 +324,8 @@
             </div>
             @if(($c ?? '')||($d ?? '')||($q ?? ''))
                 <div style="margin-top: -15px"><small>
-                    <p>* Accepted format JPG, JPEG, PDF only
-                    <br>* Maximum size of supporting document is 2MB
+                    <p>* Accepted format JPG, JPEG, PNG, BMP & PDF only
+                    <br>* Maximum size of supporting document is 1MB
                     <br>* Make sure your PDF document is <u>not password protected</u> and <u>not corrupted</u> </p>
                 </small></div>
                 <div class="row">
@@ -319,7 +336,7 @@
                                     <label>Document:</label>
                                 </div>
                                 <div class="col-xs-9" style="display: flex; padding-right: 8px">
-                                    <input type="file" name="inputfile" id="inputfile" accept="image/*, .pdf, .jpeg, .jpg" style="position:absolute; right:-100vw;">
+                                    <input type="file" name="inputfile" id="inputfile" accept="image/*, .pdf, .jpeg, .jpg, .bmp, .png" style="position:absolute; right:-100vw;">
                                     <span id="inputfiletext" style="flex: 1; max-height: 26px; overflow: hidden; padding: 3px 0 3px 5px; border: 1px solid #A9A9A9; border-right: 0">No file chosen*</span>
                                     <a href="#" id="btn-file-2" style="position: absolute; right: 95px; top: 3px; color: red; display: none "><i class="fas fa-times-circle"></i></a>
                                     <button type="button" id="btn-file-1" style="min-width: 80px">Choose File</button>
@@ -448,22 +465,12 @@
                                 </div>
                             @endif
                         </div>
-                        <div class="form-group" style="margin-top: -10px">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <label for="inputjustification">Justification:</label>
-                                </div>
-                                <div class="col-xs-9">
-                                    <textarea rows = "5" cols = "60" id="inputjustification" name="inputjustification" placeholder="Write justification" required >@if($claim ?? ''){{$claim->justification}}@endif</textarea>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <br>
                 <div class="text-center">
                     <a href="{{route('ot.list')}}"><button type="button" class="btn btn-primary" style="display: inline"><i class="fas fa-arrow-left"></i> BACK</button></a>
-                    <button type="button" id="btn-save" class="btn btn-primary" style="display: inline"><i class="fas fa-save"></i> SAVE</button>
+                    <!-- <button type="button" id="btn-save" class="btn btn-primary" style="display: inline"><i class="fas fa-save"></i> SAVE</button> -->
                     <button type="submit" class="btn btn-primary"><i class="fas fa-share-square"></i> SUBMIT</button>
                 </div>
             @endif
@@ -551,6 +558,7 @@
     var add = true; //flag when click addtime button
     var checker = true; //since bootstrap timepicker do onchange twice
     var submit = false; //check validation before adding new time
+    var check=true;
     var whensubmit = true;
     //set min and max date
     var today = new Date();
@@ -703,7 +711,7 @@
                     }
                     checker = false;
                 }else{
-                    var check=true;
+                    check=true;
                     var time=[];
                     var st = ($("#inputstart-"+i).val()).split(":");
                     var min = "{{$day[0]}}";
@@ -853,17 +861,28 @@
 
         function checkbox(i){
             return function(){
+                $("#inputstart-0").prop('required',false);
+                $("#inputend-0").prop('required',false);
+                $("#inputremark-0").prop('required',false);
+                // alert( $("#inputcheck-1").val());
                 if ($('#inputcheck-'+i).is(':checked')){
                     $('#inputcheckdata-'+i).val("Y");
-                    calshowtime(i, (parseInt($("#olddh-"+i).text()*60)+parseInt($("#olddm-"+i).text())), 0, 0, $("#oldth").text(), $("#oldtm").text());
                 }else{
-                    // $('#inputjustification').val("N");
                     $('#inputcheckdata-'+i).val("N");
-                    nhm = showtime((parseInt($("#oldth").text()*60)+parseInt($("#oldtm").text()))-(parseInt($("#olddh-"+i).text()*60)+parseInt($("#olddm-"+i).text())));
-                    $("#oldth").text(nhm[0]);
-                    $("#oldtm").text(nhm[1]);
-                    $("#showtime").text(nhm[0]+"h "+nhm[1]+"m");
                 }
+                $("#formtype").val("save");
+                $("#form").submit();
+                // if ($('#inputcheck-'+i).is(':checked')){
+                //     $('#inputcheckdata-'+i).val("Y");
+                //     calshowtime(i, (parseInt($("#olddh-"+i).text()*60)+parseInt($("#olddm-"+i).text())), 0, 0, $("#oldth").text(), $("#oldtm").text());
+                // }else{
+                //     // $('#inputjustification').val("N");
+                //     $('#inputcheckdata-'+i).val("N");
+                //     nhm = showtime((parseInt($("#oldth").text()*60)+parseInt($("#oldtm").text()))-(parseInt($("#olddh-"+i).text()*60)+parseInt($("#olddm-"+i).text())));
+                //     $("#oldth").text(nhm[0]);
+                //     $("#oldtm").text(nhm[1]);
+                //     $("#showtime").text(nhm[0]+"h "+nhm[1]+"m");
+                // }
             }
         }
 
@@ -1014,11 +1033,11 @@
 
         $("#inputfile").on("change", function(){
             var filesize = this.files[0].size;
-            if (filesize > 2000000) { 
+            if (filesize > 1000000) { 
                 Swal.fire({
                     icon: 'error',
                     title: 'Unable to choose file',
-                    text: 'File size has exceeded 2MB!'
+                    text: 'File size has exceeded 1MB!'
                 })
                 $("#inputfile").val("");
                 $("#inputfiletext").text("No file chosen*");
@@ -1034,11 +1053,12 @@
     @endif
 
     //when adding new time
+    //oldcode---------------------------------------
     $("#btn-add").on('click', function(){
-        for(i=0; i<3;i++){
-            if($('.check-'+i).get(0).checkValidity()==false){
+        for(j=0; j<3;j++){
+            if($('.check-'+j).get(0).checkValidity()==false){
                 // $('.check-2').get(0).reportValidity();
-                $('.check-'+i).get(0).reportValidity();
+                $('.check-'+j).get(0).reportValidity();
                 submit = false;
             }else{
                 submit = true;
@@ -1050,23 +1070,81 @@
             $("#formtype").val("add");
             $("#form").submit();
         }
-    });     
-    //when saving form
-    $("#btn-save").on('click', function(){
-        if(add){
-            // $("#formsave").val("save");
-            // $("#formsubmit").val("no");
-            $("#formtype").val("save");
-            $("#form").submit();
-        }else{
-            // alert("Please save new time input before saving the form!");
-            Swal.fire({
-                icon: 'error',
-                title: 'Unable to save form',
-                text: 'Please save new time input before saving the form!'
-            })
-        }
     });  
+    //oldcode---------------------------------------
+    
+    function addot(i){
+        return function(){
+            submit = true;
+            for(j=0; j<3;j++){
+                if($('.check-'+i+'-'+j).get(0).checkValidity()==false){
+                    submit = false;
+                }
+            }
+            // alert(submit+" "+check+" "+$('.check-1').val());   
+            if(submit){
+                if($('.check-'+i+'-1').val()!=""){
+                    if(checker){
+                        if(check){
+                            if(i==0){
+                                $("#formtype").val("add");
+                            }else{
+                                $("#formtype").val("save");
+                            }
+                            $("#form").submit();
+                        }
+                    }
+                }
+            }
+        }
+    }
+    for(i=0; i<{{$no}}+1;i++){
+        $('.check-'+i).on('change', addot(i))
+    }
+
+    // function addot(){
+    //     return function(){
+    //         submit = true;
+    //         for(j=0; j<3;j++){
+    //             if($('.check-'+j).get(0).checkValidity()==false){
+    //                 submit = false;
+    //             }
+    //         }
+    //         // alert(submit+" "+check+" "+$('.check-1').val());   
+    //         if(submit){
+    //             if($('.check-1').val()!=""){
+    //                 if(checker){
+    //                     if(check){
+    //                         $("#formtype").val("add");
+    //                         $("#form").submit();
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+
+    // for(i=0; i<3;i++){
+    //     $('.check-'+i).on('change', addot())
+    // }
+
+
+    //when saving form
+    // $("#btn-save").on('click', function(){
+    //     if(add){
+    //         // $("#formsave").val("save");
+    //         // $("#formsubmit").val("no");
+    //         $("#formtype").val("save");
+    //         $("#form").submit();
+    //     }else{
+    //         // alert("Please save new time input before saving the form!");
+    //         Swal.fire({
+    //             icon: 'error',
+    //             title: 'Unable to save form',
+    //             text: 'Please save new time input before saving the form!'
+    //         })
+    //     }
+    // });  
     
     function submission(){
         if(($("#formtype").val()=="submit")){
@@ -1079,7 +1157,8 @@
                     if(add){
                         Swal.fire({
                             title: 'Are you sure to submit form?',
-                            text: "I understand and agree this to claim. If deemed false I can be taken to disciplinary action.",
+                            // text: "I hereby certify that my claim is compliance with company's term and condition on PERJANJIAN BERSAMA, HUMAN RESOURCE MANUAL, and BUSINESS PROCESS MANUAL If deemed falsed, disciplinary can be imposed on me.",
+                            html: "<p style='color: red'>I hereby certify that my claim is compliance with company's term and condition on PERJANJIAN BERSAMA, HUMAN RESOURCE MANUAL, and BUSINESS PROCESS MANUAL If deemed falsed, disciplinary can be imposed on me.</p>",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
@@ -1121,13 +1200,15 @@
 
     $("#chargetype").change(function(){
         // alert()
-        if($("#chargetype").val()=="Cost Center"){
-            $("#costcenter").css("display", "block");
-            $("#project").css("display", "none");
-        }else if($("#chargetype").val()=="Project"){
-            $("#project").css("display", "block");
-            $("#costcenter").css("display", "none");
-        }
+        $("#formtype").val("save");
+        $("#form").submit();
+        // if($("#chargetype").val()=="Cost Center"){
+        //     $("#costcenter").css("display", "block");
+        //     $("#project").css("display", "none");
+        // }else if($("#chargetype").val()=="Project"){
+        //     $("#project").css("display", "block");
+        //     $("#costcenter").css("display", "none");
+        // }
     });    
 </script>
 @stop

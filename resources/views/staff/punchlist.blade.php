@@ -38,7 +38,20 @@
            <td>{{ $ap->punch_in_time }}</td>
            <td>{{ $ap->punch_out_time }}</td>
            <td>{{ $ap->status }}</td>
-           <td><button type="button" class="btn btn-sm btn-primary">Aksi</button></td>
+           <td>
+            @if($ap->punch_out_time!=null)
+              <div style="display: flex">
+              <form id="formdate" action="{{route('ot.formdate')}}" method="POST">
+                @csrf
+                <input type="date" id="inputdate" class="hidden" name="inputdate" value="{{ date('Y-m-d', strtotime($ap->punch_in_time)) }}" required>
+                    
+                  <button type="submit" class="btn btn-sm btn-primary" @if($ap->apply_ot=="X") disabled @endif>Apply Claim</button>
+
+              </form>
+              <button type="button" data-id="{{$ap['id']}}" data-start="{{$ap['punch_in_time']}}" data-end="{{$ap['punch_out_time']}}" class="del btn btn-sm btn-danger" style="color: white; margin-left: 3px" @if($ap->apply_ot=="X") disabled @endif><i class="fas fa-times-circle"></i></button>
+              </div>
+            @endif
+           </td>
          </tr>
          @endforeach
        </tbody>
@@ -46,6 +59,10 @@
     </div>
   </div>
 </div>
+<form action="{{route('punch.delete')}}" method="POST" class="" id="form">
+  @csrf
+  <input type="text" class="hidden" id="inputid" name="inputid" required>
+</form>
 @endif
 @stop
 
@@ -58,5 +75,27 @@ $(document).ready(function() {
       fixedHeader : true
     });
 } );
+
+
+$(".del").on("click", function(){
+  var id = $(this).data('id');
+  var start = $(this).data('start');
+  var end = $(this).data('end');
+  $('#inputid').val(id);
+  Swal.fire({
+      title: 'Are you sure to delete Clock In?',
+      text: "Delete clock in time "+start+" - "+end,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Delete'
+      }).then((result) => {
+      if (result.value) {
+          $("#form").submit();
+      }
+  })
+})
 </script>
+
 @stop

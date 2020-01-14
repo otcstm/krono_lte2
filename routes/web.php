@@ -27,6 +27,8 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/punch',      'MiscController@showPunchView')->name('punch.list');
   Route::post('/punch/in',  'MiscController@doClockIn')->name('punch.in');
   Route::post('/punch/out', 'MiscController@doClockOut')->name('punch.out');
+  Route::post('/punch/delete', 'MiscController@delete')->name('punch.delete');
+
   //List staff & search
   Route::get('/staff', 'Admin\StaffController@showStaff')->name('staff.list');
   Route::post('/staff/search', 'Admin\StaffController@searchStaff')->name('staff.search');
@@ -77,6 +79,22 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/admin/paymentsc/add','Admin\PaymentScheduleController@store')->name('paymentsc.store');
   Route::post( '/admin/paymentsc/update','Admin\PaymentScheduleController@update')->name('paymentsc.edit');
   Route::post('/admin/paymentsc/delete','Admin\PaymentScheduleController@destroy')->name('paymentsc.delete');
+
+  //OT Config
+  Route::get('/admin/overtime', 'Admin\OvertimeMgmtController@show')->name('oe.show');
+  Route::post('/admin/overtime', 'Admin\OvertimeMgmtController@show')->name('oe.show');
+  Route::get('/admin/overtime/m', 'Admin\OvertimeMgmtController@otm')->name('oe.otm');
+  Route::get('/admin/overtime/getcompany', 'Admin\OvertimeMgmtController@getCompany')->name('oe.getcompany');
+  Route::get('/admin/overtime/eligible/getlast', 'Admin\OvertimeMgmtController@getLast')->name('oe.eligiblegetlast');
+  Route::post('/admin/overtime/eligible/store', 'Admin\OvertimeMgmtController@eligiblestore')->name('oe.eligiblestore');
+  Route::post('/admin/overtime/eligible/update', 'Admin\OvertimeMgmtController@eligibleupdate')->name('oe.eligibleupdate');
+  Route::post('/admin/overtime/eligible/delete', 'Admin\OvertimeMgmtController@eligibledelete')->name('oe.eligibledelete');
+  Route::post('/admin/overtime/expiry/store', 'Admin\OvertimeMgmtController@expirystore')->name('oe.expirystore');
+  Route::post('/admin/overtime/expiry/update', 'Admin\OvertimeMgmtController@expiryupdate')->name('oe.expiryupdate');
+  Route::post('/admin/overtime/expiry/delete', 'Admin\OvertimeMgmtController@expirydelete')->name('oe.expirydelete');
+  Route::post('/admin/overtime/expiry/active', 'Admin\OvertimeMgmtController@active')->name('oe.active');
+  Route::get('/admin/overtime/expiry/getexpiry', 'Admin\OvertimeMgmtController@getExpiry')->name('oe.getexpiry');
+  Route::get('/admin/overtime/expiry/getlast', 'Admin\OvertimeMgmtController@getLast2')->name('oe.expirygetlast');
   //Payroll Group
   Route::get( '/admin/pygroup','Admin\PayrollgroupController@index')->name('pygroup.index');
   Route::get('/admin/pygroup/create', 'Admin\PayrollgroupController@create')->name('pygroup.create');
@@ -84,12 +102,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get( '/admin/pygroup/edit/{id}','Admin\PayrollgroupController@edit')->name('pygroup.editnew');
   Route::post( '/admin/pygroup/update','Admin\PayrollgroupController@update')->name('pygroup.update');
   Route::post('/admin/pygroup/delete','Admin\PayrollgroupController@destroy')->name('pygroup.delete');
- //OT Config
-  Route::get('/admin/overtime', 'OvertimeEligibilityController@show')->name('oe.show');
-  Route::post('/admin/overtime', 'OvertimeEligibilityController@show')->name('oe.show');
-  Route::get('/admin/overtime/m', 'OvertimeEligibilityController@otm')->name('oe.otm');
-  Route::get('/admin/overtime/getcompany', 'OvertimeEligibilityController@getCompany')->name('oe.getcompany');
-  Route::post('/admin/overtime/store', 'OvertimeEligibilityController@store')->name('oe.store');
+  
   // /admins ------------------------------------
   //Log activity
   Route::get('/log/listUserLogs', 'MiscController@listUserLogs')->name('log.listUserLogs');

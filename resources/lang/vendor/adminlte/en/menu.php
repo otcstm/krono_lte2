@@ -9,6 +9,7 @@ return [
     'manage_state'    => 'Manage State',
     'manage_psubarea' => 'Manage Psubarea',
     'manage_overtime' => 'Manage Overtime',
+    'manage_overtimeex' => 'Manage Overtime Expiry',
     'manage_wdays'    => 'Work Day Type',
     'admin_user_menu'   => 'User Admin Thingy',
     'manage_holiday'    => 'Manage Holiday',
