@@ -74,6 +74,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/admin/holiday/destroy', 'Admin\HolidayController@destroy')->name('holiday.destroy');
   //Payment Schedule
   Route::get( '/admin/paymentsc','Admin\PaymentScheduleController@index')->name('paymentsc.index');
+  Route::post( '/admin/paymentsc','Admin\PaymentScheduleController@index')->name('paymentsc.index');
   Route::post('/admin/paymentsc/add','Admin\PaymentScheduleController@store')->name('paymentsc.store');
   Route::post( '/admin/paymentsc/update','Admin\PaymentScheduleController@update')->name('paymentsc.edit');
   Route::post('/admin/paymentsc/delete','Admin\PaymentScheduleController@destroy')->name('paymentsc.delete');
@@ -90,6 +91,14 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/admin/overtime/m', 'OvertimeEligibilityController@otm')->name('oe.otm');
   Route::get('/admin/overtime/getcompany', 'OvertimeEligibilityController@getCompany')->name('oe.getcompany');
   Route::post('/admin/overtime/store', 'OvertimeEligibilityController@store')->name('oe.store');
+  //Report
+  Route::get('/admin/report/otd', 'Admin\OtReportController@viewOTd')->name('otr.viewOTd'); //rep1
+  Route::post('/admin/report/otd', 'Admin\OtReportController@viewOTd')->name('otr.viewOTd');
+  Route::get('/admin/report/ot', 'Admin\OtReportController@viewOT')->name('otr.viewOT'); //rep2
+  Route::post('/admin/report/ot', 'Admin\OtReportController@viewOT')->name('otr.viewOT');
+  Route::get('/admin/report/otlog', 'Admin\OtReportController@viewLC')->name('otr.viewOTLog'); //rep2
+  Route::post('/admin/report/otlog', 'Admin\OtReportController@viewLC')->name('otr.viewOTLog');
+
   // /admins ------------------------------------
   //Log activity
   Route::get('/log/listUserLogs', 'MiscController@listUserLogs')->name('log.listUserLogs');

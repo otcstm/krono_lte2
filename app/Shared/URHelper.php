@@ -3,6 +3,10 @@
 namespace App\Shared;
 use App\User;
 use App\UserRecord;
+use App\CompRegionConfig;
+use App\StaffPunch;
+use App\SetupCode;
+use App\OvertimeLog;
 
 class URHelper
 {
@@ -98,11 +102,42 @@ class URHelper
         $ur = UserRecord::where('user_id',$persno)->where('upd_sap','=',$urMaxDate)->get()->first();
         return $ur;
       }
-// Return the user reord for given persno 
+// Return the user reord for given persno
       public static function getUser( $persno)
       {
         $u = User::where('id','=',$persno)->get();
         return $u;
       }
+
+      public static function getUserCapping( $comp,$reg)
+      {
+        $salcapping = CompRegionConfig::where('company_id',$comp)->where('region',$reg)->first();
+        return $salcapping;
+      }
+
+      public static function getLocation( $userid,$pintime)
+      {
+        $loc = StaffPunch::where('user_id',$userid)->where('punch_in_time','=',$pintime)->first();
+        return $loc;
+      }
+
+      public static function getOTStatus($code)
+      {
+        $st = SetupCode::where('item1','ot_status')->where('item2',$code)->first();
+        return $st;
+      }
+
+      public static function getOTLog($otid)
+      {
+        $otlog = OvertimeLog::where('ot_id',$otid)
+        ->where('message','like',"%Created draft%")
+        ->first();
+         // dd($otlog);
+        return $otlog;
+
+      }
+
+      
+
 
 }
