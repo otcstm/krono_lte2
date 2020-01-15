@@ -39,7 +39,7 @@ class CreateOvertimesTable extends Migration
             $table->integer('queried_id')->nullable();
             $table->datetime('payment_date')->nullable();
             $table->string('region', 25)->nullable();
-            $table->string('wage_type')->nullable();
+            $table->string('trans_code')->nullable();
             $table->integer('punch_id')->nullable();
             $table->integer('user_records_id')->nullable();
         });
