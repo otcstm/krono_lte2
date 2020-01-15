@@ -1166,19 +1166,42 @@
                     if(add){
                         Swal.fire({
                             title: 'Are you sure to submit form?',
-                            // text: "I hereby certify that my claim is compliance with company's term and condition on PERJANJIAN BERSAMA, HUMAN RESOURCE MANUAL, and BUSINESS PROCESS MANUAL If deemed falsed, disciplinary can be imposed on me.",
-                            html: "<p style='color: red; font-weight: bold'>I hereby certify that my claim is compliance with company's term and condition on PERJANJIAN BERSAMA, HUMAN RESOURCE MANUAL, and BUSINESS PROCESS MANUAL If deemed falsed, disciplinary can be imposed on me.<br><br>By clicking on \"Yes\" button below, you are agreeing to the above related terms and conditions</p>",
-                            icon: 'warning',
+                            input: 'checkbox',
+                            inputValue: 0,
+                            inputPlaceholder:
+                                "<p style=\"color: red; font-weight: bold\">By clicking on \"Yes\" button below, you are agreeing to the above related terms and conditions</p>",
+                                html: "<p style='color: red; font-weight: bold'>I hereby certify that my claim is compliance with company's term and condition on PERJANJIAN BERSAMA, HUMAN RESOURCE MANUAL, and BUSINESS PROCESS MANUAL If deemed falsed, disciplinary can be imposed on me.</p>",
+                                icon: 'warning',
+                            confirmButtonText:
+                                'I understand',
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: 'I understand'
-                            }).then((result) => {
+                            inputValidator: (result) => {
+                                return !result && 'You need to agree with T&C'
+                            }
+                        }).then((result) => {
                             if (result.value) {
                                 whensubmit = false;
                                 $("#form").submit();
                             }
                         })
+                        // Swal.fire({
+                        //     title: 'Are you sure to submit form?',
+                        //     // text: "I hereby certify that my claim is compliance with company's term and condition on PERJANJIAN BERSAMA, HUMAN RESOURCE MANUAL, and BUSINESS PROCESS MANUAL If deemed falsed, disciplinary can be imposed on me.",
+                        //     html: "<p style='color: red; font-weight: bold'>I hereby certify that my claim is compliance with company's term and condition on PERJANJIAN BERSAMA, HUMAN RESOURCE MANUAL, and BUSINESS PROCESS MANUAL If deemed falsed, disciplinary can be imposed on me.<br><br>By clicking on \"Yes\" button below, you are agreeing to the above related terms and conditions</p>",
+                        //     icon: 'warning',
+                        //     showCancelButton: true,
+                        //     confirmButtonColor: '#3085d6',
+                        //     cancelButtonColor: '#d33',
+                        //     confirmButtonText: 'I understand'
+                        //     }).then((result) => {
+                        //     if (result.value) {
+                        //         whensubmit = false;
+                        //         $("#form").submit();
+                        //     }
+                        // })
+    
                         return false;
                     }else{
                         // alert("Please save new time input before saving the form!");
