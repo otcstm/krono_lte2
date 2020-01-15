@@ -36,5 +36,6 @@ class DatabaseSeeder extends Seeder
         $this->call(HolidayCalendarsTableSeeder::class);
         $this->call(HolidayLogsTableSeeder::class);
         $this->call(HolidaysTableSeeder::class);
+        $this->call(SetupCodesTableSeeder::class);
     }
 }
