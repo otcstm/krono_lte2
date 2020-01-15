@@ -13,10 +13,9 @@
       </div>
       @endif
         <div class="table-responsive">
-            <table id="tRoleList" class="table table-bordered">
+            <table id="tPygList" class="table table-hover table-bordered">
                 <thead>
                     <tr>
-                      <th>ID</th>
                       <th>Group Name</th>
                       <th>Companies</th>
                       <th>Effective Date</th>
@@ -27,7 +26,6 @@
                 <tbody>
                     @foreach($pygroups as $pygroup)
                     <tr>
-                      <td>{{ $pygroup->id }}</td>
                       <td>{{ $pygroup->pygroup }}</td>
                       <td>@foreach ($pygroup->companyingroup as $var)
                  		     {{$var->companyid->company_descr}}<br>
@@ -51,10 +49,13 @@
                 </tbody>
             </table>
         </div>
-        <form action="{{ route('pygroup.create',[],false) }}" style="display:inline; float:right">
-          @csrf
-          <input type="submit" name="submit" value="Create New PYG" class="btn btn-primary"/>
-        </form>
+        <div class="form-group text-center">
+          <form action="{{ route('pygroup.create',[],false) }}" style="display:inline; float:center">
+            @csrf
+            <input type="submit" name="submit" value="Create New PYG" class="btn btn-primary "/>
+          </form>
+        </div>
+
     </div>
 </div>
 <div id="deletePyg" class="modal fade" role="dialog">
@@ -66,14 +67,9 @@
 $(document).ready(function() {
     $('#tPygList').DataTable({
         "responsive": "true",
-        "order" : [[2, "asc"]],
-        "columns": [
-            null,
-            null,
-            null,
-            null,
-            { "width": "10%" }
-        ]
+        "order" : [[0, "asc"]],
+    
+
     });
 });
 

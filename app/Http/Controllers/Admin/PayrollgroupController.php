@@ -112,6 +112,10 @@ class PayrollgroupController extends Controller
               //and existed in db remove it from the selection array
               //only new addition would left
               unset($arr[$key]);
+              $a_text = "Payroll Group $pygroup->pygroup updated!";
+              $a_type = "success";
+
+              // dd('if');
           } else {
               //if the comp not existed in the selection
               //but exist in db remove the comp from DB
@@ -119,6 +123,10 @@ class PayrollgroupController extends Controller
              ->where('company_id', $currcomp->company_id)
              ->wheredate('end_date', '9999-12-31')
              ->delete();
+             $a_text = "Payroll Group $pygroup->pygroup updated!";
+             $a_type = "success";
+             // dd('else');
+
           }
         }
       foreach ($arr as $newselectedCompany) {

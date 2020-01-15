@@ -29,8 +29,8 @@
  			 @endforeach
 		 </div>
 		 <div class="form-group text-center">
- 			 <input type="submit" class="btn btn-primary">
  			 <a class="btn btn-primary" href="{{route('pygroup.index',[],false)}}" >Return</a>
+       <input type="submit" class="btn btn-primary">
 		 </div>
  		</table>
  	</form>
