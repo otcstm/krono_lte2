@@ -21,7 +21,7 @@ class CreateOvertimesTable extends Migration
             $table->integer('month_id');
             $table->date('date');
             $table->date('date_created');
-            $table->date('date_expiry');
+            $table->date('date_expiry')->nullable();
             $table->integer('total_hour')->default(0);
             $table->integer('total_minute')->default(0);
             $table->decimal('amount', 10,2)->default(0);
@@ -33,7 +33,15 @@ class CreateOvertimesTable extends Migration
             $table->integer('verifier_id')->unsigned()->nullable();            
             $table->integer('daytype_id')->nullable();
             $table->string('charge_type')->nullable();
-            $table->string('justification')->nullable();
+            $table->datetime('approved_date')->nullable();
+            $table->datetime('verification_date')->nullable();
+            $table->datetime('queried_date')->nullable();
+            $table->integer('queried_id')->nullable();
+            $table->datetime('payment_date')->nullable();
+            $table->string('region', 25)->nullable();
+            $table->string('wage_type')->nullable();
+            $table->integer('punch_id')->nullable();
+            $table->integer('user_records_id')->nullable();
         });
     }
 

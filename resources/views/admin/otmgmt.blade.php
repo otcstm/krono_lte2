@@ -8,8 +8,9 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-lg-6">
-                <form id="formdate" action="{{route('oe.show')}}" method="POST">
+                <form id="form" action="{{route('oe.show')}}" method="POST">
                     @csrf
+                    <input class="hidden" id="formtype" type="text" name="formtype" value="">
                     <div class="form-group">
                         <label for="inputregion">Region:</label>
                         <select name="inputregion" id="inputregion" required>
@@ -26,13 +27,17 @@
                         </select>
                     </div>
                     
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary">
-                            SUBMIT
-                        </button>
-                    </div>
                 </form>
             </div>
+        </div>
+        
+        <div class="text-center">
+            <button type="button" class="btn btn-primary" id="btn-eligibility">
+                CONFIGURE ELIGIBILITY
+            </button>
+            <button type="button" class="btn btn-success" id="btn-expiry">
+                CONFIGURE EXPIRY
+            </button>
         </div>
     </div>
 </div>
@@ -73,6 +78,27 @@ $("#inputregion").change(function(){
 function updateResp(item, index){
     $( "#inputcompany" ).append('<option value="'+item.id+'">'+item.id+' - '+item.name+'</option>');  
 }
+
+function validornot(){
+    if($('#inputregion').get(0).checkValidity()==false){
+        $('#inputregion').get(0).reportValidity();
+    }else if($('#inputcompany').get(0).checkValidity()==false){
+        $('#inputcompany').get(0).reportValidity();
+    }else{
+        $("#form").submit();
+    }
+}
+
+//when uploading file
+$("#btn-eligibility").on('click', function(){
+    $("#formtype").val("eligibility");
+    return validornot();
+});  
+
+$("#btn-expiry").on('click', function(){
+    $("#formtype").val("expiry");
+    return validornot();
+});  
 
 </script>
 @stop

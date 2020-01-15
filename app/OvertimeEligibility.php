@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CompRegionConfig extends Model
+class OvertimeEligibility extends Model
 {
     public function companyid()
     {

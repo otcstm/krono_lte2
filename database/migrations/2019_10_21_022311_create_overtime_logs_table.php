@@ -18,6 +18,7 @@ class CreateOvertimeLogsTable extends Migration
             $table->timestamps();
             $table->integer('ot_id');
             $table->integer('user_id');
+            $table->string('action');
             $table->string('message');
         });
     }
