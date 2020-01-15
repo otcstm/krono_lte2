@@ -109,7 +109,7 @@ class URHelper
         return $u;
       }
 
-<<<<<<< HEAD
+
       public static function getUserCapping( $comp,$reg)
       {
         $salcapping = CompRegionConfig::where('company_id',$comp)->where('region',$reg)->first();
@@ -138,11 +138,6 @@ class URHelper
 
       }
 
-
-=======
-
-
->>>>>>> c93f317285a32d1915efaffee765055c501741b5
 
 
 }

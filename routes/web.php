@@ -104,11 +104,11 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post( '/admin/pygroup/update','Admin\PayrollgroupController@update')->name('pygroup.update');
   Route::post('/admin/pygroup/delete','Admin\PayrollgroupController@destroy')->name('pygroup.delete');
  //OT Config
-  Route::get('/admin/overtime', 'OvertimeEligibilityController@show')->name('oe.show');
-  Route::post('/admin/overtime', 'OvertimeEligibilityController@show')->name('oe.show');
-  Route::get('/admin/overtime/m', 'OvertimeEligibilityController@otm')->name('oe.otm');
-  Route::get('/admin/overtime/getcompany', 'OvertimeEligibilityController@getCompany')->name('oe.getcompany');
-  Route::post('/admin/overtime/store', 'OvertimeEligibilityController@store')->name('oe.store');
+  // Route::get('/admin/overtime', 'OvertimeEligibilityController@show')->name('oe.show');
+  // Route::post('/admin/overtime', 'OvertimeEligibilityController@show')->name('oe.show');
+  // Route::get('/admin/overtime/m', 'OvertimeEligibilityController@otm')->name('oe.otm');
+  // Route::get('/admin/overtime/getcompany', 'OvertimeEligibilityController@getCompany')->name('oe.getcompany');
+  // Route::post('/admin/overtime/store', 'OvertimeEligibilityController@store')->name('oe.store');
   //Report
   Route::get('/admin/report/otd', 'Admin\OtReportController@viewOTd')->name('otr.viewOTd'); //rep1
   Route::post('/admin/report/otd', 'Admin\OtReportController@viewOTd')->name('otr.viewOTd');
