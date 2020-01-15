@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'otcstm@gmail.com'),
+        'name' => env('MAIL_FROM_NAME', 'OTCSTM'),
     ],
 
     /*
@@ -71,7 +71,8 @@ return [
     |
     */
 
-    'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+    'encryption' => env('MAIL_ENCRYPTION', 'ssl'),
+    'authentication' =>       'plain',
 
     /*
     |--------------------------------------------------------------------------

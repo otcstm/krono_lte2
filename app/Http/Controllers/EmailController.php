@@ -1,12 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMailable;
 use App\Email;
 use Illuminate\Http\Request;
 
 class EmailController extends Controller
 {
+
+  public function dummyEmail()
+  {
+  //  dd("ss");
+    $name = 'Afdzal';
+Mail::to('afdzal@tm.com.my')->send(new SendMailable($name));
+
+return 'Email was sent';
+  }
     /**
      * Display a listing of the resource.
      *

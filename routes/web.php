@@ -142,4 +142,8 @@ Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth
   Route::get('/staff', 'ShiftPlanController@staffInfo')->name('staff');
   Route::post('/staff/push', 'ShiftPlanController@staffPushTemplate')->name('staff.push');
   Route::post('/staff/pop', 'ShiftPlanController@staffPopTemplate')->name('staff.pop');
+
+
 });
+
+  Route::get('/email/dummy', 'EmailController@dummyEmail')->name('email.dummy');
