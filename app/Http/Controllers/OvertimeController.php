@@ -229,7 +229,7 @@ class OvertimeController extends Controller{
                     }
                 }
 
-                $draft = array("OT".date("ymd", strtotime($claimdate))."-".sprintf("%08d", $req->user()->id), $date_expiry, date("Y-m-d H:i:s"), $claimtime, $req->inputdate, $req->user()->name);
+                $draft = array("OT".date("Ymd", strtotime($claimdate))."-".sprintf("%08d", $req->user()->id), $date_expiry, date("Y-m-d H:i:s"), $claimtime, $req->inputdate, $req->user()->name);
                 //[0] - refno, [1] - expiry, [2] - datetime created, [3] - month, [4] - date, [5] - user name
                 Session::put(['draft' => $draft]);
                 // dd($req->session());
