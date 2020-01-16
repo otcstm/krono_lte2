@@ -351,14 +351,19 @@ return [
             'icon' => 'fas fa-print',
             'submenu' => [
               [
-                'text' => 'Overtime',
-                'url'  => '#',
+                'text' => 'otr',
+                'url'  => '/admin/report/ot',
                 'icon' => 'fas fa-user-ninja',
               ],
               [
-                'text' => 'Claim',
-                'url'  => '#',
-                'icon' => 'fas fa-users',
+                'text' => 'otr_details',
+                'url'  => '/admin/report/otd',
+                'icon' => 'fas fa-user-ninja',
+              ],
+              [
+                'text' => 'otr_log',
+                'url'  => '/admin/report/otlog',
+                'icon' => 'fas fa-user-ninja',
               ],
             ],
         ],

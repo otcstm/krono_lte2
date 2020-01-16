@@ -17,11 +17,16 @@ class CreateOvertimePunchesTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->integer('user_id');
+            $table->integer('punch_id');
             $table->date('date');
             $table->datetime('start_time');
             $table->datetime('end_time');
             $table->integer('hour')->default(0);
             $table->integer('minute')->default(0);
+            $table->decimal('in_latitude', 9, 6)->default(0.0);
+            $table->decimal('in_longitude', 9, 6)->default(0.0);
+            $table->decimal('out_latitude', 9, 6)->default(0.0);
+            $table->decimal('out_longitude', 9, 6)->default(0.0);
         });
     }
 

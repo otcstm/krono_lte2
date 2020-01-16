@@ -25,6 +25,7 @@ class CreateStaffPunchesTable extends Migration
             $table->decimal('out_longitude', 9, 6)->default(0.0);
             $table->string('status', 10)->default('in');
             $table->string('parent')->nullable();
+            $table->string('apply_ot')->nullable();
         });
     }
 

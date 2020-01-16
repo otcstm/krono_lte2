@@ -1,18 +1,39 @@
 @extends('adminlte::page')
+@section('css')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"/>
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css"/>
+@stop
+
 
 @section('title', 'Payment Schedule')
 
 @section('content')
-
 <div class="panel panel-default">
 	<div class="panel-heading"><strong>Payment Schedule</strong></div>
+
 	<div class="panel-body">
 		@if (session()->has('a_text'))
-    <div class="alert alert-{{ session()->get('a_type') }} alert-dismissible">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      <strong>{{ session()->get('a_text') }}</strong>
-    </div>
-    @endif
+		<div class="alert alert-{{ session()->get('a_type') }} alert-dismissible">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>{{ session()->get('a_text') }}</strong>
+		</div>
+		@endif
+		<div>
+			<input type="hidden" name="slctyr" id="slctyr_hidden" value="{{$slctyr}}" />
+			<form  method="post" class="form-horizontal" id="fselectyear" >
+				@csrf
+				<table width="200px"><tr><td width="100px"><strong>Select Year</strong></td>
+					<td width="100px">
+						<select name="slctyr" id="slctyr_id" class="form-control">
+								@foreach ($list_year as $yr)
+								<option>{{$yr}}</option>
+								@endforeach
+						</select>
+					</td></tr></table>
+			</form>
+		</div>
+	</div>
+		<div class="panel-body">
 		<div class="table-responsive" >
 			<table id="tpayment_sche" class="table table-hover table-bordered" >
 				<thead>
@@ -162,21 +183,55 @@
 @stop
 
 @section('js')
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
+
 <script type="text/javascript">
+$("#slctyr_id").val('{{$slctyr}}');
 
 $(document).ready(function() {
     $('#tpayment_sche').DataTable({
         "responsive": "true",
-        "order" : [[0, "asc"]]
-    });
+        "order" : [[0, "asc"]],
+				dom: 'Bfrtip',
+				buttons: [         {
+                extend: 'copyHtml5',
+                exportOptions: {
+                    columns:  ':visible'
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+						{
+						                extend: 'colvis',
+						                collectionLayout: 'fixed three-column'
+						            }
+
+					]
+});
 });
 
 function populate(e){
 		var ps_id = $(e.relatedTarget).data('id');
 		var ps_payrollgroup_id = $(e.relatedTarget).data('payrollgroup_id');
-
-		// var ps_pyg = $(e.relatedTarget).data('py');
-		// var ps_year = $(e.relatedTarget).data('yr');
     var ps_lastsub = $(e.relatedTarget).data('ls');
     var ps_app = $(e.relatedTarget).data('ad');
 		var ps_int = $(e.relatedTarget).data('intd');
@@ -195,4 +250,13 @@ $('#editfPsc').on('show.bs.modal', function(e) {
 });
 
 </script>
+<script type="text/javascript">
+
+  $(document).ready(function(){
+    $('#slctyr_id').change(function(){
+      	$('#fselectyear').submit();
+      });
+   });
+</script>
+
 @stop
