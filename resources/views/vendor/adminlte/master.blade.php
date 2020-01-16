@@ -19,6 +19,7 @@
 
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ secure_asset('vendor/adminlte/dist/css/AdminLTE.min.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('vendor/custom.css') }}">
 
     @yield('adminlte_css')
 
@@ -29,6 +30,8 @@
 
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
 </head>
 <body class="hold-transition @yield('body_class')">
 
