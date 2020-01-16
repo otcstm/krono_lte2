@@ -224,6 +224,24 @@ return [
           ],
         ]
       ],
+
+
+      [
+        'text' => 'Dummy',
+        'icon' => 'fas fa-carrot',
+        'submenu' => [
+          [
+              'text' => 'Email Basic',
+              'url'  => '/admin/staff/auth',
+              'icon' => 'fas fa-key',
+              // 'can' => 'admin-nav-menu',
+          ],
+        ]
+      ],
+
+
+
+
       [ 'header' => 'user_menu',
         // 'can' => 'user-nav-menu',
       ],

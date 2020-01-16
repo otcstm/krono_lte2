@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dummy;
+
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMailable;
 use App\Email;
@@ -8,15 +9,19 @@ use Illuminate\Http\Request;
 
 class EmailController extends Controller
 {
+    public function dummyEmail()
+    {
 
-  public function dummyEmail()
-  {
-  //  dd("ss");
-    $name = 'Afdzal';
-Mail::to('afdzal@tm.com.my')->send(new SendMailable($name));
+        $name = 'Afdzal';
+        Mail::to(['nuramirah.adnan@tm.com.my','zatiaqmar.zahari@tm.com.my','afdzal@tm.com.my','mimi.maisara@tm.com.my'])->send(new SendMailable($name));
 
-return 'Email was sent';
-  }
+      //  return 'Email was sent';
+
+      return redirect(route('company.index', [], false))
+      ->with(['a_text' => $a_text,'a_type' => $a_type]);
+
+
+    }
     /**
      * Display a listing of the resource.
      *
