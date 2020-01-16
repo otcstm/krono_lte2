@@ -16,9 +16,9 @@ return [
     |
     */
 
-    'title' => 'Krono!',
+    'title' => 'OT System!',
 
-    'title_prefix' => 'Krono! : ',
+    'title_prefix' => 'OTCS - ',
 
     'title_postfix' => '',
 
@@ -33,7 +33,7 @@ return [
     |
     */
 
-    'logo' => 'KRONO <b>!!</b>',
+    'logo' => 'OT System',
 
     // 'logo_mini' => '<b>A</b>LT',
     'logo_mini' => '<i class="fas fa-clock"></i>',
@@ -233,6 +233,14 @@ return [
           'icon' => 'fas fa-home',
           // 'can' => 'user-nav-menu',
       ],
+
+      [
+        'text' => 'user_profile',
+        'url'  => '/staff/profile',
+        'icon' => 'fas fa-user',
+        // 'can' => 'user-nav-menu',
+    ],
+      
       [
           'text' => 'user_punch',
           'url'  => '/punch',

@@ -25,6 +25,7 @@ return [
     'user_shift_sc'   => 'My Shift Schedule',
     'user_management' => 'User Management',
     'user_logs'  => 'User Logs',
+    'user_profile'  => 'Profile',
 
     'ot_menu'         => 'OVERTIME',
     'ot_apply'        => 'Apply New OT',
