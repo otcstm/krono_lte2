@@ -147,8 +147,9 @@ $(document).ready(function() {
     },
     {
       extend: 'pdfHtml5',
+       orientation: 'landscape',
       exportOptions: {
-        columns: ':visible'
+        columns: ':visible',
       }
     },
 		{

@@ -3,7 +3,7 @@
 namespace App\Shared;
 use App\User;
 use App\UserRecord;
-use App\CompRegionConfig;
+use App\OvertimeEligibility;
 use App\StaffPunch;
 use App\SetupCode;
 use App\OvertimeLog;
@@ -112,7 +112,7 @@ class URHelper
 
       public static function getUserCapping( $comp,$reg)
       {
-        $salcapping = CompRegionConfig::where('company_id',$comp)->where('region',$reg)->first();
+        $salcapping = OvertimeEligibility::where('company_id',$comp)->where('region',$reg)->first();
         return $salcapping;
       }
 
