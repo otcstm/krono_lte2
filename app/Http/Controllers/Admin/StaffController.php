@@ -6,6 +6,8 @@ use App\User;
 use App\Role;
 use App\Company;
 use App\State;
+use App\Psubarea;
+use App\UserRecord;
 use Session;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -145,4 +147,39 @@ class StaffController extends Controller
           'feedback_color' => $feedback_color]
       );
   }
+
+  public function showStaffProfile(Request $req){
+    
+    // $user_logs->user_id = $req->user()->id;
+    // $user_logs->session_id = $req->session()->getId();
+    // $user_logs->ip_address = $req->ip();
+    // $user_logs->user_agent = $req->userAgent();
+    
+      $staff = User::find($req->user()->id);
+      $staff_detail = UserRecord::where('user_id', '=', $staff->id)
+      ->orderBy('updated_at', 'desc')
+      ->first();
+
+      $directreport = User::find($staff->reptto);
+      $directreport_detail = UserRecord::where('user_id', '=', $staff->reptto)
+      ->orderBy('updated_at', 'desc')
+      ->first();
+      
+      //$staff_comp = Company::find($staff->company_id);
+      $staff_psubarea = Psubarea::where('persarea', '=', $staff->persarea)
+      ->where( 'perssubarea', '=', $staff->perssubarea)
+      ->first();
+      
+      //dd($staff_psubarea);
+      return view('staff.profile',
+      [
+      'staff_basic' => $staff, 
+      'staff_detail' => $staff_detail, 
+      'direct_report' => $directreport,
+      'direct_report_detail' => $directreport_detail,
+      'staff_psubarea' => $staff_psubarea,
+      ]
+      );
+}
+  
 }

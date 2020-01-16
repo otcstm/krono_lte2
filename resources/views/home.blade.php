@@ -1,21 +1,11 @@
 @extends('adminlte::page')
+@section('plugins.Chartjs', true)
 
 @section('title', 'Dashboard')
-
 @section('content')
-<p>
-  Welcome {{ $uname }} !
-</p>
-<div class="row">
-<div class="col-md-4">
-@include('log/listUserLogsDash')
-</div>
-<div class="col-md-4">
-@include('log/listUserLogsDash')
-</div>
-<div class="col-md-4">
-@include('log/listUserLogsDash')
-</div>
-</div>
+<!-- <h3><p>Welcome {{ $uname }}!</p></h3> -->
+@include('dashboard/section_header')
+@include('dashboard/section_main')
+
 
 @stop
