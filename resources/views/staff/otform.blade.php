@@ -31,7 +31,7 @@
         @if($claim ?? '') 
             {{date('d/m/Y', strtotime($claim->date))}}({{date('l', strtotime($claim->date))}}) 
         @elseif($draft ?? '') 
-            {{date('Y-m-d', strtotime($draft[6]))}} ({{date('l', strtotime($draft[6]))}})
+            {{date('Y-m-d', strtotime($draft[4]))}} ({{date('l', strtotime($draft[4]))}})
         @endif
     </div>
     <div class="panel-body">
@@ -48,7 +48,7 @@
                     <p>Date: <input type="date" id="inputdate" name="inputdate" value=@if($claim ?? '')
                             "{{$claim->date}}"
                         @elseif($draft ?? '')
-                            "{{date('Y-m-d', strtotime($draft[6]))}}"
+                            "{{date('Y-m-d', strtotime($draft[4]))}}"
                         @endif required>
                         <button type="button" id="btn-date" class="btn btn-primary" style="padding: 2px 3px; margin: 0; margin-top: -3px;"><i class="fas fa-share-square"></i></button>
                     </p>
@@ -125,18 +125,22 @@
                     @endif</p>
                 <p>Verifier: 
                     @if($claim ?? '') 
-                        {{$claim->verifier->name}}
-                    @elseif($draft ?? '')
-                        {{$draft[2]}} 
+                        @if($claim->verifier_id!=null)
+                            {{$claim->verifier->name}}
+                        @else
+                            N/A
+                        @endif
                     @else 
                         N/A 
                     @endif
                 </p>
                 <p>Approver: 
-                    @if($claim ?? '')
-                        {{$claim->approver->name}}
-                    @elseif($draft ?? '')
-                        {{$draft[3]}}
+                     @if($claim ?? '') 
+                        @if($claim->approver_id!=null)
+                            {{$claim->approver->name}}
+                        @else
+                            N/A
+                        @endif
                     @else 
                         N/A
                     @endif
@@ -172,10 +176,10 @@
                                     {{$claim->time->hour}}h {{$claim->time->minute}}m
                                 </span>
                             @else
-                                <span id="oldth" class="hidden">{{$draft[5]->hour}}</span>
-                                <span id="oldtm" class="hidden">{{$draft[5]->minute}}</span>
+                                <span id="oldth" class="hidden">{{$draft[3]->hour}}</span>
+                                <span id="oldtm" class="hidden">{{$draft[3]->minute}}</span>
                                 <span id="showtime">
-                                    {{$draft[5]->hour}}h {{$draft[5]->minute}}m
+                                    {{$draft[3]->hour}}h {{$draft[3]->minute}}m
                                 </span>
                             @endif
                         / {{$eligiblehour}}h
@@ -507,8 +511,8 @@
                     @endif
                 @elseif($draft ?? '')
                     <tr>
-                        <td>{{$draft[4]}}</td>
-                        <td>{{$draft[7]}}</td>
+                        <td>{{$draft[2]}}</td>
+                        <td>{{$draft[5]}}</td>
                         <td>Created draft {{$draft[0]}}</td>
                     </tr>
                 @else   
@@ -612,7 +616,7 @@
                 @if($claim ?? '')
                     $("#inputdate").val("{{$claim->date}}");
                 @elseif($draft ?? '')
-                    $("#inputdate").val("{{$draft[6]}}");
+                    $("#inputdate").val("{{$draft[4]}}");
                 @else
                     $("#inputdate").val("");
                 @endif
@@ -974,12 +978,16 @@
                 $('#nodata').css("display","none");
                 add=false;  
             }else{
-                // alert("Please save current time input before adding a new one!");
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Unable to add time',
-                    text: 'Please save current time input before adding a new one!'
-                })
+                for(j=0; j<3;j++){
+                    if($('.check-0-'+j).get(0).checkValidity()==false){
+                        $('.check-0-'+j).get(0).reportValidity();
+                    }
+                }
+                // Swal.fire({
+                //     icon: 'error',
+                //     title: 'Unable to add time',
+                //     text: 'Please complete current time input before adding a new one!'
+                // })
             }
         });
         
@@ -1054,23 +1062,23 @@
 
     //when adding new time
     //oldcode---------------------------------------
-    $("#btn-add").on('click', function(){
-        for(j=0; j<3;j++){
-            if($('.check-'+j).get(0).checkValidity()==false){
-                // $('.check-2').get(0).reportValidity();
-                $('.check-'+j).get(0).reportValidity();
-                submit = false;
-            }else{
-                submit = true;
-            }
-        }
-        if(submit){
-            // $("#formadd").val("add");
-            // $("#formsubmit").val("no");
-            $("#formtype").val("add");
-            $("#form").submit();
-        }
-    });  
+    // $("#btn-add").on('click', function(){
+    //     for(j=0; j<3;j++){
+    //         if($('.check-'+j).get(0).checkValidity()==false){
+    //             // $('.check-2').get(0).reportValidity();
+    //             $('.check-'+j).get(0).reportValidity();
+    //             submit = false;
+    //         }else{
+    //             submit = true;
+    //         }
+    //     }
+    //     if(submit){
+    //         // $("#formadd").val("add");
+    //         // $("#formsubmit").val("no");
+    //         $("#formtype").val("add");
+    //         $("#form").submit();
+    //     }
+    // });  
     //oldcode---------------------------------------
     
     function addot(i){
@@ -1098,7 +1106,8 @@
             }
         }
     }
-    for(i=0; i<{{$no}}+1;i++){
+    
+    for(i=0; i<{{$no ?? ''}}+1;i++){
         $('.check-'+i).on('change', addot(i))
     }
 
@@ -1157,19 +1166,42 @@
                     if(add){
                         Swal.fire({
                             title: 'Are you sure to submit form?',
-                            // text: "I hereby certify that my claim is compliance with company's term and condition on PERJANJIAN BERSAMA, HUMAN RESOURCE MANUAL, and BUSINESS PROCESS MANUAL If deemed falsed, disciplinary can be imposed on me.",
-                            html: "<p style='color: red'>I hereby certify that my claim is compliance with company's term and condition on PERJANJIAN BERSAMA, HUMAN RESOURCE MANUAL, and BUSINESS PROCESS MANUAL If deemed falsed, disciplinary can be imposed on me.</p>",
-                            icon: 'warning',
+                            input: 'checkbox',
+                            inputValue: 0,
+                            inputPlaceholder:
+                                "<p style=\"color: red; font-weight: bold\">By clicking on \"Yes\" button below, you are agreeing to the above related terms and conditions</p>",
+                                html: "<p style='color: red; font-weight: bold'>I hereby certify that my claim is compliance with company's term and condition on PERJANJIAN BERSAMA, HUMAN RESOURCE MANUAL, and BUSINESS PROCESS MANUAL If deemed falsed, disciplinary can be imposed on me.</p>",
+                                icon: 'warning',
+                            confirmButtonText:
+                                'I understand',
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: 'I understand'
-                            }).then((result) => {
+                            inputValidator: (result) => {
+                                return !result && 'You need to agree with T&C'
+                            }
+                        }).then((result) => {
                             if (result.value) {
                                 whensubmit = false;
                                 $("#form").submit();
                             }
                         })
+                        // Swal.fire({
+                        //     title: 'Are you sure to submit form?',
+                        //     // text: "I hereby certify that my claim is compliance with company's term and condition on PERJANJIAN BERSAMA, HUMAN RESOURCE MANUAL, and BUSINESS PROCESS MANUAL If deemed falsed, disciplinary can be imposed on me.",
+                        //     html: "<p style='color: red; font-weight: bold'>I hereby certify that my claim is compliance with company's term and condition on PERJANJIAN BERSAMA, HUMAN RESOURCE MANUAL, and BUSINESS PROCESS MANUAL If deemed falsed, disciplinary can be imposed on me.<br><br>By clicking on \"Yes\" button below, you are agreeing to the above related terms and conditions</p>",
+                        //     icon: 'warning',
+                        //     showCancelButton: true,
+                        //     confirmButtonColor: '#3085d6',
+                        //     cancelButtonColor: '#d33',
+                        //     confirmButtonText: 'I understand'
+                        //     }).then((result) => {
+                        //     if (result.value) {
+                        //         whensubmit = false;
+                        //         $("#form").submit();
+                        //     }
+                        // })
+    
                         return false;
                     }else{
                         // alert("Please save new time input before saving the form!");

@@ -254,17 +254,17 @@ $('#edit').on('show.bs.modal', function(e) {
     var start_date = $(e.relatedTarget).data('start_date');
 
     const url='{{ route("oe.eligiblegetlast", [], false)}}';
-    $.ajax({
-    url: url+"?region="+"{{$oe->get($n)->region}}"+"&company="+"{{$oe->get($n)->company_id}}"+"&sd="+start_date,
-    type: "GET",
-    success: function(resp) {
-        if(Date.parse(y+"-"+m+"-"+d)>=Date.parse(resp.min)){
-            $('input[name=inputedate]').attr("min",  y+"-"+m+"-"+d);
-        }else{
-            $('input[name=inputedate]').attr("min", resp.min);
-        }
-        $('input[name=inputedate]').attr("max", resp.max);
-    },
+        $.ajax({
+        url: url+"?region="+"{{$oe->get($n)->region}}"+"&company="+"{{$oe->get($n)->company_id}}"+"&sd="+start_date,
+        type: "GET",
+        success: function(resp) {
+            if(Date.parse(y+"-"+m+"-"+d)>=Date.parse(resp.min)){
+                $('input[name=inputedate]').attr("min",  y+"-"+m+"-"+d);
+            }else{
+                $('input[name=inputedate]').attr("min", resp.min);
+            }
+            $('input[name=inputedate]').attr("max", resp.max);
+        },
         error: function(err) {
             // respjson.forEach(myFunction);
         }

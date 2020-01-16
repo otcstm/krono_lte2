@@ -12,12 +12,12 @@ class OvertimeFormulasTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('overtime_formulas')->delete();
-        
+
         \DB::table('overtime_formulas')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'company_id' => '201',
@@ -32,8 +32,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -41,7 +41,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'company_id' => '201',
@@ -56,8 +56,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -65,7 +65,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'company_id' => '201',
@@ -80,8 +80,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -89,7 +89,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 4,
                 'company_id' => '201',
@@ -104,8 +104,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -113,7 +113,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 5,
                 'company_id' => '201',
@@ -128,8 +128,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -137,7 +137,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 6,
                 'company_id' => '201',
@@ -152,8 +152,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -161,7 +161,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 7,
                 'company_id' => '201',
@@ -176,8 +176,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -185,7 +185,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 8,
                 'company_id' => '1000',
@@ -200,8 +200,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -209,7 +209,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 9,
                 'company_id' => '1000',
@@ -224,8 +224,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -233,7 +233,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 10,
                 'company_id' => '1000',
@@ -248,8 +248,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -257,7 +257,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 11,
                 'company_id' => '1000',
@@ -272,8 +272,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -281,7 +281,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 12,
                 'company_id' => '1000',
@@ -296,8 +296,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -305,7 +305,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 13,
                 'company_id' => '1000',
@@ -320,8 +320,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -329,7 +329,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 14,
                 'company_id' => '1000',
@@ -344,8 +344,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -353,7 +353,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 15,
                 'company_id' => '1000',
@@ -368,8 +368,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -377,7 +377,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 16,
                 'company_id' => '1000',
@@ -392,8 +392,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -401,7 +401,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 17,
                 'company_id' => '1000',
@@ -416,8 +416,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -425,7 +425,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 18,
                 'company_id' => '1000',
@@ -440,8 +440,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -449,7 +449,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 19,
                 'company_id' => '1000',
@@ -464,8 +464,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -473,7 +473,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            19 => 
+            19 =>
             array (
                 'id' => 20,
                 'company_id' => '1000',
@@ -488,8 +488,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -497,7 +497,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            20 => 
+            20 =>
             array (
                 'id' => 21,
                 'company_id' => '1000',
@@ -512,8 +512,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -521,7 +521,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            21 => 
+            21 =>
             array (
                 'id' => 22,
                 'company_id' => '1000',
@@ -536,8 +536,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -545,7 +545,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            22 => 
+            22 =>
             array (
                 'id' => 23,
                 'company_id' => '1000',
@@ -560,8 +560,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -569,7 +569,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            23 => 
+            23 =>
             array (
                 'id' => 24,
                 'company_id' => '1000',
@@ -584,8 +584,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -593,7 +593,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            24 => 
+            24 =>
             array (
                 'id' => 25,
                 'company_id' => '1000',
@@ -608,8 +608,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -617,7 +617,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            25 => 
+            25 =>
             array (
                 'id' => 26,
                 'company_id' => '1000',
@@ -632,8 +632,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -641,7 +641,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            26 => 
+            26 =>
             array (
                 'id' => 27,
                 'company_id' => '1000',
@@ -656,8 +656,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -665,7 +665,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            27 => 
+            27 =>
             array (
                 'id' => 28,
                 'company_id' => '1010',
@@ -680,8 +680,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -689,7 +689,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            28 => 
+            28 =>
             array (
                 'id' => 29,
                 'company_id' => '1010',
@@ -704,8 +704,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -713,7 +713,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            29 => 
+            29 =>
             array (
                 'id' => 30,
                 'company_id' => '1010',
@@ -728,8 +728,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -737,7 +737,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            30 => 
+            30 =>
             array (
                 'id' => 31,
                 'company_id' => '1010',
@@ -752,8 +752,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -761,7 +761,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            31 => 
+            31 =>
             array (
                 'id' => 32,
                 'company_id' => '1010',
@@ -776,8 +776,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -785,7 +785,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            32 => 
+            32 =>
             array (
                 'id' => 33,
                 'company_id' => '1010',
@@ -800,8 +800,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -809,7 +809,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            33 => 
+            33 =>
             array (
                 'id' => 34,
                 'company_id' => '1010',
@@ -824,8 +824,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -833,7 +833,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            34 => 
+            34 =>
             array (
                 'id' => 35,
                 'company_id' => '1010',
@@ -848,8 +848,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -857,7 +857,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            35 => 
+            35 =>
             array (
                 'id' => 36,
                 'company_id' => '1010',
@@ -872,8 +872,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -881,7 +881,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            36 => 
+            36 =>
             array (
                 'id' => 37,
                 'company_id' => '1010',
@@ -896,8 +896,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -905,7 +905,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            37 => 
+            37 =>
             array (
                 'id' => 38,
                 'company_id' => '1010',
@@ -920,8 +920,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -929,7 +929,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            38 => 
+            38 =>
             array (
                 'id' => 39,
                 'company_id' => '1010',
@@ -944,8 +944,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -953,7 +953,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            39 => 
+            39 =>
             array (
                 'id' => 40,
                 'company_id' => '1010',
@@ -968,8 +968,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -977,7 +977,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            40 => 
+            40 =>
             array (
                 'id' => 41,
                 'company_id' => '1010',
@@ -992,8 +992,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1001,7 +1001,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            41 => 
+            41 =>
             array (
                 'id' => 42,
                 'company_id' => '1010',
@@ -1016,8 +1016,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1025,7 +1025,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            42 => 
+            42 =>
             array (
                 'id' => 43,
                 'company_id' => '1010',
@@ -1040,8 +1040,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1049,7 +1049,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            43 => 
+            43 =>
             array (
                 'id' => 44,
                 'company_id' => '1010',
@@ -1064,8 +1064,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1073,7 +1073,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            44 => 
+            44 =>
             array (
                 'id' => 45,
                 'company_id' => '1010',
@@ -1088,8 +1088,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1097,7 +1097,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            45 => 
+            45 =>
             array (
                 'id' => 46,
                 'company_id' => '1010',
@@ -1112,8 +1112,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1121,7 +1121,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            46 => 
+            46 =>
             array (
                 'id' => 47,
                 'company_id' => '1010',
@@ -1136,8 +1136,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1145,7 +1145,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            47 => 
+            47 =>
             array (
                 'id' => 48,
                 'company_id' => '1020',
@@ -1160,8 +1160,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1169,7 +1169,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            48 => 
+            48 =>
             array (
                 'id' => 49,
                 'company_id' => '1020',
@@ -1184,8 +1184,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1193,7 +1193,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            49 => 
+            49 =>
             array (
                 'id' => 50,
                 'company_id' => '1020',
@@ -1208,8 +1208,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1217,7 +1217,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            50 => 
+            50 =>
             array (
                 'id' => 51,
                 'company_id' => '1020',
@@ -1232,8 +1232,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1241,7 +1241,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            51 => 
+            51 =>
             array (
                 'id' => 52,
                 'company_id' => '1020',
@@ -1256,8 +1256,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1265,7 +1265,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            52 => 
+            52 =>
             array (
                 'id' => 53,
                 'company_id' => '1020',
@@ -1280,8 +1280,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1289,7 +1289,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            53 => 
+            53 =>
             array (
                 'id' => 54,
                 'company_id' => '1020',
@@ -1304,8 +1304,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1313,7 +1313,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            54 => 
+            54 =>
             array (
                 'id' => 55,
                 'company_id' => '1020',
@@ -1328,8 +1328,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1337,7 +1337,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            55 => 
+            55 =>
             array (
                 'id' => 56,
                 'company_id' => '1020',
@@ -1352,8 +1352,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1361,7 +1361,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            56 => 
+            56 =>
             array (
                 'id' => 57,
                 'company_id' => '1020',
@@ -1376,8 +1376,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1385,7 +1385,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            57 => 
+            57 =>
             array (
                 'id' => 58,
                 'company_id' => '1020',
@@ -1400,8 +1400,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1409,7 +1409,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            58 => 
+            58 =>
             array (
                 'id' => 59,
                 'company_id' => '1020',
@@ -1424,8 +1424,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1433,7 +1433,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            59 => 
+            59 =>
             array (
                 'id' => 60,
                 'company_id' => '1020',
@@ -1448,8 +1448,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1457,7 +1457,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            60 => 
+            60 =>
             array (
                 'id' => 61,
                 'company_id' => '1020',
@@ -1472,8 +1472,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1481,7 +1481,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            61 => 
+            61 =>
             array (
                 'id' => 62,
                 'company_id' => '1020',
@@ -1496,8 +1496,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1505,7 +1505,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            62 => 
+            62 =>
             array (
                 'id' => 63,
                 'company_id' => '1020',
@@ -1520,8 +1520,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1529,7 +1529,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            63 => 
+            63 =>
             array (
                 'id' => 64,
                 'company_id' => '1020',
@@ -1544,8 +1544,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1553,7 +1553,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            64 => 
+            64 =>
             array (
                 'id' => 65,
                 'company_id' => '1020',
@@ -1568,8 +1568,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1577,7 +1577,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            65 => 
+            65 =>
             array (
                 'id' => 66,
                 'company_id' => '1020',
@@ -1592,8 +1592,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1601,7 +1601,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            66 => 
+            66 =>
             array (
                 'id' => 67,
                 'company_id' => '1020',
@@ -1616,8 +1616,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1625,7 +1625,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            67 => 
+            67 =>
             array (
                 'id' => 68,
                 'company_id' => '1060',
@@ -1640,8 +1640,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1649,7 +1649,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            68 => 
+            68 =>
             array (
                 'id' => 69,
                 'company_id' => '1060',
@@ -1664,8 +1664,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1673,7 +1673,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            69 => 
+            69 =>
             array (
                 'id' => 70,
                 'company_id' => '1060',
@@ -1688,8 +1688,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1697,7 +1697,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            70 => 
+            70 =>
             array (
                 'id' => 71,
                 'company_id' => '1060',
@@ -1712,8 +1712,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1721,7 +1721,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            71 => 
+            71 =>
             array (
                 'id' => 72,
                 'company_id' => '1060',
@@ -1736,8 +1736,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1745,7 +1745,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            72 => 
+            72 =>
             array (
                 'id' => 73,
                 'company_id' => '1060',
@@ -1760,8 +1760,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1769,7 +1769,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            73 => 
+            73 =>
             array (
                 'id' => 74,
                 'company_id' => '1060',
@@ -1784,8 +1784,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1793,7 +1793,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            74 => 
+            74 =>
             array (
                 'id' => 75,
                 'company_id' => '1060',
@@ -1808,8 +1808,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1817,7 +1817,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            75 => 
+            75 =>
             array (
                 'id' => 76,
                 'company_id' => '1060',
@@ -1832,8 +1832,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1841,7 +1841,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            76 => 
+            76 =>
             array (
                 'id' => 77,
                 'company_id' => '1060',
@@ -1856,8 +1856,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1865,7 +1865,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            77 => 
+            77 =>
             array (
                 'id' => 78,
                 'company_id' => '1060',
@@ -1880,8 +1880,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1889,7 +1889,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            78 => 
+            78 =>
             array (
                 'id' => 79,
                 'company_id' => '1060',
@@ -1904,8 +1904,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1913,7 +1913,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            79 => 
+            79 =>
             array (
                 'id' => 80,
                 'company_id' => '1060',
@@ -1928,8 +1928,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1937,7 +1937,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            80 => 
+            80 =>
             array (
                 'id' => 81,
                 'company_id' => '1060',
@@ -1952,8 +1952,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1961,7 +1961,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            81 => 
+            81 =>
             array (
                 'id' => 82,
                 'company_id' => '1060',
@@ -1976,8 +1976,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -1985,7 +1985,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            82 => 
+            82 =>
             array (
                 'id' => 83,
                 'company_id' => '1060',
@@ -2000,8 +2000,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2009,7 +2009,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            83 => 
+            83 =>
             array (
                 'id' => 84,
                 'company_id' => '1060',
@@ -2024,8 +2024,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2033,7 +2033,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            84 => 
+            84 =>
             array (
                 'id' => 85,
                 'company_id' => '1060',
@@ -2048,8 +2048,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2057,7 +2057,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            85 => 
+            85 =>
             array (
                 'id' => 86,
                 'company_id' => '1060',
@@ -2072,8 +2072,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2081,7 +2081,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            86 => 
+            86 =>
             array (
                 'id' => 87,
                 'company_id' => '1060',
@@ -2096,8 +2096,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2105,7 +2105,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            87 => 
+            87 =>
             array (
                 'id' => 88,
                 'company_id' => '1071',
@@ -2120,8 +2120,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2129,7 +2129,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            88 => 
+            88 =>
             array (
                 'id' => 89,
                 'company_id' => '1071',
@@ -2144,8 +2144,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2153,7 +2153,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            89 => 
+            89 =>
             array (
                 'id' => 90,
                 'company_id' => '1071',
@@ -2168,8 +2168,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2177,7 +2177,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            90 => 
+            90 =>
             array (
                 'id' => 91,
                 'company_id' => '1071',
@@ -2192,8 +2192,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2201,7 +2201,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            91 => 
+            91 =>
             array (
                 'id' => 92,
                 'company_id' => '1071',
@@ -2216,8 +2216,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2225,7 +2225,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            92 => 
+            92 =>
             array (
                 'id' => 93,
                 'company_id' => '1071',
@@ -2240,8 +2240,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2249,7 +2249,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            93 => 
+            93 =>
             array (
                 'id' => 94,
                 'company_id' => '1071',
@@ -2264,8 +2264,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2273,7 +2273,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            94 => 
+            94 =>
             array (
                 'id' => 95,
                 'company_id' => '1071',
@@ -2288,8 +2288,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2297,7 +2297,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            95 => 
+            95 =>
             array (
                 'id' => 96,
                 'company_id' => '1071',
@@ -2312,8 +2312,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2321,7 +2321,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            96 => 
+            96 =>
             array (
                 'id' => 97,
                 'company_id' => '1071',
@@ -2336,8 +2336,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2345,7 +2345,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            97 => 
+            97 =>
             array (
                 'id' => 98,
                 'company_id' => '1071',
@@ -2360,8 +2360,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2369,7 +2369,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            98 => 
+            98 =>
             array (
                 'id' => 99,
                 'company_id' => '1071',
@@ -2384,8 +2384,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2393,7 +2393,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            99 => 
+            99 =>
             array (
                 'id' => 100,
                 'company_id' => '1071',
@@ -2408,8 +2408,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2417,7 +2417,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            100 => 
+            100 =>
             array (
                 'id' => 101,
                 'company_id' => '1071',
@@ -2432,8 +2432,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2441,7 +2441,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            101 => 
+            101 =>
             array (
                 'id' => 102,
                 'company_id' => '1071',
@@ -2456,8 +2456,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2465,7 +2465,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            102 => 
+            102 =>
             array (
                 'id' => 103,
                 'company_id' => '1071',
@@ -2480,8 +2480,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2489,7 +2489,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            103 => 
+            103 =>
             array (
                 'id' => 104,
                 'company_id' => '1071',
@@ -2504,8 +2504,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2513,7 +2513,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            104 => 
+            104 =>
             array (
                 'id' => 105,
                 'company_id' => '1071',
@@ -2528,8 +2528,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2537,7 +2537,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            105 => 
+            105 =>
             array (
                 'id' => 106,
                 'company_id' => '1071',
@@ -2552,8 +2552,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2561,7 +2561,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            106 => 
+            106 =>
             array (
                 'id' => 107,
                 'company_id' => '1071',
@@ -2576,8 +2576,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2585,7 +2585,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            107 => 
+            107 =>
             array (
                 'id' => 108,
                 'company_id' => '1071',
@@ -2600,8 +2600,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2609,7 +2609,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            108 => 
+            108 =>
             array (
                 'id' => 109,
                 'company_id' => '3001',
@@ -2624,8 +2624,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2633,7 +2633,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            109 => 
+            109 =>
             array (
                 'id' => 110,
                 'company_id' => '3001',
@@ -2648,8 +2648,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2657,7 +2657,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            110 => 
+            110 =>
             array (
                 'id' => 111,
                 'company_id' => '3001',
@@ -2672,8 +2672,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2681,7 +2681,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            111 => 
+            111 =>
             array (
                 'id' => 112,
                 'company_id' => '3001',
@@ -2696,8 +2696,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2705,7 +2705,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            112 => 
+            112 =>
             array (
                 'id' => 113,
                 'company_id' => '3001',
@@ -2720,8 +2720,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2729,7 +2729,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            113 => 
+            113 =>
             array (
                 'id' => 114,
                 'company_id' => '3001',
@@ -2744,8 +2744,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2753,7 +2753,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            114 => 
+            114 =>
             array (
                 'id' => 115,
                 'company_id' => '3001',
@@ -2768,8 +2768,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2777,7 +2777,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            115 => 
+            115 =>
             array (
                 'id' => 116,
                 'company_id' => '3001',
@@ -2792,8 +2792,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2801,7 +2801,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            116 => 
+            116 =>
             array (
                 'id' => 117,
                 'company_id' => '3001',
@@ -2816,8 +2816,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2825,7 +2825,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            117 => 
+            117 =>
             array (
                 'id' => 118,
                 'company_id' => '3001',
@@ -2840,8 +2840,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2849,7 +2849,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            118 => 
+            118 =>
             array (
                 'id' => 119,
                 'company_id' => '3001',
@@ -2864,8 +2864,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2873,7 +2873,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            119 => 
+            119 =>
             array (
                 'id' => 120,
                 'company_id' => '3001',
@@ -2888,8 +2888,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2897,7 +2897,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            120 => 
+            120 =>
             array (
                 'id' => 121,
                 'company_id' => '3001',
@@ -2912,8 +2912,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2921,7 +2921,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            121 => 
+            121 =>
             array (
                 'id' => 122,
                 'company_id' => '3001',
@@ -2936,8 +2936,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2945,7 +2945,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            122 => 
+            122 =>
             array (
                 'id' => 123,
                 'company_id' => '3001',
@@ -2960,8 +2960,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2969,7 +2969,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            123 => 
+            123 =>
             array (
                 'id' => 124,
                 'company_id' => '3001',
@@ -2984,8 +2984,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -2993,7 +2993,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            124 => 
+            124 =>
             array (
                 'id' => 125,
                 'company_id' => '3001',
@@ -3008,8 +3008,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3017,7 +3017,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            125 => 
+            125 =>
             array (
                 'id' => 126,
                 'company_id' => '3001',
@@ -3032,8 +3032,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3041,7 +3041,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            126 => 
+            126 =>
             array (
                 'id' => 127,
                 'company_id' => '3001',
@@ -3056,8 +3056,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3065,7 +3065,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            127 => 
+            127 =>
             array (
                 'id' => 128,
                 'company_id' => '3001',
@@ -3080,8 +3080,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3089,7 +3089,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            128 => 
+            128 =>
             array (
                 'id' => 129,
                 'company_id' => '3002',
@@ -3104,8 +3104,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3113,7 +3113,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            129 => 
+            129 =>
             array (
                 'id' => 130,
                 'company_id' => '3002',
@@ -3128,8 +3128,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3137,7 +3137,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            130 => 
+            130 =>
             array (
                 'id' => 131,
                 'company_id' => '3002',
@@ -3152,8 +3152,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3161,7 +3161,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            131 => 
+            131 =>
             array (
                 'id' => 132,
                 'company_id' => '3002',
@@ -3176,8 +3176,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3185,7 +3185,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            132 => 
+            132 =>
             array (
                 'id' => 133,
                 'company_id' => '3002',
@@ -3200,8 +3200,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3209,7 +3209,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            133 => 
+            133 =>
             array (
                 'id' => 134,
                 'company_id' => '3002',
@@ -3224,8 +3224,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3233,7 +3233,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            134 => 
+            134 =>
             array (
                 'id' => 135,
                 'company_id' => '3002',
@@ -3248,8 +3248,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3257,7 +3257,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            135 => 
+            135 =>
             array (
                 'id' => 136,
                 'company_id' => '3002',
@@ -3272,8 +3272,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3281,7 +3281,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            136 => 
+            136 =>
             array (
                 'id' => 137,
                 'company_id' => '3002',
@@ -3296,8 +3296,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3305,7 +3305,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            137 => 
+            137 =>
             array (
                 'id' => 138,
                 'company_id' => '3002',
@@ -3320,8 +3320,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3329,7 +3329,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            138 => 
+            138 =>
             array (
                 'id' => 139,
                 'company_id' => '3002',
@@ -3344,8 +3344,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3353,7 +3353,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            139 => 
+            139 =>
             array (
                 'id' => 140,
                 'company_id' => '3002',
@@ -3368,8 +3368,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3377,7 +3377,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            140 => 
+            140 =>
             array (
                 'id' => 141,
                 'company_id' => '3002',
@@ -3392,8 +3392,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3401,7 +3401,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            141 => 
+            141 =>
             array (
                 'id' => 142,
                 'company_id' => '3002',
@@ -3416,8 +3416,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3425,7 +3425,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            142 => 
+            142 =>
             array (
                 'id' => 143,
                 'company_id' => '3002',
@@ -3440,8 +3440,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3449,7 +3449,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            143 => 
+            143 =>
             array (
                 'id' => 144,
                 'company_id' => '3002',
@@ -3464,8 +3464,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3473,7 +3473,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            144 => 
+            144 =>
             array (
                 'id' => 145,
                 'company_id' => '3002',
@@ -3488,8 +3488,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3497,7 +3497,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            145 => 
+            145 =>
             array (
                 'id' => 146,
                 'company_id' => '3002',
@@ -3512,8 +3512,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3521,7 +3521,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            146 => 
+            146 =>
             array (
                 'id' => 147,
                 'company_id' => '3002',
@@ -3536,8 +3536,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3545,7 +3545,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            147 => 
+            147 =>
             array (
                 'id' => 148,
                 'company_id' => '3002',
@@ -3560,8 +3560,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3569,7 +3569,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            148 => 
+            148 =>
             array (
                 'id' => 149,
                 'company_id' => '3003',
@@ -3584,8 +3584,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3593,7 +3593,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            149 => 
+            149 =>
             array (
                 'id' => 150,
                 'company_id' => '3003',
@@ -3608,8 +3608,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3617,7 +3617,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            150 => 
+            150 =>
             array (
                 'id' => 151,
                 'company_id' => '3003',
@@ -3632,8 +3632,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3641,7 +3641,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            151 => 
+            151 =>
             array (
                 'id' => 152,
                 'company_id' => '3003',
@@ -3656,8 +3656,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3665,7 +3665,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            152 => 
+            152 =>
             array (
                 'id' => 153,
                 'company_id' => '3003',
@@ -3680,8 +3680,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3689,7 +3689,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            153 => 
+            153 =>
             array (
                 'id' => 154,
                 'company_id' => '3003',
@@ -3704,8 +3704,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3713,7 +3713,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            154 => 
+            154 =>
             array (
                 'id' => 155,
                 'company_id' => '3003',
@@ -3728,8 +3728,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3737,7 +3737,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            155 => 
+            155 =>
             array (
                 'id' => 156,
                 'company_id' => '3003',
@@ -3752,8 +3752,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3761,7 +3761,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            156 => 
+            156 =>
             array (
                 'id' => 157,
                 'company_id' => '3003',
@@ -3776,8 +3776,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3785,7 +3785,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            157 => 
+            157 =>
             array (
                 'id' => 158,
                 'company_id' => '3003',
@@ -3800,8 +3800,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3809,7 +3809,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            158 => 
+            158 =>
             array (
                 'id' => 159,
                 'company_id' => '3003',
@@ -3824,8 +3824,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3833,7 +3833,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            159 => 
+            159 =>
             array (
                 'id' => 160,
                 'company_id' => '3003',
@@ -3848,8 +3848,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3857,7 +3857,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            160 => 
+            160 =>
             array (
                 'id' => 161,
                 'company_id' => '3003',
@@ -3872,8 +3872,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3881,7 +3881,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            161 => 
+            161 =>
             array (
                 'id' => 162,
                 'company_id' => '3003',
@@ -3896,8 +3896,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3905,7 +3905,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            162 => 
+            162 =>
             array (
                 'id' => 163,
                 'company_id' => '3003',
@@ -3920,8 +3920,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3929,7 +3929,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            163 => 
+            163 =>
             array (
                 'id' => 164,
                 'company_id' => '3003',
@@ -3944,8 +3944,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3953,7 +3953,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            164 => 
+            164 =>
             array (
                 'id' => 165,
                 'company_id' => '3003',
@@ -3968,8 +3968,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -3977,7 +3977,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            165 => 
+            165 =>
             array (
                 'id' => 166,
                 'company_id' => '3003',
@@ -3992,8 +3992,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4001,7 +4001,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            166 => 
+            166 =>
             array (
                 'id' => 167,
                 'company_id' => '3003',
@@ -4016,8 +4016,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4025,7 +4025,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            167 => 
+            167 =>
             array (
                 'id' => 168,
                 'company_id' => '3003',
@@ -4040,8 +4040,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4049,7 +4049,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            168 => 
+            168 =>
             array (
                 'id' => 169,
                 'company_id' => '3004',
@@ -4064,8 +4064,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4073,7 +4073,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            169 => 
+            169 =>
             array (
                 'id' => 170,
                 'company_id' => '3004',
@@ -4088,8 +4088,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4097,7 +4097,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            170 => 
+            170 =>
             array (
                 'id' => 171,
                 'company_id' => '3004',
@@ -4112,8 +4112,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4121,7 +4121,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            171 => 
+            171 =>
             array (
                 'id' => 172,
                 'company_id' => '3004',
@@ -4136,8 +4136,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4145,7 +4145,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            172 => 
+            172 =>
             array (
                 'id' => 173,
                 'company_id' => '3004',
@@ -4160,8 +4160,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4169,7 +4169,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            173 => 
+            173 =>
             array (
                 'id' => 174,
                 'company_id' => '3004',
@@ -4184,8 +4184,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4193,7 +4193,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            174 => 
+            174 =>
             array (
                 'id' => 175,
                 'company_id' => '3004',
@@ -4208,8 +4208,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4217,7 +4217,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            175 => 
+            175 =>
             array (
                 'id' => 176,
                 'company_id' => '3004',
@@ -4232,8 +4232,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4241,7 +4241,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            176 => 
+            176 =>
             array (
                 'id' => 177,
                 'company_id' => '3004',
@@ -4256,8 +4256,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4265,7 +4265,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            177 => 
+            177 =>
             array (
                 'id' => 178,
                 'company_id' => '3004',
@@ -4280,8 +4280,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4289,7 +4289,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            178 => 
+            178 =>
             array (
                 'id' => 179,
                 'company_id' => '3004',
@@ -4304,8 +4304,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4313,7 +4313,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            179 => 
+            179 =>
             array (
                 'id' => 180,
                 'company_id' => '3004',
@@ -4328,8 +4328,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4337,7 +4337,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            180 => 
+            180 =>
             array (
                 'id' => 181,
                 'company_id' => '3004',
@@ -4352,8 +4352,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4361,7 +4361,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            181 => 
+            181 =>
             array (
                 'id' => 182,
                 'company_id' => '3004',
@@ -4376,8 +4376,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4385,7 +4385,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            182 => 
+            182 =>
             array (
                 'id' => 183,
                 'company_id' => '3004',
@@ -4400,8 +4400,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4409,7 +4409,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            183 => 
+            183 =>
             array (
                 'id' => 184,
                 'company_id' => '3004',
@@ -4424,8 +4424,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4433,7 +4433,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            184 => 
+            184 =>
             array (
                 'id' => 185,
                 'company_id' => '3004',
@@ -4448,8 +4448,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4457,7 +4457,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            185 => 
+            185 =>
             array (
                 'id' => 186,
                 'company_id' => '3004',
@@ -4472,8 +4472,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4481,7 +4481,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            186 => 
+            186 =>
             array (
                 'id' => 187,
                 'company_id' => '3004',
@@ -4496,8 +4496,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4505,7 +4505,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            187 => 
+            187 =>
             array (
                 'id' => 188,
                 'company_id' => '3004',
@@ -4520,8 +4520,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4529,7 +4529,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            188 => 
+            188 =>
             array (
                 'id' => 189,
                 'company_id' => '3005',
@@ -4544,8 +4544,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4553,7 +4553,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            189 => 
+            189 =>
             array (
                 'id' => 190,
                 'company_id' => '3005',
@@ -4568,8 +4568,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4577,7 +4577,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            190 => 
+            190 =>
             array (
                 'id' => 191,
                 'company_id' => '3005',
@@ -4592,8 +4592,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4601,7 +4601,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            191 => 
+            191 =>
             array (
                 'id' => 192,
                 'company_id' => '3005',
@@ -4616,8 +4616,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4625,7 +4625,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            192 => 
+            192 =>
             array (
                 'id' => 193,
                 'company_id' => '3005',
@@ -4640,8 +4640,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4649,7 +4649,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            193 => 
+            193 =>
             array (
                 'id' => 194,
                 'company_id' => '3005',
@@ -4664,8 +4664,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4673,7 +4673,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            194 => 
+            194 =>
             array (
                 'id' => 195,
                 'company_id' => '3005',
@@ -4688,8 +4688,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4697,7 +4697,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            195 => 
+            195 =>
             array (
                 'id' => 196,
                 'company_id' => '3005',
@@ -4712,8 +4712,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4721,7 +4721,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            196 => 
+            196 =>
             array (
                 'id' => 197,
                 'company_id' => '3005',
@@ -4736,8 +4736,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4745,7 +4745,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            197 => 
+            197 =>
             array (
                 'id' => 198,
                 'company_id' => '3005',
@@ -4760,8 +4760,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4769,7 +4769,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            198 => 
+            198 =>
             array (
                 'id' => 199,
                 'company_id' => '3005',
@@ -4784,8 +4784,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4793,7 +4793,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            199 => 
+            199 =>
             array (
                 'id' => 200,
                 'company_id' => '3005',
@@ -4808,8 +4808,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4817,7 +4817,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            200 => 
+            200 =>
             array (
                 'id' => 201,
                 'company_id' => '3005',
@@ -4832,8 +4832,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4841,7 +4841,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            201 => 
+            201 =>
             array (
                 'id' => 202,
                 'company_id' => '3005',
@@ -4856,8 +4856,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4865,7 +4865,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            202 => 
+            202 =>
             array (
                 'id' => 203,
                 'company_id' => '3005',
@@ -4880,8 +4880,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4889,7 +4889,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            203 => 
+            203 =>
             array (
                 'id' => 204,
                 'company_id' => '3005',
@@ -4904,8 +4904,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4913,7 +4913,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            204 => 
+            204 =>
             array (
                 'id' => 205,
                 'company_id' => '3005',
@@ -4928,8 +4928,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4937,7 +4937,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            205 => 
+            205 =>
             array (
                 'id' => 206,
                 'company_id' => '3005',
@@ -4952,8 +4952,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4961,7 +4961,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            206 => 
+            206 =>
             array (
                 'id' => 207,
                 'company_id' => '3005',
@@ -4976,8 +4976,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -4985,7 +4985,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            207 => 
+            207 =>
             array (
                 'id' => 208,
                 'company_id' => '3005',
@@ -5000,8 +5000,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5009,7 +5009,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            208 => 
+            208 =>
             array (
                 'id' => 209,
                 'company_id' => '3006',
@@ -5024,8 +5024,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5033,7 +5033,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            209 => 
+            209 =>
             array (
                 'id' => 210,
                 'company_id' => '3006',
@@ -5048,8 +5048,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5057,7 +5057,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            210 => 
+            210 =>
             array (
                 'id' => 211,
                 'company_id' => '3006',
@@ -5072,8 +5072,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5081,7 +5081,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            211 => 
+            211 =>
             array (
                 'id' => 212,
                 'company_id' => '3006',
@@ -5096,8 +5096,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5105,7 +5105,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            212 => 
+            212 =>
             array (
                 'id' => 213,
                 'company_id' => '3006',
@@ -5120,8 +5120,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5129,7 +5129,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            213 => 
+            213 =>
             array (
                 'id' => 214,
                 'company_id' => '3006',
@@ -5144,8 +5144,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5153,7 +5153,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            214 => 
+            214 =>
             array (
                 'id' => 215,
                 'company_id' => '3006',
@@ -5168,8 +5168,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5177,7 +5177,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            215 => 
+            215 =>
             array (
                 'id' => 216,
                 'company_id' => '3006',
@@ -5192,8 +5192,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5201,7 +5201,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            216 => 
+            216 =>
             array (
                 'id' => 217,
                 'company_id' => '3006',
@@ -5216,8 +5216,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5225,7 +5225,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            217 => 
+            217 =>
             array (
                 'id' => 218,
                 'company_id' => '3006',
@@ -5240,8 +5240,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5249,7 +5249,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            218 => 
+            218 =>
             array (
                 'id' => 219,
                 'company_id' => '3006',
@@ -5264,8 +5264,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5273,7 +5273,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            219 => 
+            219 =>
             array (
                 'id' => 220,
                 'company_id' => '3006',
@@ -5288,8 +5288,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5297,7 +5297,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            220 => 
+            220 =>
             array (
                 'id' => 221,
                 'company_id' => '3006',
@@ -5312,8 +5312,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5321,7 +5321,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            221 => 
+            221 =>
             array (
                 'id' => 222,
                 'company_id' => '3006',
@@ -5336,8 +5336,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5345,7 +5345,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            222 => 
+            222 =>
             array (
                 'id' => 223,
                 'company_id' => '3006',
@@ -5360,8 +5360,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5369,7 +5369,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            223 => 
+            223 =>
             array (
                 'id' => 224,
                 'company_id' => '3006',
@@ -5384,8 +5384,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5393,7 +5393,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            224 => 
+            224 =>
             array (
                 'id' => 225,
                 'company_id' => '3006',
@@ -5408,8 +5408,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5417,7 +5417,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            225 => 
+            225 =>
             array (
                 'id' => 226,
                 'company_id' => '3006',
@@ -5432,8 +5432,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5441,7 +5441,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            226 => 
+            226 =>
             array (
                 'id' => 227,
                 'company_id' => '3006',
@@ -5456,8 +5456,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5465,7 +5465,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            227 => 
+            227 =>
             array (
                 'id' => 228,
                 'company_id' => '3006',
@@ -5480,8 +5480,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5489,7 +5489,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            228 => 
+            228 =>
             array (
                 'id' => 229,
                 'company_id' => '3201',
@@ -5504,8 +5504,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5513,7 +5513,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            229 => 
+            229 =>
             array (
                 'id' => 230,
                 'company_id' => '3201',
@@ -5528,8 +5528,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5537,7 +5537,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            230 => 
+            230 =>
             array (
                 'id' => 231,
                 'company_id' => '3201',
@@ -5552,8 +5552,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5561,7 +5561,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            231 => 
+            231 =>
             array (
                 'id' => 232,
                 'company_id' => '3201',
@@ -5576,8 +5576,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5585,7 +5585,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            232 => 
+            232 =>
             array (
                 'id' => 233,
                 'company_id' => '3201',
@@ -5600,8 +5600,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5609,7 +5609,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            233 => 
+            233 =>
             array (
                 'id' => 234,
                 'company_id' => '3201',
@@ -5624,8 +5624,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5633,7 +5633,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            234 => 
+            234 =>
             array (
                 'id' => 235,
                 'company_id' => '3201',
@@ -5648,8 +5648,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5657,7 +5657,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            235 => 
+            235 =>
             array (
                 'id' => 236,
                 'company_id' => '3201',
@@ -5672,8 +5672,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5681,7 +5681,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            236 => 
+            236 =>
             array (
                 'id' => 237,
                 'company_id' => '3201',
@@ -5696,8 +5696,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5705,7 +5705,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            237 => 
+            237 =>
             array (
                 'id' => 238,
                 'company_id' => '3201',
@@ -5720,8 +5720,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5729,7 +5729,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            238 => 
+            238 =>
             array (
                 'id' => 239,
                 'company_id' => '3201',
@@ -5744,8 +5744,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5753,7 +5753,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            239 => 
+            239 =>
             array (
                 'id' => 240,
                 'company_id' => '3201',
@@ -5768,8 +5768,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5777,7 +5777,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            240 => 
+            240 =>
             array (
                 'id' => 241,
                 'company_id' => '3201',
@@ -5792,8 +5792,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5801,7 +5801,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            241 => 
+            241 =>
             array (
                 'id' => 242,
                 'company_id' => '3201',
@@ -5816,8 +5816,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5825,7 +5825,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            242 => 
+            242 =>
             array (
                 'id' => 243,
                 'company_id' => '3201',
@@ -5840,8 +5840,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 30,
                 'unit' => 'day',
                 'rate' => '0.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5849,7 +5849,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            243 => 
+            243 =>
             array (
                 'id' => 244,
                 'company_id' => '3201',
@@ -5864,8 +5864,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 59,
                 'unit' => 'day',
                 'rate' => '1.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5873,7 +5873,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            244 => 
+            244 =>
             array (
                 'id' => 245,
                 'company_id' => '3201',
@@ -5888,8 +5888,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5897,7 +5897,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            245 => 
+            245 =>
             array (
                 'id' => 246,
                 'company_id' => '3201',
@@ -5912,8 +5912,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'day',
                 'rate' => '2.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5921,7 +5921,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            246 => 
+            246 =>
             array (
                 'id' => 247,
                 'company_id' => '3201',
@@ -5936,8 +5936,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '3.00',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5945,7 +5945,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'created_at' => '2020-01-15 10:00:15',
                 'updated_at' => '2020-01-15 10:00:15',
             ),
-            247 => 
+            247 =>
             array (
                 'id' => 248,
                 'company_id' => '3201',
@@ -5960,8 +5960,8 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'max_minute' => 0,
                 'unit' => 'hour',
                 'rate' => '1.50',
-                'start_date' => '2020-01-15',
-                'end_date' => '2020-01-15',
+                'start_date' => '2019-01-01',
+                'end_date' => '9999-12-31',
                 'created_by' => 53062,
                 'last_edited_by' => 53062,
                 'deleted_by' => NULL,
@@ -5970,7 +5970,7 @@ class OvertimeFormulasTableSeeder extends Seeder
                 'updated_at' => '2020-01-15 10:00:15',
             ),
         ));
-        
-        
+
+
     }
 }

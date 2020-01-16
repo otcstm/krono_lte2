@@ -8,7 +8,18 @@
 @section('body_class', 'login-page')
 
 @section('body')
-    <div class="login-box">
+
+
+<div class="container">
+<div class="row">
+<div class="cold-md-8">
+</div>
+<div class="cold-md-4 col-md-offset-6">
+    <br />
+    <br />
+    <br />
+    <br />
+<div class="login-box">
         <div class="login-logo">
             <a href="{{ route('misc.home', [], false) }}">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
         </div>
@@ -58,6 +69,19 @@
         </div>
         <!-- /.login-box-body -->
     </div><!-- /.login-box -->
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+</div>
+</div>
+</div>
+
+
 @stop
 
 @section('adminlte_js')
