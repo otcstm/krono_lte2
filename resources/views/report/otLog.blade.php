@@ -139,24 +139,9 @@ $(document).ready(function() {
     "order" : [[0, "asc"]],
     dom: 'Bfrtip',
 		buttons: [
-    {
-      extend: 'excelHtml5',
-      exportOptions: {
-        columns: ':visible'
-      }
-    },
-    {
-      extend: 'pdfHtml5',
-       orientation: 'landscape',
-      exportOptions: {
-        columns: ':visible',
-      }
-    },
-		{
-        extend: 'colvis',
-        collectionLayout: 'fixed three-column'
-    }
-	  ]
+      {extend: 'excelHtml5', exportOptions: {columns: ':visible'}, filename: 'OT Log Report', sheetName: 'OT Log',title: 'OT Log Report'},
+      {extend: 'pdfHtml5', exportOptions: {columns: ':visible'}, filename: 'OT Log Report', sheetName: 'OT Log',title: 'OT Log Report'},
+  		{extend: 'colvis', collectionLayout: 'fixed three-column'}]
   });
 });
 

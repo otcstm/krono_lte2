@@ -127,7 +127,7 @@
       </td>
       <td>{{ $otr->URecord->empstats }}</td>
       <td>{{ $otr->refno }}</td>
-      <td>{{ $otr->date }}</td>
+      <td>{{ date('d-m-Y', strtotime($otr->date)) }}</td>
       <td>{{ $otr->daytype_id }}</td>
       <td>{{ $otr->wage_type }}</td>
       <td>{{ $otr->amount }}</td>
@@ -136,14 +136,14 @@
       <td>{{ $otr->total_hour }}</td>
       <td>{{ $otr->total_minute }}</td>
       <td>{{ $otr->justification }}</td>
-      <td>{{ $otr->created_at }}</td>
-      <td>{{ $otr->verification_date }}</td>
+      <td>{{ date('d-m-Y H:i:s', strtotime($otr->created_at)) }}</td>
+      <td>{{ date('d-m-Y H:i:s', strtotime($otr->verification_date)) }}</td>
       <td>{{ $otr->verifier_id }}</td>
-      <td>{{ $otr->approval_date }}</td>
+      <td>{{ date('d-m-Y H:i:s', strtotime($otr->approval_date)) }}</td>
       <td>{{ $otr->approver_id }}</td>
-      <td>{{ $otr->queried_date }}</td>
+      <td>{{ date('d-m-Y H:i:s', strtotime($otr->queried_date)) }}</td>
       <td>{{ $otr->querier_id }}</td>
-      <td>{{ $otr->payment_date }}</td>
+      <td>{{ date('d-m-Y', strtotime($otr->payment_date)) }}</td>
       </tr>
       @endforeach
     </tbody>
@@ -194,23 +194,9 @@ $(document).ready(function() {
     "order" : [[0, "asc"]],
     dom: 'Bfrtip',
 		buttons: [
-    {
-      extend: 'excelHtml5',
-      exportOptions: {
-        columns: ':visible'
-      }
-    },
-    {
-      extend: 'pdfHtml5',
-      exportOptions: {
-        columns: ':visible'
-      }
-    },
-		{
-        extend: 'colvis',
-        collectionLayout: 'fixed three-column'
-    }
-	  ]
+      {extend: 'excelHtml5', exportOptions: {columns: ':visible'}, filename: 'OT Summary Report', sheetName: 'OT Summary', title: 'OT Summary Report'},
+      {extend: 'pdfHtml5', exportOptions: {columns: ':visible'}, filename: 'OT Summary Report', sheetName: 'OT Summary', title: 'OT Summary Report'},
+  		{extend: 'colvis', collectionLayout: 'fixed three-column'}]
   });
 });
 

@@ -130,7 +130,7 @@
       </td>
       <td>{{ $otr->mainOT->URecord->empstats }}</td>
       <td>{{ $otr->mainOT->refno }}</td>
-      <td>{{ $otr->mainOT->date }}</td>
+      <td>{{ date('d-m-Y', strtotime($otr->mainOT->date)) }}</td>
       <td>{{ $otr->start_time }}</td>
       <td>{{ $otr->end_time }}</td>
       <td>{{ $otr->is_manual }}</td>
@@ -149,14 +149,14 @@
       <td>{{ $otr->hour }}</td>
       <td>{{ $otr->minute }}</td>
       <td>{{ $otr->justification }}</td>
-      <td>{{ $otr->mainOT->created_at }}</td>
-      <td>{{ $otr->mainOT->verification_date }}</td>
+      <td>{{ date('d-m-Y H:i:s', strtotime($otr->mainOT->created_at)) }}</td>
+      <td>{{ date('d-m-Y H:i:s', strtotime($otr->mainOT->verification_date)) }}</td>
       <td>{{ $otr->mainOT->verifier_id }}</td>
-      <td>{{ $otr->mainOT->approval_date }}</td>
+      <td>{{ date('d-m-Y H:i:s', strtotime($otr->mainOT->approval_date)) }}</td>
       <td>{{ $otr->mainOT->approver_id }}</td>
-      <td>{{ $otr->mainOT->queried_date }}</td>
+      <td>{{ date('d-m-Y H:i:s', strtotime($otr->mainOT->queried_date)) }}</td>
       <td>{{ $otr->mainOT->querier_id }}</td>
-      <td>{{ $otr->mainOT->payment_date }}</td>
+      <td>{{ date('d-m-Y', strtotime($otr->mainOT->payment_date)) }}</td>
       </tr>
       @endforeach
     </tbody>
@@ -207,23 +207,9 @@ $(document).ready(function() {
     "order" : [[0, "asc"]],
     dom: 'Bfrtip',
 		buttons: [
-    {
-      extend: 'excelHtml5',
-      exportOptions: {
-        columns: ':visible'
-      }
-    },
-    {
-      extend: 'pdfHtml5',
-      exportOptions: {
-        columns: ':visible'
-      }
-    },
-		{
-        extend: 'colvis',
-        collectionLayout: 'fixed three-column'
-    }
-	  ]
+    {extend: 'excelHtml5', exportOptions: {columns: ':visible'}, filename: 'OT Details Report', sheetName: 'OT Details', title: 'OT Details Report'},
+    {extend: 'pdfHtml5', exportOptions: {columns: ':visible'}, filename: 'OT Details Report', sheetName: 'OT Details', title: 'OT Details Report'},
+		{extend: 'colvis', collectionLayout: 'fixed three-column'}]
   });
 });
 
