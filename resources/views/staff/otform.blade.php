@@ -80,9 +80,9 @@
                         <span style="color: red">
                             <p>Due Date: 
                                 @if($claim ?? '') 
-                                    {{$claim->date_expiry}}
+                                    {{date("m.d.Y", strtotime($claim->date_expiry))}}
                                 @else 
-                                    {{$draft[1]}} 
+                                    {{date("m.d.Y", strtotime($draft[1]))}} 
                                 @endif
                             </p>
                             <p>Unsubmitted claims will be deleted after the due date</p>
