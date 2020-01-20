@@ -3,8 +3,6 @@
 
 
 
-
-
 <div class="content panel">
 	<div class="row">
 

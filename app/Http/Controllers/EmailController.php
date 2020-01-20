@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dummy;
+namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Controller;
@@ -18,7 +18,7 @@ class EmailController extends Controller
 
       //  return 'Email was sent';
 
-     return view('dummy.email.dummy', []);
+     return view('email.dummy', []);
 
     }
 
