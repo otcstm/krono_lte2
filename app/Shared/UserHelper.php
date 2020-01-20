@@ -4,6 +4,7 @@ namespace App\Shared;
 
 use App\User;
 use App\UserLog;
+use App\Overtime;
 use App\OvertimeLog;
 use App\OvertimePunch;
 use App\StaffPunch;
@@ -12,6 +13,7 @@ use \Carbon\Carbon;
 use DateTime;
 use App\StaffAdditionalInfo;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class UserHelper {
 
@@ -36,6 +38,18 @@ class UserHelper {
   }
 
   public static function GetRequireAttCount(){
+    // $count = OvertimeController::getQueryAmount();
+    $count = UserHelper::getQueryAmount();
+    return $count;
+  }
+
+  public static function getQueryAmount(){
+    if(Auth::check()){
+      $curruserid = Auth::user()->id;
+      $nitofylist = [];
+    }
+    // $user = Auth::user()->id;
+    // $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', 'PV')->orWhere('approver_id', $req->user()->id)->where('status', 'PA')->orderBy('date_expiry')->orderBy('date')->get();
     return 5;
   }
 
@@ -351,4 +365,5 @@ class UserHelper {
     return $retval;
 
   }
+
 }

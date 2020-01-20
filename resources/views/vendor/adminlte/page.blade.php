@@ -108,7 +108,13 @@
         @endif
 
         <!-- Content Wrapper. Contains page content -->
+        
+        <!-- <div class="content-wrapper" style="background: transparent"> -->
         <div class="content-wrapper">
+        
+            <div class="bckg">
+                <img src="/vendor/ot-assets/main-bg.png" class="bckg-img">
+            </div>
             @if(config('adminlte.layout') == 'top-nav')
             <div class="container">
             @endif
