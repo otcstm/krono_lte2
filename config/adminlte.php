@@ -224,6 +224,24 @@ return [
           ],
         ]
       ],
+
+
+      [
+        'text' => 'Dummy',
+        'icon' => 'fas fa-carrot',
+        'submenu' => [
+          [
+              'text' => 'Dummy Email',
+              'url'  => '/email/dummy',
+              'icon' => 'fas fa-envelope',
+              // 'can' => 'admin-nav-menu',
+          ],
+        ]
+      ],
+
+
+
+
       [ 'header' => 'user_menu',
         // 'can' => 'user-nav-menu',
       ],
@@ -240,7 +258,7 @@ return [
         'icon' => 'fas fa-user',
         // 'can' => 'user-nav-menu',
     ],
-      
+
       [
           'text' => 'user_punch',
           'url'  => '/punch',
