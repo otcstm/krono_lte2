@@ -13,22 +13,22 @@ class EmailController extends Controller
     public function dummyEmail()
     {
 
-        $name = 'Afdzal';
-
-
-      //  return 'Email was sent';
-
      return view('email.dummy', []);
 
     }
 
-    public function sendDummyEmail()
+    public function sendDummyEmail(Request $req)
     {
 
-        $name = 'Afdzal';
+        $content= $req->email_content;
+        $subject= $req->email_subject;
+        $receiver= $req->email_to;
       //  Mail::to(['nuramirah.adnan@tm.com.my','zatiaqmar.zahari@tm.com.my','afdzal@tm.com.my','mimi.maisara@tm.com.my'])->send(new SendMailable($name));
 
       //  return 'Email was sent';
+
+      Mail::to($receiver)->subject($subject)->send(new SendMailable($content));
+
 
      //return view('dummy.email.dummy', []);
 

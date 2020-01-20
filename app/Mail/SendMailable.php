@@ -10,7 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class SendMailable extends Mailable
 {
     use Queueable, SerializesModels;
-      public $name;
+      public $content;
 
     /**
      * Create a new message instance.
@@ -19,9 +19,9 @@ class SendMailable extends Mailable
      */
 
 
-    public function __construct($name)
+    public function __construct($content)
   {
-      $this->name = $name;
+      $this->content = $content;
   }
 
     /**
