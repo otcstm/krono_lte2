@@ -9,6 +9,15 @@
 
 @section('body')
 
+<nav class="navbar navbar-inverse">
+<div class="container">
+HEADER
+<ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+</div>
+</nav>
+
 
 <div class="container">
 <div class="row">
@@ -81,7 +90,9 @@
 </div>
 </div>
 
-
+<footer class="container-fluid text-center">
+  <p>Footer Text</p>
+</footer>
 @stop
 
 @section('adminlte_js')
