@@ -231,9 +231,9 @@ return [
         'icon' => 'fas fa-carrot',
         'submenu' => [
           [
-              'text' => 'Email Basic',
-              'url'  => '/admin/staff/auth',
-              'icon' => 'fas fa-key',
+              'text' => 'Dummy Email',
+              'url'  => '/email/dummy',
+              'icon' => 'fas fa-envelope',
               // 'can' => 'admin-nav-menu',
           ],
         ]
@@ -258,7 +258,7 @@ return [
         'icon' => 'fas fa-user',
         // 'can' => 'user-nav-menu',
     ],
-      
+
       [
           'text' => 'user_punch',
           'url'  => '/punch',

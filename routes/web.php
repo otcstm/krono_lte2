@@ -171,5 +171,7 @@ Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth
 });
 
   Route::get('/email/dummy', 'Dummy\EmailController@dummyEmail')->name('email.dummy');
+  Route::post('/email/dummy', 'Dummy\EmailController@sendDummyEmail')->name('email.senddummy');
+
   Route::get('/verifier/staff/search', 'UserVerifierController@index')->name('verifier.staff');
   Route::get('/verifier/staff/persno', 'UserVerifierController@search')->name('verifier.search');
