@@ -1,3 +1,54 @@
 body{
     font-family: 'Poppins', sans-serif;
 }
+
+.logo{
+    font-weight: bold !important;
+    color: #143A8C !important;
+    background: white !important;
+}
+
+@media(max-width: 768px){
+    .logo{
+        color: white !important;
+        background: #143A8C !important;
+    }
+}
+
+.sidebar-toggle{
+    border-right: 0 !important;
+}
+
+.content-wrapper .bckg{
+    position: fixed;
+    z-index: 1;
+    bottom: 0;
+    right: 0;;
+}
+
+.content-wrapper .content{
+    position: relative;
+    z-index: 5;
+}
+
+.foot{
+    padding: 15px 0;
+    position: relative;
+    z-index: 3;
+    color: white;
+    background: #343849;
+}
+
+.foot .container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.foot-text{
+    margin: auto 0;
+    vertical-align: middle;
+}
+
+.foot-img{
+    margin-left: auto;
+}

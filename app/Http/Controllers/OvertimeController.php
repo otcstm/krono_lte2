@@ -558,4 +558,11 @@ class OvertimeController extends Controller{
         }
         return redirect(route('ot.approval',[],false));
     }
+
+    
+  public static function getQueryAmount(){
+    // $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', 'PV')->orWhere('approver_id', $req->user()->id)->where('status', 'PA')->orderBy('date_expiry')->orderBy('date')->get();
+    // $count =  count($otlist);
+    // return 5;
+}
 }

@@ -36,7 +36,7 @@ return [
     'logo' => 'OT System',
 
     // 'logo_mini' => '<b>A</b>LT',
-    'logo_mini' => '<i class="fas fa-clock"></i>',
+    'logo_mini' => 'OTS',
 
     /*
     |--------------------------------------------------------------------------
@@ -49,7 +49,7 @@ return [
     |
     */
 
-    'skin' => 'blue-light',
+    'skin' => 'black-light',
 
     /*
     |--------------------------------------------------------------------------
@@ -274,6 +274,9 @@ return [
             [
                 'text' => 'ot_approve',
                 'url'  => '/overtime/approval',
+                    // 'label'       => UserHelper::GetRequireAttCount(),
+                // 'label' => OvertimeController::getQueryAmount(),
+                'label_color' => 'warning',
                 'icon' => 'fas fa-edit',
                 // 'can' => 'ot-nav-menu',
             ],
