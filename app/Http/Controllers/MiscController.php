@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Shared\UserHelper;
 use App\StaffPunch;
+use App\OvertimePunch;
 use App\User;
 use App\UserLog;
 use \Carbon\Carbon;
@@ -94,5 +95,13 @@ class MiscController extends Controller
         return view('log.listUserLogs', compact('listUserLogs'))
         //count row display only
         ->with('i', (request()->input('page', 1) - 1) * 5);;
+    }
+
+    public function delete(Request $req){
+
+      // dd($errors);
+      StaffPunch::find($req->inputid)->delete();
+      OvertimePunch::where('punch_id', $req->inputid)->delete();
+      return redirect(route('punch.list', [], false));
     }
 }

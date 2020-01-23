@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Shared\URHelper;
 
 class Overtime extends Model
 {
@@ -46,8 +47,36 @@ class Overtime extends Model
         return $this->hasMany(OvertimeLog::class, 'ot_id');
     }
 
+    public function file()
+    {
+        return $this->hasMany(OvertimeFile::class, 'ot_id');
+    }
+
     public function message()
     {
         return $this->hasMany(OvertimeLog::class, 'ot_id');
     }
+
+    public function URecord(){//based on created date
+      return $this->belongsTo(UserRecord::class, 'user_records_id');
+    }
+
+    // public function URApp(){//based on created date
+    //   // <td>{{ $otr->detail->URApp()->ot_hour_exception }}</td>
+    //   return URHelper::getUserRecordByDate($this->user_id,$this->date_created);
+    // }
+
+    public function SalCap(){//based on application date
+      return URHelper::getUserCapping($this->company_id,$this->region);
+    }
+    public function OTStatus(){
+      return URHelper::getOTStatus($this->status);
+    }
+    public function OTLog(){
+      return URHelper::getOTLog($this->id);
+    }
+
+
+
+
 }

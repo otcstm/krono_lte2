@@ -1,0 +1,112 @@
+body{
+    font-family: 'Poppins', sans-serif; 
+    font-size: 10pt;
+    background-color:transparent !important;
+    height: 100%;    
+}
+
+.treeview-menu li a {
+    font-size: 10pt;
+}
+
+.logo{
+    font-weight: bold !important;
+    color: #143A8C !important;
+    background: white !important;
+}
+
+@media(max-width: 768px){
+    .logo{
+        color: white !important;
+        background: #143A8C !important;
+    }
+}
+
+.sidebar-toggle{
+    border-right: 0 !important;
+}
+
+.content-wrapper .bckg{
+    position: fixed;
+    z-index: 1;
+    bottom: 0;
+    right: 0;;
+}
+
+.content-wrapper .content{
+    position: relative;
+    z-index: 5;
+}
+
+.navbar{
+    background-color:transparent !important;
+    border-color:transparent !important;
+}
+.navtop{
+    padding: 15px 0;
+}
+
+.loginbgfull{
+
+    /* The image used */
+    background-image: url("images/loginbg_text.png");
+    
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+}
+
+@media(max-width: 768px){
+    .logo{
+        color: white !important;
+        background: #143A8C !important;
+    }
+}
+
+/* .foot{
+    padding: 15px 0;
+    position: relative;
+    z-index: 3;
+    color: white;
+    background: #343849;
+} */
+.foot {
+    position: relative;
+    padding: 15px 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 3;
+    color: white;
+    background: #343849;
+}
+
+.foot .container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.foot-text{
+    margin: auto 0;
+    vertical-align: middle;
+}
+
+.foot-img{
+    margin-left: auto;
+}
+
+.sidebar-menu ul li a {
+    white-space: normal;
+    word-wrap: break-word;
+ }
+
+ .wraptext {
+    white-space: normal; 
+    word-wrap: break-word;
+ }
+

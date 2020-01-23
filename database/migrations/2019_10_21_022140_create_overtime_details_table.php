@@ -26,6 +26,11 @@ class CreateOvertimeDetailsTable extends Migration
             $table->string('checked');
             $table->decimal('amount', 10,2)->nullable();
             $table->string('justification')->nullable();
+            $table->string('is_manual')->nullable();
+            $table->decimal('in_latitude', 9, 6)->default(0.0);
+            $table->decimal('in_longitude', 9, 6)->default(0.0);
+            $table->decimal('out_latitude', 9, 6)->default(0.0);
+            $table->decimal('out_longitude', 9, 6)->default(0.0);
         });
     }
 

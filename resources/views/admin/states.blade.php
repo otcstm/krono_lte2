@@ -1,4 +1,5 @@
-@extends('adminlte::page') @section('content')
+@extends('adminlte::page')
+@section('content')
 <div class="content panel">
 	<div class="row">
 
@@ -46,7 +47,7 @@
 		<!--/.col (left) -->
 	</div>
 	<!-- /.row -->
-</section>
+</div>
 <!-- /.section -->
 
 

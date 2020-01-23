@@ -55,35 +55,30 @@
             @endif
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
-                    <ul class="nav navbar-nav">
-                      <li><a>{{ Auth::user()->name }}</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                <i class="fa fa-fw fa-power-off"></i> {{ __('adminlte::adminlte.log_out') }}
+        <ul class="nav navbar-nav">    
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="/vendor/images/useravatar.png" class="user-image" alt="User Image">
+              <span class="hidden-xs">{{ Auth::user()->name }}</span>
+            </a>            
+          </li>
+          <li>
+          <a href="#"onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <i class="fa fa-fw fa-power-off"></i> <span class="hidden-xs">{{ __('adminlte::adminlte.log_out') }}</span>
                             </a>
                             <form id="logout-form" action="{{ route('logout', [], false) }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}
                             </form>
-                        </li>
-                        @if(config('adminlte.right_sidebar') and (config('adminlte.layout') != 'top-nav'))
-                        <!-- Control Sidebar Toggle Button -->
-                            <li>
-                              <a href="#" data-toggle="control-sidebar" @if(!config('adminlte.right_sidebar_slide')) data-controlsidebar-slide="false" @endif>
-                                @if(session()->has('notifycount'))
-                                <i class="{{config('adminlte.right_sidebar_icon')}}"></i>
-                                <span class="pull-right-container">
-                                    <span class="label label-warning pull-right">{{ session()->get('notifycount')}}</span>
-                                </span>
-                                @else
-                                <i class="fas fa-bullhorn"></i>
-                                @endif
-                              </a>
-                            </li>
-                        @endif
-                    </ul>
-                </div>
+          </li>
+          <!-- Control Sidebar Toggle Button -->
+          <!-- <li>
+            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+          </li> -->
+        </ul>
+      
+      </div>
+         
                 @if(config('adminlte.layout') == 'top-nav')
                 </div>
                 @endif
@@ -97,6 +92,15 @@
             <!-- sidebar: style can be found in sidebar.less -->
             <section class="sidebar">
 
+    <div class="user-panel">
+        <div class="pull-left image">
+          <img src="/vendor/images/useravatar.png" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p class="wraptext">{{ Auth::user()->name }}</p>
+          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+      </div>
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu" data-widget="tree">
                     @each('adminlte::partials.menu-item', $adminlte->menu(), 'item')
@@ -108,7 +112,13 @@
         @endif
 
         <!-- Content Wrapper. Contains page content -->
+        
+        <!-- <div class="content-wrapper" style="background: transparent"> -->
         <div class="content-wrapper">
+        
+            <div class="bckg">
+                <img src="/vendor/ot-assets/main-bg.png" class="bckg-img">
+            </div>
             @if(config('adminlte.layout') == 'top-nav')
             <div class="container">
             @endif

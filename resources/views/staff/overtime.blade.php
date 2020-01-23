@@ -120,6 +120,35 @@
         </div>
     </div>
 </div>
+
+<div id="delOTx" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body" id="details">
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapse1">Collapsible panel</a>
+                            </h4>
+                        </div>
+                        <div id="collapse1" class="panel-collapse collapse">
+                            <div class="panel-body">Panel Body</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center" style="width: 100%;">
+                    <form action="{{route('ot.update')}}" method="POST" style="display:inline">
+                        @csrf
+                        <input type="text" class="hidden" id="inputid" name="inputid" value="{{$singleuser->id}}" required>
+                        <button type="submit" class="btn btn-primary">EDIT</button>
+                    </form>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @stop
 
 @section('js')

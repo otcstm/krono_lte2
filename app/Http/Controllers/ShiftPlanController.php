@@ -19,16 +19,20 @@ class ShiftPlanController extends Controller
 {
     public function index(Request $req){
 
-      $planlist = ShiftPlan::all();
+      // $planlist = ShiftPlan::where('creator_id', $req->user()->id)
+      //       ->orWhere('approver_id', $req->user()->id)
+      //       ->get();
       $grouplist = ShiftGroup::where('manager_id', $req->user()->id)
             ->orWhere('planner_id', $req->user()->id)->get();
+
+      // dd($grouplist->ShiftPlans);
 
       $nextmon = Carbon::now()->addMonth()->firstOfMonth();
 
       // dd(session()->all());
 
       return view('shiftplan.splan_list', [
-        'p_list' => $planlist,
+        // 'p_list' => $planlist,
         'grouplist' => $grouplist,
         'curdate' => $nextmon->format('Y-m-d')
       ]);

@@ -144,6 +144,13 @@
                                                                                     <p>Charging type: {{$singleuser->charge_type}}
                                                                                 </div>
                                                                             </div>
+                                                                            @if(count($singleuser->file)!=0)
+                                                                            <p>Attachment:</p>
+                                                                            @foreach($singleuser->file as $f=>$singlefile)
+                                                                                @php(++$f)
+                                                                                <a href="{{route('ot.file', ['tid'=>$singlefile->id], false)}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9"></a>
+                                                                            @endforeach
+                                                                            @endif
                                                                         </div>
                                                                     </div>
                                                                 </div>

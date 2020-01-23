@@ -10,8 +10,10 @@
     "require": {
         "php": "^7.2",
         "davejamesmiller/laravel-breadcrumbs": "5.x",
+        "dingo/api": "^2.4",
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.0",
+        "guzzlehttp/guzzle": "^6.5",
         "jeroennoten/laravel-adminlte": "^2.0",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",

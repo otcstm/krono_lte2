@@ -16,9 +16,9 @@ return [
     |
     */
 
-    'title' => 'Krono!',
+    'title' => 'Overtime Claim System!',
 
-    'title_prefix' => 'Krono! : ',
+    'title_prefix' => 'OTCS - ',
 
     'title_postfix' => '',
 
@@ -33,10 +33,10 @@ return [
     |
     */
 
-    'logo' => 'KRONO <b>!!</b>',
+    'logo' => 'OT System',
 
     // 'logo_mini' => '<b>A</b>LT',
-    'logo_mini' => '<i class="fas fa-clock"></i>',
+    'logo_mini' => 'OTS',
 
     /*
     |--------------------------------------------------------------------------
@@ -49,7 +49,7 @@ return [
     |
     */
 
-    'skin' => 'blue-light',
+    'skin' => 'black-light',
 
     /*
     |--------------------------------------------------------------------------
@@ -167,6 +167,13 @@ return [
               // 'can' => 'admin-nav-menu',
           ],
           [
+              'text' => 'manage_overtime',
+              'url' => '/admin/overtime',
+              'otm' => '',
+              'icon' => 'fas fas fa-clock',
+              // 'can' => 'admin-nav-menu',
+          ],
+          [
               'text' => 'manage_wdays',
               'url'  => '/admin/workday',
               'icon' => 'far fa-calendar-alt',
@@ -177,6 +184,12 @@ return [
               'url'  => '/admin/shift_pattern',
               'icon' => 'far fa-calendar-alt',
               // 'can' => 'ot-nav-menu',
+          ],
+          [
+              'text' => 'payrollgroup',
+              'url' => '/admin/pygroup',
+              'icon' => 'fas fa-calendar-alt',
+              // 'can' => 'admin-nav-menu',
           ],
           [
               'text' => 'paymentsch',
@@ -211,6 +224,24 @@ return [
           ],
         ]
       ],
+
+
+      [
+        'text' => 'Dummy',
+        'icon' => 'fas fa-carrot',
+        'submenu' => [
+          [
+              'text' => 'Dummy Email',
+              'url'  => '/email/dummy',
+              'icon' => 'fas fa-envelope',
+              // 'can' => 'admin-nav-menu',
+          ],
+        ]
+      ],
+
+
+
+
       [ 'header' => 'user_menu',
         // 'can' => 'user-nav-menu',
       ],
@@ -220,6 +251,14 @@ return [
           'icon' => 'fas fa-home',
           // 'can' => 'user-nav-menu',
       ],
+
+      [
+        'text' => 'user_profile',
+        'url'  => '/staff/profile',
+        'icon' => 'fas fa-user',
+        // 'can' => 'user-nav-menu',
+    ],
+
       [
           'text' => 'user_punch',
           'url'  => '/punch',
@@ -240,7 +279,7 @@ return [
             [
                 'text' => 'ot_apply',
                 'url'  => '/overtime/form',
-                'show' => '',
+                'otnew' => '',
                 'icon' => 'fas fa-edit',
                 // 'can' => 'ot-nav-menu',
             ],
@@ -253,6 +292,9 @@ return [
             [
                 'text' => 'ot_approve',
                 'url'  => '/overtime/approval',
+                    // 'label'       => UserHelper::GetRequireAttCount(),
+                // 'label' => OvertimeController::getQueryAmount(),
+                'label_color' => 'warning',
                 'icon' => 'fas fa-edit',
                 // 'can' => 'ot-nav-menu',
             ],
@@ -330,14 +372,19 @@ return [
             'icon' => 'fas fa-print',
             'submenu' => [
               [
-                'text' => 'Overtime',
-                'url'  => '#',
+                'text' => 'otr',
+                'url'  => '/admin/report/ot',
                 'icon' => 'fas fa-user-ninja',
               ],
               [
-                'text' => 'Claim',
-                'url'  => '#',
-                'icon' => 'fas fa-users',
+                'text' => 'otr_details',
+                'url'  => '/admin/report/otd',
+                'icon' => 'fas fa-user-ninja',
+              ],
+              [
+                'text' => 'otr_log',
+                'url'  => '/admin/report/otlog',
+                'icon' => 'fas fa-user-ninja',
               ],
             ],
         ],

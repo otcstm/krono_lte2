@@ -8,10 +8,13 @@ return [
     'manage_company'  => 'Manage Company',
     'manage_state'    => 'Manage State',
     'manage_psubarea' => 'Manage Psubarea',
+    'manage_overtime' => 'Manage Overtime',
+    'manage_overtimeex' => 'Manage Overtime Expiry',
     'manage_wdays'    => 'Work Day Type',
     'admin_user_menu'   => 'User Admin Thingy',
     'manage_holiday'    => 'Manage Holiday',
     'paymentsch' => 'Payment Schedule',
+    'payrollgroup' => 'Payroll Grouping',
 
 
 
@@ -23,8 +26,9 @@ return [
     'user_shift_sc'   => 'My Shift Schedule',
     'user_management' => 'User Management',
     'user_logs'  => 'User Logs',
+    'user_profile'  => 'Profile',
 
-    'ot_menu'         => 'OVERTIME',
+    'ot_menu'         => 'Overtime',
     'ot_apply'        => 'Apply New OT',
     'ot_history'      => 'OT History',
     'ot_approve'      => 'Approve/Verify OT',
@@ -34,13 +38,15 @@ return [
     'reassign_app'    => 'Reassign Approver',
     'reassign_ver'    => 'Reassign Verifier',
 
-    'shift_menu'      => 'SHIFT',
+    'shift_menu'      => 'Shift',
     'shift_plan'      => 'Plan Shifts',
     'shift_group'      => 'Shift Groups',
     'shift_template'  => 'Shift Template',
 
-    'rpt_menu'        => 'REPORTS',
-    'ot_report'       => 'OT Report',
+    'rpt_menu'        => 'Report',
+    'otr'               => 'Overtime',
+    'otr_details'       => 'Overtime Details',
+    'otr_log'           => 'Overtime Log Changes',
 
     'info_menu'       => 'INFORMATION',
     'user_guide'      => 'Guideline',
