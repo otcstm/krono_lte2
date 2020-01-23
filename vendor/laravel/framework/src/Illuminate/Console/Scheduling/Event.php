@@ -157,7 +157,7 @@ class Event
      *
      * @param  \Illuminate\Console\Scheduling\EventMutex  $mutex
      * @param  string  $command
-     * @param  \DateTimeZone|string|null $timezone
+     * @param  \DateTimeZone|string|null  $timezone
      * @return void
      */
     public function __construct(EventMutex $mutex, $command, $timezone = null)
@@ -555,7 +555,7 @@ class Event
      * Get the callback that pings the given URL.
      *
      * @param  string  $url
-     * @return Closure
+     * @return \Closure
      */
     protected function pingCallback($url)
     {

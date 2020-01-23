@@ -1446,10 +1446,11 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
         $this->key = 0;
         $this->current = call_user_func([$this->dateClass, 'make'], $this->startDate);
         $settings = $this->getSettings();
-        $locale = $this->getLocalTranslator()->getLocale();
-        if ($locale) {
-            $settings['locale'] = $locale;
+
+        if ($this->hasLocalTranslator()) {
+            $settings['locale'] = $this->getTranslatorLocale();
         }
+
         $this->current->settings($settings);
         $this->timezone = static::intervalHasTime($this->dateInterval) ? $this->current->getTimezone() : null;
 
@@ -1681,7 +1682,9 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
         $macro = static::$macros[$name];
 
         if ($macro instanceof Closure) {
-            return call_user_func_array($macro->bindTo($this, static::class), $parameters);
+            $boundMacro = @$macro->bindTo($this, static::class) ?: @$macro->bindTo(null, static::class);
+
+            return call_user_func_array($boundMacro ?: $macro, $parameters);
         }
 
         return call_user_func_array($macro, $parameters);
@@ -1715,7 +1718,9 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     public function __call($method, $parameters)
     {
         if (static::hasMacro($method)) {
-            return $this->callMacro($method, $parameters);
+            return static::bindMacroContext($this, function () use (&$method, &$parameters) {
+                return $this->callMacro($method, $parameters);
+            });
         }
 
         $action = substr($method, 0, 4);
