@@ -64,7 +64,7 @@ body{
     background: #343849;
 } */
 .foot {
-    position: absolute;
+    position: relative;
     padding: 15px 0;
     left: 0;
     bottom: 0;
