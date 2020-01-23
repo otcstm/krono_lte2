@@ -8,27 +8,19 @@
 @section('body_class', 'login-page')
 
 @section('body')
-
-<nav class="navbar navbar-inverse">
-<div class="container">
-HEADER
-<ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
+<div class="loginbgfull">
+<nav class="navbar navbar-inverse navtop">
+<div class="container"> 
+    <img class="foot-img navbar-right" src="/vendor/images/tmlogo.png">
 </div>
 </nav>
-
 
 <div class="container">
 <div class="row">
 <div class="cold-md-8">
 </div>
 <div class="cold-md-4 col-md-offset-6">
-    <br />
-    <br />
-    <br />
-    <br />
-<div class="login-box">
+<div class="login-box" style="margin-top: 10px;">
         <div class="login-logo">
             <a href="{{ route('misc.home', [], false) }}">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
         </div>
@@ -63,6 +55,8 @@ HEADER
                         <div class="icheck-primary">
                             <input type="checkbox" name="remember" id="remember">
                             <label for="remember">{{ __('adminlte::adminlte.remember_me') }}</label>
+                            <br /><br />
+                            <a href="https://idss.tm.com.my/" target="_blank"><i class="glyphicon glyphicon-key"></i> I forgot my password</a>
                         </div>
                     </div>
                     <!-- /.col -->
@@ -75,24 +69,17 @@ HEADER
                 </div>
             </form>
             <br>
+<small>Dear User, <br />
+If you have any queries, problems or have not received any ID and password for OT System, please log into 
+<a href="https://iris2.tm.com.my/" target="_blank">IRIS Self Service System</a></small>
         </div>
         <!-- /.login-box-body -->
     </div><!-- /.login-box -->
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
 </div>
 </div>
 </div>
-
-<footer class="container-fluid text-center">
-  <p>Footer Text</p>
-</footer>
+</div>
+</div>
 @stop
 
 @section('adminlte_js')

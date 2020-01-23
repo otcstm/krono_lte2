@@ -1,5 +1,7 @@
 body{
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif; 
+    background-color:transparent !important;
+    height: 100%;    
 }
 
 .logo{
@@ -31,9 +33,42 @@ body{
     z-index: 5;
 }
 
-.foot{
+.navbar{
+    background-color:transparent !important;
+    border-color:transparent !important;
+}
+.navtop{
+    padding: 15px 0;
+}
+
+.loginbgfull{
+
+    /* The image used */
+    background-image: url("images/loginbg_text.png");
+    
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+}
+
+/* .foot{
     padding: 15px 0;
     position: relative;
+    z-index: 3;
+    color: white;
+    background: #343849;
+} */
+.foot {
+    position: absolute;
+    padding: 15px 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
     z-index: 3;
     color: white;
     background: #343849;
@@ -52,3 +87,4 @@ body{
 .foot-img{
     margin-left: auto;
 }
+
