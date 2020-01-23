@@ -4,7 +4,7 @@
     <div class="box-header">
     <h4 class="box-title">
     <i class="glyphicon glyphicon-time"></i> Do you want to start overtime now?  
-    <button class="btn btn-sm btn-success"> Start </button>
+    <a href="{{ route('punch.list', [], false) }}" class="btn btn-sm btn-success"> Start </a>
     </h4>
     </div><!-- /.box-header -->
 </div>
