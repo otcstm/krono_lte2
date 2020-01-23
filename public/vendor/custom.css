@@ -1,7 +1,12 @@
 body{
     font-family: 'Poppins', sans-serif; 
+    font-size: 10pt;
     background-color:transparent !important;
     height: 100%;    
+}
+
+.treeview-menu li a {
+    font-size: 10pt;
 }
 
 .logo{
@@ -94,4 +99,14 @@ body{
 .foot-img{
     margin-left: auto;
 }
+
+.sidebar-menu ul li a {
+    white-space: normal;
+    word-wrap: break-word;
+ }
+
+ .wraptext {
+    white-space: normal; 
+    word-wrap: break-word;
+ }
 
