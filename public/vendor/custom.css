@@ -56,6 +56,13 @@ body{
 
 }
 
+@media(max-width: 768px){
+    .logo{
+        color: white !important;
+        background: #143A8C !important;
+    }
+}
+
 /* .foot{
     padding: 15px 0;
     position: relative;

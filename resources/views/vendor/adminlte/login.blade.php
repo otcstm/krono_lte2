@@ -56,7 +56,7 @@
                             <input type="checkbox" name="remember" id="remember">
                             <label for="remember">{{ __('adminlte::adminlte.remember_me') }}</label>
                             <br /><br />
-                            <a href="https://idss.tm.com.my/" target="_blank"><i class="glyphicon glyphicon-key"></i> I forgot my password</a>
+                            <i class="fa fa-key"></i> <a href="https://idss.tm.com.my/" target="_blank"><i class="glyphicon glyphicon-key"></i> I forgot my password</a>
                         </div>
                     </div>
                     <!-- /.col -->
