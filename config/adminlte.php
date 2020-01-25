@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'title' => 'OT System!',
+    'title' => 'Overtime Claim System!',
 
     'title_prefix' => 'OTCS - ',
 
