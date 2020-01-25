@@ -95,7 +95,7 @@ class UserHelper {
     $currentp = UserHelper::GetCurrentPunch($staff_id);
     $msg = 'OK';
 
-    $in_time =  Carbon::create(2020, 1, 13, 6, 12, 0); //testing time
+    $in_time =  Carbon::create(2020, 1, 22, 18, 39, 0); //testing time
 
     if($currentp){
       // already punched
@@ -125,7 +125,7 @@ class UserHelper {
       $timein = new Carbon($currentp->punch_in_time);
       $punchinori = new Carbon($timein->format('Y-m-d'));
       $punchin = new Carbon($timein->format('Y-m-d'));
-     $out_time =  Carbon::create(2020, 1, 13, 18, 38, 0); //testing time
+     $out_time =  Carbon::create(2020, 1, 22, 19, 38, 0); //testing time
 
       $timeout = new Carbon($out_time->format('Y-m-d'));
       // 1. check keluar hari yang sama atau tak

@@ -140,7 +140,7 @@
                 <div class="text-center" style="width: 100%;">
                     <form action="{{route('ot.update')}}" method="POST" style="display:inline">
                         @csrf
-                        <input type="text" class="hidden" id="inputid" name="inputid" value="{{$singleuser->id}}" required>
+                        <input type="text" class="hidden" id="inputid" name="inputid" value="{{--$singleuser->id--}}" required>
                         <button type="submit" class="btn btn-primary">EDIT</button>
                     </form>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">CLOSE</button>

@@ -58,9 +58,11 @@ class OvertimeController extends Controller{
         $updatemonth->minute = ($totaltime%60);
         $updatemonth->save();
         if($claim->punch_id!=null){
-            $staffpunch = StaffPunch::find($claim->punch_id);
-            $staffpunch->apply_ot = null;
-            $staffpunch->save();
+            foreach(){
+                $staffpunch = StaffPunch::find($claim->punch_id);
+                $staffpunch->apply_ot = null;
+                $staffpunch->save();
+            }
         }
         OvertimeLog::where('ot_id',$req->delid)->delete();
         OvertimeDetail::where('ot_id',$req->delid)->delete();
@@ -170,13 +172,16 @@ class OvertimeController extends Controller{
                 $draftclaim->wage_type =  $wage->legacy_codes; //temp
                 $userrecid = URHelper::getUserRecordByDate($req->user()->persno, date('Y-m-d', strtotime($claimdate)));
                 $draftclaim->user_records_id =  $userrecid->id;
-                $staffpunch = StaffPunch::find($punch[0]->punch_id);
-                $staffpunch->apply_ot = "X";
-                $staffpunch->save();
+                // foreach($punch as $punches){
+                //     $staffpunch = StaffPunch::find($poncho->punch_id);
+                //     $staffpunch->apply_ot = "X";
+                //     $staffpunch->save();
+                // }
                 $draftclaim->save();
-
                 $claim = Overtime::where('user_id', $req->user()->id)->where('date', $req->inputdate)->first();
                 foreach($punch as $punches){
+                    $staffpunch = StaffPunch::find($punches->punch_id);
+                    $staffpunch->apply_ot = "X";
                     $newclaim = new OvertimeDetail;
                     $newclaim->ot_id = $claim->id;
                     $newclaim->clock_in = $punches->start_time;
@@ -210,6 +215,8 @@ class OvertimeController extends Controller{
                     $newclaim->save();
                     $updatemonth->save();
                     $updateclaim->save();
+                    
+                    $staffpunch->save();
                 }
                 $execute = UserHelper::LogOT($claim->id, $req->user()->id, "Created draft", "Created draft for ".$claim->refno);
                 $claim = Overtime::where('user_id', $req->user()->id)->where('date', $req->inputdate)->first();
