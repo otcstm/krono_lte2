@@ -66,7 +66,7 @@
             @endif
         </a>
         @if (isset($item['submenu']))
-            <ul class="{{ $item['submenu_class'] }}">
+            <ul class="{{ $item['submenu_class'] }}" style="padding-left: 24px;">
                 @each('adminlte::partials.menu-item', $item['submenu'], 'item')
             </ul>
         @endif

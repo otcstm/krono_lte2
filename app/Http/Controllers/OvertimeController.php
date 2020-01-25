@@ -58,7 +58,7 @@ class OvertimeController extends Controller{
         $updatemonth->minute = ($totaltime%60);
         $updatemonth->save();
         if($claim->punch_id!=null){
-            $delpunch = StaffPunch::whereDate('created_at', $claim->date)->get();
+            $delpunch = StaffPunch::whereDate('punch_in_time', $claim->date)->get();
             foreach($delpunch as $delpunches){
                 $delpunches->apply_ot = null;
                 $delpunches->save();
@@ -130,6 +130,7 @@ class OvertimeController extends Controller{
     }
 
     public function formdate(Request $req){
+        // dd($req->ip());
         Session::put(['draft' => []]);
         $claim = Overtime::where('user_id', $req->user()->id)->where('date', $req->inputdate)->first();
         if(empty($claim)){ //check got data for ot month or not

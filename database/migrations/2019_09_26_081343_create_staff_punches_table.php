@@ -17,6 +17,7 @@ class CreateStaffPunchesTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->integer('user_id');
+            $table->string('day_type');
             $table->datetime('punch_in_time');
             $table->decimal('in_latitude', 9, 6)->default(0.0);
             $table->decimal('in_longitude', 9, 6)->default(0.0);

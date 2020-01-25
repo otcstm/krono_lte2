@@ -259,12 +259,12 @@ return [
         // 'can' => 'user-nav-menu',
     ],
 
-      [
-          'text' => 'user_punch',
-          'url'  => '/punch',
-          'icon' => 'fas fa-clock',
-          // 'can' => 'user-nav-menu',
-      ],
+    //   [
+    //       'text' => 'user_punch',
+    //       'url'  => '/punch',
+    //       'icon' => 'fas fa-clock',
+    //       // 'can' => 'user-nav-menu',
+    //   ],
       [
           'text' => 'staff_list',
           'url'  => '/staff',
@@ -274,19 +274,26 @@ return [
 
         [
           'text' => 'ot_menu',
-          'icon' => 'fas fa-business-time',
+        //   'main' => '',
+          'icon' => 'fas fa-user-clock',
           'submenu' => [
+            [
+                'text' => 'user_punch_list',
+                'url'  => '/punch',
+                'icon' => '',
+                // 'can' => 'ot-nav-menu',
+            ],
             [
                 'text' => 'ot_apply',
                 'url'  => '/overtime/form',
                 'otnew' => '',
-                'icon' => 'fas fa-edit',
+                'icon' => '',
                 // 'can' => 'ot-nav-menu',
             ],
             [
                 'text' => 'ot_list',
                 'url'  => '/overtime',
-                'icon' => 'fas fa-edit',
+                'icon' => '',
                 // 'can' => 'ot-nav-menu',
             ],
             [
@@ -295,7 +302,7 @@ return [
                     // 'label'       => UserHelper::GetRequireAttCount(),
                 // 'label' => OvertimeController::getQueryAmount(),
                 'label_color' => 'warning',
-                'icon' => 'fas fa-edit',
+                'icon' => '',
                 // 'can' => 'ot-nav-menu',
             ],
             // [
@@ -325,7 +332,7 @@ return [
         ],
         [
           'text' => 'shift_menu',
-          'icon' => 'far fa-calendar-alt',
+          'icon' => 'fas fa-clock',
           'submenu' => [
             [
                 'text' => 'user_shift_sc',
@@ -498,6 +505,22 @@ return [
                     'asset' => false,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
                 ],
+            ],
+        ],
+        [
+            'name' => 'Datejs',
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '/vendor/datejs/build/date.js',
+                ],
+                // [
+                //     'type' => 'js',
+                //     'asset' => true,
+                //     'location' => '/vendor/datejs/src/date.js',
+                // ],
             ],
         ],
     ],

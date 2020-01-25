@@ -9,13 +9,13 @@
 
 @section('body')
 <div class="loginbgfull">
-<nav class="navbar navbar-inverse navtop">
+<nav class="navbar navbar-inverse navtop navnyal">
 <div class="container"> 
     <img class="foot-img navbar-right" src="/vendor/images/tmlogo.png">
 </div>
 </nav>
 
-<div class="container">
+<div class="container login">
 <div class="row">
 <div class="cold-md-8">
 </div>
@@ -85,3 +85,4 @@ If you have any queries, problems or have not received any ID and password for O
 @section('adminlte_js')
     @yield('js')
 @stop
+
