@@ -58,10 +58,10 @@ class OvertimeController extends Controller{
         $updatemonth->minute = ($totaltime%60);
         $updatemonth->save();
         if($claim->punch_id!=null){
-            foreach(){
-                $staffpunch = StaffPunch::find($claim->punch_id);
-                $staffpunch->apply_ot = null;
-                $staffpunch->save();
+            $delpunch = StaffPunch::whereDate('created_at', $claim->date)->get();
+            foreach($delpunch as $delpunches){
+                $delpunches->apply_ot = null;
+                $delpunches->save();
             }
         }
         OvertimeLog::where('ot_id',$req->delid)->delete();

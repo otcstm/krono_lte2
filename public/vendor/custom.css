@@ -25,16 +25,16 @@ body{
     bottom: 0;
     right: 0;
 }
-/* 
-.content-wrapper .content{
+
+.content-wrapper .panel{
     position: relative;
     z-index: 5;
-} */
+}
 
-/* .modal{
+.modal{
     position: fixed;
-    z-index: 999;
-} */
+    z-index: 10 !important;
+}
 
 .login{
     height: 100vh;
