@@ -42,6 +42,11 @@ class Overtime extends Model
         return $this->hasMany(OvertimeDetail::class, 'ot_id');
     }
 
+    public function daytype()
+    {
+        return $this->has(DayType::class, 'daytype_id');
+    }
+
     public function log()
     {
         return $this->hasMany(OvertimeLog::class, 'ot_id');

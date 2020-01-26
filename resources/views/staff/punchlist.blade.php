@@ -3,6 +3,8 @@
 @section('title', 'Punch Dashboard')
 
 @section('content')
+<h1>List of Start/End Overtime</h1>
+
 {{--<!-- <div class="panel panel-default">
   <div class="panel-heading">Punch {{ $punch_status }}</div>
   <div class="panel-body text-center">
@@ -33,7 +35,7 @@
     </form>
   </div>
 </div>
-<h1>List of Start/End Overtime</h1>
+
 @if($p_gotdata == true)
 <div class="panel panel-default">
   <div class="panel-body">
@@ -87,7 +89,7 @@
                       <button type="submit" class="btn btn-sm btn-primary" @if($ap->apply_ot=="X") disabled @endif>APPLY OT</button>
 
                   </form>
-                  <button type="button" data-id="{{$ap['id']}}" data-start="{{$ap['punch_in_time']}}" data-end="{{$ap['punch_out_time']}}" class="del btn btn-sm btn-x" style="color: white; margin-left: 3px" @if($ap->apply_ot=="X") disabled @endif><i class="fas fa-times"></i></button>
+                  <button type="button" data-id="{{$ap['id']}}" data-start="{{$ap['punch_in_time']}}" data-end="{{$ap['punch_out_time']}}" class="del btn btn-sm btn-x" style="margin-left: 3px" @if($ap->apply_ot=="X") disabled @endif><i class="fas fa-times"></i></button>
                   </div>
                 @endif
               </td>

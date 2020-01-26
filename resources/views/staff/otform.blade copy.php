@@ -4,7 +4,6 @@
 
 @section('content')
 
-<h1>Apply New Overtime</h1>
 @if($claim ?? '')
     @if(($claim->status=="D1")||($claim->status=="D2"))
         @php($c = true)
@@ -14,13 +13,20 @@
 @elseif($draft ?? '')
     @php($d = true)
 @else
+    <h1>Apply New Overtime</h1>
 @endif
 
 
 
 <div class="panel panel-default panel-main">
     <div class="panel panel-default">
-        <div class="panel-heading panel-primary">Overtime Application</div>
+        <div class="panel-heading panel-primary">OT Application List 
+            @if($claim ?? '') 
+                {{date('d/m/Y', strtotime($claim->date))}}({{date('l', strtotime($claim->date))}}) 
+            @elseif($draft ?? '') 
+                {{date('Y-m-d', strtotime($draft[4]))}} ({{date('l', strtotime($draft[4]))}})
+            @endif
+        </div>
         <div class="panel-body">
             @if(session()->has('feedback'))
             <div class="alert alert-{{session()->get('feedback_type')}} alert-dismissible" id="alert">
@@ -29,15 +35,15 @@
             </div>
             @endif
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-xs-6">
                     <form id="formdate" action="{{route('ot.formdate')}}" method="POST">
                         @csrf
-                        <p>OT Date: <input type="date" id="inputdate" name="inputdate" value=@if($claim ?? '')
+                        <p>Date: <input type="date" id="inputdate" name="inputdate" value=@if($claim ?? '')
                                 "{{$claim->date}}"
                             @elseif($draft ?? '')
                                 "{{date('Y-m-d', strtotime($draft[4]))}}"
-                            @endif required  onkeydown="return false">
-                            <!-- <button type="button" id="btn-date" class="btn btn-primary" style="padding: 2px 3px; margin: 0; margin-top: -3px;"><i class="fas fa-share-square"></i></button> -->
+                            @endif required>
+                            <button type="button" id="btn-date" class="btn btn-primary" style="padding: 2px 3px; margin: 0; margin-top: -3px;"><i class="fas fa-share-square"></i></button>
                         </p>
                     </form>
                     <div>
@@ -50,7 +56,7 @@
                             N/A
                         @endif
                     </p>
-                    <p>State Calendar: {{Auth::user()->stateid->state_descr}}</p>
+                    <p>State Calendar: </p>
                     @if(($c ?? '')||($d ?? ''))
                         @php($expiry = true)
                         @if(($claim ?? ''))
@@ -62,7 +68,20 @@
                                 @php($expiry = false)
                             @endif
                         @endif
-                        @if(!(($claim ?? '')||($draft ?? '')))
+                        @if(($claim ?? '')||($draft ?? ''))
+                            @if($expiry)
+                            <span style="color: red">
+                                <p>Due Date: 
+                                    @if($claim ?? '') 
+                                        {{date("m.d.Y", strtotime($claim->date_expiry))}}
+                                    @else 
+                                        {{date("m.d.Y", strtotime($draft[1]))}} 
+                                    @endif
+                                </p>
+                                <p>Unsubmitted claims will be deleted after the due date</p>
+                            </span>
+                            @endif
+                        @else
                             <p>Charging type: {{$claim->charge_type}}</p>
                         @endif
                     @elseif($q ?? '')
@@ -76,7 +95,7 @@
                     @endif
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-xs-6">
                     <p>Status: 
                         @if($claim ?? '')  
                             @if($c ?? '')
@@ -119,32 +138,12 @@
                             N/A
                         @endif
                     </p>
-                    {{--<!-- <p>Estimated Amount: RM
+                    <p>Estimated Amount: RM
                         @if($claim ?? '') 
                             {{$claim->amount}} 
                         @else 
                             0.00
-                        @endif</p> -->--}}
-                </div>
-                <div class="col-md-12">
-                 @if(($c ?? '')||($d ?? ''))
-                    @if(($claim ?? '')||($draft ?? ''))
-                        @if($expiry)
-                        <span style="color: red">
-                            <p>Submission Due Date: 
-                                @if($claim ?? '') 
-                                    {{date("m.d.Y", strtotime($claim->date_expiry))}}
-                                @else 
-                                    {{date("m.d.Y", strtotime($draft[1]))}} 
-                                @endif
-                            </p>
-                            <p>Unsubmitted claims will be deleted after the due date</p>
-                        </span>
-                        @endif
-                    @else
-                        <p>Charging type: {{$claim->charge_type}}</p>
-                    @endif
-                @endif
+                        @endif</p>
                 </div>
             </div>
             <div class="row" style="display: flex">
@@ -159,8 +158,8 @@
                     @endif
                     @if(($c ?? '')||($d ?? '')||($q ?? ''))
                     <div class="text-right" >
-                        <button type="button" class="btn btn-nob" id="add" style="margin-bottom: 5px;">
-                        <i class="fas fa-plus-circle"></i> ADD TIME
+                        <button type="button" class="btn btn-primary" id="add">
+                            ADD TIME
                         </button>
                         <p>Total time: 
                                 @if($claim ?? "")
@@ -198,15 +197,12 @@
                                     <th width="2%"></th>
                                 @endif
                                     <th width="2%">No</th>
-                                    <!-- <th width="20%">Clock In/Out</th> -->
-                                    <th>Start OT</th>
-                                    <th>End OT</th>
-                                    <th>Hours/Minutes</th>
-                                    <th>OT Type</th>
-                                    <th>Location</th>
-                                    <th>OT Remark</th>
+                                    <th width="20%">Clock In/Out</th>
+                                    <th width="20%">Start/End Time</th>
+                                    <th width="8%">Total Time</th>
+                                    <th>Remark</th>
                                 @if(($c ?? '')||($d ?? '')||($q ?? ''))
-                                    <th width="6%">
+                                    <th width="10%">
                                         Action
                                     </th>
                                 @endif
@@ -237,16 +233,17 @@
                                                     @php(++$no)
                                                 @endif
                                                 <td>{{$no}}</td>
-                                                {{-- <!-- <td>
+                                                <td>
                                                     @if($singleuser->clock_in!="")
-                                                        {{date('Hi', strtotime($singleuser->clock_in))}} - {{date('Hi', strtotime($singleuser->clock_out))}} 
+                                                        {{date('H:i', strtotime($singleuser->clock_in))}} - {{date('H:i', strtotime($singleuser->clock_out))}} 
                                                     @else 
                                                         Manual Input
                                                     @endif
-                                                </td> --> --}}
+                                                </td>
                                                 <td>
                                                     @if(($c ?? '')||($d ?? '')||($q ?? ''))
                                                         <span id="oldds-{{$no}}" class="hidden">{{date('H:i', strtotime($singleuser->start_time))}}</span>
+                                                        <span id="oldde-{{$no}}" class="hidden">{{date('H:i', strtotime($singleuser->end_time))}}</span>
                                                         <input style="width: 40px" id="inputstart-{{$no}}" name="inputstart[]" type="text" class="timepicker check-{{$no}} check-{{$no}}-0 @if($singleuser->checked=="N") hidden @endif" 
                                                             data-clock_in="{{ date('H:i', strtotime($singleuser->clock_in))}}"
                                                             data-start_time="{{ date('H:i', strtotime($singleuser->start_time))}}"
@@ -254,25 +251,15 @@
                                                                 data-clocker="{{ date('H:i', strtotime($singleuser->start_time))}}"
                                                             @endif
                                                             value="{{ date('H:i', strtotime($singleuser->start_time))}}" required>
-                                                        @if($singleuser->checked=="N")
-                                                            {{ date('Hi', strtotime($singleuser->start_time)) }}
-                                                        @endif
-                                                    @else
-                                                        {{ date('Hi', strtotime($singleuser->start_time)) }}
-                                                    @endif    
-                                                </td>
-                                                <td>
-                                                    @if(($c ?? '')||($d ?? '')||($q ?? ''))
-                                                        <span id="oldde-{{$no}}" class="hidden">{{date('H:i', strtotime($singleuser->end_time))}}</span>
                                                         <input style="width: 40px" id="inputend-{{$no}}" name="inputend[]" type="text" class="timepicker check-{{$no}} check-{{$no}}-1 @if($singleuser->checked=="N") hidden @endif" 
                                                             data-clock_out="{{ date('H:i', strtotime($singleuser->clock_out))}}"
                                                             data-end_time="{{ date('H:i', strtotime($singleuser->end_time))}}"
                                                             value="{{ date('H:i', strtotime($singleuser->end_time))}}" required>
                                                         @if($singleuser->checked=="N")
-                                                            {{ date('Hi', strtotime($singleuser->end_time)) }}
+                                                            {{ date('H:i', strtotime($singleuser->start_time)) }} - {{ date('H:i', strtotime($singleuser->end_time)) }}
                                                         @endif
                                                     @else
-                                                        {{ date('Hi', strtotime($singleuser->end_time)) }}
+                                                        {{ date('H:i', strtotime($singleuser->start_time)) }} - {{ date('H:i', strtotime($singleuser->end_time)) }}
                                                     @endif    
                                                 </td>
                                                 <td>
@@ -280,19 +267,11 @@
                                                     <span id="fixdm-{{$no}}" class="hidden">{{$singleuser->minute}}</span>
                                                     <span id="olddh-{{$no}}" class="hidden">{{$singleuser->hour}}</span>
                                                     <span id="olddm-{{$no}}" class="hidden">{{$singleuser->minute}}</span>
-                                                    <span id="inputduration-{{$no}}">{{ $singleuser->hour }}h/{{$singleuser->minute}}</span>
+                                                    <span id="inputduration-{{$no}}">{{ $singleuser->hour }}h {{ $singleuser->minute }}m</span>
                                                 </td>
-                                                <td>
-                                                    @if($singleuser->clock_in!="")
-                                                        System Input
-                                                    @else 
-                                                        Manual Input
-                                                    @endif
-                                                </td>
-                                                <td>{{ $singleuser->in_latitude }} {{ $singleuser->out_longitude }}</td>
                                                 <td>
                                                     @if(($c ?? '')||($d ?? '')||($q ?? ''))
-                                                        <textarea rows = "1" cols = "60" type="text" id="inputremark-{{$no}}" name="inputremark[]" placeholder="Input remark" class="check-{{$no}} check-{{$no}}-2 @if($singleuser->checked=="N") hidden @endif" style="resize: none" @if($singleuser->clock_in!="") readonly @else required @endif >{{$singleuser->justification}}</textarea>
+                                                        <textarea rows = "2" cols = "60" type="text" id="inputremark-{{$no}}" name="inputremark[]" placeholder="Write justification" class="check-{{$no}} check-{{$no}}-2 @if($singleuser->checked=="N") hidden @endif" style="resize: none" @if($singleuser->clock_in!="") readonly @else required @endif >{{$singleuser->justification}}</textarea>
                                                         @if($singleuser->checked=="N")
                                                             {{$singleuser->justification}}
                                                         @endif
@@ -303,7 +282,7 @@
                                                 @if(($c ?? '')||($d ?? '')||($q ?? ''))
                                                     <td>
                                                         @if($singleuser->clock_in=="")
-                                                            <button type="button" class="btn btn-sm btn-x" id="delete-{{$no}}" data-id="{{$singleuser->id}}" data-start="{{date('H:i', strtotime($singleuser->start_time))}}" data-end="{{date('H:i', strtotime($singleuser->end_time))}}"><i class="fas fa-times"></i></button>
+                                                            <button type="button" class="btn btn-danger" id="delete-{{$no}}" data-id="{{$singleuser->id}}" data-start="{{date('H:i', strtotime($singleuser->start_time))}}" data-end="{{date('H:i', strtotime($singleuser->end_time))}}"><i class="fas fa-trash"></i></button>
                                                         @endif
                                                     </td>
                                                 @endif
@@ -311,21 +290,19 @@
                                         </tr>
                                     @endforeach
                                 @else
-                                    <tr id="nodata" class="text-center"><td colspan="9"><i>Not Available</i></td></tr>
+                                    <tr id="nodata" class="text-center"><td colspan="7"><i>Not Available</i></td></tr>
                                 @endif
                             @else
-                                <tr id="nodata" class="text-center"><td colspan="9"><i>Not Available</i></td></tr>
+                                <tr id="nodata" class="text-center"><td colspan="7"><i>Not Available</i></td></tr>
                             @endif
                             <tr id="addform" style="display: none">
                                 <td></td>
                                 <td>@if($claim ?? '') {{count($claim->detail)+1}} @else 1 @endif</td>
-                                <!-- <td>Manual Input</td> -->
+                                <td>Manual Input</td>
                                 <td>
                                     <span id="oldds-0" class="hidden">0</span>
-                                    <input style="width: 40px" id="inputstart-0" type="text" name="inputstartnew" class="timepicker check-0 check-0-0">
-                                </td>
-                                <td>
                                     <span id="oldde-0" class="hidden">0</span>
+                                    <input style="width: 40px" id="inputstart-0" type="text" name="inputstartnew" class="timepicker check-0 check-0-0">
                                     <input style="width: 40px" id="inputend-0" type="text" name="inputendnew" class="timepicker check-0 check-0-1" disabled>
                                 </td>
                                 <td>
@@ -333,32 +310,54 @@
                                     <span id="olddm-0" class="hidden">0</span>
                                     <span id="inputduration-0"></span>
                                 </td>
-                                <td>Manual Input</td>
-                                <td></td>
-                                <td><textarea rows = "1" cols = "60" type="text"  id="inputremark-0" name="inputremarknew" placeholder="Input remark" style="resize: none" class="check-0 check-0-2"></textarea></td>
+                                <td><textarea rows = "2" cols = "60" type="text"  id="inputremark-0" name="inputremarknew" placeholder="Write justification" style="resize: none" class="check-0 check-0-2"></textarea></td>
                                 <td>
                                     <!-- <button type="button" class="btn btn-primary" id="btn-add"><i class="fas fa-save"></i></button> -->
-                                    <button type="button" class="btn btn-np" id="cancel" style="display: inline"><i class="fas fa-trash"></i></button>
+                                    <button type="button" class="btn btn-danger" id="cancel" style="display: inline"><i class="fas fa-times"></i></button>
                                 </td>
                             </tr>
                         </tbody>  
                     </table>
                 </div>
                 @if(($c ?? '')||($d ?? '')||($q ?? ''))
-                    <!-- <div style="margin-top: -15px"><small>
+                    <div style="margin-top: -15px"><small>
                         <p>* Accepted format JPG, JPEG, PNG, BMP & PDF only
                         <br>* Maximum size of supporting document is 1MB
                         <br>* Make sure your PDF document is <u>not password protected</u> and <u>not corrupted</u> </p>
-                    </small></div> -->
+                    </small></div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-xs-6">
                             <div class="form-group">
-                                
                                 <div class="row" style="margin-bottom: 5px;">
-                                    <div class="col-md-3">
+                                    <div class="col-xs-3">
+                                        <label>Document:</label>
+                                    </div>
+                                    <div class="col-xs-9" style="display: flex; padding-right: 8px">
+                                        <input type="file" name="inputfile" id="inputfile" accept="image/*, .pdf, .jpeg, .jpg, .bmp, .png" style="position:absolute; right:-100vw;">
+                                        <span id="inputfiletext" style="flex: 1; max-height: 26px; overflow: hidden; padding: 3px 0 3px 5px; border: 1px solid #A9A9A9; border-right: 0">No file chosen*</span>
+                                        <a href="#" id="btn-file-2" style="position: absolute; right: 95px; top: 3px; color: red; display: none "><i class="fas fa-times-circle"></i></a>
+                                        <button type="button" id="btn-file-1" style="min-width: 80px">Choose File</button>
+                                        <button type="button" id="btn-file-3" style="min-width: 80px; display: none;">Upload</button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-9 col-xs-offset-3" style="margin-bottom: 5px;">
+                                    
+                                        @if($claim ?? '')
+                                            @foreach($claim->file as $f=>$singlefile)
+                                                @php(++$f)
+                                                <a href="{{route('ot.file', ['tid'=>$singlefile->id], false)}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9"></a>
+                                                <a href="#" id="btn-file-del-{{$f}}" style="position: absolute; margin-left: -22px; top: 3px; color: red;" data-id="{{$singlefile->id}}" data-img="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" data-name="{{substr($singlefile->filename, 22)}}"><i class="fas fa-times-circle"></i></a>
+
+                                            @endforeach
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-3">
                                         <label>Charge Type:</label>
                                     </div>
-                                    <div class="col-md-9">
+                                    <div class="col-xs-9">
                                         <select name="chargetype" class="chargetype" id="chargetype" value="
                                             @if($claim ?? '')
                                                 {{$claim->charge_type}}
@@ -394,11 +393,11 @@
                                         @if($claim->charge_type!="Cost Center") 
                                             style="display: none" 
                                         @endif>
-                                        <div class="row" style="margin-bottom: 5px;">
-                                            <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="col-xs-3">
                                                 <label>Charging:</label>
                                             </div>
-                                            <div class="col-md-9">
+                                            <div class="col-xs-9">
                                                 <select name="charging" id="charging" 
                                                     @if($claim->charge_type=="Cost Center") 
                                                         required 
@@ -412,11 +411,11 @@
                                         @if($claim->charge_type!="Project")
                                             style="display: none" 
                                         @endif>
-                                        <div class="row" style="margin-bottom: 5px;">
-                                            <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="col-xs-3">
                                                 <label>Type:</label>
                                             </div>
-                                            <div class="col-md-9">
+                                            <div class="col-xs-3">
                                                 <select name="type" id="type" 
                                                     @if($claim->charge_type=="Project") 
                                                         required 
@@ -424,12 +423,10 @@
                                                     <option value="CUST23234">CUST23234</option>
                                                 </select> 
                                             </div>
-                                        </div>
-                                        <div class="row" style="margin-bottom: 5px;">
-                                            <div class="col-md-3">
-                                                <label>Network Header:</label>
+                                            <div class="col-xs-3">
+                                                <label>Header:</label>
                                             </div>
-                                            <div class="col-md-9">
+                                            <div class="col-xs-3">
                                                 <select name="header" id="header" 
                                                     @if($claim->charge_type=="Project")
                                                         required
@@ -438,11 +435,11 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="row" style="margin-bottom: 5px;">
-                                            <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="col-xs-3">
                                                 <label>Code:</label>
                                             </div>
-                                            <div class="col-md-9">
+                                            <div class="col-xs-3">
                                                 <select name="code" id="code" 
                                                     @if($claim->charge_type=="Project")
                                                         required
@@ -450,12 +447,10 @@
                                                     <option value="PRJ123124">PRJ123124</option>
                                                 </select> 
                                             </div>
-                                        </div>
-                                        <div class="row" style="margin-bottom: 5px;">
-                                            <div class="col-md-3">
+                                            <div class="col-xs-3">
                                                 <label>Activity:</label>
                                             </div>
-                                            <div class="col-md-9">
+                                            <div class="col-xs-3">
                                                 <select name="activity" id="activity" 
                                                     @if($claim->charge_type=="Project") 
                                                         required
@@ -463,71 +458,26 @@
                                                     <option value="PRJ123124">PRJ123124</option>
                                                 </select> 
                                             </div>
-                                
+                                        </div>
                                     </div>
-                                    </div><div class="row" style="margin-bottom: 5px;">
-                                    <div class="col-md-3">
-                                        <label>Document:</label>
-                                    </div>
-                                    <div class="col-md-9" class="maxfilef">
-                                        <input type="file" name="inputfile" id="inputfile" accept="image/*, .pdf, .jpeg, .jpg, .bmp, .png" style="position:absolute; right:-100vw;">
-                                        <span id="inputfiletext">File: .bmp, .pdf, .png, .tiff</span>
-                                        <a href="#" id="btn-file-2"><i class="fas fa-times-circle"></i></a>
-                                        <button type="button" class="btn-up" id="btn-file-1" style="min-width: 80px">BROWSE</button>
-                                        <button type="button" class="btn-up" id="btn-file-3" style="min-width: 80px; display: none;">UPLOAD</button>
-                                        <span class="maxfile">Maximum file size: 1mb</span>
-                                        
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-9 col-md-offset-3">
-                                    
-                                        @if($claim ?? '')
-                                            @foreach($claim->file as $f=>$singlefile)
-                                                @php(++$f)
-                                                <a href="{{route('ot.file', ['tid'=>$singlefile->id], false)}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9; margin-bottom: 10px;"></a>
-                                                <a href="#" id="btn-file-del-{{$f}}" style="position: absolute; margin-left: -22px; top: 3px; color: red;" data-id="{{$singlefile->id}}" data-img="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" data-name="{{substr($singlefile->filename, 22)}}"><i class="fas fa-times-circle"></i></a>
-
-                                            @endforeach
-                                        @endif
-                                    </div>
-                                </div>
                                 @endif
                             </div>
                         </div>
                     </div>
                     <br>
-
-                @if($claim ?? '')
-                    @if(in_array($claim->status, $array = array("PA", "PV", "A")))
-                    <p><b>ACTION LOG</b></p>
-                    <table id="TLog" class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th width="10%">Date</th>
-                                <th width="25%">Action</th>
-                                <th>Message</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($claim->log as $singleuser)
-                            <tr>
-                                <td>{{$singleuser->created_at}}</td>
-                                <td>{{$singleuser->name->name}}</td>
-                                <td>{{$singleuser->message}}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>  
-                    @endif
+                    
+                    <div class="text-center">
+                        <a href="{{route('ot.list')}}"><button type="button" class="btn btn-primary" style="display: inline"><i class="fas fa-arrow-left"></i> BACK</button></a>
+                        <!-- <button type="button" id="btn-save" class="btn btn-primary" style="display: inline"><i class="fas fa-save"></i> SAVE</button> -->
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-share-square"></i> SUBMIT</button>
+                    </div>
                 @endif
-
-
-                
-
-        </div>   
-
-        <p><b>ACTION LOG</b></p>
+            </form>
+            <form id="delete" class="hidden" action="{{route('ot.formdelete')}}" method="POST">
+                @csrf
+                <input type="text" id="delid" name="delid" value="">
+            </form>
+            <p><b>ACTION LOG</b></p>
             <table id="TLog" class="table table-bordered">
                 <thead>
                     <tr>
@@ -564,38 +514,22 @@
                     @endif
                 </tbody>
             </table>
-
-
-        <div class="panel-footer">
-                    <div class="text-right">
-                    <a href="{{route('ot.list')}}"><button type="button" class="btn btn-p btn-primary btn-outline" style="display: inline">BACK</button></a>
-                        <!-- <button type="button" id="btn-save" class="btn btn-primary" style="display: inline"><i class="fas fa-save"></i> SAVE</button> -->
-                        <button type="submit" class="btn btn-p btn-primary">SUBMIT</button>
-                    </div>
-                @endif
-            </form>
-            <form id="delete" class="hidden" action="{{route('ot.formdelete')}}" method="POST">
-                @csrf
-                <input type="text" id="delid" name="delid" value="">
-            </form>
         </div>
+        <div class="panel-footer">
             @empty($claim ?? '')
-            <div class="panel-footer">
                 @if(!($d ?? ''))
                     <div class="text-right">
                         <a href="{{route('ot.list')}}"><button type="button" class="btn btn-p btn-primary btn-outline" style="display: inline">BACK</button></a>
                     </div>
                 @endif
-            </div>
             @else
                 @if(!(($c ?? '')||($d ?? '')||($q ?? '')))
-                <div class="panel-footer">
                     <div class="text-right">
                         <a href="{{route('ot.list')}}"><button type="button" class="btn btn-p btn-primary btn-outline" style="display: inline">BACK</button></a>
                     </div>
-                </div>
                 @endif
             @endempty
+        </div>
     </div>
 </div>
 @stop
@@ -653,8 +587,8 @@
     $("#inputdate").attr("max", y+"-"+m+"-"+d);
 
     // //when date input is changed
-    $("#inputdate").change(function(){
-    // $("#btn-date").on('click', function(){
+    // $("#inputdate").change(function(){
+    $("#btn-date").on('click', function(){
         
         if(
             ((Date.parse($("#inputdate").val()))<=Date.parse(monthNames[m-1]+" "+d+", "+y+" 23:59:59"))&&
@@ -743,7 +677,7 @@
             if((hm[0]==0)&&(hm[1]==0)){
                 $("#inputduration").text("");
             }else{
-                $("#inputduration-"+i).text(hm[0]+"h/"+hm[1]+"m");
+                $("#inputduration-"+i).text(hm[0]+"h "+hm[1]+"m");
             }
             nhm = showtime((parseInt(th*60)+parseInt(tm))+(parseInt(hm[0]*60)+parseInt(hm[1]))-(parseInt(odh*60)+parseInt(odm)));
             $("#olddh-"+i).text(hm[0]);
@@ -1030,7 +964,7 @@
         
         //when click add time
         $("#add").on('click', function(){
-            // if(add){
+            if(add){
                 // $('#oldds-0').text($("#inputstart-0").val());
                 // $('#oldde-0').text($("#inputend-0").val());
                 $('#addform').css("display", "table-row");
@@ -1039,25 +973,24 @@
                 $("#inputremark-0").prop('required',true);
                 // calshowtime(0, (parseInt($("#olddh-0").text()*60)+parseInt($("#olddm-0").text())), 0, 0, $("#    oldth").text(), $("#oldtm").text());
                 $('#nodata').css("display","none");
-                $('#add').prop("disabled",true);
-                // add=false;  
-            // }else{
-            //     for(j=0; j<3;j++){
-            //         if($('.check-0-'+j).get(0).checkValidity()==false){
-            //             $('.check-0-'+j).get(0).reportValidity();
-            //         }
-            //     }
-            //     // Swal.fire({
-            //     //     icon: 'error',
-            //     //     title: 'Unable to add time',
-            //     //     text: 'Please complete current time input before adding a new one!'
-            //     // })
-            // }
+                add=false;  
+            }else{
+                for(j=0; j<3;j++){
+                    if($('.check-0-'+j).get(0).checkValidity()==false){
+                        $('.check-0-'+j).get(0).reportValidity();
+                    }
+                }
+                // Swal.fire({
+                //     icon: 'error',
+                //     title: 'Unable to add time',
+                //     text: 'Please complete current time input before adding a new one!'
+                // })
+            }
         });
         
         //when cancel add time
         $("#cancel").on('click', function(){
-            // if(!(add)){
+            if(!(add)){
                 $('#oldds-0').text("0");
                 $('#oldde-0').text("0");
                 $('#addform').css("display", "none");
@@ -1072,9 +1005,8 @@
                 $("#oldtm").text(nhm[1]);
                 $("#showtime").text(nhm[0]+"h "+nhm[1]+"m");
                 $('#nodata').css("display","table-row");
-                $('#add').prop("disabled",false);
-                // add=true;  
-            // }
+                add=true;  
+            }
         });
 
         $("#btn-file-1").on('click', function(){
@@ -1086,7 +1018,7 @@
             $("#btn-file-2").css("display", "none");
             $("#btn-file-3").css("display", "none");
             $("#inputfile").val("");
-            $("#inputfiletext").text("File: .bmp, .pdf, .png, .tiff");
+            $("#inputfiletext").text("No file chosen*");
             return false;  
         });
 
@@ -1113,7 +1045,7 @@
                     text: 'File size has exceeded 1MB!'
                 })
                 $("#inputfile").val("");
-                $("#inputfiletext").text("File: .bmp, .pdf, .png, .tiff");
+                $("#inputfiletext").text("No file chosen*");
             }
             else{
                 var ret = $("#inputfile").val().replace("C:\\fakepath\\",'');
@@ -1230,18 +1162,18 @@
                 if(whensubmit){
                     if(add){
                         Swal.fire({
-                            title: 'Terms and Conditions',
+                            title: 'Are you sure to submit form?',
                             input: 'checkbox',
                             inputValue: 0,
                             inputPlaceholder:
-                                "<p>By clicking on <span style='color: #143A8C'>\"Yes\"</span> button below, you are agreeing to the above related terms and conditions</p>",
-                                html: "<p>I hereby certify that my claim is compliance with company's term and condition on <span style='font-weight: bold'>PERJANJIAN BERSAMA, HUMAN RESOURCE MANUAL, and BUSINESS PROCESS MANUAL</span> If deemed falsed, disciplinary can be imposed on me.</p>",
-                               confirmButtonText:
-                                'YES',
-                                cancelButtonText: 'NO',
+                                "<p style=\"color: red; font-weight: bold\">By clicking on \"Yes\" button below, you are agreeing to the above related terms and conditions</p>",
+                                html: "<p style='color: red; font-weight: bold'>I hereby certify that my claim is compliance with company's term and condition on PERJANJIAN BERSAMA, HUMAN RESOURCE MANUAL, and BUSINESS PROCESS MANUAL If deemed falsed, disciplinary can be imposed on me.</p>",
+                                icon: 'warning',
+                            confirmButtonText:
+                                'I understand',
                             showCancelButton: true,
-                            confirmButtonColor: '#EF7202',
-                            cancelButtonColor: 'transparent',
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
                             inputValidator: (result) => {
                                 return !result && 'You need to agree with T&C'
                             }
@@ -1275,10 +1207,9 @@
                             title: 'Unable to submit form',
                             text: 'Please save new time input before submitting the form!'
                         })
-                        // $("#inputstart-0").prop('required',true);
-                        // $("#inputend-0").prop('required',true);
-                        // $("#inputremark-0").prop('required',true);
-                        whensubmit = false;
+                        $("#inputstart-0").prop('required',true);
+                        $("#inputend-0").prop('required',true);
+                        $("#inputremark-0").prop('required',true);
                         return false;
                     }
                 }
@@ -1288,9 +1219,9 @@
                     title: 'Unable to submit form',
                     text: 'Please add some claim time before submitting the form!'
                 })
-                // $("#inputstart-0").prop('required',true);
-                // $("#inputend-0").prop('required',true);
-                // $("#inputremark-0").prop('required',true);
+                $("#inputstart-0").prop('required',true);
+                $("#inputend-0").prop('required',true);
+                $("#inputremark-0").prop('required',true);
                 return false;
             }
         }

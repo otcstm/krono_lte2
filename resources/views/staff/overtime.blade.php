@@ -3,8 +3,8 @@
 @section('title', 'Overtime List')
 
 @section('content')
+<h1>List of Overtime Claim</h1>
 <div class="panel panel-default">
-    <div class="panel-heading panel-primary">OT List</div>
     <div class="panel-body">
         <div class="text-right" style="margin-bottom: 15px">
             <form action="{{route('ot.formnew')}}" method="POST" style="display:inline">
@@ -25,9 +25,13 @@
                         <th></th>
                         <th></th>
                         <th>Reference No</th>
-                        <th>Date time</th>
-                        <th>Duration</th>
-                        <th>Estimated Amount</th>
+                        <th>OT Date</th>
+                        <th>Start OT</th>
+                        <th>End OT</th>
+                        <th>Total Hours/Minutes</th>
+                        <th>Day Type</th>
+                        <th>Charge Code</th>
+                        <th>Location</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -38,9 +42,13 @@
                             <td>@if(($singleuser->status=="D2")||($singleuser->status=="Q2"))<input type="checkbox" id="checkbox-{{$no}}" value="{{$singleuser->id}}"> @endif</td>
                             <td></td>
                             <td>{{ $singleuser->refno }}</td>
-                            <td>{{ $singleuser->date }} @foreach($singleuser->detail as $details)<br>{{date('H:i', strtotime($details->start_time)) }} - {{ date('H:i', strtotime($details->end_time))}}@endforeach</td>
-                            <td>{{ $singleuser->total_hour }}h {{ $singleuser->total_minute }}m</td>
-                            <td>RM{{$singleuser->amount}}</td>
+                            <td>{{ date("d.m.Y", strtotime($singleuser->date)) }}</td>
+                            <td>@foreach($singleuser->detail as $details){{date('Hi', strtotime($details->start_time)) }}<br>@endforeach</td>
+                            <td>@foreach($singleuser->detail as $details){{ date('Hi', strtotime($details->end_time))}}<br>@endforeach</td>
+                            <td>{{ $singleuser->total_hour }}h/{{ $singleuser->total_minute }}m</td>
+                            <td></td> 
+                            <td>{{ $singleuser->charge_type }}</td> 
+                            <td>@foreach($singleuser->detail as $details){{$details->in_latitude}} {{$details->in_longitude}}<br>@endforeach</td> 
                             <td 
                                 @foreach($singleuser->log as $logs) 
                                     @if(strpos($logs->message,"Queried")!==false) 
@@ -69,16 +77,16 @@
                                     <form action="{{route('ot.update')}}" method="POST" style="display:inline">
                                         @csrf
                                         <input type="text" class="hidden" id="inputid" name="inputid" value="{{$singleuser->id}}" required>
-                                        <button type="submit" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button>
+                                        <button type="submit" class="btn btn-np"><i class="fas fa-edit"></i></button>
                                     </form>
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delOT" data-id="{{$singleuser->id}}" data-date="{{$singleuser->date}}">
+                                    <button type="button" class="btn btn-np" data-toggle="modal" data-target="#delOT" data-id="{{$singleuser->id}}" data-date="{{$singleuser->date}}">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 @else
-                                <form action="{{route('ot.update')}}" method="POST" style="display:inline">
+                                <form action="{{route('ot.detail')}}" method="POST" style="display:inline">
                                     @csrf
                                     <input type="text" class="hidden" id="inputid" name="inputid" value="{{$singleuser->id}}" required>
-                                    <button type="submit" class="btn btn-primary"><i class="fas fa-eye"></i></button>
+                                    <button type="submit" class="btn btn-np"><i class="fas fa-info-circle"></i></button>
                                 </form>
                                 @endif
                             </td>

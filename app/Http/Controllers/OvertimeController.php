@@ -29,7 +29,9 @@ class OvertimeController extends Controller{
     public function form(Request $req){
         $reg = Psubarea::where('state_id', $req->user()->state_id)->first();
         // dd($reg->region);
-        if($req->session()->get('claim')!=null){
+        if($req->session()->get('detail')!=null){
+            return view('staff.otdetail', ['claim' => $req->session()->get('claim')]);
+        }else if($req->session()->get('claim')!=null){
             $day = UserHelper::CheckDay($req->user()->id, $req->session()->get('claim')->date);
             $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $req->session()->get('claim')->date)->where('end_date','>', $req->session()->get('claim')->date)->first();
             // dd($reg);
@@ -47,6 +49,12 @@ class OvertimeController extends Controller{
     public function update(Request $req){
         $claim = Overtime::where('id', $req->inputid)->first();
         Session::put(['draft' => [], 'claim' => $claim]);
+        return redirect(route('ot.form',[],false));
+    }
+
+    public function detail(Request $req){
+        $claim = Overtime::where('id', $req->inputid)->first();
+        Session::put(['draft' => [], 'claim' => $claim, 'detail' => 'detail']);
         return redirect(route('ot.form',[],false));
     }
 
@@ -70,7 +78,7 @@ class OvertimeController extends Controller{
         Session::put(['draft' => [], 'claim' => []]);
         return redirect(route('ot.list',[],false))->with([
             'feedback' => true,
-            'feedback_text' => "Successfully deleted claim ".$claim->refno,
+            'feedback_text' => "Successfully deleted overtime claim ".$claim->refno,
             'feedback_type' => "warning"
         ]);
     }
@@ -94,6 +102,8 @@ class OvertimeController extends Controller{
         if($submit){
             for($i = 0; $i<count($id); $i++){
                 $updateclaim = Overtime::find($id[$i]);
+                $updateclaim->approver_id = $req->user()->reptto;
+                $updateclaim->verifier_id =  $req->user()->id; //temp
                 $execute = UserHelper::LogOT($id[$i], $req->user()->id, "Submitted", "Submitted ".$updateclaim->refno);
                 if($updateclaim->verifier_id==null){
                     $updateclaim->status = 'PA';
@@ -116,7 +126,7 @@ class OvertimeController extends Controller{
 
             return redirect(route('ot.list',[],false))->with([
                 'feedback' => true,
-                'feedback_text' => "Successfully submitted claim!",
+                'feedback_text' => "Your overtime claim has successfully been submitted.",
                 'feedback_type' => "success"
             ]);
         }else{
@@ -199,7 +209,7 @@ class OvertimeController extends Controller{
                     }
                     $pay = UserHelper::CalOT($req->user()->salary, $punches->hour, $punches->minute);
                     $newclaim->amount = $pay;
-                    $newclaim->justification = "Punch In/Out";
+                    $newclaim->justification = "System Input";
                     $newclaim->in_latitude = $punches->in_latitude;
                     $newclaim->in_longitude = $punches->in_longitude;
                     $newclaim->out_latitude = $punches->out_latitude;
@@ -426,7 +436,7 @@ class OvertimeController extends Controller{
         if($req->formtype=="add"){ //if add only
             return redirect(route('ot.form',[],false))->with([
                 'feedback' => true,
-                'feedback_text' => "Successfully added a new time!",
+                'feedback_text' => "Successfully added a new overtime",
                 'feedback_type' => "success"
             ]);
         }
@@ -476,7 +486,7 @@ class OvertimeController extends Controller{
             $updateclaim->save();
             return redirect(route('ot.list',[],false))->with([
                 'feedback' => true,
-                'feedback_text' => "Successfully submitted claim!",
+                'feedback_text' => "Your overtime claim has successfully been submitted.",
                 'feedback_type' => "success"
             ]);
             // }

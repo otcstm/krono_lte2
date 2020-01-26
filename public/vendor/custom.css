@@ -27,7 +27,7 @@ body{
 }
 
 .content-wrapper .bckg{
-    position: fixed;
+    position: absolute;
     z-index: 0;
     bottom: 0;
     right: 0;
@@ -139,20 +139,96 @@ body{
     word-wrap: break-word;
  }
 
- .btn{
+.btn{
     padding: 6px 25px;
-    /* color: #FCFCFC; */
-    /* background: #DC143B; */
     border-radius: 25px;
     border: 0;
 }
 
-.btn-primary{
-    background: #EF7202;
+.btn-up{ 
+    position: relative;
+    top: -8px !important;
+    padding: 0px 15px;
+    border-radius: 5px;
+    background: #143A8C;
+    color: white;
+    border: 2px solid #143A8C;
+    margin-left: 5px;
 }
 
-.btn-primary:hover, .btn-primary:disabled{
-    background: #E06902;
+.btn-p{
+    padding: 6px 50px; 
+    margin-left: 25px;
+}
+
+@media(max-width: 768px){
+    
+    .btn-p{
+        padding: 6px 25px; 
+        margin-left: 5px;
+    }
+}
+
+.btn-np{
+    font-size: 18px;
+    margin-right: 8px;
+    padding: 0px; 
+    background: transparent;
+    color: #143A8C;
+}
+
+.btn-np:hover,
+.btn-np:focus{
+    color: #12347C;
+}
+
+.btn-nob{
+    padding: 2px 10px;
+    background: transparent;
+    border: 2px solid #707070;
+    border-radius: 5px;
+    color: #707070;
+}
+
+.swal2-confirm{
+    padding: 6px 50px !important;
+    border-radius: 25px !important;
+    border: 2px solid #EF7202 !important;
+    background: #EF7202 !important;
+}
+
+.swal2-cancel{
+    padding: 6px 50px !important;
+    border-radius: 25px !important;
+    border: 2px solid #EF7202 !important;
+    background: transparent !important;
+    color: #EF7202 !important;
+}
+
+.btn-primary{
+    background: #EF7202;
+    border: 2px solid #EF7202;
+    
+}
+
+.btn-outline{
+    background: transparent;;
+    border: 2px solid #EF7202;
+    color: #EF7202;
+}
+
+.btn-primary:focus,
+.btn-primary:hover,
+.btn-primary:disabled:hover{
+    background: #E06902 !important;
+    border: 2px solid #E06902 !important;
+    
+}
+
+.btn-outline:hover{
+    background: #EF7202;
+    border: 2px solid #EF7202;
+    color: white;
 }
 
 .btn-x{
@@ -160,17 +236,20 @@ body{
     color: #DD4B39 !important;
     padding: 0; */
     /* font-size: 22px; */
+    color: white;
     padding: 6px 11px;
     background: #DD4B39;
 }
 
 .btn-x:hover{
     background: #AC2925;
+    color: white;
     /* color: #AC2925 !important; */
 }
 
 th{
     background: #F1F1F3;
+    text-align: center;
     border: 1px solid #DDDDDD !important;
     border-right: 0 !important;
     border-left: 0 !important;
@@ -186,6 +265,7 @@ tr > th:last-child{
 
 td{
     vertical-align: middle !important;
+    text-align: center;
     border: 1px solid #DDDDDD !important;
     border-right: 0 !important;
     border-left: 0 !important;
@@ -203,4 +283,109 @@ tr > td:last-child{
 .sidebar-menu li.active>a,
 .treeview-menu li.active a{
     color: #143A8C !important;
+}
+.panel-heading{
+    font-weight: 600;
+}
+
+.panel-footer{
+    background: transparent !important;
+}
+
+.panel-main{
+    padding: 15px !important;
+    padding-bottom: 0px !important;
+}
+
+ul.pagination > li a{
+    border-radius: 5px !important;
+    margin-left: 8px;
+}
+
+ul.pagination > li a:hover{
+    color: #EF7202;
+}
+
+ul.pagination > li.active a{
+    background: #EF7202 !important;
+    border: 1px solid #EF7202 !important;
+}
+
+@media(min-width: 1368px){
+    .dataTables_wrapper table{
+        width: 100% !important;
+    }
+}
+
+@media(max-width: 1368px){
+    .dataTables_wrapper table{
+        width: 1368px !important;
+    }
+}
+
+.swal2-popup{
+    border-radius: 25px !important;
+}
+
+.swal2-header{
+    border-bottom: 1px solid #D9D9D9;
+    margin-bottom: 10px;
+}
+
+.swal2-title{
+    color: #143A8C !important;
+}
+
+.swal2-checkbox, .swal2-radio {
+    align-items: initial !important;
+    text-align: left !important;
+}
+
+.maxfilef{
+    /* display: flex;  */
+    padding-right: 8px
+}
+
+.maxfile{
+    margin-left: 5px; 
+    /* margin-bottom: 5px;  */
+}
+
+#inputfiletext{    
+    display: inline-block;
+    max-height: 26px; 
+    overflow: hidden; 
+    padding: 3px 0 3px 5px; 
+    border: 1px solid #A9A9A9;
+    min-width: 40% !important;
+    max-width: 40% !important;
+}
+
+#btn-file-2{
+    position: absolute; 
+    right: 60.5%; 
+    top: 3px; 
+    color: red; 
+    display: none 
+}
+
+@media(max-width:768px){
+    .maxfilef{
+        display: block; 
+    }
+    
+    .maxfile{
+        display: block; 
+        width: 100% !important;
+        margin-left: 0px; 
+    }
+    
+    #inputfiletext{    
+        min-width: 50% !important;
+        max-width: 50% !important;
+    }
+
+    #btn-file-2{ 
+        right: 52%; 
+    }
 }
