@@ -498,104 +498,34 @@
                     </div>
                     <br>
 
-                @if($claim ?? '')
-                    @if(in_array($claim->status, $array = array("PA", "PV", "A")))
-                    <p><b>ACTION LOG</b></p>
-                    <table id="TLog" class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th width="10%">Date</th>
-                                <th width="25%">Action</th>
-                                <th>Message</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($claim->log as $singleuser)
-                            <tr>
-                                <td>{{$singleuser->created_at}}</td>
-                                <td>{{$singleuser->name->name}}</td>
-                                <td>{{$singleuser->message}}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>  
-                    @endif
-                @endif
-
-
-                
-
+               
         </div>   
-
-        <p><b>ACTION LOG</b></p>
-            <table id="TLog" class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th width="10%">Date</th>
-                        <th width="25%">Action</th>
-                        <th>Message</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if($claim ?? '')
-                        @if($claim->log!="")
-                            @if(count($claim->log)==0)
-                                <tr class="text-center"><td colspan="3"><i>Not Available</i></td></tr>
-                            @else
-                                @foreach($claim->log as $singleuser)
-                                <tr>
-                                    <td>{{$singleuser->created_at}}</td>
-                                    <td>{{$singleuser->name->name}}</td>
-                                    <td>{{$singleuser->message}}</td>
-                                </tr>
-                                @endforeach
-                            @endif
-                        @else
-                            <tr class="text-center"><td colspan="3"><i>Not Available</i></td></tr>
-                        @endif
-                    @elseif($draft ?? '')
-                        <tr>
-                            <td>{{$draft[2]}}</td>
-                            <td>{{$draft[5]}}</td>
-                            <td>Created draft {{$draft[0]}}</td>
-                        </tr>
-                    @else   
-                        <tr class="text-center"><td colspan="3"><i>Not Available</i></td></tr>
-                    @endif
-                </tbody>
-            </table>
-
-
-        <div class="panel-footer">
-                    <div class="text-right">
-                    <a href="{{route('ot.list')}}"><button type="button" class="btn btn-p btn-primary btn-outline" style="display: inline">BACK</button></a>
-                        <!-- <button type="button" id="btn-save" class="btn btn-primary" style="display: inline"><i class="fas fa-save"></i> SAVE</button> -->
-                        <button type="submit" class="btn btn-p btn-primary">SUBMIT</button>
-                    </div>
-                @endif
-            </form>
-            <form id="delete" class="hidden" action="{{route('ot.formdelete')}}" method="POST">
-                @csrf
-                <input type="text" id="delid" name="delid" value="">
-            </form>
-        </div>
-            @empty($claim ?? '')
+            @if((($c ?? '')||($d ?? '')||($q ?? '')))
             <div class="panel-footer">
-                @if(!($d ?? ''))
-                    <div class="text-right">
+                        <div class="text-right">
                         <a href="{{route('ot.list')}}"><button type="button" class="btn btn-p btn-primary btn-outline" style="display: inline">BACK</button></a>
-                    </div>
-                @endif
+                            <!-- <button type="button" id="btn-save" class="btn btn-primary" style="display: inline"><i class="fas fa-save"></i> SAVE</button> -->
+                            <button type="submit" class="btn btn-p btn-primary">SUBMIT</button>
+                        </div>
+                    @endif
+                </form>
+                <form id="delete" class="hidden" action="{{route('ot.formdelete')}}" method="POST">
+                    @csrf
+                    <input type="text" id="delid" name="delid" value="">
+                </form>
             </div>
-            @else
-                @if(!(($c ?? '')||($d ?? '')||($q ?? '')))
-                <div class="panel-footer">
+            @endif
+        @empty($claim ?? '')
+            @if(!($d ?? ''))
+            </div> 
+            <div class="panel-footer">
                     <div class="text-right">
                         <a href="{{route('ot.list')}}"><button type="button" class="btn btn-p btn-primary btn-outline" style="display: inline">BACK</button></a>
                     </div>
-                </div>
-                @endif
-            @endempty
+            </div>
+            @endif
+       
+        @endempty
     </div>
 </div>
 @stop
