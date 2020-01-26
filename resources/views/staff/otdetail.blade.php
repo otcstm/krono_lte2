@@ -96,7 +96,7 @@
             </table>
         </div>
         <div id="submitbtn" class="text-center" style="display: none">
-            <form id="submitform" action="{{route('ot.submit')}}" method="POST" onsubmit="return submission()" style="display:inline">
+            <form action="{{route('ot.submit')}}" method="POST" onsubmit="return confirm('I understand and agree this to claim. If deemed false I can be taken to disciplinary action.')" style="display:inline">
                 @csrf
                 <input type="text" class="hidden" id="submitid" name="submitid" value="" required>
                 <input type="text" class="hidden" id="multi" name="multi" value="yes" required>
@@ -161,8 +161,6 @@ $(document).ready(function() {
         } );
     } ).draw();
 });
-
-var whensubmit = false;
 
 $('#delOT').on('show.bs.modal', function(e) {
     var id = $(e.relatedTarget).data('id');
@@ -232,35 +230,6 @@ function submitval(i){
 for(i=0; i<{{count($otlist)}}; i++) {
     $("#checkbox-"+i).change(submitval(i));
 };
-
-function submission(){
-    if(whensubmit){
-        Swal.fire({
-            title: 'Terms and Conditions',
-            input: 'checkbox',
-            inputValue: 0,
-            inputPlaceholder:
-                "<p>By clicking on <span style='color: #143A8C'>\"Yes\"</span> button below, you are agreeing to the above related terms and conditions</p>",
-                html: "<p>I hereby certify that my claim is compliance with company's term and condition on <span style='font-weight: bold'>PERJANJIAN BERSAMA, HUMAN RESOURCE MANUAL, and BUSINESS PROCESS MANUAL</span> If deemed falsed, disciplinary can be imposed on me.</p>",
-                confirmButtonText:
-                'YES',
-                cancelButtonText: 'NO',
-            showCancelButton: true,
-            confirmButtonColor: '#EF7202',
-            cancelButtonColor: 'transparent',
-            inputValidator: (result) => {
-                return !result && 'You need to agree with T&C'
-            }
-        }).then((result) => {
-            if (result.value) {
-                whensubmit = false;
-                $("#submitform").submit();
-            }
-        })
-        
-        return false;
-    }
-}
 
 </script>
 @stop
