@@ -12,12 +12,12 @@
                 <button type="submit" class="btn btn-primary">CREATE NEW CLAIM</button>
             </form>
         </div>
-        @if(session()->has('feedback'))
+        {{--@if(session()->has('feedback'))
         <div class="alert alert-{{session()->get('feedback_type')}} alert-dismissible" id="alert">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             {{session()->get('feedback_text')}}
         </div>
-        @endif
+        @endif--}}
         <div class="table-responsive">
             <table id="tOTList" class="table table-bordered">
                 <thead>
@@ -76,16 +76,16 @@
                                 @if(in_array($singleuser->status, $array = array("D1", "D2", "Q2", "Q1")))
                                     <form action="{{route('ot.update')}}" method="POST" style="display:inline">
                                         @csrf
-                                        <input type="text" class="hidden" id="inputid" name="inputid" value="{{$singleuser->id}}" required>
+                                        <input type="text" class="hidden"  name="inputid" value="{{$singleuser->id}}" required>
                                         <button type="submit" class="btn btn-np"><i class="fas fa-edit"></i></button>
                                     </form>
-                                    <button type="button" class="btn btn-np" data-toggle="modal" data-target="#delOT" data-id="{{$singleuser->id}}" data-date="{{$singleuser->date}}">
+                                    <button type="button" class="btn btn-np" data-toggle="modal" data-target="#delOT" id="del-{{$no}}" data-id="{{$singleuser->id}}" data-date="{{$singleuser->date}}">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 @else
                                 <form action="{{route('ot.detail')}}" method="POST" style="display:inline">
                                     @csrf
-                                    <input type="text" class="hidden" id="inputid" name="inputid" value="{{$singleuser->id}}" required>
+                                    <input type="text" class="hidden" name="inputid" value="{{$singleuser->id}}" required>
                                     <button type="submit" class="btn btn-np"><i class="fas fa-info-circle"></i></button>
                                 </form>
                                 @endif
@@ -105,7 +105,7 @@
         </div>
     </div>
 </div>
-
+<!-- 
 <div id="delOT" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -127,36 +127,13 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
-<div id="delOTx" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-body" id="details">
-                <div class="panel-group">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" href="#collapse1">Collapsible panel</a>
-                            </h4>
-                        </div>
-                        <div id="collapse1" class="panel-collapse collapse">
-                            <div class="panel-body">Panel Body</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center" style="width: 100%;">
-                    <form action="{{route('ot.update')}}" method="POST" style="display:inline">
-                        @csrf
-                        <input type="text" class="hidden" id="inputid" name="inputid" value="{{--$singleuser->id--}}" required>
-                        <button type="submit" class="btn btn-primary">EDIT</button>
-                    </form>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">CLOSE</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<form action="{{ route('ot.remove') }}" method="POST" class="hidden" id="form">
+    @csrf
+    <input type="text" class="hidden" id="delid" name="delid" value="" required>
+    <button type="submit" class="btn btn-primary">DELETE</button>
+</form>
 @stop
 
 @section('js')
@@ -169,6 +146,8 @@
         'error'
     )
 @endif
+
+// alert("{{count($otlist)}}");
 
 $(document).ready(function() {
     var t = $('#tOTList').DataTable({
@@ -190,6 +169,41 @@ $('#delOT').on('show.bs.modal', function(e) {
     $("#deldate").text(date);
 })
 
+function deletec(i){
+    return function(){
+        var id = $("#del-"+i).data('id');
+        var date = $("#del-"+i).data('date');
+        var d = Date.parse(date).toString("dd.MM.yyyy");  
+        $("#delid").val(id);
+        Swal.fire({
+            title: 'Claim Deletion',
+            html: "Are you sure you want to delete claim application for date <b>"+d+"</b>?",
+            showCancelButton: true,
+            confirmButtonText:
+                                'YES',
+                                cancelButtonText: 'NO',
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Delete'
+            }).then((result) => {
+            if (result.value) {
+                $("#form").submit();
+            }
+        })
+    }
+}
+
+for(i=0; i<{{count($otlist)}}+1; i++){
+    $("#del-"+i).on('click', deletec(i));
+}
+
+@if(session()->has('feedback'))
+    Swal.fire({
+        title: "{{session()->get('feedback_title')}}",
+        text: "{{session()->get('feedback_text')}}",
+        confirmButtonText: 'DONE'
+    })
+@endif
 
 var show = 0;
 

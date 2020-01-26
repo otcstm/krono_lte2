@@ -78,8 +78,8 @@ class OvertimeController extends Controller{
         Session::put(['draft' => [], 'claim' => [], 'detail' => []]);
         return redirect(route('ot.list',[],false))->with([
             'feedback' => true,
-            'feedback_text' => "Successfully deleted overtime claim ".$claim->refno,
-            'feedback_type' => "warning"
+            'feedback_text' => "Your claim application ".$claim->refno." has successfully been deleted.",
+            'feedback_title' => "Successfully Deleted"
         ]);
     }
 
@@ -127,7 +127,7 @@ class OvertimeController extends Controller{
             return redirect(route('ot.list',[],false))->with([
                 'feedback' => true,
                 'feedback_text' => "Your overtime claim has successfully been submitted.",
-                'feedback_type' => "success"
+                'feedback_title' => "Successfully Submitted"
             ]);
         }else{
             return redirect(route('ot.list',[],false))->with(['error' => true]);
@@ -436,8 +436,8 @@ class OvertimeController extends Controller{
         if($req->formtype=="add"){ //if add only
             return redirect(route('ot.form',[],false))->with([
                 'feedback' => true,
-                'feedback_text' => "Successfully added a new overtime",
-                'feedback_type' => "success"
+                'feedback_text' => "New overtime has successfully been added.",
+                'feedback_title' => "Successfully Added Time"
             ]);
         }
         if($req->formtype=="save"){ //if save only
@@ -487,7 +487,7 @@ class OvertimeController extends Controller{
             return redirect(route('ot.list',[],false))->with([
                 'feedback' => true,
                 'feedback_text' => "Your overtime claim has successfully been submitted.",
-                'feedback_type' => "success"
+                'feedback_title' => "Successfully Submitted"
             ]);
             // }
         }

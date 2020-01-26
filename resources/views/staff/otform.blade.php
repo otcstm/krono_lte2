@@ -22,12 +22,12 @@
     <div class="panel panel-default">
         <div class="panel-heading panel-primary">Overtime Application</div>
         <div class="panel-body">
-            @if(session()->has('feedback'))
+            {{--@if(session()->has('feedback'))
             <div class="alert alert-{{session()->get('feedback_type')}} alert-dismissible" id="alert">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 {{session()->get('feedback_text')}}
             </div>
-            @endif
+            @endif--}}
             <div class="row">
                 <div class="col-md-6">
                     <form id="formdate" action="{{route('ot.formdate')}}" method="POST">
@@ -465,7 +465,9 @@
                                             </div>
                                 
                                     </div>
-                                    </div><div class="row" style="margin-bottom: 5px;">
+                                
+                                @endif
+                                </div><div class="row" style="margin-bottom: 5px;">
                                     <div class="col-md-3">
                                         <label>Document:</label>
                                     </div>
@@ -492,7 +494,6 @@
                                         @endif
                                     </div>
                                 </div>
-                                @endif
                             </div>
                         </div>
                     </div>
@@ -1238,6 +1239,14 @@
         //     $("#costcenter").css("display", "none");
         // }
     });    
+
+    @if(session()->has('feedback'))
+    Swal.fire({
+        title: "{{session()->get('feedback_title')}}",
+        text: "{{session()->get('feedback_text')}}",
+        confirmButtonText: 'DONE'
+    })
+@endif
 </script>
 @stop
            
