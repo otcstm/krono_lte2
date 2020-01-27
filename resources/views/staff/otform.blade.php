@@ -50,7 +50,16 @@
                             N/A
                         @endif
                     </p>
-                    <p>State Calendar: {{Auth::user()->stateid->state_descr}}</p>
+                    <p>State Calendar: 
+                        @if($claim ?? '') 
+                            {{$claim->state->state_descr}}
+                        @elseif($draft ?? '') 
+                            {{$draft[7]}} 
+                        @else 
+                            {{Auth::user()->stateid->state_descr}}
+                        @endif
+                    </p>
+                            
                     @if(($c ?? '')||($d ?? ''))
                         @php($expiry = true)
                         @if(($claim ?? ''))
@@ -472,7 +481,7 @@
                                         <label>Document:</label>
                                     </div>
                                     <div class="col-md-9" class="maxfilef">
-                                        <input type="file" name="inputfile" id="inputfile" accept="image/*, .pdf, .jpeg, .jpg, .bmp, .png" style="position:absolute; right:-100vw;">
+                                        <input type="file" name="inputfile" id="inputfile" accept="image/*, .pdf, .jpeg, .jpg, .bmp, .png, .tiff" style="position:absolute; right:-100vw;">
                                         <span id="inputfiletext">File: .bmp, .pdf, .png, .tiff</span>
                                         <a href="#" id="btn-file-2"><i class="fas fa-times-circle"></i></a>
                                         <button type="button" class="btn-up" id="btn-file-1" style="min-width: 80px">BROWSE</button>
@@ -506,7 +515,7 @@
                         <div class="text-right">
                         <a href="{{route('ot.list')}}"><button type="button" class="btn btn-p btn-primary btn-outline" style="display: inline">BACK</button></a>
                             <!-- <button type="button" id="btn-save" class="btn btn-primary" style="display: inline"><i class="fas fa-save"></i> SAVE</button> -->
-                            <button type="submit" class="btn btn-p btn-primary">SUBMIT</button>
+                            <button type="submit" id="sub" class="btn btn-p btn-primary">SUBMIT</button>
                         </div>
                     @endif
                 </form>
@@ -521,7 +530,7 @@
             </div> 
             <div class="panel-footer">
                     <div class="text-right">
-                        <a href="{{route('ot.list')}}"><button type="button" class="btn btn-p btn-primary btn-outline" style="display: inline">BACK</button></a>
+                        <a href="{{route('ot.list')}}"><button type="button" class="btn btn-p btn-primary" style="display: inline">BACK</button></a>
                     </div>
             </div>
             @endif
@@ -1092,10 +1101,11 @@
                         if(check){
                             if(i==0){
                                 $("#formtype").val("add");
+                                $("#form").submit();
                             }else{
                                 $("#formtype").val("save");
+                                $("#form").submit();
                             }
-                            $("#form").submit();
                         }
                     }
                 }
@@ -1150,16 +1160,28 @@
     //         })
     //     }
     // });  
-    
+    $("#sub").on("click", function(){
+        $("#inputstart-0").prop('required',false);
+        $("#inputend-0").prop('required',false);
+        $("#inputremark-0").prop('required',false);
+    })
+
     function submission(){
+        submit = true;
+        for(j=0; j<3;j++){
+            if($('.check-'+i+'-'+j).get(0).checkValidity()==false){
+                submit = false;
+            }
+        }
+        if(submit){
+            return false;
+        }
         if(($("#formtype").val()=="submit")){
         // if(($("#formadd").val()=="no")&&($("#formsave").val()=="no")){
-            $("#inputstart-0").prop('required',false);
-            $("#inputend-0").prop('required',false);
-            $("#inputremark-0").prop('required',false);
+            
             if(@if($claim ?? ''){{count($claim->detail)}}@else 0 @endif!=0){
                 if(whensubmit){
-                    if(add){
+                    // if(add){
                         Swal.fire({
                             title: 'Terms and Conditions',
                             input: 'checkbox',
@@ -1179,7 +1201,14 @@
                         }).then((result) => {
                             if (result.value) {
                                 whensubmit = false;
+                                $("#inputstart-0").val(null);
+                                $("#inputend-0").val(null);
+                                $("#inputremark-0").val(null);
                                 $("#form").submit();
+                            }else{
+                                $("#inputstart-0").prop('required',true);
+                                $("#inputend-0").prop('required',true);
+                                $("#inputremark-0").prop('required',true);
                             }
                         })
                         // Swal.fire({
@@ -1199,19 +1228,19 @@
                         // })
     
                         return false;
-                    }else{
-                        // alert("Please save new time input before saving the form!");
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Unable to submit form',
-                            text: 'Please save new time input before submitting the form!'
-                        })
-                        // $("#inputstart-0").prop('required',true);
-                        // $("#inputend-0").prop('required',true);
-                        // $("#inputremark-0").prop('required',true);
-                        whensubmit = false;
-                        return false;
-                    }
+                    // }else{
+                    //     // alert("Please save new time input before saving the form!");
+                    //     Swal.fire({
+                    //         icon: 'error',
+                    //         title: 'Unable to submit form',
+                    //         text: 'Please save new time input before submitting the form!'
+                    //     })
+                    //     // $("#inputstart-0").prop('required',true);
+                    //     // $("#inputend-0").prop('required',true);
+                    //     // $("#inputremark-0").prop('required',true);
+                    //     whensubmit = false;
+                    //     return false;
+                    // }
                 }
             }else{
                 Swal.fire({
@@ -1219,9 +1248,9 @@
                     title: 'Unable to submit form',
                     text: 'Please add some claim time before submitting the form!'
                 })
-                // $("#inputstart-0").prop('required',true);
-                // $("#inputend-0").prop('required',true);
-                // $("#inputremark-0").prop('required',true);
+                $("#inputstart-0").prop('required',true);
+                $("#inputend-0").prop('required',true);
+                $("#inputremark-0").prop('required',true);
                 return false;
             }
         }
@@ -1243,7 +1272,7 @@
     @if(session()->has('feedback'))
     Swal.fire({
         title: "{{session()->get('feedback_title')}}",
-        text: "{{session()->get('feedback_text')}}",
+        html: "{{session()->get('feedback_text')}}",
         confirmButtonText: 'DONE'
     })
 @endif

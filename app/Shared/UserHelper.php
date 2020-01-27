@@ -352,6 +352,7 @@ class UserHelper {
       return $pay;
     }
 
+    // temp=====================================================
     public static function CheckDay($user, $date)
     {
       $day = date('N', strtotime($date));
@@ -369,6 +370,7 @@ class UserHelper {
       }
       return [$start, $end, $day_type];
     }
+     // temp=====================================================
 
   public static function GetMySubords($persno, $recursive = false){
     $retval = [];

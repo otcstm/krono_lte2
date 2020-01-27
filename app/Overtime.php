@@ -44,7 +44,12 @@ class Overtime extends Model
 
     public function daytype()
     {
-        return $this->has(DayType::class, 'daytype_id');
+        return $this->belongsTo(DayType::class, 'daytype_id');
+    }
+
+    public function state()
+    {
+        return $this->belongsTo(State::class, 'state_id');
     }
 
     public function log()

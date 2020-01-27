@@ -3,233 +3,146 @@
 @section('title', 'Overtime List')
 
 @section('content')
-<h1>List of Overtime Claim</h1>
-<div class="panel panel-default">
-    <div class="panel-body">
-        <div class="text-right" style="margin-bottom: 15px">
-            <form action="{{route('ot.formnew')}}" method="POST" style="display:inline">
-                @csrf
-                <button type="submit" class="btn btn-primary">CREATE NEW CLAIM</button>
-            </form>
+<h1>Details of Overtime Claim</h1>
+<div class="panel panel-default ">
+    <div class="panel-body panel-main">
+        <p style="margin: 15px 0 35px"><b>Reference No: <span style="color: #143A8C">{{$claim->refno}}</span></b></p>
+        <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a data-toggle="collapse" href="#collapse1"><span>Overtime Information</span><i id="fas-1" class="fas fa-sort-down"></i></a>
+                </div>
+            <div id="collapse1" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-4">State</div><div class="col-md-6">: <b>{{$claim->state->state_descr}}</b></div>
+                                <div class="col-md-4">Salary Exception</div><div class="col-md-6">: <b>
+                                    @if($claim->URecord->ot_salary_exception=="X")
+                                        Yes
+                                    @else
+                                        No
+                                    @endif
+                                </b></div>
+                                <div class="col-md-4">OT Date</div><div class="col-md-6">: <b>{{date('d.m.Y', strtotime($claim->date))}}</b></div>
+                                <div class="col-md-4">Total Hours/Minute</div><div class="col-md-6">: <b>{{$claim->total_hour}}h/{{$claim->total_minute}}m</b></div>
+                                </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-4">Charge Type</div><div class="col-md-6">: <b>{{$claim->charge_type}}</b></div>
+                                <div class="col-md-4">Verifier</div><div class="col-md-6">: <b>{{$claim->verifier->name}}</b></div>
+                                <div class="col-md-4">Approver</div><div class="col-md-6">: <b>{{$claim->approver->name}}</b></div>
+                                <div class="col-md-4">Estimated Amount</div><div class="col-md-6">: <b>RM{{$claim->amount}}</b></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        {{--@if(session()->has('feedback'))
-        <div class="alert alert-{{session()->get('feedback_type')}} alert-dismissible" id="alert">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            {{session()->get('feedback_text')}}
+        <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a data-toggle="collapse" href="#collapse2"><span>Overtime Time List</span><i id="fas-2" class="fas fa-sort-down"></i></a>
+                </div>
+            <div id="collapse2" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-blue">
+                            <thead>    
+                                <tr>
+                                    <th>No</th>
+                                    <th>Start OT</th>
+                                    <th>End OT</th>
+                                    <th>Hours/Minutes</th>
+                                    <th>OT Type</th>
+                                    <th>Location</th>
+                                    <th>OT Remark</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($claim->detail as $no => $details)
+                                <tr>
+                                    <td>{{++$no}}</td>
+                                    <td>{{ date('Hi', strtotime($details->start_time)) }}</td>
+                                    <td>{{ date('Hi', strtotime($details->end_time)) }}</td>
+                                    <td>{{ $details->hour }}h/{{$details->minute}}</td>
+                                    <td>
+                                        @if($details->clock_in!="")
+                                            System Input
+                                        @else 
+                                            Manual Input
+                                        @endif
+                                    </td>
+                                    <td>{{ $details->in_latitude }} {{ $details->out_longitude }}</td>
+                                    <td>{{$details->justification}}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-        @endif--}}
-        <div class="table-responsive">
-            <table id="tOTList" class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th>Reference No</th>
-                        <th>OT Date</th>
-                        <th>Start OT</th>
-                        <th>End OT</th>
-                        <th>Total Hours/Minutes</th>
-                        <th>Day Type</th>
-                        <th>Charge Code</th>
-                        <th>Location</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($otlist as $no=>$singleuser)
-                        <tr>
-                            <td>@if(($singleuser->status=="D2")||($singleuser->status=="Q2"))<input type="checkbox" id="checkbox-{{$no}}" value="{{$singleuser->id}}"> @endif</td>
-                            <td></td>
-                            <td>{{ $singleuser->refno }}</td>
-                            <td>{{ date("d.m.Y", strtotime($singleuser->date)) }}</td>
-                            <td>@foreach($singleuser->detail as $details){{date('Hi', strtotime($details->start_time)) }}<br>@endforeach</td>
-                            <td>@foreach($singleuser->detail as $details){{ date('Hi', strtotime($details->end_time))}}<br>@endforeach</td>
-                            <td>{{ $singleuser->total_hour }}h/{{ $singleuser->total_minute }}m</td>
-                            <td></td> 
-                            <td>{{ $singleuser->charge_type }}</td> 
-                            <td>@foreach($singleuser->detail as $details){{$details->in_latitude}} {{$details->in_longitude}}<br>@endforeach</td> 
-                            <td 
-                                @foreach($singleuser->log as $logs) 
-                                    @if(strpos($logs->message,"Queried")!==false) 
-                                        @php($query = $logs->message) 
-                                    @endif 
-                                @endforeach 
-                                @if(($singleuser->status=="Q2")||($singleuser->status=="Q1"))
-                                    title = "{{str_replace('"', '', str_replace('Queried with message: "', '', $query))}}"
-                                @endif> 
-                                @if(($singleuser->status=="D2")||($singleuser->status=="D1"))
-                                    Draft <p style="color: red">Due: {{$singleuser->date_expiry}}</p> 
-                                @elseif(($singleuser->status=="Q2")||($singleuser->status=="Q1"))
-                                    @php($query = "") <p>Query</p>
-                                @elseif($singleuser->status=="PA")
-                                    <p>Pending Approval</p>
-                                @elseif($singleuser->status=="PV")
-                                    <p>Pending Verification</p>
-                                @elseif($singleuser->status=="A")
-                                    <p>Approved</p>
-                                @else 
-                                    {{ $singleuser->status}}
-                                @endif
-                            </td>
-                            <td>
-                                @if(in_array($singleuser->status, $array = array("D1", "D2", "Q2", "Q1")))
-                                    <form action="{{route('ot.update')}}" method="POST" style="display:inline">
-                                        @csrf
-                                        <input type="text" class="hidden"  name="inputid" value="{{$singleuser->id}}" required>
-                                        <button type="submit" class="btn btn-np"><i class="fas fa-edit"></i></button>
-                                    </form>
-                                    <button type="button" class="btn btn-np" data-toggle="modal" data-target="#delOT" id="del-{{$no}}" data-id="{{$singleuser->id}}" data-date="{{$singleuser->date}}">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                @else
-                                <form action="{{route('ot.detail')}}" method="POST" style="display:inline">
-                                    @csrf
-                                    <input type="text" class="hidden" name="inputid" value="{{$singleuser->id}}" required>
-                                    <button type="submit" class="btn btn-np"><i class="fas fa-info-circle"></i></button>
-                                </form>
-                                @endif
-                            </td>
-                        </tr>
+        @if(count($claim->file)!=0)
+        <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a data-toggle="collapse" href="#collapse3"><span>Overtime Attachment</span><i id="fas-3" class="fas fa-sort-down"></i></a>
+                </div>
+            <div id="collapse3" class="panel-collapse collapse">
+                <div class="panel-body"> 
+                    @foreach($claim->file as $f=>$singlefile)
+                        @php(++$f)
+                        <a href="{{route('ot.file', ['tid'=>$singlefile->id], false)}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9; margin-bottom: 10px;"></a>
                     @endforeach
-                </tbody>
-            </table>
+                </div>
+            </div>
         </div>
-        <div id="submitbtn" class="text-center" style="display: none">
-            <form action="{{route('ot.submit')}}" method="POST" onsubmit="return confirm('I understand and agree this to claim. If deemed false I can be taken to disciplinary action.')" style="display:inline">
-                @csrf
-                <input type="text" class="hidden" id="submitid" name="submitid" value="" required>
-                <input type="text" class="hidden" id="multi" name="multi" value="yes" required>
-                <button type="submit" class="btn btn-primary">SUBMIT</button>
-            </form>
+        @endif
+        <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a data-toggle="collapse" href="#collapse4"><span>Action Log</span><i id="fas-4" class="fas fa-sort-down"></i></a>
+                </div>
+            <div id="collapse4" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-blue">
+                            <thead>
+                                <tr>
+                                    <th width="10%">Date</th>
+                                    <th width="10%">Time</th>
+                                    <th width="25%">Action By</th>
+                                    <th>Message</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($claim->log as $singleuser)
+                                <tr>
+                                    <td>{{date("m.d.Y", strtotime($singleuser->created_at))}}</td>
+                                    <td>{{date("Hi", strtotime($singleuser->created_at))}}</td>
+                                    <td>{{$singleuser->name->name}}</td>
+                                    <td>{{$singleuser->message}}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+
+    <div class="panel-footer">
+        <div class="text-right">
+            @if(session()->get('back')=="ot")
+            <a href="{{route('ot.list')}}"><button type="button" class="btn btn-p btn-primary" style="display: inline">BACK</button></a>
+            @else
+            <a href="{{route('ot.query')}}"><button type="button" class="btn btn-p btn-primary" style="display: inline">BACK</button></a>
+            @endif
         </div>
     </div>
 </div>
-<!-- 
-<div id="delOT" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Delete Claim Time</h4>
-            </div>
-            <div class="modal-body text-center">
-                <div class="glyphicon glyphicon-warning-sign" style="color: #F0AD4E; font-size: 32px;"></div>
-                <p>Are you sure you want to delete claim for date <span id="deldate"></span>?<p>
-                <form action="{{ route('ot.remove') }}" method="POST">
-                    @csrf
-                    <input type="text" class="hidden" id="delid" name="delid" value="" required>
-                    <button type="submit" class="btn btn-primary">DELETE</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-<form action="{{ route('ot.remove') }}" method="POST" class="hidden" id="form">
-    @csrf
-    <input type="text" class="hidden" id="delid" name="delid" value="" required>
-    <button type="submit" class="btn btn-primary">DELETE</button>
-</form>
 @stop
 
 @section('js')
-<script type="text/javascript">
 
-@if(session()->has('error'))
-    Swal.fire(
-        'Failed to submit!',
-        'Your submitted claim time has exceeded eligible claim time',
-        'error'
-    )
-@endif
-
-// alert("{{count($otlist)}}");
-
-$(document).ready(function() {
-    var t = $('#tOTList').DataTable({
-        "responsive": "true",
-        "order" : [[0, "desc"]],
-    });
-
-    t.on( 'order.dt search.dt', function () {
-        t.column(1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-            cell.innerHTML = i+1;
-        } );
-    } ).draw();
-});
-
-$('#delOT').on('show.bs.modal', function(e) {
-    var id = $(e.relatedTarget).data('id');
-    var date = $(e.relatedTarget).data('date');
-    $("#delid").val(id);
-    $("#deldate").text(date);
-})
-
-function deletec(i){
-    return function(){
-        var id = $("#del-"+i).data('id');
-        var date = $("#del-"+i).data('date');
-        var d = Date.parse(date).toString("dd.MM.yyyy");  
-        $("#delid").val(id);
-        Swal.fire({
-            title: 'Claim Deletion',
-            html: "Are you sure you want to delete claim application for date <b>"+d+"</b>?",
-            showCancelButton: true,
-            confirmButtonText:
-                                'YES',
-                                cancelButtonText: 'NO',
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Delete'
-            }).then((result) => {
-            if (result.value) {
-                $("#form").submit();
-            }
-        })
-    }
-}
-
-for(i=0; i<{{count($otlist)}}+1; i++){
-    $("#del-"+i).on('click', deletec(i));
-}
-
-@if(session()->has('feedback'))
-    Swal.fire({
-        title: "{{session()->get('feedback_title')}}",
-        text: "{{session()->get('feedback_text')}}",
-        confirmButtonText: 'DONE'
-    })
-@endif
-
-var show = 0;
-
-function submitval(i){
-    return function(){
-        if ($('#checkbox-'+i).is(':checked')) {
-            $("#submitid").val(function() {
-                return this.value + $('#checkbox-'+i).val()+" ";
-            });
-            show++;
-        }else{
-            var str = ($('#submitid').val()).replace($('#checkbox-'+i).val()+" ",'');
-            $('#submitid').val(str);
-            show--;
-        }
-        if(show>0){
-            $('#submitbtn').css("display","block");
-        }else{
-            $('#submitbtn').css("display","none");
-        }
-    };
-};
-
-for(i=0; i<{{count($otlist)}}; i++) {
-    $("#checkbox-"+i).change(submitval(i));
-};
-
-</script>
 @stop

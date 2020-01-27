@@ -133,6 +133,7 @@ Route::group(['middleware' => ['auth']], function () {
   //OT activity - Approver
   Route::get('/overtime/approval', 'OvertimeController@approval')->name('ot.approval');
   Route::post('/overtime/approval', 'OvertimeController@approval')->name('ot.approval');
+  Route::get('/overtime/query', 'OvertimeController@query')->name('ot.query');
   Route::post('/overtime/query', 'OvertimeController@query')->name('ot.query');
 
 Route::get('/staff/profile', 'Admin\StaffController@showStaffProfile')->name('staff.profile');

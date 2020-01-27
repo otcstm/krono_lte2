@@ -46,8 +46,14 @@
                             <td>@foreach($singleuser->detail as $details){{date('Hi', strtotime($details->start_time)) }}<br>@endforeach</td>
                             <td>@foreach($singleuser->detail as $details){{ date('Hi', strtotime($details->end_time))}}<br>@endforeach</td>
                             <td>{{ $singleuser->total_hour }}h/{{ $singleuser->total_minute }}m</td>
-                            <td></td> 
-                            <td>{{ $singleuser->charge_type }}</td> 
+                            <td>{{$singleuser->daytype->description}}</td> 
+                            <td>
+                                @if($singleuser->charge_type!=null)
+                                    {{ $singleuser->charge_type }}
+                                @else
+                                    N/A
+                                @endif
+                            </td> 
                             <td>@foreach($singleuser->detail as $details){{$details->in_latitude}} {{$details->in_longitude}}<br>@endforeach</td> 
                             <td 
                                 @foreach($singleuser->log as $logs) 
@@ -86,6 +92,7 @@
                                 <form action="{{route('ot.detail')}}" method="POST" style="display:inline">
                                     @csrf
                                     <input type="text" class="hidden" name="inputid" value="{{$singleuser->id}}" required>
+                                    <input type="text" class="hidden" name="type" value="ot" required>
                                     <button type="submit" class="btn btn-np"><i class="fas fa-info-circle"></i></button>
                                 </form>
                                 @endif
@@ -95,7 +102,10 @@
                 </tbody>
             </table>
         </div>
-        <div id="submitbtn" class="text-center" style="display: none">
+        
+    </div>
+    <div id="submitbtn" class="panel-footer" style="display: none">
+        <div class="text-right">
             <form id="submitform" action="{{route('ot.submit')}}" method="POST" onsubmit="return submission()" style="display:inline">
                 @csrf
                 <input type="text" class="hidden" id="submitid" name="submitid" value="" required>
@@ -138,14 +148,6 @@
 
 @section('js')
 <script type="text/javascript">
-
-@if(session()->has('error'))
-    Swal.fire(
-        'Failed to submit!',
-        'Your submitted claim time has exceeded eligible claim time',
-        'error'
-    )
-@endif
 
 // alert("{{count($otlist)}}");
 
@@ -202,7 +204,7 @@ for(i=0; i<{{count($otlist)}}+1; i++){
 @if(session()->has('feedback'))
     Swal.fire({
         title: "{{session()->get('feedback_title')}}",
-        text: "{{session()->get('feedback_text')}}",
+        html: "{{session()->get('feedback_text')}}",
         confirmButtonText: 'DONE'
     })
 @endif

@@ -190,6 +190,7 @@ body{
     color: #707070;
 }
 
+
 .swal2-confirm{
     padding: 6px 50px !important;
     border-radius: 25px !important;
@@ -241,10 +242,11 @@ body{
     background: #DD4B39;
 }
 
-.btn-x:hover{
+
+.btn-x:hover,
+.btn-x:focus{
     background: #AC2925;
-    color: white;
-    /* color: #AC2925 !important; */
+    color: white !important;
 }
 
 th{
@@ -288,6 +290,22 @@ tr > td:last-child{
     font-weight: 600;
 }
 
+.panel-heading a{
+    color: #707070;
+    display: flex;
+    justify-content: space-between;
+}
+
+.panel-heading i{
+    margin-top: -8px;
+    font-size: 24px;
+}
+
+.panel-body .panel-default{
+    border-radius: 0;
+    margin-top: -20px
+}
+
 .panel-footer{
     background: transparent !important;
 }
@@ -321,6 +339,11 @@ ul.pagination > li.active a{
     .dataTables_wrapper table{
         width: 1368px !important;
     }
+}
+
+.table-blue th{
+    background: #143A8C !important;
+    color: white;
 }
 
 .swal2-popup{
