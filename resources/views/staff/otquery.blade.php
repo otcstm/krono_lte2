@@ -181,6 +181,6 @@
         html: "{{session()->get('feedback_text')}}",
         confirmButtonText: 'DONE'
     })
-    endif
+    @endif
 </script>
 @stop
