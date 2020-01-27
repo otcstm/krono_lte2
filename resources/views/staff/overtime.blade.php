@@ -91,7 +91,7 @@
                                 @else
                                 <form action="{{route('ot.detail')}}" method="POST" style="display:inline">
                                     @csrf
-                                    <input type="text" class="hidden" name="inputid" value="{{$singleuser->id}}" required>
+                                    <input type="text" class="hidden" name="detailid" value="{{$singleuser->id}}" required>
                                     <input type="text" class="hidden" name="type" value="ot" required>
                                     <button type="submit" class="btn btn-np"><i class="fas fa-info-circle"></i></button>
                                 </form>

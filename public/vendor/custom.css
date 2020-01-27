@@ -297,9 +297,17 @@ tr > td:last-child{
 }
 
 .panel-heading i{
-    margin-top: -8px;
     font-size: 24px;
 }
+
+.panel-heading .fa-sort-down{
+    margin-top: -10px;
+}
+
+.panel-heading .fa-sort-up{
+    margin-bottom: -5px;
+}
+
 
 .panel-body .panel-default{
     border-radius: 0;

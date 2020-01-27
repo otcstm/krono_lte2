@@ -9,7 +9,7 @@
         <p style="margin: 15px 0 35px"><b>Reference No: <span style="color: #143A8C">{{$claim->refno}}</span></b></p>
         <div class="panel panel-default">
                 <div class="panel-heading">
-                    <a data-toggle="collapse" href="#collapse1"><span>Overtime Information</span><i id="fas-1" class="fas fa-sort-down"></i></a>
+                    <a id="btn-1" data-toggle="collapse" href="#collapse1"><span>Overtime Information</span><i id="fas-1" class="fas fa-sort-up"></i></a>
                 </div>
             <div id="collapse1" class="panel-collapse collapse in">
                 <div class="panel-body">
@@ -42,7 +42,7 @@
         </div>
         <div class="panel panel-default">
                 <div class="panel-heading">
-                    <a data-toggle="collapse" href="#collapse2"><span>Overtime Time List</span><i id="fas-2" class="fas fa-sort-down"></i></a>
+                    <a id="btn-2" data-toggle="collapse" href="#collapse2"><span>Overtime Time List</span><i id="fas-2" class="fas fa-sort-down"></i></a>
                 </div>
             <div id="collapse2" class="panel-collapse collapse">
                 <div class="panel-body">
@@ -86,7 +86,7 @@
         @if(count($claim->file)!=0)
         <div class="panel panel-default">
                 <div class="panel-heading">
-                    <a data-toggle="collapse" href="#collapse3"><span>Overtime Attachment</span><i id="fas-3" class="fas fa-sort-down"></i></a>
+                    <a id="btn-3" data-toggle="collapse" href="#collapse3"><span>Overtime Attachment</span><i id="fas-3" class="fas fa-sort-down"></i></a>
                 </div>
             <div id="collapse3" class="panel-collapse collapse">
                 <div class="panel-body"> 
@@ -100,7 +100,7 @@
         @endif
         <div class="panel panel-default">
                 <div class="panel-heading">
-                    <a data-toggle="collapse" href="#collapse4"><span>Action Log</span><i id="fas-4" class="fas fa-sort-down"></i></a>
+                    <a id="btn-4" data-toggle="collapse" href="#collapse4"><span>Action Log</span><i id="fas-4" class="fas fa-sort-down"></i></a>
                 </div>
             <div id="collapse4" class="panel-collapse collapse">
                 <div class="panel-body">
@@ -145,4 +145,21 @@
 
 @section('js')
 
+<script type="text/javascript">
+    function chang(i){
+        return function(){
+            if($("#fas-"+i).hasClass("fa-sort-down")){
+                $("#fas-"+i).removeClass("fa-sort-down");
+                $("#fas-"+i).addClass("fa-sort-up");
+            }else{
+                $("#fas-"+i).removeClass("fa-sort-up");
+                $("#fas-"+i).addClass("fa-sort-down");
+            }
+        }
+    }
+
+    for(i=1; i<5; i++){
+        $("#btn-"+i).on("click", chang(i));
+    }
+</script>
 @stop

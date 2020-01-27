@@ -52,7 +52,8 @@ class OvertimeController extends Controller{
     }
 
     public function detail(Request $req){
-        $claim = Overtime::where('id', $req->inputid)->first();
+        $claim = Overtime::where('id', $req->detailid)->first();
+        // dd($req->detailid);
         Session::put(['draft' => [], 'claim' => $claim]);
         if($req->type=="ot"){
             Session::put(['back' => 'ot']);        
@@ -611,7 +612,12 @@ class OvertimeController extends Controller{
                 $updateclaim->save();
             }
         }
-        return redirect(route('ot.approval',[],false));
+        // return redirect(route('ot.approval',[],false));
+        return redirect(route('ot.approval',[],false))->with([
+            'feedback' => true,
+            'feedback_text' => "Your overtime claim has successfully been submitted.",
+            'feedback_title' => "Successfully Submitted"
+        ]);
     }
 
     
