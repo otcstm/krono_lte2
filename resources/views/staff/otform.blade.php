@@ -59,7 +59,15 @@
                             {{Auth::user()->stateid->state_descr}}
                         @endif
                     </p>
-                            
+                         
+                    <p>Day Type:
+                        @if($claim ?? '')  
+                            {{$claim->daytype->description}}
+                        @elseif(($draft ?? ''))
+                            {{$draft[8]}}
+                        @else 
+                            N/A
+                        @endif</p>   
                     @if(($c ?? '')||($d ?? ''))
                         @php($expiry = true)
                         @if(($claim ?? ''))
@@ -360,7 +368,7 @@
                         <br>* Make sure your PDF document is <u>not password protected</u> and <u>not corrupted</u> </p>
                     </small></div> -->
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <div class="form-group">
                                 
                                 <div class="row" style="margin-bottom: 5px;">
@@ -1161,24 +1169,17 @@
     //     }
     // });  
     $("#sub").on("click", function(){
-        $("#inputstart-0").prop('required',false);
-        $("#inputend-0").prop('required',false);
-        $("#inputremark-0").prop('required',false);
+        if(($("#formtype").val()=="add")){
+            return false;
+        }else{
+            $("#inputstart-0").prop('required',false);
+            $("#inputend-0").prop('required',false);
+            $("#inputremark-0").prop('required',false);
+        }
     })
 
     function submission(){
-        submit = true;
-        for(j=0; j<3;j++){
-            if($('.check-'+i+'-'+j).get(0).checkValidity()==false){
-                submit = false;
-            }
-        }
-        if(submit){
-            return false;
-        }
-        if(($("#formtype").val()=="submit")){
-        // if(($("#formadd").val()=="no")&&($("#formsave").val()=="no")){
-            
+        if(($("#formtype").val()=="submit")){          
             if(@if($claim ?? ''){{count($claim->detail)}}@else 0 @endif!=0){
                 if(whensubmit){
                     // if(add){

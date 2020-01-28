@@ -19,7 +19,7 @@
         </div>
         @endif--}}
         <div class="table-responsive">
-            <table id="tOTList" class="table table-bordered">
+            <table id="tOTList" class="table table-bordered tbot">
                 <thead>
                     <tr>
                         <th></th>
@@ -78,7 +78,13 @@
                                     {{ $singleuser->status}}
                                 @endif
                             </td>
-                            <td>
+                            <td class="td-btn">
+                                <form action="{{route('ot.detail')}}" method="POST" style="display:inline">
+                                    @csrf
+                                    <input type="text" class="hidden" name="detailid" value="{{$singleuser->id}}" required>
+                                    <input type="text" class="hidden" name="type" value="ot" required>
+                                    <button type="submit" class="btn btn-np"><i class="fas fa-info-circle"></i></button>
+                                </form>
                                 @if(in_array($singleuser->status, $array = array("D1", "D2", "Q2", "Q1")))
                                     <form action="{{route('ot.update')}}" method="POST" style="display:inline">
                                         @csrf
@@ -88,13 +94,13 @@
                                     <button type="button" class="btn btn-np" data-toggle="modal" data-target="#delOT" id="del-{{$no}}" data-id="{{$singleuser->id}}" data-date="{{$singleuser->date}}">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
-                                @else
+                                {{--@else
                                 <form action="{{route('ot.detail')}}" method="POST" style="display:inline">
                                     @csrf
                                     <input type="text" class="hidden" name="detailid" value="{{$singleuser->id}}" required>
                                     <input type="text" class="hidden" name="type" value="ot" required>
                                     <button type="submit" class="btn btn-np"><i class="fas fa-info-circle"></i></button>
-                                </form>
+                                </form>--}}
                                 @endif
                             </td>
                         </tr>
@@ -106,11 +112,11 @@
     </div>
     <div id="submitbtn" class="panel-footer" style="display: none">
         <div class="text-right">
-            <form id="submitform" action="{{route('ot.submit')}}" method="POST" onsubmit="return submission()" style="display:inline">
+            <form id="submitform" action="{{route('ot.submit')}}" method="POST"  style="display:inline">
                 @csrf
                 <input type="text" class="hidden" id="submitid" name="submitid" value="" required>
                 <input type="text" class="hidden" id="multi" name="multi" value="yes" required>
-                <button type="submit" class="btn btn-primary">SUBMIT</button>
+                <button type="button" onclick="return submission()" class="btn btn-primary">SUBMIT</button>
             </form>
         </div>
     </div>
@@ -236,7 +242,10 @@ for(i=0; i<{{count($otlist)}}; i++) {
 };
 
 function submission(){
-    if(whensubmit){
+    // alert("x");
+    
+    // whensubmit = true;
+    // if(whensubmit){
         Swal.fire({
             title: 'Terms and Conditions',
             input: 'checkbox',
@@ -255,13 +264,13 @@ function submission(){
             }
         }).then((result) => {
             if (result.value) {
-                whensubmit = false;
+                // whensubmit = false;
                 $("#submitform").submit();
             }
         })
         
         return false;
-    }
+    // }
 }
 
 </script>
