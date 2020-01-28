@@ -6,17 +6,12 @@
 <h1>Pending Verification Claim</h1>
 <div class="panel panel-main panel-default">
     <div class="panel-body">
-        @if(session()->has('feedback'))
-        <div class="alert alert-{{session()->get('feedback_type')}} alert-dismissible" id="alert">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            {{session()->get('feedback_text')}}
-        </div>
-        @endif
+        
         @if(count($otlist)!=0)
         <form action="{{route('ot.query')}}" method="POST" style="display:inline"> 
             @csrf    
             <div class="table-responsive">
-                <table class="table table-bordered">
+                <table id="tOTList" class="table table-bordered">
                     <thead style="background: grey">
                         <tr>
                             <th>No</th>
@@ -30,6 +25,7 @@
                             <th>Amount (Estimated)</th>
                             <th>Status</th>
                             <th>Action</th>
+                            <th>Action Remark</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -72,13 +68,16 @@
                                     <option value="Q2">Query</option>
                                 </select>
                             </td>
+                            <td>
+                                <textarea rows = "1" cols="40" type="text"  id="inputremark-{{$no}}" name="inputremark[]" value="" placeholder="" style="resize: none; display: inline" disabled></textarea>
+                            </td>
                         </tr>
-                        <tr style="text-align:center; display: none" id="remark-{{$no}}">
+                        {{--<!-- <tr style="text-align:center; display: none" id="remark-{{$no}}">
                             <td colspan="11">
                                 <span style="position: relative; top: -30px;"><b>Query Remark: </b></span>
                                 <textarea rows = "2" cols = "100" type="text"  id="inputremark-{{$no}}" name="inputremark[]" value="" placeholder="Write justification" style="resize: none; display: inline"></textarea>
                             </td>
-                        </tr>
+                        </tr> -->--}}
                         @endforeach
                     </tbody>
                 </table>
@@ -92,16 +91,16 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                            <th>No</th>
-                            <th>Reference No</th>
-                            <th>Name</th>
-                            <th>Date</th>
-                            <th>Start OT</th>
-                            <th>End OT</th>
-                            <th>Total Hours/Minutes</th>
-                            <th>Charge Code</th>
-                            <th>Amount (Estimated)</th>
-                            <th>Status</th>
+                        <th>No</th>
+                        <th>Reference No</th>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Start OT</th>
+                        <th>End OT</th>
+                        <th>Total Hours/Minutes</th>
+                        <th>Charge Code</th>
+                        <th>Amount (Estimated)</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -162,17 +161,117 @@
     function remark(i){
         return function(){
             if($("#action-"+i).val()=="Q2"){
-                $("#inputremark-"+i).prop('required',true);
-                $('#remark-'+i).css("display", "table-row");
+                // $('#remark-'+i).css("display", "table-row");
+                Swal.fire({
+                    title: 'Remarks',
+                    input: 'textarea',
+                    inputPlaceholder: 'This is mandatory field. Please key in remarks here!',
+                    inputAttributes: {
+                        'aria-label': 'This is mandatory field. Please key in remarks here!'
+                    },
+                    html: "<p>Are you sure to query this claim application?</p>",
+                    confirmButtonText:
+                        'YES',
+                        cancelButtonText: 'NO',
+                    showCancelButton: true,
+                    inputValidator: (result) => {
+                        return !result && 'You need to agree with T&C'
+                    }
+                }).then((result) => {
+                        if (result.value) {
+                            
+                            $("#inputremark-"+i).prop('disabled',false);
+                            $("#inputremark-"+i).prop('required',true);
+                            $("#inputremark-"+i).val(result.value);
+                            
+                        }else{
+                            
+                            
+                            $("#action-"+i).val("");
+                            $("#inputremark-"+i).prop('disabled',true);
+                            $("#inputremark-"+i).val("");
+                            $("#inputremark-"+i).prop('required',false);
+                        }
+                })
             }else{
-                $("#inputremark-"+i).prop('required',false);
-                $('#remark-'+i).css("display", "none");
+                // $('#remark-'+i).css("display", "none");
+                Swal.fire({
+                    title: 'Terms and Conditions',
+                    input: 'checkbox',
+                    inputValue: 0,
+                    inputPlaceholder:
+                        "<p>By clicking on <span style='color: #143A8C'>\"Yes\"</span> button below, you are agreeing to the above related terms and conditions</p>",
+                        html: "<p>I hereby certify that my claim is compliance with company's term and condition on <span style='font-weight: bold'>PERJANJIAN BERSAMA, HUMAN RESOURCE MANUAL, and BUSINESS PROCESS MANUAL</span> If deemed falsed, disciplinary can be imposed on me.</p>",
+                        confirmButtonText:
+                        'YES',
+                        cancelButtonText: 'NO',
+                    showCancelButton: true,
+                    confirmButtonColor: '#EF7202',
+                    cancelButtonColor: 'transparent',
+                    inputValidator: (result) => {
+                        return !result && 'You need to agree with T&C'
+                    }
+                }).then((result) => {
+                    if (result.value) {
+                        // whensubmit = false;
+                        @if($singleuser->status=="PV")$("#action-"+i).val("PA");
+                        @elseif($singleuser->status=="PA")$("#action-"+i).val("A");
+                        @endif
+                        $("#inputremark-"+i).prop('disabled',true);
+                            $("#inputremark-"+i).val("");
+                            $("#inputremark-"+i).prop('required',false);
+                    }else{
+                        
+                        $("#action-"+i).val("");
+                        $("#inputremark-"+i).prop('disabled',true);
+                            $("#inputremark-"+i).prop('required',false);
+                    }
+                })
             }
         };
     };
 
+    function remark2(i){
+        return function(){
+            // alert("");
+            if($("#action-"+i).val()=="Q2"){
+                var str = $("#inputremark-"+i).val();
+                Swal.fire({
+                    title: 'Remarks',
+                    input: 'textarea',
+                    inputValue: str,
+                    inputAttributes: {
+                        'aria-label': 'This is mandatory field. Please key in remarks here!'
+                    },
+                    html: "<p>Are you sure to query this claim application?</p>",
+                    confirmButtonText:
+                        'YES',
+                        cancelButtonText: 'NO',
+                    showCancelButton: true
+                    }).then((result) => {
+                        if (result.value) {
+                            
+                            $("#inputremark-"+i).prop('disabled',false);
+                            $("#inputremark-"+i).prop('required',true);
+                            $("#inputremark-"+i).val(result.value);
+                            
+                        }else{
+                            
+                            
+                        $("#action-"+i).val("");
+                            $("#inputremark-"+i).prop('disabled',true);
+                            $("#inputremark-"+i).val("");
+                            $("#inputremark-"+i).prop('required',false);
+                            
+                        }
+                })
+            }
+        }
+    }
+
     for (i=1; i<{{count($otlist)+1}}; i++) {
         $("#action-"+i).change(remark(i));
+        $("#inputremark-"+i).on("click",(remark2(i)));
     }
 
     @if(session()->has('feedback'))
