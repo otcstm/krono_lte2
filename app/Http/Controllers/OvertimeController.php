@@ -17,6 +17,7 @@ use App\OvertimeEligibility;
 use App\OvertimeFormula;
 use App\OvertimeExpiry;
 use App\Psubarea;
+use App\DayType;
 use Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -256,6 +257,7 @@ class OvertimeController extends Controller{
             }else{
                 $reg = Psubarea::where('state_id', $req->user()->state_id)->first();
                 $expiry = OvertimeExpiry::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $claimdate)->where('end_date','>', $claimdate)->first();
+                $dt = DayType::where('id', $day_type)->first();
                 $date_expiry = null;
                 // if(($expiry->based_date = "Request Date")&&($expiry->status = "ACTIVE")){
                 //     $date_expiry = date('Y-m-d', strtotime("+90 days"));
@@ -268,8 +270,8 @@ class OvertimeController extends Controller{
                     }
                 }
                 $state = UserRecord::where('upd_sap','<=',$claimdate)->first();
-                $draft = array("OT".date("Ymd", strtotime($claimdate))."-".sprintf("%08d", $req->user()->id), $date_expiry, date("Y-m-d H:i:s"), $claimtime, $req->inputdate, $req->user()->name, $state->state_id, $state->statet->state_descr);
-                //[0] - refno, [1] - expiry, [2] - datetime created, [3] - month, [4] - date, [5] - user name, [6] - stateid, [7] - statedescr
+                $draft = array("OT".date("Ymd", strtotime($claimdate))."-".sprintf("%08d", $req->user()->id), $date_expiry, date("Y-m-d H:i:s"), $claimtime, $req->inputdate, $req->user()->name, $state->state_id, $state->statet->state_descr, $dt->description);
+                //[0] - refno, [1] - expiry, [2] - datetime created, [3] - month, [4] - date, [5] - user name, [6] - stateid, [7] - statedescr, [8] - day type
                 Session::put(['draft' => $draft]);
                 // dd($req->session());
             }
@@ -283,7 +285,7 @@ class OvertimeController extends Controller{
  // =============================================================================================================
     public function formsubmit(Request $req){
         $status = true; 
-       
+    //    dd($req->formtype);
         $reg = Psubarea::where('state_id', $req->user()->state_id)->first();
         if($req->inputid==""){
             $wage = OvertimeFormula::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', ($req->session()->get('draft'))[4])->where('end_date','>', ($req->session()->get('draft'))[4])->first();   //temp
@@ -341,6 +343,7 @@ class OvertimeController extends Controller{
             $newdetail->checked = "Y";
             $newdetail->amount = $pay;
             $newdetail->justification = $req->inputremarknew;
+            // $newdetail->justification = $req->formtype;
             $newdetail->is_manual = "X";
             $updatemonth = OvertimeMonth::find($claim->month_id);
             $totaltime = (($updatemonth->hour*60)+$updatemonth->minute)+(($hour*60)+$minute);
@@ -415,7 +418,8 @@ class OvertimeController extends Controller{
                 }
             }
         }
-        if($req->chargetype==""){
+        $claimdetail = OvertimeDetail::where('ot_id', $claim->id)->get();
+        if(($req->chargetype=="")||(count($claimdetail)==0)){
             $status = false;
         }
 
@@ -613,11 +617,15 @@ class OvertimeController extends Controller{
             }
         }
         // return redirect(route('ot.approval',[],false));
-        return redirect(route('ot.approval',[],false))->with([
-            'feedback' => true,
-            'feedback_text' => "Your overtime claim has successfully been submitted.",
-            'feedback_title' => "Successfully Submitted"
-        ]);
+        if(count($otlist)>0){
+            return redirect(route('ot.approval',[],false))->with([
+                'feedback' => true,
+                'feedback_text' => "Your overtime claim has successfully been submitted.",
+                'feedback_title' => "Successfully Submitted"
+            ]);
+        }else{
+            return redirect(route('ot.approval',[],false))->with([]);
+        }
     }
 
     
