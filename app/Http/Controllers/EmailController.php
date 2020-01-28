@@ -27,8 +27,11 @@ class EmailController extends Controller
 
       //  return 'Email was sent';
 
-      Mail::to($receiver)->subject($subject)->send(new SendMailable($content));
-
+    //  Mail::to($receiver)->subject($subject)->send(new SendMailable($content));
+ $data = array('content'=> $content);
+      Mail::send('mail', $data, function($message) {
+         $message->to($receiver)->subject($subject);
+      });
 
      //return view('dummy.email.dummy', []);
 
