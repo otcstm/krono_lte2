@@ -12,7 +12,7 @@ class EmailController extends Controller
 {
     public function dummyEmail()
     {
-
+ 
      return view('email.dummy', []);
 
     }
