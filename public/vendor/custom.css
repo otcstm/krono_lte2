@@ -274,12 +274,16 @@ td{
     border-top: 0 !important;
 }
 
-tr > td:first-child{
-    border-left: 1px solid #DDDDDD !important;
+
+tr > td.td-btn{
+    border-right: 1px solid #DDDDDD !important;
+    text-align: left !important; 
+    min-width: 80px;
 }
 
-tr > td:last-child{
-    border-right: 1px solid #DDDDDD !important;
+tr > td:first-child{
+    border-left: 1px solid #DDDDDD !important;
+    text-align: center !important; 
 }
 
 .sidebar-menu li.active>a,
