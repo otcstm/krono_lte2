@@ -339,13 +339,13 @@ ul.pagination > li.active a{
 
 @media(min-width: 1368px){
     .dataTables_wrapper table{
-        width: 100% !important;
+        max-width: 100% !important;
     }
 }
 
 @media(max-width: 1368px){
     .dataTables_wrapper table{
-        width: 1368px !important;
+        max-width: 1368px !important;
     }
 }
 
