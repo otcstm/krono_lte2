@@ -36,6 +36,9 @@
 <body class="hold-transition @yield('body_class')">
 
 @yield('body')
+<!-- <div class="punch-layer"> -->
+    <button class="btn btn-punch-layer" onclick="return punch()"><i class="fas fa-clock"></i> START OT</button>
+<!-- </div> -->
 <footer class="foot">
     <div class="container" style="padding: 0 2.5vw; width: 100%">
         <div class="foot-text">Copyright © 2020 Telekom Malaysia Berhad. All rights reserved.</div>
@@ -51,5 +54,60 @@
 
 @yield('adminlte_js')
 
+
+<script type="text/javascript">
+function punch(){
+    var now = new Date(); 
+    Swal.fire({
+            title: 'Start Overtime',
+            html: "Are you sure you want to <b style='color:#143A8C'>start</b> your overtime at <b style='color:#143A8C'>"+Date.parse(now).toString("HHmm")+"</b> on <b style='color:#143A8C'>"+Date.parse(now).toString("dd.MM.yyyy")+"</b>?",
+            showCancelButton: true,
+            confirmButtonText:
+                                'YES',
+                                cancelButtonText: 'NO',
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6'
+            }).then((result) => {
+            if (result.value) {
+                
+                var second = 0;
+                var hours = 0;
+                var minutes = 0;
+                Swal.fire({
+                    title: 'Start Overtime',
+                    html: "<span id='x'>"+second+"</span>",
+                    showCancelButton: true,
+                    confirmButtonText:
+                                        'END OT',
+                                        cancelButtonText: 'CANCEL',
+                    confirmButtonColor: '#F00000',
+                    cancelButtonColor: '#3085d6',
+                    allowOutsideClick: false
+                    }).then((result) => {
+                    if (result.value) {
+                        // $("#form").submit();
+                    }
+                })
+                
+setInterval(function() {
+        second++;
+        var hours = Math.floor(i / 8640);  
+        var minutes = i % 360;
+        var seconds = i % 60;
+        if minutes
+        $("#x").text(hours+":"+minutes+":"+second);
+        //  $('.Timer').text((new Date - start) / 1000 + " Seconds");
+    }, 1000);
+            }
+        })
+
+   
+}
+
+// setInterval(function() {
+//         $("#x").text((new Date - start) / 1000 + " Seconds");
+//         //  $('.Timer').text((new Date - start) / 1000 + " Seconds");
+//     }, 1000);
+</script>
 </body>
 </html>

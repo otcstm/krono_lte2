@@ -145,6 +145,32 @@ body{
     border: 0;
 }
 
+
+.punch-layer{
+    position: absolute;
+}
+
+.btn-punch-layer{
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    z-index: 10;
+    background: #00D300;
+    color: white;
+    
+}
+
+.btn-punch-layer:focus,
+.btn-punch-layer:hover{
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    z-index: 10;
+    background: #00C400;
+    color: white;
+    
+}
+
 .btn-up{ 
     position: relative;
     top: -8px !important;

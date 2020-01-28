@@ -275,11 +275,11 @@
     }
 
     @if(session()->has('feedback'))
-    Swal.fire({
-        title: "{{session()->get('feedback_title')}}",
-        html: "{{session()->get('feedback_text')}}",
-        confirmButtonText: 'DONE'
-    })
+        Swal.fire({
+            title: "{{session()->get('feedback_title')}}",
+            html: "{{session()->get('feedback_text')}}",
+            confirmButtonText: 'DONE'
+        })
     @endif
 </script>
 @stop

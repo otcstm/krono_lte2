@@ -586,7 +586,8 @@ class OvertimeController extends Controller{
 
     public function query (Request $req){
         $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', 'PV')->orWhere('approver_id', $req->user()->id)->where('status', 'PA')->orderBy('date_expiry')->orderBy('date')->get();
-       for($i=0; $i<count($otlist); $i++){
+        $yes = false;
+        for($i=0; $i<count($otlist); $i++){
             if($req->inputaction[$i]!=""){
                 $reg = Psubarea::where('state_id', $otlist[$i]->name->stateid->id)->first();
                 $expiry = OvertimeExpiry::where('company_id', $otlist[$i]->name->company_id)->where('region', $reg->region)->where('start_date','<=', $otlist[$i]->date)->where('end_date','>', $otlist[$i]->date)->first();               
@@ -614,10 +615,11 @@ class OvertimeController extends Controller{
                     }
                 }
                 $updateclaim->save();
+                $yes = true;
             }
         }
         // return redirect(route('ot.approval',[],false));
-        if(count($otlist)>0){
+        if($yes){
             return redirect(route('ot.approval',[],false))->with([
                 'feedback' => true,
                 'feedback_text' => "Your overtime claim has successfully been submitted.",

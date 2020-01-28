@@ -83,21 +83,24 @@
                 </div>
             </div>
         </div>
-        @if(count($claim->file)!=0)
         <div class="panel panel-default">
                 <div class="panel-heading">
                     <a id="btn-3" data-toggle="collapse" href="#collapse3"><span>Overtime Attachment</span><i id="fas-3" class="fas fa-sort-down"></i></a>
                 </div>
             <div id="collapse3" class="panel-collapse collapse">
                 <div class="panel-body"> 
+                    
+        @if(count($claim->file)!=0)
                     @foreach($claim->file as $f=>$singlefile)
                         @php(++$f)
                         <a href="{{route('ot.file', ['tid'=>$singlefile->id], false)}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9; margin-bottom: 10px;"></a>
                     @endforeach
+        @else <p>No attachment</p>            
+        @endif
+
                 </div>
             </div>
         </div>
-        @endif
         <div class="panel panel-default">
                 <div class="panel-heading">
                     <a id="btn-4" data-toggle="collapse" href="#collapse4"><span>Action Log</span><i id="fas-4" class="fas fa-sort-down"></i></a>
