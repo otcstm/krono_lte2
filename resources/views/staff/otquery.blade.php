@@ -3,49 +3,8 @@
 @section('title', 'Overtime List')
 
 @section('content')
-<style>
-    table.table-bordered{
-        border:1px solid #A9A9A9;
-    }
-    table.table-borderless{
-        border:0;
-    }
-    table.table-bordered > thead > tr > th{
-        border:1px solid #A9A9A9;
-    }
-    table.table-bordered > tbody > tr > td{
-        border:1px solid #A9A9A9;
-    }
-    table.table-borderless > thead > tr > th{
-        border:0;
-    }
-    table.table-borderless > tbody > tr > td{
-        border:0;
-    }
-    .panel{
-        border: 0;
-        border-radius: 0;
-    }
-    .panel-in, .panel-in-x, .panel-group{
-        border: 0;
-        margin-top: 0 !important;
-        margin-bottom: 0 !important;
-        border-radius: 0 !important;
-    }
-    .panel-in{
-        border-bottom:1px solid #A9A9A9;
-    }
-    .panel-main{
-        border: 1px solid #ddd !important;
-        border-radius: 4px;
-    }
-    .panel-head{
-        border-bottom:1px solid #A9A9A9 !important;
-        background-color: #f5f5f5;
-    }
-</style>
+<h1>Pending Verification Claim</h1>
 <div class="panel panel-main panel-default">
-    <div class="panel-heading panel-primary">OT Approval/Verification</div>
     <div class="panel-body">
         @if(session()->has('feedback'))
         <div class="alert alert-{{session()->get('feedback_type')}} alert-dismissible" id="alert">
@@ -57,202 +16,69 @@
         <form action="{{route('ot.query')}}" method="POST" style="display:inline"> 
             @csrf    
             <div class="table-responsive">
-                <table id="tOTList" class="table table-borderless">
-                    <thead style="display: none">
+                <table class="table table-bordered">
+                    <thead style="background: grey">
                         <tr>
-                            <th></th>
+                            <th>No</th>
+                            <th>Reference No</th>
+                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Start OT</th>
+                            <th>End OT</th>
+                            <th>Total Hours/Minutes</th>
+                            <th>Charge Code</th>
+                            <th>Amount (Estimated)</th>
+                            <th>Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>      
+                    <tbody>
                         @foreach($otlist as $no=>$singleuser)
-                            <tr>
-                                <td>
-                                    <div class="table-responsive" style="margin-bottom: -25px;">
-                                        <table class="table table-bordered">
-                                            <input type="text" class="form-control hidden" id="inputid" name="inputid[]" value="{{$singleuser->id}}" required>
-                                            <thead style="background: grey">
-                                                <tr>
-                                                    <th width="2%">No</th>
-                                                    <th width="20%">Reference No</th>
-                                                    <th width="12%">Date time</th>
-                                                    <th width="10%">Duration</th>
-                                                    <th width="10%">Charge</th>
-                                                    <th width="15%">Amount (Estimated)</th>
-                                                    <th width="15%">Status</th>
-                                                    <th width="10%">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>{{++$no}}</td>
-                                                    <td><a data-target="#collapsible-{{$no}}" data-toggle="collapse">{{ $singleuser->refno }}</a><p>{{ $singleuser->name->name }}</p></td>
-                                                    <td>{{ $singleuser->date }} 
-                                                        @foreach($singleuser->detail as $details)
-                                                            <br>{{date('H:i', strtotime($details->start_time)) }} - {{ date('H:i', strtotime($details->end_time))}}
-                                                        @endforeach
-                                                    </td>
-                                                    <td>{{ $singleuser->total_hour }}h {{ $singleuser->total_minute }}m</td>
-                                                    <td>{{$singleuser->charge_type}}</td>
-                                                    <td>RM{{$singleuser->amount}}</td>
-                                                    <td>
-                                                        @if($singleuser->status=="PA")
-                                                            <p>Pending Approval</p>
-                                                        @elseif($singleuser->status=="PV")
-                                                            <p>Pending Verification</p>
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        <select name="inputaction[]" id="action-{{$no}}">
-                                                            <option selected value="">Select Action</option>
-                                                            <!-- <option hidden disabled selected value="">Select Action</option> -->
-                                                            @if($singleuser->status=="PV")<option value="PA">Verify</option>
-                                                            @elseif($singleuser->status=="PA")<option value="A">Approve</option>
-                                                            @endif
-                                                            <option value="Q2">Query</option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="8" style="padding: 0">
-                                                        <div id="collapsible-{{$no}}" class="collapse panel panel-default" style="margin-bottom: 0 !important"> 
-                                                            <div class="panel-group">
-                                                                <div class="panel panel-in">
-                                                                    <a style="color: #000" data-toggle="collapse" data-parent="#accordion-{{$no}}" href="#collapse-{{$no}}-1">
-                                                                        <div class="panel-heading panel-head">
-                                                                            <h4 class="panel-title">OT Information</h4>
-                                                                        </div>
-                                                                    </a>
-                                                                    <div id="collapse-{{$no}}-1" class="panel-collapse collapse">
-                                                                        <div class="panel-body">
-                                                                            <div class="row">
-                                                                                <div class="col-xs-6">
-                                                                                    <p>Date: {{$singleuser->date}}</p>
-                                                                                    <p>Reference No: {{$singleuser->refno}}</p>
-                                                                                    <p>State Calendar: </p>
-                                                                                    <p>Justification: {{$singleuser->justification}}
-                                                                                </div>
-                                                                                <div class="col-xs-6">
-                                                                                    <p>Status:
-                                                                                    @if ($singleuser->status=="PA")
-                                                                                        Pending Approval 
-                                                                                    @elseif ($singleuser->status=="PV")
-                                                                                        Pending Verification  
-                                                                                    @endif
-                                                                                    </p>
-                                                                                    <p>Verifier: {{$singleuser->verifier->name}}</p>
-                                                                                    <p>Approver: {{$singleuser->approver->name}}</p>
-                                                                                    <p>Charging type: {{$singleuser->charge_type}}
-                                                                                </div>
-                                                                            </div>
-                                                                            @if(count($singleuser->file)!=0)
-                                                                            <p>Attachment:</p>
-                                                                            @foreach($singleuser->file as $f=>$singlefile)
-                                                                                @php(++$f)
-                                                                                <a href="{{route('ot.file', ['tid'=>$singlefile->id], false)}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9"></a>
-                                                                            @endforeach
-                                                                            @endif
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="panel panel-in">
-                                                                    <a style="color: #000" data-toggle="collapse" data-parent="#accordion-{{$no}}" href="#collapse-{{$no}}-2">
-                                                                        <div class="panel-heading panel-head">
-                                                                            <h4 class="panel-title">OT Time List</h4>
-                                                                        </div>
-                                                                    </a>
-                                                                    <div id="collapse-{{$no}}-2" class="panel-collapse collapse">
-                                                                        <div class="panel-body">
-                                                                            <table id="time" class="table table-bordered">
-                                                                                <thead>
-                                                                                    <tr class="info">
-                                                                                        <th width="2%">No</th>
-                                                                                        <th width="20%">Clock In/Out</th>
-                                                                                        <th width="20%">Start/End Time</th>
-                                                                                        <th width="8%">Total Time</th>
-                                                                                        <th width="40%">Justification</th>
-                                                                                    </tr>
-                                                                                <thead>
-                                                                                <tbody>
-                                                                                    @php($ni = 0)
-                                                                                    @foreach($singleuser->detail as $details)
-                                                                                        @if($details->checked=="Y")
-                                                                                            @php(++$ni)
-                                                                                            <tr>
-                                                                                                <td>{{$ni}}</td>
-                                                                                                <td>
-                                                                                                @if($details->clock_in!="")
-                                                                                                    {{date('H:i', strtotime($details->clock_in))}} - {{date('H:i', strtotime($details->clock_out))}} 
-                                                                                                @else 
-                                                                                                    Manual 
-                                                                                                @endif
-                                                                                                </td>
-                                                                                                <td>{{ date('H:i', strtotime($details->start_time)) }} - {{ date('H:i', strtotime($details->end_time)) }}</td>
-                                                                                                <td>{{ $details->hour }}h {{ $details->minute }}m</td>
-                                                                                                <td>{{ $details->justification }}</td>
-                                                                                            </tr>
-                                                                                        @endif
-                                                                                    @endforeach
-                                                                                </tbody>
-                                                                            </table>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="panel panel-in">
-                                                                    <a style="color: #000" data-toggle="collapse" data-parent="#accordion-{{$no}}" href="#collapse-{{$no}}-3">
-                                                                        <div class="panel-heading panel-head">
-                                                                            <h4 class="panel-title">OT Charging</h4>
-                                                                        </div>
-                                                                    </a>
-                                                                    <div id="collapse-{{$no}}-3" class="panel-collapse collapse">
-                                                                        <div class="panel-body">
-                                                                            oblo oblo oblo 
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="panel panel-in-x">
-                                                                    <a style="color: #000" data-toggle="collapse" data-parent="#accordion-{{$no}}" href="#collapse-{{$no}}-4">
-                                                                        <div class="panel-heading panel-head">
-                                                                            <h4 class="panel-title">OT Action</h4>
-                                                                        </div>
-                                                                    </a>
-                                                                    <div id="collapse-{{$no}}-4" class="panel-collapse collapse">
-                                                                        <div class="panel-body">
-                                                                            <table class="table table-bordered">
-                                                                                <thead>
-                                                                                    <tr class="info">
-                                                                                        <th width="10%">Date</th>
-                                                                                        <th width="15%">Action</th>
-                                                                                        <th>Message</th>
-                                                                                    </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                    @foreach($singleuser->log as $logs)
-                                                                                        <tr>
-                                                                                            <td>{{$logs->created_at}}</td>
-                                                                                            <td>{{$logs->name->name}}</td>
-                                                                                            <td>{{$logs->message}}</td>
-                                                                                        </tr>
-                                                                                    @endforeach
-                                                                                </tbody>
-                                                                            </table>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr style="text-align:center; display: none" id="remark-{{$no}}">
-                                                    <td colspan="8">
-                                                        <span style="position: relative; top: -30px;"><b>Justification: </b></span>
-                                                        <textarea rows = "2" cols = "100" type="text"  id="inputremark-{{$no}}" name="inputremark[]" value="" placeholder="Write justification" style="resize: none; display: inline"></textarea>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </td>
-                            </tr>
+                        <tr>
+                            <input type="text" class="form-control hidden" id="inputid" name="inputid[]" value="{{$singleuser->id}}" required>
+                            <td>{{++$no}}</td>
+                            <td>
+                                <a id="a-{{$no}}" data-id="{{$singleuser->id}}">{{ $singleuser->refno }}</a>
+                            </td>
+                            <td>{{ $singleuser->name->name }}</td>
+                            <td>{{ date("d.m.Y", strtotime($singleuser->date)) }}</td>
+                            <td>
+                                @foreach($singleuser->detail as $details)
+                                    {{date('Hi', strtotime($details->start_time)) }}<br>
+                                @endforeach
+                            </td>
+                            <td>
+                                @foreach($singleuser->detail as $details)
+                                    {{ date('Hi', strtotime($details->end_time))}}<br>
+                                @endforeach
+                            </td>
+                            <td>{{ $singleuser->total_hour }}h/{{ $singleuser->total_minute }}m</td>
+                            <td>{{$singleuser->charge_type}}</td>
+                            <td>RM{{$singleuser->amount}}</td>
+                            <td>
+                                @if($singleuser->status=="PA")
+                                    <p>Pending Approval</p>
+                                @elseif($singleuser->status=="PV")
+                                    <p>Pending Verification</p>
+                                @endif
+                            </td>
+                            <td>
+                                <select name="inputaction[]" id="action-{{$no}}">
+                                    <option selected value="">Select Action</option>
+                                    <!-- <option hidden disabled selected value="">Select Action</option> -->
+                                    @if($singleuser->status=="PV")<option value="PA">Verify</option>
+                                    @elseif($singleuser->status=="PA")<option value="A">Approve</option>
+                                    @endif
+                                    <option value="Q2">Query</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr style="text-align:center; display: none" id="remark-{{$no}}">
+                            <td colspan="11">
+                                <span style="position: relative; top: -30px;"><b>Query Remark: </b></span>
+                                <textarea rows = "2" cols = "100" type="text"  id="inputremark-{{$no}}" name="inputremark[]" value="" placeholder="Write justification" style="resize: none; display: inline"></textarea>
+                            </td>
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>
@@ -266,24 +92,32 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th width="2%">No</th>
-                        <th width="20%">Reference No</th>
-                        <th width="12%">Date time</th>
-                        <th width="10%">Duration</th>
-                        <th width="10%">Charge</th>
-                        <th width="15%">Amount (Estimated)</th>
-                        <th width="15%">Status</th>
-                        <th width="10%">Action</th>
+                            <th>No</th>
+                            <th>Reference No</th>
+                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Start OT</th>
+                            <th>End OT</th>
+                            <th>Total Hours/Minutes</th>
+                            <th>Charge Code</th>
+                            <th>Amount (Estimated)</th>
+                            <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td colspan="8"><div class="text-center"><i>Not available</i></div></td>
+                        <td colspan="10"><div class="text-center"><i>Not available</i></div></td>
                     </tr>
                 </tbody>
             </table>
         </div>
         @endif
+        
+<form action="{{route('ot.detail')}}" method="POST" class="hidden" id="form">
+    @csrf
+    <input type="text" class="hidden" name="detailid" id="detailid" value="" required>
+    <input type="text" class="hidden" name="type" value="query" required>
+</form>
     </div>
 </div>
 @stop
@@ -312,6 +146,19 @@
         // }).draw();
     });
     
+    function yes(i){
+        return function(){
+            var id = $("#a-"+i).data('id');
+            $("#detailid").val(id);
+            // alert($("#inputid").val());
+            $("#form").submit();
+        }
+    }
+
+    for(i=1; i<{{count($otlist)+1}}; i++){
+        $("#a-"+i).on("click", yes(i));
+    }
+
     function remark(i){
         return function(){
             if($("#action-"+i).val()=="Q2"){
@@ -327,5 +174,13 @@
     for (i=1; i<{{count($otlist)+1}}; i++) {
         $("#action-"+i).change(remark(i));
     }
+
+    @if(session()->has('feedback'))
+    Swal.fire({
+        title: "{{session()->get('feedback_title')}}",
+        html: "{{session()->get('feedback_text')}}",
+        confirmButtonText: 'DONE'
+    })
+    @endif
 </script>
 @stop

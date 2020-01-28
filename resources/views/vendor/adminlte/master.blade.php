@@ -36,15 +36,16 @@
 <body class="hold-transition @yield('body_class')">
 
 @yield('body')
-    <footer class="foot">
-        <div class="container">
-            <div class="foot-text">Copyright © 2020 Telekom Malaysia Berhad. All rights reserved.</div>
-            <img class="foot-img" src="/vendor/ot-assets/footer-logo.png">
-        </div>
-    </footer>
+<footer class="foot">
+    <div class="container" style="padding: 0 2.5vw; width: 100%">
+        <div class="foot-text">Copyright © 2020 Telekom Malaysia Berhad. All rights reserved.</div>
+        <img class="foot-img" src="/vendor/ot-assets/footer-logo.png">
+    </div>
+</footer>
 <script src="{{ secure_asset('vendor/jquery/dist/jquery.min.js') }}"></script>
 <script src="{{ secure_asset('vendor/jquery/dist/jquery.slimscroll.min.js') }}"></script>
 <script src="{{ secure_asset('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script src="{{ secure_asset('vendor/custom.js') }}"></script>
 
 @include('adminlte::plugins', ['type' => 'js'])
 
