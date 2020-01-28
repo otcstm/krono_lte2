@@ -94,8 +94,10 @@ class UserHelper {
   public static function StaffPunchIn($staff_id, $in_time, $in_lat = 0.0, $in_long = 0.0){
     $currentp = UserHelper::GetCurrentPunch($staff_id);
     $msg = 'OK';
-
-    $in_time =  Carbon::create(2020, 1, 13, 6, 12, 0); //testing time
+    $date = new Carbon($in_time->format('Y-m-d'));
+    $day = UserHelper::CheckDay($staff_id, $date);
+    // dd($day[2]);
+    // $in_time =  Carbon::create(2020, 1, 22, 18, 39, 0); //testing time
 
     if($currentp){
       // already punched
@@ -103,6 +105,7 @@ class UserHelper {
     } else {
       $currentp = new StaffPunch;
       $currentp->user_id = $staff_id;
+      $currentp->day_type = $day[2];
       $currentp->punch_in_time = $in_time;
       $currentp->in_latitude = $in_lat;
       $currentp->in_longitude = $in_long;
@@ -117,6 +120,8 @@ class UserHelper {
 
   public static function StaffPunchOut($staff_id, $out_time, $out_lat = 0.0, $out_long = 0.0){
     $currentp = UserHelper::GetCurrentPunch($staff_id);
+    $date = new Carbon($out_time->format('Y-m-d'));
+    $day = UserHelper::CheckDay($staff_id, $date);
     $ori_punch = $currentp;
     $msg = 'OK';
 
@@ -125,7 +130,7 @@ class UserHelper {
       $timein = new Carbon($currentp->punch_in_time);
       $punchinori = new Carbon($timein->format('Y-m-d'));
       $punchin = new Carbon($timein->format('Y-m-d'));
-     $out_time =  Carbon::create(2020, 1, 13, 18, 38, 0); //testing time
+      // $out_time =  Carbon::create(2020, 1, 22, 19, 38, 0); //testing time
 
       $timeout = new Carbon($out_time->format('Y-m-d'));
       // 1. check keluar hari yang sama atau tak
@@ -141,7 +146,7 @@ class UserHelper {
             //new record punch in nextday 00:00:00
             $currentp = new StaffPunch;
             $currentp->user_id = $staff_id;
-
+            $currentp->day_type = $day[2];
             $currentp->punch_in_time = $in;
             $currentp->in_latitude = $ori_punch->in_latitude;
             $currentp->in_longitude =  $ori_punch->in_longitude;
@@ -161,6 +166,7 @@ class UserHelper {
       // punch out ori = punch in (adday)
         $currentp = new StaffPunch;
         $currentp->user_id = $staff_id;
+        $currentp->day_type = $day[2];
         $currentp->punch_in_time = $timein;
         $currentp->in_latitude = $ori_punch->in_latitude;
         $currentp->in_longitude =  $ori_punch->in_longitude;
@@ -179,6 +185,15 @@ class UserHelper {
         $currentp->out_latitude = $out_lat;
         $currentp->out_longitude = $out_long;
         $currentp->status = 'out';
+        // if($req->session()->get('latestpdate')!=null){
+        //   if($req->session()->get('latestpdate')==date('Y-m-d', strtotime($currentp->created_at))){
+        //     $currentp->parent = $req->session()->get('latestpid');
+        //   }else{
+        //     $currentp->parent = $currentp->id;
+        //   }
+        // }else{
+        //   Session::put(['latestpdate' => date('Y-m-d', strtotime($currentp->created_at)), 'latestpid' => $currentp->id]);
+        // }
         $currentp->save();
         $date = new Carbon($out_time->format('Y-m-d'));
         $execute = UserHelper::AddOTPunch($staff_id, $date, $timein, $out_time, $currentp->id, $currentp->in_latitude, $currentp->in_longitude, $out_lat, $out_long);
@@ -199,6 +214,8 @@ class UserHelper {
   //Add punch data to overtime punch
   public static function AddOTPunch($staff_id, $date, $timein, $out_time, $id, $in_lat, $in_long, $out_lat, $out_long)
   {
+    
+    $parentp = StaffPunch::whereDate('punch_in_time', $date)->first();
     $start = $timein->format('Y-m-d H:i:s');
     $end = $out_time->format('Y-m-d H:i:s');
     $day = UserHelper::CheckDay($staff_id, $date);
@@ -216,6 +233,7 @@ class UserHelper {
         $newtime = new OvertimePunch;
         $newtime->user_id = $staff_id;
         $newtime->punch_id = $id;
+        $newtime->parent_punch = $parentp->id;
         $newtime->date = $date;
         $newtime->start_time = date("Y-m-d", strtotime($date))." ".$day[1].":00";
         $newtime->end_time = $end;
@@ -232,6 +250,7 @@ class UserHelper {
         $newtime = new OvertimePunch;
         $newtime->user_id = $staff_id;
         $newtime->punch_id = $id;
+        $newtime->parent_punch = $parentp->id;
         $newtime->date = $date;
         $newtime->start_time = $start;
         $newtime->end_time = date("Y-m-d", strtotime($date))." ".$day[0].":00";
@@ -248,6 +267,7 @@ class UserHelper {
         $newtime = new OvertimePunch;
         $newtime->user_id = $staff_id;
         $newtime->punch_id = $id;
+        $newtime->parent_punch = $parentp->id;
         $newtime->date = $date;
         $newtime->start_time = $start;
         $newtime->end_time = date("Y-m-d", strtotime($date))." ".$day[0].":00";
@@ -262,6 +282,7 @@ class UserHelper {
         $newtime = new OvertimePunch;
         $newtime->user_id = $staff_id;
         $newtime->punch_id = $id;
+        $newtime->parent_punch = $parentp->id;
         $newtime->date = $date;
         $newtime->start_time = date("Y-m-d", strtotime($date))." ".$day[1].":00";
         $newtime->end_time = $end;
@@ -278,6 +299,7 @@ class UserHelper {
       $newtime = new OvertimePunch;
       $newtime->user_id = $staff_id;
       $newtime->punch_id = $id;
+      $newtime->parent_punch = $parentp->id;
       $newtime->date = $date;
       $newtime->start_time = $start;
       $newtime->end_time = $end;
@@ -330,21 +352,25 @@ class UserHelper {
       return $pay;
     }
 
+    // temp=====================================================
     public static function CheckDay($user, $date)
     {
-
-
       $day = date('N', strtotime($date));
       // dd($day);
-      if($day>5){
-        $start = "00:00";
-        $end =  "00:00";
+      $start = "00:00";
+      $end =  "00:00";
+      if($day==5){
+        $day_type = 'Off Day';
+      }elseif($day>6){
+        $day_type = 'Rest Day';
       }else{
-        $start = "08:00";
-        $end = "17:00";
+        $start = "08:30";
+        $end = "17:30";
+        $day_type = 'Normal Day';
       }
-      return [$start, $end];
+      return [$start, $end, $day_type];
     }
+     // temp=====================================================
 
   public static function GetMySubords($persno, $recursive = false){
     $retval = [];

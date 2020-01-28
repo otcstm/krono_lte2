@@ -3,6 +3,23 @@
 @section('title', 'Punch Dashboard')
 
 @section('content')
+<h1>List of Start/End Overtime</h1>
+
+{{--<!-- <div class="panel panel-default">
+  <div class="panel-heading">Punch {{ $punch_status }}</div>
+  <div class="panel-body text-center">
+    @if ($errors->has('punch'))
+    <div class="alert alert-warning alert-dismissible">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>{{ $errors->first('punch') }}</strong>
+    </div>
+    @endif
+    <form action="{{ $p_url }}" method="post">
+      @csrf
+      <button type="submit" class="btn btn-{{ $btncol }}">Punch {{ $punch_status }}</button>
+    </form>
+  </div>
+</div> -->--}}
 <div class="panel panel-default">
   <div class="panel-heading">Punch {{ $punch_status }}</div>
   <div class="panel-body text-center">
@@ -18,41 +35,67 @@
     </form>
   </div>
 </div>
+
 @if($p_gotdata == true)
 <div class="panel panel-default">
-  <div class="panel-heading">Punch History</div>
   <div class="panel-body">
     <div class="table-responsive">
       <table id="tPunchHIstory" class="table table-hover table-bordered">
        <thead>
          <tr>
-           <th>Clock-in</th>
-           <th>Clock-out</th>
-           <th>Status</th>
+           <th>Date</th>
+           <th>Start OT</th>
+           <th>End OT</th>
+           <th>Day Type</th>
+           <th>Hours/Minutes</th>
+           <th>Start Location</th>
+           <th>End Location</th>
            <th>Action</th>
          </tr>
        </thead>
        <tbody>
+         @php($date1 = null)
+         @php($date2 = null)
          @foreach($p_list as $ap)
-         <tr>
-           <td>{{ $ap->punch_in_time }}</td>
-           <td>{{ $ap->punch_out_time }}</td>
-           <td>{{ $ap->status }}</td>
-           <td>
-            @if($ap->punch_out_time!=null)
-              <div style="display: flex">
-              <form id="formdate" action="{{route('ot.formdate')}}" method="POST">
-                @csrf
-                <input type="date" id="inputdate" class="hidden" name="inputdate" value="{{ date('Y-m-d', strtotime($ap->punch_in_time)) }}" required>
-                    
-                  <button type="submit" class="btn btn-sm btn-primary" @if($ap->apply_ot=="X") disabled @endif>Apply Claim</button>
+          @php($date1 = date('Y-m-d', strtotime($ap->punch_in_time)))
+            @if($date1!=$date2)
+            <tr>
+              <td>{{date('d.m.Y', strtotime($ap->punch_in_time))}}</td>
+              <td>
+                @foreach($ap->detail as $aps)
+                  {{date('Hi', strtotime($aps->start_time))}}<br>
+                @endforeach
+              </td>
+              <td>
+                @foreach($ap->detail as $aps)
+                  {{date('Hi', strtotime($aps->end_time))}}<br>
+                @endforeach
+              </td>
+              <td>{{$ap->day_type}}</td>
+              <td>
+                @foreach($ap->detail as $aps)
+                  {{$aps->hour}}h/{{$aps->minute}}m<br>
+                @endforeach
+              </td>
+              <td>{{$ap->in_latitude}} {{$ap->in_longitude}}</td>
+              <td>{{$ap->out_latitude}} {{$ap->out_longitude}}</td>
+              <td>
+                @if($ap->punch_out_time!=null)
+                  <div style="display: flex">
+                  <form id="formdate" action="{{route('ot.formdate')}}" method="POST">
+                    @csrf
+                    <input type="date" id="inputdate" class="hidden" name="inputdate" value="{{ date('Y-m-d', strtotime($ap->punch_in_time)) }}" required>
+                        
+                      <button type="submit" class="btn btn-sm btn-primary" @if($ap->apply_ot=="X") disabled @endif>APPLY OT</button>
 
-              </form>
-              <button type="button" data-id="{{$ap['id']}}" data-start="{{$ap['punch_in_time']}}" data-end="{{$ap['punch_out_time']}}" class="del btn btn-sm btn-danger" style="color: white; margin-left: 3px" @if($ap->apply_ot=="X") disabled @endif><i class="fas fa-times-circle"></i></button>
-              </div>
+                  </form>
+                  <button type="button" data-id="{{$ap['id']}}" data-start="{{$ap['punch_in_time']}}" data-end="{{$ap['punch_out_time']}}" class="del btn btn-sm btn-x" style="margin-left: 3px" @if($ap->apply_ot=="X") disabled @endif><i class="fas fa-times"></i></button>
+                  </div>
+                @endif
+              </td>
+            </tr>
             @endif
-           </td>
-         </tr>
+          @php($date2 = date('Y-m-d', strtotime($ap->punch_in_time)))
          @endforeach
        </tbody>
      </table>
@@ -81,10 +124,12 @@ $(".del").on("click", function(){
   var id = $(this).data('id');
   var start = $(this).data('start');
   var end = $(this).data('end');
+  var s = Date.parse(start).toString("dd.MM.yyyy HH:mm:ss");  
+  var e = Date.parse(end).toString("dd.MM.yyyy HH:mm:ss");  
   $('#inputid').val(id);
   Swal.fire({
       title: 'Are you sure to delete Clock In?',
-      text: "Delete clock in time "+start+" - "+end,
+      text: "Delete clock in time "+s+" - "+e,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
