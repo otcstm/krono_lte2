@@ -153,7 +153,7 @@ body{
 .btn-punch-layer{
     position: fixed;
     right: 15px;
-    bottom: 15px;
+    bottom: 75px;
     z-index: 10;
     background: #00D300;
     color: white;
@@ -162,13 +162,8 @@ body{
 
 .btn-punch-layer:focus,
 .btn-punch-layer:hover{
-    position: fixed;
-    right: 15px;
-    bottom: 15px;
-    z-index: 10;
-    background: #00C400;
+    background: #00C400;    
     color: white;
-    
 }
 
 .btn-up{ 
@@ -222,6 +217,13 @@ body{
     border-radius: 25px !important;
     border: 2px solid #EF7202 !important;
     background: #EF7202 !important;
+}
+
+.test .swal2-confirm{
+    padding: 6px 50px !important;
+    border-radius: 25px !important;
+    border: 2px solid #F00000 !important;
+    background: #F00000 !important;
 }
 
 .swal2-cancel{
@@ -386,6 +388,7 @@ ul.pagination > li.active a{
 
 .swal2-popup{
     border-radius: 25px !important;
+    width: 36em !important;
 }
 
 .swal2-header{

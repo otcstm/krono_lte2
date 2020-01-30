@@ -488,7 +488,7 @@
                                     <div class="col-md-3">
                                         <label>Document:</label>
                                     </div>
-                                    <div class="col-md-9" class="maxfilef">
+                                    <div class="col-md-9 maxfilef">
                                         <input type="file" name="inputfile" id="inputfile" accept="image/*, .pdf, .jpeg, .jpg, .bmp, .png, .tiff" style="position:absolute; right:-100vw;">
                                         <span id="inputfiletext">File: .bmp, .pdf, .png, .tiff</span>
                                         <a href="#" id="btn-file-2"><i class="fas fa-times-circle"></i></a>

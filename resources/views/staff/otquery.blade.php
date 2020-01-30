@@ -214,8 +214,10 @@
                 }).then((result) => {
                     if (result.value) {
                         // whensubmit = false;
-                        @if($singleuser->status=="PV")$("#action-"+i).val("PA");
-                        @elseif($singleuser->status=="PA")$("#action-"+i).val("A");
+                        @if($singleuser ?? '')
+                            @if($singleuser->status=="PV")$("#action-"+i).val("PA");
+                            @elseif($singleuser->status=="PA")$("#action-"+i).val("A");
+                            @endif
                         @endif
                         $("#inputremark-"+i).prop('disabled',true);
                             $("#inputremark-"+i).val("");
@@ -271,7 +273,7 @@
 
     for (i=1; i<{{count($otlist)+1}}; i++) {
         $("#action-"+i).change(remark(i));
-        $("#inputremark-"+i).on("click",(remark2(i)));
+        $("#inputremark-"+i).on("click",remark2(i));
     }
 
     @if(session()->has('feedback'))
