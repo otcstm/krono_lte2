@@ -7,7 +7,7 @@
     <div class="box-body">
     <div class="media">
       <div class="media-left">
-        <img src="vendor/ot-assets/ot-clock-icon.PNG" class="media-object" style="width:50px">
+        <img src="vendor/ot-assets/ot-clock-icon.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
         <h4 class="media-heading">NEW OT</h4>
@@ -162,7 +162,7 @@
   <div class="box-body">
     <div class="media">
       <div class="media-left">
-        <img src="vendor/ot-assets/ot-clock-icon.PNG" class="media-object" style="width:50px">
+        <img src="vendor/ot-assets/ot-clock-icon.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
         <h4 class="media-heading">4 Planned OT</h4>
