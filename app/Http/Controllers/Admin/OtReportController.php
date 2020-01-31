@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use Session;
 use App\Overtime;
+use App\Company;
 use App\OvertimeDetail;
 use App\OvertimeLog;
 // use App\UserRecord;
@@ -11,8 +12,32 @@ use App\Http\Controllers\Controller;
 
 class OtReportController extends Controller
 {
-  public function viewOTd(Request $req)
+  public function viewOT(Request $req)//OT Summary
   {
+    $company = Company::all();
+    $vlist = false;
+    $ar_persno =[];
+
+
+    if($req->filled('searching')){
+      $vlist = true;
+      $otr = $this->fetch($req);
+      // dd($req);
+
+    }else{
+      $otr = [];
+      if($req->filled('fpersno')){
+        $ar_persno= $req->fpersno;
+      }
+    }
+    // dd($otr);
+    // dd($req);
+    return view('report.otr',['vlist'=>$vlist,'ar_persno'=> $ar_persno,'otrep' => $otr,'companies'=>$company ]);
+  }
+
+  public function viewOTd(Request $req)//OT Detail
+  {
+    $company = Company::all();
     $vlist = false;
     $param = [];
 
@@ -34,27 +59,15 @@ class OtReportController extends Controller
       if(isset($req->fverifier_id)){
         array_push($param, ['fverifier_id'=>$req->fverifier_id, ]);
       }
-    // dd();
     }else{
       $otr = [];
+
     }
 
-    return view('report.otrdetails',['vlist'=>$vlist,'otrep' => $otr,'param'=> $param ]);
+    return view('report.otrdetails',['vlist'=>$vlist,'otrep' => $otr, 'param'=> $param, 'companies'=>$company ]);
   }
 
-  public function viewOT(Request $req)
-  {
-    $vlist = false;
 
-    if($req->filled('searching')){
-      $vlist = true;
-      $otr = $this->fetch($req);
-    }else{
-      $otr = [];
-    }
-
-    return view('report.otr',['vlist'=>$vlist,'otrep' => $otr ]);
-  }
 
 
   public function fetch(Request $req)
@@ -62,21 +75,27 @@ class OtReportController extends Controller
     $jenisrep = $req->searching;
     $fdate = $req->fdate;
     $tdate = $req->tdate;
-    $persno = $req->fpersno;
+    // $persno = $req->fpersno;
     $approver_id = $req->fapprover_id;
     $refno = $req->frefno;
         // $status = $req->fstatus;
     $verifier_id = $req->fverifier_id;
     $otr = [];
     $otdetail = [];
+    $persno = explode(",", $req->fpersno);
+    $fcompany = explode(",", $req->fcompany);
 
+    // dd($req);
     // $otreport = OvertimeDetail::query();
     $otr = Overtime::query();
     if(isset($req->fdate)){
       $otr = $otr->whereBetween('date', array($fdate, $tdate));
     }
     if(isset($req->fpersno)){
-      $otr = $otr->where('user_id', 'LIKE', '%' .$persno. '%');
+      $otr = $otr->whereIn('user_id',$persno);
+    }
+    if(isset($req->fcompany)){
+      $otr = $otr->whereIn('company_id',$fcompany);
     }
     if(isset($req->fapprover_id)){
       $otr = $otr->where('approver_id', 'LIKE', '%' .$approver_id. '%');

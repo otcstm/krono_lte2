@@ -5,48 +5,74 @@
 @stop
 @section('title', 'Report')
 @section('content')
-<div class="panel panel-default">
+<style>
+    table.table-borderless{
+        border:0;
+        width:80% !important;
+    }
+</style>
 
+<div class="panel panel-default">
 <div class="panel-heading"><strong>Report : Summary of Overtime</strong></div>
 <div class="panel-body">
   <form action="{{ route('otr.viewOT', [], false) }}" method="post">
   @csrf
-  <div class="col-sm-6">
+
+  <div class="col-lg-6">
   <div class="form-group">
   	<label for="fdate">From</label>
   	<input type="date" class="form-control" id="fdate" name="fdate" required autofocus>
   </div>
   </div>
-  <div class="col-sm-6">
+  <div class="col-lg-6">
   <div class="form-group">
   	<label for="tdate">To</label>
   	<input type="date" class="form-control" id="tdate" name="tdate"  required autofocus>
   </div>
   </div>
-  <div class="col-sm-6">
-  <div class="form-group">
-  	<label for="fpersno">Persno</label>
-  	<input type="text" class="form-control" id="fpersno" name="fpersno">
-  </div>
-  </div>
-  <div class="col-sm-6">
+  <div class="col-lg-6">
   <div class="form-group">
   	<label for="frefno">Refno</label>
   	<input type="text" class="form-control" id="frefno" name="frefno">
   </div>
-  </div>    <div class="col-sm-6">
+  </div>
+  <div class="col-lg-6">
   <div class="form-group">
   	<label for="fapprover_id">Approver ID</label>
   	<input type="text" class="form-control" id="fapprover_id" name="fapprover_id">
   </div>
   </div>
-  <div class="col-sm-6">
+  <div class="col-lg-6">
   <div class="form-group">
   	<label for="fverifier_id">Verifier ID</label>
   	<input type="text" class="form-control" id="fverifier_id" name="fverifier_id">
   </div>
   </div>
-  <div class="col-sm-12">
+  <div class="col-lg-6">
+  <div class="form-group">
+    <label for="fcompany">Company Code</label>
+    <br>
+      <input type="text" class="form-control hidden" id="fcompany" name="fcompany">
+      <span id="fcompanydummy" style="display: inline-block;height: 34px;overflow: hidden;padding: 3px 0 3px 5px;border: 1px solid #A9A9A9; min-width: 80% !important;max-width: 80% !important;"></span>
+      <button style="position:relative; top: -15px !important" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addcompany">Add</button>
+  </div>
+  </div>
+  <div class="col-lg-6">
+  <div class="form-group">
+    <label for="fpersno">Persno</label>
+    <div class="table-responsive">
+    <table class="table-borderless" id="dynamic_persno">
+      <tr>
+        <td><input type="text" class="form-control" style=" background-color: white;" readonly id="fpersno" name="fpersno"></td>
+        <td>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addpersno">Add</button></td>
+      </tr>
+    </table>
+  </div>
+  </div>
+  </div>
+
+  <div class="col-lg-12">
   <div class="form-group text-center">
     <input type="hidden" name="searching" value="main">
     <button type="submit" class="btn btn-primary">Search</button>
@@ -54,6 +80,68 @@
   </div>
   </form>
 </div>
+</div>
+
+{{--modal company--}}
+<div id="addcompany" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Company</h4>
+            </div>
+            <div class="modal-body">
+                <form action="" method="POST">
+                    @csrf
+                    <p><b>Select Companies:</b></p>
+                    <div style="max-height: 210px; overflow-y: scroll">
+                      @if($companies ?? '')
+                          @foreach($companies as $no=>$company)
+                          <div class="checkbox">
+                              <label><input type="checkbox" id="checkbox_{{$no}}" name="company[]" value="{{$company->id}}" data-description="{{$company->company_descr}}">({{$company->id}}) {{$company->company_descr}}</label>
+                          </div>
+
+                          @endforeach
+                      @endif
+                    </div>
+                    <div class="text-center">
+                      <button type="button" id="btndoneCo" data-dismiss="modal" class="btn btn-default">Done</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{--modal persno--}}
+<div id="addpersno" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      <h4 class="modal-title">Persno</h4>
+      </div>
+      <form action="" method="post">
+      <div class="modal-body">
+        @csrf
+        <div class="form-group">
+          <div class="table-responsive">
+            <table class="table table-bordered" id="append_persno">
+              <tr>
+                <td style="border:0;"><input type="text" class="form-control" id="fpersno0" ></td>
+                <td style="border:0;"><button type="button" name="add" id="btaddprsno" class="btn btn-success">+</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        </div>
+        <div class="modal-footer">
+          <div class="text-center">
+            <button type="button" id="btndone" data-dismiss="modal" class="btn btn-default">Add</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 
 @if($vlist == true)
@@ -87,7 +175,6 @@
       <th>Charge Type</th>
       <th>Total Hours</th>
       <th>Total Minutes</th>
-      <th>Justification</th>
       <th>Application Date</th>
       <th>Verification Date</th>
       <th>Verified By</th>
@@ -135,15 +222,34 @@
       <td>{{ $otr->charge_type }}</td>
       <td>{{ $otr->total_hour }}</td>
       <td>{{ $otr->total_minute }}</td>
-      <td>{{ $otr->justification }}</td>
       <td>{{ date('d-m-Y H:i:s', strtotime($otr->created_at)) }}</td>
-      <td>{{ date('d-m-Y H:i:s', strtotime($otr->verification_date)) }}</td>
+      <td>
+        @if( $otr->verification_date == '')
+        @else
+        {{ date('d-m-Y H:i:s', strtotime($otr->verification_date)) }}
+        @endif
+      </td>
       <td>{{ $otr->verifier_id }}</td>
-      <td>{{ date('d-m-Y H:i:s', strtotime($otr->approval_date)) }}</td>
+      <td>
+        @if( $otr->approval_date == '')
+        @else
+        {{ date('d-m-Y H:i:s', strtotime($otr->approval_date)) }}
+        @endif
+      </td>
       <td>{{ $otr->approver_id }}</td>
-      <td>{{ date('d-m-Y H:i:s', strtotime($otr->queried_date)) }}</td>
+      <td>
+        @if( $otr->queried_date == '')
+        @else
+        {{ date('d-m-Y H:i:s', strtotime($otr->queried_date)) }}
+        @endif
+      </td>
       <td>{{ $otr->querier_id }}</td>
-      <td>{{ date('d-m-Y', strtotime($otr->payment_date)) }}</td>
+      <td>
+        @if( $otr->payment_date == '')
+        @else
+        {{ date('d-m-Y', strtotime($otr->payment_date)) }}
+        @endif
+      </td>
       </tr>
       @endforeach
     </tbody>
@@ -175,6 +281,70 @@
 
 @stop
 @section('js')
+
+<script type="text/javascript">
+var i=1;
+
+$(document).ready(function(){
+
+	$('#btaddprsno').click(function(){
+				$('#append_persno').append('<tr id="row'+i+'"><td style="border:0;"><input type="text" class="form-control" id="fpersno'+i+'" ></td><td style="border:0;"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">x</button></td></tr>');
+    i++;
+	});
+
+  $(document).on('click', '.btn_remove', function(){
+		var button_id = $(this).attr("id");
+		$('#row'+button_id+'').remove();
+    i--;
+	});
+
+	$(document).on('click', '#btndone', function(){
+    var str="";
+    for(x=0 ; x<i ; x++){
+      if($("#fpersno"+x).val()!=""){
+        str += $("#fpersno"+x).val()+",";
+      }
+    }
+    $("#fpersno").val(str);
+	});
+
+});
+</script>
+<script type="text/javascript">
+
+$("#fcompany").on('click',function(){
+  $('#addcompany').modal('show');
+});
+
+$("#fpersno").on('click',function(){
+  $('#addpersno').modal('show');
+});
+
+
+for ( n=0; n<{{count($companies)}};n++){
+$("#checkbox_"+n).change(check(n));
+}
+
+function check(n){
+ return function(){
+  if ($('#checkbox_'+n).is(':checked')) {
+      $("#fcompany").val(function() {
+          return this.value + $('#checkbox_'+n).val()+", ";
+      });
+
+      $("#fcompanydummy").text( $("#fcompanydummy").text()+ $('#checkbox_'+n).val()+", ");
+
+  }else{
+      var str = ($('#fcompany').val()).replace($('#checkbox_'+n).val()+", ",'');
+      $('#fcompany').val(str);
+      var str2 = ($('#fcompanydummy').text()).replace($('#checkbox_'+n).val()+", ",'');
+      $('#fcompanydummy').text(str2);
+  }
+  }
+}
+</script>
+
+
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
