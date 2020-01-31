@@ -130,7 +130,7 @@ class UserHelper {
       $timein = new Carbon($currentp->punch_in_time);
       $punchinori = new Carbon($timein->format('Y-m-d'));
       $punchin = new Carbon($timein->format('Y-m-d'));
-      $out_time =  Carbon::create(2020, 1, 22, 19, 38, 0); //testing time
+      $out_time =  Carbon::create(2020, 1, 23, 06, 38, 0); //testing time
 
       $timeout = new Carbon($out_time->format('Y-m-d'));
       // 1. check keluar hari yang sama atau tak
@@ -216,13 +216,13 @@ class UserHelper {
   {
     
     $parentp = StaffPunch::whereDate('punch_in_time', $date)->first();
-    $start = $timein->format('Y-m-d H:i:s');
-    $end = $out_time->format('Y-m-d H:i:s');
+    // $start = $timein->format('Y-m-d H:i:s');
+    // $end = $out_time->format('Y-m-d H:i:s');
     $day = UserHelper::CheckDay($staff_id, $date);
-    $startt = strtotime($start);
-    $endt = strtotime($end);
-    $startd = strtotime(date("Y-m-d", strtotime($date))." ".$day[0].":00");
-    $endd = strtotime(date("Y-m-d", strtotime($date))." ".$day[1].":00");
+    $startt = strtotime($timein);
+    $endt = strtotime($out_time);
+    $startd = strtotime($date." ".$day[0].":00");
+    $endd = strtotime($date." ".$day[1].":00");
     // dd($startt." ".$endt." ".$startd." ".$endd);
     // dd($start." ".$end." - ".date("Y-m-d", strtotime($date))." ".$day[0].":00 ".date("Y-m-d", strtotime($date))." ".$day[1].":00");
     // dd($startd."<".$endt."&&".$endd.">".$startt);
@@ -235,9 +235,9 @@ class UserHelper {
         $newtime->punch_id = $id;
         $newtime->parent_punch = $parentp->id;
         $newtime->date = $date;
-        $newtime->start_time = date("Y-m-d", strtotime($date))." ".$day[1].":00";
-        $newtime->end_time = $end;
-        $dif = (strtotime($end) - strtotime(date("Y-m-d", strtotime($date))." ".$day[1].":00"))/60;
+        $newtime->start_time = $date." ".$day[1].":00";
+        $newtime->end_time = $out_time;
+        $dif = (strtotime($out_time) - strtotime($date." ".$day[1].":00"))/60;
         $newtime->hour = (int) ($dif/60);
         $newtime->minute = $dif%60;
         $newtime->in_latitude = $in_lat;
@@ -252,9 +252,9 @@ class UserHelper {
         $newtime->punch_id = $id;
         $newtime->parent_punch = $parentp->id;
         $newtime->date = $date;
-        $newtime->start_time = $start;
-        $newtime->end_time = date("Y-m-d", strtotime($date))." ".$day[0].":00";
-        $dif = (strtotime(date("Y-m-d", strtotime($date))." ".$day[0].":00") - strtotime($start))/60;
+        $newtime->start_time = $timein;
+        $newtime->end_time = $date." ".$day[0].":00";
+        $dif = (strtotime($date." ".$day[0].":00") - strtotime($timein))/60;
         $newtime->hour = (int) ($dif/60);
         $newtime->minute = $dif%60;
         $newtime->in_latitude = $in_lat;
@@ -269,9 +269,9 @@ class UserHelper {
         $newtime->punch_id = $id;
         $newtime->parent_punch = $parentp->id;
         $newtime->date = $date;
-        $newtime->start_time = $start;
-        $newtime->end_time = date("Y-m-d", strtotime($date))." ".$day[0].":00";
-        $dif = (strtotime(date("Y-m-d", strtotime($date))." ".$day[0].":00") - strtotime($start))/60;
+        $newtime->start_time = $timein;
+        $newtime->end_time = $date." ".$day[0].":00";
+        $dif = (strtotime($date." ".$day[0].":00") - strtotime($timein))/60;
         $newtime->hour = (int) ($dif/60);
         $newtime->minute = $dif%60;
         $newtime->in_latitude = $in_lat;
@@ -284,9 +284,9 @@ class UserHelper {
         $newtime->punch_id = $id;
         $newtime->parent_punch = $parentp->id;
         $newtime->date = $date;
-        $newtime->start_time = date("Y-m-d", strtotime($date))." ".$day[1].":00";
-        $newtime->end_time = $end;
-        $dif = (strtotime($end) - strtotime(date("Y-m-d", strtotime($date))." ".$day[1].":00"))/60;
+        $newtime->start_time = $date." ".$day[1].":00";
+        $newtime->end_time = $out_time;
+        $dif = (strtotime($out_time) - strtotime($date." ".$day[1].":00"))/60;
         $newtime->hour = (int) ($dif/60);
         $newtime->minute = $dif%60;
         $newtime->in_latitude = $in_lat;
@@ -301,9 +301,9 @@ class UserHelper {
       $newtime->punch_id = $id;
       $newtime->parent_punch = $parentp->id;
       $newtime->date = $date;
-      $newtime->start_time = $start;
-      $newtime->end_time = $end;
-      $dif = (strtotime($end) - strtotime($start))/60;
+      $newtime->start_time = $timein;
+      $newtime->end_time = $out_time;
+      $dif = (strtotime($out_time) - strtotime($timein))/60;
       $newtime->hour = (int) ($dif/60);
       $newtime->minute = $dif%60;
       $newtime->in_latitude = $in_lat;
@@ -313,6 +313,108 @@ class UserHelper {
       $newtime->save();
     }
   }
+
+  // public static function AddOTPunch($staff_id, $date, $timein, $out_time, $id, $in_lat, $in_long, $out_lat, $out_long)
+  // {
+    
+  //   $parentp = StaffPunch::whereDate('punch_in_time', $date)->first();
+  //   $start = $timein->format('Y-m-d H:i:s');
+  //   $end = $out_time->format('Y-m-d H:i:s');
+  //   $day = UserHelper::CheckDay($staff_id, $date);
+  //   $startt = strtotime($start);
+  //   $endt = strtotime($end);
+  //   $startd = strtotime(date("Y-m-d", strtotime($date))." ".$day[0].":00");
+  //   $endd = strtotime(date("Y-m-d", strtotime($date))." ".$day[1].":00");
+  //   // dd($startt." ".$endt." ".$startd." ".$endd);
+  //   // dd($start." ".$end." - ".date("Y-m-d", strtotime($date))." ".$day[0].":00 ".date("Y-m-d", strtotime($date))." ".$day[1].":00");
+  //   // dd($startd."<".$endt."&&".$endd.">".$startt);
+  //   if(($startd<$endt) && ($endd>$startt)){
+  //     if(($endt>$endd)&&($startt>$startd)){
+
+  //       // dd("1");
+  //       $newtime = new OvertimePunch;
+  //       $newtime->user_id = $staff_id;
+  //       $newtime->punch_id = $id;
+  //       $newtime->parent_punch = $parentp->id;
+  //       $newtime->date = $date;
+  //       $newtime->start_time = date("Y-m-d", strtotime($date))." ".$day[1].":00";
+  //       $newtime->end_time = $end;
+  //       $dif = (strtotime($end) - strtotime(date("Y-m-d", strtotime($date))." ".$day[1].":00"))/60;
+  //       $newtime->hour = (int) ($dif/60);
+  //       $newtime->minute = $dif%60;
+  //       $newtime->in_latitude = $in_lat;
+  //       $newtime->in_longitude = $in_long;
+  //       $newtime->out_latitude = $out_lat;
+  //       $newtime->out_longitude = $out_long;
+  //       $newtime->save();
+  //     }else if(($endt<$endd)&&($startt<$startd)){
+  //       // dd("2");
+  //       $newtime = new OvertimePunch;
+  //       $newtime->user_id = $staff_id;
+  //       $newtime->punch_id = $id;
+  //       $newtime->parent_punch = $parentp->id;
+  //       $newtime->date = $date;
+  //       $newtime->start_time = $start;
+  //       $newtime->end_time = date("Y-m-d", strtotime($date))." ".$day[0].":00";
+  //       $dif = (strtotime(date("Y-m-d", strtotime($date))." ".$day[0].":00") - strtotime($start))/60;
+  //       $newtime->hour = (int) ($dif/60);
+  //       $newtime->minute = $dif%60;
+  //       $newtime->in_latitude = $in_lat;
+  //       $newtime->in_longitude = $in_long;
+  //       $newtime->out_latitude = $out_lat;
+  //       $newtime->out_longitude = $out_long;
+  //       $newtime->save();
+  //     }else if(!(($startt>$startd)&&($startt<$endd))){
+  //       // dd("3");
+  //       $newtime = new OvertimePunch;
+  //       $newtime->user_id = $staff_id;
+  //       $newtime->punch_id = $id;
+  //       $newtime->parent_punch = $parentp->id;
+  //       $newtime->date = $date;
+  //       $newtime->start_time = $start;
+  //       $newtime->end_time = date("Y-m-d", strtotime($date))." ".$day[0].":00";
+  //       $dif = (strtotime(date("Y-m-d", strtotime($date))." ".$day[0].":00") - strtotime($start))/60;
+  //       $newtime->hour = (int) ($dif/60);
+  //       $newtime->minute = $dif%60;
+  //       $newtime->in_latitude = $in_lat;
+  //       $newtime->in_longitude = $in_long;
+  //       $newtime->out_latitude = $out_lat;
+  //       $newtime->out_longitude = $out_long;
+  //       $newtime->save();
+  //       $newtime = new OvertimePunch;
+  //       $newtime->user_id = $staff_id;
+  //       $newtime->punch_id = $id;
+  //       $newtime->parent_punch = $parentp->id;
+  //       $newtime->date = $date;
+  //       $newtime->start_time = date("Y-m-d", strtotime($date))." ".$day[1].":00";
+  //       $newtime->end_time = $end;
+  //       $dif = (strtotime($end) - strtotime(date("Y-m-d", strtotime($date))." ".$day[1].":00"))/60;
+  //       $newtime->hour = (int) ($dif/60);
+  //       $newtime->minute = $dif%60;
+  //       $newtime->in_latitude = $in_lat;
+  //       $newtime->in_longitude = $in_long;
+  //       $newtime->out_latitude = $out_lat;
+  //       $newtime->out_longitude = $out_long;
+  //       $newtime->save();
+  //     }
+  //   }else{
+  //     $newtime = new OvertimePunch;
+  //     $newtime->user_id = $staff_id;
+  //     $newtime->punch_id = $id;
+  //     $newtime->parent_punch = $parentp->id;
+  //     $newtime->date = $date;
+  //     $newtime->start_time = $start;
+  //     $newtime->end_time = $end;
+  //     $dif = (strtotime($end) - strtotime($start))/60;
+  //     $newtime->hour = (int) ($dif/60);
+  //     $newtime->minute = $dif%60;
+  //     $newtime->in_latitude = $in_lat;
+  //     $newtime->in_longitude = $in_long;
+  //     $newtime->out_latitude = $out_lat;
+  //     $newtime->out_longitude = $out_long;
+  //     $newtime->save();
+  //   }
+  // }
   // Update User Activity
   public static function LogUserAct($req, $mn, $at)
     {
@@ -359,7 +461,7 @@ class UserHelper {
       // dd($day);
       $start = "00:00";
       $end =  "00:00";
-      if($day==5){
+      if($day==6){
         $day_type = 'Off Day';
       }elseif($day>6){
         $day_type = 'Rest Day';

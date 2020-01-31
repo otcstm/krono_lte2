@@ -12,12 +12,12 @@ if($('.login').height()<=$(window).height()){
 // }
 // alert($('.login').height());
 
-
 var timestart;
 
 function punch(){
     // var now = new Date(); 
     var now = new Date(); 
+    startclock = Date.parse(now).toString("yyyy-MM-dd HH:mm:ss");
     timere = "00:00:00";
     Swal.fire({
             title: 'Start Overtime',
@@ -30,15 +30,26 @@ function punch(){
             cancelButtonColor: '#3085d6'
             }).then((result) => {
                 //startot ajx
-                starttime(now);
-                timestart = setInterval(timer(0, 0, 0, parseInt(Date.parse(now).toString("ss")), parseInt(Date.parse(now).toString("mm")), parseInt(Date.parse(now).toString("H"))), 1000);
+                $.ajax({
+                    url: '/punch/start?time='+startclock,
+                    type: "GET",
+                    success: function(resp) {
+                        starttime(now, startclock);
+                        timestart = setInterval(timer(0, 0, 0, parseInt(Date.parse(now).toString("ss")), parseInt(Date.parse(now).toString("mm")), parseInt(Date.parse(now).toString("H"))), 1000);
+                        // alert(resp.kon);
+                    },
+                    error: function(err) {
+                        punch();
+                    }
+                });
                 
             })   
     }
     
 
-function starttime(now){
+function starttime(now, startclock){
         var future = new Date(); 
+        endclock = Date.parse(future).toString("yyyy-MM-dd HH:mm:ss");
         Swal.fire({
             title: 'Start Overtime',
             customClass: 'test',
@@ -65,11 +76,24 @@ function starttime(now){
                     }).then((result) => {
                     if (result.value) {
                         //endot ajx
-                        
-                        clearInterval(timestart); 
+                        $.ajax({
+                            url: '/punch/end?stime='+startclock+'&etime='+endclock,
+                            type: "GET", 
+                            success: function(resp) {
+                                clearInterval(timestart); 
+                                var path = window.location.pathname;
+                                if(path=="/punch"){
+                                    location.reload();
+                                }
+                            },
+                                error: function(err) {
+                                    starttime(now, startclock);
+                                }
+                            }
+                        );
                     }else{
                         
-                        starttime(now);
+                        starttime(now, startclock);
                     }
                 })
             }else{
@@ -86,8 +110,12 @@ function starttime(now){
                     }).then((result) => {
                     if (result.value) {
                         clearInterval(timestart); 
+                        $.ajax({
+                            url: '/punch/cancel?time='+startclock,
+                            type: "GET"
+                        });
                     }else{
-                        starttime(now);
+                        starttime(now, startclock);
                     }
                 })
             }            
