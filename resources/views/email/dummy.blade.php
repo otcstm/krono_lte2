@@ -37,8 +37,6 @@
 
               <label for="email_subject_id">Subject</label> <input type="text"
                 class="form-control" id="email_subject_id" name="email_subject">
-
-
             </div>
 
 
