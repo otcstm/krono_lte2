@@ -3,8 +3,8 @@
 @section('title', 'Overtime List')
 
 @section('content')
+<h1>List of Overtime Claim</h1>
 <div class="panel panel-default">
-    <div class="panel-heading panel-primary">OT List</div>
     <div class="panel-body">
         <div class="text-right" style="margin-bottom: 15px">
             <form action="{{route('ot.formnew')}}" method="POST" style="display:inline">
@@ -12,22 +12,26 @@
                 <button type="submit" class="btn btn-primary">CREATE NEW CLAIM</button>
             </form>
         </div>
-        @if(session()->has('feedback'))
+        {{--@if(session()->has('feedback'))
         <div class="alert alert-{{session()->get('feedback_type')}} alert-dismissible" id="alert">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             {{session()->get('feedback_text')}}
         </div>
-        @endif
+        @endif--}}
         <div class="table-responsive">
-            <table id="tOTList" class="table table-bordered">
+            <table id="tOTList" class="table table-bordered tbot">
                 <thead>
                     <tr>
                         <th></th>
                         <th></th>
                         <th>Reference No</th>
-                        <th>Date time</th>
-                        <th>Duration</th>
-                        <th>Estimated Amount</th>
+                        <th>OT Date</th>
+                        <th>Start OT</th>
+                        <th>End OT</th>
+                        <th>Total Hours/Minutes</th>
+                        <th>Day Type</th>
+                        <th>Charge Code</th>
+                        <th>Location</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -38,9 +42,19 @@
                             <td>@if(($singleuser->status=="D2")||($singleuser->status=="Q2"))<input type="checkbox" id="checkbox-{{$no}}" value="{{$singleuser->id}}"> @endif</td>
                             <td></td>
                             <td>{{ $singleuser->refno }}</td>
-                            <td>{{ $singleuser->date }} @foreach($singleuser->detail as $details)<br>{{date('H:i', strtotime($details->start_time)) }} - {{ date('H:i', strtotime($details->end_time))}}@endforeach</td>
-                            <td>{{ $singleuser->total_hour }}h {{ $singleuser->total_minute }}m</td>
-                            <td>RM{{$singleuser->amount}}</td>
+                            <td>{{ date("d.m.Y", strtotime($singleuser->date)) }}</td>
+                            <td>@foreach($singleuser->detail as $details){{date('Hi', strtotime($details->start_time)) }}<br>@endforeach</td>
+                            <td>@foreach($singleuser->detail as $details){{ date('Hi', strtotime($details->end_time))}}<br>@endforeach</td>
+                            <td>{{ $singleuser->total_hour }}h/{{ $singleuser->total_minute }}m</td>
+                            <td>{{$singleuser->daytype->description}}</td> 
+                            <td>
+                                @if($singleuser->charge_type!=null)
+                                    {{ $singleuser->charge_type }}
+                                @else
+                                    N/A
+                                @endif
+                            </td> 
+                            <td>@foreach($singleuser->detail as $details){{$details->in_latitude}} {{$details->in_longitude}}<br>@endforeach</td> 
                             <td 
                                 @foreach($singleuser->log as $logs) 
                                     @if(strpos($logs->message,"Queried")!==false) 
@@ -64,22 +78,29 @@
                                     {{ $singleuser->status}}
                                 @endif
                             </td>
-                            <td>
+                            <td class="td-btn">
+                                <form action="{{route('ot.detail')}}" method="POST" style="display:inline">
+                                    @csrf
+                                    <input type="text" class="hidden" name="detailid" value="{{$singleuser->id}}" required>
+                                    <input type="text" class="hidden" name="type" value="ot" required>
+                                    <button type="submit" class="btn btn-np"><i class="fas fa-info-circle"></i></button>
+                                </form>
                                 @if(in_array($singleuser->status, $array = array("D1", "D2", "Q2", "Q1")))
                                     <form action="{{route('ot.update')}}" method="POST" style="display:inline">
                                         @csrf
-                                        <input type="text" class="hidden" id="inputid" name="inputid" value="{{$singleuser->id}}" required>
-                                        <button type="submit" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button>
+                                        <input type="text" class="hidden"  name="inputid" value="{{$singleuser->id}}" required>
+                                        <button type="submit" class="btn btn-np"><i class="fas fa-edit"></i></button>
                                     </form>
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delOT" data-id="{{$singleuser->id}}" data-date="{{$singleuser->date}}">
+                                    <button type="button" class="btn btn-np" data-toggle="modal" data-target="#delOT" id="del-{{$no}}" data-id="{{$singleuser->id}}" data-date="{{$singleuser->date}}">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
-                                @else
-                                <form action="{{route('ot.update')}}" method="POST" style="display:inline">
+                                {{--@else
+                                <form action="{{route('ot.detail')}}" method="POST" style="display:inline">
                                     @csrf
-                                    <input type="text" class="hidden" id="inputid" name="inputid" value="{{$singleuser->id}}" required>
-                                    <button type="submit" class="btn btn-primary"><i class="fas fa-eye"></i></button>
-                                </form>
+                                    <input type="text" class="hidden" name="detailid" value="{{$singleuser->id}}" required>
+                                    <input type="text" class="hidden" name="type" value="ot" required>
+                                    <button type="submit" class="btn btn-np"><i class="fas fa-info-circle"></i></button>
+                                </form>--}}
                                 @endif
                             </td>
                         </tr>
@@ -87,17 +108,20 @@
                 </tbody>
             </table>
         </div>
-        <div id="submitbtn" class="text-center" style="display: none">
-            <form action="{{route('ot.submit')}}" method="POST" onsubmit="return confirm('I understand and agree this to claim. If deemed false I can be taken to disciplinary action.')" style="display:inline">
+        
+    </div>
+    <div id="submitbtn" class="panel-footer" style="display: none">
+        <div class="text-right">
+            <form id="submitform" action="{{route('ot.submit')}}" method="POST"  style="display:inline">
                 @csrf
                 <input type="text" class="hidden" id="submitid" name="submitid" value="" required>
                 <input type="text" class="hidden" id="multi" name="multi" value="yes" required>
-                <button type="submit" class="btn btn-primary">SUBMIT</button>
+                <button type="button" onclick="return submission()" class="btn btn-primary">SUBMIT</button>
             </form>
         </div>
     </div>
 </div>
-
+<!-- 
 <div id="delOT" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -119,19 +143,19 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
+
+<form action="{{ route('ot.remove') }}" method="POST" class="hidden" id="form">
+    @csrf
+    <input type="text" class="hidden" id="delid" name="delid" value="" required>
+    <button type="submit" class="btn btn-primary">DELETE</button>
+</form>
 @stop
 
 @section('js')
 <script type="text/javascript">
 
-@if(session()->has('error'))
-    Swal.fire(
-        'Failed to submit!',
-        'Your submitted claim time has exceeded eligible claim time',
-        'error'
-    )
-@endif
+// alert("{{count($otlist)}}");
 
 $(document).ready(function() {
     var t = $('#tOTList').DataTable({
@@ -146,6 +170,8 @@ $(document).ready(function() {
     } ).draw();
 });
 
+var whensubmit = false;
+
 $('#delOT').on('show.bs.modal', function(e) {
     var id = $(e.relatedTarget).data('id');
     var date = $(e.relatedTarget).data('date');
@@ -153,6 +179,41 @@ $('#delOT').on('show.bs.modal', function(e) {
     $("#deldate").text(date);
 })
 
+function deletec(i){
+    return function(){
+        var id = $("#del-"+i).data('id');
+        var date = $("#del-"+i).data('date');
+        var d = Date.parse(date).toString("dd.MM.yyyy");  
+        $("#delid").val(id);
+        Swal.fire({
+            title: 'Claim Deletion',
+            html: "Are you sure you want to delete claim application for date <b>"+d+"</b>?",
+            showCancelButton: true,
+            confirmButtonText:
+                                'YES',
+                                cancelButtonText: 'NO',
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Delete'
+            }).then((result) => {
+            if (result.value) {
+                $("#form").submit();
+            }
+        })
+    }
+}
+
+for(i=0; i<{{count($otlist)}}+1; i++){
+    $("#del-"+i).on('click', deletec(i));
+}
+
+@if(session()->has('feedback'))
+    Swal.fire({
+        title: "{{session()->get('feedback_title')}}",
+        html: "{{session()->get('feedback_text')}}",
+        confirmButtonText: 'DONE'
+    })
+@endif
 
 var show = 0;
 
@@ -179,6 +240,38 @@ function submitval(i){
 for(i=0; i<{{count($otlist)}}; i++) {
     $("#checkbox-"+i).change(submitval(i));
 };
+
+function submission(){
+    // alert("x");
+    
+    // whensubmit = true;
+    // if(whensubmit){
+        Swal.fire({
+            title: 'Terms and Conditions',
+            input: 'checkbox',
+            inputValue: 0,
+            inputPlaceholder:
+                "<p>By clicking on <span style='color: #143A8C'>\"Yes\"</span> button below, you are agreeing to the above related terms and conditions</p>",
+                html: "<p>I hereby certify that my claim is compliance with company's term and condition on <span style='font-weight: bold'>PERJANJIAN BERSAMA, HUMAN RESOURCE MANUAL, and BUSINESS PROCESS MANUAL</span> If deemed falsed, disciplinary can be imposed on me.</p>",
+                confirmButtonText:
+                'YES',
+                cancelButtonText: 'NO',
+            showCancelButton: true,
+            confirmButtonColor: '#EF7202',
+            cancelButtonColor: 'transparent',
+            inputValidator: (result) => {
+                return !result && 'You need to agree with T&C'
+            }
+        }).then((result) => {
+            if (result.value) {
+                // whensubmit = false;
+                $("#submitform").submit();
+            }
+        })
+        
+        return false;
+    // }
+}
 
 </script>
 @stop

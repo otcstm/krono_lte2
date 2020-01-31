@@ -119,6 +119,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/overtime', 'OvertimeController@list')->name('ot.list');
   Route::post('/overtime/submit', 'OvertimeController@submit')->name('ot.submit');
   Route::post('/overtime/update', 'OvertimeController@update')->name('ot.update');
+  Route::post('/overtime/detail', 'OvertimeController@detail')->name('ot.detail');
   Route::post('/overtime/remove', 'OvertimeController@remove')->name('ot.remove');
   Route::get('/overtime/form', 'OvertimeController@form')->name('ot.form');
   Route::post('/overtime/form', 'OvertimeController@form')->name('ot.form');
@@ -132,7 +133,11 @@ Route::group(['middleware' => ['auth']], function () {
   //OT activity - Approver
   Route::get('/overtime/approval', 'OvertimeController@approval')->name('ot.approval');
   Route::post('/overtime/approval', 'OvertimeController@approval')->name('ot.approval');
+  Route::get('/overtime/query', 'OvertimeController@query')->name('ot.query');
   Route::post('/overtime/query', 'OvertimeController@query')->name('ot.query');
+
+Route::get('/staff/profile', 'Admin\StaffController@showStaffProfile')->name('staff.profile');
+
 });
 Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
   Route::get('/', 'ShiftPatternController@index')->name('index');
@@ -163,4 +168,12 @@ Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth
   Route::get('/staff', 'ShiftPlanController@staffInfo')->name('staff');
   Route::post('/staff/push', 'ShiftPlanController@staffPushTemplate')->name('staff.push');
   Route::post('/staff/pop', 'ShiftPlanController@staffPopTemplate')->name('staff.pop');
+
+
 });
+
+  Route::get('/email/dummy', 'EmailController@dummyEmail')->name('email.dummy');
+  Route::post('/email/dummy', 'EmailController@sendDummyEmail')->name('email.senddummy');
+
+  Route::get('/verifier/staff/search', 'UserVerifierController@index')->name('verifier.staff');
+  Route::get('/verifier/staff/persno', 'UserVerifierController@search')->name('verifier.search');

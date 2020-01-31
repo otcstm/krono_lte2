@@ -16,9 +16,9 @@ return [
     |
     */
 
-    'title' => 'Krono!',
+    'title' => 'Overtime Claim System!',
 
-    'title_prefix' => 'Krono! : ',
+    'title_prefix' => 'OTCS - ',
 
     'title_postfix' => '',
 
@@ -33,10 +33,10 @@ return [
     |
     */
 
-    'logo' => 'KRONO <b>!!</b>',
+    'logo' => 'OT System',
 
     // 'logo_mini' => '<b>A</b>LT',
-    'logo_mini' => '<i class="fas fa-clock"></i>',
+    'logo_mini' => 'OTS',
 
     /*
     |--------------------------------------------------------------------------
@@ -49,7 +49,7 @@ return [
     |
     */
 
-    'skin' => 'blue-light',
+    'skin' => 'black-light',
 
     /*
     |--------------------------------------------------------------------------
@@ -224,6 +224,24 @@ return [
           ],
         ]
       ],
+
+
+      [
+        'text' => 'Dummy',
+        'icon' => 'fas fa-carrot',
+        'submenu' => [
+          [
+              'text' => 'Dummy Email',
+              'url'  => '/email/dummy',
+              'icon' => 'fas fa-envelope',
+              // 'can' => 'admin-nav-menu',
+          ],
+        ]
+      ],
+
+
+
+
       [ 'header' => 'user_menu',
         // 'can' => 'user-nav-menu',
       ],
@@ -233,12 +251,20 @@ return [
           'icon' => 'fas fa-home',
           // 'can' => 'user-nav-menu',
       ],
+
       [
-          'text' => 'user_punch',
-          'url'  => '/punch',
-          'icon' => 'fas fa-clock',
-          // 'can' => 'user-nav-menu',
-      ],
+        'text' => 'user_profile',
+        'url'  => '/staff/profile',
+        'icon' => 'fas fa-user',
+        // 'can' => 'user-nav-menu',
+    ],
+
+    //   [
+    //       'text' => 'user_punch',
+    //       'url'  => '/punch',
+    //       'icon' => 'fas fa-clock',
+    //       // 'can' => 'user-nav-menu',
+    //   ],
       [
           'text' => 'staff_list',
           'url'  => '/staff',
@@ -248,25 +274,35 @@ return [
 
         [
           'text' => 'ot_menu',
-          'icon' => 'fas fa-business-time',
+        //   'main' => '',
+          'icon' => 'fas fa-user-clock',
           'submenu' => [
+            [
+                'text' => 'user_punch_list',
+                'url'  => '/punch',
+                'icon' => '',
+                // 'can' => 'ot-nav-menu',
+            ],
             [
                 'text' => 'ot_apply',
                 'url'  => '/overtime/form',
                 'otnew' => '',
-                'icon' => 'fas fa-edit',
+                'icon' => '',
                 // 'can' => 'ot-nav-menu',
             ],
             [
                 'text' => 'ot_list',
                 'url'  => '/overtime',
-                'icon' => 'fas fa-edit',
+                'icon' => '',
                 // 'can' => 'ot-nav-menu',
             ],
             [
                 'text' => 'ot_approve',
                 'url'  => '/overtime/approval',
-                'icon' => 'fas fa-edit',
+                    // 'label'       => UserHelper::GetRequireAttCount(),
+                // 'label' => OvertimeController::getQueryAmount(),
+                'label_color' => 'warning',
+                'icon' => '',
                 // 'can' => 'ot-nav-menu',
             ],
             // [
@@ -296,7 +332,7 @@ return [
         ],
         [
           'text' => 'shift_menu',
-          'icon' => 'far fa-calendar-alt',
+          'icon' => 'fas fa-clock',
           'submenu' => [
             [
                 'text' => 'user_shift_sc',
@@ -469,6 +505,22 @@ return [
                     'asset' => false,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
                 ],
+            ],
+        ],
+        [
+            'name' => 'Datejs',
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '/vendor/datejs/build/date.js',
+                ],
+                // [
+                //     'type' => 'js',
+                //     'asset' => true,
+                //     'location' => '/vendor/datejs/src/date.js',
+                // ],
             ],
         ],
     ],
