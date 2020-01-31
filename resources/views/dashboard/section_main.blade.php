@@ -10,7 +10,7 @@
         <img src="vendor/ot-assets/ot-clock-icon.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
-        <h4 class="media-heading">NEW OT</h4>
+        <h4 class="media-heading">New OT</h4>
         <p>Apply New Overtime</p>
       </div>
     </div>
@@ -30,7 +30,7 @@
     <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px">
   </div>
   <div class="media-body">
-    <h4 class="media-heading">MY WORK</h4>
+    <h4 class="media-heading">My Work</h4>
     <p>My Work Schedule</p>
   </div>
 </div>
