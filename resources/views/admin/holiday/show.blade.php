@@ -42,6 +42,7 @@
                 </div>
     </div>  
     </div>  <br />
+<div class="table-responsive">
 <table id="holidaylist" class="table-bordered table-hover">
 <thead>
 <tr>
@@ -85,7 +86,7 @@ holid="{{$cmain[0]}}"><i class="glyphicon glyphicon-trash"></i></a>
 @endforeach
 </tbody>
 </table>
-
+</div>
 </div>
 <!-- /.box-body -->
 </div>
@@ -146,7 +147,10 @@ function submitDeleteForm(holid){
    
     $('#holidaylist').DataTable({
       "responsive": "true",
-      "order" : [[0, "desc"]]
+      "order" : [[0, "desc"]],
+      fixedColumns:   {
+            leftColumns: 2
+        }
     });
    });
 </script>

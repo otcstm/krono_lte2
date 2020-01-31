@@ -61,4 +61,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(StaffPunch::class);
     }
+
+    public function userrecordLatest()
+    {
+        return $this->hasOne(UserRecord::class)->latest();
+    }
 }

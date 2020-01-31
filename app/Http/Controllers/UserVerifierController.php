@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\UserVerifier;
 
 class UserVerifierController extends Controller
 {
@@ -13,14 +14,19 @@ class UserVerifierController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $req)
-    {
-        //    	        
-        $data = User::where('reptto', '=', $req->user()->id)->get();
-        //dd($data);
-        return view('verifier.index')->with('subordinate', $data);
+    {	        
+        return view('admin.verifier.index');
     }
 
     public function search(Request $req)
+    {	        
+        //$data = User::where('reptto', '=', $req->user()->id)->get();
+        //return view('verifier.index')->with('subordinate', $data);
+
+        return view('admin.verifier.search');
+    }
+
+    public function staffsearch(Request $req)
     {
         //    	        
         $data = [];
@@ -31,6 +37,19 @@ class UserVerifierController extends Controller
                     ->get();
         }         
         return response()->json($data);
+    }
+
+    
+    public function staffverifier(Request $req)
+    {
+        $dataUser = User::where('id', '=', $req->user()->id)->latest('updated_at')->first();
+        $dataVerifier = UserVerifier::where('user_id', '=', $req->user()->id)->get();
+        $dataSubordinate = UserVerifier::where('verifier_id', '=', $req->user()->id)->get();
+
+        return view('admin.verifier.index')
+        ->with('userdata', $dataUser)
+        ->with('verifiers', $dataVerifier)
+        ->with('subordinates', $dataSubordinate);
     }
 
     /**
