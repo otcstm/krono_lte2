@@ -70,6 +70,7 @@ class MiscController extends Controller
   }
 
   public function startPunch(Request $req){
+    // $req->time = "2020-01-23 18:40:09"; //testing
     $date = date("Y-m-d", strtotime($req->time));
     $day = UserHelper::CheckDay($req->user()->id, $date);
     $currentp = new StaffPunch;
@@ -81,7 +82,18 @@ class MiscController extends Controller
     $currentp->save();
   }
 
+  public function checkPunch(Request $req){
+    $currentp = StaffPunch::where("user_id", $req->user()->id)->where("punch_out_time", NULL)->first();
+    if($currentp!=NULL){
+      return ['result'=> true, 'time'=>date('Y/m/d/H/i/s', strtotime($currentp->punch_in_time)), 'stime'=>date('Y-m-d H:i:s', strtotime($currentp->punch_in_time))];
+    }else{
+      return ['result'=> false];
+    }
+  }
+
   public function endPunch(Request $req){
+    // $req->stime = "2020-01-23 18:40:09"; //testing
+    // $req->etime = "2020-01-24 11:40:09"; //testing
     $sdate = date("Y-m-d", strtotime($req->stime));
     $edate = date("Y-m-d", strtotime($req->etime));
     $eday = UserHelper::CheckDay($req->user()->id, $req->etime);

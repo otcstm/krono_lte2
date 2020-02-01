@@ -14,10 +14,53 @@ if($('.login').height()<=$(window).height()){
 
 var timestart;
 
+var check = new Date(); 
+// checkclock = Date.parse(check).toString("yyyy-MM-dd HH:mm:ss");
+$.ajax({
+    url: '/punch/check',
+    type: "GET",
+    success: function(resp) {
+        if(resp.result==true){
+            timedif = Date.parse(check)-Date.parse(resp.stime);
+            cs = Math.floor(timedif / 1000);
+            cm = Math.floor(cs / 60);
+            cs = cs % 60;
+            ch = Math.floor(cm / 60);
+            cm = cm % 60;
+            ch = ch % 24;
+            if(ch<10){
+                chd = "0"+ch;
+            }else{
+                chd = ch;
+            }
+            if(cm<10){
+                cmd = "0"+cm;
+            }else{
+                cmd = cm;
+            }
+            if(cs<10){
+                csd = "0"+cs ;
+            }else{
+                csd = cs;
+            }
+            timere=chd+":"+cmd+":"+csd;
+            
+            starttime(resp.stime, resp.stime);
+            timestart = setInterval(timer(cs, cm, ch, parseInt(Date.parse(check).toString("ss")), parseInt(Date.parse(check).toString("mm")), parseInt(Date.parse(check).toString("H")), check), 1000);
+                        
+        }
+    },
+    error: function(err) {
+        punch();
+    }
+});
+
 function punch(){
     // var now = new Date(); 
     var now = new Date(); 
     startclock = Date.parse(now).toString("yyyy-MM-dd HH:mm:ss");
+    // startclock = Date.parse(now).toString("yyyy-MM-dd HH:mm:ss");
+    // alert(startclock);
     timere = "00:00:00";
     Swal.fire({
             title: 'Start Overtime',
@@ -35,7 +78,7 @@ function punch(){
                     type: "GET",
                     success: function(resp) {
                         starttime(now, startclock);
-                        timestart = setInterval(timer(0, 0, 0, parseInt(Date.parse(now).toString("ss")), parseInt(Date.parse(now).toString("mm")), parseInt(Date.parse(now).toString("H"))), 1000);
+                        timestart = setInterval(timer(0, 0, 0, parseInt(Date.parse(now).toString("ss")), parseInt(Date.parse(now).toString("mm")), parseInt(Date.parse(now).toString("H")), now), 1000);
                         // alert(resp.kon);
                     },
                     error: function(err) {
@@ -69,7 +112,7 @@ function starttime(now, startclock){
                     showCancelButton: true,
                     confirmButtonText:
                                         'YES',
-                                        cancelButtonText: 'CANCEL',
+                                        cancelButtonText: 'NO',
                     confirmButtonColor: '#F00000',
                     cancelButtonColor: '#3085d6',
                     allowOutsideClick: false
@@ -103,7 +146,7 @@ function starttime(now, startclock){
                     showCancelButton: true,
                     confirmButtonText:
                                         'YES',
-                                        cancelButtonText: 'CANCEL',
+                                        cancelButtonText: 'NO',
                     confirmButtonColor: '#F00000',
                     cancelButtonColor: '#3085d6',
                     allowOutsideClick: false
@@ -122,7 +165,7 @@ function starttime(now, startclock){
         })
 }
 
-function timer(psecond, pminute, phour, dsecond, dminute, dhour){
+function timer(psecond, pminute, phour, dsecond, dminute, dhour, now){
     return function(){
         psecond++;
         if(psecond==60){

@@ -49,12 +49,12 @@
 <script src="{{ secure_asset('vendor/jquery/dist/jquery.min.js') }}"></script>
 <script src="{{ secure_asset('vendor/jquery/dist/jquery.slimscroll.min.js') }}"></script>
 <script src="{{ secure_asset('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-<script src="{{ secure_asset('vendor/custom.js') }}"></script>
 
 @include('adminlte::plugins', ['type' => 'js'])
 
 @yield('adminlte_js')
 
 
+@if($page!='login')<script src="{{ secure_asset('vendor/custom.js') }}"></script>@endif
 </body>
 </html>

@@ -23,19 +23,19 @@ Route::get('/ur/show/{persno}/{dt}', 'URController@gUR')->name('ur.listAll');
 Route::group(['middleware' => ['auth']], function () {
   Route::get('/home', 'MiscController@home')->name('misc.home');
   Route::get('/role', 'Admin\RoleController@index')->name('role.index');
-  // // clock-in related
+
+  // // clock-in related OLD
   // Route::get('/punch',      'MiscController@showPunchView')->name('punch.list');
   // Route::post('/punch/in',  'MiscController@doClockIn')->name('punch.in');
   // Route::post('/punch/out', 'MiscController@doClockOut')->name('punch.out');
   // Route::post('/punch/delete', 'MiscController@delete')->name('punch.delete');
-  // clock-in related
+
+  // clock-in related NEW
   Route::get('/punch',      'MiscController@showPunchView')->name('punch.list');
   Route::get('/punch/start',  'MiscController@startPunch')->name('punch.start');
+  Route::get('/punch/check',  'MiscController@checkPunch')->name('punch.check');
   Route::get('/punch/end',  'MiscController@endPunch')->name('punch.end');
   Route::get('/punch/cancel',  'MiscController@cancelPunch')->name('punch.cancel');
-  // Route::get('/punch/refresh',  'MiscController@refreshPunch')->name('punch.refresh');
-  // Route::post('/punch/start',  'MiscController@startPunch')->name('punch.start');
-  // Route::post('/punch/out', 'MiscController@doClockOut')->name('punch.out');
   Route::post('/punch/delete', 'MiscController@delete')->name('punch.delete');
 
   //List staff & search
