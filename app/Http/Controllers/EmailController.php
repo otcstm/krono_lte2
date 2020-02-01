@@ -20,18 +20,21 @@ class EmailController extends Controller
     public function sendDummyEmail(Request $req)
     {
 
-        $content= $req->email_content;
-        $subject= $req->email_subject;
-        $receiver= $req->email_to;
+        $this->content= $req->email_body;
+      //  dd($this->content);
+        $this->subject= $req->email_subject;
+        $this->receiver= $req->email_to;
+
       //  Mail::to(['nuramirah.adnan@tm.com.my','zatiaqmar.zahari@tm.com.my','afdzal@tm.com.my','mimi.maisara@tm.com.my'])->send(new SendMailable($name));
 
       //  return 'Email was sent';
 
     //  Mail::to($receiver)->subject($subject)->send(new SendMailable($content));
- $data = array('content'=> $content);
-      Mail::send('mail', $data, function($message) {
-         $message->to($receiver)->subject($subject);
-      });
+        $data = array('body'=> $this->content);
+        Mail::send('email.dummyContent', $data, function($message) {
+
+          $message->to($this->receiver)->subject($this->subject);
+        });
 
      //return view('dummy.email.dummy', []);
 
