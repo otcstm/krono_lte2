@@ -51,11 +51,11 @@ $.ajax({
         }
     },
     error: function(err) {
-        punch();
+        puncho();
     }
 });
 
-function punch(){
+function puncho(){
     // var now = new Date(); 
     var now = new Date(); 
     startclock = Date.parse(now).toString("yyyy-MM-dd HH:mm:ss");
@@ -73,19 +73,21 @@ function punch(){
             cancelButtonColor: '#3085d6'
             }).then((result) => {
                 //startot ajx
-                $.ajax({
-                    url: '/punch/start?time='+startclock,
-                    type: "GET",
-                    success: function(resp) {
-                        starttime(now, startclock);
-                        timestart = setInterval(timer(0, 0, 0, parseInt(Date.parse(now).toString("ss")), parseInt(Date.parse(now).toString("mm")), parseInt(Date.parse(now).toString("H")), now), 1000);
-                        // alert(resp.kon);
-                    },
-                    error: function(err) {
-                        punch();
-                    }
-                });
                 
+                if (result.value) {
+                    $.ajax({
+                        url: '/punch/start?time='+startclock,
+                        type: "GET",
+                        success: function(resp) {
+                            starttime(now, startclock);
+                            timestart = setInterval(timer(0, 0, 0, parseInt(Date.parse(now).toString("ss")), parseInt(Date.parse(now).toString("mm")), parseInt(Date.parse(now).toString("H")), now), 1000);
+                            // alert(resp.kon);
+                        },
+                        error: function(err) {
+                            puncho();
+                        }
+                    });
+                }
             })   
     }
     

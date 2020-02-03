@@ -38,7 +38,7 @@
 @php($page=Request::segment(1))
 @yield('body')
 <!-- <div class="punch-layer"> -->
-@if(($page!='login')&&($page!='home'))<button id="punchb" class="btn btn-punch-layer" onclick="return punch()"><i class="fas fa-clock"></i> START OT</button>@endif
+@if(($page!='login')&&($page!='home'))<button id="punchb" class="btn btn-punch-layer" type="button" onclick="return puncho()"><i class="fas fa-clock"></i> START OT</button>@endif
 <!-- </div> -->
 <footer class="foot">
     <div class="container" style="padding: 0 2.5vw; width: 100%">

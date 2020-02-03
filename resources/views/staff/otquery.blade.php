@@ -63,7 +63,9 @@
                                     <option selected value="">Select Action</option>
                                     <!-- <option hidden disabled selected value="">Select Action</option> -->
                                     @if($singleuser->status=="PV")<option value="PA">Verify</option>
-                                    @elseif($singleuser->status=="PA")<option value="A">Approve</option>
+                                    @elseif($singleuser->status=="PA")
+                                        <option value="A">Approve</option>
+                                        <option value="Assign">Assign Verifier</option>
                                     @endif
                                     <option value="Q2">Query</option>
                                 </select>
