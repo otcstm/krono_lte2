@@ -138,8 +138,10 @@
         <div class="text-right">
             @if(session()->get('back')=="ot")
             <a href="{{route('ot.list')}}"><button type="button" class="btn btn-p btn-primary" style="display: inline">BACK</button></a>
-            @else
+            @elseif(session()->get('back')=="query")
             <a href="{{route('ot.query')}}"><button type="button" class="btn btn-p btn-primary" style="display: inline">BACK</button></a>
+            @else
+            <a href="{{route('ot.approvalrept')}}"><button type="button" class="btn btn-p btn-primary" style="display: inline">BACK</button></a>
             @endif
         </div>
     </div>

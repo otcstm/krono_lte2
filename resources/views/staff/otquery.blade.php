@@ -22,6 +22,7 @@
                             <th>End OT</th>
                             <th>Total Hours/Minutes</th>
                             <th>Charge Code</th>
+                            <th>Location</th>
                             <th>Amount (Estimated)</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -34,7 +35,7 @@
                             <input type="text" class="form-control hidden" id="inputid" name="inputid[]" value="{{$singleuser->id}}" required>
                             <td>{{++$no}}</td>
                             <td>
-                                <a id="a-{{$no}}" data-id="{{$singleuser->id}}">{{ $singleuser->refno }}</a>
+                                <a href="" id="a-{{$no}}" style="font-weight: bold; color: #143A8C" data-id="{{$singleuser->id}}">{{ $singleuser->refno }}</a>
                             </td>
                             <td>{{ $singleuser->name->name }}</td>
                             <td>{{ date("d.m.Y", strtotime($singleuser->date)) }}</td>
@@ -50,6 +51,7 @@
                             </td>
                             <td>{{ $singleuser->total_hour }}h/{{ $singleuser->total_minute }}m</td>
                             <td>{{$singleuser->charge_type}}</td>
+                            <td>@foreach($singleuser->detail as $details){{$details->in_latitude}} {{$details->in_longitude}}<br>@endforeach</td> 
                             <td>RM{{$singleuser->amount}}</td>
                             <td>
                                 @if($singleuser->status=="PA")
@@ -101,24 +103,25 @@
                         <th>End OT</th>
                         <th>Total Hours/Minutes</th>
                         <th>Charge Code</th>
+                        <th>Location</th>
                         <th>Amount (Estimated)</th>
                         <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td colspan="10"><div class="text-center"><i>Not available</i></div></td>
+                        <td colspan="11"><div class="text-center"><i>Not available</i></div></td>
                     </tr>
                 </tbody>
             </table>
         </div>
         @endif
         
-<form action="{{route('ot.detail')}}" method="POST" class="hidden" id="form">
-    @csrf
-    <input type="text" class="hidden" name="detailid" id="detailid" value="" required>
-    <input type="text" class="hidden" name="type" value="query" required>
-</form>
+        <form action="{{route('ot.detail')}}" method="POST" class="hidden" id="form">
+            @csrf
+            <input type="text" class="hidden" name="detailid" id="detailid" value="" required>
+            <input type="text" class="hidden" name="type" value="query" required>
+        </form>
     </div>
 </div>
 @stop
@@ -153,6 +156,7 @@
             $("#detailid").val(id);
             // alert($("#inputid").val());
             $("#form").submit();
+            return false;
         }
     }
 

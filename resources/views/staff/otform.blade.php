@@ -118,25 +118,22 @@
                             Draft 
                         @else 
                             N/A
-                        @endif</p>
+                        @endif
+                    </p>
                     <p>Verifier: 
                         @if($claim ?? '') 
-                            @if($claim->verifier_id!=null)
-                                {{$claim->verifier->name}}
-                            @else
-                                N/A
-                            @endif
+                            {{$claim->verifier->name}}
+                        @elseif($draft ?? '')
+                            {{$draft[9]}} 
                         @else 
                             N/A 
                         @endif
                     </p>
                     <p>Approver: 
-                        @if($claim ?? '') 
-                            @if($claim->approver_id!=null)
-                                {{$claim->approver->name}}
-                            @else
-                                N/A
-                            @endif
+                        @if($claim ?? '')
+                            {{$claim->approver->name}}
+                        @elseif($draft ?? '')
+                            {{$draft[10]}}
                         @else 
                             N/A
                         @endif
