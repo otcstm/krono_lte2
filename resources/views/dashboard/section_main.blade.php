@@ -1,9 +1,9 @@
-<h3 class="box-title">Dashboard</h3>
+<h1>Dashboard</h1>
 
 <div class="row">     
   <div class="col-md-3 col-sm-6 col-xs-12">
   <a href="{{ route('ot.formnew', [], false) }}">
-    <div class="box box-solid box-warning">
+    <div class="box box-solid">
     <div class="box-body">
     <div class="media">
       <div class="media-left">
@@ -22,7 +22,7 @@
   </a>  
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="box box-solid box-warning">
+    <div class="box box-solid">
                         <div class="box-body">
     
 <div class="media">
@@ -41,7 +41,7 @@
     </div>
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="box box-solid box-warning">
+    <div class="box box-solid">
                         <div class="box-body">
   <div class="media">
   <div class="media-left">
@@ -59,7 +59,7 @@
     </div>
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="box box-solid box-warning">
+    <div class="box box-solid">
     <div class="box-body">
     <div class="media">
   <div class="media-left">
@@ -81,7 +81,7 @@
 
 <div class="row">     
   <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="box box-solid box-warning">
+    <div class="box box-solid">
                         <div class="box-body">
     <div class="media">
       <div class="media-left">
@@ -99,7 +99,7 @@
     </div>
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="box box-solid box-warning">
+    <div class="box box-solid">
                         <div class="box-body">
     
 <div class="media">
@@ -118,7 +118,7 @@
     </div>
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="box box-solid box-warning">
+    <div class="box box-solid">
                         <div class="box-body">
   <div class="media">
   <div class="media-left">
@@ -136,7 +136,7 @@
     </div>
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="box box-solid box-warning">
+    <div class="box box-solid">
     <div class="box-body">
     <div class="media">
   <div class="media-left">
@@ -158,7 +158,7 @@
 
 <div class="row">     
   <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="box box-solid box-warning">
+    <div class="box box-solid">
   <div class="box-body">
     <div class="media">
       <div class="media-left">

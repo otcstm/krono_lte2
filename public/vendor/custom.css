@@ -145,6 +145,58 @@ body{
     border: 0;
 }
 
+.boxman{
+    display: inline-block;
+    border-radius: 10px !important;
+    padding: 15px 30px;
+    background: #FFF;
+}
+.box-solid{
+    display: inline-block;
+    border-radius: 10px !important;
+    background: #FFF;
+}
+
+.bg-yellow-active{
+    background: #EF7202 !important;
+    border-bottom-left-radius: 10px !important;
+    border-bottom-right-radius: 10px !important;
+}
+
+.media-body, .media-heading{
+    color: #143A8C !important;
+    font-weight: bold !important;
+}
+
+.btn-start-punch{
+    margin-left: 4vw;
+    margin-right: 4vw;
+    background: #00D300;
+    color: white;
+    
+}
+
+.punch-layer{
+    position: absolute;
+}
+
+
+.btn-punch-layer{
+    position: fixed;
+    right: 15px;
+    bottom: 75px;
+    z-index: 10;
+    background: #00D300;
+    color: white;
+    
+}
+
+.btn-punch-layer:focus,
+.btn-punch-layer:hover{
+    background: #00C400;    
+    color: white;
+}
+
 .btn-up{ 
     position: relative;
     top: -8px !important;
@@ -196,6 +248,13 @@ body{
     border-radius: 25px !important;
     border: 2px solid #EF7202 !important;
     background: #EF7202 !important;
+}
+
+.test .swal2-confirm{
+    padding: 6px 50px !important;
+    border-radius: 25px !important;
+    border: 2px solid #F00000 !important;
+    background: #F00000 !important;
 }
 
 .swal2-cancel{
@@ -252,6 +311,7 @@ body{
 th{
     background: #F1F1F3;
     text-align: center;
+    vertical-align: middle !important;
     border: 1px solid #DDDDDD !important;
     border-right: 0 !important;
     border-left: 0 !important;
@@ -262,6 +322,10 @@ tr > th:first-child{
 }
 
 tr > th:last-child{
+    border-right: 1px solid #DDDDDD !important;
+}
+
+tr > td:last-child{
     border-right: 1px solid #DDDDDD !important;
 }
 
@@ -360,6 +424,7 @@ ul.pagination > li.active a{
 
 .swal2-popup{
     border-radius: 25px !important;
+    width: 36em !important;
 }
 
 .swal2-header{

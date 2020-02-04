@@ -22,6 +22,7 @@
                             <th>End OT</th>
                             <th>Total Hours/Minutes</th>
                             <th>Charge Code</th>
+                            <th>Location</th>
                             <th>Amount (Estimated)</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -34,7 +35,7 @@
                             <input type="text" class="form-control hidden" id="inputid" name="inputid[]" value="{{$singleuser->id}}" required>
                             <td>{{++$no}}</td>
                             <td>
-                                <a id="a-{{$no}}" data-id="{{$singleuser->id}}">{{ $singleuser->refno }}</a>
+                                <a href="" id="a-{{$no}}" style="font-weight: bold; color: #143A8C" data-id="{{$singleuser->id}}">{{ $singleuser->refno }}</a>
                             </td>
                             <td>{{ $singleuser->name->name }}</td>
                             <td>{{ date("d.m.Y", strtotime($singleuser->date)) }}</td>
@@ -50,6 +51,7 @@
                             </td>
                             <td>{{ $singleuser->total_hour }}h/{{ $singleuser->total_minute }}m</td>
                             <td>{{$singleuser->charge_type}}</td>
+                            <td>@foreach($singleuser->detail as $details){{$details->in_latitude}} {{$details->in_longitude}}<br>@endforeach</td> 
                             <td>RM{{$singleuser->amount}}</td>
                             <td>
                                 @if($singleuser->status=="PA")
@@ -63,7 +65,9 @@
                                     <option selected value="">Select Action</option>
                                     <!-- <option hidden disabled selected value="">Select Action</option> -->
                                     @if($singleuser->status=="PV")<option value="PA">Verify</option>
-                                    @elseif($singleuser->status=="PA")<option value="A">Approve</option>
+                                    @elseif($singleuser->status=="PA")
+                                        <option value="A">Approve</option>
+                                        <option value="Assign">Assign Verifier</option>
                                     @endif
                                     <option value="Q2">Query</option>
                                 </select>
@@ -99,24 +103,25 @@
                         <th>End OT</th>
                         <th>Total Hours/Minutes</th>
                         <th>Charge Code</th>
+                        <th>Location</th>
                         <th>Amount (Estimated)</th>
                         <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td colspan="10"><div class="text-center"><i>Not available</i></div></td>
+                        <td colspan="11"><div class="text-center"><i>Not available</i></div></td>
                     </tr>
                 </tbody>
             </table>
         </div>
         @endif
         
-<form action="{{route('ot.detail')}}" method="POST" class="hidden" id="form">
-    @csrf
-    <input type="text" class="hidden" name="detailid" id="detailid" value="" required>
-    <input type="text" class="hidden" name="type" value="query" required>
-</form>
+        <form action="{{route('ot.detail')}}" method="POST" class="hidden" id="form">
+            @csrf
+            <input type="text" class="hidden" name="detailid" id="detailid" value="" required>
+            <input type="text" class="hidden" name="type" value="query" required>
+        </form>
     </div>
 </div>
 @stop
@@ -151,6 +156,7 @@
             $("#detailid").val(id);
             // alert($("#inputid").val());
             $("#form").submit();
+            return false;
         }
     }
 
@@ -214,8 +220,10 @@
                 }).then((result) => {
                     if (result.value) {
                         // whensubmit = false;
-                        @if($singleuser->status=="PV")$("#action-"+i).val("PA");
-                        @elseif($singleuser->status=="PA")$("#action-"+i).val("A");
+                        @if($singleuser ?? '')
+                            @if($singleuser->status=="PV")$("#action-"+i).val("PA");
+                            @elseif($singleuser->status=="PA")$("#action-"+i).val("A");
+                            @endif
                         @endif
                         $("#inputremark-"+i).prop('disabled',true);
                             $("#inputremark-"+i).val("");
@@ -271,15 +279,15 @@
 
     for (i=1; i<{{count($otlist)+1}}; i++) {
         $("#action-"+i).change(remark(i));
-        $("#inputremark-"+i).on("click",(remark2(i)));
+        $("#inputremark-"+i).on("click",remark2(i));
     }
 
     @if(session()->has('feedback'))
-    Swal.fire({
-        title: "{{session()->get('feedback_title')}}",
-        html: "{{session()->get('feedback_text')}}",
-        confirmButtonText: 'DONE'
-    })
+        Swal.fire({
+            title: "{{session()->get('feedback_title')}}",
+            html: "{{session()->get('feedback_text')}}",
+            confirmButtonText: 'DONE'
+        })
     @endif
 </script>
 @stop
