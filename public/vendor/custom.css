@@ -150,6 +150,7 @@ body{
     border-radius: 10px !important;
     padding: 15px 30px;
     background: #FFF;
+    
 }
 .box-solid{
     display: inline-block;
@@ -161,6 +162,16 @@ body{
     background: #EF7202 !important;
     border-bottom-left-radius: 10px !important;
     border-bottom-right-radius: 10px !important;
+}
+
+.bg-light-blue-active{
+    background: #143A8C !important;
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+}
+
+.media{
+    text-align: center;
 }
 
 .media-body, .media-heading{

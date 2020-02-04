@@ -182,7 +182,7 @@
 
 <div class="row">
       <div class="col-sm-6 col-xs-12">
-        <div class="box box-solid box-primary">
+        <div class="box box-solid">
     <div class="box-header bg-light-blue-active color-palette">
     <h3 class="box-title">OT Year 2019</h3>
     </div><!-- /.box-header -->

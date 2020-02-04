@@ -3,7 +3,15 @@
 @section('title', 'Overtime List')
 
 @section('content')
+@if($view=='verifier')
 <h1>Pending Verification Claim</h1>
+@elseif($view=='verifierrept')
+<h1>Claim Verification Report</h1>
+@elseif($view=='approver')
+<h1>Pending Approval Claim</h1>
+@elseif($view=='approverrept')
+<h1>Claim Approval Report</h1>
+@endif
 <div class="panel panel-main panel-default">
     <div class="panel-body">
         
@@ -25,8 +33,13 @@
                             <th>Location</th>
                             <th>Amount (Estimated)</th>
                             <th>Status</th>
+                            @if(($view=='verifier')||($view=='approver'))
+                                @if($view=='approver')
+                                <th>Verifier</th>
+                                @endif
                             <th>Action</th>
                             <th>Action Remark</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -60,12 +73,17 @@
                                     <p>Pending Verification</p>
                                 @endif
                             </td>
+                            
+                            @if(($view=='verifier')||($view=='approver'))
+                                @if($view=='approver')
+                                    <td>{{$singleuser->verifier->name}}</td>
+                                @endif
                             <td>
                                 <select name="inputaction[]" id="action-{{$no}}">
                                     <option selected value="">Select Action</option>
                                     <!-- <option hidden disabled selected value="">Select Action</option> -->
-                                    @if($singleuser->status=="PV")<option value="PA">Verify</option>
-                                    @elseif($singleuser->status=="PA")
+                                    @if($view=="verifier")<option value="PA">Verify</option>
+                                    @elseif($view=='approver')
                                         <option value="A">Approve</option>
                                         <option value="Assign">Assign Verifier</option>
                                     @endif
@@ -75,6 +93,7 @@
                             <td>
                                 <textarea rows = "1" cols="40" type="text"  id="inputremark-{{$no}}" name="inputremark[]" value="" placeholder="" style="resize: none; display: inline" disabled></textarea>
                             </td>
+                            @endif
                         </tr>
                         {{--<!-- <tr style="text-align:center; display: none" id="remark-{{$no}}">
                             <td colspan="11">
@@ -86,9 +105,13 @@
                     </tbody>
                 </table>
             </div>
+            
+            @if(($view=='verifier')||($view=='approver'))
             <div id="submitbtn" class="text-center" onsubmit="return confirm('I understand and agree this to claim. If deemed false I can be taken to disciplinary action.')">
                 <button type="submit" class="btn btn-primary">SUBMIT</button>
             </div>
+            
+            @endif
         </form>
         @else
         <div class="table-responsive">
@@ -120,7 +143,15 @@
         <form action="{{route('ot.detail')}}" method="POST" class="hidden" id="form">
             @csrf
             <input type="text" class="hidden" name="detailid" id="detailid" value="" required>
-            <input type="text" class="hidden" name="type" value="query" required>
+            @if($view=='verifier')
+            <input type="text" class="hidden" name="type" value="verifier" required>
+            @elseif($view=='verifierrept')
+            <input type="text" class="hidden" name="type" value="verifierrept" required>
+            @elseif($view=='approver')
+            <input type="text" class="hidden" name="type" value="approver" required>
+            @elseif($view=='approverrept')
+            <input type="text" class="hidden" name="type" value="approverrept" required>
+            @endif
         </form>
     </div>
 </div>

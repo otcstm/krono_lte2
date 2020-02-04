@@ -54,15 +54,8 @@ class OvertimeController extends Controller{
 
     public function detail(Request $req){
         $claim = Overtime::where('id', $req->detailid)->first();
-        // dd($req->detailid);
         Session::put(['draft' => [], 'claim' => $claim]);
-        if($req->type=="ot"){
-            Session::put(['back' => 'ot']);        
-        }else if($req->type=="query"){
-            Session::put(['back' => 'query']);        
-        }else{
-            Session::put(['back' => 'report']);    
-        }        
+        Session::put(['back' => $req->type]); 
         return view('staff.otdetail', ['claim' => $req->session()->get('claim')]);
     }
 
@@ -587,14 +580,33 @@ class OvertimeController extends Controller{
         ]);
     }
 
+    public function verify(Request $req){
+        $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', 'PV')->orderBy('date_expiry')->orderBy('date')->get();
+        $view = "verifier";
+        return view('staff.otquery', ['otlist' => $otlist, 'view' => $view]);
+    }
+
+    public function verifyrept(Request $req){
+        $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', '!=' , 'D1')->where('status', '!=' , 'D2')->orderBy('date_expiry')->orderBy('date')->get();
+        $view = "verifierrept";
+        return view('staff.otquery', ['otlist' => $otlist, 'view' => $view]);
+    }
+
     public function approval(Request $req){
-        $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', 'PV')->orWhere('approver_id', $req->user()->id)->where('status', 'PA')->orderBy('date_expiry')->orderBy('date')->get();
-        return view('staff.otquery', ['otlist' => $otlist]);
+        // $otlist = Overtime::where('status', 'PV')->orWhere('status', 'PA')->where('approver_id', $req->user()->id)->orderBy('date_expiry')->orderBy('date')->get();
+        $otlist = Overtime::where('approver_id', $req->user()->id)
+        ->where(function($q) {
+            $q->where('status', 'PV')->orWhere('status', 'PA');
+        })
+        ->get();
+        $view = "approver";
+        return view('staff.otquery', ['otlist' => $otlist, 'view' => $view]);
     }
 
     public function approvalrept(Request $req){
-        $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', '!=' , 'D1')->orWhere('approver_id', $req->user()->id)->where('status', '!=' , 'D2')->orderBy('date_expiry')->orderBy('date')->get();
-        return view('staff.otqueryrept', ['otlist' => $otlist]);
+        $otlist = Overtime::where('approver_id', $req->user()->id)->where('status', '!=' , 'D1')->where('status', '!=' , 'D2')->orderBy('date_expiry')->orderBy('date')->get();
+        $view = "approverrept";
+        return view('staff.otquery', ['otlist' => $otlist, 'view' => $view]);
     }
 
     public function query (Request $req){
@@ -643,10 +655,9 @@ class OvertimeController extends Controller{
         }
     }
 
-    
   public static function getQueryAmount(){
-    // $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', 'PV')->orWhere('approver_id', $req->user()->id)->where('status', 'PA')->orderBy('date_expiry')->orderBy('date')->get();
-    // $count =  count($otlist);
-    // return 5;
-}
+        // $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', 'PV')->orWhere('approver_id', $req->user()->id)->where('status', 'PA')->orderBy('date_expiry')->orderBy('date')->get();
+        // $count =  count($otlist);
+        // return 5;
+    }
 }
