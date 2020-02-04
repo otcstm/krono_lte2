@@ -70,7 +70,9 @@ class MiscController extends Controller
   }
 
   public function startPunch(Request $req){
-    // $req->time = "2020-01-23 18:40:09"; //testing
+
+    $req->time = "2020-02-05 07:24:09"; //testing
+
     $date = date("Y-m-d", strtotime($req->time));
     $day = UserHelper::CheckDay($req->user()->id, $date);
     $currentp = new StaffPunch;
@@ -92,8 +94,10 @@ class MiscController extends Controller
   }
 
   public function endPunch(Request $req){
-    // $req->stime = "2020-01-23 18:40:09"; //testing
-    // $req->etime = "2020-01-24 11:40:09"; //testing
+    
+    $req->stime = "2020-02-05 07:24:09"; //testing
+    $req->etime = "2020-02-05 18:40:09"; //testing
+
     $sdate = date("Y-m-d", strtotime($req->stime));
     $edate = date("Y-m-d", strtotime($req->etime));
     $eday = UserHelper::CheckDay($req->user()->id, $req->etime);

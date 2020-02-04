@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
         $this->call(HolidaysTableSeeder::class);
         $this->call(SetupCodesTableSeeder::class);
 
-        $this->call(PaymentSchedulesTableSeeder::class);
+        // $this->call(PaymentSchedulesTableSeeder::class);
         $this->call(ShiftPatternDaysTableSeeder::class);
 
 
