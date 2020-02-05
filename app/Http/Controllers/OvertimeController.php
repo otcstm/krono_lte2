@@ -610,7 +610,15 @@ class OvertimeController extends Controller{
     }
 
     public function query (Request $req){
-        $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', 'PV')->orWhere('approver_id', $req->user()->id)->where('status', 'PA')->orderBy('date_expiry')->orderBy('date')->get();
+        if($req->typef=="verifier"){
+            $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', 'PV')->orderBy('date_expiry')->orderBy('date')->get();
+        }else if($req->typef=="approver"){
+            $otlist = Overtime::where('approver_id', $req->user()->id)
+            ->where(function($q) {
+                $q->where('status', 'PV')->orWhere('status', 'PA');
+            })
+            ->get();
+        }
         $yes = false;
         for($i=0; $i<count($otlist); $i++){
             if($req->inputaction[$i]!=""){
@@ -645,11 +653,19 @@ class OvertimeController extends Controller{
         }
         // return redirect(route('ot.approval',[],false));
         if($yes){
-            return redirect(route('ot.approval',[],false))->with([
-                'feedback' => true,
-                'feedback_text' => "Your overtime claim has successfully been submitted.",
-                'feedback_title' => "Successfully Submitted"
-            ]);
+            if($req->typef=="verifier"){
+                return redirect(route('ot.verify',[],false))->with([
+                    'feedback' => true,
+                    'feedback_text' => "Your overtime claim has successfully been submitted.",
+                    'feedback_title' => "Successfully Submitted"
+                ]);
+            }else if($req->typef=="approver"){
+                return redirect(route('ot.approval',[],false))->with([
+                    'feedback' => true,
+                    'feedback_text' => "Your overtime claim has successfully been submitted.",
+                    'feedback_title' => "Successfully Submitted"
+                ]);
+            }
         }else{
             return redirect(route('ot.approval',[],false))->with([]);
         }

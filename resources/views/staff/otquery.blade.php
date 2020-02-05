@@ -18,6 +18,11 @@
         @if(count($otlist)!=0)
         <form action="{{route('ot.query')}}" method="POST" style="display:inline"> 
             @csrf    
+            @if($view=='verifier')
+            <input type="text" class="hidden" name="typef" value="verifier" required>
+            @elseif($view=='approver')
+            <input type="text" class="hidden" name="typef" value="approver" required>
+            @endif
             <div class="table-responsive">
                 <table id="tOTList" class="table table-bordered">
                     <thead style="background: grey">
