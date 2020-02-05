@@ -58,8 +58,10 @@ class OvertimeController extends Controller{
         Session::put(['draft' => [], 'claim' => $claim]);
         if($req->type=="ot"){
             Session::put(['back' => 'ot']);        
+        }else if($req->type=="query"){
+            Session::put(['back' => 'query']);        
         }else{
-            Session::put(['back' => 'query']);    
+            Session::put(['back' => 'report']);    
         }        
         return view('staff.otdetail', ['claim' => $req->session()->get('claim')]);
     }
@@ -197,6 +199,8 @@ class OvertimeController extends Controller{
                         $draftclaim->date_expiry = date('Y-m-d', strtotime("+".$expiry->noofmonth." months", strtotime($claimdate)));
                     }
                 }
+                $draftclaim->approver_id = $req->user()->reptto;
+                $draftclaim->verifier_id =  $req->user()->id; //temp
                 $draftclaim->state_id =  $req->user()->state_id;
                 $draftclaim->daytype_id =  $day_type;
                 $draftclaim->region =  $req->user()->id;
@@ -269,9 +273,11 @@ class OvertimeController extends Controller{
                         $date_expiry = date('Y-m-d', strtotime("+".$expiry->noofmonth." months", strtotime($claimdate)));
                     }
                 }
+                $verify = User::where('id', $req->user()->id)->first();
+                $approve = User::where('id', $req->user()->reptto)->first();
                 $state = UserRecord::where('upd_sap','<=',$claimdate)->first();
-                $draft = array("OT".date("Ymd", strtotime($claimdate))."-".sprintf("%08d", $req->user()->id), $date_expiry, date("Y-m-d H:i:s"), $claimtime, $req->inputdate, $req->user()->name, $state->state_id, $state->statet->state_descr, $dt->description);
-                //[0] - refno, [1] - expiry, [2] - datetime created, [3] - month, [4] - date, [5] - user name, [6] - stateid, [7] - statedescr, [8] - day type
+                $draft = array("OT".date("Ymd", strtotime($claimdate))."-".sprintf("%08d", $req->user()->id), $date_expiry, date("Y-m-d H:i:s"), $claimtime, $req->inputdate, $req->user()->name, $state->state_id, $state->statet->state_descr, $dt->description, $verify->name, $approve->name);
+                //[0] - refno, [1] - expiry, [2] - datetime created, [3] - month, [4] - date, [5] - user name, [6] - stateid, [7] - statedescr, [8] - day type, [9] - verifier name, [10] - approver name
                 Session::put(['draft' => $draft]);
                 // dd($req->session());
             }
@@ -308,7 +314,9 @@ class OvertimeController extends Controller{
             }else{
                 $day_type = 2;
             }
+            $draftclaim->verifier_id =  $req->user()->id; //temp
             // temp=====================================================
+            $draftclaim->approver_id = $req->user()->reptto;
             $draftclaim->daytype_id =  $day_type;
             $draftclaim->state_id =  ($req->session()->get('draft'))[6];
             $draftclaim->region =  $reg->region;
@@ -584,9 +592,15 @@ class OvertimeController extends Controller{
         return view('staff.otquery', ['otlist' => $otlist]);
     }
 
+    public function approvalrept(Request $req){
+        $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', '!=' , 'D1')->orWhere('approver_id', $req->user()->id)->where('status', '!=' , 'D2')->orderBy('date_expiry')->orderBy('date')->get();
+        return view('staff.otqueryrept', ['otlist' => $otlist]);
+    }
+
     public function query (Request $req){
         $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', 'PV')->orWhere('approver_id', $req->user()->id)->where('status', 'PA')->orderBy('date_expiry')->orderBy('date')->get();
-       for($i=0; $i<count($otlist); $i++){
+        $yes = false;
+        for($i=0; $i<count($otlist); $i++){
             if($req->inputaction[$i]!=""){
                 $reg = Psubarea::where('state_id', $otlist[$i]->name->stateid->id)->first();
                 $expiry = OvertimeExpiry::where('company_id', $otlist[$i]->name->company_id)->where('region', $reg->region)->where('start_date','<=', $otlist[$i]->date)->where('end_date','>', $otlist[$i]->date)->first();               
@@ -614,10 +628,11 @@ class OvertimeController extends Controller{
                     }
                 }
                 $updateclaim->save();
+                $yes = true;
             }
         }
         // return redirect(route('ot.approval',[],false));
-        if(count($otlist)>0){
+        if($yes){
             return redirect(route('ot.approval',[],false))->with([
                 'feedback' => true,
                 'feedback_text' => "Your overtime claim has successfully been submitted.",

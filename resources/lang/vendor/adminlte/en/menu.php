@@ -33,6 +33,7 @@ return [
     'ot_apply'        => 'Apply New Overtime',
     'ot_history'      => 'OT History',
     'ot_approve'      => 'Pending Verification Claim',
+    'ot_approve_report'      => 'Claim Verification Report',
     'ot_verify'       => 'Verify OT',
     'ot_list'         => 'List of Overtime Claim',
     'staff_list'      => 'LIST OF STAFF',

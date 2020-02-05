@@ -305,6 +305,15 @@ return [
                 'icon' => '',
                 // 'can' => 'ot-nav-menu',
             ],
+            [
+                'text' => 'ot_approve_report',
+                'url'  => '/overtime/approval/report',
+                    // 'label'       => UserHelper::GetRequireAttCount(),
+                // 'label' => OvertimeController::getQueryAmount(),
+                'label_color' => 'warning',
+                'icon' => '',
+                // 'can' => 'ot-nav-menu',
+            ],
             // [
             //     'text' => 'ot_history',
             //     'url'  => '/overtime/logs',

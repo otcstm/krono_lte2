@@ -23,10 +23,19 @@ Route::get('/ur/show/{persno}/{dt}', 'URController@gUR')->name('ur.listAll');
 Route::group(['middleware' => ['auth']], function () {
   Route::get('/home', 'MiscController@home')->name('misc.home');
   Route::get('/role', 'Admin\RoleController@index')->name('role.index');
-  // clock-in related
+
+  // // clock-in related OLD
+  // Route::get('/punch',      'MiscController@showPunchView')->name('punch.list');
+  // Route::post('/punch/in',  'MiscController@doClockIn')->name('punch.in');
+  // Route::post('/punch/out', 'MiscController@doClockOut')->name('punch.out');
+  // Route::post('/punch/delete', 'MiscController@delete')->name('punch.delete');
+
+  // clock-in related NEW
   Route::get('/punch',      'MiscController@showPunchView')->name('punch.list');
-  Route::post('/punch/in',  'MiscController@doClockIn')->name('punch.in');
-  Route::post('/punch/out', 'MiscController@doClockOut')->name('punch.out');
+  Route::get('/punch/start',  'MiscController@startPunch')->name('punch.start');
+  Route::get('/punch/check',  'MiscController@checkPunch')->name('punch.check');
+  Route::get('/punch/end',  'MiscController@endPunch')->name('punch.end');
+  Route::get('/punch/cancel',  'MiscController@cancelPunch')->name('punch.cancel');
   Route::post('/punch/delete', 'MiscController@delete')->name('punch.delete');
 
   //List staff & search
@@ -135,6 +144,8 @@ Route::group(['middleware' => ['auth']], function () {
   //OT activity - Approver
   Route::get('/overtime/approval', 'OvertimeController@approval')->name('ot.approval');
   Route::post('/overtime/approval', 'OvertimeController@approval')->name('ot.approval');
+  Route::get('/overtime/approval/report', 'OvertimeController@approvalrept')->name('ot.approvalrept');
+  Route::post('/overtime/approval/report', 'OvertimeController@approvalrept')->name('ot.approvalrept');
   Route::get('/overtime/query', 'OvertimeController@query')->name('ot.query');
   Route::post('/overtime/query', 'OvertimeController@query')->name('ot.query');
 

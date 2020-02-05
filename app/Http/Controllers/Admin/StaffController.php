@@ -8,6 +8,8 @@ use App\Company;
 use App\State;
 use App\Psubarea;
 use App\UserRecord;
+use App\VerifierGroup;
+use App\VerifierGroupMember;
 use Session;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -164,6 +166,10 @@ class StaffController extends Controller
       $directreport_detail = UserRecord::where('user_id', '=', $staff->reptto)
       ->orderBy('updated_at', 'desc')
       ->first();
+
+      $listsubord = User::where('reptto','=',$req->user()->id)
+      ->orderBy('name', 'desc')
+      ->get();
       
       //$staff_comp = Company::find($staff->company_id);
       $staff_psubarea = Psubarea::where('persarea', '=', $staff->persarea)
@@ -177,6 +183,7 @@ class StaffController extends Controller
       'staff_detail' => $staff_detail, 
       'direct_report' => $directreport,
       'direct_report_detail' => $directreport_detail,
+      'list_subord' => $listsubord,
       'staff_psubarea' => $staff_psubarea,
       ]
       );
