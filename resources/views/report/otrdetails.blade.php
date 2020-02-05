@@ -48,7 +48,22 @@
   	<input type="text" class="form-control" id="fverifier_id" name="fverifier_id">
   </div>
   </div>
-  <div class="col-lg-6">
+
+  <div class="col-lg-12">
+  <div class="form-group">
+    <label for="fpersno">Persno</label>
+    <div class="table-responsive">
+    <table class="table-borderless" id="dynamic_persno">
+      <tr>
+        <td><input type="text" class="form-control" style=" background-color: white;" readonly id="fpersno" name="fpersno"></td>
+        <td>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addpersno">Add</button></td>
+      </tr>
+    </table>
+  </div>
+  </div>
+  </div>
+  <div class="col-lg-12">
   <div class="form-group">
     <label for="fcompany">Company Code</label>
     <br>
@@ -57,17 +72,22 @@
       <button style="position:relative; top: -15px !important" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addcompany">Add</button>
   </div>
   </div>
-  <div class="col-lg-6">
+  <div class="col-lg-12">
   <div class="form-group">
-    <label for="fpersno">Persno</label>
-    <div class="table-responsive">
-    <table class="table-borderless" id="dynamic_persno">
-      <tr>
-        <td><input type="text" class="form-control" style=" background-color: white;" readonly id="fpersno" name="fpersno"></td>
-        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addpersno">Add</button></td>
-      </tr>
-    </table>
-    </div>
+    <label for="fstate">State</label>
+    <br>
+      <input type="text" class="form-control hidden" id="fstate" name="fstate">
+      <span id="fstatedummy" style="display: inline-block;height: 34px;overflow: hidden;padding: 3px 0 3px 5px;border: 1px solid #A9A9A9; min-width: 80% !important;max-width: 80% !important;"></span>
+      <button style="position:relative; top: -15px !important" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addstate">Add</button>
+  </div>
+  </div>
+  <div class="col-lg-12">
+  <div class="form-group">
+    <label for="fregion">Region</label>
+    <br>
+      <input type="text" class="form-control hidden" id="fregion" name="fregion">
+      <span id="fregiondummy" style="display: inline-block;height: 34px;overflow: hidden;padding: 3px 0 3px 5px;border: 1px solid #A9A9A9; min-width: 80% !important;max-width: 80% !important;"></span>
+      <button style="position:relative; top: -15px !important" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addregion">Add</button>
   </div>
   </div>
 
@@ -111,12 +131,69 @@
     </div>
 </div>
 
+{{--modal state--}}
+<div id="addstate" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">State</h4>
+            </div>
+            <div class="modal-body">
+                <form action="" method="POST">
+                    @csrf
+                    <p><b>Select States:</b></p>
+                    <div style="max-height: 210px; overflow-y: scroll">
+                      @if($states ?? '')
+                          @foreach($states as $no=>$state)
+                          <div class="checkbox">
+                              <label><input type="checkbox" id="cbState_{{$no}}" name="state[]" value="{{$state->id}}" data-description="{{$state->state_descr}}">{{$state->id}}-{{$state->state_descr}}</label>
+                          </div>
+                          @endforeach
+                      @endif
+                    </div>
+                    <div class="text-center">
+                      <button type="button" id="btdState" data-dismiss="modal" class="btn btn-default">Done</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{--modal region--}}
+<div id="addregion" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Region</h4>
+            </div>
+            <div class="modal-body">
+                <form action="" method="POST">
+                    @csrf
+                    <p><b>Select Regions:</b></p>
+                    <div style="max-height: 210px; overflow-y: scroll">
+                      @if($regions ?? '')
+                          @foreach($regions as $no=>$region)
+                          <div class="checkbox">
+                              <label><input type="checkbox" id="cbRegion_{{$no}}" name="region[]" value="{{$region->item2}}" data-description="{{$region->item3}}">{{$region->item3}}</label>
+                          </div>
+                          @endforeach
+                      @endif
+                    </div>
+                    <div class="text-center">
+                      <button type="button" id="btdRegion" data-dismiss="modal" class="btn btn-default">Done</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 {{--modal persno--}}
 <div id="addpersno" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-      <h4 class="modal-title">Add Persno</h4>
+      <h4 class="modal-title">Persno</h4>
       </div>
       <form action="" method="post">
       <div class="modal-body">
@@ -135,7 +212,7 @@
         </div>
         <div class="modal-footer">
           <div class="text-center">
-            <button type="button" id="btndone" data-dismiss="modal" class="btn btn-default">Done</button>
+            <button type="button" id="btndone" data-dismiss="modal" class="btn btn-default">Add</button>
           </div>
         </div>
       </form>
@@ -298,12 +375,14 @@
 @section('js')
 
 <script type="text/javascript">
+
+/*------------------------------js persno-------------------------------*/
 var i=1;
 
 $(document).ready(function(){
 
 	$('#btaddprsno').click(function(){
-				$('#append_persno').append('<tr id="row'+i+'"><td style="border:0;"><input type="text" class="form-control" id="fpersno'+i+'" ></td><td style="border:0;"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
+				$('#append_persno').append('<tr id="row'+i+'"><td style="border:0;"><input type="text" class="form-control" id="fpersno'+i+'" ></td><td style="border:0;"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">x</button></td></tr>');
     i++;
 	});
 
@@ -325,6 +404,7 @@ $(document).ready(function(){
 
 });
 </script>
+
 <script type="text/javascript">
 
 $("#fcompany").on('click',function(){
@@ -335,6 +415,8 @@ $("#fpersno").on('click',function(){
   $('#addpersno').modal('show');
 });
 
+
+/*------------------------------js company-------------------------------*/
 
 for ( n=0; n<{{count($companies)}};n++){
 $("#checkbox_"+n).change(check(n));
@@ -347,7 +429,6 @@ function check(n){
           return this.value + $('#checkbox_'+n).val()+", ";
       });
 
-      // $("#fcompanydummy").text( $("#fcompanydummy").text()+ $('#checkbox_'+n).data("description")+", ");
       $("#fcompanydummy").text( $("#fcompanydummy").text()+ $('#checkbox_'+n).val()+", ");
 
   }else{
@@ -358,6 +439,53 @@ function check(n){
   }
   }
 }
+</script>
+
+<script type="text/javascript">
+/*------------------------------js state-------------------------------*/
+for ( s=0; s<{{count($states)}};s++){
+$("#cbState_"+s).change(checkSt(s));
+}
+
+function checkSt(s){
+ return function(){
+  if ($('#cbState_'+s).is(':checked')) {
+      $("#fstate").val(function() {
+                    return this.value + $('#cbState_'+s).val()+", ";
+                });
+
+      $("#fstatedummy").text( $("#fstatedummy").text()+ $('#cbState_'+s).val()+", ");
+
+  }else{
+      var st = ($('#fstate').val()).replace($('#cbState_'+s).val()+", ",'');
+      $('#fstate').val(st);
+      var st2 = ($('#fstatedummy').text()).replace($('#cbState_'+s).val()+", ",'');
+      $('#fstatedummy').text(st2);
+  }
+  }
+}
+
+/*------------------------------js region-------------------------------*/
+for ( r=0; r<{{count($regions)}};r++){
+$("#cbRegion_"+r).change(checkReg(r));
+}
+
+function checkReg(r){
+ return function(){
+  if ($('#cbRegion_'+r).is(':checked')) {
+      $("#fregion").val(function() {
+          return this.value + $('#cbRegion_'+r).val()+", ";
+      });
+      $("#fregiondummy").text( $("#fregiondummy").text()+ $('#cbRegion_'+r).val()+", ");
+  }else{
+      var reg = ($('#fregion').val()).replace($('#cbRegion_'+r).val()+", ",'');
+      $('#fregion').val(reg);
+      var reg2 = ($('#fregiondummy').text()).replace($('#cbRegion_'+r).val()+", ",'');
+      $('#fregiondummy').text(reg2);
+  }
+  }
+}
+
 </script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>

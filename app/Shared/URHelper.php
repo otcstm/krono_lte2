@@ -140,4 +140,12 @@ class URHelper
 
 
 
+      // public static function getStatusPIO( $persno,$st,$et)//get claim status for every single punch in/out
+      // {
+      //   $applyOT = OvertimeDetail::where('user_id',$persno)->where('start_time','=',$st)->where('end_time','=',$et)->get()->first();
+      //   return $applyOT;
+      // }
+
+
+
 }

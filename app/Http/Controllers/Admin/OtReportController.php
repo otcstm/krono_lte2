@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Admin;
 use Session;
 use App\Overtime;
+use App\State;
+use App\SetupCode;
 use App\Company;
 use App\OvertimeDetail;
 use App\OvertimeLog;
+use App\StaffPunch;
+
 // use App\UserRecord;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,6 +19,8 @@ class OtReportController extends Controller
   public function viewOT(Request $req)//OT Summary
   {
     $company = Company::all();
+    $state = State::all();
+    $region = SetupCode::where('item1', 'region')->get();
     $vlist = false;
     $ar_persno =[];
 
@@ -23,6 +29,7 @@ class OtReportController extends Controller
       $vlist = true;
       $otr = $this->fetch($req);
       // dd($req);
+      // dd($otr);
 
     }else{
       $otr = [];
@@ -32,12 +39,14 @@ class OtReportController extends Controller
     }
     // dd($otr);
     // dd($req);
-    return view('report.otr',['vlist'=>$vlist,'ar_persno'=> $ar_persno,'otrep' => $otr,'companies'=>$company ]);
+    return view('report.otr',['vlist'=>$vlist,'ar_persno'=> $ar_persno,'otrep' => $otr,'companies'=>$company,'states'=>$state,'regions'=>$region ]);
   }
 
   public function viewOTd(Request $req)//OT Detail
   {
     $company = Company::all();
+    $state = State::all();
+    $region = SetupCode::where('item1', 'region')->get();
     $vlist = false;
     $param = [];
 
@@ -64,11 +73,8 @@ class OtReportController extends Controller
 
     }
 
-    return view('report.otrdetails',['vlist'=>$vlist,'otrep' => $otr, 'param'=> $param, 'companies'=>$company ]);
+    return view('report.otrdetails',['vlist'=>$vlist,'otrep' => $otr, 'param'=> $param, 'companies'=>$company, 'states'=>$state,'regions'=>$region  ]);
   }
-
-
-
 
   public function fetch(Request $req)
   {
@@ -83,7 +89,9 @@ class OtReportController extends Controller
     $otr = [];
     $otdetail = [];
     $persno = explode(",", $req->fpersno);
-    $fcompany = explode(",", $req->fcompany);
+    $company = explode(",", $req->fcompany);
+    $state = explode(",", $req->fstate);
+    $region = explode(",", $req->fregion);
 
     // dd($req);
     // $otreport = OvertimeDetail::query();
@@ -95,7 +103,13 @@ class OtReportController extends Controller
       $otr = $otr->whereIn('user_id',$persno);
     }
     if(isset($req->fcompany)){
-      $otr = $otr->whereIn('company_id',$fcompany);
+      $otr = $otr->whereIn('company_id',$company);
+    }
+    if(isset($req->fstate)){
+      $otr = $otr->whereIn('state_id',$state);
+    }
+    if(isset($req->fregion)){
+      $otr = $otr->whereIn('region',$region);
     }
     if(isset($req->fapprover_id)){
       $otr = $otr->where('approver_id', 'LIKE', '%' .$approver_id. '%');
@@ -119,11 +133,13 @@ class OtReportController extends Controller
       $otdetail = OvertimeDetail::whereIn('ot_id', $list_of_id)->where('checked','Y')->get();
       return $otdetail;
     }
-    else{
+    elseif ($jenisrep == 'main') {
       return $otr;
-    }
 
   }
+}
+
+
 
   public function viewLC(Request $req)
   {
@@ -179,23 +195,39 @@ class OtReportController extends Controller
 
   }
 
+public function viewStEd(Request $req)//List of Start/End OT Time (Punch)
+{
+  $vlist = false;
 
+  if($req->filled('searching')){
+    $vlist = true;
+    $otPunch = $this->fetchStEd($req);
+  }else{
+    $otPunch = [];
+  }
+  return view('report.otSdEd',['vlist'=>$vlist,'otrep' => $otPunch,]);
+}
 
+public function fetchStEd(Request $req)
+{
+  $fdate = $req->fdate;
+  $tdate = $req->tdate;
+  $persno = $req->fpersno;
 
+  $otr = StaffPunch::query();
+  if(isset($req->fdate)){
+    // dd($fdate,$tdate);
+    $otr = $otr->whereBetween('punch_in_time', array($fdate, $tdate));
+  }
+  if(isset($req->fpersno)){
+    $otr = $otr->where('user_id', 'LIKE', '%' .$persno. '%');
+  }
 
+  $otrStEd = $otr->get();
 
+  return $otrStEd;
 
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
 
