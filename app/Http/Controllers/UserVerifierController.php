@@ -39,6 +39,19 @@ class UserVerifierController extends Controller
         return response()->json($data);
     }
 
+    public function subordSearch(Request $req)
+    {
+        //    	        
+        $data = [];
+        if($req->has('q')){
+            $search = $req->q;
+            $data = User::select("id","name")
+                    ->where('reptto','=',$req->user()->id)
+                    ->where('name','LIKE',"%$search%")
+                    ->get();
+        }         
+        return response()->json($data);
+    }
     
     public function staffverifier(Request $req)
     {
@@ -50,6 +63,14 @@ class UserVerifierController extends Controller
         ->with('userdata', $dataUser)
         ->with('verifiers', $dataVerifier)
         ->with('subordinates', $dataSubordinate);
+    }
+
+    public function defaultVerifier(Request $req)
+    {
+        $dataReptto = User::where('reptto', '=', $req->user()->id)->get();
+
+        return view('verifier.index')
+        ->with('reptto', $dataReptto);
     }
 
     /**

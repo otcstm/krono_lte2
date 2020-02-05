@@ -7,10 +7,9 @@
 <div class="row-eq-height">
 
 <div class="col-md-6">
-    <div class="box box-warning boxfullheight">
-        <div class="box-header with-border">
-              <i class="glyphicon glyphicon-user"></i>
-              <h3 class="box-title">My Profile</h3>
+<div class="panel panel-default boxfullheight">
+        <div class="panel-heading">              
+            <i class="glyphicon glyphicon-user"></i> My Profile
         </div>
             <!-- /.box-header -->
         <div class="box-body">
@@ -55,10 +54,9 @@
     </div>
 </div>
 <div class="col-md-6">
-    <div class="box box-warning boxfullheight">
-        <div class="box-header with-border">
-              <i class="glyphicon glyphicon-queen"></i>
-              <h3 class="box-title">Direct Report</h3>
+<div class="panel panel-default boxfullheight">
+        <div class="panel-heading">              
+              <i class="glyphicon glyphicon-queen"></i> Direct Report
         </div>
             <!-- /.box-header -->
         <div class="box-body">
@@ -76,7 +74,7 @@
                             <br />
                             <i class="glyphicon glyphicon-usd"></i> <b>Cost Center:</b> {{ $direct_report_detail->costcentr }}
                             <br />
-                            <i class="glyphicon glyphicon-usd"></i> <b>Ot Salary Exception:</b> 
+                            <!-- <i class="glyphicon glyphicon-usd"></i> <b>Ot Salary Exception:</b> 
                             @if ($direct_report->ot_salary_exception == '1') 
                             YES
                             @elseif ($direct_report->ot_salary_exception == '0') 
@@ -91,7 +89,7 @@
                             @else 
                             {{ $direct_report->ot_hour_exception }}
                             @endif
-                            <br />
+                            <br /> -->
                             <i class="glyphicon glyphicon-envelope"></i> <b>Email:</b> {{ $direct_report->email }} 
                             <br />
                         </p>                     
@@ -108,10 +106,9 @@
 
 <div class="col-md-6">
 
-<div class="box box-warning boxfullheight">
-        <div class="box-header with-border">
-        <i class="glyphicon glyphicon-briefcase"></i>
-              <h3 class="box-title">Company</h3>
+<div class="panel panel-default boxfullheight">
+        <div class="panel-heading"> 
+        <i class="glyphicon glyphicon-briefcase"></i> Company
         </div>
             <!-- /.box-header -->
         <div class="box-body">
@@ -139,12 +136,13 @@
     </div>
 
 </div>
+
+@if(!empty($verifier_detail))
 <div class="col-md-6">
 
-<div class="box box-warning boxfullheight">
-        <div class="box-header with-border">
-              <i class="glyphicon glyphicon-user"></i>
-              <h3 class="box-title">Verifier</h3>
+<div class="panel panel-default boxfullheight">
+        <div class="panel-heading">   
+        <i class="glyphicon glyphicon-user"></i> Verifier
         </div>
             <!-- /.box-header -->
         <div class="box-body">
@@ -153,31 +151,31 @@
                         <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"  alt="" class="img-rounded img-responsive" />
         </div>
                     <div class="col-sm-6 col-md-8">
-                        <h4>{{ $direct_report->name}}</h4>
+                        <h4>{{ $verifier_detail->name}}</h4>
                             <p>
-                            <i class="glyphicon glyphicon-user"></i> <b>Staff ID:</b> {{ $direct_report->staff_no }} 
+                            <i class="glyphicon glyphicon-user"></i> <b>Staff ID:</b> {{ $verifier_detail->staff_no }} 
                             <br />
-                            <i class="glyphicon glyphicon-briefcase"></i> <b>Company:</b> {{ $direct_report->companyid->company_descr }}
+                            <i class="glyphicon glyphicon-briefcase"></i> <b>Company:</b> {{ $verifier_detail->companyid->company_descr }}
                             <br />
-                            <i class="glyphicon glyphicon-usd"></i> <b>Cost Center:</b> {{ $direct_report_detail->costcentr }}
+                            <i class="glyphicon glyphicon-usd"></i> <b>Cost Center:</b> {{ $verifier_detail->costcentr }}
                             <br />
-                            <i class="glyphicon glyphicon-usd"></i> <b>Ot Salary Exception:</b> 
-                            @if ($direct_report->ot_salary_exception == '1') 
+                            <!-- <i class="glyphicon glyphicon-usd"></i> <b>Ot Salary Exception:</b> 
+                            @if ($verifier_detail->ot_salary_exception == '1') 
                             YES
-                            @elseif ($direct_report->ot_salary_exception == '0') 
+                            @elseif ($verifier_detail->ot_salary_exception == '0') 
                             NO
                             @else 
                             N/A
                             @endif
                             <br />
                             <i class="glyphicon glyphicon-time"></i> <b>Ot Hour Exception:</b>                            
-                            @if ($direct_report->ot_hour_exception ?? '') 
+                            @if ($verifier_detail->ot_hour_exception ?? '') 
                             N/A
                             @else 
-                            {{ $direct_report->ot_hour_exception }}
+                            {{ $verifier_detail->ot_hour_exception }}
                             @endif
-                            <br />
-                            <i class="glyphicon glyphicon-envelope"></i> <b>Email:</b> {{ $direct_report->email }} 
+                            <br /> -->
+                            <i class="glyphicon glyphicon-envelope"></i> <b>Email:</b> {{ $verifier_detail->email }} 
                             <br />
                         </p>                     
             </div>            
@@ -185,36 +183,46 @@
             </div><!-- /.box-body -->            
     </div><!-- /.box box-solid -->  
 </div><!-- /.col-md-6-->  
+@endif
 
 </div><!-- /.row -->
 
+<h3 class="box-title">Subordinates @if($list_subord->count() > 0) ({{ $list_subord->count() }}) @endif</h3>
+@if($list_subord->count() == 0)
 <div class="row">
 <div class="col-md-12">
-<div class="col-md-12">
-
-
-
-<div class="box box-warning">
-        <div class="box-header with-border">
-              <i class="glyphicon glyphicon-queen"></i>
-              <h3 class="box-title">Subordinates</h3>
-        </div>
+<div class="panel panel-default">
             <!-- /.box-header -->
         <div class="box-body">
-
-@if($list_subord ?? '')
 <p>No Subordinates</p>
+            <!-- /.box-body -->
+          </div>
+</div>
+</div><!-- /.col-md-12-->  
+</div><!-- /.row -->
+
 @else
+
+@php $countrow=0 @endphp
 @foreach ($list_subord as $row_subord)
+
+@if($countrow % 4 === 0)
+<div class="row-eq-height">
+@endif
+
+@php $countrow++ @endphp
     <div class="col-md-3">
-          <div class="panel panel-warning">
+          <div class="panel panel-default boxfullheight">
+            <div class="panel-heading">
+            Subordinate {{ $countrow }}
+            </div>
             <div class="panel-body box-profile">
               <img class="profile-user-img img-responsive img-circle" src="/vendor/images/useravatar.png" alt="User profile picture">
 
               <h3 class="profile-username text-center">{{ $row_subord->name }} </h3>
 
-              <p class="text-muted text-center">Software Engineer</p>
-              <div class="col-md-12" style="word-wrap: break-word">
+              <p class="text-muted text-center">{{ $row_subord->userrecordLatest->empsgroup }} </p>
+              <div class="col-md-12" style="word-wrap: break-all">
               <i class="glyphicon glyphicon-user"></i> <b>Staff ID:</b> {{ $row_subord->staff_no }} 
                             <br />
                             <i class="glyphicon glyphicon-briefcase"></i> <b>Company:</b> {{ $row_subord->companyid->company_descr }}
@@ -239,20 +247,15 @@
                             <br />
                             <i class="glyphicon glyphicon-envelope"></i> <b>Email:</b> {{ $row_subord->email }} 
                             <br />
+            </div>  
             </div>
-            </div>
-            <!-- /.box-body -->
-          </div>
+        </div>
     </div>
-@endforeach
+@if($countrow % 4 === 0)
+</div><!-- /.row-eq-height -->
 @endif
-        </div><!-- /.box-body -->            
-</div><!-- /.box box-warning -->  
+@endforeach
 
-</div><!-- /.col-md-12-->  
-</div><!-- /.col-md-12-->  
-</div><!-- /.row -->
-
-
+@endif
 
 @stop

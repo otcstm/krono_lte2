@@ -15,7 +15,7 @@
         @csrf
         <input type="hidden" name="s_year" id="s_year_create" value="{{$s_year}}" />
 
-        <button type="submit" name="submit" class="btn btn-block btn-default"><i class="fa fa-plus"></i> Create New Holiday</button>
+        <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Create New Holiday</button>
      
       </form>
                
@@ -71,12 +71,14 @@
     @php($col = $col+1)
   @endforeach
   <th>
-<a href="{{ route('holiday.edit',['id'=>$cmain[0]],false) }}" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-edit"></i></a>
+<a href="{{ route('holiday.edit',['id'=>$cmain[0]],false) }}" class="btn btn-np">
+<i class="fas fa-edit"></i></a>
 
-<a href="#" class="btn btn-danger btn-sm"
+<a href="#" class="btn btn-np"
 onClick="submitDeleteForm('{{$cmain[0]}}')"
-holid="{{$cmain[0]}}"><i class="glyphicon glyphicon-trash"></i></a>
+holid="{{$cmain[0]}}"><i class="fas fa-trash-alt"></i>
 </a>
+
 <span style="color:transparent">
     {{$cmain[0]}}
 </span>

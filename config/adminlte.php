@@ -328,6 +328,14 @@ return [
             //     'label_color' => 'warning',
             //     // 'can' => 'ot-nav-menu',
             // ],
+
+            
+            [
+                'text' => 'ot_def_ver',
+                'url'  => '/verifier',
+                'icon' => '',
+                // 'can' => 'ot-nav-menu',
+            ],
           ]
         ],
         [

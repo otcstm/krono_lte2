@@ -175,7 +175,12 @@ Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth
   Route::get('/email/dummy', 'EmailController@dummyEmail')->name('email.dummy');
   Route::post('/email/dummy', 'EmailController@sendDummyEmail')->name('email.senddummy');
 
+  Route::get('/verifier', 'VerifierGroupController@index')->name('verifier.listGroup');
+  Route::get('/verifier/create', 'VerifierGroupController@creategroup')->name('verifier.create');
+  Route::get('/verifier/assignment', 'VerifierGroupController@defaultVerifier')->name('verifier.listSubordinates');
+
   Route::get('/admin/verifier/', 'UserVerifierController@search')->name('verifier.search');
   Route::post('/admin/verifier/staff', 'UserVerifierController@staffverifier')->name('verifier.staff');
   Route::get('/admin/verifier/staffsearch', 'UserVerifierController@staffsearch');
-  Route::get('/admin/verifier/create','UserVerifierController@create')->name('verifier.create');
+  Route::get('/admin/verifier/subordSearch', 'UserVerifierController@subordSearch');
+  Route::get('/admin/verifier/createGroup','VerifierGroupController@createGroup')->name('verifier.createGroup');

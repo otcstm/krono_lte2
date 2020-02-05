@@ -38,6 +38,7 @@ return [
     'staff_list'      => 'LIST OF STAFF',
     'reassign_app'    => 'Reassign Approver',
     'reassign_ver'    => 'Reassign Verifier',
+    'ot_def_ver'       => 'Set Default Verifier',
 
     'shift_menu'      => 'SHIFT MANAGEMENT',
     'shift_plan'      => 'Plan Shifts',
