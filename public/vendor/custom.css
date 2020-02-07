@@ -312,6 +312,12 @@ body{
     background: #DD4B39;
 }
 
+.btn-x-sm{
+    margin-right: 25px;
+    padding: 0 5px !important;
+    /* border-radius: 5px !important; */
+}
+
 
 .btn-x:hover,
 .btn-x:focus{

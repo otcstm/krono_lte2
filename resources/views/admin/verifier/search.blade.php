@@ -37,6 +37,7 @@
 <script type="text/javascript">
       $('.userId').select2({
         placeholder: 'Select an item',
+        minimumInputLength: 3,
         ajax: {
           url: '/admin/verifier/staffsearch',
           dataType: 'json',

@@ -257,15 +257,14 @@
                     if (result.value) {
                         // whensubmit = false;
                         @if($singleuser ?? '')
-                            @if($singleuser->status=="PV")$("#action-"+i).val("PA");
-                            @elseif($singleuser->status=="PA")$("#action-"+i).val("A");
+                            @if($view=='verifier')$("#action-"+i).val("PA");
+                            @elseif($view=='approver')$("#action-"+i).val("A");
                             @endif
                         @endif
                         $("#inputremark-"+i).prop('disabled',true);
                             $("#inputremark-"+i).val("");
                             $("#inputremark-"+i).prop('required',false);
                     }else{
-                        
                         $("#action-"+i).val("");
                         $("#inputremark-"+i).prop('disabled',true);
                             $("#inputremark-"+i).prop('required',false);

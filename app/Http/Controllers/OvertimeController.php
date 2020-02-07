@@ -104,7 +104,8 @@ class OvertimeController extends Controller{
             for($i = 0; $i<count($id); $i++){
                 $updateclaim = Overtime::find($id[$i]);
                 $updateclaim->approver_id = $req->user()->reptto;
-                $updateclaim->verifier_id =  $req->user()->id; //temp
+                // $updateclaim->verifier_id =  $req->user()->id; //temp 
+                // $updateclaim->verifier_id =  "55323"; //temp 
                 $execute = UserHelper::LogOT($id[$i], $req->user()->id, "Submitted", "Submitted ".$updateclaim->refno);
                 if($updateclaim->verifier_id==null){
                     $updateclaim->status = 'PA';
@@ -193,7 +194,8 @@ class OvertimeController extends Controller{
                     }
                 }
                 $draftclaim->approver_id = $req->user()->reptto;
-                $draftclaim->verifier_id =  $req->user()->id; //temp
+                // $draftclaim->verifier_id =  $req->user()->id; //temp 
+                // $draftclaim->verifier_id =  55323; //temp 
                 $draftclaim->state_id =  $req->user()->state_id;
                 $draftclaim->daytype_id =  $day_type;
                 $draftclaim->region =  $req->user()->id;
@@ -307,7 +309,8 @@ class OvertimeController extends Controller{
             }else{
                 $day_type = 2;
             }
-            $draftclaim->verifier_id =  $req->user()->id; //temp
+            // $draftclaim->verifier_id =  $req->user()->id; //temp 
+            // $draftclaim->verifier_id =  55323; //temp 
             // temp=====================================================
             $draftclaim->approver_id = $req->user()->reptto;
             $draftclaim->daytype_id =  $day_type;
@@ -512,7 +515,8 @@ class OvertimeController extends Controller{
             $updatemonth->save();
             $updateclaim = Overtime::find($claim->id);
             $updateclaim->approver_id = $req->user()->reptto;
-            $updateclaim->verifier_id =  $req->user()->id; //temp
+            // $updateclaim->verifier_id =  $req->user()->id; //temp 
+            // $updateclaim->verifier_id =  "55323"; //temp 
             $execute = UserHelper::LogOT($claim->id, $req->user()->id, "Submitted", "Submitted ".$updateclaim->refno);   
             $expiry = OvertimeExpiry::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $claim->date)->where('end_date','>', $claim->date)->first();               
             if($updateclaim->verifier_id==null){
@@ -565,6 +569,9 @@ class OvertimeController extends Controller{
         $updateclaim->total_minute = ($totaltime%60);
         $updateclaim->amount = $updateclaim->amount - $claimdetail->amount;
         OvertimeDetail::find($req->delid)->delete();
+        if($claimdetail->clock_in!=NULL){
+            $delotpunch = OvertimePunch::where('start_time', $claimdetail->clock_in)->delete();
+        }
         $claimdetail = OvertimeDetail::where('ot_id', $claim->id)->get();
         if(count($claimdetail)==0){
             $updateclaim->status = 'D1';
