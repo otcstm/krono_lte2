@@ -5,112 +5,90 @@
     <div class="alert alert-{{$ac}}" role="alert">{{session('alert')}}</div>
 @endif
 
-<div class="box box-primary box-solid">
-            <div class="box-header with-border">
-              <h3 class="box-title">Holiday</h3>
-
-              <div class="box-tools pull-right">
-
-              <form action="{{ route('holiday.create',[],false) }}" style="display:inline; float:right">
+<h1>Holiday Management</h1>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="flex-sb">
+      <div style="margin-top: 5px">
+        <span>Year </span>
+        <form method="post" id="form_select_year_id" style="display: inline">
+          @csrf
+          <select name="s_year" id="s_year_id">
+            @foreach ($years as $y)
+              <option>{{$y}}</option>
+            @endforeach
+          </select>
+        </form> 
+      </div>
+      <form action="{{ route('holiday.create',[],false) }}" style="display:inline; float:right">
         @csrf
         <input type="hidden" name="s_year" id="s_year_create" value="{{$s_year}}" />
-
-        <button type="submit" name="submit" class="btn btn-block btn-default"><i class="fa fa-plus"></i> Create New Holiday</button>
-     
+        <button type="submit" name="submit" class="btn-up" style="margin-top: 15px">CREATE NEW HOLIDAY</button>
       </form>
-               
-              </div>
-              <!-- /.box-tools -->
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-     
-  <div class="row">   
-  <div class="col-md-6">
-  <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-4 control-label">Select Year: </label>
-
-                  <div class="col-sm-8">
-                  <form method="post" id="form_select_year_id" >
-        	@csrf
-        <select name="s_year" id="s_year_id" class="form-control">
-          @foreach ($years as $y)
-        <option>{{$y}}</option>
-        @endforeach
-        </select>
-      </form> </div>
-                </div>
-    </div>  
-    </div>  <br />
-<div class="table-responsive">
-<table id="holidaylist" class="table-bordered table-hover">
-<thead>
-<tr>
-  @php($col = 0)
-  @foreach ($header as $h)
-    @if($col==0)
-    @else
-      <th>{{ $h }}</th>
-    @endif
-    @php($col = $col+1)
-  @endforeach
-  <th>Action</th>
-</tr>
-</thead>
-<tbody>
-@foreach ($content as $cmain)
-<tr>
-
-  @php($col = 0)
-  @foreach ($cmain as $c)
-    @if($col==0)
-
-    @else
-      <td>{{ $c }}</td>
-    @endif
-    @php($col = $col+1)
-  @endforeach
-  <th>
-<a href="{{ route('holiday.edit',['id'=>$cmain[0]],false) }}" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-edit"></i></a>
-
-<a href="#" class="btn btn-danger btn-sm"
-onClick="submitDeleteForm('{{$cmain[0]}}')"
-holid="{{$cmain[0]}}"><i class="glyphicon glyphicon-trash"></i></a>
-</a>
-<span style="color:transparent">
-    {{$cmain[0]}}
-</span>
-  </th>
-</tr>
-
-@endforeach
-</tbody>
-</table>
-</div>
-</div>
-<!-- /.box-body -->
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered table-white">
+          <thead>
+            <tr>
+              @php($col = 0)
+              @foreach ($header as $h)
+                @if($col==0)
+                @else
+                  <th>{{ $h }}</th>
+                @endif
+                @php($col = $col+1)
+              @endforeach
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+              @foreach ($content as $cmain)
+              <tr>
+                @php($col = 0)
+                @foreach ($cmain as $c)
+                  @if($col==0)
+                  @else
+                      @if($c=="*")
+                        
+                        <td class="fill"> 
+                        </td>
+                      @else
+                        <td>{{ $c }}</td>
+                      @endif
+                  @endif
+                  @php($col = $col+1)
+                @endforeach
+                <td>
+                  <a href="{{ route('holiday.edit',['id'=>$cmain[0]],false) }}" class="btn  btn-np">
+                    <i class="fas fa-edit"></i>
+                  </a>
+                  <a href="#" class="btn  btn-np" onClick="submitDeleteForm('{{$cmain[0]}}')" holid="{{$cmain[0]}}">
+                    <i class="fas fa-trash-alt"></i>
+                  </a>
+                  <span style="color:transparent">
+                      {{$cmain[0]}}
+                  </span>
+                </td>
+              </tr>
+              @endforeach
+          </tbody>
+      </table>
+    </div>
+    <div class="line"></div>
+    <h4 style="margin-left: 5%"><b>Legend</b></h4>
+    <div class="flex-state">
+      @foreach ($states as $state)
+        <div class="state-item">
+          <div class="row">
+            <div class="col-md-1">{{ $state->id }}</div>
+            <div class="col-md-11">: {{$state->state_descr}}</div>
+          </div>
+        </div>
+      @endforeach
+    </div>
+  </div>
 </div>
 
-<div class="row">
-<div class="col-md-6">
-<div class="box box-info box-solid">
-            <div class="box-header with-border">
-              <h3 class="box-title">Legends</h3>
-              <!-- /.box-tools -->
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-@foreach ($states as $state)
-
-{{ $state->id }} :{{$state->state_descr}} <br >
- @endforeach
-
- </div>
-<!-- /.box-body -->
-</div>
-
-</div>
-</div>
 
 <form method="POST" action="{{route('holiday.destroy',[],false) }}"
 	id="formDeleteID">
@@ -144,14 +122,6 @@ function submitDeleteForm(holid){
       	$('#form_select_year_id').submit();
       });
 
-   
-    $('#holidaylist').DataTable({
-      "responsive": "true",
-      "order" : [[0, "desc"]],
-      fixedColumns:   {
-            leftColumns: 2
-        }
-    });
    });
 </script>
 

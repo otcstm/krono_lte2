@@ -663,13 +663,13 @@ class OvertimeController extends Controller{
             if($req->typef=="verifier"){
                 return redirect(route('ot.verify',[],false))->with([
                     'feedback' => true,
-                    'feedback_text' => "Your overtime claim has successfully been submitted.",
+                    'feedback_text' => "Your pending overtime claim has successfully been submitted.",
                     'feedback_title' => "Successfully Submitted"
                 ]);
             }else if($req->typef=="approver"){
                 return redirect(route('ot.approval',[],false))->with([
                     'feedback' => true,
-                    'feedback_text' => "Your overtime claim has successfully been submitted.",
+                    'feedback_text' => "Your pending overtime claim has successfully been submitted.",
                     'feedback_title' => "Successfully Submitted"
                 ]);
             }

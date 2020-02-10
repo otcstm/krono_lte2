@@ -114,9 +114,20 @@ body{
     background: #343849;
 } */
 
-.foot .container{
+.foot .container, .flex-sb{
     display: flex;
     justify-content: space-between;
+}
+
+.flex-state{
+    width: 100%;
+    margin: 0 5% 50px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.state-item{
+    width: 30%;
 }
 
 .foot-text{
@@ -211,12 +222,13 @@ body{
 .btn-up{ 
     position: relative;
     top: -8px !important;
-    padding: 0px 15px;
+    padding: 2px 15px;
     border-radius: 5px;
     background: #143A8C;
     color: white;
     border: 2px solid #143A8C;
     margin-left: 5px;
+    font-weight: bold;
 }
 
 .btn-p{
@@ -367,6 +379,23 @@ tr > td:first-child{
     text-align: center !important; 
 }
 
+.table-bordered th{
+    border: 1px solid #DDDDDD !important;
+}
+
+.table-bordered  td{
+    border: 1px solid #DDDDDD !important;
+    border-right: 1px solid #DDDDDD !important;
+    border-left: 1px solid #DDDDDD !important;
+    border-top: 1px solid #DDDDDD !important;
+}
+
+.fill{
+    /* width: 100%;
+    height: 100%; */
+    background: #3B86FF;
+}
+
 .sidebar-menu li.active>a,
 .treeview-menu li.active a{
     color: #143A8C !important;
@@ -439,6 +468,10 @@ ul.pagination > li.active a{
     color: white;
 }
 
+.table-white th{
+    background: transparent !important;
+}
+
 .swal2-popup{
     border-radius: 25px !important;
     width: 36em !important;
@@ -505,4 +538,10 @@ ul.pagination > li.active a{
     #btn-file-2{ 
         right: 52%; 
     }
+}
+
+.line{
+    width: 100%;
+    border-top: 2px solid #707070 !important;
+    margin: 50px 0;
 }
