@@ -127,6 +127,11 @@ class URHelper
         $st = SetupCode::where('item1','ot_status')->where('item2',$code)->first();
         return $st;
       }
+      public static function getRegion($psubarea)
+      {
+        $getreg = Psubarea::where('perssubarea',$psubarea)->first();
+        return $getreg;
+      }
 
       public static function getOTLog($otid)
       {

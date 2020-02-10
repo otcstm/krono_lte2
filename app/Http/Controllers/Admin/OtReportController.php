@@ -21,25 +21,12 @@ class OtReportController extends Controller
     $company = Company::all();
     $state = State::all();
     $region = SetupCode::where('item1', 'region')->get();
-    $vlist = false;
-    $ar_persno =[];
-
 
     if($req->filled('searching')){
-      $vlist = true;
       $otr = $this->fetch($req);
-      // dd($req);
-      // dd($otr);
-
-    }else{
-      $otr = [];
-      if($req->filled('fpersno')){
-        $ar_persno= $req->fpersno;
-      }
+      return view('report.otrList',['otrep' => $otr,]);
     }
-    // dd($otr);
-    // dd($req);
-    return view('report.otr',['vlist'=>$vlist,'ar_persno'=> $ar_persno,'otrep' => $otr,'companies'=>$company,'states'=>$state,'regions'=>$region ]);
+    return view('report.otr',['companies'=>$company,'states'=>$state,'regions'=>$region ]);
   }
 
   public function viewOTd(Request $req)//OT Detail
@@ -47,33 +34,11 @@ class OtReportController extends Controller
     $company = Company::all();
     $state = State::all();
     $region = SetupCode::where('item1', 'region')->get();
-    $vlist = false;
-    $param = [];
-
     if($req->filled('searching')){
-      $vlist = true;
       $otr = $this->fetch($req);
-      if(isset($req->fdate)){
-        array_push($param, ['fdate'=>$req->fdate,'tdate'=>$req->tdate, ]);
-      }
-      if(isset($req->fpersno)){
-        array_push($param, ['fpersno'=>$req->fpersno, ]);
-      }
-      if(isset($req->frefno)){
-        array_push($param, ['frefno'=>$req->frefno, ]);
-      }
-      if(isset($req->fapprover_id)){
-        array_push($param, ['fapprover_id'=>$req->fapprover_id, ]);
-      }
-      if(isset($req->fverifier_id)){
-        array_push($param, ['fverifier_id'=>$req->fverifier_id, ]);
-      }
-    }else{
-      $otr = [];
-
+      return view('report.otrdetailsList',['otrep' => $otr, ]);
     }
-
-    return view('report.otrdetails',['vlist'=>$vlist,'otrep' => $otr, 'param'=> $param, 'companies'=>$company, 'states'=>$state,'regions'=>$region  ]);
+    return view('report.otrdetails',[ 'companies'=>$company, 'states'=>$state,'regions'=>$region]);
   }
 
   public function fetch(Request $req)
@@ -81,20 +46,16 @@ class OtReportController extends Controller
     $jenisrep = $req->searching;
     $fdate = $req->fdate;
     $tdate = $req->tdate;
-    // $persno = $req->fpersno;
     $approver_id = $req->fapprover_id;
     $refno = $req->frefno;
-        // $status = $req->fstatus;
     $verifier_id = $req->fverifier_id;
-    $otr = [];
-    $otdetail = [];
-    $persno = explode(",", $req->fpersno);
-    $company = explode(",", $req->fcompany);
-    $state = explode(",", $req->fstate);
-    $region = explode(",", $req->fregion);
+    // $otr = [];
+    // $otdetail = [];
+    $persno = explode(",", $req->fpersno);//convert str to arry
+    $company = $req->fcompany;
+    $state = $req->fstate;
+    $region = $req->fregion;
 
-    // dd($req);
-    // $otreport = OvertimeDetail::query();
     $otr = Overtime::query();
     if(isset($req->fdate)){
       $otr = $otr->whereBetween('date', array($fdate, $tdate));
@@ -123,112 +84,134 @@ class OtReportController extends Controller
     if(isset($req->fapprover_id)){
       $otr = $otr->where('approver_id', 'LIKE', '%' .$approver_id. '%');
     }
-    if(isset($req->fstatus)){
-      $otr = $otr->where('status', 'LIKE', '%' .$status. '%');
-    }
-    $otr = $otr->get();
+    $otr = $otr->where('status','not like',"%D%")->get();
 
     if($jenisrep == 'detail'){
       $list_of_id = $otr->pluck('id');
       $otdetail = OvertimeDetail::whereIn('ot_id', $list_of_id)->where('checked','Y')->get();
       return $otdetail;
     }
-    elseif ($jenisrep == 'main') {
+    elseif ($jenisrep == 'main'){
       return $otr;
-
+    }
   }
-}
-
-
 
   public function viewLC(Request $req)
   {
-    $vlist = false;
-
     if($req->filled('searching')){
-      $vlist = true;
       $otr = $this->fetchLC($req);
-
       $otid = $otr->pluck('ot_id');
-      $justification = OvertimeDetail::whereIn('ot_id', $otid)
-      ->where('checked','=','Y')
-      ->get();
-
-    }else{
-      $otr = [];
-      $justification = [];
+      $justification = OvertimeDetail::whereIn('ot_id', $otid)->where('checked','=','Y')->get();
+      return view('report.otLogList',['otrep' => $otr,'otdetail' => $justification ]);
     }
-
-// dd($otid);
-    return view('report.otLog',['vlist'=>$vlist,'otrep' => $otr,'otdetail' => $justification ]);
+    return view('report.otLog',[]);
   }
 
   public function fetchLC(Request $req)
   {
     $fdate = $req->fdate;
     $tdate = $req->tdate;
-    $persno = $req->fpersno;
     $refno = $req->frefno;
-    $otr = [];
-    $otdetail = [];
+    $persno = explode(",", $req->fpersno);
 
     $otr = Overtime::query();
     if(isset($req->fdate)){
       $otr = $otr->whereBetween('date', array($fdate, $tdate));
     }
     if(isset($req->fpersno)){
-      $otr = $otr->where('user_id', 'LIKE', '%' .$persno. '%');
+      $otr = $otr->whereIn('user_id',$persno);
     }
     if(isset($req->frefno)){
       $otr = $otr->where('refno', 'LIKE', '%' .$refno. '%');
     }
 
     $otr = $otr->get();
-
-      $list_of_id = $otr->pluck('id');
-      $otlog = OvertimeLog::whereIn('ot_id', $list_of_id)
-      ->where('action','not like',"%Created draft%")
-      ->get();
-      // $otdetail = OvertimeLog::whereIn('ot_id', $list_of_id)->where('checked','Y')->get();
-      // dd($otdetail);
-      return $otlog;
+    $list_of_id = $otr->pluck('id');
+    $otlog = OvertimeLog::whereIn('ot_id', $list_of_id)->where('action','not like',"%Created draft%")->get();
+    return $otlog;
 
   }
 
-public function viewStEd(Request $req)//List of Start/End OT Time (Punch)
-{
-  $vlist = false;
+  public function viewStEd(Request $req)//List of Start/End OT Time (Punch)
+  {
+    $company = Company::all();
+    $state = State::all();
+    $region = SetupCode::where('item1', 'region')->get();
 
-  if($req->filled('searching')){
-    $vlist = true;
-    $otPunch = $this->fetchStEd($req);
-  }else{
-    $otPunch = [];
-  }
-  return view('report.otSdEd',['vlist'=>$vlist,'otrep' => $otPunch,]);
-}
-
-public function fetchStEd(Request $req)
-{
-  $fdate = $req->fdate;
-  $tdate = $req->tdate;
-  $persno = $req->fpersno;
-
-  $otr = StaffPunch::query();
-  if(isset($req->fdate)){
-    // dd($fdate,$tdate);
-    $otr = $otr->whereBetween('punch_in_time', array($fdate, $tdate));
-  }
-  if(isset($req->fpersno)){
-    $otr = $otr->where('user_id', 'LIKE', '%' .$persno. '%');
+    if($req->filled('searching')){
+      // dd($req);
+      $otPunch = $this->fetchStEd($req);
+      // dd($otPunch);
+      return view('report.otSdEdList',['otrep' => $otPunch,]);
+    }
+    return view('report.otSdEd',['companies'=>$company, 'states'=>$state,'regions'=>$region ]);
   }
 
-  $otrStEd = $otr->get();
+  public function fetchStEd(Request $req)
+  {
+    $fdate = $req->fdate;
+    $tdate = $req->tdate;
+    $persno = explode(",", $req->fpersno);
+    $company =  $req->fcompany;
+    $state =  $req->fstate;
+    $region = $req->fregion;
 
-  return $otrStEd;
+    // dd($req);
+    $otr = StaffPunch::query();
+    if(isset($req->fdate)){
+      // dd($fdate,$tdate);
+      $otr = $otr->whereBetween('punch_in_time', array($fdate, $tdate));
+    }
+    if(isset($req->fpersno)){
+      $otr = $otr->whereIn('user_id',$persno);
+    }
 
-}
+    $otrStEd = $otr->get();
 
+    foreach ($otrStEd as $key => $StEd){
+      // cari profile user ni
+      $rekodpengguna = $StEd->URecord;
+      $rekodregion = $StEd->URecord->Reg;
 
+      if($req->filled('fcompany')){
+        // dd('ada input comp')
+        if(in_array($rekodpengguna->company_id, $company)){
+        } else {
+          // dd($otrStEd);
+        // if($rekodpengguna->company_id != $req->comp_no){
+          unset($otrStEd[$key]);
+          continue;
+        }
+      }
+      if($req->filled('fstate')){
+        if(in_array($rekodpengguna->state_id, $state)){
+        } else {
+          unset($otrStEd[$key]);
+          continue;
+        }
+      }
+      if($req->filled('fregion')){
+        if(in_array($rekodregion->region, $region)){
+        } else {
+          unset($otrStEd[$key]);
+          continue;
+        }
+      }
 
+      $ot = \DB::table('overtimes')
+      ->join('overtime_details','overtime_details.ot_id','=','overtimes.id')
+      ->where('overtimes.user_id',$StEd->user_id)
+      ->where('overtime_details.start_time',$StEd->punch_in_time)
+      ->where('overtime_details.end_time',$StEd->punch_out_time)
+      ->where('overtime_details.checked','Y')->first();
+
+      if($ot){
+          $StEd->ot_applied='Yes';
+        }else{
+          $StEd->ot_applied='No';
+      }
+      // dd($StEd);
+    }
+    return $otrStEd;
+  }
 }
