@@ -9,12 +9,6 @@
 	<div class="panel panel-default">
 		<div class="panel-heading"><strong>Company Management</strong></div>
 		<div class="panel-body">
-			@if (session()->has('a_text'))
-			<div class="alert alert-{{ session()->get('a_type') }} alert-dismissible">
-				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-				<strong>{{ session()->get('a_text') }}</strong>
-			</div>
-			@endif
 			<div class="table-responsive" >
 				<table id="tCompanyList" class="table table-hover table-bordered" >
 					<thead>
@@ -32,7 +26,7 @@
 								<td>{{ $company->company_descr }}</td>
 								<td>@if($company->createdby ?? ''){{ $company->createdby->name }}@endif</td>
 								<td>
-									<form method="post" action="{{ route('company.delete', [], false) }}" onsubmit="return confirm('Are you sure you want to delete?')">
+									<form method="post" action="{{ route('company.delete', [], false) }}" id="formdelete">
 										@csrf
 										<button type="button" class="btn btn-np" title="Edit"
 												data-toggle="modal"
@@ -42,7 +36,7 @@
 												>
 												<i class="fas fa-edit"></i>
 										</button>
-										<button type="submit" class="btn btn-np" title="Delete">
+										<button type="button" class="btn btn-np" title="Delete" data-compdescr="{{$company->company_descr}}" onclick="return deleteid()" id="buttond">
 												<i class="fas fa-trash-alt"></i>
 										</button>
 										<input type="hidden" name="inputid" value="{{$company->id}}">
@@ -53,32 +47,37 @@
 					</tbody>
 				</table>
 			</div>
-			<strong style="margin-bottom: 5px;">Add New Company</strong><br>
+			<strong>Add New Company</strong><br>
 			<form action="{{ route('company.store', [], false) }}" method="post">
 				@csrf
-				<div class="row" style="margin-bottom: 5px;">
+				<div class="row">
 					<div class="col-md-8">
-						<div class="row">
+						<div class="row" style="margin-top: 15px;">
 							<div class="col-md-3">
-								<label for="inputcomp">Company ID</label>
+								<label for="inputdescr">Company</label>
 							</div>
-							<div class="col-md-9">
-								<input type="text" id="inputcomp" name="inputcomp" placeholder="company code" value="{{ old('inputcomp') }}" required autofocus>
+							<div class="col-md-3">
+								<input type="text" id="inputdescr" name="inputdescr"  value="{{ old('inputdescr') }}" required autofocus>
 							</div>
 						</div>
-						<div class="row">
+						<div class="row" style="margin-top: 15px;">
 							<div class="col-md-3">
-								<label for="inputdescr">Company Description</label>
+								<label for="inputcomp">ID</label>
 							</div>
-							<div class="col-md-9">
-								<input type="text" id="inputdescr" name="inputdescr" placeholder="company description" value="{{ old('inputdescr') }}" required autofocus>
+							<div class="col-md-3">
+								<input type="text" id="inputcomp" name="inputcomp"  value="{{ old('inputcomp') }}" required autofocus>
 							</div>
 						</div>
+						
 					</div>
 				</div>
 		</div>
 		<div class="panel-footer">
-							<button type="submit" class="btn btn-primary">Add</button>
+		
+		<div class="text-right">
+							<button type="submit" class="btn btn-p btn-primary">CREATE</button>
+							
+		</div>
 			</form>
 		</div>
 	</div>
@@ -106,8 +105,10 @@
 								</div>
 						</div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">SAVE</button>
-								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			<div class="text-center">
+                <button type="submit" class="btn btn-primary btn-p ">SAVE</button>
+								<button type="button" class="btn btn-p btn-outline" data-dismiss="modal">CANCEL</button>
+								</div>
             </div>
         </form>
         </div>
@@ -136,6 +137,33 @@ function populate(e){
 $('#editCompany').on('show.bs.modal', function(e) {
     populate(e);
 });
+
+function deleteid(){
+	
+    var ps_comp = $("#buttond").data('compdescr');
+	Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Delete company "+ps_comp+"?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'DELETE',
+                    cancelButtonText: 'CANCEL'
+                    }).then((result) => {
+                    if (result.value) {
+                        $("#formdelete").submit();
+                    }
+                })
+}
+
+@if(session()->has('feedback'))
+    Swal.fire({
+        title: "{{session()->get('feedback_title')}}",
+        html: "{{session()->get('feedback_text')}}",
+        confirmButtonText: 'DONE'
+    })
+@endif
 
 </script>
 @stop

@@ -30,47 +30,52 @@ class CompanyController extends Controller
       $company_var->created_by  = $req->user()->id;
       $company_var->save();
       $execute = UserHelper::LogUserAct($req, "Company Management", "Create Company " .$req->inputcomp);
-      $a_text = 'Successfully created company '.$req->inputcomp;
-      $a_type = "success";
+      $feedback_text = "Successfully created Company ".$req->inputdescr.".";
+      $feedback_title = "Successfully Created";
   }
-  else{
-      $a_text = 'Company code '.$req->inputcomp .' already exist.';
+  else{$req->inputcomp .' already exist.';
       $a_type = "warning";
+      $feedback_text = "Company code ".$req->inputcomp." already existed!";
+      $feedback_title = "Failed";
       }
       return redirect(route('company.index', [], false))
-      ->with(['a_text' => $a_text,'a_type' => $a_type]);
+      ->with([
+        'feedback' => true,
+        'feedback_text' => $feedback_text,
+        'feedback_title' => $feedback_title
+      ]);
     }
 
   public function update(Request $req)
     {
     //  dd($req->all());
       $company_var = Company::find($req->eid);
-      if($company_var){
+      $old = $company_var->company_descr;
             $company_var->company_descr = $req->editdescr;
             $company_var->updated_by  = $req->user()->id;
             $company_var->source  = 'OT';
             $company_var->save();
             $execute = UserHelper::LogUserAct($req, "Company Management", "Update Company " .$req->eid);
-            return redirect(route('company.index', [], false))->with(['a_text' => 'Successfully updated company '. $req->eid , 'a_type' => 'success']);
+            return redirect(route('company.index', [], false))->with([
+              'feedback' => true,
+              'feedback_text' => "Company " .$old. " has successfully been updated to ".$company_var->company_descr.".",
+              'feedback_title' => "Successfully Deleted"
+            ]);
 
-      } else {
-        return redirect(route('company.index', [], false))
-        ->with(['a_text' =>'Company' .$req->eid. ' not found.', 'a_type' => 'warning']);
-      }
     }
 
     public function destroy(Request $req)
     {
 
       $cm = Company::find($req->inputid);
-      if($cm){
-        $execute = UserHelper::LogUserAct($req, "Company Management", "Delete Company " .$req->inputid);
-        $cm->save();
-        $cm->delete();
+      $execute = UserHelper::LogUserAct($req, "Company Management", "Delete Company " .$req->inputid);
+      $cm->save();
+      $cm->delete();
 
-        return redirect(route('company.index', [], false))->with(['a_text' => 'Company '.$req ->inputid. ' deleted', 'a_type' => 'warning']);
-      } else {
-        return redirect(route('company.index', [], false))->with(['a_text' => 'Company '.$req ->inputid. ' not found', 'a_type' => 'danger']);
-      }
-    }
+      return redirect(route('company.index', [], false))->with([
+        'feedback' => true,
+        'feedback_text' => "Company ".$cm->company_descr." has successfully been deleted.",
+        'feedback_title' => "Successfully Updated"
+    ]);
+  }
   }
