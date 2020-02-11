@@ -1,10 +1,6 @@
 @extends('adminlte::page')
 @section('content')
 
-@if(session('alert'))
-    <div class="alert alert-{{$ac}}" role="alert">{{session('alert')}}</div>
-@endif
-
 <h1>Holiday Management</h1>
 <div class="panel panel-default">
   <div class="panel-body">
@@ -62,7 +58,7 @@
                   <a href="{{ route('holiday.edit',['id'=>$cmain[0]],false) }}" class="btn  btn-np">
                     <i class="fas fa-edit"></i>
                   </a>
-                  <a href="#" class="btn  btn-np" onClick="submitDeleteForm('{{$cmain[0]}}')" holid="{{$cmain[0]}}">
+                  <a href="#" class="btn  btn-np" onClick="submitDeleteForm('{{$cmain[0]}}','{{$cmain[2]}}')" holid="{{$cmain[0]}}" holname="{{$cmain[1]}}">
                     <i class="fas fa-trash-alt"></i>
                   </a>
                   <span style="color:transparent">
@@ -103,16 +99,40 @@
   $("#s_year_id").val('{{$s_year}}');
 
 
-function submitDeleteForm(holid){
+function submitDeleteForm(holid, holname){
 	var txt;
-	var r = confirm("Are you sure ? "+holid+" would be destroyed");
-	if (r == true) {
+	// var r = confirm("Are you sure ? "+holid+" would be destroyed");
+	// if (r == true) {
+	//    $('#delete_holiday_id').val(holid);
+  //    $('#formDeleteID').submit();
+  //  } else {
+  //    txt = holid+ " Not deleted!";
+  // }
+  Swal.fire({
+      title: 'Are you sure?',
+      text: "Delete holiday "+holname+"?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'DELETE',
+      cancelButtonText: 'CANCEL'
+      }).then((result) => {
+      if (result.value) {
 	   $('#delete_holiday_id').val(holid);
      $('#formDeleteID').submit();
-   } else {
-     txt = holid+ " Not deleted!";
-	}
+          $("#formdelete").submit();
+      }
+  })
 };
+
+@if(session()->has('feedback'))
+    Swal.fire({
+        title: "{{session()->get('feedback_title')}}",
+        html: "{{session()->get('feedback_text')}}",
+        confirmButtonText: 'DONE'
+    })
+@endif
 
   </script>
 <script type="text/javascript">

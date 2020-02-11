@@ -13,7 +13,7 @@
 			<div class="col-md-11">
 				<div class="row" style="margin-bottom: 15px">
 					<div class="col-md-3">Date</div>
-					<div class="col-md-9">: <input type="date" name="dt" required value="{{$dtVal}}"  min="{{$dtVal}}" /></div>
+					<div class="col-md-9">: <input type="date" name="dt" required value="{{$dtVal}}" /></div>
 				</div>
 				<div class="row">		
 					<div class="col-md-3">Holiday Description</div>
@@ -22,8 +22,8 @@
 					<input type="text" name="descr" required  style="margin-bottom: 15px"/>
 					<br>
 						<div class="flex" style="display: inline;">
-							<button type="button" class="check btn-up" value="Check All">Check All</button>
-							<button type="button" class="uncheck btn-up" value="UnCheck All">Uncheck All</button>
+							<button type="button" class="check btn-up" value="Check All">CHECK ALL</button>
+							<button type="button" class="uncheck btn-up" value="UnCheck All">UNCHECK ALL</button>
 						</div>
 						<br>
 						<input type="checkbox" name="guarantee_flag" value='1' style="margin-left: 5px;"> Guarentee Flag
