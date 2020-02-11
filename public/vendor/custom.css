@@ -119,6 +119,12 @@ body{
     justify-content: space-between;
 }
 
+.flex{
+    
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .flex-state{
     width: 100%;
     margin: 0 5% 50px;
@@ -127,7 +133,7 @@ body{
 }
 
 .state-item{
-    width: 30%;
+    width: 33%;
 }
 
 .foot-text{

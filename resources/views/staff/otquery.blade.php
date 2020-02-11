@@ -113,7 +113,7 @@
             
             @if(($view=='verifier')||($view=='approver'))
             <div id="submitbtn" class="text-center" onsubmit="return confirm('I understand and agree this to claim. If deemed false I can be taken to disciplinary action.')">
-                <button type="submit" class="btn btn-primary">SUBMIT</button>
+                <button type="submit" class="btn btn-primary btn-p">SUBMIT</button>
             </div>
             
             @endif

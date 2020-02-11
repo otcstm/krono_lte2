@@ -8,7 +8,7 @@
 <h1>Holiday Management</h1>
 <div class="panel panel-default">
   <div class="panel-body">
-    <div class="flex-sb">
+    <div class="flex-sb" style="margin-bottom: 15px">
       <div style="margin-top: 5px">
         <span>Year </span>
         <form method="post" id="form_select_year_id" style="display: inline">
