@@ -19,13 +19,12 @@ class InternalOrdersTableSeeder extends Seeder
         \DB::table('internal_orders')->insert(array (
             0 => 
             array (
-                'id' => 1,
-                'order_no' => '8000000',
-                'descr' => 'CI17-68 BSS Customization',
-                'order_type' => 'Z030',
+                'id' => '4000003198',
+                'descr' => 'YELLOW PAGES CENTRAL',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -33,13 +32,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             1 => 
             array (
-                'id' => 2,
-                'order_no' => '8000001',
-                'descr' => 'MFRS15',
-                'order_type' => 'Z030',
+                'id' => '4000003199',
+                'descr' => 'YELLOW PAGES SOUTHERN',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -47,13 +45,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             2 => 
             array (
-                'id' => 3,
-                'order_no' => '8000002',
-            'descr' => '2017 OPEX BUSINESS IT (Data MIG Ord)',
-                'order_type' => 'Z030',
+                'id' => '4000003200',
+                'descr' => 'YELLOW PAGES NORTHERN',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -61,13 +58,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             3 => 
             array (
-                'id' => 4,
-                'order_no' => '8000003',
-            'descr' => '2017 OPEX ENTERPRISE IT (Data MIG Ord)',
-                'order_type' => 'Z030',
+                'id' => '4000003201',
+                'descr' => 'YELLOW PAGES EASTERN',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -75,13 +71,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             4 => 
             array (
-                'id' => 5,
-                'order_no' => '8000004',
-            'descr' => '2017 OPEX IT PROJECT (Data MIG Ord)',
-                'order_type' => 'Z030',
+                'id' => '4000003202',
+                'descr' => 'YELLOW PAGES SABAH',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -89,13 +84,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             5 => 
             array (
-                'id' => 6,
-                'order_no' => '8000005',
-            'descr' => '2017 SERVICE OPERATION (Data MIG Ord)',
-                'order_type' => 'Z030',
+                'id' => '4000003203',
+                'descr' => 'YELLOW PAGES SARAWAK',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -103,13 +97,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             6 => 
             array (
-                'id' => 7,
-                'order_no' => '8000006',
-            'descr' => 'Do not use RE IT Ser (DMO)',
-                'order_type' => 'Z030',
+                'id' => '4000003204',
+                'descr' => 'YELLOW PAGES W.P\'SEKUTUAN',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -117,13 +110,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             7 => 
             array (
-                'id' => 8,
-                'order_no' => '8000007',
-                'descr' => '2017 Network Managed Services',
-                'order_type' => 'Z030',
+                'id' => '4000003205',
+                'descr' => 'YELLOW PAGES SELANGOR',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -131,13 +123,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             8 => 
             array (
-                'id' => 9,
-                'order_no' => '8000008',
-                'descr' => '2017 Software License',
-                'order_type' => 'Z030',
+                'id' => '4000003206',
+                'descr' => 'YELLOW PAGES JOHOR',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -145,13 +136,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             9 => 
             array (
-                'id' => 10,
-                'order_no' => '8000009',
-                'descr' => '2017 IT - Next SMS Cost',
-                'order_type' => 'Z030',
+                'id' => '4000003207',
+                'descr' => 'YELLOW PAGES NEGERI SEMBILAN',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -159,13 +149,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             10 => 
             array (
-                'id' => 11,
-                'order_no' => '8000010',
-                'descr' => '2017 IT - Backhaul',
-                'order_type' => 'Z030',
+                'id' => '4000003208',
+                'descr' => 'YELLOW PAGES MELAKA',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -173,13 +162,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             11 => 
             array (
-                'id' => 12,
-                'order_no' => '8000011',
-                'descr' => '2017 IT - Training',
-                'order_type' => 'Z030',
+                'id' => '4000003209',
+                'descr' => 'YELLOW PAGES KEDAH/PERLIS',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -187,13 +175,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             12 => 
             array (
-                'id' => 13,
-                'order_no' => '8000012',
-                'descr' => '2017 It - Short Code',
-                'order_type' => 'Z030',
+                'id' => '4000003210',
+                'descr' => 'YELLOW PAGES PENANG',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -201,13 +188,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             13 => 
             array (
-                'id' => 14,
-                'order_no' => '8000013',
-                'descr' => '2017 IT - Other Network Maintenance',
-                'order_type' => 'Z030',
+                'id' => '4000003211',
+                'descr' => 'YELLOW PAGES PERAK',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -215,13 +201,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             14 => 
             array (
-                'id' => 15,
-                'order_no' => '8000014',
-                'descr' => '2017 IT - R&M Managed Services',
-                'order_type' => 'Z030',
+                'id' => '4000003212',
+                'descr' => 'YELLOW PAGES PAHANG',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -229,13 +214,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             15 => 
             array (
-                'id' => 16,
-                'order_no' => '8000015',
-                'descr' => '2017 IT - R&M System Support',
-                'order_type' => 'Z030',
+                'id' => '4000003213',
+                'descr' => 'YELLOW PAGES TERENGGANU',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -243,13 +227,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             16 => 
             array (
-                'id' => 17,
-                'order_no' => '8000016',
-                'descr' => '2017 IT - R&M Others',
-                'order_type' => 'Z030',
+                'id' => '4000003214',
+                'descr' => 'YELLOW PAGES KELANTAN',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -257,13 +240,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             17 => 
             array (
-                'id' => 18,
-                'order_no' => '8000017',
-                'descr' => '2017 IT - Rental & Leasing Office buildg',
-                'order_type' => 'Z030',
+                'id' => '4000003215',
+                'descr' => 'BUS. WHITE PAGES CENTRAL',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -271,13 +253,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             18 => 
             array (
-                'id' => 19,
-                'order_no' => '8000018',
-                'descr' => '2017 IT - Rental & Leasing Office Equipm',
-                'order_type' => 'Z030',
+                'id' => '4000003216',
+                'descr' => 'BUS. WHITE PAGES SOUTHERN',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -285,13 +266,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             19 => 
             array (
-                'id' => 20,
-                'order_no' => '8000019',
-                'descr' => '2017 It - Professional Fees',
-                'order_type' => 'Z030',
+                'id' => '4000003217',
+                'descr' => 'BUS. WHITE PAGES NORTHERN',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -299,13 +279,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             20 => 
             array (
-                'id' => 21,
-                'order_no' => '8000020',
-                'descr' => '2017 MFRS15 IT',
-                'order_type' => 'Z030',
+                'id' => '4000003218',
+                'descr' => 'BUS. WHITE PAGES EASTERN',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -313,13 +292,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             21 => 
             array (
-                'id' => 22,
-                'order_no' => '8000021',
-                'descr' => '2017 Prepaid OPEX',
-                'order_type' => 'Z030',
+                'id' => '4000003219',
+                'descr' => 'BUS. WHITE PAGES SABAH',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -327,13 +305,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             22 => 
             array (
-                'id' => 23,
-                'order_no' => '8000022',
-                'descr' => 'i-foundit App',
-                'order_type' => 'Z030',
+                'id' => '4000003220',
+                'descr' => 'BUS. WHITE PAGES SARAWAK',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -341,13 +318,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             23 => 
             array (
-                'id' => 24,
-                'order_no' => '8000023',
-                'descr' => 'CRMS Enhancement ipay, MCMC report, etc',
-                'order_type' => 'Z030',
+                'id' => '4000003221',
+                'descr' => 'BUS. WHITE PAGES W.P\'SEKUTUAN',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -355,13 +331,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             24 => 
             array (
-                'id' => 25,
-                'order_no' => '8000024',
-                'descr' => 'Relocate 3 Racks from BRF DC to IPDC',
-                'order_type' => 'Z030',
+                'id' => '4000003222',
+                'descr' => 'BUS. WHITE PAGES SELANGOR',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -369,13 +344,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             25 => 
             array (
-                'id' => 26,
-                'order_no' => '8000025',
-                'descr' => 'unifi mobile',
-                'order_type' => 'Z030',
+                'id' => '4000003223',
+                'descr' => 'BUS. WHITE PAGES JOHOR',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -383,13 +357,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             26 => 
             array (
-                'id' => 27,
-                'order_no' => '8000026',
-                'descr' => 'CS/ITS/2017-0129 & 0130',
-                'order_type' => 'Z030',
+                'id' => '4000003224',
+                'descr' => 'BUS. WHITE PAGES N.SEMBILAN',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -397,13 +370,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             27 => 
             array (
-                'id' => 28,
-                'order_no' => '8000027',
-                'descr' => 'CS/ITS/2017-0131:Zmart Prepaid R2',
-                'order_type' => 'Z030',
+                'id' => '4000003225',
+                'descr' => 'BUS. WHITE PAGES MELAKA',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -411,13 +383,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             28 => 
             array (
-                'id' => 29,
-                'order_no' => '8000028',
-            'descr' => '2018-IO-ITS (OPEX)',
-                'order_type' => 'Z030',
+                'id' => '4000003226',
+                'descr' => 'BUS. WHITE PAGES KEDAH/PERLIS',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -425,13 +396,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             29 => 
             array (
-                'id' => 30,
-                'order_no' => '8000029',
-            'descr' => '2018-IO-ITS (General)',
-                'order_type' => 'Z030',
+                'id' => '4000003227',
+                'descr' => 'BUS. WHITE PAGES PENANG',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -439,13 +409,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             30 => 
             array (
-                'id' => 31,
-                'order_no' => '8000030',
-                'descr' => 'CS/ITS/2018-00001',
-                'order_type' => 'Z030',
+                'id' => '4000003228',
+                'descr' => 'BUS. WHITE PAGES PERAK',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -453,13 +422,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             31 => 
             array (
-                'id' => 32,
-                'order_no' => '8000031',
-            'descr' => '2018-IO-ITS (Digital-Amex)',
-                'order_type' => 'Z030',
+                'id' => '4000003229',
+                'descr' => 'BUS. WHITE PAGES PAHANG',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -467,13 +435,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             32 => 
             array (
-                'id' => 33,
-                'order_no' => '8000032',
-                'descr' => '2018- ITS_MFRS15 project',
-                'order_type' => 'Z030',
+                'id' => '4000003230',
+                'descr' => 'BUS. WHITE PAGES TERENGGANU',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -481,13 +448,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             33 => 
             array (
-                'id' => 34,
-                'order_no' => '8000040',
-            'descr' => '2019-IO-ITS (General)',
-                'order_type' => 'Z030',
+                'id' => '4000003231',
+                'descr' => 'BUS. WHITE PAGES KELANTAN',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -495,13 +461,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             34 => 
             array (
-                'id' => 35,
-                'order_no' => '8000041',
-            'descr' => '2019-IO-ITS (Digital)',
-                'order_type' => 'Z030',
+                'id' => '4000003232',
+                'descr' => 'RESIDENTIAL CENTRAL',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -509,13 +474,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             35 => 
             array (
-                'id' => 36,
-                'order_no' => '8100000',
-            'descr' => '2017 OPEX PSD (Data MIG Ord)',
-                'order_type' => 'Z031',
+                'id' => '4000003233',
+                'descr' => 'RESIDENTIAL SOUTHERN',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -523,13 +487,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             36 => 
             array (
-                'id' => 37,
-                'order_no' => '8100001',
-                'descr' => '2018-IO-Commercial_Sales',
-                'order_type' => 'Z031',
+                'id' => '4000003234',
+                'descr' => 'RESIDENTIAL NORTHERN',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -537,13 +500,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             37 => 
             array (
-                'id' => 38,
-                'order_no' => '8100002',
-                'descr' => '2018-IO-CBDO',
-                'order_type' => 'Z031',
+                'id' => '4000003235',
+                'descr' => 'RESIDENTIAL EASTERN',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -551,13 +513,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             38 => 
             array (
-                'id' => 39,
-                'order_no' => '8100003',
-                'descr' => '2018-IO-CMO',
-                'order_type' => 'Z031',
+                'id' => '4000003236',
+                'descr' => 'RESIDENTIAL SABAH',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -565,13 +526,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             39 => 
             array (
-                'id' => 40,
-                'order_no' => '8100004',
-            'descr' => '2018-Astaka Project (Commercial)',
-                'order_type' => 'Z031',
+                'id' => '4000003237',
+                'descr' => 'RESIDENTIAL SARAWAK',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -579,13 +539,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             40 => 
             array (
-                'id' => 41,
-                'order_no' => '8100005',
-            'descr' => '2018-IO-Commercial (TM)',
-                'order_type' => 'Z031',
+                'id' => '4000003238',
+                'descr' => 'RESIDENTIAL W.P\'SEKUTUAN',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -593,13 +552,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             41 => 
             array (
-                'id' => 42,
-                'order_no' => '8100006',
-            'descr' => '2018-IO-CA (Unbudgeted)',
-                'order_type' => 'Z031',
+                'id' => '4000003239',
+                'descr' => 'RESIDENTIAL SELANGOR',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -607,13 +565,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             42 => 
             array (
-                'id' => 43,
-                'order_no' => '8100020',
-                'descr' => 'CS/SSD/2017-00002',
-                'order_type' => 'Z031',
+                'id' => '4000003240',
+                'descr' => 'RESIDENTIAL JOHOR',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -621,13 +578,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             43 => 
             array (
-                'id' => 44,
-                'order_no' => '8100021',
-                'descr' => 'CS/B&M/2017-00001',
-                'order_type' => 'Z031',
+                'id' => '4000003241',
+                'descr' => 'RESIDENTIAL NEGERI SEMBILAN',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -635,13 +591,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             44 => 
             array (
-                'id' => 45,
-                'order_no' => '8100022',
-                'descr' => '2017 digital kiosk',
-                'order_type' => 'Z031',
+                'id' => '4000003242',
+                'descr' => 'RESIDENTIAL MELAKA',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -649,13 +604,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             45 => 
             array (
-                'id' => 46,
-                'order_no' => '8100023',
-            'descr' => '10K:CS/B&M-2017-00036 (Marketing)',
-                'order_type' => 'Z031',
+                'id' => '4000003243',
+                'descr' => 'RESIDENTIAL KEDAH/PERLIS',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -663,13 +617,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             46 => 
             array (
-                'id' => 47,
-                'order_no' => '8100024',
-                'descr' => '2018-IO-Project Use & Win',
-                'order_type' => 'Z031',
+                'id' => '4000003244',
+                'descr' => 'RESIDENTIAL PENANG',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -677,13 +630,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             47 => 
             array (
-                'id' => 48,
-                'order_no' => '8100040',
-            'descr' => '2019-IO-nex.life (trademark)',
-                'order_type' => 'Z031',
+                'id' => '4000003245',
+                'descr' => 'RESIDENTIAL PERAK',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -691,13 +643,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             48 => 
             array (
-                'id' => 49,
-                'order_no' => '8100060',
-            'descr' => '2019-IO-nex.life (RG device campaign)',
-                'order_type' => 'Z031',
+                'id' => '4000003246',
+                'descr' => 'RESIDENTIAL PAHANG',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -705,13 +656,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             49 => 
             array (
-                'id' => 50,
-                'order_no' => '8200000',
-                'descr' => '2018-IO-FCA',
-                'order_type' => 'Z032',
+                'id' => '4000003247',
+                'descr' => 'RESIDENTIAL TERENGGANU',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -719,13 +669,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             50 => 
             array (
-                'id' => 51,
-                'order_no' => '8200001',
-            'descr' => '2018-FCA (Regulatory)',
-                'order_type' => 'Z032',
+                'id' => '4000003248',
+                'descr' => 'RESIDENTIAL KELANTAN',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -733,13 +682,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             51 => 
             array (
-                'id' => 52,
-                'order_no' => '8200002',
-            'descr' => '2018-FCA (USP Project)',
-                'order_type' => 'Z032',
+                'id' => '4000003249',
+                'descr' => 'NICHE M\'SIAN TOURIST PAGES',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -747,13 +695,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             52 => 
             array (
-                'id' => 53,
-                'order_no' => '8200003',
-            'descr' => '2018-IO-Fin (R&L-office building)',
-                'order_type' => 'Z032',
+                'id' => '4000003250',
+                'descr' => 'NICHE CORP AGR. DIRECTORY',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -761,13 +708,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             53 => 
             array (
-                'id' => 54,
-                'order_no' => '8200020',
-            'descr' => '2017 OPEX FINANCIAL CNTRL (Data MIG Ord)',
-                'order_type' => 'Z032',
+                'id' => '4000003251',
+                'descr' => 'NICHE HALAL PAGES DIRECTORY',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -775,13 +721,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             54 => 
             array (
-                'id' => 55,
-                'order_no' => '8300000',
-            'descr' => '2018-IO-PED_R & L (building)',
-                'order_type' => 'Z033',
+                'id' => '4000003252',
+                'descr' => 'NICHE MALAYSIA ENERGY GUIDE',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -789,13 +734,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             55 => 
             array (
-                'id' => 56,
-                'order_no' => '8300001',
-            'descr' => '2018-IO-PED (Facilities)',
-                'order_type' => 'Z033',
+                'id' => '4000003253',
+                'descr' => 'MINI MINI YELLOW PAGES',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -803,13 +747,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             56 => 
             array (
-                'id' => 57,
-                'order_no' => '8300002',
-            'descr' => '2018-IO-PED (Learning&Dev)',
-                'order_type' => 'Z033',
+                'id' => '4000003254',
+                'descr' => 'CHINESE M\'SIAN CHINESE YP-P.M',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -817,13 +760,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             57 => 
             array (
-                'id' => 58,
-                'order_no' => '8300003',
-            'descr' => '2018-IO-PED (Event)',
-                'order_type' => 'Z033',
+                'id' => '4000003255',
+                'descr' => 'CHINESE M\'SIAN CHINESE YP-SBH',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -831,13 +773,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             58 => 
             array (
-                'id' => 59,
-                'order_no' => '8300004',
-            'descr' => '2018-IO-PED (General)',
-                'order_type' => 'Z033',
+                'id' => '4000003256',
+                'descr' => 'CHINESE M\'SIAN CHINESE YP-SRWK',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -845,13 +786,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             59 => 
             array (
-                'id' => 60,
-                'order_no' => '8300020',
-            'descr' => '2017 OPEX RECRUIT CTR (Data MIG Ord)',
-                'order_type' => 'Z033',
+                'id' => '4000003258',
+                'descr' => 'YPTV',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -859,13 +799,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             60 => 
             array (
-                'id' => 61,
-                'order_no' => '8300040',
-            'descr' => '2019-IO-PED_Fac&Admin (Relocation)',
-                'order_type' => 'Z033',
+                'id' => '4000003278',
+                'descr' => 'BUS. WHITE PAGES N.SEMBILN/MLK',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -873,13 +812,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             61 => 
             array (
-                'id' => 62,
-                'order_no' => '9000000',
-            'descr' => '2017 OPEX NTWRK DEPLOY (Data MIG Ord)',
-                'order_type' => 'Z029',
+                'id' => '4000003298',
+                'descr' => 'CHINESE M\'SIAN CHINESE EASTERN',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -887,13 +825,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             62 => 
             array (
-                'id' => 63,
-                'order_no' => '9000001',
-            'descr' => '2017 OPEX NTWRK OPERATION (Data MIG Ord)',
-                'order_type' => 'Z029',
+                'id' => '4000003300',
+                'descr' => 'CHINESE M\'SIAN CHINESE SOUTHERN',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -901,13 +838,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             63 => 
             array (
-                'id' => 64,
-                'order_no' => '9000002',
-            'descr' => '2017 OPEX NTWRK PLANNING (Data MIG Ord)',
-                'order_type' => 'Z029',
+                'id' => '4000003301',
+                'descr' => 'RESIDENTIAL NEGERI SEMBILAN/MELAKA',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -915,13 +851,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             64 => 
             array (
-                'id' => 65,
-                'order_no' => '9000003',
-            'descr' => 'Do not use RE Network (DMO)',
-                'order_type' => 'Z029',
+                'id' => '4000003302',
+                'descr' => 'YELLOW PAGES NEGERI SEMBILAN/MELAKA',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -929,13 +864,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             65 => 
             array (
-                'id' => 66,
-                'order_no' => '9000004',
-            'descr' => 'Do not use RE Network Site (DMO)',
-                'order_type' => 'Z029',
+                'id' => '4000003310',
+                'descr' => 'MALAYSIA INFORMATION INDUSTRY DIRECTORY',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -943,13 +877,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             66 => 
             array (
-                'id' => 67,
-                'order_no' => '9000005',
-                'descr' => 'DNS Maintenance 0817-0218 72060200',
-                'order_type' => 'Z029',
+                'id' => '4000003311',
+            'descr' => 'MALAYSIA CHINESE CENTRAL (SG/WP) YB',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -957,13 +890,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             67 => 
             array (
-                'id' => 68,
-                'order_no' => '9000006',
-                'descr' => 'ZTE Managed Services 1017-0918 72060800',
-                'order_type' => 'Z029',
+                'id' => '4000003312',
+                'descr' => 'MALAYSIA DINING OUT',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -971,13 +903,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             68 => 
             array (
-                'id' => 69,
-                'order_no' => '9000007',
-                'descr' => '72020200 IP Transit',
-                'order_type' => 'Z029',
+                'id' => '4000003313',
+            'descr' => 'MALAYSIA CHINESE EASTERN (KN/PH/TG) YB',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -985,13 +916,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             69 => 
             array (
-                'id' => 70,
-                'order_no' => '9000008',
-                'descr' => '72070420 Site Survey - Related Party',
-                'order_type' => 'Z029',
+                'id' => '4000003315',
+            'descr' => 'MALAYSIA CHINESE NORTHERN(KD & PL/PG/PK)',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -999,13 +929,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             70 => 
             array (
-                'id' => 71,
-                'order_no' => '9000009',
-                'descr' => '75130200 Relocation/Dismantling NDD',
-                'order_type' => 'Z029',
+                'id' => '4000003316',
+            'descr' => 'MALAYSIA CHINESE SOUTHERN (NS & MK/JH) Y',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1013,13 +942,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             71 => 
             array (
-                'id' => 72,
-                'order_no' => '9000010',
-                'descr' => '72020220 IP Transit - RPT',
-                'order_type' => 'Z029',
+                'id' => '4000003317',
+                'descr' => 'AMPANG NEIGHBOURHOOD DIRECTORY',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1027,13 +955,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             72 => 
             array (
-                'id' => 73,
-                'order_no' => '9000011',
-                'descr' => '72010200 - Leased Line',
-                'order_type' => 'Z029',
+                'id' => '4000003318',
+                'descr' => 'DAMANSARA NEIGHBOURHOOD DIRECTORY',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1041,13 +968,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             73 => 
             array (
-                'id' => 74,
-                'order_no' => '9000012',
-                'descr' => '72020110 Backhaul Lease Line - RPT',
-                'order_type' => 'Z029',
+                'id' => '4000003319',
+                'descr' => 'SUBANG NEIGHBOURHOOD DIRECTORY',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1055,13 +981,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             74 => 
             array (
-                'id' => 75,
-                'order_no' => '9000013',
-                'descr' => '2017 Next SMS',
-                'order_type' => 'Z029',
+                'id' => '4000003321',
+            'descr' => 'PENINSULAR CHINESE CENTRAL (WP/SG) YB',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1069,13 +994,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             75 => 
             array (
-                'id' => 76,
-                'order_no' => '9000014',
-            'descr' => '75040400 Garage, Warehouse (NOD)',
-                'order_type' => 'Z029',
+                'id' => '4000003322',
+            'descr' => 'PENINSULAR CHINESE EASTERN (KN/PH/TG) YB',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1083,13 +1007,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             76 => 
             array (
-                'id' => 77,
-                'order_no' => '9000015',
-                'descr' => '72070200 Site Utilities',
-                'order_type' => 'Z029',
+                'id' => '4000003323',
+            'descr' => 'PENINSULAR CHINESE NORTHERN(KD&PL/PG/PK)',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1097,13 +1020,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             77 => 
             array (
-                'id' => 78,
-                'order_no' => '9000016',
-                'descr' => 'WIMAX Metro E migration to NGBH+',
-                'order_type' => 'Z029',
+                'id' => '4000003324',
+            'descr' => 'PENINSULAR CHINESE SOUTHERN (JH/NM) YB',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1111,13 +1033,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             78 => 
             array (
-                'id' => 79,
-                'order_no' => '9000017',
-                'descr' => 'Cabling cost  E1 interconnect with Maxis',
-                'order_type' => 'Z029',
+                'id' => '4000003325',
+                'descr' => 'XVI COMMONWEALTH GAMES DIRECTORY',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1125,13 +1046,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             79 => 
             array (
-                'id' => 80,
-                'order_no' => '9000018',
-                'descr' => 'ZTE EMS SW version Upgrade LR15 to LR16',
-                'order_type' => 'Z029',
+                'id' => '4000003326',
+                'descr' => 'TELEX & TELEFAX',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1139,13 +1059,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             80 => 
             array (
-                'id' => 81,
-                'order_no' => '9000019',
-                'descr' => 'Dismantle 11 hops for WIMAX MW for LTE',
-                'order_type' => 'Z029',
+                'id' => '4000003327',
+                'descr' => 'NEIGHBOURHOOD DIRECTORY',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1153,13 +1072,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             81 => 
             array (
-                'id' => 82,
-                'order_no' => '9000020',
-            'descr' => 'Genset Rental (NDD)',
-                'order_type' => 'Z029',
+                'id' => '4000004357',
+            'descr' => '2010/11 CNB Central (WP/Selangor) YP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1167,13 +1085,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             82 => 
             array (
-                'id' => 83,
-                'order_no' => '9000021',
-                'descr' => 'Drive Test Optimization NOD',
-                'order_type' => 'Z029',
+                'id' => '4000004358',
+            'descr' => '2010/11 ETB (Kel/Pahang/Terengganu) YP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1181,13 +1098,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             83 => 
             array (
-                'id' => 84,
-                'order_no' => '9000022',
-                'descr' => '72070600 Site Agent Fee',
-                'order_type' => 'Z029',
+                'id' => '4000004359',
+                'descr' => '2010/11 JHB Southern YP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1195,13 +1111,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             84 => 
             array (
-                'id' => 85,
-                'order_no' => '9000023',
-                'descr' => '73050400 Membership Subscription APNIC',
-                'order_type' => 'Z029',
+                'id' => '4000004360',
+                'descr' => '2010/11 PGB Northern YP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1209,13 +1124,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             85 => 
             array (
-                'id' => 86,
-                'order_no' => '9000024',
-                'descr' => 'Access NEtwork Maintenance',
-                'order_type' => 'Z029',
+                'id' => '4000004361',
+                'descr' => '2010/11 SBB Sabah YP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1223,13 +1137,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             86 => 
             array (
-                'id' => 87,
-                'order_no' => '9000025',
-                'descr' => 'COW site',
-                'order_type' => 'Z029',
+                'id' => '4000004362',
+                'descr' => '2010/11 SKB Sarawak YP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1237,13 +1150,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             87 => 
             array (
-                'id' => 88,
-                'order_no' => '9000026',
-                'descr' => 'R&M',
-                'order_type' => 'Z029',
+                'id' => '4000004363',
+                'descr' => '2010/11 ETW Kel/Pahang/Terengganu BWP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1251,13 +1163,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             88 => 
             array (
-                'id' => 89,
-                'order_no' => '9000027',
-                'descr' => 'Site Survey',
-                'order_type' => 'Z029',
+                'id' => '4000004364',
+                'descr' => '2010/11 JHW Johor BWP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1265,13 +1176,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             89 => 
             array (
-                'id' => 90,
-                'order_no' => '9000028',
-                'descr' => 'COW - GLC CEO Retreat ILMU Janda Baik',
-                'order_type' => 'Z029',
+                'id' => '4000004365',
+                'descr' => '2010/11 KPW Kedah/Perlis BWP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1279,13 +1189,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             90 => 
             array (
-                'id' => 91,
-                'order_no' => '9000029',
-                'descr' => 'COW - TM Management Retreat ILMU',
-                'order_type' => 'Z029',
+                'id' => '4000004366',
+                'descr' => '2010/11 NMW N.Sembilan/Malacca BWP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1293,13 +1202,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             91 => 
             array (
-                'id' => 92,
-                'order_no' => '9000030',
-                'descr' => 'COW - NBOS Salong Pekan',
-                'order_type' => 'Z029',
+                'id' => '4000004367',
+                'descr' => '2010/11 PGW Penang BWP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1307,13 +1215,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             92 => 
             array (
-                'id' => 93,
-                'order_no' => '9000031',
-                'descr' => 'Special Events LIMA exhibition Eng Serv',
-                'order_type' => 'Z029',
+                'id' => '4000004368',
+                'descr' => '2010/11 PKW Perak BWP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1321,13 +1228,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             93 => 
             array (
-                'id' => 94,
-                'order_no' => '9000032',
-                'descr' => 'Special Events MCKK exhibition Eng Serv',
-                'order_type' => 'Z029',
+                'id' => '4000004369',
+                'descr' => '2010/11 SBW Sabah BWP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1335,13 +1241,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             94 => 
             array (
-                'id' => 95,
-                'order_no' => '9000033',
-                'descr' => 'Sea Games & Para Games 9 sites - Special',
-                'order_type' => 'Z029',
+                'id' => '4000004370',
+                'descr' => '2010/11 SGW Selangor BWP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1349,13 +1254,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             95 => 
             array (
-                'id' => 96,
-                'order_no' => '9000034',
-                'descr' => 'Assigning Ceremony - Token',
-                'order_type' => 'Z029',
+                'id' => '4000004371',
+                'descr' => '2010/11 SKW Sarawak BWP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1363,13 +1267,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             96 => 
             array (
-                'id' => 97,
-                'order_no' => '9000035',
-            'descr' => 'BNC patch panel UMG E1 exp (Ph3) AIMS',
-                'order_type' => 'Z029',
+                'id' => '4000004372',
+                'descr' => '2010/11 WPW Wilayah Persekutuan BWP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1377,13 +1280,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             97 => 
             array (
-                'id' => 98,
-                'order_no' => '9000036',
-                'descr' => 'Huawei EMS License Engineering Services',
-                'order_type' => 'Z029',
+                'id' => '4000004373',
+                'descr' => '2010/11 CSH Chinese Sabah YP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1391,13 +1293,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             98 => 
             array (
-                'id' => 99,
-                'order_no' => '9000037',
-                'descr' => 'Rental & leasing',
-                'order_type' => 'Z029',
+                'id' => '4000004374',
+                'descr' => '2010/11 CSK Chinese Sarawak YP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1405,13 +1306,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             99 => 
             array (
-                'id' => 100,
-                'order_no' => '9000038',
-                'descr' => 'CB4411 - Roof Leaking Rectification',
-                'order_type' => 'Z029',
+                'id' => '4000005013',
+                'descr' => '2010/11 CCN Chinese Central YP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1419,13 +1319,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             100 => 
             array (
-                'id' => 101,
-                'order_no' => '9000039',
-                'descr' => 'WIMAX O&M Extension - Q1 2018',
-                'order_type' => 'Z029',
+                'id' => '4000005014',
+                'descr' => '2011/12 CNB Central WP/Selangor YP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1433,13 +1332,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             101 => 
             array (
-                'id' => 102,
-                'order_no' => '9000040',
-                'descr' => 'Inter DC S5 Traffic Reduction',
-                'order_type' => 'Z029',
+                'id' => '4000005015',
+                'descr' => '2011/12 ETB Kel/Pahang/Terengganu YP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1447,13 +1345,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             102 => 
             array (
-                'id' => 103,
-                'order_no' => '9000041',
-                'descr' => 'Annual Maintenance Dell & HP 2017',
-                'order_type' => 'Z029',
+                'id' => '4000005016',
+                'descr' => '2011/12 JHB Southern YP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1461,13 +1358,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             103 => 
             array (
-                'id' => 104,
-                'order_no' => '9000042',
-                'descr' => 'AIMS 2017 - Cabling E1 Rental',
-                'order_type' => 'Z029',
+                'id' => '4000005017',
+                'descr' => '2011/12 PGB Northern YP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1475,13 +1371,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             104 => 
             array (
-                'id' => 105,
-                'order_no' => '9000043',
-                'descr' => 'Huawei eNBs migration support serv vEPC',
-                'order_type' => 'Z029',
+                'id' => '4000005018',
+                'descr' => '2011/12 SBB Sabah YP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1489,13 +1384,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             105 => 
             array (
-                'id' => 106,
-                'order_no' => '9000044',
-            'descr' => '75040300 - Vehicle Rental (NOD)',
-                'order_type' => 'Z029',
+                'id' => '4000005019',
+                'descr' => '2011/12 SKB Sarawak YP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1503,13 +1397,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             106 => 
             array (
-                'id' => 107,
-                'order_no' => '9000045',
-                'descr' => 'NAA - Cost',
-                'order_type' => 'Z029',
+                'id' => '4000005050',
+                'descr' => '2011/12 ETW Kel/Pahang/Terengganu BWP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1517,13 +1410,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             107 => 
             array (
-                'id' => 108,
-                'order_no' => '9000046',
-                'descr' => 'CME Optimization and Architecture',
-                'order_type' => 'Z029',
+                'id' => '4000005051',
+                'descr' => '2011/12 JHW Southern BWP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1531,13 +1423,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             108 => 
             array (
-                'id' => 109,
-                'order_no' => '9000047',
-                'descr' => 'vEPC 2nd site IPDC rental & OTC',
-                'order_type' => 'Z029',
+                'id' => '4000005052',
+                'descr' => '2011/12 KPW Kedah/Perlis BWP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1545,13 +1436,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             109 => 
             array (
-                'id' => 110,
-                'order_no' => '9000048',
-                'descr' => 'IPDC rental VADS - vEPC 2nd site',
-                'order_type' => 'Z029',
+                'id' => '4000005053',
+                'descr' => '2011/12 NMW N.Sembilan/Malacca BWP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1559,13 +1449,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             110 => 
             array (
-                'id' => 111,
-                'order_no' => '9000049',
-                'descr' => 'COW Deployment Bangi Wonderland',
-                'order_type' => 'Z029',
+                'id' => '4000005054',
+                'descr' => '2011/12 PGW Penang BWP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1573,13 +1462,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             111 => 
             array (
-                'id' => 112,
-                'order_no' => '9000050',
-            'descr' => 'Porta One Maintenance Renewal (Dec-Jun)',
-                'order_type' => 'Z029',
+                'id' => '4000005055',
+                'descr' => '2011/12 PKW Perak BWP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1587,13 +1475,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             112 => 
             array (
-                'id' => 113,
-                'order_no' => '9000051',
-                'descr' => 'AIMS Renewal - E1 and Fibre Link 2017',
-                'order_type' => 'Z029',
+                'id' => '4000005056',
+                'descr' => '2011/12 SBW Sabah BWP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1601,13 +1488,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             113 => 
             array (
-                'id' => 114,
-                'order_no' => '9000052',
-                'descr' => 'COW East Cost Flood Standby',
-                'order_type' => 'Z029',
+                'id' => '4000005057',
+                'descr' => '2011/12 SGW Selangor BWP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1615,13 +1501,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             114 => 
             array (
-                'id' => 115,
-                'order_no' => '9000053',
-            'descr' => 'Relocation SPHS to TM Warehouse (NOD)',
-                'order_type' => 'Z029',
+                'id' => '4000005058',
+                'descr' => '2011/12 SKW Sarawak BWP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1629,13 +1514,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             115 => 
             array (
-                'id' => 116,
-                'order_no' => '9000054',
-            'descr' => 'Site Installation Cost (NDD)',
-                'order_type' => 'Z029',
+                'id' => '4000005059',
+                'descr' => '2011/12 WPW Wilayah Persekutuan BWP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1643,13 +1527,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             116 => 
             array (
-                'id' => 117,
-                'order_no' => '9000055',
-                'descr' => 'SMART CRAN Rental and Utilities',
-                'order_type' => 'Z029',
+                'id' => '4000005060',
+                'descr' => '2011/12 CSH Chinese Sabah YP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1657,13 +1540,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             117 => 
             array (
-                'id' => 118,
-                'order_no' => '9000056',
-                'descr' => '2018-Network Operation',
-                'order_type' => 'Z029',
+                'id' => '4000005061',
+                'descr' => '2011/12 CSK Chinese Sarawak YP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1671,13 +1553,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             118 => 
             array (
-                'id' => 119,
-                'order_no' => '9000057',
-            'descr' => '2018-NDD (Genset Rental)',
-                'order_type' => 'Z029',
+                'id' => '4000005062',
+                'descr' => '2011/12 CCN Chinese Central YP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1685,13 +1566,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             119 => 
             array (
-                'id' => 120,
-                'order_no' => '9000058',
-            'descr' => '2018-NDD (WIMAX Dismantling)',
-                'order_type' => 'Z029',
+                'id' => '4000005459',
+                'descr' => '2012/13 CNB Central WP/Selangor YP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1699,13 +1579,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             120 => 
             array (
-                'id' => 121,
-                'order_no' => '9000059',
-                'descr' => '2018-NPD Small Cell Project',
-                'order_type' => 'Z029',
+                'id' => '4000005671',
+                'descr' => '2012/13 ETB Kel/Pahang/Terengganu YP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1713,13 +1592,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             121 => 
             array (
-                'id' => 122,
-                'order_no' => '9000060',
-                'descr' => '2018-Network Deployment',
-                'order_type' => 'Z029',
+                'id' => '4000005672',
+                'descr' => '2012/13 JHB Southern YP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1727,13 +1605,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             122 => 
             array (
-                'id' => 123,
-                'order_no' => '9000061',
-            'descr' => '2018-Network Planning (Direct Cost)',
-                'order_type' => 'Z029',
+                'id' => '4000005673',
+                'descr' => '2012/13 PGB Northern YP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1741,13 +1618,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             123 => 
             array (
-                'id' => 124,
-                'order_no' => '9000062',
-            'descr' => '2018-Network Planning (OOC)',
-                'order_type' => 'Z029',
+                'id' => '4000005674',
+                'descr' => '2012/13 SBB Sabah YP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1755,13 +1631,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             124 => 
             array (
-                'id' => 125,
-                'order_no' => '9000063',
-                'descr' => '2018- FDD Capacity RRC Expansion',
-                'order_type' => 'Z029',
+                'id' => '4000005675',
+                'descr' => '2012/13 SKB Sarawak YP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1769,13 +1644,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             125 => 
             array (
-                'id' => 126,
-                'order_no' => '9000080',
-            'descr' => '2019-IO-NOD (General)',
-                'order_type' => 'Z029',
+                'id' => '4000005676',
+                'descr' => '2012/13 ETW Kel/Pahang/Terengganu BWP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1783,13 +1657,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             126 => 
             array (
-                'id' => 127,
-                'order_no' => '9000081',
-            'descr' => '2019-IO-NPS (Direct Cost)',
-                'order_type' => 'Z029',
+                'id' => '4000005677',
+                'descr' => '2012/13 JHW Southern BWP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1797,13 +1670,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             127 => 
             array (
-                'id' => 128,
-                'order_no' => '9000082',
-            'descr' => '2019-IO-NPS (OOC)',
-                'order_type' => 'Z029',
+                'id' => '4000005678',
+                'descr' => '2012/13 KPW Kedah/Perlis BWP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1811,13 +1683,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             128 => 
             array (
-                'id' => 129,
-                'order_no' => '9000100',
-            'descr' => '2019-IO-NDD (Genset Rental)',
-                'order_type' => 'Z029',
+                'id' => '4000005679',
+                'descr' => '2012/13 NMW N.Sembilan/Malacca BWP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1825,13 +1696,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             129 => 
             array (
-                'id' => 130,
-                'order_no' => '9000101',
-            'descr' => '2019-IO-NDD (Dismantling)',
-                'order_type' => 'Z029',
-                'status' => 'A',
+                'id' => '4000005680',
+            'descr' => '2012/13 PGW Penang BWP (Cancelled)',
+                'order_type' => 'Z006',
+                'status' => 'X',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1839,13 +1709,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             130 => 
             array (
-                'id' => 131,
-                'order_no' => '9000102',
-            'descr' => '2019-IO-NDD (General)',
-                'order_type' => 'Z029',
+                'id' => '4000005681',
+                'descr' => '2012/13 PKW Perak BWP',
+                'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1141',
+                'company_code' => '1040',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -1853,9 +1722,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             131 => 
             array (
-                'id' => 132,
-                'order_no' => '4000003198',
-                'descr' => 'YELLOW PAGES CENTRAL',
+                'id' => '4000005682',
+                'descr' => '2012/13 SBW Sabah BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -1867,9 +1735,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             132 => 
             array (
-                'id' => 133,
-                'order_no' => '4000003199',
-                'descr' => 'YELLOW PAGES SOUTHERN',
+                'id' => '4000005684',
+                'descr' => '2012/13 SKW Sarawak BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -1881,9 +1748,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             133 => 
             array (
-                'id' => 134,
-                'order_no' => '4000003200',
-                'descr' => 'YELLOW PAGES NORTHERN',
+                'id' => '4000005685',
+                'descr' => '2012/13 WPW Wilayah Persekutuan BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -1895,9 +1761,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             134 => 
             array (
-                'id' => 135,
-                'order_no' => '4000003201',
-                'descr' => 'YELLOW PAGES EASTERN',
+                'id' => '4000005686',
+                'descr' => '2012/13 CSH Chinese Sabah YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -1909,9 +1774,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             135 => 
             array (
-                'id' => 136,
-                'order_no' => '4000003202',
-                'descr' => 'YELLOW PAGES SABAH',
+                'id' => '4000005687',
+                'descr' => '2012/13 CSK Chinese Sarawak YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -1923,9 +1787,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             136 => 
             array (
-                'id' => 137,
-                'order_no' => '4000003203',
-                'descr' => 'YELLOW PAGES SARAWAK',
+                'id' => '4000005688',
+                'descr' => '2012/13 CCN Chinese Central YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -1937,9 +1800,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             137 => 
             array (
-                'id' => 138,
-                'order_no' => '4000003204',
-                'descr' => 'YELLOW PAGES W.P\'SEKUTUAN',
+                'id' => '4000005689',
+                'descr' => '2013/14 CNB Central WP/Selangor YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -1951,9 +1813,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             138 => 
             array (
-                'id' => 139,
-                'order_no' => '4000003205',
-                'descr' => 'YELLOW PAGES SELANGOR',
+                'id' => '4000005690',
+                'descr' => '2013/14 ETB Kel/Pahang/Terengganu YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -1965,9 +1826,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             139 => 
             array (
-                'id' => 140,
-                'order_no' => '4000003206',
-                'descr' => 'YELLOW PAGES JOHOR',
+                'id' => '4000005691',
+                'descr' => '2013/14 JHB Southern YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -1979,9 +1839,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             140 => 
             array (
-                'id' => 141,
-                'order_no' => '4000003207',
-                'descr' => 'YELLOW PAGES NEGERI SEMBILAN',
+                'id' => '4000005692',
+                'descr' => '2013/14 PGB Northern YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -1993,9 +1852,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             141 => 
             array (
-                'id' => 142,
-                'order_no' => '4000003208',
-                'descr' => 'YELLOW PAGES MELAKA',
+                'id' => '4000005693',
+                'descr' => '2013/14 SBB Sabah YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2007,9 +1865,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             142 => 
             array (
-                'id' => 143,
-                'order_no' => '4000003209',
-                'descr' => 'YELLOW PAGES KEDAH/PERLIS',
+                'id' => '4000005695',
+                'descr' => '2013/14 SKB Sarawak YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2021,9 +1878,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             143 => 
             array (
-                'id' => 144,
-                'order_no' => '4000003210',
-                'descr' => 'YELLOW PAGES PENANG',
+                'id' => '4000005696',
+                'descr' => '2013/14 ETW Kel/Pahang/Terengganu BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2035,9 +1891,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             144 => 
             array (
-                'id' => 145,
-                'order_no' => '4000003211',
-                'descr' => 'YELLOW PAGES PERAK',
+                'id' => '4000005697',
+                'descr' => '2013/14 JHW Southern BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2049,9 +1904,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             145 => 
             array (
-                'id' => 146,
-                'order_no' => '4000003212',
-                'descr' => 'YELLOW PAGES PAHANG',
+                'id' => '4000005698',
+                'descr' => '2013/14 KPW Kedah/Perlis BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2063,9 +1917,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             146 => 
             array (
-                'id' => 147,
-                'order_no' => '4000003213',
-                'descr' => 'YELLOW PAGES TERENGGANU',
+                'id' => '4000005699',
+                'descr' => '2013/14 NMW N.Sembilan/Malacca BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2077,9 +1930,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             147 => 
             array (
-                'id' => 148,
-                'order_no' => '4000003214',
-                'descr' => 'YELLOW PAGES KELANTAN',
+                'id' => '4000005700',
+                'descr' => '2013/14 PGW Penang BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2091,9 +1943,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             148 => 
             array (
-                'id' => 149,
-                'order_no' => '4000003215',
-                'descr' => 'BUS. WHITE PAGES CENTRAL',
+                'id' => '4000005701',
+                'descr' => '2013/14 PKW Perak BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2105,9 +1956,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             149 => 
             array (
-                'id' => 150,
-                'order_no' => '4000003216',
-                'descr' => 'BUS. WHITE PAGES SOUTHERN',
+                'id' => '4000005702',
+                'descr' => '2013/14 SBW Sabah BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2119,9 +1969,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             150 => 
             array (
-                'id' => 151,
-                'order_no' => '4000003217',
-                'descr' => 'BUS. WHITE PAGES NORTHERN',
+                'id' => '4000005703',
+                'descr' => '2013/14 SGW Selangor BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2133,9 +1982,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             151 => 
             array (
-                'id' => 152,
-                'order_no' => '4000003218',
-                'descr' => 'BUS. WHITE PAGES EASTERN',
+                'id' => '4000005704',
+                'descr' => '2013/14 SKW Sarawak BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2147,9 +1995,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             152 => 
             array (
-                'id' => 153,
-                'order_no' => '4000003219',
-                'descr' => 'BUS. WHITE PAGES SABAH',
+                'id' => '4000005705',
+                'descr' => '2013/14 WPW Wilayah Persekutuan BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2161,9 +2008,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             153 => 
             array (
-                'id' => 154,
-                'order_no' => '4000003220',
-                'descr' => 'BUS. WHITE PAGES SARAWAK',
+                'id' => '4000005706',
+                'descr' => '2013/14 CSH Chinese Sabah YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2175,9 +2021,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             154 => 
             array (
-                'id' => 155,
-                'order_no' => '4000003221',
-                'descr' => 'BUS. WHITE PAGES W.P\'SEKUTUAN',
+                'id' => '4000005707',
+                'descr' => '2013/14 CSK Chinese Sarawak YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2189,9 +2034,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             155 => 
             array (
-                'id' => 156,
-                'order_no' => '4000003222',
-                'descr' => 'BUS. WHITE PAGES SELANGOR',
+                'id' => '4000005708',
+                'descr' => '2013/14 CCN Chinese Central YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2203,9 +2047,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             156 => 
             array (
-                'id' => 157,
-                'order_no' => '4000003223',
-                'descr' => 'BUS. WHITE PAGES JOHOR',
+                'id' => '4000005730',
+                'descr' => '2012/13 SGW Selangor BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2217,9 +2060,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             157 => 
             array (
-                'id' => 158,
-                'order_no' => '4000003224',
-                'descr' => 'BUS. WHITE PAGES N.SEMBILAN',
+                'id' => '4000005731',
+                'descr' => '2012/13 PGW Penang BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2231,9 +2073,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             158 => 
             array (
-                'id' => 159,
-                'order_no' => '4000003225',
-                'descr' => 'BUS. WHITE PAGES MELAKA',
+                'id' => '4000005750',
+                'descr' => '2011/12 CNB Central WP/Selangor YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2245,9 +2086,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             159 => 
             array (
-                'id' => 160,
-                'order_no' => '4000003226',
-                'descr' => 'BUS. WHITE PAGES KEDAH/PERLIS',
+                'id' => '4000005751',
+                'descr' => '2011/12 ETB Kel/Pahang/Terengganu YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2259,9 +2099,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             160 => 
             array (
-                'id' => 161,
-                'order_no' => '4000003227',
-                'descr' => 'BUS. WHITE PAGES PENANG',
+                'id' => '4000005753',
+                'descr' => '2011/12 JHB Southern YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2273,9 +2112,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             161 => 
             array (
-                'id' => 162,
-                'order_no' => '4000003228',
-                'descr' => 'BUS. WHITE PAGES PERAK',
+                'id' => '4000005754',
+                'descr' => '2011/12 PGB Northern YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2287,9 +2125,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             162 => 
             array (
-                'id' => 163,
-                'order_no' => '4000003229',
-                'descr' => 'BUS. WHITE PAGES PAHANG',
+                'id' => '4000005755',
+                'descr' => '2011/12 SBB Sabah YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2301,9 +2138,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             163 => 
             array (
-                'id' => 164,
-                'order_no' => '4000003230',
-                'descr' => 'BUS. WHITE PAGES TERENGGANU',
+                'id' => '4000005756',
+                'descr' => '2011/12 SKB Sarawak YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2315,9 +2151,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             164 => 
             array (
-                'id' => 165,
-                'order_no' => '4000003231',
-                'descr' => 'BUS. WHITE PAGES KELANTAN',
+                'id' => '4000005757',
+                'descr' => '2011/12 ETW Kel/Pahang/Terengganu BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2329,9 +2164,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             165 => 
             array (
-                'id' => 166,
-                'order_no' => '4000003232',
-                'descr' => 'RESIDENTIAL CENTRAL',
+                'id' => '4000005758',
+                'descr' => '2011/12 SBW Sabah BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2343,9 +2177,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             166 => 
             array (
-                'id' => 167,
-                'order_no' => '4000003233',
-                'descr' => 'RESIDENTIAL SOUTHERN',
+                'id' => '4000005759',
+                'descr' => '2011/12 SGW Selangor BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2357,9 +2190,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             167 => 
             array (
-                'id' => 168,
-                'order_no' => '4000003234',
-                'descr' => 'RESIDENTIAL NORTHERN',
+                'id' => '4000005760',
+                'descr' => '2011/12 SKW Sarawak BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2371,9 +2203,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             168 => 
             array (
-                'id' => 169,
-                'order_no' => '4000003235',
-                'descr' => 'RESIDENTIAL EASTERN',
+                'id' => '4000005761',
+                'descr' => '2011/12 WPW Wilayah Persekutuan BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2385,9 +2216,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             169 => 
             array (
-                'id' => 170,
-                'order_no' => '4000003236',
-                'descr' => 'RESIDENTIAL SABAH',
+                'id' => '4000005762',
+                'descr' => '2011/12 CSH Chinese Sabah YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2399,9 +2229,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             170 => 
             array (
-                'id' => 171,
-                'order_no' => '4000003237',
-                'descr' => 'RESIDENTIAL SARAWAK',
+                'id' => '4000005763',
+                'descr' => '2011/12 CSK Chinese Sarawak YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2413,9 +2242,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             171 => 
             array (
-                'id' => 172,
-                'order_no' => '4000003238',
-                'descr' => 'RESIDENTIAL W.P\'SEKUTUAN',
+                'id' => '4000006005',
+                'descr' => '2014/15 CNB Central WP/Selangor YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2427,9 +2255,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             172 => 
             array (
-                'id' => 173,
-                'order_no' => '4000003239',
-                'descr' => 'RESIDENTIAL SELANGOR',
+                'id' => '4000006007',
+                'descr' => '2014/15 ETB Kel/Pahang/Terengganu YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2441,9 +2268,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             173 => 
             array (
-                'id' => 174,
-                'order_no' => '4000003240',
-                'descr' => 'RESIDENTIAL JOHOR',
+                'id' => '4000006008',
+                'descr' => '2014/15 JHB Southern YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2455,9 +2281,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             174 => 
             array (
-                'id' => 175,
-                'order_no' => '4000003241',
-                'descr' => 'RESIDENTIAL NEGERI SEMBILAN',
+                'id' => '4000006009',
+                'descr' => '2014/15 PGB Northern YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2469,9 +2294,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             175 => 
             array (
-                'id' => 176,
-                'order_no' => '4000003242',
-                'descr' => 'RESIDENTIAL MELAKA',
+                'id' => '4000006010',
+                'descr' => '2014/15 SBB Sabah YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2483,9 +2307,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             176 => 
             array (
-                'id' => 177,
-                'order_no' => '4000003243',
-                'descr' => 'RESIDENTIAL KEDAH/PERLIS',
+                'id' => '4000006011',
+                'descr' => '2014/15 SKB Sarawak YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2497,9 +2320,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             177 => 
             array (
-                'id' => 178,
-                'order_no' => '4000003244',
-                'descr' => 'RESIDENTIAL PENANG',
+                'id' => '4000006012',
+                'descr' => '2014/15 ETW Kel/Pahang/Terengganu BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2511,9 +2333,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             178 => 
             array (
-                'id' => 179,
-                'order_no' => '4000003245',
-                'descr' => 'RESIDENTIAL PERAK',
+                'id' => '4000006013',
+                'descr' => '2014/15 JHW Southern BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2525,9 +2346,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             179 => 
             array (
-                'id' => 180,
-                'order_no' => '4000003246',
-                'descr' => 'RESIDENTIAL PAHANG',
+                'id' => '4000006014',
+                'descr' => '2014/15 KPW Kedah/Perlis BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2539,9 +2359,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             180 => 
             array (
-                'id' => 181,
-                'order_no' => '4000003247',
-                'descr' => 'RESIDENTIAL TERENGGANU',
+                'id' => '4000006015',
+                'descr' => '2014/15 NMW N.Sembilan/Malacca BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2553,9 +2372,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             181 => 
             array (
-                'id' => 182,
-                'order_no' => '4000003248',
-                'descr' => 'RESIDENTIAL KELANTAN',
+                'id' => '4000006016',
+                'descr' => '2014/15 PGW Penang BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2567,9 +2385,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             182 => 
             array (
-                'id' => 183,
-                'order_no' => '4000003249',
-                'descr' => 'NICHE M\'SIAN TOURIST PAGES',
+                'id' => '4000006017',
+                'descr' => '2014/15 PKW Perak BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2581,9 +2398,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             183 => 
             array (
-                'id' => 184,
-                'order_no' => '4000003250',
-                'descr' => 'NICHE CORP AGR. DIRECTORY',
+                'id' => '4000006018',
+                'descr' => '2014/15 SBW Sabah BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2595,9 +2411,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             184 => 
             array (
-                'id' => 185,
-                'order_no' => '4000003251',
-                'descr' => 'NICHE HALAL PAGES DIRECTORY',
+                'id' => '4000006019',
+                'descr' => '2014/15 SGW Selangor BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2609,9 +2424,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             185 => 
             array (
-                'id' => 186,
-                'order_no' => '4000003252',
-                'descr' => 'NICHE MALAYSIA ENERGY GUIDE',
+                'id' => '4000006020',
+                'descr' => '2014/15 SKW Sarawak BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2623,9 +2437,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             186 => 
             array (
-                'id' => 187,
-                'order_no' => '4000003253',
-                'descr' => 'MINI MINI YELLOW PAGES',
+                'id' => '4000006021',
+                'descr' => '2014/15 WPW Wilayah Persekutuan BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2637,9 +2450,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             187 => 
             array (
-                'id' => 188,
-                'order_no' => '4000003254',
-                'descr' => 'CHINESE M\'SIAN CHINESE YP-P.M',
+                'id' => '4000006022',
+                'descr' => '2014/15 CSH Chinese Sabah YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2651,9 +2463,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             188 => 
             array (
-                'id' => 189,
-                'order_no' => '4000003255',
-                'descr' => 'CHINESE M\'SIAN CHINESE YP-SBH',
+                'id' => '4000006023',
+                'descr' => '2014/15 CSK Chinese Sarawak YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2665,9 +2476,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             189 => 
             array (
-                'id' => 190,
-                'order_no' => '4000003256',
-                'descr' => 'CHINESE M\'SIAN CHINESE YP-SRWK',
+                'id' => '4000006024',
+                'descr' => '2014/15 CCN Chinese Central YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2679,9 +2489,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             190 => 
             array (
-                'id' => 191,
-                'order_no' => '4000003258',
-                'descr' => 'YPTV',
+                'id' => '4000006025',
+                'descr' => '2015/16 CNB Central WP/Selangor YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2693,9 +2502,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             191 => 
             array (
-                'id' => 192,
-                'order_no' => '4000003278',
-                'descr' => 'BUS. WHITE PAGES N.SEMBILN/MLK',
+                'id' => '4000006026',
+                'descr' => '2015/16 ETB Kel/Pahang/Terengganu YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2707,9 +2515,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             192 => 
             array (
-                'id' => 193,
-                'order_no' => '4000003298',
-                'descr' => 'CHINESE M\'SIAN CHINESE EASTERN',
+                'id' => '4000006027',
+                'descr' => '2015/16 JHB Southern YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2721,9 +2528,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             193 => 
             array (
-                'id' => 194,
-                'order_no' => '4000003300',
-                'descr' => 'CHINESE M\'SIAN CHINESE SOUTHERN',
+                'id' => '4000006028',
+                'descr' => '2015/16 PGB Northern YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2735,9 +2541,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             194 => 
             array (
-                'id' => 195,
-                'order_no' => '4000003301',
-                'descr' => 'RESIDENTIAL NEGERI SEMBILAN/MELAKA',
+                'id' => '4000006029',
+                'descr' => '2015/16 SBB Sabah YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2749,9 +2554,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             195 => 
             array (
-                'id' => 196,
-                'order_no' => '4000003302',
-                'descr' => 'YELLOW PAGES NEGERI SEMBILAN/MELAKA',
+                'id' => '4000006030',
+                'descr' => '2015/16 SKB Sarawak YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2763,9 +2567,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             196 => 
             array (
-                'id' => 197,
-                'order_no' => '4000003310',
-                'descr' => 'MALAYSIA INFORMATION INDUSTRY DIRECTORY',
+                'id' => '4000006031',
+                'descr' => '2015/16 ETW Kel/Pahang/Terengganu BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2777,9 +2580,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             197 => 
             array (
-                'id' => 198,
-                'order_no' => '4000003311',
-            'descr' => 'MALAYSIA CHINESE CENTRAL (SG/WP) YB',
+                'id' => '4000006032',
+                'descr' => '2015/16 JHW Southern BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2791,9 +2593,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             198 => 
             array (
-                'id' => 199,
-                'order_no' => '4000003312',
-                'descr' => 'MALAYSIA DINING OUT',
+                'id' => '4000006033',
+                'descr' => '2015/16 KPW Kedah/Perlis BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2805,9 +2606,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             199 => 
             array (
-                'id' => 200,
-                'order_no' => '4000003313',
-            'descr' => 'MALAYSIA CHINESE EASTERN (KN/PH/TG) YB',
+                'id' => '4000006034',
+                'descr' => '2015/16 NMW N.Sembilan/Malacca BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2819,9 +2619,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             200 => 
             array (
-                'id' => 201,
-                'order_no' => '4000003315',
-            'descr' => 'MALAYSIA CHINESE NORTHERN(KD & PL/PG/PK)',
+                'id' => '4000006035',
+                'descr' => '2015/16 PGW Penang BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2833,9 +2632,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             201 => 
             array (
-                'id' => 202,
-                'order_no' => '4000003316',
-            'descr' => 'MALAYSIA CHINESE SOUTHERN (NS & MK/JH) Y',
+                'id' => '4000006036',
+                'descr' => '2015/16 PKW Perak BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2847,9 +2645,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             202 => 
             array (
-                'id' => 203,
-                'order_no' => '4000003317',
-                'descr' => 'AMPANG NEIGHBOURHOOD DIRECTORY',
+                'id' => '4000006037',
+                'descr' => '2015/16 SBW Sabah BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2861,9 +2658,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             203 => 
             array (
-                'id' => 204,
-                'order_no' => '4000003318',
-                'descr' => 'DAMANSARA NEIGHBOURHOOD DIRECTORY',
+                'id' => '4000006038',
+                'descr' => '2015/16 SGW Selangor BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2875,9 +2671,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             204 => 
             array (
-                'id' => 205,
-                'order_no' => '4000003319',
-                'descr' => 'SUBANG NEIGHBOURHOOD DIRECTORY',
+                'id' => '4000006039',
+                'descr' => '2015/16 SKW Sarawak BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2889,9 +2684,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             205 => 
             array (
-                'id' => 206,
-                'order_no' => '4000003321',
-            'descr' => 'PENINSULAR CHINESE CENTRAL (WP/SG) YB',
+                'id' => '4000006040',
+                'descr' => '2015/16 WPW Wilayah Persekutuan BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2903,9 +2697,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             206 => 
             array (
-                'id' => 207,
-                'order_no' => '4000003322',
-            'descr' => 'PENINSULAR CHINESE EASTERN (KN/PH/TG) YB',
+                'id' => '4000006041',
+                'descr' => '2015/16 CSH Chinese Sabah YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2917,9 +2710,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             207 => 
             array (
-                'id' => 208,
-                'order_no' => '4000003323',
-            'descr' => 'PENINSULAR CHINESE NORTHERN(KD&PL/PG/PK)',
+                'id' => '4000006042',
+                'descr' => '2015/16 CSK Chinese Sarawak YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2931,9 +2723,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             208 => 
             array (
-                'id' => 209,
-                'order_no' => '4000003324',
-            'descr' => 'PENINSULAR CHINESE SOUTHERN (JH/NM) YB',
+                'id' => '4000006043',
+                'descr' => '2015/16 CCN Chinese Central YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2945,9 +2736,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             209 => 
             array (
-                'id' => 210,
-                'order_no' => '4000003325',
-                'descr' => 'XVI COMMONWEALTH GAMES DIRECTORY',
+                'id' => '4000006127',
+                'descr' => '2011 YP For Home',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2959,9 +2749,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             210 => 
             array (
-                'id' => 211,
-                'order_no' => '4000003326',
-                'descr' => 'TELEX & TELEFAX',
+                'id' => '4000006128',
+                'descr' => '2012 YP for Home',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2973,9 +2762,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             211 => 
             array (
-                'id' => 212,
-                'order_no' => '4000003327',
-                'descr' => 'NEIGHBOURHOOD DIRECTORY',
+                'id' => '4000006364',
+                'descr' => '2014/15 SKB Sarawak YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -2987,9 +2775,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             212 => 
             array (
-                'id' => 213,
-                'order_no' => '4000004357',
-            'descr' => '2010/11 CNB Central (WP/Selangor) YP',
+                'id' => '4000006365',
+                'descr' => '2014/15 CCN Chinese Central YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3001,9 +2788,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             213 => 
             array (
-                'id' => 214,
-                'order_no' => '4000004358',
-            'descr' => '2010/11 ETB (Kel/Pahang/Terengganu) YP',
+                'id' => '4000006366',
+                'descr' => '2015/16 NMW N.Sembilan/Malacca BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3015,9 +2801,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             214 => 
             array (
-                'id' => 215,
-                'order_no' => '4000004359',
-                'descr' => '2010/11 JHB Southern YP',
+                'id' => '4000006367',
+                'descr' => '2015/16 PGW Penang BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3029,9 +2814,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             215 => 
             array (
-                'id' => 216,
-                'order_no' => '4000004360',
-                'descr' => '2010/11 PGB Northern YP',
+                'id' => '4000006368',
+                'descr' => '2015/16 SBW Sabah BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3043,9 +2827,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             216 => 
             array (
-                'id' => 217,
-                'order_no' => '4000004361',
-                'descr' => '2010/11 SBB Sabah YP',
+                'id' => '4000006369',
+                'descr' => '2015/16 SGW Selangor BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3057,9 +2840,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             217 => 
             array (
-                'id' => 218,
-                'order_no' => '4000004362',
-                'descr' => '2010/11 SKB Sarawak YP',
+                'id' => '4000006374',
+                'descr' => '2nd Edition YP For Home',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3071,9 +2853,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             218 => 
             array (
-                'id' => 219,
-                'order_no' => '4000004363',
-                'descr' => '2010/11 ETW Kel/Pahang/Terengganu BWP',
+                'id' => '4000006375',
+                'descr' => '3rd Edition YP For Home',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3085,9 +2866,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             219 => 
             array (
-                'id' => 220,
-                'order_no' => '4000004364',
-                'descr' => '2010/11 JHW Johor BWP',
+                'id' => '4000006376',
+                'descr' => '4th Edition YP For Home',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3099,9 +2879,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             220 => 
             array (
-                'id' => 221,
-                'order_no' => '4000004365',
-                'descr' => '2010/11 KPW Kedah/Perlis BWP',
+                'id' => '4000006377',
+                'descr' => '5th Edition YP For Home',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3113,9 +2892,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             221 => 
             array (
-                'id' => 222,
-                'order_no' => '4000004366',
-                'descr' => '2010/11 NMW N.Sembilan/Malacca BWP',
+                'id' => '4000006380',
+                'descr' => '2015/16 SKW Sarawak BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3127,9 +2905,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             222 => 
             array (
-                'id' => 223,
-                'order_no' => '4000004367',
-                'descr' => '2010/11 PGW Penang BWP',
+                'id' => '4000006381',
+                'descr' => '2015/16 CSH Chinese Sabah YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3141,9 +2918,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             223 => 
             array (
-                'id' => 224,
-                'order_no' => '4000004368',
-                'descr' => '2010/11 PKW Perak BWP',
+                'id' => '4000006382',
+                'descr' => '2015/16 CSK Chinese Sarawak YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3155,9 +2931,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             224 => 
             array (
-                'id' => 225,
-                'order_no' => '4000004369',
-                'descr' => '2010/11 SBW Sabah BWP',
+                'id' => '4000006383',
+                'descr' => '2015/16 CCN Chinese Central YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3169,9 +2944,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             225 => 
             array (
-                'id' => 226,
-                'order_no' => '4000004370',
-                'descr' => '2010/11 SGW Selangor BWP',
+                'id' => '4000006384',
+                'descr' => '2015/16 PKW Perak BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3183,9 +2957,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             226 => 
             array (
-                'id' => 227,
-                'order_no' => '4000004371',
-                'descr' => '2010/11 SKW Sarawak BWP',
+                'id' => '4000006385',
+                'descr' => '2015/16 WPW Wilayah Persekutuan BWP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3197,9 +2970,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             227 => 
             array (
-                'id' => 228,
-                'order_no' => '4000004372',
-                'descr' => '2010/11 WPW Wilayah Persekutuan BWP',
+                'id' => '4000006770',
+                'descr' => '2012 Central Bus. White Pages',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3211,9 +2983,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             228 => 
             array (
-                'id' => 229,
-                'order_no' => '4000004373',
-                'descr' => '2010/11 CSH Chinese Sabah YP',
+                'id' => '4000006771',
+                'descr' => '2012 Northern Bus. White Pages',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3225,9 +2996,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             229 => 
             array (
-                'id' => 230,
-                'order_no' => '4000004374',
-                'descr' => '2010/11 CSK Chinese Sarawak YP',
+                'id' => '4000006772',
+                'descr' => '2012 Southern Bus. White Pages',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3239,9 +3009,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             230 => 
             array (
-                'id' => 231,
-                'order_no' => '4000005013',
-                'descr' => '2010/11 CCN Chinese Central YP',
+                'id' => '4000006844',
+                'descr' => 'YellowBiz 1 Promo 2012',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3253,9 +3022,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             231 => 
             array (
-                'id' => 232,
-                'order_no' => '4000005014',
-                'descr' => '2011/12 CNB Central WP/Selangor YP',
+                'id' => '4000006845',
+                'descr' => 'YellowBiz 2 Promo 2012',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3267,9 +3035,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             232 => 
             array (
-                'id' => 233,
-                'order_no' => '4000005015',
-                'descr' => '2011/12 ETB Kel/Pahang/Terengganu YP',
+                'id' => '4000006846',
+                'descr' => 'YellowBiz 3 Promo 2012',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3281,9 +3048,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             233 => 
             array (
-                'id' => 234,
-                'order_no' => '4000005016',
-                'descr' => '2011/12 JHB Southern YP',
+                'id' => '4000006847',
+                'descr' => 'YellowBiz 4 Promo 2012',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3295,9 +3061,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             234 => 
             array (
-                'id' => 235,
-                'order_no' => '4000005017',
-                'descr' => '2011/12 PGB Northern YP',
+                'id' => '4000006849',
+                'descr' => 'iBiz Promo 2012',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3309,9 +3074,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             235 => 
             array (
-                'id' => 236,
-                'order_no' => '4000005018',
-                'descr' => '2011/12 SBB Sabah YP',
+                'id' => '4000006890',
+                'descr' => '6th Edition YP For Home',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3323,9 +3087,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             236 => 
             array (
-                'id' => 237,
-                'order_no' => '4000005019',
-                'descr' => '2011/12 SKB Sarawak YP',
+                'id' => '4000006911',
+                'descr' => 'ExtraBiz 1 Promo 2012',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3337,9 +3100,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             237 => 
             array (
-                'id' => 238,
-                'order_no' => '4000005050',
-                'descr' => '2011/12 ETW Kel/Pahang/Terengganu BWP',
+                'id' => '4000006912',
+                'descr' => 'ExtraBiz 2 Promo 2012',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3351,9 +3113,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             238 => 
             array (
-                'id' => 239,
-                'order_no' => '4000005051',
-                'descr' => '2011/12 JHW Southern BWP',
+                'id' => '4000006913',
+                'descr' => '7th Edition YP For Home',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3365,9 +3126,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             239 => 
             array (
-                'id' => 240,
-                'order_no' => '4000005052',
-                'descr' => '2011/12 KPW Kedah/Perlis BWP',
+                'id' => '4000006973',
+                'descr' => '1st Edition YP For Home Ipoh',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3379,9 +3139,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             240 => 
             array (
-                'id' => 241,
-                'order_no' => '4000005053',
-                'descr' => '2011/12 NMW N.Sembilan/Malacca BWP',
+                'id' => '4000006974',
+                'descr' => '2nd Edition YP For Home Ipoh',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3393,9 +3152,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             241 => 
             array (
-                'id' => 242,
-                'order_no' => '4000005054',
-                'descr' => '2011/12 PGW Penang BWP',
+                'id' => '4000006975',
+                'descr' => '3rd Edition YP For Home Ipoh',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3407,9 +3165,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             242 => 
             array (
-                'id' => 243,
-                'order_no' => '4000005055',
-                'descr' => '2011/12 PKW Perak BWP',
+                'id' => '4000006976',
+                'descr' => '1st Edition YP For Home Penang',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3421,9 +3178,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             243 => 
             array (
-                'id' => 244,
-                'order_no' => '4000005056',
-                'descr' => '2011/12 SBW Sabah BWP',
+                'id' => '4000006977',
+                'descr' => '2nd Edition YP For Home Penang',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3435,9 +3191,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             244 => 
             array (
-                'id' => 245,
-                'order_no' => '4000005057',
-                'descr' => '2011/12 SGW Selangor BWP',
+                'id' => '4000006978',
+                'descr' => '3rd Edition YP For Home Penang',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3449,9 +3204,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             245 => 
             array (
-                'id' => 246,
-                'order_no' => '4000005058',
-                'descr' => '2011/12 SKW Sarawak BWP',
+                'id' => '4000006979',
+                'descr' => '1st Edition YP For Home Johor Bahru',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3463,9 +3217,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             246 => 
             array (
-                'id' => 247,
-                'order_no' => '4000005059',
-                'descr' => '2011/12 WPW Wilayah Persekutuan BWP',
+                'id' => '4000006980',
+                'descr' => '2nd Edition YP For Home Johor Bahru',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3477,9 +3230,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             247 => 
             array (
-                'id' => 248,
-                'order_no' => '4000005060',
-                'descr' => '2011/12 CSH Chinese Sabah YP',
+                'id' => '4000006981',
+                'descr' => '3rd Edition YP For Home Johor Bahru',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3491,9 +3243,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             248 => 
             array (
-                'id' => 249,
-                'order_no' => '4000005061',
-                'descr' => '2011/12 CSK Chinese Sarawak YP',
+                'id' => '4000006982',
+                'descr' => '1st Edition YP For Home Kuching',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3505,9 +3256,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             249 => 
             array (
-                'id' => 250,
-                'order_no' => '4000005062',
-                'descr' => '2011/12 CCN Chinese Central YP',
+                'id' => '4000006983',
+                'descr' => '2nd Edition YP For Home Kuching',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3519,9 +3269,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             250 => 
             array (
-                'id' => 251,
-                'order_no' => '4000005459',
-                'descr' => '2012/13 CNB Central WP/Selangor YP',
+                'id' => '4000006984',
+                'descr' => '3rd Edition YP For Home Kuching',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3533,9 +3282,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             251 => 
             array (
-                'id' => 252,
-                'order_no' => '4000005671',
-                'descr' => '2012/13 ETB Kel/Pahang/Terengganu YP',
+                'id' => '4000006985',
+                'descr' => '1st Edition YP For Home Kota Kinabalu',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3547,9 +3295,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             252 => 
             array (
-                'id' => 253,
-                'order_no' => '4000005672',
-                'descr' => '2012/13 JHB Southern YP',
+                'id' => '4000006986',
+                'descr' => '2nd Edition YP For Home Kota Kinabalu',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3561,9 +3308,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             253 => 
             array (
-                'id' => 254,
-                'order_no' => '4000005673',
-                'descr' => '2012/13 PGB Northern YP',
+                'id' => '4000006987',
+                'descr' => '3rd Edition YP For Home  Kota Kinabalu',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3575,9 +3321,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             254 => 
             array (
-                'id' => 255,
-                'order_no' => '4000005674',
-                'descr' => '2012/13 SBB Sabah YP',
+                'id' => '4000007114',
+                'descr' => '4th Edition YP For Home Ipoh',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3589,9 +3334,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             255 => 
             array (
-                'id' => 256,
-                'order_no' => '4000005675',
-                'descr' => '2012/13 SKB Sarawak YP',
+                'id' => '4000007115',
+                'descr' => '4th Edition YP For Home Penang',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3603,9 +3347,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             256 => 
             array (
-                'id' => 257,
-                'order_no' => '4000005676',
-                'descr' => '2012/13 ETW Kel/Pahang/Terengganu BWP',
+                'id' => '4000007116',
+                'descr' => '4th Edition YP For Home Johor Bahru',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3617,9 +3360,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             257 => 
             array (
-                'id' => 258,
-                'order_no' => '4000005677',
-                'descr' => '2012/13 JHW Southern BWP',
+                'id' => '4000007117',
+                'descr' => '4TH EDITION YP FOR HOME KUCHING',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3631,9 +3373,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             258 => 
             array (
-                'id' => 259,
-                'order_no' => '4000005678',
-                'descr' => '2012/13 KPW Kedah/Perlis BWP',
+                'id' => '4000007187',
+                'descr' => '2013 Destination Malaysia Accomodation',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3645,9 +3386,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             259 => 
             array (
-                'id' => 260,
-                'order_no' => '4000005679',
-                'descr' => '2012/13 NMW N.Sembilan/Malacca BWP',
+                'id' => '4000007188',
+                'descr' => '2014 Halal Pages Directory',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3659,11 +3399,10 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             260 => 
             array (
-                'id' => 261,
-                'order_no' => '4000005680',
-            'descr' => '2012/13 PGW Penang BWP (Cancelled)',
+                'id' => '4000007201',
+                'descr' => '2014 Destination Malaysia -Regional Guid',
                 'order_type' => 'Z006',
-                'status' => 'X',
+                'status' => 'A',
                 'cost_center' => '',
                 'company_code' => '1040',
                 'pers_responsible' => '',
@@ -3673,9 +3412,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             261 => 
             array (
-                'id' => 262,
-                'order_no' => '4000005681',
-                'descr' => '2012/13 PKW Perak BWP',
+                'id' => '4000007211',
+                'descr' => 'Cuti-Cuti 1 Package 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3687,9 +3425,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             262 => 
             array (
-                'id' => 263,
-                'order_no' => '4000005682',
-                'descr' => '2012/13 SBW Sabah BWP',
+                'id' => '4000007212',
+                'descr' => 'Cuti-Cuti 2 Package 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3701,9 +3438,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             263 => 
             array (
-                'id' => 264,
-                'order_no' => '4000005684',
-                'descr' => '2012/13 SKW Sarawak BWP',
+                'id' => '4000007213',
+                'descr' => 'Cuti-Cuti 3 Package 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3715,9 +3451,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             264 => 
             array (
-                'id' => 265,
-                'order_no' => '4000005685',
-                'descr' => '2012/13 WPW Wilayah Persekutuan BWP',
+                'id' => '4000007214',
+                'descr' => 'iUkhwah  Package Halal Pages 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3729,9 +3464,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             265 => 
             array (
-                'id' => 266,
-                'order_no' => '4000005686',
-                'descr' => '2012/13 CSH Chinese Sabah YP',
+                'id' => '4000007215',
+                'descr' => 'Ukhwah 1 Package Halal Pages 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3743,9 +3477,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             266 => 
             array (
-                'id' => 267,
-                'order_no' => '4000005687',
-                'descr' => '2012/13 CSK Chinese Sarawak YP',
+                'id' => '4000007216',
+                'descr' => 'Ukhwah 2 Package Halal Pages 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3757,9 +3490,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             267 => 
             array (
-                'id' => 268,
-                'order_no' => '4000005688',
-                'descr' => '2012/13 CCN Chinese Central YP',
+                'id' => '4000007217',
+                'descr' => 'Ukhwah 3 Package Halal Pages 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3771,9 +3503,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             268 => 
             array (
-                'id' => 269,
-                'order_no' => '4000005689',
-                'descr' => '2013/14 CNB Central WP/Selangor YP',
+                'id' => '4000007233',
+                'descr' => 'YellowBiz Central 1 Promo  2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3785,9 +3516,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             269 => 
             array (
-                'id' => 270,
-                'order_no' => '4000005690',
-                'descr' => '2013/14 ETB Kel/Pahang/Terengganu YP',
+                'id' => '4000007235',
+                'descr' => 'YellowBiz Central 2 Promo  2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3799,9 +3529,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             270 => 
             array (
-                'id' => 271,
-                'order_no' => '4000005691',
-                'descr' => '2013/14 JHB Southern YP',
+                'id' => '4000007237',
+                'descr' => 'YellowBiz Central 3 Promo  2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3813,9 +3542,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             271 => 
             array (
-                'id' => 272,
-                'order_no' => '4000005692',
-                'descr' => '2013/14 PGB Northern YP',
+                'id' => '4000007238',
+                'descr' => 'YellowBiz Central 4 Promo  2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3827,9 +3555,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             272 => 
             array (
-                'id' => 273,
-                'order_no' => '4000005693',
-                'descr' => '2013/14 SBB Sabah YP',
+                'id' => '4000007239',
+                'descr' => 'YellowBiz Central 5 Promo  2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3841,9 +3568,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             273 => 
             array (
-                'id' => 274,
-                'order_no' => '4000005695',
-                'descr' => '2013/14 SKB Sarawak YP',
+                'id' => '4000007240',
+                'descr' => 'YellowBiz Nationwide 1 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3855,9 +3581,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             274 => 
             array (
-                'id' => 275,
-                'order_no' => '4000005696',
-                'descr' => '2013/14 ETW Kel/Pahang/Terengganu BWP',
+                'id' => '4000007241',
+                'descr' => 'YellowBiz Nationwide 2 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3869,9 +3594,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             275 => 
             array (
-                'id' => 276,
-                'order_no' => '4000005697',
-                'descr' => '2013/14 JHW Southern BWP',
+                'id' => '4000007242',
+                'descr' => 'YellowBiz Nationwide 3 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3883,9 +3607,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             276 => 
             array (
-                'id' => 277,
-                'order_no' => '4000005698',
-                'descr' => '2013/14 KPW Kedah/Perlis BWP',
+                'id' => '4000007243',
+                'descr' => 'YellowBiz Nationwide 4 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3897,9 +3620,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             277 => 
             array (
-                'id' => 278,
-                'order_no' => '4000005699',
-                'descr' => '2013/14 NMW N.Sembilan/Malacca BWP',
+                'id' => '4000007244',
+                'descr' => 'YellowBiz Nationwide 5 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3911,9 +3633,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             278 => 
             array (
-                'id' => 279,
-                'order_no' => '4000005700',
-                'descr' => '2013/14 PGW Penang BWP',
+                'id' => '4000007245',
+                'descr' => 'YellowBiz  Regional 1 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3925,9 +3646,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             279 => 
             array (
-                'id' => 280,
-                'order_no' => '4000005701',
-                'descr' => '2013/14 PKW Perak BWP',
+                'id' => '4000007246',
+                'descr' => 'YellowBiz  Regional 2 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3939,9 +3659,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             280 => 
             array (
-                'id' => 281,
-                'order_no' => '4000005702',
-                'descr' => '2013/14 SBW Sabah BWP',
+                'id' => '4000007247',
+                'descr' => 'YellowBiz  Regional 3 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3953,9 +3672,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             281 => 
             array (
-                'id' => 282,
-                'order_no' => '4000005703',
-                'descr' => '2013/14 SGW Selangor BWP',
+                'id' => '4000007248',
+                'descr' => 'YellowBiz  Regional 4 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3967,9 +3685,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             282 => 
             array (
-                'id' => 283,
-                'order_no' => '4000005704',
-                'descr' => '2013/14 SKW Sarawak BWP',
+                'id' => '4000007250',
+                'descr' => 'YellowBiz  Regional 5 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3981,9 +3698,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             283 => 
             array (
-                'id' => 284,
-                'order_no' => '4000005705',
-                'descr' => '2013/14 WPW Wilayah Persekutuan BWP',
+                'id' => '4000007260',
+                'descr' => 'YellowBiz Central Promo - Print 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -3995,9 +3711,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             284 => 
             array (
-                'id' => 285,
-                'order_no' => '4000005706',
-                'descr' => '2013/14 CSH Chinese Sabah YP',
+                'id' => '4000007261',
+                'descr' => 'YellowBiz Nationwide  Promo - Print 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4009,9 +3724,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             285 => 
             array (
-                'id' => 286,
-                'order_no' => '4000005707',
-                'descr' => '2013/14 CSK Chinese Sarawak YP',
+                'id' => '4000007262',
+                'descr' => 'YellowBiz Regional  Promo - Print 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4023,9 +3737,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             286 => 
             array (
-                'id' => 287,
-                'order_no' => '4000005708',
-                'descr' => '2013/14 CCN Chinese Central YP',
+                'id' => '4000007263',
+                'descr' => 'YellowBiz Central Promo - Print 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4037,9 +3750,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             287 => 
             array (
-                'id' => 288,
-                'order_no' => '4000005730',
-                'descr' => '2012/13 SGW Selangor BWP',
+                'id' => '4000007264',
+                'descr' => 'YellowBiz Nationwide  Promo - Print 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4051,9 +3763,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             288 => 
             array (
-                'id' => 289,
-                'order_no' => '4000005731',
-                'descr' => '2012/13 PGW Penang BWP',
+                'id' => '4000007265',
+                'descr' => 'YellowBiz Regional  Promo - Print 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4065,9 +3776,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             289 => 
             array (
-                'id' => 290,
-                'order_no' => '4000005750',
-                'descr' => '2011/12 CNB Central WP/Selangor YP',
+                'id' => '4000007266',
+                'descr' => 'YellowBiz Central 1 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4079,9 +3789,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             290 => 
             array (
-                'id' => 291,
-                'order_no' => '4000005751',
-                'descr' => '2011/12 ETB Kel/Pahang/Terengganu YP',
+                'id' => '4000007267',
+                'descr' => 'YellowBiz Central 2 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4093,9 +3802,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             291 => 
             array (
-                'id' => 292,
-                'order_no' => '4000005753',
-                'descr' => '2011/12 JHB Southern YP',
+                'id' => '4000007268',
+                'descr' => 'YellowBiz Central 3 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4107,9 +3815,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             292 => 
             array (
-                'id' => 293,
-                'order_no' => '4000005754',
-                'descr' => '2011/12 PGB Northern YP',
+                'id' => '4000007269',
+                'descr' => 'YellowBiz Central 4 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4121,9 +3828,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             293 => 
             array (
-                'id' => 294,
-                'order_no' => '4000005755',
-                'descr' => '2011/12 SBB Sabah YP',
+                'id' => '4000007270',
+                'descr' => 'YellowBiz Central 5 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4135,9 +3841,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             294 => 
             array (
-                'id' => 295,
-                'order_no' => '4000005756',
-                'descr' => '2011/12 SKB Sarawak YP',
+                'id' => '4000007271',
+                'descr' => 'YellowBiz Nationwide 1 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4149,9 +3854,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             295 => 
             array (
-                'id' => 296,
-                'order_no' => '4000005757',
-                'descr' => '2011/12 ETW Kel/Pahang/Terengganu BWP',
+                'id' => '4000007272',
+                'descr' => 'YellowBiz Nationwide 2 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4163,9 +3867,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             296 => 
             array (
-                'id' => 297,
-                'order_no' => '4000005758',
-                'descr' => '2011/12 SBW Sabah BWP',
+                'id' => '4000007273',
+                'descr' => 'YellowBiz Nationwide 3 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4177,9 +3880,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             297 => 
             array (
-                'id' => 298,
-                'order_no' => '4000005759',
-                'descr' => '2011/12 SGW Selangor BWP',
+                'id' => '4000007274',
+                'descr' => 'YellowBiz Nationwide 4 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4191,9 +3893,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             298 => 
             array (
-                'id' => 299,
-                'order_no' => '4000005760',
-                'descr' => '2011/12 SKW Sarawak BWP',
+                'id' => '4000007275',
+                'descr' => 'YellowBiz Nationwide 5 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4205,9 +3906,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             299 => 
             array (
-                'id' => 300,
-                'order_no' => '4000005761',
-                'descr' => '2011/12 WPW Wilayah Persekutuan BWP',
+                'id' => '4000007276',
+                'descr' => 'YellowBiz Regional 1 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4219,9 +3919,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             300 => 
             array (
-                'id' => 301,
-                'order_no' => '4000005762',
-                'descr' => '2011/12 CSH Chinese Sabah YP',
+                'id' => '4000007277',
+                'descr' => 'YellowBiz Regional 2 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4233,9 +3932,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             301 => 
             array (
-                'id' => 302,
-                'order_no' => '4000005763',
-                'descr' => '2011/12 CSK Chinese Sarawak YP',
+                'id' => '4000007278',
+                'descr' => 'YellowBiz Regional 3 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4247,9 +3945,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             302 => 
             array (
-                'id' => 303,
-                'order_no' => '4000006005',
-                'descr' => '2014/15 CNB Central WP/Selangor YP',
+                'id' => '4000007280',
+                'descr' => 'YellowBiz Regional 4 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4261,9 +3958,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             303 => 
             array (
-                'id' => 304,
-                'order_no' => '4000006007',
-                'descr' => '2014/15 ETB Kel/Pahang/Terengganu YP',
+                'id' => '4000007281',
+                'descr' => 'YellowBiz Regional 5 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4275,9 +3971,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             304 => 
             array (
-                'id' => 305,
-                'order_no' => '4000006008',
-                'descr' => '2014/15 JHB Southern YP',
+                'id' => '4000007325',
+                'descr' => 'YellowBiz 1 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4289,9 +3984,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             305 => 
             array (
-                'id' => 306,
-                'order_no' => '4000006009',
-                'descr' => '2014/15 PGB Northern YP',
+                'id' => '4000007326',
+                'descr' => 'YellowBiz 2 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4303,9 +3997,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             306 => 
             array (
-                'id' => 307,
-                'order_no' => '4000006010',
-                'descr' => '2014/15 SBB Sabah YP',
+                'id' => '4000007327',
+                'descr' => 'YellowBiz 3 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4317,9 +4010,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             307 => 
             array (
-                'id' => 308,
-                'order_no' => '4000006011',
-                'descr' => '2014/15 SKB Sarawak YP',
+                'id' => '4000007328',
+                'descr' => 'YellowBiz 4 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4331,9 +4023,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             308 => 
             array (
-                'id' => 309,
-                'order_no' => '4000006012',
-                'descr' => '2014/15 ETW Kel/Pahang/Terengganu BWP',
+                'id' => '4000007329',
+                'descr' => 'iBiz Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4345,9 +4036,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             309 => 
             array (
-                'id' => 310,
-                'order_no' => '4000006013',
-                'descr' => '2014/15 JHW Southern BWP',
+                'id' => '4000007340',
+                'descr' => 'ExtraBiz 1 promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4359,9 +4049,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             310 => 
             array (
-                'id' => 311,
-                'order_no' => '4000006014',
-                'descr' => '2014/15 KPW Kedah/Perlis BWP',
+                'id' => '4000007341',
+                'descr' => 'ExtraBiz 2 promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4373,9 +4062,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             311 => 
             array (
-                'id' => 312,
-                'order_no' => '4000006015',
-                'descr' => '2014/15 NMW N.Sembilan/Malacca BWP',
+                'id' => '4000007364',
+                'descr' => '10th Edition YP For Home',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4387,9 +4075,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             312 => 
             array (
-                'id' => 313,
-                'order_no' => '4000006016',
-                'descr' => '2014/15 PGW Penang BWP',
+                'id' => '4000007381',
+                'descr' => 'MYHIJAU Directory And Sales Kits 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4401,9 +4088,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             313 => 
             array (
-                'id' => 314,
-                'order_no' => '4000006017',
-                'descr' => '2014/15 PKW Perak BWP',
+                'id' => '4000007388',
+                'descr' => '11th Edition YP For Home',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4415,9 +4101,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             314 => 
             array (
-                'id' => 315,
-                'order_no' => '4000006018',
-                'descr' => '2014/15 SBW Sabah BWP',
+                'id' => '4000007426',
+                'descr' => '2013 YellowHomes Prime Central',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4429,9 +4114,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             315 => 
             array (
-                'id' => 316,
-                'order_no' => '4000006019',
-                'descr' => '2014/15 SGW Selangor BWP',
+                'id' => '4000007428',
+                'descr' => '2013 YellowHomes Section Region 2',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4443,9 +4127,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             316 => 
             array (
-                'id' => 317,
-                'order_no' => '4000006020',
-                'descr' => '2014/15 SKW Sarawak BWP',
+                'id' => '4000007429',
+                'descr' => '2013 YellowHomes Section Region 3',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4457,9 +4140,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             317 => 
             array (
-                'id' => 318,
-                'order_no' => '4000006021',
-                'descr' => '2014/15 WPW Wilayah Persekutuan BWP',
+                'id' => '4000007430',
+                'descr' => '2016 SelangorWilayah Yellowpages',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4471,9 +4153,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             318 => 
             array (
-                'id' => 319,
-                'order_no' => '4000006022',
-                'descr' => '2014/15 CSH Chinese Sabah YP',
+                'id' => '4000007431',
+                'descr' => '2016 Eastern YellowPages',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4485,9 +4166,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             319 => 
             array (
-                'id' => 320,
-                'order_no' => '4000006023',
-                'descr' => '2014/15 CSK Chinese Sarawak YP',
+                'id' => '4000007432',
+                'descr' => '2016 Southern YellowPages',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4499,9 +4179,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             320 => 
             array (
-                'id' => 321,
-                'order_no' => '4000006024',
-                'descr' => '2014/15 CCN Chinese Central YP',
+                'id' => '4000007433',
+                'descr' => '2016 Northern YellowPages',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4513,9 +4192,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             321 => 
             array (
-                'id' => 322,
-                'order_no' => '4000006025',
-                'descr' => '2015/16 CNB Central WP/Selangor YP',
+                'id' => '4000007434',
+                'descr' => '2016 Sabah YellwPages',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4527,9 +4205,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             322 => 
             array (
-                'id' => 323,
-                'order_no' => '4000006026',
-                'descr' => '2015/16 ETB Kel/Pahang/Terengganu YP',
+                'id' => '4000007435',
+                'descr' => '2016 Sarawak YellowPages',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4541,9 +4218,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             323 => 
             array (
-                'id' => 324,
-                'order_no' => '4000006027',
-                'descr' => '2015/16 JHB Southern YP',
+                'id' => '4000007471',
+                'descr' => 'YellowBiz Google Central1 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4555,9 +4231,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             324 => 
             array (
-                'id' => 325,
-                'order_no' => '4000006028',
-                'descr' => '2015/16 PGB Northern YP',
+                'id' => '4000007473',
+                'descr' => 'YellowBiz Google Central2 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4569,9 +4244,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             325 => 
             array (
-                'id' => 326,
-                'order_no' => '4000006029',
-                'descr' => '2015/16 SBB Sabah YP',
+                'id' => '4000007474',
+                'descr' => 'YellowBiz Google Central3 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4583,9 +4257,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             326 => 
             array (
-                'id' => 327,
-                'order_no' => '4000006030',
-                'descr' => '2015/16 SKB Sarawak YP',
+                'id' => '4000007475',
+                'descr' => 'YellowBiz Google Central4 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4597,9 +4270,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             327 => 
             array (
-                'id' => 328,
-                'order_no' => '4000006031',
-                'descr' => '2015/16 ETW Kel/Pahang/Terengganu BWP',
+                'id' => '4000007476',
+                'descr' => 'YellowBiz Google Central5 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4611,9 +4283,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             328 => 
             array (
-                'id' => 329,
-                'order_no' => '4000006032',
-                'descr' => '2015/16 JHW Southern BWP',
+                'id' => '4000007477',
+                'descr' => 'YellowBiz Google Nationwide1 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4625,9 +4296,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             329 => 
             array (
-                'id' => 330,
-                'order_no' => '4000006033',
-                'descr' => '2015/16 KPW Kedah/Perlis BWP',
+                'id' => '4000007478',
+                'descr' => 'YellowBiz Google Nationwide2 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4639,9 +4309,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             330 => 
             array (
-                'id' => 331,
-                'order_no' => '4000006034',
-                'descr' => '2015/16 NMW N.Sembilan/Malacca BWP',
+                'id' => '4000007479',
+                'descr' => 'YellowBiz Google Nationwide3 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4653,9 +4322,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             331 => 
             array (
-                'id' => 332,
-                'order_no' => '4000006035',
-                'descr' => '2015/16 PGW Penang BWP',
+                'id' => '4000007480',
+                'descr' => 'YellowBiz Google Nationwide4 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4667,9 +4335,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             332 => 
             array (
-                'id' => 333,
-                'order_no' => '4000006036',
-                'descr' => '2015/16 PKW Perak BWP',
+                'id' => '4000007481',
+                'descr' => 'YellowBiz Google Nationwide5 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4681,9 +4348,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             333 => 
             array (
-                'id' => 334,
-                'order_no' => '4000006037',
-                'descr' => '2015/16 SBW Sabah BWP',
+                'id' => '4000007482',
+                'descr' => 'YellowBiz Google Regional1 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4695,9 +4361,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             334 => 
             array (
-                'id' => 335,
-                'order_no' => '4000006038',
-                'descr' => '2015/16 SGW Selangor BWP',
+                'id' => '4000007483',
+                'descr' => 'YellowBiz Google Regional2 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4709,9 +4374,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             335 => 
             array (
-                'id' => 336,
-                'order_no' => '4000006039',
-                'descr' => '2015/16 SKW Sarawak BWP',
+                'id' => '4000007484',
+                'descr' => 'YellowBiz Google Regional3 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4723,9 +4387,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             336 => 
             array (
-                'id' => 337,
-                'order_no' => '4000006040',
-                'descr' => '2015/16 WPW Wilayah Persekutuan BWP',
+                'id' => '4000007485',
+                'descr' => 'YellowBiz Google Regional4 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4737,9 +4400,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             337 => 
             array (
-                'id' => 338,
-                'order_no' => '4000006041',
-                'descr' => '2015/16 CSH Chinese Sabah YP',
+                'id' => '4000007486',
+                'descr' => 'YellowBiz Google Regional5 Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4751,9 +4413,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             338 => 
             array (
-                'id' => 339,
-                'order_no' => '4000006042',
-                'descr' => '2015/16 CSK Chinese Sarawak YP',
+                'id' => '4000007487',
+                'descr' => 'YellowBiz Google Central Promo-Print2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4765,9 +4426,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             339 => 
             array (
-                'id' => 340,
-                'order_no' => '4000006043',
-                'descr' => '2015/16 CCN Chinese Central YP',
+                'id' => '4000007488',
+                'descr' => 'YellowBiz Google Nationwide Prom-Prt2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4779,9 +4439,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             340 => 
             array (
-                'id' => 341,
-                'order_no' => '4000006127',
-                'descr' => '2011 YP For Home',
+                'id' => '4000007489',
+                'descr' => 'YellowBiz Google Regional Prom-Print2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4793,9 +4452,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             341 => 
             array (
-                'id' => 342,
-                'order_no' => '4000006128',
-                'descr' => '2012 YP for Home',
+                'id' => '4000007490',
+                'descr' => 'YellowBiz Google Central1 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4807,9 +4465,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             342 => 
             array (
-                'id' => 343,
-                'order_no' => '4000006364',
-                'descr' => '2014/15 SKB Sarawak YP',
+                'id' => '4000007491',
+                'descr' => 'YellowBiz Google Central2 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4821,9 +4478,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             343 => 
             array (
-                'id' => 344,
-                'order_no' => '4000006365',
-                'descr' => '2014/15 CCN Chinese Central YP',
+                'id' => '4000007492',
+                'descr' => 'YellowBiz Google Central3 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4835,9 +4491,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             344 => 
             array (
-                'id' => 345,
-                'order_no' => '4000006366',
-                'descr' => '2015/16 NMW N.Sembilan/Malacca BWP',
+                'id' => '4000007493',
+                'descr' => 'YellowBiz Google Central4 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4849,9 +4504,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             345 => 
             array (
-                'id' => 346,
-                'order_no' => '4000006367',
-                'descr' => '2015/16 PGW Penang BWP',
+                'id' => '4000007494',
+                'descr' => 'YellowBiz Google Central5 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4863,9 +4517,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             346 => 
             array (
-                'id' => 347,
-                'order_no' => '4000006368',
-                'descr' => '2015/16 SBW Sabah BWP',
+                'id' => '4000007495',
+                'descr' => 'YellowBiz Google Nationwide1 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4877,9 +4530,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             347 => 
             array (
-                'id' => 348,
-                'order_no' => '4000006369',
-                'descr' => '2015/16 SGW Selangor BWP',
+                'id' => '4000007496',
+                'descr' => 'YellowBiz Google Nationwide2 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4891,9 +4543,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             348 => 
             array (
-                'id' => 349,
-                'order_no' => '4000006374',
-                'descr' => '2nd Edition YP For Home',
+                'id' => '4000007497',
+                'descr' => 'YellowBiz Google Nationwide3 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4905,9 +4556,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             349 => 
             array (
-                'id' => 350,
-                'order_no' => '4000006375',
-                'descr' => '3rd Edition YP For Home',
+                'id' => '4000007499',
+                'descr' => 'YellowBiz Google Nationwide4 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4919,9 +4569,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             350 => 
             array (
-                'id' => 351,
-                'order_no' => '4000006376',
-                'descr' => '4th Edition YP For Home',
+                'id' => '4000007500',
+                'descr' => 'YellowBiz Google Nationwide5 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4933,9 +4582,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             351 => 
             array (
-                'id' => 352,
-                'order_no' => '4000006377',
-                'descr' => '5th Edition YP For Home',
+                'id' => '4000007501',
+                'descr' => 'YellowBiz Google Regional1 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4947,9 +4595,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             352 => 
             array (
-                'id' => 353,
-                'order_no' => '4000006380',
-                'descr' => '2015/16 SKW Sarawak BWP',
+                'id' => '4000007502',
+                'descr' => 'YellowBiz Google Regional2 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4961,9 +4608,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             353 => 
             array (
-                'id' => 354,
-                'order_no' => '4000006381',
-                'descr' => '2015/16 CSH Chinese Sabah YP',
+                'id' => '4000007503',
+                'descr' => 'YellowBiz Google Regional3 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4975,9 +4621,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             354 => 
             array (
-                'id' => 355,
-                'order_no' => '4000006382',
-                'descr' => '2015/16 CSK Chinese Sarawak YP',
+                'id' => '4000007504',
+                'descr' => 'YellowBiz Google Regional4 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -4989,9 +4634,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             355 => 
             array (
-                'id' => 356,
-                'order_no' => '4000006383',
-                'descr' => '2015/16 CCN Chinese Central YP',
+                'id' => '4000007505',
+                'descr' => 'YellowBiz Google Regional5 Promo 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5003,9 +4647,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             356 => 
             array (
-                'id' => 357,
-                'order_no' => '4000006384',
-                'descr' => '2015/16 PKW Perak BWP',
+                'id' => '4000007506',
+                'descr' => 'YellowBiz Google Central Promo-Print2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5017,9 +4660,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             357 => 
             array (
-                'id' => 358,
-                'order_no' => '4000006385',
-                'descr' => '2015/16 WPW Wilayah Persekutuan BWP',
+                'id' => '4000007507',
+                'descr' => 'YellowBiz Ggle Nationwide Prom-Print2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5031,9 +4673,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             358 => 
             array (
-                'id' => 359,
-                'order_no' => '4000006770',
-                'descr' => '2012 Central Bus. White Pages',
+                'id' => '4000007508',
+                'descr' => 'YellowBiz Google Regional Prom-Print2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5045,9 +4686,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             359 => 
             array (
-                'id' => 360,
-                'order_no' => '4000006771',
-                'descr' => '2012 Northern Bus. White Pages',
+                'id' => '4000007509',
+                'descr' => '2014 Destination Malaysia Accomodation',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5059,9 +4699,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             360 => 
             array (
-                'id' => 361,
-                'order_no' => '4000006772',
-                'descr' => '2012 Southern Bus. White Pages',
+                'id' => '4000007510',
+                'descr' => 'YellowBiz Nationwide 1 Promo 2015',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5073,9 +4712,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             361 => 
             array (
-                'id' => 362,
-                'order_no' => '4000006844',
-                'descr' => 'YellowBiz 1 Promo 2012',
+                'id' => '4000007512',
+                'descr' => '2015 Halal Pages Directory',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5087,9 +4725,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             362 => 
             array (
-                'id' => 363,
-                'order_no' => '4000006845',
-                'descr' => 'YellowBiz 2 Promo 2012',
+                'id' => '4000007513',
+                'descr' => '2015 Destination Malaysia - Regional Gui',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5101,9 +4738,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             363 => 
             array (
-                'id' => 364,
-                'order_no' => '4000006846',
-                'descr' => 'YellowBiz 3 Promo 2012',
+                'id' => '4000007612',
+                'descr' => '12th Edition YP For Home',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5115,9 +4751,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             364 => 
             array (
-                'id' => 365,
-                'order_no' => '4000006847',
-                'descr' => 'YellowBiz 4 Promo 2012',
+                'id' => '4000007740',
+                'descr' => 'YellowBiz Central Promo - Print',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5129,9 +4764,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             365 => 
             array (
-                'id' => 366,
-                'order_no' => '4000006849',
-                'descr' => 'iBiz Promo 2012',
+                'id' => '4000007742',
+                'descr' => 'YellowBiz Nationwide  Promo - Print',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5143,9 +4777,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             366 => 
             array (
-                'id' => 367,
-                'order_no' => '4000006890',
-                'descr' => '6th Edition YP For Home',
+                'id' => '4000007743',
+                'descr' => 'YellowBiz Regional  Promo - Print',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5157,9 +4790,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             367 => 
             array (
-                'id' => 368,
-                'order_no' => '4000006911',
-                'descr' => 'ExtraBiz 1 Promo 2012',
+                'id' => '4000007744',
+                'descr' => 'YellowBiz Google Central - Print',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5171,9 +4803,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             368 => 
             array (
-                'id' => 369,
-                'order_no' => '4000006912',
-                'descr' => 'ExtraBiz 2 Promo 2012',
+                'id' => '4000007745',
+                'descr' => 'YellowBiz Google Nationwide - Print',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5185,9 +4816,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             369 => 
             array (
-                'id' => 370,
-                'order_no' => '4000006913',
-                'descr' => '7th Edition YP For Home',
+                'id' => '4000007746',
+                'descr' => 'YellowBiz Google Regional - Print',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5199,9 +4829,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             370 => 
             array (
-                'id' => 371,
-                'order_no' => '4000006973',
-                'descr' => '1st Edition YP For Home Ipoh',
+                'id' => '4000007747',
+                'descr' => 'YellowBiz Google Central 1 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5213,9 +4842,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             371 => 
             array (
-                'id' => 372,
-                'order_no' => '4000006974',
-                'descr' => '2nd Edition YP For Home Ipoh',
+                'id' => '4000007748',
+                'descr' => 'YellowBiz Google Central 2 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5227,9 +4855,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             372 => 
             array (
-                'id' => 373,
-                'order_no' => '4000006975',
-                'descr' => '3rd Edition YP For Home Ipoh',
+                'id' => '4000007749',
+                'descr' => 'YellowBiz Google Central 3 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5241,9 +4868,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             373 => 
             array (
-                'id' => 374,
-                'order_no' => '4000006976',
-                'descr' => '1st Edition YP For Home Penang',
+                'id' => '4000007750',
+                'descr' => 'YellowBiz Google Central 4 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5255,9 +4881,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             374 => 
             array (
-                'id' => 375,
-                'order_no' => '4000006977',
-                'descr' => '2nd Edition YP For Home Penang',
+                'id' => '4000007751',
+                'descr' => 'YellowBiz Google Central 5 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5269,9 +4894,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             375 => 
             array (
-                'id' => 376,
-                'order_no' => '4000006978',
-                'descr' => '3rd Edition YP For Home Penang',
+                'id' => '4000007752',
+                'descr' => 'YellowBiz Google Nationwide 1 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5283,9 +4907,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             376 => 
             array (
-                'id' => 377,
-                'order_no' => '4000006979',
-                'descr' => '1st Edition YP For Home Johor Bahru',
+                'id' => '4000007753',
+                'descr' => 'YellowBiz Google Nationwide 2 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5297,9 +4920,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             377 => 
             array (
-                'id' => 378,
-                'order_no' => '4000006980',
-                'descr' => '2nd Edition YP For Home Johor Bahru',
+                'id' => '4000007754',
+                'descr' => 'YellowBiz Google Nationwide 3 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5311,9 +4933,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             378 => 
             array (
-                'id' => 379,
-                'order_no' => '4000006981',
-                'descr' => '3rd Edition YP For Home Johor Bahru',
+                'id' => '4000007755',
+                'descr' => 'YellowBiz Google Nationwide 4 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5325,9 +4946,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             379 => 
             array (
-                'id' => 380,
-                'order_no' => '4000006982',
-                'descr' => '1st Edition YP For Home Kuching',
+                'id' => '4000007756',
+                'descr' => 'YellowBiz Google Nationwide 5 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5339,9 +4959,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             380 => 
             array (
-                'id' => 381,
-                'order_no' => '4000006983',
-                'descr' => '2nd Edition YP For Home Kuching',
+                'id' => '4000007757',
+                'descr' => 'YellowBiz Google Regional 1 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5353,9 +4972,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             381 => 
             array (
-                'id' => 382,
-                'order_no' => '4000006984',
-                'descr' => '3rd Edition YP For Home Kuching',
+                'id' => '4000007758',
+                'descr' => 'YellowBiz Google Regional 2 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5367,9 +4985,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             382 => 
             array (
-                'id' => 383,
-                'order_no' => '4000006985',
-                'descr' => '1st Edition YP For Home Kota Kinabalu',
+                'id' => '4000007759',
+                'descr' => 'YellowBiz Google Regional 3 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5381,9 +4998,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             383 => 
             array (
-                'id' => 384,
-                'order_no' => '4000006986',
-                'descr' => '2nd Edition YP For Home Kota Kinabalu',
+                'id' => '4000007760',
+                'descr' => 'YellowBiz Google Regional 4 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5395,9 +5011,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             384 => 
             array (
-                'id' => 385,
-                'order_no' => '4000006987',
-                'descr' => '3rd Edition YP For Home  Kota Kinabalu',
+                'id' => '4000007761',
+                'descr' => 'YellowBiz Google Regional 5 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5409,9 +5024,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             385 => 
             array (
-                'id' => 386,
-                'order_no' => '4000007114',
-                'descr' => '4th Edition YP For Home Ipoh',
+                'id' => '4000007762',
+                'descr' => 'YellowBiz Central 1 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5423,9 +5037,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             386 => 
             array (
-                'id' => 387,
-                'order_no' => '4000007115',
-                'descr' => '4th Edition YP For Home Penang',
+                'id' => '4000007763',
+                'descr' => 'YellowBiz Central 2 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5437,9 +5050,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             387 => 
             array (
-                'id' => 388,
-                'order_no' => '4000007116',
-                'descr' => '4th Edition YP For Home Johor Bahru',
+                'id' => '4000007764',
+                'descr' => 'YellowBiz Central 3 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5451,9 +5063,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             388 => 
             array (
-                'id' => 389,
-                'order_no' => '4000007117',
-                'descr' => '4TH EDITION YP FOR HOME KUCHING',
+                'id' => '4000007765',
+                'descr' => 'YellowBiz Central 4 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5465,9 +5076,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             389 => 
             array (
-                'id' => 390,
-                'order_no' => '4000007187',
-                'descr' => '2013 Destination Malaysia Accomodation',
+                'id' => '4000007766',
+                'descr' => 'YellowBiz Central 5 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5479,9 +5089,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             390 => 
             array (
-                'id' => 391,
-                'order_no' => '4000007188',
-                'descr' => '2014 Halal Pages Directory',
+                'id' => '4000007768',
+                'descr' => 'YellowBiz Nationwide 2 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5493,9 +5102,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             391 => 
             array (
-                'id' => 392,
-                'order_no' => '4000007201',
-                'descr' => '2014 Destination Malaysia -Regional Guid',
+                'id' => '4000007769',
+                'descr' => 'YellowBiz Nationwide 3 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5507,9 +5115,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             392 => 
             array (
-                'id' => 393,
-                'order_no' => '4000007211',
-                'descr' => 'Cuti-Cuti 1 Package 2013',
+                'id' => '4000007770',
+                'descr' => 'YellowBiz Nationwide 4 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5521,9 +5128,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             393 => 
             array (
-                'id' => 394,
-                'order_no' => '4000007212',
-                'descr' => 'Cuti-Cuti 2 Package 2013',
+                'id' => '4000007771',
+                'descr' => 'YellowBiz Nationwide 5 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5535,9 +5141,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             394 => 
             array (
-                'id' => 395,
-                'order_no' => '4000007213',
-                'descr' => 'Cuti-Cuti 3 Package 2013',
+                'id' => '4000007772',
+                'descr' => 'YellowBiz Regional 1 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5549,9 +5154,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             395 => 
             array (
-                'id' => 396,
-                'order_no' => '4000007214',
-                'descr' => 'iUkhwah  Package Halal Pages 2013',
+                'id' => '4000007773',
+                'descr' => 'YellowBiz Regional 2 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5563,9 +5167,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             396 => 
             array (
-                'id' => 397,
-                'order_no' => '4000007215',
-                'descr' => 'Ukhwah 1 Package Halal Pages 2013',
+                'id' => '4000007774',
+                'descr' => 'YellowBiz Regional 3 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5577,9 +5180,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             397 => 
             array (
-                'id' => 398,
-                'order_no' => '4000007216',
-                'descr' => 'Ukhwah 2 Package Halal Pages 2013',
+                'id' => '4000007775',
+                'descr' => 'YellowBiz Regional 4 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5591,9 +5193,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             398 => 
             array (
-                'id' => 399,
-                'order_no' => '4000007217',
-                'descr' => 'Ukhwah 3 Package Halal Pages 2013',
+                'id' => '4000007776',
+                'descr' => 'YellowBiz Regional 5 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5605,9 +5206,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             399 => 
             array (
-                'id' => 400,
-                'order_no' => '4000007233',
-                'descr' => 'YellowBiz Central 1 Promo  2013',
+                'id' => '4000007777',
+                'descr' => 'iBiz Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5619,9 +5219,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             400 => 
             array (
-                'id' => 401,
-                'order_no' => '4000007235',
-                'descr' => 'YellowBiz Central 2 Promo  2013',
+                'id' => '4000007778',
+                'descr' => 'YellowBiz 1 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5633,9 +5232,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             401 => 
             array (
-                'id' => 402,
-                'order_no' => '4000007237',
-                'descr' => 'YellowBiz Central 3 Promo  2013',
+                'id' => '4000007779',
+                'descr' => 'YellowBiz 2 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5647,9 +5245,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             402 => 
             array (
-                'id' => 403,
-                'order_no' => '4000007238',
-                'descr' => 'YellowBiz Central 4 Promo  2013',
+                'id' => '4000007781',
+                'descr' => 'YellowBiz 3 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5661,9 +5258,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             403 => 
             array (
-                'id' => 404,
-                'order_no' => '4000007239',
-                'descr' => 'YellowBiz Central 5 Promo  2013',
+                'id' => '4000007782',
+                'descr' => 'YellowBiz 4 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5675,9 +5271,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             404 => 
             array (
-                'id' => 405,
-                'order_no' => '4000007240',
-                'descr' => 'YellowBiz Nationwide 1 Promo 2013',
+                'id' => '4000007783',
+                'descr' => 'ExtraBiz 1 promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5689,9 +5284,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             405 => 
             array (
-                'id' => 406,
-                'order_no' => '4000007241',
-                'descr' => 'YellowBiz Nationwide 2 Promo 2013',
+                'id' => '4000007784',
+                'descr' => 'ExtraBiz 2 promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5703,9 +5297,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             406 => 
             array (
-                'id' => 407,
-                'order_no' => '4000007242',
-                'descr' => 'YellowBiz Nationwide 3 Promo 2013',
+                'id' => '4000007785',
+                'descr' => 'iBiz Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5717,9 +5310,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             407 => 
             array (
-                'id' => 408,
-                'order_no' => '4000007243',
-                'descr' => 'YellowBiz Nationwide 4 Promo 2013',
+                'id' => '4000007786',
+                'descr' => 'YellowBiz 1 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5731,9 +5323,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             408 => 
             array (
-                'id' => 409,
-                'order_no' => '4000007244',
-                'descr' => 'YellowBiz Nationwide 5 Promo 2013',
+                'id' => '4000007787',
+                'descr' => 'YellowBiz 2 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5745,9 +5336,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             409 => 
             array (
-                'id' => 410,
-                'order_no' => '4000007245',
-                'descr' => 'YellowBiz  Regional 1 Promo 2013',
+                'id' => '4000007788',
+                'descr' => 'YellowBiz 3 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5759,9 +5349,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             410 => 
             array (
-                'id' => 411,
-                'order_no' => '4000007246',
-                'descr' => 'YellowBiz  Regional 2 Promo 2013',
+                'id' => '4000007789',
+                'descr' => 'YellowBiz 4 Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5773,9 +5362,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             411 => 
             array (
-                'id' => 412,
-                'order_no' => '4000007247',
-                'descr' => 'YellowBiz  Regional 3 Promo 2013',
+                'id' => '4000007790',
+                'descr' => 'ExtraBiz 1 promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5787,9 +5375,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             412 => 
             array (
-                'id' => 413,
-                'order_no' => '4000007248',
-                'descr' => 'YellowBiz  Regional 4 Promo 2013',
+                'id' => '4000007791',
+                'descr' => 'ExtraBiz 2 promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5801,9 +5388,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             413 => 
             array (
-                'id' => 414,
-                'order_no' => '4000007250',
-                'descr' => 'YellowBiz  Regional 5 Promo 2013',
+                'id' => '4000007793',
+                'descr' => 'Cuti-Cuti 1 Package',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5815,9 +5401,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             414 => 
             array (
-                'id' => 415,
-                'order_no' => '4000007260',
-                'descr' => 'YellowBiz Central Promo - Print 2013',
+                'id' => '4000007794',
+                'descr' => 'Cuti-Cuti 2 Package',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5829,9 +5414,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             415 => 
             array (
-                'id' => 416,
-                'order_no' => '4000007261',
-                'descr' => 'YellowBiz Nationwide  Promo - Print 2013',
+                'id' => '4000007795',
+                'descr' => 'Cuti-Cuti 3 Package',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5843,9 +5427,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             416 => 
             array (
-                'id' => 417,
-                'order_no' => '4000007262',
-                'descr' => 'YellowBiz Regional  Promo - Print 2013',
+                'id' => '4000007796',
+                'descr' => 'iUkhwah  Package Halal Pages',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5857,9 +5440,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             417 => 
             array (
-                'id' => 418,
-                'order_no' => '4000007263',
-                'descr' => 'YellowBiz Central Promo - Print 2014',
+                'id' => '4000007797',
+                'descr' => 'Ukhwah 1 Package Halal Pages',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5871,9 +5453,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             418 => 
             array (
-                'id' => 419,
-                'order_no' => '4000007264',
-                'descr' => 'YellowBiz Nationwide  Promo - Print 2014',
+                'id' => '4000007798',
+                'descr' => 'Ukhwah 2 Package Halal Pages',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5885,9 +5466,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             419 => 
             array (
-                'id' => 420,
-                'order_no' => '4000007265',
-                'descr' => 'YellowBiz Regional  Promo - Print 2014',
+                'id' => '4000007799',
+                'descr' => 'Ukhwah 3 Package Halal Pages',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5899,9 +5479,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             420 => 
             array (
-                'id' => 421,
-                'order_no' => '4000007266',
-                'descr' => 'YellowBiz Central 1 Promo 2014',
+                'id' => '4000007800',
+                'descr' => 'YellowHome Prime Central',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5913,9 +5492,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             421 => 
             array (
-                'id' => 422,
-                'order_no' => '4000007267',
-                'descr' => 'YellowBiz Central 2 Promo 2014',
+                'id' => '4000007801',
+                'descr' => 'YellowHome Section Region 2',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5927,9 +5505,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             422 => 
             array (
-                'id' => 423,
-                'order_no' => '4000007268',
-                'descr' => 'YellowBiz Central 3 Promo 2014',
+                'id' => '4000007802',
+                'descr' => 'YellowHome Section Region 3',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5941,9 +5518,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             423 => 
             array (
-                'id' => 424,
-                'order_no' => '4000007269',
-                'descr' => 'YellowBiz Central 4 Promo 2014',
+                'id' => '4000007823',
+                'descr' => '2015 Destination Malaysia Accommodation',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5955,9 +5531,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             424 => 
             array (
-                'id' => 425,
-                'order_no' => '4000007270',
-                'descr' => 'YellowBiz Central 5 Promo 2014',
+                'id' => '4000007824',
+                'descr' => '2016 Destination Malaysia -Regional Guid',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5969,9 +5544,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             425 => 
             array (
-                'id' => 426,
-                'order_no' => '4000007271',
-                'descr' => 'YellowBiz Nationwide 1 Promo 2014',
+                'id' => '4000007861',
+                'descr' => '13th Edition YP For Home',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5983,9 +5557,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             426 => 
             array (
-                'id' => 427,
-                'order_no' => '4000007272',
-                'descr' => 'YellowBiz Nationwide 2 Promo 2014',
+                'id' => '4000007862',
+                'descr' => '14th Edition YP For Home',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -5997,9 +5570,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             427 => 
             array (
-                'id' => 428,
-                'order_no' => '4000007273',
-                'descr' => 'YellowBiz Nationwide 3 Promo 2014',
+                'id' => '4000007863',
+                'descr' => '15th Edition YP For Home',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6011,9 +5583,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             428 => 
             array (
-                'id' => 429,
-                'order_no' => '4000007274',
-                'descr' => 'YellowBiz Nationwide 4 Promo 2014',
+                'id' => '4000007864',
+                'descr' => '16th Edition YP For Home',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6025,9 +5596,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             429 => 
             array (
-                'id' => 430,
-                'order_no' => '4000007275',
-                'descr' => 'YellowBiz Nationwide 5 Promo 2014',
+                'id' => '4000007865',
+                'descr' => '17th Edition YP For Home',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6039,9 +5609,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             430 => 
             array (
-                'id' => 431,
-                'order_no' => '4000007276',
-                'descr' => 'YellowBiz Regional 1 Promo 2014',
+                'id' => '4000007866',
+                'descr' => '18th Edition YP For Home',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6053,9 +5622,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             431 => 
             array (
-                'id' => 432,
-                'order_no' => '4000007277',
-                'descr' => 'YellowBiz Regional 2 Promo 2014',
+                'id' => '4000007867',
+                'descr' => '19th Edition YP For Home',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6067,9 +5635,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             432 => 
             array (
-                'id' => 433,
-                'order_no' => '4000007278',
-                'descr' => 'YellowBiz Regional 3 Promo 2014',
+                'id' => '4000007868',
+                'descr' => 'Agency Services',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6081,9 +5648,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             433 => 
             array (
-                'id' => 434,
-                'order_no' => '4000007280',
-                'descr' => 'YellowBiz Regional 4 Promo 2014',
+                'id' => '4000007980',
+                'descr' => 'Agency Services',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6095,9 +5661,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             434 => 
             array (
-                'id' => 435,
-                'order_no' => '4000007281',
-                'descr' => 'YellowBiz Regional 5 Promo 2014',
+                'id' => '4000007981',
+                'descr' => 'Cuti-Cuti 1 Package',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6109,9 +5674,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             435 => 
             array (
-                'id' => 436,
-                'order_no' => '4000007325',
-                'descr' => 'YellowBiz 1 Promo 2013',
+                'id' => '4000007982',
+                'descr' => 'Cuti-Cuti 2 Package',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6123,9 +5687,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             436 => 
             array (
-                'id' => 437,
-                'order_no' => '4000007326',
-                'descr' => 'YellowBiz 2 Promo 2013',
+                'id' => '4000008123',
+                'descr' => '20th Edition YP For Home',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6137,9 +5700,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             437 => 
             array (
-                'id' => 438,
-                'order_no' => '4000007327',
-                'descr' => 'YellowBiz 3 Promo 2013',
+                'id' => '4000008124',
+                'descr' => '21st Edition YP For Home',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6151,9 +5713,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             438 => 
             array (
-                'id' => 439,
-                'order_no' => '4000007328',
-                'descr' => 'YellowBiz 4 Promo 2013',
+                'id' => '4000008260',
+                'descr' => 'Premium Item',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6165,9 +5726,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             439 => 
             array (
-                'id' => 440,
-                'order_no' => '4000007329',
-                'descr' => 'iBiz Promo 2013',
+                'id' => '4000008271',
+                'descr' => 'Miscellaneous Item',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6179,9 +5739,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             440 => 
             array (
-                'id' => 441,
-                'order_no' => '4000007340',
-                'descr' => 'ExtraBiz 1 promo 2013',
+                'id' => '5000000793',
+                'descr' => 'IYP INTERNET YELLOW PAGES',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6193,9 +5752,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             441 => 
             array (
-                'id' => 442,
-                'order_no' => '4000007341',
-                'descr' => 'ExtraBiz 2 promo 2013',
+                'id' => '5000000794',
+                'descr' => 'E-YELLOW PAGES',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6207,9 +5765,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             442 => 
             array (
-                'id' => 443,
-                'order_no' => '4000007364',
-                'descr' => '10th Edition YP For Home',
+                'id' => '5000000805',
+                'descr' => 'TELEKOM INTERNET YELLOW PAGES',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6221,9 +5778,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             443 => 
             array (
-                'id' => 444,
-                'order_no' => '4000007381',
-                'descr' => 'MYHIJAU Directory And Sales Kits 2013',
+                'id' => '5000000905',
+                'descr' => 'E-Catalogue',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6235,9 +5791,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             444 => 
             array (
-                'id' => 445,
-                'order_no' => '4000007388',
-                'descr' => '11th Edition YP For Home',
+                'id' => '5000000906',
+                'descr' => 'E-Agriculture',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6249,9 +5804,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             445 => 
             array (
-                'id' => 446,
-                'order_no' => '4000007426',
-                'descr' => '2013 YellowHomes Prime Central',
+                'id' => '5000000907',
+                'descr' => 'E-Halal',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6263,9 +5817,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             446 => 
             array (
-                'id' => 447,
-                'order_no' => '4000007428',
-                'descr' => '2013 YellowHomes Section Region 2',
+                'id' => '5000000908',
+                'descr' => 'E-Holiday',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6277,9 +5830,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             447 => 
             array (
-                'id' => 448,
-                'order_no' => '4000007429',
-                'descr' => '2013 YellowHomes Section Region 3',
+                'id' => '5000000909',
+                'descr' => 'E-Home',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6291,9 +5843,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             448 => 
             array (
-                'id' => 449,
-                'order_no' => '4000007430',
-                'descr' => '2016 SelangorWilayah Yellowpages',
+                'id' => '5000000910',
+                'descr' => 'E-Hotel',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6305,9 +5856,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             449 => 
             array (
-                'id' => 450,
-                'order_no' => '4000007431',
-                'descr' => '2016 Eastern YellowPages',
+                'id' => '5000000911',
+                'descr' => 'E-Dining',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6319,9 +5869,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             450 => 
             array (
-                'id' => 451,
-                'order_no' => '4000007432',
-                'descr' => '2016 Southern YellowPages',
+                'id' => '5000000912',
+                'descr' => 'E-Energy',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6333,9 +5882,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             451 => 
             array (
-                'id' => 452,
-                'order_no' => '4000007433',
-                'descr' => '2016 Northern YellowPages',
+                'id' => '5000000913',
+                'descr' => 'E-Voucher',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6347,9 +5895,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             452 => 
             array (
-                'id' => 453,
-                'order_no' => '4000007434',
-                'descr' => '2016 Sabah YellwPages',
+                'id' => '5000000914',
+                'descr' => 'E-Selangor/Wilayah YellowPages',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6361,9 +5908,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             453 => 
             array (
-                'id' => 454,
-                'order_no' => '4000007435',
-                'descr' => '2016 Sarawak YellowPages',
+                'id' => '5000000915',
+                'descr' => 'E-Northern YellowPages',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6375,9 +5921,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             454 => 
             array (
-                'id' => 455,
-                'order_no' => '4000007471',
-                'descr' => 'YellowBiz Google Central1 Promo 2013',
+                'id' => '5000000916',
+                'descr' => 'E-Southern YellowPages',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6389,9 +5934,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             455 => 
             array (
-                'id' => 456,
-                'order_no' => '4000007473',
-                'descr' => 'YellowBiz Google Central2 Promo 2013',
+                'id' => '5000000917',
+                'descr' => 'E-Eastern YellowPages',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6403,9 +5947,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             456 => 
             array (
-                'id' => 457,
-                'order_no' => '4000007474',
-                'descr' => 'YellowBiz Google Central3 Promo 2013',
+                'id' => '5000000918',
+                'descr' => 'E-Sabah YellowPages',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6417,9 +5960,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             457 => 
             array (
-                'id' => 458,
-                'order_no' => '4000007475',
-                'descr' => 'YellowBiz Google Central4 Promo 2013',
+                'id' => '5000000919',
+                'descr' => 'E-Sarawak YellowPages',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6431,9 +5973,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             458 => 
             array (
-                'id' => 459,
-                'order_no' => '4000007476',
-                'descr' => 'YellowBiz Google Central5 Promo 2013',
+                'id' => '5000000955',
+                'descr' => 'YPTV',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6445,9 +5986,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             459 => 
             array (
-                'id' => 460,
-                'order_no' => '4000007477',
-                'descr' => 'YellowBiz Google Nationwide1 Promo 2013',
+                'id' => '5000001003',
+                'descr' => '2010 IYP Internet YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6459,9 +5999,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             460 => 
             array (
-                'id' => 461,
-                'order_no' => '4000007478',
-                'descr' => 'YellowBiz Google Nationwide2 Promo 2013',
+                'id' => '5000001004',
+                'descr' => '2010 YTV Yellow Pages TV',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6473,9 +6012,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             461 => 
             array (
-                'id' => 462,
-                'order_no' => '4000007479',
-                'descr' => 'YellowBiz Google Nationwide3 Promo 2013',
+                'id' => '5000001045',
+            'descr' => '2011 e-Catalogue (ECT)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6487,9 +6025,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             462 => 
             array (
-                'id' => 463,
-                'order_no' => '4000007480',
-                'descr' => 'YellowBiz Google Nationwide4 Promo 2013',
+                'id' => '5000001046',
+            'descr' => '2011 e-Agriculture (EAG)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6501,9 +6038,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             463 => 
             array (
-                'id' => 464,
-                'order_no' => '4000007481',
-                'descr' => 'YellowBiz Google Nationwide5 Promo 2013',
+                'id' => '5000001047',
+            'descr' => '2011 e-Halal (EHL)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6515,9 +6051,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             464 => 
             array (
-                'id' => 465,
-                'order_no' => '4000007482',
-                'descr' => 'YellowBiz Google Regional1 Promo 2013',
+                'id' => '5000001048',
+            'descr' => '2011 e-Holiday (EHY)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6529,9 +6064,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             465 => 
             array (
-                'id' => 466,
-                'order_no' => '4000007483',
-                'descr' => 'YellowBiz Google Regional2 Promo 2013',
+                'id' => '5000001049',
+            'descr' => '2011 e-Home (EHM)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6543,9 +6077,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             466 => 
             array (
-                'id' => 467,
-                'order_no' => '4000007484',
-                'descr' => 'YellowBiz Google Regional3 Promo 2013',
+                'id' => '5000001050',
+            'descr' => '2011 e-Hotel (EHT)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6557,9 +6090,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             467 => 
             array (
-                'id' => 468,
-                'order_no' => '4000007485',
-                'descr' => 'YellowBiz Google Regional4 Promo 2013',
+                'id' => '5000001051',
+            'descr' => '2011 e-Dining (EDG)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6571,9 +6103,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             468 => 
             array (
-                'id' => 469,
-                'order_no' => '4000007486',
-                'descr' => 'YellowBiz Google Regional5 Promo 2013',
+                'id' => '5000001052',
+            'descr' => '2011 e-Energy (EEG)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6585,9 +6116,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             469 => 
             array (
-                'id' => 470,
-                'order_no' => '4000007487',
-                'descr' => 'YellowBiz Google Central Promo-Print2013',
+                'id' => '5000001053',
+            'descr' => '2011 e-Voucher (EVO)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6599,9 +6129,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             470 => 
             array (
-                'id' => 471,
-                'order_no' => '4000007488',
-                'descr' => 'YellowBiz Google Nationwide Prom-Prt2013',
+                'id' => '5000001054',
+            'descr' => '2011 e-Yellow Pages - Central (ECN)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6613,9 +6142,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             471 => 
             array (
-                'id' => 472,
-                'order_no' => '4000007489',
-                'descr' => 'YellowBiz Google Regional Prom-Print2013',
+                'id' => '5000001055',
+            'descr' => '2011 e-Yellow Pages - Northern (ENR)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6627,9 +6155,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             472 => 
             array (
-                'id' => 473,
-                'order_no' => '4000007490',
-                'descr' => 'YellowBiz Google Central1 Promo 2014',
+                'id' => '5000001056',
+            'descr' => '2011 e-Yellow Pages - Southern (ESR)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6641,9 +6168,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             473 => 
             array (
-                'id' => 474,
-                'order_no' => '4000007491',
-                'descr' => 'YellowBiz Google Central2 Promo 2014',
+                'id' => '5000001057',
+            'descr' => '2011 e-Yellow Pages - Eastern (EET)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6655,9 +6181,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             474 => 
             array (
-                'id' => 475,
-                'order_no' => '4000007492',
-                'descr' => 'YellowBiz Google Central3 Promo 2014',
+                'id' => '5000001058',
+            'descr' => '2011 e-Yellow Pages - Sabah (ESB)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6669,9 +6194,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             475 => 
             array (
-                'id' => 476,
-                'order_no' => '4000007493',
-                'descr' => 'YellowBiz Google Central4 Promo 2014',
+                'id' => '5000001059',
+            'descr' => '2011 e-Yellow Pages - Sarawak (ESK)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6683,9 +6207,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             476 => 
             array (
-                'id' => 477,
-                'order_no' => '4000007494',
-                'descr' => 'YellowBiz Google Central5 Promo 2014',
+                'id' => '5000001065',
+                'descr' => '2011 IYP Internet YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6697,9 +6220,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             477 => 
             array (
-                'id' => 478,
-                'order_no' => '4000007495',
-                'descr' => 'YellowBiz Google Nationwide1 Promo 2014',
+                'id' => '5000001066',
+                'descr' => '2011 YTV Yellow Pages TV',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6711,9 +6233,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             478 => 
             array (
-                'id' => 479,
-                'order_no' => '4000007496',
-                'descr' => 'YellowBiz Google Nationwide2 Promo 2014',
+                'id' => '5000001076',
+            'descr' => '2010 e-Catalogue (ECT)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6725,9 +6246,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             479 => 
             array (
-                'id' => 480,
-                'order_no' => '4000007497',
-                'descr' => 'YellowBiz Google Nationwide3 Promo 2014',
+                'id' => '5000001077',
+            'descr' => '2010 e-Agriculture (EAG)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6739,9 +6259,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             480 => 
             array (
-                'id' => 481,
-                'order_no' => '4000007499',
-                'descr' => 'YellowBiz Google Nationwide4 Promo 2014',
+                'id' => '5000001078',
+            'descr' => '2010 e-Halal (EHL)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6753,9 +6272,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             481 => 
             array (
-                'id' => 482,
-                'order_no' => '4000007500',
-                'descr' => 'YellowBiz Google Nationwide5 Promo 2014',
+                'id' => '5000001079',
+            'descr' => '2010 e-Holiday (EHY)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6767,9 +6285,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             482 => 
             array (
-                'id' => 483,
-                'order_no' => '4000007501',
-                'descr' => 'YellowBiz Google Regional1 Promo 2014',
+                'id' => '5000001080',
+            'descr' => '2010 e-Home (EHM)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6781,9 +6298,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             483 => 
             array (
-                'id' => 484,
-                'order_no' => '4000007502',
-                'descr' => 'YellowBiz Google Regional2 Promo 2014',
+                'id' => '5000001081',
+            'descr' => '2010 e-Hotel (EHT)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6795,9 +6311,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             484 => 
             array (
-                'id' => 485,
-                'order_no' => '4000007503',
-                'descr' => 'YellowBiz Google Regional3 Promo 2014',
+                'id' => '5000001082',
+            'descr' => '2010 e-Dining (EDG)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6809,9 +6324,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             485 => 
             array (
-                'id' => 486,
-                'order_no' => '4000007504',
-                'descr' => 'YellowBiz Google Regional4 Promo 2014',
+                'id' => '5000001083',
+            'descr' => '2010 e-Energy (EEG)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6823,9 +6337,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             486 => 
             array (
-                'id' => 487,
-                'order_no' => '4000007505',
-                'descr' => 'YellowBiz Google Regional5 Promo 2014',
+                'id' => '5000001084',
+            'descr' => '2010 e-Voucher (EVO)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6837,9 +6350,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             487 => 
             array (
-                'id' => 488,
-                'order_no' => '4000007506',
-                'descr' => 'YellowBiz Google Central Promo-Print2014',
+                'id' => '5000001085',
+            'descr' => '2010 e-Yellow Pages - Central (ECN)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6851,9 +6363,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             488 => 
             array (
-                'id' => 489,
-                'order_no' => '4000007507',
-                'descr' => 'YellowBiz Ggle Nationwide Prom-Print2014',
+                'id' => '5000001086',
+            'descr' => '2010 e-Yellow Pages - Northern (ENR)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6865,9 +6376,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             489 => 
             array (
-                'id' => 490,
-                'order_no' => '4000007508',
-                'descr' => 'YellowBiz Google Regional Prom-Print2013',
+                'id' => '5000001087',
+            'descr' => '2010 e-Yellow Pages - Southern (ESR)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6879,9 +6389,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             490 => 
             array (
-                'id' => 491,
-                'order_no' => '4000007509',
-                'descr' => '2014 Destination Malaysia Accomodation',
+                'id' => '5000001088',
+            'descr' => '2010 e-Yellow Pages - Eastern (EET)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6893,9 +6402,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             491 => 
             array (
-                'id' => 492,
-                'order_no' => '4000007510',
-                'descr' => 'YellowBiz Nationwide 1 Promo 2015',
+                'id' => '5000001089',
+            'descr' => '2010 e-Yellow Pages - Sabah (ESB)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6907,9 +6415,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             492 => 
             array (
-                'id' => 493,
-                'order_no' => '4000007512',
-                'descr' => '2015 Halal Pages Directory',
+                'id' => '5000001090',
+            'descr' => '2010 e-Yellow Pages - Sarawak (ESK)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6921,9 +6428,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             493 => 
             array (
-                'id' => 494,
-                'order_no' => '4000007513',
-                'descr' => '2015 Destination Malaysia - Regional Gui',
+                'id' => '5000001246',
+                'descr' => '2010 Yellow Pages Mobile',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6935,9 +6441,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             494 => 
             array (
-                'id' => 495,
-                'order_no' => '4000007612',
-                'descr' => '12th Edition YP For Home',
+                'id' => '5000001270',
+                'descr' => '2012 IYP Internet YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6949,9 +6454,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             495 => 
             array (
-                'id' => 496,
-                'order_no' => '4000007740',
-                'descr' => 'YellowBiz Central Promo - Print',
+                'id' => '5000001271',
+                'descr' => '2013 IYP Internet YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6963,9 +6467,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             496 => 
             array (
-                'id' => 497,
-                'order_no' => '4000007742',
-                'descr' => 'YellowBiz Nationwide  Promo - Print',
+                'id' => '5000001272',
+                'descr' => '2014 IYP Internet YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6977,9 +6480,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             497 => 
             array (
-                'id' => 498,
-                'order_no' => '4000007743',
-                'descr' => 'YellowBiz Regional  Promo - Print',
+                'id' => '5000001273',
+                'descr' => '2015 IYP Internet YP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -6991,9 +6493,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             498 => 
             array (
-                'id' => 499,
-                'order_no' => '4000007744',
-                'descr' => 'YellowBiz Google Central - Print',
+                'id' => '5000001311',
+            'descr' => '2012 e-Catalogue (ECT)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7005,9 +6506,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             499 => 
             array (
-                'id' => 500,
-                'order_no' => '4000007745',
-                'descr' => 'YellowBiz Google Nationwide - Print',
+                'id' => '5000001312',
+            'descr' => '2012 e-Agriculture (EAG)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7021,9 +6521,8 @@ class InternalOrdersTableSeeder extends Seeder
         \DB::table('internal_orders')->insert(array (
             0 => 
             array (
-                'id' => 501,
-                'order_no' => '4000007746',
-                'descr' => 'YellowBiz Google Regional - Print',
+                'id' => '5000001313',
+            'descr' => '2012 e-Halal (EHL)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7035,9 +6534,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             1 => 
             array (
-                'id' => 502,
-                'order_no' => '4000007747',
-                'descr' => 'YellowBiz Google Central 1 Promo',
+                'id' => '5000001314',
+            'descr' => '2012 e-Holiday (EHY)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7049,9 +6547,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             2 => 
             array (
-                'id' => 503,
-                'order_no' => '4000007748',
-                'descr' => 'YellowBiz Google Central 2 Promo',
+                'id' => '5000001315',
+            'descr' => '2012 e-Home (EHM)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7063,9 +6560,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             3 => 
             array (
-                'id' => 504,
-                'order_no' => '4000007749',
-                'descr' => 'YellowBiz Google Central 3 Promo',
+                'id' => '5000001316',
+            'descr' => '2012 e-Hotel (EHT)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7077,9 +6573,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             4 => 
             array (
-                'id' => 505,
-                'order_no' => '4000007750',
-                'descr' => 'YellowBiz Google Central 4 Promo',
+                'id' => '5000001317',
+            'descr' => '2012 e-Dining (EDG)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7091,9 +6586,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             5 => 
             array (
-                'id' => 506,
-                'order_no' => '4000007751',
-                'descr' => 'YellowBiz Google Central 5 Promo',
+                'id' => '5000001318',
+            'descr' => '2012 e-Energy (EEG)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7105,9 +6599,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             6 => 
             array (
-                'id' => 507,
-                'order_no' => '4000007752',
-                'descr' => 'YellowBiz Google Nationwide 1 Promo',
+                'id' => '5000001319',
+            'descr' => '2012 e-Voucher (EVO)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7119,9 +6612,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             7 => 
             array (
-                'id' => 508,
-                'order_no' => '4000007753',
-                'descr' => 'YellowBiz Google Nationwide 2 Promo',
+                'id' => '5000001320',
+            'descr' => '2012 e-Yellow Pages - Central (ECN)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7133,9 +6625,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             8 => 
             array (
-                'id' => 509,
-                'order_no' => '4000007754',
-                'descr' => 'YellowBiz Google Nationwide 3 Promo',
+                'id' => '5000001321',
+            'descr' => '2012 e-Yellow Pages - Northern (ENR)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7147,9 +6638,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             9 => 
             array (
-                'id' => 510,
-                'order_no' => '4000007755',
-                'descr' => 'YellowBiz Google Nationwide 4 Promo',
+                'id' => '5000001322',
+            'descr' => '2012 e-Yellow Pages - Southern (ESR)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7161,9 +6651,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             10 => 
             array (
-                'id' => 511,
-                'order_no' => '4000007756',
-                'descr' => 'YellowBiz Google Nationwide 5 Promo',
+                'id' => '5000001323',
+            'descr' => '2012 e-Yellow Pages - Eastern (EET)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7175,9 +6664,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             11 => 
             array (
-                'id' => 512,
-                'order_no' => '4000007757',
-                'descr' => 'YellowBiz Google Regional 1 Promo',
+                'id' => '5000001324',
+            'descr' => '2012 e-Yellow Pages - Sabah (ESB)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7189,9 +6677,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             12 => 
             array (
-                'id' => 513,
-                'order_no' => '4000007758',
-                'descr' => 'YellowBiz Google Regional 2 Promo',
+                'id' => '5000001325',
+            'descr' => '2012 e-Yellow Pages - Sarawak (ESK)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7203,9 +6690,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             13 => 
             array (
-                'id' => 514,
-                'order_no' => '4000007759',
-                'descr' => 'YellowBiz Google Regional 3 Promo',
+                'id' => '5000001326',
+                'descr' => '2012 YTV Yellow Pages TV',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7217,9 +6703,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             14 => 
             array (
-                'id' => 515,
-                'order_no' => '4000007760',
-                'descr' => 'YellowBiz Google Regional 4 Promo',
+                'id' => '5000001327',
+            'descr' => '2013 e-Catalogue (ECT)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7231,9 +6716,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             15 => 
             array (
-                'id' => 516,
-                'order_no' => '4000007761',
-                'descr' => 'YellowBiz Google Regional 5 Promo',
+                'id' => '5000001328',
+            'descr' => '2013 e-Agriculture (EAG)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7245,9 +6729,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             16 => 
             array (
-                'id' => 517,
-                'order_no' => '4000007762',
-                'descr' => 'YellowBiz Central 1 Promo',
+                'id' => '5000001329',
+            'descr' => '2013 e-Halal (EHL)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7259,9 +6742,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             17 => 
             array (
-                'id' => 518,
-                'order_no' => '4000007763',
-                'descr' => 'YellowBiz Central 2 Promo',
+                'id' => '5000001330',
+            'descr' => '2013 e-Holiday (EHY)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7273,9 +6755,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             18 => 
             array (
-                'id' => 519,
-                'order_no' => '4000007764',
-                'descr' => 'YellowBiz Central 3 Promo',
+                'id' => '5000001331',
+            'descr' => '2013 e-Home (EHM)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7287,9 +6768,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             19 => 
             array (
-                'id' => 520,
-                'order_no' => '4000007765',
-                'descr' => 'YellowBiz Central 4 Promo',
+                'id' => '5000001332',
+            'descr' => '2013 e-Hotel (EHT)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7301,9 +6781,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             20 => 
             array (
-                'id' => 521,
-                'order_no' => '4000007766',
-                'descr' => 'YellowBiz Central 5 Promo',
+                'id' => '5000001333',
+            'descr' => '2013 e-Dining (EDG)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7315,9 +6794,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             21 => 
             array (
-                'id' => 522,
-                'order_no' => '4000007768',
-                'descr' => 'YellowBiz Nationwide 2 Promo',
+                'id' => '5000001334',
+            'descr' => '2013 e-Energy (EEG)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7329,9 +6807,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             22 => 
             array (
-                'id' => 523,
-                'order_no' => '4000007769',
-                'descr' => 'YellowBiz Nationwide 3 Promo',
+                'id' => '5000001335',
+            'descr' => '2013 e-Voucher (EVO)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7343,9 +6820,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             23 => 
             array (
-                'id' => 524,
-                'order_no' => '4000007770',
-                'descr' => 'YellowBiz Nationwide 4 Promo',
+                'id' => '5000001336',
+            'descr' => '2013 e-Yellow Pages - Central (ECN)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7357,9 +6833,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             24 => 
             array (
-                'id' => 525,
-                'order_no' => '4000007771',
-                'descr' => 'YellowBiz Nationwide 5 Promo',
+                'id' => '5000001337',
+            'descr' => '2013 e-Yellow Pages - Northern (ENR)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7371,9 +6846,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             25 => 
             array (
-                'id' => 526,
-                'order_no' => '4000007772',
-                'descr' => 'YellowBiz Regional 1 Promo',
+                'id' => '5000001338',
+            'descr' => '2013 e-Yellow Pages - Southern (ESR)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7385,9 +6859,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             26 => 
             array (
-                'id' => 527,
-                'order_no' => '4000007773',
-                'descr' => 'YellowBiz Regional 2 Promo',
+                'id' => '5000001339',
+            'descr' => '2013 e-Yellow Pages - Eastern (EET)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7399,9 +6872,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             27 => 
             array (
-                'id' => 528,
-                'order_no' => '4000007774',
-                'descr' => 'YellowBiz Regional 3 Promo',
+                'id' => '5000001340',
+            'descr' => '2013 e-Yellow Pages - Sabah (ESB)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7413,9 +6885,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             28 => 
             array (
-                'id' => 529,
-                'order_no' => '4000007775',
-                'descr' => 'YellowBiz Regional 4 Promo',
+                'id' => '5000001341',
+            'descr' => '2013 e-Yellow Pages - Sarawak (ESK)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7427,9 +6898,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             29 => 
             array (
-                'id' => 530,
-                'order_no' => '4000007776',
-                'descr' => 'YellowBiz Regional 5 Promo',
+                'id' => '5000001342',
+                'descr' => '2013 YTV Yellow Pages TV',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7441,9 +6911,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             30 => 
             array (
-                'id' => 531,
-                'order_no' => '4000007777',
-                'descr' => 'iBiz Promo',
+                'id' => '5000001371',
+                'descr' => '2010  IYP Internet Volume Xcess',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7455,9 +6924,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             31 => 
             array (
-                'id' => 532,
-                'order_no' => '4000007778',
-                'descr' => 'YellowBiz 1 Promo',
+                'id' => '5000001372',
+                'descr' => '2011  IYP Internet Volume Xcess',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7469,9 +6937,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             32 => 
             array (
-                'id' => 533,
-                'order_no' => '4000007779',
-                'descr' => 'YellowBiz 2 Promo',
+                'id' => '5000001373',
+                'descr' => '2012  IYP Internet Volume Xcess',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7483,9 +6950,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             33 => 
             array (
-                'id' => 534,
-                'order_no' => '4000007781',
-                'descr' => 'YellowBiz 3 Promo',
+                'id' => '5000001374',
+                'descr' => '2013  IYP Internet Volume Xcess',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7497,9 +6963,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             34 => 
             array (
-                'id' => 535,
-                'order_no' => '4000007782',
-                'descr' => 'YellowBiz 4 Promo',
+                'id' => '5000001375',
+                'descr' => '2014  IYP Internet Volume Xcess',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7511,9 +6976,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             35 => 
             array (
-                'id' => 536,
-                'order_no' => '4000007783',
-                'descr' => 'ExtraBiz 1 promo',
+                'id' => '5000001376',
+                'descr' => '2015  IYP Internet Volume Xcess',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7525,9 +6989,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             36 => 
             array (
-                'id' => 537,
-                'order_no' => '4000007784',
-                'descr' => 'ExtraBiz 2 promo',
+                'id' => '5000001415',
+                'descr' => '2011 Yellow Pages Mobile',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7539,9 +7002,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             37 => 
             array (
-                'id' => 538,
-                'order_no' => '4000007785',
-                'descr' => 'iBiz Promo',
+                'id' => '5000001577',
+            'descr' => '2014 e-Catalogue (ECT)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7553,9 +7015,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             38 => 
             array (
-                'id' => 539,
-                'order_no' => '4000007786',
-                'descr' => 'YellowBiz 1 Promo',
+                'id' => '5000001578',
+            'descr' => '2014 e-Agriculture (EAG)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7567,9 +7028,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             39 => 
             array (
-                'id' => 540,
-                'order_no' => '4000007787',
-                'descr' => 'YellowBiz 2 Promo',
+                'id' => '5000001579',
+            'descr' => '2014 e-Halal (EHL)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7581,9 +7041,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             40 => 
             array (
-                'id' => 541,
-                'order_no' => '4000007788',
-                'descr' => 'YellowBiz 3 Promo',
+                'id' => '5000001582',
+            'descr' => '2014 e-Holiday (EHY)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7595,9 +7054,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             41 => 
             array (
-                'id' => 542,
-                'order_no' => '4000007789',
-                'descr' => 'YellowBiz 4 Promo',
+                'id' => '5000001583',
+            'descr' => '2014 e-Home (EHM)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7609,9 +7067,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             42 => 
             array (
-                'id' => 543,
-                'order_no' => '4000007790',
-                'descr' => 'ExtraBiz 1 promo',
+                'id' => '5000001584',
+            'descr' => '2014 e-Hotel (EHT)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7623,9 +7080,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             43 => 
             array (
-                'id' => 544,
-                'order_no' => '4000007791',
-                'descr' => 'ExtraBiz 2 promo',
+                'id' => '5000001585',
+            'descr' => '2014 e-Dining (EDG)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7637,9 +7093,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             44 => 
             array (
-                'id' => 545,
-                'order_no' => '4000007793',
-                'descr' => 'Cuti-Cuti 1 Package',
+                'id' => '5000001586',
+            'descr' => '2014 e-Energy (EEG)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7651,9 +7106,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             45 => 
             array (
-                'id' => 546,
-                'order_no' => '4000007794',
-                'descr' => 'Cuti-Cuti 2 Package',
+                'id' => '5000001587',
+            'descr' => '2014 e-Voucher (EVO)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7665,9 +7119,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             46 => 
             array (
-                'id' => 547,
-                'order_no' => '4000007795',
-                'descr' => 'Cuti-Cuti 3 Package',
+                'id' => '5000001588',
+            'descr' => '2014 e-Yellow Pages - Central (ECN)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7679,9 +7132,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             47 => 
             array (
-                'id' => 548,
-                'order_no' => '4000007796',
-                'descr' => 'iUkhwah  Package Halal Pages',
+                'id' => '5000001589',
+            'descr' => '2014 e-Yellow Pages - Northern (ENR)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7693,9 +7145,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             48 => 
             array (
-                'id' => 549,
-                'order_no' => '4000007797',
-                'descr' => 'Ukhwah 1 Package Halal Pages',
+                'id' => '5000001590',
+            'descr' => '2014 e-Yellow Pages - Southern (ESR)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7707,9 +7158,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             49 => 
             array (
-                'id' => 550,
-                'order_no' => '4000007798',
-                'descr' => 'Ukhwah 2 Package Halal Pages',
+                'id' => '5000001591',
+            'descr' => '2014 e-Yellow Pages - Eastern (EET)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7721,9 +7171,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             50 => 
             array (
-                'id' => 551,
-                'order_no' => '4000007799',
-                'descr' => 'Ukhwah 3 Package Halal Pages',
+                'id' => '5000001592',
+            'descr' => '2014 e-Yellow Pages - Sabah (ESB)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7735,9 +7184,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             51 => 
             array (
-                'id' => 552,
-                'order_no' => '4000007800',
-                'descr' => 'YellowHome Prime Central',
+                'id' => '5000001593',
+            'descr' => '2014 e-Yellow Pages - Sarawak (ESK)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7749,9 +7197,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             52 => 
             array (
-                'id' => 553,
-                'order_no' => '4000007801',
-                'descr' => 'YellowHome Section Region 2',
+                'id' => '5000001594',
+                'descr' => '2014 YTV Yellow Pages TV',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7763,9 +7210,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             53 => 
             array (
-                'id' => 554,
-                'order_no' => '4000007802',
-                'descr' => 'YellowHome Section Region 3',
+                'id' => '5000001596',
+            'descr' => '2015 e-Catalogue (ECT)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7777,9 +7223,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             54 => 
             array (
-                'id' => 555,
-                'order_no' => '4000007823',
-                'descr' => '2015 Destination Malaysia Accommodation',
+                'id' => '5000001597',
+            'descr' => '2015 e-Agriculture (EAG)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7791,9 +7236,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             55 => 
             array (
-                'id' => 556,
-                'order_no' => '4000007824',
-                'descr' => '2016 Destination Malaysia -Regional Guid',
+                'id' => '5000001598',
+            'descr' => '2015 e-Halal (EHL)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7805,9 +7249,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             56 => 
             array (
-                'id' => 557,
-                'order_no' => '4000007861',
-                'descr' => '13th Edition YP For Home',
+                'id' => '5000001599',
+            'descr' => '2015 e-Holiday (EHY)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7819,9 +7262,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             57 => 
             array (
-                'id' => 558,
-                'order_no' => '4000007862',
-                'descr' => '14th Edition YP For Home',
+                'id' => '5000001600',
+            'descr' => '2015 e-Home (EHM)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7833,9 +7275,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             58 => 
             array (
-                'id' => 559,
-                'order_no' => '4000007863',
-                'descr' => '15th Edition YP For Home',
+                'id' => '5000001601',
+            'descr' => '2015 e-Hotel (EHT)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7847,9 +7288,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             59 => 
             array (
-                'id' => 560,
-                'order_no' => '4000007864',
-                'descr' => '16th Edition YP For Home',
+                'id' => '5000001602',
+            'descr' => '2015 e-Dining (EDG)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7861,9 +7301,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             60 => 
             array (
-                'id' => 561,
-                'order_no' => '4000007865',
-                'descr' => '17th Edition YP For Home',
+                'id' => '5000001603',
+            'descr' => '2015 e-Energy (EEG)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7875,9 +7314,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             61 => 
             array (
-                'id' => 562,
-                'order_no' => '4000007866',
-                'descr' => '18th Edition YP For Home',
+                'id' => '5000001604',
+            'descr' => '2015 e-Voucher (EVO)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7889,9 +7327,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             62 => 
             array (
-                'id' => 563,
-                'order_no' => '4000007867',
-                'descr' => '19th Edition YP For Home',
+                'id' => '5000001605',
+            'descr' => '2015 e-Yellow Pages - Central (ECN)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7903,9 +7340,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             63 => 
             array (
-                'id' => 564,
-                'order_no' => '4000007868',
-                'descr' => 'Agency Services',
+                'id' => '5000001606',
+            'descr' => '2015 e-Yellow Pages - Northern (ENR)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7917,9 +7353,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             64 => 
             array (
-                'id' => 565,
-                'order_no' => '4000007980',
-                'descr' => 'Agency Services',
+                'id' => '5000001607',
+            'descr' => '2015 e-Yellow Pages - Southern (ESR)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7931,9 +7366,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             65 => 
             array (
-                'id' => 566,
-                'order_no' => '4000007981',
-                'descr' => 'Cuti-Cuti 1 Package',
+                'id' => '5000001608',
+            'descr' => '2015 e-Yellow Pages - Eastern (EET)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7945,9 +7379,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             66 => 
             array (
-                'id' => 567,
-                'order_no' => '4000007982',
-                'descr' => 'Cuti-Cuti 2 Package',
+                'id' => '5000001609',
+            'descr' => '2015 e-Yellow Pages - Sabah (ESB)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7959,9 +7392,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             67 => 
             array (
-                'id' => 568,
-                'order_no' => '4000008123',
-                'descr' => '20th Edition YP For Home',
+                'id' => '5000001610',
+            'descr' => '2015 e-Yellow Pages - Sarawak (ESK)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7973,9 +7405,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             68 => 
             array (
-                'id' => 569,
-                'order_no' => '4000008124',
-                'descr' => '21st Edition YP For Home',
+                'id' => '5000001611',
+                'descr' => '2015 YTV Yellow Pages TV',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -7987,9 +7418,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             69 => 
             array (
-                'id' => 570,
-                'order_no' => '4000008260',
-                'descr' => 'Premium Item',
+                'id' => '5000001612',
+                'descr' => '2016 IYP Internet IYP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8001,9 +7431,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             70 => 
             array (
-                'id' => 571,
-                'order_no' => '4000008271',
-                'descr' => 'Miscellaneous Item',
+                'id' => '5000001613',
+                'descr' => '2017 IYP Internet IYP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8015,9 +7444,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             71 => 
             array (
-                'id' => 572,
-                'order_no' => '5000000793',
-                'descr' => 'IYP INTERNET YELLOW PAGES',
+                'id' => '5000001614',
+                'descr' => '2018 IYP Internet IYP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8029,9 +7457,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             72 => 
             array (
-                'id' => 573,
-                'order_no' => '5000000794',
-                'descr' => 'E-YELLOW PAGES',
+                'id' => '5000001615',
+                'descr' => '2019 IYP Internet IYP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8043,9 +7470,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             73 => 
             array (
-                'id' => 574,
-                'order_no' => '5000000805',
-                'descr' => 'TELEKOM INTERNET YELLOW PAGES',
+                'id' => '5000001616',
+                'descr' => '2020 IYP Internet IYP',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8057,9 +7483,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             74 => 
             array (
-                'id' => 575,
-                'order_no' => '5000000905',
-                'descr' => 'E-Catalogue',
+                'id' => '5000001617',
+                'descr' => '2012 YellowPages Mobile',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8071,9 +7496,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             75 => 
             array (
-                'id' => 576,
-                'order_no' => '5000000906',
-                'descr' => 'E-Agriculture',
+                'id' => '5000001618',
+                'descr' => '2013 YellowPages Mobile',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8085,9 +7509,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             76 => 
             array (
-                'id' => 577,
-                'order_no' => '5000000907',
-                'descr' => 'E-Halal',
+                'id' => '5000001620',
+                'descr' => '2014 YellowPages Mobile',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8099,9 +7522,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             77 => 
             array (
-                'id' => 578,
-                'order_no' => '5000000908',
-                'descr' => 'E-Holiday',
+                'id' => '5000001621',
+                'descr' => '2015 YellowPages Mobile',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8113,9 +7535,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             78 => 
             array (
-                'id' => 579,
-                'order_no' => '5000000909',
-                'descr' => 'E-Home',
+                'id' => '5000001622',
+                'descr' => '2011 WIFI Yellow Pages',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8127,9 +7548,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             79 => 
             array (
-                'id' => 580,
-                'order_no' => '5000000910',
-                'descr' => 'E-Hotel',
+                'id' => '5000001623',
+                'descr' => '2012 WIFI Yellow Pages',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8141,9 +7561,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             80 => 
             array (
-                'id' => 581,
-                'order_no' => '5000000911',
-                'descr' => 'E-Dining',
+                'id' => '5000001624',
+                'descr' => '2013 WIFI Yellow Pages',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8155,9 +7574,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             81 => 
             array (
-                'id' => 582,
-                'order_no' => '5000000912',
-                'descr' => 'E-Energy',
+                'id' => '5000001625',
+                'descr' => '2014 WIFI Yellow Pages',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8169,9 +7587,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             82 => 
             array (
-                'id' => 583,
-                'order_no' => '5000000913',
-                'descr' => 'E-Voucher',
+                'id' => '5000001626',
+                'descr' => '2015 WIFI Yellow Pages',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8183,9 +7600,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             83 => 
             array (
-                'id' => 584,
-                'order_no' => '5000000914',
-                'descr' => 'E-Selangor/Wilayah YellowPages',
+                'id' => '5000001720',
+                'descr' => 'Google Ads',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8197,9 +7613,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             84 => 
             array (
-                'id' => 585,
-                'order_no' => '5000000915',
-                'descr' => 'E-Northern YellowPages',
+                'id' => '5000001785',
+            'descr' => '2013 e-Energy (EEG)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8211,9 +7626,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             85 => 
             array (
-                'id' => 586,
-                'order_no' => '5000000916',
-                'descr' => 'E-Southern YellowPages',
+                'id' => '5000001787',
+            'descr' => '2014 e-Agriculture (EAG)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8225,9 +7639,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             86 => 
             array (
-                'id' => 587,
-                'order_no' => '5000000917',
-                'descr' => 'E-Eastern YellowPages',
+                'id' => '5000001788',
+            'descr' => '2014 e-Yellow Pages - Northern (ENR)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8239,9 +7652,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             87 => 
             array (
-                'id' => 588,
-                'order_no' => '5000000918',
-                'descr' => 'E-Sabah YellowPages',
+                'id' => '5000001791',
+            'descr' => '2014 e-Hotel (EHT)',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8253,9 +7665,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             88 => 
             array (
-                'id' => 589,
-                'order_no' => '5000000919',
-                'descr' => 'E-Sarawak YellowPages',
+                'id' => '5000001815',
+                'descr' => 'Google AD IYP Package',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8267,9 +7678,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             89 => 
             array (
-                'id' => 590,
-                'order_no' => '5000000955',
-                'descr' => 'YPTV',
+                'id' => '5000001833',
+                'descr' => '2011 Halal Portal',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8281,9 +7691,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             90 => 
             array (
-                'id' => 591,
-                'order_no' => '5000001003',
-                'descr' => '2010 IYP Internet YP',
+                'id' => '5000001841',
+                'descr' => '2011 Mobile Yellow Pages',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8295,9 +7704,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             91 => 
             array (
-                'id' => 592,
-                'order_no' => '5000001004',
-                'descr' => '2010 YTV Yellow Pages TV',
+                'id' => '5000001865',
+                'descr' => '2011 HYPP TV',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8309,9 +7717,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             92 => 
             array (
-                'id' => 593,
-                'order_no' => '5000001045',
-            'descr' => '2011 e-Catalogue (ECT)',
+                'id' => '5000001886',
+                'descr' => '2012 Google Ad IYP Package',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8323,9 +7730,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             93 => 
             array (
-                'id' => 594,
-                'order_no' => '5000001046',
-            'descr' => '2011 e-Agriculture (EAG)',
+                'id' => '5000001895',
+                'descr' => '2012 Halal Portal',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8337,9 +7743,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             94 => 
             array (
-                'id' => 595,
-                'order_no' => '5000001047',
-            'descr' => '2011 e-Halal (EHL)',
+                'id' => '5000001958',
+                'descr' => '2012 HYPP TV',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8351,9 +7756,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             95 => 
             array (
-                'id' => 596,
-                'order_no' => '5000001048',
-            'descr' => '2011 e-Holiday (EHY)',
+                'id' => '5000001996',
+                'descr' => 'Marketing Tools 2012',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8365,9 +7769,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             96 => 
             array (
-                'id' => 597,
-                'order_no' => '5000001049',
-            'descr' => '2011 e-Home (EHM)',
+                'id' => '5000001997',
+                'descr' => 'Marketing Tools 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8379,9 +7782,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             97 => 
             array (
-                'id' => 598,
-                'order_no' => '5000001050',
-            'descr' => '2011 e-Hotel (EHT)',
+                'id' => '5000002085',
+                'descr' => 'Mobile Web 2012',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8393,9 +7795,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             98 => 
             array (
-                'id' => 599,
-                'order_no' => '5000001051',
-            'descr' => '2011 e-Dining (EDG)',
+                'id' => '5000002086',
+                'descr' => 'Mobile Apps 2012',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8407,9 +7808,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             99 => 
             array (
-                'id' => 600,
-                'order_no' => '5000001052',
-            'descr' => '2011 e-Energy (EEG)',
+                'id' => '5000002091',
+                'descr' => '2013 Goggle Ads',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8421,9 +7821,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             100 => 
             array (
-                'id' => 601,
-                'order_no' => '5000001053',
-            'descr' => '2011 e-Voucher (EVO)',
+                'id' => '5000002092',
+                'descr' => '2013 HYPP TV',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8435,9 +7834,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             101 => 
             array (
-                'id' => 602,
-                'order_no' => '5000001054',
-            'descr' => '2011 e-Yellow Pages - Central (ECN)',
+                'id' => '5000002093',
+                'descr' => 'Mobile Web 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8449,9 +7847,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             102 => 
             array (
-                'id' => 603,
-                'order_no' => '5000001055',
-            'descr' => '2011 e-Yellow Pages - Northern (ENR)',
+                'id' => '5000002094',
+                'descr' => 'Mobile Apps 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8463,9 +7860,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             103 => 
             array (
-                'id' => 604,
-                'order_no' => '5000001056',
-            'descr' => '2011 e-Yellow Pages - Southern (ESR)',
+                'id' => '5000002095',
+                'descr' => '2013 Halal Portal',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8477,9 +7873,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             104 => 
             array (
-                'id' => 605,
-                'order_no' => '5000001057',
-            'descr' => '2011 e-Yellow Pages - Eastern (EET)',
+                'id' => '5000002096',
+                'descr' => '2013 Destination Malaysia Portal',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8491,9 +7886,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             105 => 
             array (
-                'id' => 606,
-                'order_no' => '5000001058',
-            'descr' => '2011 e-Yellow Pages - Sabah (ESB)',
+                'id' => '5000002105',
+                'descr' => 'YellowBiz Central Promo - non Print 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8505,9 +7899,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             106 => 
             array (
-                'id' => 607,
-                'order_no' => '5000001059',
-            'descr' => '2011 e-Yellow Pages - Sarawak (ESK)',
+                'id' => '5000002106',
+                'descr' => 'YellowBiz Nationwide  Promo - non Print',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8519,9 +7912,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             107 => 
             array (
-                'id' => 608,
-                'order_no' => '5000001065',
-                'descr' => '2011 IYP Internet YP',
+                'id' => '5000002107',
+                'descr' => 'YellowBiz Regional Promo -non Print 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8533,9 +7925,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             108 => 
             array (
-                'id' => 609,
-                'order_no' => '5000001066',
-                'descr' => '2011 YTV Yellow Pages TV',
+                'id' => '5000002108',
+                'descr' => 'YellowBiz Central Promo - non Print 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8547,9 +7938,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             109 => 
             array (
-                'id' => 610,
-                'order_no' => '5000001076',
-            'descr' => '2010 e-Catalogue (ECT)',
+                'id' => '5000002109',
+                'descr' => 'YellowBiz Nationwide  Promo - non Print',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8561,9 +7951,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             110 => 
             array (
-                'id' => 611,
-                'order_no' => '5000001077',
-            'descr' => '2010 e-Agriculture (EAG)',
+                'id' => '5000002111',
+                'descr' => 'YellowBiz Regional Promo -non Print 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8575,9 +7964,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             111 => 
             array (
-                'id' => 612,
-                'order_no' => '5000001078',
-            'descr' => '2010 e-Halal (EHL)',
+                'id' => '5000002124',
+                'descr' => 'Mobile Web 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8589,9 +7977,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             112 => 
             array (
-                'id' => 613,
-                'order_no' => '5000001079',
-            'descr' => '2010 e-Holiday (EHY)',
+                'id' => '5000002175',
+                'descr' => 'Digital Bronze Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8603,9 +7990,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             113 => 
             array (
-                'id' => 614,
-                'order_no' => '5000001080',
-            'descr' => '2010 e-Home (EHM)',
+                'id' => '5000002176',
+                'descr' => 'Digital Silver Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8617,9 +8003,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             114 => 
             array (
-                'id' => 615,
-                'order_no' => '5000001081',
-            'descr' => '2010 e-Hotel (EHT)',
+                'id' => '5000002177',
+                'descr' => 'Digital Gold Promo 2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8631,9 +8016,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             115 => 
             array (
-                'id' => 616,
-                'order_no' => '5000001082',
-            'descr' => '2010 e-Dining (EDG)',
+                'id' => '5000002207',
+                'descr' => 'YellowBiz Ggle Central Prom-non Prnt2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8645,9 +8029,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             116 => 
             array (
-                'id' => 617,
-                'order_no' => '5000001083',
-            'descr' => '2010 e-Energy (EEG)',
+                'id' => '5000002208',
+                'descr' => 'YellowBiz Google Nationwide P-nonPrt2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8659,9 +8042,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             117 => 
             array (
-                'id' => 618,
-                'order_no' => '5000001084',
-            'descr' => '2010 e-Voucher (EVO)',
+                'id' => '5000002209',
+                'descr' => 'YellowBiz G Regional Promo-non Print2013',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8673,9 +8055,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             118 => 
             array (
-                'id' => 619,
-                'order_no' => '5000001085',
-            'descr' => '2010 e-Yellow Pages - Central (ECN)',
+                'id' => '5000002210',
+                'descr' => 'YellowBiz Ggle Nationwide P-nonPrint2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8687,9 +8068,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             119 => 
             array (
-                'id' => 620,
-                'order_no' => '5000001086',
-            'descr' => '2010 e-Yellow Pages - Northern (ENR)',
+                'id' => '5000002211',
+                'descr' => 'YellowBiz Ggle Central Pro-non Print2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8701,9 +8081,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             120 => 
             array (
-                'id' => 621,
-                'order_no' => '5000001087',
-            'descr' => '2010 e-Yellow Pages - Southern (ESR)',
+                'id' => '5000002212',
+                'descr' => 'YellowBiz Ggle Region Promo-nonPrint2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8715,9 +8094,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             121 => 
             array (
-                'id' => 622,
-                'order_no' => '5000001088',
-            'descr' => '2010 e-Yellow Pages - Eastern (EET)',
+                'id' => '5000002213',
+                'descr' => '2014 Halal Portal',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8729,9 +8107,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             122 => 
             array (
-                'id' => 623,
-                'order_no' => '5000001089',
-            'descr' => '2010 e-Yellow Pages - Sabah (ESB)',
+                'id' => '5000002295',
+                'descr' => 'Mobile Web 2015',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8743,9 +8120,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             123 => 
             array (
-                'id' => 624,
-                'order_no' => '5000001090',
-            'descr' => '2010 e-Yellow Pages - Sarawak (ESK)',
+                'id' => '5000002297',
+                'descr' => 'Google Ads 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8757,9 +8133,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             124 => 
             array (
-                'id' => 625,
-                'order_no' => '5000001246',
-                'descr' => '2010 Yellow Pages Mobile',
+                'id' => '5000002553',
+                'descr' => 'Marketing Tools 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8771,9 +8146,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             125 => 
             array (
-                'id' => 626,
-                'order_no' => '5000001270',
-                'descr' => '2012 IYP Internet YP',
+                'id' => '5000002554',
+                'descr' => 'Mobile Apps 2014',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8785,9 +8159,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             126 => 
             array (
-                'id' => 627,
-                'order_no' => '5000001271',
-                'descr' => '2013 IYP Internet YP',
+                'id' => '5000002555',
+                'descr' => 'YellowBiz Central Promo - non Print',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8799,9 +8172,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             127 => 
             array (
-                'id' => 628,
-                'order_no' => '5000001272',
-                'descr' => '2014 IYP Internet YP',
+                'id' => '5000002556',
+                'descr' => 'YellowBiz Nationwide Promo - non Print',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8813,9 +8185,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             128 => 
             array (
-                'id' => 629,
-                'order_no' => '5000001273',
-                'descr' => '2015 IYP Internet YP',
+                'id' => '5000002557',
+                'descr' => 'YellowBiz Regional Promo - non Print',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8827,9 +8198,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             129 => 
             array (
-                'id' => 630,
-                'order_no' => '5000001311',
-            'descr' => '2012 e-Catalogue (ECT)',
+                'id' => '5000002558',
+                'descr' => 'YellowBiz Google Nationwide-non Print',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8841,9 +8211,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             130 => 
             array (
-                'id' => 631,
-                'order_no' => '5000001312',
-            'descr' => '2012 e-Agriculture (EAG)',
+                'id' => '5000002559',
+                'descr' => 'YellowBiz Google Central-non Print',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8855,9 +8224,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             131 => 
             array (
-                'id' => 632,
-                'order_no' => '5000001313',
-            'descr' => '2012 e-Halal (EHL)',
+                'id' => '5000002560',
+                'descr' => 'YellowBiz Google Regional-non Print',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8869,9 +8237,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             132 => 
             array (
-                'id' => 633,
-                'order_no' => '5000001314',
-            'descr' => '2012 e-Holiday (EHY)',
+                'id' => '5000002561',
+                'descr' => 'Digital Bronze Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8883,9 +8250,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             133 => 
             array (
-                'id' => 634,
-                'order_no' => '5000001315',
-            'descr' => '2012 e-Home (EHM)',
+                'id' => '5000002562',
+                'descr' => 'Digital Gold Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8897,9 +8263,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             134 => 
             array (
-                'id' => 635,
-                'order_no' => '5000001316',
-            'descr' => '2012 e-Hotel (EHT)',
+                'id' => '5000002563',
+                'descr' => 'Digital Silver Promo',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8911,9 +8276,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             135 => 
             array (
-                'id' => 636,
-                'order_no' => '5000001317',
-            'descr' => '2012 e-Dining (EDG)',
+                'id' => '5000002582',
+                'descr' => 'Google Ads 2015',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8925,9 +8289,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             136 => 
             array (
-                'id' => 637,
-                'order_no' => '5000001318',
-            'descr' => '2012 e-Energy (EEG)',
+                'id' => '5000002612',
+                'descr' => '2014 DESTINATION MALAYSIA PORTAL',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8939,9 +8302,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             137 => 
             array (
-                'id' => 638,
-                'order_no' => '5000001319',
-            'descr' => '2012 e-Voucher (EVO)',
+                'id' => '5000002613',
+                'descr' => '2015 DESTINATION MALAYSIA PORTAL',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8953,9 +8315,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             138 => 
             array (
-                'id' => 639,
-                'order_no' => '5000001320',
-            'descr' => '2012 e-Yellow Pages - Central (ECN)',
+                'id' => '5000002614',
+                'descr' => 'GOOGLE ADSENSE',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8967,9 +8328,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             139 => 
             array (
-                'id' => 640,
-                'order_no' => '5000001321',
-            'descr' => '2012 e-Yellow Pages - Northern (ENR)',
+                'id' => '5000002615',
+                'descr' => 'GOOGLE ADSENSE',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8981,9 +8341,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             140 => 
             array (
-                'id' => 641,
-                'order_no' => '5000001322',
-            'descr' => '2012 e-Yellow Pages - Southern (ESR)',
+                'id' => '5000002616',
+                'descr' => 'GOOGLE ADSENSE',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -8995,9 +8354,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             141 => 
             array (
-                'id' => 642,
-                'order_no' => '5000001323',
-            'descr' => '2012 e-Yellow Pages - Eastern (EET)',
+                'id' => '5000002617',
+                'descr' => 'GOOGLE ADSENSE',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9009,9 +8367,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             142 => 
             array (
-                'id' => 643,
-                'order_no' => '5000001324',
-            'descr' => '2012 e-Yellow Pages - Sabah (ESB)',
+                'id' => '5000002618',
+                'descr' => 'COMMISSION FOR HYPPTV',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9023,9 +8380,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             143 => 
             array (
-                'id' => 644,
-                'order_no' => '5000001325',
-            'descr' => '2012 e-Yellow Pages - Sarawak (ESK)',
+                'id' => '5000002619',
+                'descr' => 'COMMISSION FOR HYPPTV',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9037,9 +8393,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             144 => 
             array (
-                'id' => 645,
-                'order_no' => '5000001326',
-                'descr' => '2012 YTV Yellow Pages TV',
+                'id' => '5000002620',
+                'descr' => 'COMMISSION FOR HYPPTV',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9051,9 +8406,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             145 => 
             array (
-                'id' => 646,
-                'order_no' => '5000001327',
-            'descr' => '2013 e-Catalogue (ECT)',
+                'id' => '5000002621',
+                'descr' => 'COMMISSION FOR HYPPTV',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9065,9 +8419,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             146 => 
             array (
-                'id' => 647,
-                'order_no' => '5000001328',
-            'descr' => '2013 e-Agriculture (EAG)',
+                'id' => '5000002622',
+                'descr' => 'YELLOWBIZ NATIONWIDE PROMO - NON PRINT',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9079,9 +8432,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             147 => 
             array (
-                'id' => 648,
-                'order_no' => '5000001329',
-            'descr' => '2013 e-Halal (EHL)',
+                'id' => '5000002745',
+                'descr' => '2014 Hypp TV',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9093,9 +8445,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             148 => 
             array (
-                'id' => 649,
-                'order_no' => '5000001330',
-            'descr' => '2013 e-Holiday (EHY)',
+                'id' => '5000002746',
+                'descr' => 'YellowBiz Google Central-non Print',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9107,9 +8458,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             149 => 
             array (
-                'id' => 650,
-                'order_no' => '5000001331',
-            'descr' => '2013 e-Home (EHM)',
+                'id' => '5000002747',
+                'descr' => 'YellowBiz Central Promo - non Print',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9121,9 +8471,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             150 => 
             array (
-                'id' => 651,
-                'order_no' => '5000001332',
-            'descr' => '2013 e-Hotel (EHT)',
+                'id' => '5000002862',
+                'descr' => 'Marketing Tools 2015',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9135,9 +8484,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             151 => 
             array (
-                'id' => 652,
-                'order_no' => '5000001333',
-            'descr' => '2013 e-Dining (EDG)',
+                'id' => '5000002882',
+                'descr' => 'DIGITAL BRONZE PROMO',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9149,9 +8497,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             152 => 
             array (
-                'id' => 653,
-                'order_no' => '5000001334',
-            'descr' => '2013 e-Energy (EEG)',
+                'id' => '5000002883',
+                'descr' => 'DIGITAL GOLD PROMO',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9163,9 +8510,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             153 => 
             array (
-                'id' => 654,
-                'order_no' => '5000001335',
-            'descr' => '2013 e-Voucher (EVO)',
+                'id' => '5000002884',
+                'descr' => 'DIGITAL SILVER PROMO',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9177,9 +8523,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             154 => 
             array (
-                'id' => 655,
-                'order_no' => '5000001336',
-            'descr' => '2013 e-Yellow Pages - Central (ECN)',
+                'id' => '5000002885',
+                'descr' => 'YELLOW PAGES PREMIUM SUBSCRIPTION',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9191,9 +8536,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             155 => 
             array (
-                'id' => 656,
-                'order_no' => '5000001337',
-            'descr' => '2013 e-Yellow Pages - Northern (ENR)',
+                'id' => '5000002886',
+                'descr' => 'YELLOW PAGES PLUS SUBSCRIPTION',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9205,9 +8549,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             156 => 
             array (
-                'id' => 657,
-                'order_no' => '5000001338',
-            'descr' => '2013 e-Yellow Pages - Southern (ESR)',
+                'id' => '5000002887',
+                'descr' => 'YELLOW PAGES STARTER SUBSCRIPTION',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9219,9 +8562,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             157 => 
             array (
-                'id' => 658,
-                'order_no' => '5000001339',
-            'descr' => '2013 e-Yellow Pages - Eastern (EET)',
+                'id' => '5000002888',
+                'descr' => 'YELLOW PAGES BASIC SUBSCRIPTION',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9233,9 +8575,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             158 => 
             array (
-                'id' => 659,
-                'order_no' => '5000001340',
-            'descr' => '2013 e-Yellow Pages - Sabah (ESB)',
+                'id' => '5000002889',
+                'descr' => 'YELLOW PAGES FREE SUBSCRIPTION',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9247,9 +8588,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             159 => 
             array (
-                'id' => 660,
-                'order_no' => '5000001341',
-            'descr' => '2013 e-Yellow Pages - Sarawak (ESK)',
+                'id' => '5000002922',
+                'descr' => 'YellowBiz Google Nationwide - Non Print',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9261,9 +8601,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             160 => 
             array (
-                'id' => 661,
-                'order_no' => '5000001342',
-                'descr' => '2013 YTV Yellow Pages TV',
+                'id' => '5000002923',
+                'descr' => 'YellowBiz Google Regional - Non Print',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9275,9 +8614,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             161 => 
             array (
-                'id' => 662,
-                'order_no' => '5000001371',
-                'descr' => '2010  IYP Internet Volume Xcess',
+                'id' => '5000002924',
+                'descr' => 'YellowBiz Regional Promo - Non Print',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9289,9 +8627,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             162 => 
             array (
-                'id' => 663,
-                'order_no' => '5000001372',
-                'descr' => '2011  IYP Internet Volume Xcess',
+                'id' => '5000002928',
+            'descr' => '2015 NDX (NONEXISTENCE DOMAIN)ADVERTISIN',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9303,9 +8640,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             163 => 
             array (
-                'id' => 664,
-                'order_no' => '5000001373',
-                'descr' => '2012  IYP Internet Volume Xcess',
+                'id' => '5000002929',
+            'descr' => '2016 NDX (NONEXISTENCE DOMAIN)ADVERTISIN',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9317,9 +8653,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             164 => 
             array (
-                'id' => 665,
-                'order_no' => '5000001374',
-                'descr' => '2013  IYP Internet Volume Xcess',
+                'id' => '5000003243',
+                'descr' => 'YELLOW PAGES DIGITAL ADS 2016',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9331,9 +8666,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             165 => 
             array (
-                'id' => 666,
-                'order_no' => '5000001375',
-                'descr' => '2014  IYP Internet Volume Xcess',
+                'id' => '5000003244',
+                'descr' => 'YELLOW PAGES DIGITAL ADS 2016',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9345,9 +8679,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             166 => 
             array (
-                'id' => 667,
-                'order_no' => '5000001376',
-                'descr' => '2015  IYP Internet Volume Xcess',
+                'id' => '5000003245',
+                'descr' => 'YELLOWBIZ GOOGLE NATIONWIDE-NON PRINT',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9359,9 +8692,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             167 => 
             array (
-                'id' => 668,
-                'order_no' => '5000001415',
-                'descr' => '2011 Yellow Pages Mobile',
+                'id' => '5000003246',
+                'descr' => 'YELLOWBIZ NATIONWIDE PROMO - NON PRerial',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9373,9 +8705,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             168 => 
             array (
-                'id' => 669,
-                'order_no' => '5000001577',
-            'descr' => '2014 e-Catalogue (ECT)',
+                'id' => '5000003252',
+                'descr' => 'MARKETING TOOLS 2016',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9387,9 +8718,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             169 => 
             array (
-                'id' => 670,
-                'order_no' => '5000001578',
-            'descr' => '2014 e-Agriculture (EAG)',
+                'id' => '5000003282',
+                'descr' => 'DEVT & MAINTENANCE WIFI LANDING PAGE',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9401,9 +8731,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             170 => 
             array (
-                'id' => 671,
-                'order_no' => '5000001579',
-            'descr' => '2014 e-Halal (EHL)',
+                'id' => '5000003310',
+                'descr' => 'ALHIJRAH MEDIA',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9415,9 +8744,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             171 => 
             array (
-                'id' => 672,
-                'order_no' => '5000001582',
-            'descr' => '2014 e-Holiday (EHY)',
+                'id' => '5000003312',
+                'descr' => 'TM WI-FI ADVERTISING',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9429,9 +8757,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             172 => 
             array (
-                'id' => 673,
-                'order_no' => '5000001583',
-            'descr' => '2014 e-Home (EHM)',
+                'id' => '5000003313',
+                'descr' => 'AIRPORT WI-FI ADVERTISING',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9443,9 +8770,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             173 => 
             array (
-                'id' => 674,
-                'order_no' => '5000001584',
-            'descr' => '2014 e-Hotel (EHT)',
+                'id' => '5000003314',
+                'descr' => 'SMART SELANGOR WI-FI ADVERTISING',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9457,9 +8783,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             174 => 
             array (
-                'id' => 675,
-                'order_no' => '5000001585',
-            'descr' => '2014 e-Dining (EDG)',
+                'id' => '5000003472',
+                'descr' => '2017 Google Ads',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9471,9 +8796,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             175 => 
             array (
-                'id' => 676,
-                'order_no' => '5000001586',
-            'descr' => '2014 e-Energy (EEG)',
+                'id' => '5000003480',
+            'descr' => '2017 NXD(NONEXISTENCE DOMAIN)ADVERTISING',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9485,9 +8809,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             176 => 
             array (
-                'id' => 677,
-                'order_no' => '5000001587',
-            'descr' => '2014 e-Voucher (EVO)',
+                'id' => '5000003487',
+                'descr' => '2017 Facebook Ad Campaign',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9499,9 +8822,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             177 => 
             array (
-                'id' => 678,
-                'order_no' => '5000001588',
-            'descr' => '2014 e-Yellow Pages - Central (ECN)',
+                'id' => '5000003502',
+                'descr' => 'INSTAWEB TMIM',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9513,9 +8835,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             178 => 
             array (
-                'id' => 679,
-                'order_no' => '5000001589',
-            'descr' => '2014 e-Yellow Pages - Northern (ENR)',
+                'id' => '5000003503',
+                'descr' => 'INSTAWEB TM',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9527,9 +8848,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             179 => 
             array (
-                'id' => 680,
-                'order_no' => '5000001590',
-            'descr' => '2014 e-Yellow Pages - Southern (ESR)',
+                'id' => '5000003504',
+                'descr' => 'YELLOW PAGES STARTER LTP 2017',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9541,9 +8861,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             180 => 
             array (
-                'id' => 681,
-                'order_no' => '5000001591',
-            'descr' => '2014 e-Yellow Pages - Eastern (EET)',
+                'id' => '5000003505',
+                'descr' => 'YELLOW PAGES PLUS LTP 2017',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9555,9 +8874,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             181 => 
             array (
-                'id' => 682,
-                'order_no' => '5000001592',
-            'descr' => '2014 e-Yellow Pages - Sabah (ESB)',
+                'id' => '5000003506',
+                'descr' => 'YELLOW PAGES PREMIUM LTP 2017',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9569,9 +8887,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             182 => 
             array (
-                'id' => 683,
-                'order_no' => '5000001593',
-            'descr' => '2014 e-Yellow Pages - Sarawak (ESK)',
+                'id' => '5000003507',
+                'descr' => 'MARKETING TOOLS',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9583,9 +8900,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             183 => 
             array (
-                'id' => 684,
-                'order_no' => '5000001594',
-                'descr' => '2014 YTV Yellow Pages TV',
+                'id' => '5000003508',
+                'descr' => 'MARKETING TOOLS',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9597,9 +8913,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             184 => 
             array (
-                'id' => 685,
-                'order_no' => '5000001596',
-            'descr' => '2015 e-Catalogue (ECT)',
+                'id' => '5000003509',
+                'descr' => 'MARKETING TOOLS',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9611,9 +8926,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             185 => 
             array (
-                'id' => 686,
-                'order_no' => '5000001597',
-            'descr' => '2015 e-Agriculture (EAG)',
+                'id' => '5000003510',
+                'descr' => 'MARKETING TOOLS',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9625,9 +8939,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             186 => 
             array (
-                'id' => 687,
-                'order_no' => '5000001598',
-            'descr' => '2015 e-Halal (EHL)',
+                'id' => '5000003511',
+                'descr' => 'GOOGLE ADSENSE',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9639,9 +8952,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             187 => 
             array (
-                'id' => 688,
-                'order_no' => '5000001599',
-            'descr' => '2015 e-Holiday (EHY)',
+                'id' => '5000003512',
+                'descr' => 'GOOGLE ADSENSE',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9653,9 +8965,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             188 => 
             array (
-                'id' => 689,
-                'order_no' => '5000001600',
-            'descr' => '2015 e-Home (EHM)',
+                'id' => '5000003513',
+                'descr' => 'GOOGLE ADSENSE',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9667,9 +8978,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             189 => 
             array (
-                'id' => 690,
-                'order_no' => '5000001601',
-            'descr' => '2015 e-Hotel (EHT)',
+                'id' => '5000003514',
+                'descr' => 'GOOGLE ADSENSE',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9681,9 +8991,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             190 => 
             array (
-                'id' => 691,
-                'order_no' => '5000001602',
-            'descr' => '2015 e-Dining (EDG)',
+                'id' => '5000003552',
+                'descr' => 'TMIM APPLICATION OF.MY DOMAIN NAME',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9695,9 +9004,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             191 => 
             array (
-                'id' => 692,
-                'order_no' => '5000001603',
-            'descr' => '2015 e-Energy (EEG)',
+                'id' => '5000003553',
+                'descr' => 'TM APPLICATION OF.MY DOMAIN NAME',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9709,9 +9017,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             192 => 
             array (
-                'id' => 693,
-                'order_no' => '5000001604',
-            'descr' => '2015 e-Voucher (EVO)',
+                'id' => '5000003612',
+                'descr' => 'INSTAWEB TMIM - PROMO',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9723,9 +9030,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             193 => 
             array (
-                'id' => 694,
-                'order_no' => '5000001605',
-            'descr' => '2015 e-Yellow Pages - Central (ECN)',
+                'id' => '5000003613',
+                'descr' => 'INSTAWEB TM - PROMO',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9737,9 +9043,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             194 => 
             array (
-                'id' => 695,
-                'order_no' => '5000001606',
-            'descr' => '2015 e-Yellow Pages - Northern (ENR)',
+                'id' => '5000003614',
+                'descr' => 'Yellow Pages Starter LTP 2018',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9751,9 +9056,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             195 => 
             array (
-                'id' => 696,
-                'order_no' => '5000001607',
-            'descr' => '2015 e-Yellow Pages - Southern (ESR)',
+                'id' => '5000003615',
+                'descr' => 'Yellow Pages Plus LTP 2018',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9765,9 +9069,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             196 => 
             array (
-                'id' => 697,
-                'order_no' => '5000001608',
-            'descr' => '2015 e-Yellow Pages - Eastern (EET)',
+                'id' => '5000003616',
+                'descr' => 'Yellow Pages Premium LTP 2018',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9779,9 +9082,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             197 => 
             array (
-                'id' => 698,
-                'order_no' => '5000001609',
-            'descr' => '2015 e-Yellow Pages - Sabah (ESB)',
+                'id' => '5000003632',
+                'descr' => 'WIFI LANDING PAGE',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9793,9 +9095,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             198 => 
             array (
-                'id' => 699,
-                'order_no' => '5000001610',
-            'descr' => '2015 e-Yellow Pages - Sarawak (ESK)',
+                'id' => '5000003803',
+                'descr' => 'DCW- INSTAWEB DOMAIN CHANGE REQUEST',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9807,9 +9108,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             199 => 
             array (
-                'id' => 700,
-                'order_no' => '5000001611',
-                'descr' => '2015 YTV Yellow Pages TV',
+                'id' => '5000003932',
+                'descr' => 'SOFTWARE/APPLICATION  DEVELOPMENT',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9821,9 +9121,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             200 => 
             array (
-                'id' => 701,
-                'order_no' => '5000001612',
-                'descr' => '2016 IYP Internet IYP',
+                'id' => '5000004044',
+                'descr' => 'TM DIGITAL ASSETS',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9835,9 +9134,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             201 => 
             array (
-                'id' => 702,
-                'order_no' => '5000001613',
-                'descr' => '2017 IYP Internet IYP',
+                'id' => '5000004112',
+                'descr' => 'DIGITAL MARKETING SOLUTION COMMERCE',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9849,9 +9147,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             202 => 
             array (
-                'id' => 703,
-                'order_no' => '5000001614',
-                'descr' => '2018 IYP Internet IYP',
+                'id' => '5000004113',
+                'descr' => 'DIGITAL MARKETING SOLUTION DELUXE',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9863,9 +9160,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             203 => 
             array (
-                'id' => 704,
-                'order_no' => '5000001615',
-                'descr' => '2019 IYP Internet IYP',
+                'id' => '5000004114',
+                'descr' => 'DIGITAL MARKETING SOLUTION ESSENTIAL',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9877,9 +9173,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             204 => 
             array (
-                'id' => 705,
-                'order_no' => '5000001616',
-                'descr' => '2020 IYP Internet IYP',
+                'id' => '5000004563',
+                'descr' => 'UBC - Digital Marketing Solution',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9891,9 +9186,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             205 => 
             array (
-                'id' => 706,
-                'order_no' => '5000001617',
-                'descr' => '2012 YellowPages Mobile',
+                'id' => '5000005002',
+                'descr' => 'CREATIVE PRODUCTION',
                 'order_type' => 'Z006',
                 'status' => 'A',
                 'cost_center' => '',
@@ -9905,13 +9199,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             206 => 
             array (
-                'id' => 707,
-                'order_no' => '5000001618',
-                'descr' => '2013 YellowPages Mobile',
-                'order_type' => 'Z006',
+                'id' => '8000000',
+                'descr' => 'CI17-68 BSS Customization',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -9919,13 +9212,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             207 => 
             array (
-                'id' => 708,
-                'order_no' => '5000001620',
-                'descr' => '2014 YellowPages Mobile',
-                'order_type' => 'Z006',
+                'id' => '8000001',
+                'descr' => 'MFRS15',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -9933,13 +9225,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             208 => 
             array (
-                'id' => 709,
-                'order_no' => '5000001621',
-                'descr' => '2015 YellowPages Mobile',
-                'order_type' => 'Z006',
+                'id' => '8000002',
+            'descr' => '2017 OPEX BUSINESS IT (Data MIG Ord)',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -9947,13 +9238,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             209 => 
             array (
-                'id' => 710,
-                'order_no' => '5000001622',
-                'descr' => '2011 WIFI Yellow Pages',
-                'order_type' => 'Z006',
+                'id' => '8000003',
+            'descr' => '2017 OPEX ENTERPRISE IT (Data MIG Ord)',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -9961,13 +9251,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             210 => 
             array (
-                'id' => 711,
-                'order_no' => '5000001623',
-                'descr' => '2012 WIFI Yellow Pages',
-                'order_type' => 'Z006',
+                'id' => '8000004',
+            'descr' => '2017 OPEX IT PROJECT (Data MIG Ord)',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -9975,13 +9264,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             211 => 
             array (
-                'id' => 712,
-                'order_no' => '5000001624',
-                'descr' => '2013 WIFI Yellow Pages',
-                'order_type' => 'Z006',
+                'id' => '8000005',
+            'descr' => '2017 SERVICE OPERATION (Data MIG Ord)',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -9989,13 +9277,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             212 => 
             array (
-                'id' => 713,
-                'order_no' => '5000001625',
-                'descr' => '2014 WIFI Yellow Pages',
-                'order_type' => 'Z006',
+                'id' => '8000006',
+            'descr' => 'Do not use RE IT Ser (DMO)',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10003,13 +9290,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             213 => 
             array (
-                'id' => 714,
-                'order_no' => '5000001626',
-                'descr' => '2015 WIFI Yellow Pages',
-                'order_type' => 'Z006',
+                'id' => '8000007',
+                'descr' => '2017 Network Managed Services',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10017,13 +9303,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             214 => 
             array (
-                'id' => 715,
-                'order_no' => '5000001720',
-                'descr' => 'Google Ads',
-                'order_type' => 'Z006',
+                'id' => '8000008',
+                'descr' => '2017 Software License',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10031,13 +9316,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             215 => 
             array (
-                'id' => 716,
-                'order_no' => '5000001785',
-            'descr' => '2013 e-Energy (EEG)',
-                'order_type' => 'Z006',
+                'id' => '8000009',
+                'descr' => '2017 IT - Next SMS Cost',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10045,13 +9329,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             216 => 
             array (
-                'id' => 717,
-                'order_no' => '5000001787',
-            'descr' => '2014 e-Agriculture (EAG)',
-                'order_type' => 'Z006',
+                'id' => '8000010',
+                'descr' => '2017 IT - Backhaul',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10059,13 +9342,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             217 => 
             array (
-                'id' => 718,
-                'order_no' => '5000001788',
-            'descr' => '2014 e-Yellow Pages - Northern (ENR)',
-                'order_type' => 'Z006',
+                'id' => '8000011',
+                'descr' => '2017 IT - Training',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10073,13 +9355,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             218 => 
             array (
-                'id' => 719,
-                'order_no' => '5000001791',
-            'descr' => '2014 e-Hotel (EHT)',
-                'order_type' => 'Z006',
+                'id' => '8000012',
+                'descr' => '2017 It - Short Code',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10087,13 +9368,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             219 => 
             array (
-                'id' => 720,
-                'order_no' => '5000001815',
-                'descr' => 'Google AD IYP Package',
-                'order_type' => 'Z006',
+                'id' => '8000013',
+                'descr' => '2017 IT - Other Network Maintenance',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10101,13 +9381,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             220 => 
             array (
-                'id' => 721,
-                'order_no' => '5000001833',
-                'descr' => '2011 Halal Portal',
-                'order_type' => 'Z006',
+                'id' => '8000014',
+                'descr' => '2017 IT - R&M Managed Services',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10115,13 +9394,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             221 => 
             array (
-                'id' => 722,
-                'order_no' => '5000001841',
-                'descr' => '2011 Mobile Yellow Pages',
-                'order_type' => 'Z006',
+                'id' => '8000015',
+                'descr' => '2017 IT - R&M System Support',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10129,13 +9407,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             222 => 
             array (
-                'id' => 723,
-                'order_no' => '5000001865',
-                'descr' => '2011 HYPP TV',
-                'order_type' => 'Z006',
+                'id' => '8000016',
+                'descr' => '2017 IT - R&M Others',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10143,13 +9420,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             223 => 
             array (
-                'id' => 724,
-                'order_no' => '5000001886',
-                'descr' => '2012 Google Ad IYP Package',
-                'order_type' => 'Z006',
+                'id' => '8000017',
+                'descr' => '2017 IT - Rental & Leasing Office buildg',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10157,13 +9433,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             224 => 
             array (
-                'id' => 725,
-                'order_no' => '5000001895',
-                'descr' => '2012 Halal Portal',
-                'order_type' => 'Z006',
+                'id' => '8000018',
+                'descr' => '2017 IT - Rental & Leasing Office Equipm',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10171,13 +9446,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             225 => 
             array (
-                'id' => 726,
-                'order_no' => '5000001958',
-                'descr' => '2012 HYPP TV',
-                'order_type' => 'Z006',
+                'id' => '8000019',
+                'descr' => '2017 It - Professional Fees',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10185,13 +9459,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             226 => 
             array (
-                'id' => 727,
-                'order_no' => '5000001996',
-                'descr' => 'Marketing Tools 2012',
-                'order_type' => 'Z006',
+                'id' => '8000020',
+                'descr' => '2017 MFRS15 IT',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10199,13 +9472,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             227 => 
             array (
-                'id' => 728,
-                'order_no' => '5000001997',
-                'descr' => 'Marketing Tools 2013',
-                'order_type' => 'Z006',
+                'id' => '8000021',
+                'descr' => '2017 Prepaid OPEX',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10213,13 +9485,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             228 => 
             array (
-                'id' => 729,
-                'order_no' => '5000002085',
-                'descr' => 'Mobile Web 2012',
-                'order_type' => 'Z006',
+                'id' => '8000022',
+                'descr' => 'i-foundit App',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10227,13 +9498,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             229 => 
             array (
-                'id' => 730,
-                'order_no' => '5000002086',
-                'descr' => 'Mobile Apps 2012',
-                'order_type' => 'Z006',
+                'id' => '8000023',
+                'descr' => 'CRMS Enhancement ipay, MCMC report, etc',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10241,13 +9511,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             230 => 
             array (
-                'id' => 731,
-                'order_no' => '5000002091',
-                'descr' => '2013 Goggle Ads',
-                'order_type' => 'Z006',
+                'id' => '8000024',
+                'descr' => 'Relocate 3 Racks from BRF DC to IPDC',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10255,13 +9524,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             231 => 
             array (
-                'id' => 732,
-                'order_no' => '5000002092',
-                'descr' => '2013 HYPP TV',
-                'order_type' => 'Z006',
+                'id' => '8000025',
+                'descr' => 'unifi mobile',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10269,13 +9537,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             232 => 
             array (
-                'id' => 733,
-                'order_no' => '5000002093',
-                'descr' => 'Mobile Web 2013',
-                'order_type' => 'Z006',
+                'id' => '8000026',
+                'descr' => 'CS/ITS/2017-0129 & 0130',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10283,13 +9550,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             233 => 
             array (
-                'id' => 734,
-                'order_no' => '5000002094',
-                'descr' => 'Mobile Apps 2013',
-                'order_type' => 'Z006',
+                'id' => '8000027',
+                'descr' => 'CS/ITS/2017-0131:Zmart Prepaid R2',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10297,13 +9563,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             234 => 
             array (
-                'id' => 735,
-                'order_no' => '5000002095',
-                'descr' => '2013 Halal Portal',
-                'order_type' => 'Z006',
+                'id' => '8000028',
+            'descr' => '2018-IO-ITS (OPEX)',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10311,13 +9576,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             235 => 
             array (
-                'id' => 736,
-                'order_no' => '5000002096',
-                'descr' => '2013 Destination Malaysia Portal',
-                'order_type' => 'Z006',
+                'id' => '8000029',
+            'descr' => '2018-IO-ITS (General)',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10325,13 +9589,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             236 => 
             array (
-                'id' => 737,
-                'order_no' => '5000002105',
-                'descr' => 'YellowBiz Central Promo - non Print 2013',
-                'order_type' => 'Z006',
+                'id' => '8000030',
+                'descr' => 'CS/ITS/2018-00001',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10339,13 +9602,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             237 => 
             array (
-                'id' => 738,
-                'order_no' => '5000002106',
-                'descr' => 'YellowBiz Nationwide  Promo - non Print',
-                'order_type' => 'Z006',
+                'id' => '8000031',
+            'descr' => '2018-IO-ITS (Digital-Amex)',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10353,13 +9615,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             238 => 
             array (
-                'id' => 739,
-                'order_no' => '5000002107',
-                'descr' => 'YellowBiz Regional Promo -non Print 2013',
-                'order_type' => 'Z006',
+                'id' => '8000032',
+                'descr' => '2018- ITS_MFRS15 project',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10367,13 +9628,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             239 => 
             array (
-                'id' => 740,
-                'order_no' => '5000002108',
-                'descr' => 'YellowBiz Central Promo - non Print 2014',
-                'order_type' => 'Z006',
+                'id' => '8000040',
+            'descr' => '2019-IO-ITS (General)',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10381,13 +9641,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             240 => 
             array (
-                'id' => 741,
-                'order_no' => '5000002109',
-                'descr' => 'YellowBiz Nationwide  Promo - non Print',
-                'order_type' => 'Z006',
+                'id' => '8000041',
+            'descr' => '2019-IO-ITS (Digital)',
+                'order_type' => 'Z030',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10395,13 +9654,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             241 => 
             array (
-                'id' => 742,
-                'order_no' => '5000002111',
-                'descr' => 'YellowBiz Regional Promo -non Print 2014',
-                'order_type' => 'Z006',
+                'id' => '8100000',
+            'descr' => '2017 OPEX PSD (Data MIG Ord)',
+                'order_type' => 'Z031',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10409,13 +9667,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             242 => 
             array (
-                'id' => 743,
-                'order_no' => '5000002124',
-                'descr' => 'Mobile Web 2014',
-                'order_type' => 'Z006',
+                'id' => '8100001',
+                'descr' => '2018-IO-Commercial_Sales',
+                'order_type' => 'Z031',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10423,13 +9680,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             243 => 
             array (
-                'id' => 744,
-                'order_no' => '5000002175',
-                'descr' => 'Digital Bronze Promo 2013',
-                'order_type' => 'Z006',
+                'id' => '8100002',
+                'descr' => '2018-IO-CBDO',
+                'order_type' => 'Z031',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10437,13 +9693,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             244 => 
             array (
-                'id' => 745,
-                'order_no' => '5000002176',
-                'descr' => 'Digital Silver Promo 2013',
-                'order_type' => 'Z006',
+                'id' => '8100003',
+                'descr' => '2018-IO-CMO',
+                'order_type' => 'Z031',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10451,13 +9706,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             245 => 
             array (
-                'id' => 746,
-                'order_no' => '5000002177',
-                'descr' => 'Digital Gold Promo 2013',
-                'order_type' => 'Z006',
+                'id' => '8100004',
+            'descr' => '2018-Astaka Project (Commercial)',
+                'order_type' => 'Z031',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10465,13 +9719,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             246 => 
             array (
-                'id' => 747,
-                'order_no' => '5000002207',
-                'descr' => 'YellowBiz Ggle Central Prom-non Prnt2013',
-                'order_type' => 'Z006',
+                'id' => '8100005',
+            'descr' => '2018-IO-Commercial (TM)',
+                'order_type' => 'Z031',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10479,13 +9732,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             247 => 
             array (
-                'id' => 748,
-                'order_no' => '5000002208',
-                'descr' => 'YellowBiz Google Nationwide P-nonPrt2013',
-                'order_type' => 'Z006',
+                'id' => '8100006',
+            'descr' => '2018-IO-CA (Unbudgeted)',
+                'order_type' => 'Z031',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10493,13 +9745,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             248 => 
             array (
-                'id' => 749,
-                'order_no' => '5000002209',
-                'descr' => 'YellowBiz G Regional Promo-non Print2013',
-                'order_type' => 'Z006',
+                'id' => '8100020',
+                'descr' => 'CS/SSD/2017-00002',
+                'order_type' => 'Z031',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10507,13 +9758,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             249 => 
             array (
-                'id' => 750,
-                'order_no' => '5000002210',
-                'descr' => 'YellowBiz Ggle Nationwide P-nonPrint2014',
-                'order_type' => 'Z006',
+                'id' => '8100021',
+                'descr' => 'CS/B&M/2017-00001',
+                'order_type' => 'Z031',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10521,13 +9771,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             250 => 
             array (
-                'id' => 751,
-                'order_no' => '5000002211',
-                'descr' => 'YellowBiz Ggle Central Pro-non Print2014',
-                'order_type' => 'Z006',
+                'id' => '8100022',
+                'descr' => '2017 digital kiosk',
+                'order_type' => 'Z031',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10535,13 +9784,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             251 => 
             array (
-                'id' => 752,
-                'order_no' => '5000002212',
-                'descr' => 'YellowBiz Ggle Region Promo-nonPrint2014',
-                'order_type' => 'Z006',
+                'id' => '8100023',
+            'descr' => '10K:CS/B&M-2017-00036 (Marketing)',
+                'order_type' => 'Z031',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10549,13 +9797,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             252 => 
             array (
-                'id' => 753,
-                'order_no' => '5000002213',
-                'descr' => '2014 Halal Portal',
-                'order_type' => 'Z006',
+                'id' => '8100024',
+                'descr' => '2018-IO-Project Use & Win',
+                'order_type' => 'Z031',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10563,13 +9810,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             253 => 
             array (
-                'id' => 754,
-                'order_no' => '5000002295',
-                'descr' => 'Mobile Web 2015',
-                'order_type' => 'Z006',
+                'id' => '8100040',
+            'descr' => '2019-IO-nex.life (trademark)',
+                'order_type' => 'Z031',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10577,13 +9823,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             254 => 
             array (
-                'id' => 755,
-                'order_no' => '5000002297',
-                'descr' => 'Google Ads 2014',
-                'order_type' => 'Z006',
+                'id' => '8100060',
+            'descr' => '2019-IO-nex.life (RG device campaign)',
+                'order_type' => 'Z031',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10591,13 +9836,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             255 => 
             array (
-                'id' => 756,
-                'order_no' => '5000002553',
-                'descr' => 'Marketing Tools 2014',
-                'order_type' => 'Z006',
+                'id' => '8200000',
+                'descr' => '2018-IO-FCA',
+                'order_type' => 'Z032',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10605,13 +9849,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             256 => 
             array (
-                'id' => 757,
-                'order_no' => '5000002554',
-                'descr' => 'Mobile Apps 2014',
-                'order_type' => 'Z006',
+                'id' => '8200001',
+            'descr' => '2018-FCA (Regulatory)',
+                'order_type' => 'Z032',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10619,13 +9862,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             257 => 
             array (
-                'id' => 758,
-                'order_no' => '5000002555',
-                'descr' => 'YellowBiz Central Promo - non Print',
-                'order_type' => 'Z006',
+                'id' => '8200002',
+            'descr' => '2018-FCA (USP Project)',
+                'order_type' => 'Z032',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10633,13 +9875,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             258 => 
             array (
-                'id' => 759,
-                'order_no' => '5000002556',
-                'descr' => 'YellowBiz Nationwide Promo - non Print',
-                'order_type' => 'Z006',
+                'id' => '8200003',
+            'descr' => '2018-IO-Fin (R&L-office building)',
+                'order_type' => 'Z032',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10647,13 +9888,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             259 => 
             array (
-                'id' => 760,
-                'order_no' => '5000002557',
-                'descr' => 'YellowBiz Regional Promo - non Print',
-                'order_type' => 'Z006',
+                'id' => '8200020',
+            'descr' => '2017 OPEX FINANCIAL CNTRL (Data MIG Ord)',
+                'order_type' => 'Z032',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10661,13 +9901,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             260 => 
             array (
-                'id' => 761,
-                'order_no' => '5000002558',
-                'descr' => 'YellowBiz Google Nationwide-non Print',
-                'order_type' => 'Z006',
+                'id' => '8300000',
+            'descr' => '2018-IO-PED_R & L (building)',
+                'order_type' => 'Z033',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10675,13 +9914,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             261 => 
             array (
-                'id' => 762,
-                'order_no' => '5000002559',
-                'descr' => 'YellowBiz Google Central-non Print',
-                'order_type' => 'Z006',
+                'id' => '8300001',
+            'descr' => '2018-IO-PED (Facilities)',
+                'order_type' => 'Z033',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10689,13 +9927,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             262 => 
             array (
-                'id' => 763,
-                'order_no' => '5000002560',
-                'descr' => 'YellowBiz Google Regional-non Print',
-                'order_type' => 'Z006',
+                'id' => '8300002',
+            'descr' => '2018-IO-PED (Learning&Dev)',
+                'order_type' => 'Z033',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10703,13 +9940,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             263 => 
             array (
-                'id' => 764,
-                'order_no' => '5000002561',
-                'descr' => 'Digital Bronze Promo',
-                'order_type' => 'Z006',
+                'id' => '8300003',
+            'descr' => '2018-IO-PED (Event)',
+                'order_type' => 'Z033',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10717,13 +9953,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             264 => 
             array (
-                'id' => 765,
-                'order_no' => '5000002562',
-                'descr' => 'Digital Gold Promo',
-                'order_type' => 'Z006',
+                'id' => '8300004',
+            'descr' => '2018-IO-PED (General)',
+                'order_type' => 'Z033',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10731,13 +9966,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             265 => 
             array (
-                'id' => 766,
-                'order_no' => '5000002563',
-                'descr' => 'Digital Silver Promo',
-                'order_type' => 'Z006',
+                'id' => '8300020',
+            'descr' => '2017 OPEX RECRUIT CTR (Data MIG Ord)',
+                'order_type' => 'Z033',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10745,13 +9979,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             266 => 
             array (
-                'id' => 767,
-                'order_no' => '5000002582',
-                'descr' => 'Google Ads 2015',
-                'order_type' => 'Z006',
+                'id' => '8300040',
+            'descr' => '2019-IO-PED_Fac&Admin (Relocation)',
+                'order_type' => 'Z033',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10759,13 +9992,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             267 => 
             array (
-                'id' => 768,
-                'order_no' => '5000002612',
-                'descr' => '2014 DESTINATION MALAYSIA PORTAL',
-                'order_type' => 'Z006',
+                'id' => '9000000',
+            'descr' => '2017 OPEX NTWRK DEPLOY (Data MIG Ord)',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10773,13 +10005,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             268 => 
             array (
-                'id' => 769,
-                'order_no' => '5000002613',
-                'descr' => '2015 DESTINATION MALAYSIA PORTAL',
-                'order_type' => 'Z006',
+                'id' => '9000001',
+            'descr' => '2017 OPEX NTWRK OPERATION (Data MIG Ord)',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10787,13 +10018,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             269 => 
             array (
-                'id' => 770,
-                'order_no' => '5000002614',
-                'descr' => 'GOOGLE ADSENSE',
-                'order_type' => 'Z006',
+                'id' => '9000002',
+            'descr' => '2017 OPEX NTWRK PLANNING (Data MIG Ord)',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10801,13 +10031,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             270 => 
             array (
-                'id' => 771,
-                'order_no' => '5000002615',
-                'descr' => 'GOOGLE ADSENSE',
-                'order_type' => 'Z006',
+                'id' => '9000003',
+            'descr' => 'Do not use RE Network (DMO)',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10815,13 +10044,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             271 => 
             array (
-                'id' => 772,
-                'order_no' => '5000002616',
-                'descr' => 'GOOGLE ADSENSE',
-                'order_type' => 'Z006',
+                'id' => '9000004',
+            'descr' => 'Do not use RE Network Site (DMO)',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10829,13 +10057,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             272 => 
             array (
-                'id' => 773,
-                'order_no' => '5000002617',
-                'descr' => 'GOOGLE ADSENSE',
-                'order_type' => 'Z006',
+                'id' => '9000005',
+                'descr' => 'DNS Maintenance 0817-0218 72060200',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10843,13 +10070,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             273 => 
             array (
-                'id' => 774,
-                'order_no' => '5000002618',
-                'descr' => 'COMMISSION FOR HYPPTV',
-                'order_type' => 'Z006',
+                'id' => '9000006',
+                'descr' => 'ZTE Managed Services 1017-0918 72060800',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10857,13 +10083,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             274 => 
             array (
-                'id' => 775,
-                'order_no' => '5000002619',
-                'descr' => 'COMMISSION FOR HYPPTV',
-                'order_type' => 'Z006',
+                'id' => '9000007',
+                'descr' => '72020200 IP Transit',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10871,13 +10096,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             275 => 
             array (
-                'id' => 776,
-                'order_no' => '5000002620',
-                'descr' => 'COMMISSION FOR HYPPTV',
-                'order_type' => 'Z006',
+                'id' => '9000008',
+                'descr' => '72070420 Site Survey - Related Party',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10885,13 +10109,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             276 => 
             array (
-                'id' => 777,
-                'order_no' => '5000002621',
-                'descr' => 'COMMISSION FOR HYPPTV',
-                'order_type' => 'Z006',
+                'id' => '9000009',
+                'descr' => '75130200 Relocation/Dismantling NDD',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10899,13 +10122,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             277 => 
             array (
-                'id' => 778,
-                'order_no' => '5000002622',
-                'descr' => 'YELLOWBIZ NATIONWIDE PROMO - NON PRINT',
-                'order_type' => 'Z006',
+                'id' => '9000010',
+                'descr' => '72020220 IP Transit - RPT',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10913,13 +10135,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             278 => 
             array (
-                'id' => 779,
-                'order_no' => '5000002745',
-                'descr' => '2014 Hypp TV',
-                'order_type' => 'Z006',
+                'id' => '9000011',
+                'descr' => '72010200 - Leased Line',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10927,13 +10148,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             279 => 
             array (
-                'id' => 780,
-                'order_no' => '5000002746',
-                'descr' => 'YellowBiz Google Central-non Print',
-                'order_type' => 'Z006',
+                'id' => '9000012',
+                'descr' => '72020110 Backhaul Lease Line - RPT',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10941,13 +10161,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             280 => 
             array (
-                'id' => 781,
-                'order_no' => '5000002747',
-                'descr' => 'YellowBiz Central Promo - non Print',
-                'order_type' => 'Z006',
+                'id' => '9000013',
+                'descr' => '2017 Next SMS',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10955,13 +10174,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             281 => 
             array (
-                'id' => 782,
-                'order_no' => '5000002862',
-                'descr' => 'Marketing Tools 2015',
-                'order_type' => 'Z006',
+                'id' => '9000014',
+            'descr' => '75040400 Garage, Warehouse (NOD)',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10969,13 +10187,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             282 => 
             array (
-                'id' => 783,
-                'order_no' => '5000002882',
-                'descr' => 'DIGITAL BRONZE PROMO',
-                'order_type' => 'Z006',
+                'id' => '9000015',
+                'descr' => '72070200 Site Utilities',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10983,13 +10200,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             283 => 
             array (
-                'id' => 784,
-                'order_no' => '5000002883',
-                'descr' => 'DIGITAL GOLD PROMO',
-                'order_type' => 'Z006',
+                'id' => '9000016',
+                'descr' => 'WIMAX Metro E migration to NGBH+',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -10997,13 +10213,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             284 => 
             array (
-                'id' => 785,
-                'order_no' => '5000002884',
-                'descr' => 'DIGITAL SILVER PROMO',
-                'order_type' => 'Z006',
+                'id' => '9000017',
+                'descr' => 'Cabling cost  E1 interconnect with Maxis',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11011,13 +10226,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             285 => 
             array (
-                'id' => 786,
-                'order_no' => '5000002885',
-                'descr' => 'YELLOW PAGES PREMIUM SUBSCRIPTION',
-                'order_type' => 'Z006',
+                'id' => '9000018',
+                'descr' => 'ZTE EMS SW version Upgrade LR15 to LR16',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11025,13 +10239,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             286 => 
             array (
-                'id' => 787,
-                'order_no' => '5000002886',
-                'descr' => 'YELLOW PAGES PLUS SUBSCRIPTION',
-                'order_type' => 'Z006',
+                'id' => '9000019',
+                'descr' => 'Dismantle 11 hops for WIMAX MW for LTE',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11039,13 +10252,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             287 => 
             array (
-                'id' => 788,
-                'order_no' => '5000002887',
-                'descr' => 'YELLOW PAGES STARTER SUBSCRIPTION',
-                'order_type' => 'Z006',
+                'id' => '9000020',
+            'descr' => 'Genset Rental (NDD)',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11053,13 +10265,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             288 => 
             array (
-                'id' => 789,
-                'order_no' => '5000002888',
-                'descr' => 'YELLOW PAGES BASIC SUBSCRIPTION',
-                'order_type' => 'Z006',
+                'id' => '9000021',
+                'descr' => 'Drive Test Optimization NOD',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11067,13 +10278,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             289 => 
             array (
-                'id' => 790,
-                'order_no' => '5000002889',
-                'descr' => 'YELLOW PAGES FREE SUBSCRIPTION',
-                'order_type' => 'Z006',
+                'id' => '9000022',
+                'descr' => '72070600 Site Agent Fee',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11081,13 +10291,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             290 => 
             array (
-                'id' => 791,
-                'order_no' => '5000002922',
-                'descr' => 'YellowBiz Google Nationwide - Non Print',
-                'order_type' => 'Z006',
+                'id' => '9000023',
+                'descr' => '73050400 Membership Subscription APNIC',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11095,13 +10304,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             291 => 
             array (
-                'id' => 792,
-                'order_no' => '5000002923',
-                'descr' => 'YellowBiz Google Regional - Non Print',
-                'order_type' => 'Z006',
+                'id' => '9000024',
+                'descr' => 'Access NEtwork Maintenance',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11109,13 +10317,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             292 => 
             array (
-                'id' => 793,
-                'order_no' => '5000002924',
-                'descr' => 'YellowBiz Regional Promo - Non Print',
-                'order_type' => 'Z006',
+                'id' => '9000025',
+                'descr' => 'COW site',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11123,13 +10330,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             293 => 
             array (
-                'id' => 794,
-                'order_no' => '5000002928',
-            'descr' => '2015 NDX (NONEXISTENCE DOMAIN)ADVERTISIN',
-                'order_type' => 'Z006',
+                'id' => '9000026',
+                'descr' => 'R&M',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11137,13 +10343,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             294 => 
             array (
-                'id' => 795,
-                'order_no' => '5000002929',
-            'descr' => '2016 NDX (NONEXISTENCE DOMAIN)ADVERTISIN',
-                'order_type' => 'Z006',
+                'id' => '9000027',
+                'descr' => 'Site Survey',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11151,13 +10356,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             295 => 
             array (
-                'id' => 796,
-                'order_no' => '5000003243',
-                'descr' => 'YELLOW PAGES DIGITAL ADS 2016',
-                'order_type' => 'Z006',
+                'id' => '9000028',
+                'descr' => 'COW - GLC CEO Retreat ILMU Janda Baik',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11165,13 +10369,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             296 => 
             array (
-                'id' => 797,
-                'order_no' => '5000003244',
-                'descr' => 'YELLOW PAGES DIGITAL ADS 2016',
-                'order_type' => 'Z006',
+                'id' => '9000029',
+                'descr' => 'COW - TM Management Retreat ILMU',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11179,13 +10382,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             297 => 
             array (
-                'id' => 798,
-                'order_no' => '5000003245',
-                'descr' => 'YELLOWBIZ GOOGLE NATIONWIDE-NON PRINT',
-                'order_type' => 'Z006',
+                'id' => '9000030',
+                'descr' => 'COW - NBOS Salong Pekan',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11193,13 +10395,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             298 => 
             array (
-                'id' => 799,
-                'order_no' => '5000003246',
-                'descr' => 'YELLOWBIZ NATIONWIDE PROMO - NON PRerial',
-                'order_type' => 'Z006',
+                'id' => '9000031',
+                'descr' => 'Special Events LIMA exhibition Eng Serv',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11207,13 +10408,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             299 => 
             array (
-                'id' => 800,
-                'order_no' => '5000003252',
-                'descr' => 'MARKETING TOOLS 2016',
-                'order_type' => 'Z006',
+                'id' => '9000032',
+                'descr' => 'Special Events MCKK exhibition Eng Serv',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11221,13 +10421,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             300 => 
             array (
-                'id' => 801,
-                'order_no' => '5000003282',
-                'descr' => 'DEVT & MAINTENANCE WIFI LANDING PAGE',
-                'order_type' => 'Z006',
+                'id' => '9000033',
+                'descr' => 'Sea Games & Para Games 9 sites - Special',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11235,13 +10434,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             301 => 
             array (
-                'id' => 802,
-                'order_no' => '5000003310',
-                'descr' => 'ALHIJRAH MEDIA',
-                'order_type' => 'Z006',
+                'id' => '9000034',
+                'descr' => 'Assigning Ceremony - Token',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11249,13 +10447,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             302 => 
             array (
-                'id' => 803,
-                'order_no' => '5000003312',
-                'descr' => 'TM WI-FI ADVERTISING',
-                'order_type' => 'Z006',
+                'id' => '9000035',
+            'descr' => 'BNC patch panel UMG E1 exp (Ph3) AIMS',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11263,13 +10460,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             303 => 
             array (
-                'id' => 804,
-                'order_no' => '5000003313',
-                'descr' => 'AIRPORT WI-FI ADVERTISING',
-                'order_type' => 'Z006',
+                'id' => '9000036',
+                'descr' => 'Huawei EMS License Engineering Services',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11277,13 +10473,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             304 => 
             array (
-                'id' => 805,
-                'order_no' => '5000003314',
-                'descr' => 'SMART SELANGOR WI-FI ADVERTISING',
-                'order_type' => 'Z006',
+                'id' => '9000037',
+                'descr' => 'Rental & leasing',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11291,13 +10486,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             305 => 
             array (
-                'id' => 806,
-                'order_no' => '5000003472',
-                'descr' => '2017 Google Ads',
-                'order_type' => 'Z006',
+                'id' => '9000038',
+                'descr' => 'CB4411 - Roof Leaking Rectification',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11305,13 +10499,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             306 => 
             array (
-                'id' => 807,
-                'order_no' => '5000003480',
-            'descr' => '2017 NXD(NONEXISTENCE DOMAIN)ADVERTISING',
-                'order_type' => 'Z006',
+                'id' => '9000039',
+                'descr' => 'WIMAX O&M Extension - Q1 2018',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11319,13 +10512,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             307 => 
             array (
-                'id' => 808,
-                'order_no' => '5000003487',
-                'descr' => '2017 Facebook Ad Campaign',
-                'order_type' => 'Z006',
+                'id' => '9000040',
+                'descr' => 'Inter DC S5 Traffic Reduction',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11333,13 +10525,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             308 => 
             array (
-                'id' => 809,
-                'order_no' => '5000003502',
-                'descr' => 'INSTAWEB TMIM',
-                'order_type' => 'Z006',
+                'id' => '9000041',
+                'descr' => 'Annual Maintenance Dell & HP 2017',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11347,13 +10538,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             309 => 
             array (
-                'id' => 810,
-                'order_no' => '5000003503',
-                'descr' => 'INSTAWEB TM',
-                'order_type' => 'Z006',
+                'id' => '9000042',
+                'descr' => 'AIMS 2017 - Cabling E1 Rental',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11361,13 +10551,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             310 => 
             array (
-                'id' => 811,
-                'order_no' => '5000003504',
-                'descr' => 'YELLOW PAGES STARTER LTP 2017',
-                'order_type' => 'Z006',
+                'id' => '9000043',
+                'descr' => 'Huawei eNBs migration support serv vEPC',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11375,13 +10564,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             311 => 
             array (
-                'id' => 812,
-                'order_no' => '5000003505',
-                'descr' => 'YELLOW PAGES PLUS LTP 2017',
-                'order_type' => 'Z006',
+                'id' => '9000044',
+            'descr' => '75040300 - Vehicle Rental (NOD)',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11389,13 +10577,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             312 => 
             array (
-                'id' => 813,
-                'order_no' => '5000003506',
-                'descr' => 'YELLOW PAGES PREMIUM LTP 2017',
-                'order_type' => 'Z006',
+                'id' => '9000045',
+                'descr' => 'NAA - Cost',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11403,13 +10590,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             313 => 
             array (
-                'id' => 814,
-                'order_no' => '5000003507',
-                'descr' => 'MARKETING TOOLS',
-                'order_type' => 'Z006',
+                'id' => '9000046',
+                'descr' => 'CME Optimization and Architecture',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11417,13 +10603,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             314 => 
             array (
-                'id' => 815,
-                'order_no' => '5000003508',
-                'descr' => 'MARKETING TOOLS',
-                'order_type' => 'Z006',
+                'id' => '9000047',
+                'descr' => 'vEPC 2nd site IPDC rental & OTC',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11431,13 +10616,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             315 => 
             array (
-                'id' => 816,
-                'order_no' => '5000003509',
-                'descr' => 'MARKETING TOOLS',
-                'order_type' => 'Z006',
+                'id' => '9000048',
+                'descr' => 'IPDC rental VADS - vEPC 2nd site',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11445,13 +10629,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             316 => 
             array (
-                'id' => 817,
-                'order_no' => '5000003510',
-                'descr' => 'MARKETING TOOLS',
-                'order_type' => 'Z006',
+                'id' => '9000049',
+                'descr' => 'COW Deployment Bangi Wonderland',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11459,13 +10642,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             317 => 
             array (
-                'id' => 818,
-                'order_no' => '5000003511',
-                'descr' => 'GOOGLE ADSENSE',
-                'order_type' => 'Z006',
+                'id' => '9000050',
+            'descr' => 'Porta One Maintenance Renewal (Dec-Jun)',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11473,13 +10655,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             318 => 
             array (
-                'id' => 819,
-                'order_no' => '5000003512',
-                'descr' => 'GOOGLE ADSENSE',
-                'order_type' => 'Z006',
+                'id' => '9000051',
+                'descr' => 'AIMS Renewal - E1 and Fibre Link 2017',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11487,13 +10668,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             319 => 
             array (
-                'id' => 820,
-                'order_no' => '5000003513',
-                'descr' => 'GOOGLE ADSENSE',
-                'order_type' => 'Z006',
+                'id' => '9000052',
+                'descr' => 'COW East Cost Flood Standby',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11501,13 +10681,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             320 => 
             array (
-                'id' => 821,
-                'order_no' => '5000003514',
-                'descr' => 'GOOGLE ADSENSE',
-                'order_type' => 'Z006',
+                'id' => '9000053',
+            'descr' => 'Relocation SPHS to TM Warehouse (NOD)',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11515,13 +10694,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             321 => 
             array (
-                'id' => 822,
-                'order_no' => '5000003552',
-                'descr' => 'TMIM APPLICATION OF.MY DOMAIN NAME',
-                'order_type' => 'Z006',
+                'id' => '9000054',
+            'descr' => 'Site Installation Cost (NDD)',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11529,13 +10707,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             322 => 
             array (
-                'id' => 823,
-                'order_no' => '5000003553',
-                'descr' => 'TM APPLICATION OF.MY DOMAIN NAME',
-                'order_type' => 'Z006',
+                'id' => '9000055',
+                'descr' => 'SMART CRAN Rental and Utilities',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11543,13 +10720,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             323 => 
             array (
-                'id' => 824,
-                'order_no' => '5000003612',
-                'descr' => 'INSTAWEB TMIM - PROMO',
-                'order_type' => 'Z006',
+                'id' => '9000056',
+                'descr' => '2018-Network Operation',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11557,13 +10733,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             324 => 
             array (
-                'id' => 825,
-                'order_no' => '5000003613',
-                'descr' => 'INSTAWEB TM - PROMO',
-                'order_type' => 'Z006',
+                'id' => '9000057',
+            'descr' => '2018-NDD (Genset Rental)',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11571,13 +10746,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             325 => 
             array (
-                'id' => 826,
-                'order_no' => '5000003614',
-                'descr' => 'Yellow Pages Starter LTP 2018',
-                'order_type' => 'Z006',
+                'id' => '9000058',
+            'descr' => '2018-NDD (WIMAX Dismantling)',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11585,13 +10759,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             326 => 
             array (
-                'id' => 827,
-                'order_no' => '5000003615',
-                'descr' => 'Yellow Pages Plus LTP 2018',
-                'order_type' => 'Z006',
+                'id' => '9000059',
+                'descr' => '2018-NPD Small Cell Project',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11599,13 +10772,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             327 => 
             array (
-                'id' => 828,
-                'order_no' => '5000003616',
-                'descr' => 'Yellow Pages Premium LTP 2018',
-                'order_type' => 'Z006',
+                'id' => '9000060',
+                'descr' => '2018-Network Deployment',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11613,13 +10785,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             328 => 
             array (
-                'id' => 829,
-                'order_no' => '5000003632',
-                'descr' => 'WIFI LANDING PAGE',
-                'order_type' => 'Z006',
+                'id' => '9000061',
+            'descr' => '2018-Network Planning (Direct Cost)',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11627,13 +10798,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             329 => 
             array (
-                'id' => 830,
-                'order_no' => '5000003803',
-                'descr' => 'DCW- INSTAWEB DOMAIN CHANGE REQUEST',
-                'order_type' => 'Z006',
+                'id' => '9000062',
+            'descr' => '2018-Network Planning (OOC)',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11641,13 +10811,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             330 => 
             array (
-                'id' => 831,
-                'order_no' => '5000003932',
-                'descr' => 'SOFTWARE/APPLICATION  DEVELOPMENT',
-                'order_type' => 'Z006',
+                'id' => '9000063',
+                'descr' => '2018- FDD Capacity RRC Expansion',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11655,13 +10824,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             331 => 
             array (
-                'id' => 832,
-                'order_no' => '5000004044',
-                'descr' => 'TM DIGITAL ASSETS',
-                'order_type' => 'Z006',
+                'id' => '9000080',
+            'descr' => '2019-IO-NOD (General)',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11669,13 +10837,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             332 => 
             array (
-                'id' => 833,
-                'order_no' => '5000004112',
-                'descr' => 'DIGITAL MARKETING SOLUTION COMMERCE',
-                'order_type' => 'Z006',
+                'id' => '9000081',
+            'descr' => '2019-IO-NPS (Direct Cost)',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11683,13 +10850,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             333 => 
             array (
-                'id' => 834,
-                'order_no' => '5000004113',
-                'descr' => 'DIGITAL MARKETING SOLUTION DELUXE',
-                'order_type' => 'Z006',
+                'id' => '9000082',
+            'descr' => '2019-IO-NPS (OOC)',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11697,13 +10863,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             334 => 
             array (
-                'id' => 835,
-                'order_no' => '5000004114',
-                'descr' => 'DIGITAL MARKETING SOLUTION ESSENTIAL',
-                'order_type' => 'Z006',
+                'id' => '9000100',
+            'descr' => '2019-IO-NDD (Genset Rental)',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11711,13 +10876,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             335 => 
             array (
-                'id' => 836,
-                'order_no' => '5000004563',
-                'descr' => 'UBC - Digital Marketing Solution',
-                'order_type' => 'Z006',
+                'id' => '9000101',
+            'descr' => '2019-IO-NDD (Dismantling)',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11725,13 +10889,12 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             336 => 
             array (
-                'id' => 837,
-                'order_no' => '5000005002',
-                'descr' => 'CREATIVE PRODUCTION',
-                'order_type' => 'Z006',
+                'id' => '9000102',
+            'descr' => '2019-IO-NDD (General)',
+                'order_type' => 'Z029',
                 'status' => 'A',
                 'cost_center' => '',
-                'company_code' => '1040',
+                'company_code' => '1141',
                 'pers_responsible' => '',
                 'budget' => '0.00',
                 'created_at' => '2020-02-09 00:00:00',
@@ -11739,8 +10902,124 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             337 => 
             array (
-                'id' => 838,
-                'order_no' => 'AAG',
+                'id' => 'A_BBGP',
+                'descr' => 'Amortization Grant BBGP',
+                'order_type' => 'Z017',
+                'status' => 'A',
+                'cost_center' => '',
+                'company_code' => '1000',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            338 => 
+            array (
+                'id' => 'A_HSBB2',
+                'descr' => 'Amortization Grant HSBB2',
+                'order_type' => 'Z017',
+                'status' => 'A',
+                'cost_center' => '',
+                'company_code' => '1000',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            339 => 
+            array (
+                'id' => 'A_HSBBPERLIS',
+                'descr' => 'Amortization Grant HSBB Perlis',
+                'order_type' => 'Z017',
+                'status' => 'A',
+                'cost_center' => '',
+                'company_code' => '1000',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            340 => 
+            array (
+                'id' => 'A_ORANGE+',
+                'descr' => 'Amortization Grant Orange+',
+                'order_type' => 'Z017',
+                'status' => 'A',
+                'cost_center' => '',
+                'company_code' => '1000',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            341 => 
+            array (
+                'id' => 'A_SKR1M',
+                'descr' => 'Amortization Grant SKR1M',
+                'order_type' => 'Z017',
+                'status' => 'A',
+                'cost_center' => '',
+                'company_code' => '1000',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            342 => 
+            array (
+                'id' => 'A_SUBB',
+                'descr' => 'Amortization Grant SUBB',
+                'order_type' => 'Z017',
+                'status' => 'A',
+                'cost_center' => '',
+                'company_code' => '1000',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            343 => 
+            array (
+                'id' => 'A_USP_INFRA',
+                'descr' => 'Amortization Grant USP INFRA',
+                'order_type' => 'Z017',
+                'status' => 'A',
+                'cost_center' => '',
+                'company_code' => '1000',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            344 => 
+            array (
+                'id' => 'A_USP_P&K',
+                'descr' => 'Amortization Grant USP PI1M & KTW',
+                'order_type' => 'Z017',
+                'status' => 'A',
+                'cost_center' => '',
+                'company_code' => '1000',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            345 => 
+            array (
+                'id' => 'A_USPMDALING',
+                'descr' => 'Amortization Grant USP Mat Daling',
+                'order_type' => 'Z017',
+                'status' => 'A',
+                'cost_center' => '',
+                'company_code' => '1000',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            346 => 
+            array (
+                'id' => 'AAG',
                 'descr' => 'Asia America Gateway',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -11751,10 +11030,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            338 => 
+            347 => 
             array (
-                'id' => 839,
-                'order_no' => 'AAGNOC',
+                'id' => 'AAGNOC',
                 'descr' => 'Asia America Gateway - Network Operation',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -11765,10 +11043,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            339 => 
+            348 => 
             array (
-                'id' => 840,
-                'order_no' => 'ACACR-00000',
+                'id' => 'ACACR-00000',
                 'descr' => 'Accrual month end - Others',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -11779,10 +11056,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            340 => 
+            349 => 
             array (
-                'id' => 841,
-                'order_no' => 'ACACR-00001',
+                'id' => 'ACACR-00001',
                 'descr' => 'Accrual month end - Medical',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -11793,10 +11069,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            341 => 
+            350 => 
             array (
-                'id' => 842,
-                'order_no' => 'ACACR-00002',
+                'id' => 'ACACR-00002',
                 'descr' => 'Accrual month end - Water',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -11807,10 +11082,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            342 => 
+            351 => 
             array (
-                'id' => 843,
-                'order_no' => 'ACACR-00003',
+                'id' => 'ACACR-00003',
                 'descr' => 'Accrual month end - Electricity',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -11821,10 +11095,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            343 => 
+            352 => 
             array (
-                'id' => 844,
-                'order_no' => 'ACACR-00004',
+                'id' => 'ACACR-00004',
                 'descr' => 'Accrual month end - Telephone',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -11835,10 +11108,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            344 => 
+            353 => 
             array (
-                'id' => 845,
-                'order_no' => 'ACACR-00005',
+                'id' => 'ACACR-00005',
                 'descr' => 'Accrual month end - Salary',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -11849,10 +11121,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            345 => 
+            354 => 
             array (
-                'id' => 846,
-                'order_no' => 'ACACR-00006',
+                'id' => 'ACACR-00006',
                 'descr' => 'Accrual month end - Part time Salary',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -11863,10 +11134,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            346 => 
+            355 => 
             array (
-                'id' => 847,
-                'order_no' => 'ACAEA-00001',
+                'id' => 'ACAEA-00001',
             'descr' => 'Adv Rec (EA)-Ent Acct (EDC)',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -11877,10 +11147,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            347 => 
+            356 => 
             array (
-                'id' => 848,
-                'order_no' => 'ACAEA-00002',
+                'id' => 'ACAEA-00002',
             'descr' => 'Adv Rec (EA)-Ent Acct (ADEPT)',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -11891,10 +11160,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            348 => 
+            357 => 
             array (
-                'id' => 849,
-                'order_no' => 'ACAEA-00003',
+                'id' => 'ACAEA-00003',
             'descr' => 'Adv Rec (EA)-Ent Acct (BIZ School)',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -11905,10 +11173,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            349 => 
+            358 => 
             array (
-                'id' => 850,
-                'order_no' => 'ACAEA-00004',
+                'id' => 'ACAEA-00004',
             'descr' => 'Adv Rec (EA)-Ent Acct (CIC)',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -11919,10 +11186,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            350 => 
+            359 => 
             array (
-                'id' => 851,
-                'order_no' => 'ACARC-00001',
+                'id' => 'ACARC-00001',
             'descr' => 'Adv Rec (SC) - Other Conference',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -11933,10 +11199,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            351 => 
+            360 => 
             array (
-                'id' => 852,
-                'order_no' => 'ACARC-00002',
+                'id' => 'ACARC-00002',
             'descr' => 'Adv Rec (SC) - Library',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -11947,10 +11212,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            352 => 
+            361 => 
             array (
-                'id' => 853,
-                'order_no' => 'ACARC-00003',
+                'id' => 'ACARC-00003',
             'descr' => 'Adv Rec (SC) - PAKDD',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -11961,10 +11225,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            353 => 
+            362 => 
             array (
-                'id' => 854,
-                'order_no' => 'ACARC-00004',
+                'id' => 'ACARC-00004',
             'descr' => 'Adv Rec (SC) - Doc Research Colloqium',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -11975,10 +11238,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            354 => 
+            363 => 
             array (
-                'id' => 855,
-                'order_no' => 'ACARC-00005',
+                'id' => 'ACARC-00005',
             'descr' => 'Adv Rec (SC)-Pacific-Rim Conference(PCM)',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -11989,10 +11251,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            355 => 
+            364 => 
             array (
-                'id' => 856,
-                'order_no' => 'ACARC-00006',
+                'id' => 'ACARC-00006',
             'descr' => 'Adv Rec (C)-ICORAS 2016',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -12003,137 +11264,10 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            356 => 
-            array (
-                'id' => 857,
-                'order_no' => 'ACARC-00007',
-                'descr' => 'Adv Rec-ICoICT 2017 Conference Account',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => 'UTMST0',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            357 => 
-            array (
-                'id' => 858,
-                'order_no' => 'ACARG-00000',
-            'descr' => 'Adv Rec (Grant)-MOHE',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => 'UTCRM0',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            358 => 
-            array (
-                'id' => 859,
-                'order_no' => 'ACARG-00001',
-            'descr' => 'Adv Rec (Grant)-MOSTI',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => 'UTCRM0',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            359 => 
-            array (
-                'id' => 860,
-                'order_no' => 'ACARG-00002',
-            'descr' => 'Adv Rec (Grant)-Others',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => 'UTCRM0',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            360 => 
-            array (
-                'id' => 861,
-                'order_no' => 'ACARO-00000',
-            'descr' => 'Adv Rec (Others)',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => '',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            361 => 
-            array (
-                'id' => 862,
-                'order_no' => 'ACARO-00001',
-            'descr' => 'Adv Rec (Others)- Digital Home Symposium',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => 'UTCFE0',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            362 => 
-            array (
-                'id' => 863,
-                'order_no' => 'ACARO-00002',
-            'descr' => 'Adv Rec (Others)- Shell Eco Marathon',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => 'UTMET0',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            363 => 
-            array (
-                'id' => 864,
-                'order_no' => 'ACARO-00003',
-            'descr' => 'Adv Rec (Others)- KEMU',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => 'UTCMB0',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            364 => 
-            array (
-                'id' => 865,
-                'order_no' => 'ACARO-00004',
-            'descr' => 'Adv Rec (Others)- STAD',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => 'UTCSA0',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
             365 => 
             array (
-                'id' => 866,
-                'order_no' => 'ACARO-00005',
-            'descr' => 'Adv Rec (Others) - FIST',
+                'id' => 'ACARC-00007',
+                'descr' => 'Adv Rec-ICoICT 2017 Conference Account',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => 'UTMST0',
@@ -12145,8 +11279,124 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             366 => 
             array (
-                'id' => 867,
-                'order_no' => 'ACARO-00006',
+                'id' => 'ACARG-00000',
+            'descr' => 'Adv Rec (Grant)-MOHE',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => 'UTCRM0',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            367 => 
+            array (
+                'id' => 'ACARG-00001',
+            'descr' => 'Adv Rec (Grant)-MOSTI',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => 'UTCRM0',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            368 => 
+            array (
+                'id' => 'ACARG-00002',
+            'descr' => 'Adv Rec (Grant)-Others',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => 'UTCRM0',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            369 => 
+            array (
+                'id' => 'ACARO-00000',
+            'descr' => 'Adv Rec (Others)',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => '',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            370 => 
+            array (
+                'id' => 'ACARO-00001',
+            'descr' => 'Adv Rec (Others)- Digital Home Symposium',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => 'UTCFE0',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            371 => 
+            array (
+                'id' => 'ACARO-00002',
+            'descr' => 'Adv Rec (Others)- Shell Eco Marathon',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => 'UTMET0',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            372 => 
+            array (
+                'id' => 'ACARO-00003',
+            'descr' => 'Adv Rec (Others)- KEMU',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => 'UTCMB0',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            373 => 
+            array (
+                'id' => 'ACARO-00004',
+            'descr' => 'Adv Rec (Others)- STAD',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => 'UTCSA0',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            374 => 
+            array (
+                'id' => 'ACARO-00005',
+            'descr' => 'Adv Rec (Others) - FIST',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => 'UTMST0',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            375 => 
+            array (
+                'id' => 'ACARO-00006',
             'descr' => 'Adv Rec (Others)- HCM',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -12157,10 +11407,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            367 => 
+            376 => 
             array (
-                'id' => 868,
-                'order_no' => 'ACARO-00007',
+                'id' => 'ACARO-00007',
             'descr' => 'Adv Rec (Others)- ASTRO-YUM Fund',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -12171,10 +11420,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            368 => 
+            377 => 
             array (
-                'id' => 869,
-                'order_no' => 'ACARO-00008',
+                'id' => 'ACARO-00008',
             'descr' => 'Adv Rec (Others)- KOSMA Event',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -12185,10 +11433,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            369 => 
+            378 => 
             array (
-                'id' => 870,
-                'order_no' => 'ACARO-00009',
+                'id' => 'ACARO-00009',
             'descr' => 'Adv Rec (Others)-Festival Filem Malaysia',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -12199,10 +11446,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            370 => 
+            379 => 
             array (
-                'id' => 871,
-                'order_no' => 'ACARO-00010',
+                'id' => 'ACARO-00010',
             'descr' => 'Adv Rec (Others)-Launching of FCA',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -12213,10 +11459,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            371 => 
+            380 => 
             array (
-                'id' => 872,
-                'order_no' => 'ACARO-00011',
+                'id' => 'ACARO-00011',
             'descr' => 'Adv Rec (Others)-Postgraduate Society',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -12227,137 +11472,10 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            372 => 
-            array (
-                'id' => 873,
-                'order_no' => 'ACARS-00000',
-            'descr' => 'Adv Rec (Stud) - Others',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => '',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            373 => 
-            array (
-                'id' => 874,
-                'order_no' => 'ACARS-00001',
-            'descr' => 'Adv Rec (Stud) - Tuition fee (Found)',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => '',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            374 => 
-            array (
-                'id' => 875,
-                'order_no' => 'ACARS-00002',
-            'descr' => 'Adv Rec (Stud) - Tuition fee (PTPTN)',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => '',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            375 => 
-            array (
-                'id' => 876,
-                'order_no' => 'ACARS-00003',
-            'descr' => 'Adv Rec (Stud) - Tuition fee (YTM)',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => '',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            376 => 
-            array (
-                'id' => 877,
-                'order_no' => 'ACARS-00004',
-            'descr' => 'Adv Rec (Stud) - Tuition fee (Self-S)',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => '',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            377 => 
-            array (
-                'id' => 878,
-                'order_no' => 'ACARS-00005',
-            'descr' => 'Adv Rec (Stud) - Hostel fee (Self-S)',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => '',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            378 => 
-            array (
-                'id' => 879,
-                'order_no' => 'ACARS-00006',
-            'descr' => 'Adv Rec (Stud) - Tuition fee (Other S)',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => '',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            379 => 
-            array (
-                'id' => 880,
-                'order_no' => 'ACARS-00007',
-            'descr' => 'Adv Rec (Stud) - Insurance Premium',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => '',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            380 => 
-            array (
-                'id' => 881,
-                'order_no' => 'ACARS-00008',
-            'descr' => 'Adv Rec (Stud) - EMGS Fee',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => '',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
             381 => 
             array (
-                'id' => 882,
-                'order_no' => 'ACARS-00009',
-            'descr' => 'Adv Rec (Stud) - Non Fees',
+                'id' => 'ACARS-00000',
+            'descr' => 'Adv Rec (Stud) - Others',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12369,9 +11487,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             382 => 
             array (
-                'id' => 883,
-                'order_no' => 'ACARS-00010',
-            'descr' => 'Adv Rec (Stud) - Tuition fee (Degree)',
+                'id' => 'ACARS-00001',
+            'descr' => 'Adv Rec (Stud) - Tuition fee (Found)',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12383,9 +11500,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             383 => 
             array (
-                'id' => 884,
-                'order_no' => 'ACARS-00011',
-            'descr' => 'Adv Rec (Stud) - PG Sponsors',
+                'id' => 'ACARS-00002',
+            'descr' => 'Adv Rec (Stud) - Tuition fee (PTPTN)',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12397,9 +11513,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             384 => 
             array (
-                'id' => 885,
-                'order_no' => 'ACARS-00012',
-                'descr' => 'PG Conference Sponsorship Scheme',
+                'id' => 'ACARS-00003',
+            'descr' => 'Adv Rec (Stud) - Tuition fee (YTM)',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12411,12 +11526,11 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             385 => 
             array (
-                'id' => 886,
-                'order_no' => 'ACARS-00013',
-                'descr' => 'Sponsorship of Page Charges',
+                'id' => 'ACARS-00004',
+            'descr' => 'Adv Rec (Stud) - Tuition fee (Self-S)',
                 'order_type' => 'Z014',
                 'status' => 'A',
-                'cost_center' => 'UTCRM0',
+                'cost_center' => '',
                 'company_code' => '3201',
                 'pers_responsible' => '',
                 'budget' => '0.00',
@@ -12425,12 +11539,11 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             386 => 
             array (
-                'id' => 887,
-                'order_no' => 'ACARS-00014',
-                'descr' => 'Sponsorship of Language Editing Service',
+                'id' => 'ACARS-00005',
+            'descr' => 'Adv Rec (Stud) - Hostel fee (Self-S)',
                 'order_type' => 'Z014',
                 'status' => 'A',
-                'cost_center' => 'UTCRM0',
+                'cost_center' => '',
                 'company_code' => '3201',
                 'pers_responsible' => '',
                 'budget' => '0.00',
@@ -12439,9 +11552,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             387 => 
             array (
-                'id' => 888,
-                'order_no' => 'ACCOE-00001',
-                'descr' => 'COE: Centre for Information Security',
+                'id' => 'ACARS-00006',
+            'descr' => 'Adv Rec (Stud) - Tuition fee (Other S)',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12453,9 +11565,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             388 => 
             array (
-                'id' => 889,
-                'order_no' => 'ACCOE-00002',
-                'descr' => 'COE: Centre for Robotics and Automation',
+                'id' => 'ACARS-00007',
+            'descr' => 'Adv Rec (Stud) - Insurance Premium',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12467,9 +11578,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             389 => 
             array (
-                'id' => 890,
-                'order_no' => 'ACCOE-00003',
-                'descr' => 'COE: Centre for Adv Material& Green Tech',
+                'id' => 'ACARS-00008',
+            'descr' => 'Adv Rec (Stud) - EMGS Fee',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12481,9 +11591,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             390 => 
             array (
-                'id' => 891,
-                'order_no' => 'ACCOE-00004',
-                'descr' => 'COE: Centre for Remote Sensg & Surv.Tech',
+                'id' => 'ACARS-00009',
+            'descr' => 'Adv Rec (Stud) - Non Fees',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12495,9 +11604,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             391 => 
             array (
-                'id' => 892,
-                'order_no' => 'ACCOE-00005',
-                'descr' => 'COE: Centre for Ergonomics',
+                'id' => 'ACARS-00010',
+            'descr' => 'Adv Rec (Stud) - Tuition fee (Degree)',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12509,9 +11617,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             392 => 
             array (
-                'id' => 893,
-                'order_no' => 'ACCOE-00006',
-                'descr' => 'COE: Centre for Tech & Legal Research',
+                'id' => 'ACARS-00011',
+            'descr' => 'Adv Rec (Stud) - PG Sponsors',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12523,9 +11630,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             393 => 
             array (
-                'id' => 894,
-                'order_no' => 'ACCOE-00007',
-                'descr' => 'COE: Centre for K\'ledge & Innovatn Mgmt',
+                'id' => 'ACARS-00012',
+                'descr' => 'PG Conference Sponsorship Scheme',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12537,12 +11643,11 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             394 => 
             array (
-                'id' => 895,
-                'order_no' => 'ACCOE-00008',
-                'descr' => 'COE: Centre for Business Performance',
+                'id' => 'ACARS-00013',
+                'descr' => 'Sponsorship of Page Charges',
                 'order_type' => 'Z014',
                 'status' => 'A',
-                'cost_center' => '',
+                'cost_center' => 'UTCRM0',
                 'company_code' => '3201',
                 'pers_responsible' => '',
                 'budget' => '0.00',
@@ -12551,12 +11656,11 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             395 => 
             array (
-                'id' => 896,
-                'order_no' => 'ACCOE-00009',
-                'descr' => 'COE: Centre for Comm& Signal Processing',
+                'id' => 'ACARS-00014',
+                'descr' => 'Sponsorship of Language Editing Service',
                 'order_type' => 'Z014',
                 'status' => 'A',
-                'cost_center' => '',
+                'cost_center' => 'UTCRM0',
                 'company_code' => '3201',
                 'pers_responsible' => '',
                 'budget' => '0.00',
@@ -12565,9 +11669,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             396 => 
             array (
-                'id' => 897,
-                'order_no' => 'ACCOE-00010',
-                'descr' => 'COE: Centre for Photonic &Elect. Devices',
+                'id' => 'ACCOE-00001',
+                'descr' => 'COE: Centre for Information Security',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12579,9 +11682,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             397 => 
             array (
-                'id' => 898,
-                'order_no' => 'ACCOE-00011',
-                'descr' => 'COE: Centre for Ubiq. Computing & Comm',
+                'id' => 'ACCOE-00002',
+                'descr' => 'COE: Centre for Robotics and Automation',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12593,9 +11695,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             398 => 
             array (
-                'id' => 899,
-                'order_no' => 'ACCOE-00012',
-                'descr' => 'COE: Centre for Visual Computing',
+                'id' => 'ACCOE-00003',
+                'descr' => 'COE: Centre for Adv Material& Green Tech',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12607,9 +11708,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             399 => 
             array (
-                'id' => 900,
-                'order_no' => 'ACCOE-00013',
-                'descr' => 'COE: i-Knowmedia Centre',
+                'id' => 'ACCOE-00004',
+                'descr' => 'COE: Centre for Remote Sensg & Surv.Tech',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12621,9 +11721,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             400 => 
             array (
-                'id' => 901,
-                'order_no' => 'ACCOE-00014',
-                'descr' => 'COE: Centre of Mathematical Sciences',
+                'id' => 'ACCOE-00005',
+                'descr' => 'COE: Centre for Ergonomics',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12635,9 +11734,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             401 => 
             array (
-                'id' => 902,
-                'order_no' => 'ACCOE-00015',
-                'descr' => 'COE: Centre for E-Svcs Entrprnshp & Mktg',
+                'id' => 'ACCOE-00006',
+                'descr' => 'COE: Centre for Tech & Legal Research',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12649,9 +11747,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             402 => 
             array (
-                'id' => 903,
-                'order_no' => 'ACCOE-00016',
-                'descr' => 'COE: Centre for Global. &Sustain. Rsrch',
+                'id' => 'ACCOE-00007',
+                'descr' => 'COE: Centre for K\'ledge & Innovatn Mgmt',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12663,9 +11760,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             403 => 
             array (
-                'id' => 904,
-                'order_no' => 'ACCOE-00017',
-                'descr' => 'COE: Centre for Electric Energy & Auto.',
+                'id' => 'ACCOE-00008',
+                'descr' => 'COE: Centre for Business Performance',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12677,9 +11773,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             404 => 
             array (
-                'id' => 905,
-                'order_no' => 'ACCOE-00018',
-                'descr' => 'COE: Centre for Advanced Devices & Syst',
+                'id' => 'ACCOE-00009',
+                'descr' => 'COE: Centre for Comm& Signal Processing',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12691,9 +11786,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             405 => 
             array (
-                'id' => 906,
-                'order_no' => 'ACCOE-00019',
-                'descr' => 'COE: Centre for Broadband Comm',
+                'id' => 'ACCOE-00010',
+                'descr' => 'COE: Centre for Photonic &Elect. Devices',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12705,9 +11799,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             406 => 
             array (
-                'id' => 907,
-                'order_no' => 'ACCOE-00020',
-            'descr' => 'Centre for Wireless Technology (CWT)',
+                'id' => 'ACCOE-00011',
+                'descr' => 'COE: Centre for Ubiq. Computing & Comm',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12719,9 +11812,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             407 => 
             array (
-                'id' => 908,
-                'order_no' => 'ACCOE-00021',
-            'descr' => 'Centre for Web Engineering (CWE)',
+                'id' => 'ACCOE-00012',
+                'descr' => 'COE: Centre for Visual Computing',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12733,9 +11825,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             408 => 
             array (
-                'id' => 909,
-                'order_no' => 'ACCOE-00022',
-            'descr' => 'Centre for Legal Research (CLR)',
+                'id' => 'ACCOE-00013',
+                'descr' => 'COE: i-Knowmedia Centre',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12747,9 +11838,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             409 => 
             array (
-                'id' => 910,
-                'order_no' => 'ACCOE-00023',
-                'descr' => 'Center for Consumer Research & Education',
+                'id' => 'ACCOE-00014',
+                'descr' => 'COE: Centre of Mathematical Sciences',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12761,9 +11851,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             410 => 
             array (
-                'id' => 911,
-                'order_no' => 'ACCOE-00024',
-                'descr' => 'Centre for Interactive Media',
+                'id' => 'ACCOE-00015',
+                'descr' => 'COE: Centre for E-Svcs Entrprnshp & Mktg',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12775,9 +11864,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             411 => 
             array (
-                'id' => 912,
-                'order_no' => 'ACCOE-00025',
-                'descr' => 'Centre for Adaptive Multimedia Education',
+                'id' => 'ACCOE-00016',
+                'descr' => 'COE: Centre for Global. &Sustain. Rsrch',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12789,9 +11877,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             412 => 
             array (
-                'id' => 913,
-                'order_no' => 'ACCOE-00026',
-                'descr' => 'Centre for Digital Home',
+                'id' => 'ACCOE-00017',
+                'descr' => 'COE: Centre for Electric Energy & Auto.',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12803,9 +11890,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             413 => 
             array (
-                'id' => 914,
-                'order_no' => 'ACCOE-00027',
-                'descr' => 'Centre for Optical Fibres',
+                'id' => 'ACCOE-00018',
+                'descr' => 'COE: Centre for Advanced Devices & Syst',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12817,9 +11903,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             414 => 
             array (
-                'id' => 915,
-                'order_no' => 'ACCOE-00028',
-                'descr' => 'Centre for e-Health',
+                'id' => 'ACCOE-00019',
+                'descr' => 'COE: Centre for Broadband Comm',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12831,9 +11916,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             415 => 
             array (
-                'id' => 916,
-                'order_no' => 'ACCOE-00029',
-                'descr' => 'Centre for Management Excellence',
+                'id' => 'ACCOE-00020',
+            'descr' => 'Centre for Wireless Technology (CWT)',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12845,9 +11929,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             416 => 
             array (
-                'id' => 917,
-                'order_no' => 'ACCOE-00030',
-                'descr' => 'SIG- Law & Technology',
+                'id' => 'ACCOE-00021',
+            'descr' => 'Centre for Web Engineering (CWE)',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12859,9 +11942,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             417 => 
             array (
-                'id' => 918,
-                'order_no' => 'ACCOE-00031',
-                'descr' => 'SIG- Syariah Law',
+                'id' => 'ACCOE-00022',
+            'descr' => 'Centre for Legal Research (CLR)',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12873,9 +11955,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             418 => 
             array (
-                'id' => 919,
-                'order_no' => 'ACCOE-00032',
-                'descr' => 'SIG- Artisan',
+                'id' => 'ACCOE-00023',
+                'descr' => 'Center for Consumer Research & Education',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12887,9 +11968,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             419 => 
             array (
-                'id' => 920,
-                'order_no' => 'ACCOE-00033',
-                'descr' => 'SIG- Product Innovation',
+                'id' => 'ACCOE-00024',
+                'descr' => 'Centre for Interactive Media',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12901,9 +11981,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             420 => 
             array (
-                'id' => 921,
-                'order_no' => 'ACCOE-00034',
-                'descr' => 'SIG- Digital Imaging',
+                'id' => 'ACCOE-00025',
+                'descr' => 'Centre for Adaptive Multimedia Education',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12915,9 +11994,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             421 => 
             array (
-                'id' => 922,
-                'order_no' => 'ACCOE-00035',
-                'descr' => 'SIG- Sound and Music',
+                'id' => 'ACCOE-00026',
+                'descr' => 'Centre for Digital Home',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12929,9 +12007,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             422 => 
             array (
-                'id' => 923,
-                'order_no' => 'ACCOE-00036',
-                'descr' => 'SIG- Solid State Electronics',
+                'id' => 'ACCOE-00027',
+                'descr' => 'Centre for Optical Fibres',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12943,9 +12020,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             423 => 
             array (
-                'id' => 924,
-                'order_no' => 'ACCOE-00037',
-                'descr' => 'SIG- Language and Communication',
+                'id' => 'ACCOE-00028',
+                'descr' => 'Centre for e-Health',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12957,9 +12033,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             424 => 
             array (
-                'id' => 925,
-                'order_no' => 'ACCOE-00038',
-                'descr' => 'SIG- Teaching and  Learning',
+                'id' => 'ACCOE-00029',
+                'descr' => 'Centre for Management Excellence',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12971,9 +12046,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             425 => 
             array (
-                'id' => 926,
-                'order_no' => 'ACCOE-00039',
-                'descr' => 'SIG- Community Engagement',
+                'id' => 'ACCOE-00030',
+                'descr' => 'SIG- Law & Technology',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12985,9 +12059,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             426 => 
             array (
-                'id' => 927,
-                'order_no' => 'ACCOE-00040',
-                'descr' => 'SIG- Data Science',
+                'id' => 'ACCOE-00031',
+                'descr' => 'SIG- Syariah Law',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -12999,9 +12072,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             427 => 
             array (
-                'id' => 928,
-                'order_no' => 'ACCOE-00041',
-                'descr' => 'SIG- Computer Graphics Expression',
+                'id' => 'ACCOE-00032',
+                'descr' => 'SIG- Artisan',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -13013,9 +12085,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             428 => 
             array (
-                'id' => 929,
-                'order_no' => 'ACCOE-00042',
-                'descr' => 'SIG- Universal Usability and Interaction',
+                'id' => 'ACCOE-00033',
+                'descr' => 'SIG- Product Innovation',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -13027,9 +12098,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             429 => 
             array (
-                'id' => 930,
-                'order_no' => 'ACCOE-00043',
-                'descr' => 'SIG- Communication Systems & Algorithms',
+                'id' => 'ACCOE-00034',
+                'descr' => 'SIG- Digital Imaging',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -13041,9 +12111,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             430 => 
             array (
-                'id' => 931,
-                'order_no' => 'ACCOE-00044',
-                'descr' => 'SIG- Digital VLSI Design',
+                'id' => 'ACCOE-00035',
+                'descr' => 'SIG- Sound and Music',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -13055,9 +12124,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             431 => 
             array (
-                'id' => 932,
-                'order_no' => 'ACCOE-00045',
-                'descr' => 'Enterprise Account - FIST',
+                'id' => 'ACCOE-00036',
+                'descr' => 'SIG- Solid State Electronics',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -13069,9 +12137,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             432 => 
             array (
-                'id' => 933,
-                'order_no' => 'ACCOE-00046',
-                'descr' => 'Enterprise Account - ITSD',
+                'id' => 'ACCOE-00037',
+                'descr' => 'SIG- Language and Communication',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -13083,12 +12150,11 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             433 => 
             array (
-                'id' => 934,
-                'order_no' => 'ACCOE-00047',
-            'descr' => 'Special Interest Groups (SIG)',
+                'id' => 'ACCOE-00038',
+                'descr' => 'SIG- Teaching and  Learning',
                 'order_type' => 'Z014',
                 'status' => 'A',
-                'cost_center' => 'UTMST0',
+                'cost_center' => '',
                 'company_code' => '3201',
                 'pers_responsible' => '',
                 'budget' => '0.00',
@@ -13097,9 +12163,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             434 => 
             array (
-                'id' => 935,
-                'order_no' => 'ACCOE-00048',
-                'descr' => 'SIG- Data Management&Knowledge Discovery',
+                'id' => 'ACCOE-00039',
+                'descr' => 'SIG- Community Engagement',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -13111,9 +12176,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             435 => 
             array (
-                'id' => 936,
-                'order_no' => 'ACCOE-00049',
-                'descr' => 'SIG- E-Learning for Programming Issues',
+                'id' => 'ACCOE-00040',
+                'descr' => 'SIG- Data Science',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -13125,9 +12189,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             436 => 
             array (
-                'id' => 937,
-                'order_no' => 'ACCOE-00050',
-                'descr' => 'SIG- Software Modelling & Dev Technologi',
+                'id' => 'ACCOE-00041',
+                'descr' => 'SIG- Computer Graphics Expression',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -13139,9 +12202,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             437 => 
             array (
-                'id' => 938,
-                'order_no' => 'ACCOE-00051',
-                'descr' => 'SIG- Assistive Technology',
+                'id' => 'ACCOE-00042',
+                'descr' => 'SIG- Universal Usability and Interaction',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -13153,9 +12215,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             438 => 
             array (
-                'id' => 939,
-                'order_no' => 'ACCOE-00052',
-                'descr' => 'New Research Center',
+                'id' => 'ACCOE-00043',
+                'descr' => 'SIG- Communication Systems & Algorithms',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -13167,9 +12228,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             439 => 
             array (
-                'id' => 940,
-                'order_no' => 'ACCOE-00053',
-                'descr' => 'Non Grant R&D Incidental/Mat VPR&D',
+                'id' => 'ACCOE-00044',
+                'descr' => 'SIG- Digital VLSI Design',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -13181,9 +12241,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             440 => 
             array (
-                'id' => 941,
-                'order_no' => 'ACCOE-00054',
-                'descr' => 'Centre of Islamic Digtl App & Content',
+                'id' => 'ACCOE-00045',
+                'descr' => 'Enterprise Account - FIST',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -13195,9 +12254,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             441 => 
             array (
-                'id' => 942,
-                'order_no' => 'ACCOE-00055',
-                'descr' => 'Centre of Knowledge & Innvtn Mgmt',
+                'id' => 'ACCOE-00046',
+                'descr' => 'Enterprise Account - ITSD',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -13209,12 +12267,11 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             442 => 
             array (
-                'id' => 943,
-                'order_no' => 'ACCOE-00056',
-                'descr' => 'SIG-Intelligent Cloud Computing',
+                'id' => 'ACCOE-00047',
+            'descr' => 'Special Interest Groups (SIG)',
                 'order_type' => 'Z014',
                 'status' => 'A',
-                'cost_center' => '',
+                'cost_center' => 'UTMST0',
                 'company_code' => '3201',
                 'pers_responsible' => '',
                 'budget' => '0.00',
@@ -13223,9 +12280,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             443 => 
             array (
-                'id' => 944,
-                'order_no' => 'ACCOE-00057',
-                'descr' => 'SIG-Engineering Computational Intelligen',
+                'id' => 'ACCOE-00048',
+                'descr' => 'SIG- Data Management&Knowledge Discovery',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -13237,9 +12293,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             444 => 
             array (
-                'id' => 945,
-                'order_no' => 'ACCOE-00058',
-                'descr' => 'SIG-Southeast Asian Stories Group',
+                'id' => 'ACCOE-00049',
+                'descr' => 'SIG- E-Learning for Programming Issues',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -13251,12 +12306,11 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             445 => 
             array (
-                'id' => 946,
-                'order_no' => 'ACCOE-00059',
-            'descr' => 'Collaboration Visit Scheme (CVS)',
+                'id' => 'ACCOE-00050',
+                'descr' => 'SIG- Software Modelling & Dev Technologi',
                 'order_type' => 'Z014',
                 'status' => 'A',
-                'cost_center' => 'UTCIC0',
+                'cost_center' => '',
                 'company_code' => '3201',
                 'pers_responsible' => '',
                 'budget' => '0.00',
@@ -13265,12 +12319,11 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             446 => 
             array (
-                'id' => 947,
-                'order_no' => 'ACCOE-00060',
-            'descr' => 'Research-Based Student Exchange (RBSE)',
+                'id' => 'ACCOE-00051',
+                'descr' => 'SIG- Assistive Technology',
                 'order_type' => 'Z014',
                 'status' => 'A',
-                'cost_center' => 'UTCIC0',
+                'cost_center' => '',
                 'company_code' => '3201',
                 'pers_responsible' => '',
                 'budget' => '0.00',
@@ -13279,12 +12332,11 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             447 => 
             array (
-                'id' => 948,
-                'order_no' => 'ACCOE-00061',
-            'descr' => 'Innovation Voucher (IV)',
+                'id' => 'ACCOE-00052',
+                'descr' => 'New Research Center',
                 'order_type' => 'Z014',
                 'status' => 'A',
-                'cost_center' => 'UTCIC0',
+                'cost_center' => '',
                 'company_code' => '3201',
                 'pers_responsible' => '',
                 'budget' => '0.00',
@@ -13293,12 +12345,11 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             448 => 
             array (
-                'id' => 949,
-                'order_no' => 'ACCOE-00062',
-                'descr' => 'R&D Related Events',
+                'id' => 'ACCOE-00053',
+                'descr' => 'Non Grant R&D Incidental/Mat VPR&D',
                 'order_type' => 'Z014',
                 'status' => 'A',
-                'cost_center' => 'UTCIC0',
+                'cost_center' => '',
                 'company_code' => '3201',
                 'pers_responsible' => '',
                 'budget' => '0.00',
@@ -13307,9 +12358,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             449 => 
             array (
-                'id' => 950,
-                'order_no' => 'ACCST-00001',
-                'descr' => 'Sundry Creditors - Student Insurance',
+                'id' => 'ACCOE-00054',
+                'descr' => 'Centre of Islamic Digtl App & Content',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -13321,9 +12371,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             450 => 
             array (
-                'id' => 951,
-                'order_no' => 'ACCST-00002',
-                'descr' => 'Sundry Creditors - Student Activity',
+                'id' => 'ACCOE-00055',
+                'descr' => 'Centre of Knowledge & Innvtn Mgmt',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -13335,9 +12384,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             451 => 
             array (
-                'id' => 952,
-                'order_no' => 'ACCST-00003',
-                'descr' => 'International Studt Pass Processing Fee',
+                'id' => 'ACCOE-00056',
+                'descr' => 'SIG-Intelligent Cloud Computing',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -13349,8 +12397,124 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             452 => 
             array (
-                'id' => 953,
-                'order_no' => 'ACCST-00004',
+                'id' => 'ACCOE-00057',
+                'descr' => 'SIG-Engineering Computational Intelligen',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => '',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            453 => 
+            array (
+                'id' => 'ACCOE-00058',
+                'descr' => 'SIG-Southeast Asian Stories Group',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => '',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            454 => 
+            array (
+                'id' => 'ACCOE-00059',
+            'descr' => 'Collaboration Visit Scheme (CVS)',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => 'UTCIC0',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            455 => 
+            array (
+                'id' => 'ACCOE-00060',
+            'descr' => 'Research-Based Student Exchange (RBSE)',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => 'UTCIC0',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            456 => 
+            array (
+                'id' => 'ACCOE-00061',
+            'descr' => 'Innovation Voucher (IV)',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => 'UTCIC0',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            457 => 
+            array (
+                'id' => 'ACCOE-00062',
+                'descr' => 'R&D Related Events',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => 'UTCIC0',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            458 => 
+            array (
+                'id' => 'ACCST-00001',
+                'descr' => 'Sundry Creditors - Student Insurance',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => '',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            459 => 
+            array (
+                'id' => 'ACCST-00002',
+                'descr' => 'Sundry Creditors - Student Activity',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => '',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            460 => 
+            array (
+                'id' => 'ACCST-00003',
+                'descr' => 'International Studt Pass Processing Fee',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => '',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            461 => 
+            array (
+                'id' => 'ACCST-00004',
                 'descr' => 'Sundry Creditors -Student (MBA Refreshmt',
                     'order_type' => 'Z014',
                     'status' => 'A',
@@ -13361,10 +12525,9 @@ class InternalOrdersTableSeeder extends Seeder
                     'created_at' => '2020-02-09 00:00:00',
                     'updated_at' => '2020-02-09 00:00:00',
                 ),
-                453 => 
+                462 => 
                 array (
-                    'id' => 954,
-                    'order_no' => 'ACCST-00005',
+                    'id' => 'ACCST-00005',
                     'descr' => 'Sundry Creditors-Clrg Stud Refnd',
                     'order_type' => 'Z014',
                     'status' => 'A',
@@ -13375,137 +12538,10 @@ class InternalOrdersTableSeeder extends Seeder
                     'created_at' => '2020-02-09 00:00:00',
                     'updated_at' => '2020-02-09 00:00:00',
                 ),
-                454 => 
-                array (
-                    'id' => 955,
-                    'order_no' => 'ACCST-00006',
-                    'descr' => 'Write-off Unidentified Student Debt',
-                    'order_type' => 'Z014',
-                    'status' => 'A',
-                    'cost_center' => '',
-                    'company_code' => '3201',
-                    'pers_responsible' => '',
-                    'budget' => '0.00',
-                    'created_at' => '2020-02-09 00:00:00',
-                    'updated_at' => '2020-02-09 00:00:00',
-                ),
-                455 => 
-                array (
-                    'id' => 956,
-                    'order_no' => 'ACCST-00007',
-                    'descr' => 'Write-off General Debtors',
-                    'order_type' => 'Z014',
-                    'status' => 'A',
-                    'cost_center' => '',
-                    'company_code' => '3201',
-                    'pers_responsible' => '',
-                    'budget' => '0.00',
-                    'created_at' => '2020-02-09 00:00:00',
-                    'updated_at' => '2020-02-09 00:00:00',
-                ),
-                456 => 
-                array (
-                    'id' => 957,
-                    'order_no' => 'ACCST-00008',
-                    'descr' => 'Write-off Unmatched Credit',
-                    'order_type' => 'Z014',
-                    'status' => 'A',
-                    'cost_center' => '',
-                    'company_code' => '3201',
-                    'pers_responsible' => '',
-                    'budget' => '0.00',
-                    'created_at' => '2020-02-09 00:00:00',
-                    'updated_at' => '2020-02-09 00:00:00',
-                ),
-                457 => 
-                array (
-                    'id' => 958,
-                    'order_no' => 'ACCST-00009',
-                    'descr' => 'Discount- Non Active Student Settlement',
-                    'order_type' => 'Z014',
-                    'status' => 'A',
-                    'cost_center' => '',
-                    'company_code' => '3201',
-                    'pers_responsible' => '',
-                    'budget' => '0.00',
-                    'created_at' => '2020-02-09 00:00:00',
-                    'updated_at' => '2020-02-09 00:00:00',
-                ),
-                458 => 
-                array (
-                    'id' => 959,
-                    'order_no' => 'ACCST-00010',
-                    'descr' => 'Discount- Active Student Settlement',
-                    'order_type' => 'Z014',
-                    'status' => 'A',
-                    'cost_center' => '',
-                    'company_code' => '3201',
-                    'pers_responsible' => '',
-                    'budget' => '0.00',
-                    'created_at' => '2020-02-09 00:00:00',
-                    'updated_at' => '2020-02-09 00:00:00',
-                ),
-                459 => 
-                array (
-                    'id' => 960,
-                    'order_no' => 'ACCST-00011',
-                    'descr' => 'Discount- Alumni/MMU Staff/TM Staff',
-                    'order_type' => 'Z014',
-                    'status' => 'A',
-                    'cost_center' => '',
-                    'company_code' => '3201',
-                    'pers_responsible' => '',
-                    'budget' => '0.00',
-                    'created_at' => '2020-02-09 00:00:00',
-                    'updated_at' => '2020-02-09 00:00:00',
-                ),
-                460 => 
-                array (
-                    'id' => 961,
-                    'order_no' => 'ACCST-00012',
-                'descr' => 'Discount- Fee Waiver (Student)',
-                    'order_type' => 'Z014',
-                    'status' => 'A',
-                    'cost_center' => '',
-                    'company_code' => '3201',
-                    'pers_responsible' => '',
-                    'budget' => '0.00',
-                    'created_at' => '2020-02-09 00:00:00',
-                    'updated_at' => '2020-02-09 00:00:00',
-                ),
-                461 => 
-                array (
-                    'id' => 962,
-                    'order_no' => 'ACCST-0002A',
-                    'descr' => 'STF OT/TNT STAD CYBERJAYA',
-                    'order_type' => 'Z014',
-                    'status' => 'A',
-                    'cost_center' => 'UTCSA0',
-                    'company_code' => '3201',
-                    'pers_responsible' => '',
-                    'budget' => '0.00',
-                    'created_at' => '2020-02-09 00:00:00',
-                    'updated_at' => '2020-02-09 00:00:00',
-                ),
-                462 => 
-                array (
-                    'id' => 963,
-                    'order_no' => 'ACCST-0002B',
-                    'descr' => 'STF OT/TNT STAD MELAKA',
-                    'order_type' => 'Z014',
-                    'status' => 'A',
-                    'cost_center' => 'UTMSA0',
-                    'company_code' => '3201',
-                    'pers_responsible' => '',
-                    'budget' => '0.00',
-                    'created_at' => '2020-02-09 00:00:00',
-                    'updated_at' => '2020-02-09 00:00:00',
-                ),
                 463 => 
                 array (
-                    'id' => 964,
-                    'order_no' => 'ACDEP-00001',
-                    'descr' => 'Student Deposit',
+                    'id' => 'ACCST-00006',
+                    'descr' => 'Write-off Unidentified Student Debt',
                     'order_type' => 'Z014',
                     'status' => 'A',
                     'cost_center' => '',
@@ -13517,9 +12553,8 @@ class InternalOrdersTableSeeder extends Seeder
                 ),
                 464 => 
                 array (
-                    'id' => 965,
-                    'order_no' => 'ACDEP-00002',
-                    'descr' => 'Deposit on Quarters Rental',
+                    'id' => 'ACCST-00007',
+                    'descr' => 'Write-off General Debtors',
                     'order_type' => 'Z014',
                     'status' => 'A',
                     'cost_center' => '',
@@ -13531,9 +12566,8 @@ class InternalOrdersTableSeeder extends Seeder
                 ),
                 465 => 
                 array (
-                    'id' => 966,
-                    'order_no' => 'ACDEP-00003',
-                    'descr' => 'Deposit on Business Premises',
+                    'id' => 'ACCST-00008',
+                    'descr' => 'Write-off Unmatched Credit',
                     'order_type' => 'Z014',
                     'status' => 'A',
                     'cost_center' => '',
@@ -13545,9 +12579,8 @@ class InternalOrdersTableSeeder extends Seeder
                 ),
                 466 => 
                 array (
-                    'id' => 967,
-                    'order_no' => 'ACDEP-00004',
-                    'descr' => 'Deposit on Office Rental',
+                    'id' => 'ACCST-00009',
+                    'descr' => 'Discount- Non Active Student Settlement',
                     'order_type' => 'Z014',
                     'status' => 'A',
                     'cost_center' => '',
@@ -13559,9 +12592,8 @@ class InternalOrdersTableSeeder extends Seeder
                 ),
                 467 => 
                 array (
-                    'id' => 968,
-                    'order_no' => 'ACDEP-00005',
-                    'descr' => 'Deposit on Library for Public',
+                    'id' => 'ACCST-00010',
+                    'descr' => 'Discount- Active Student Settlement',
                     'order_type' => 'Z014',
                     'status' => 'A',
                     'cost_center' => '',
@@ -13573,9 +12605,8 @@ class InternalOrdersTableSeeder extends Seeder
                 ),
                 468 => 
                 array (
-                    'id' => 969,
-                    'order_no' => 'ACDEP-00006',
-                    'descr' => 'Deposit on Student Hostel/ Apartment',
+                    'id' => 'ACCST-00011',
+                    'descr' => 'Discount- Alumni/MMU Staff/TM Staff',
                     'order_type' => 'Z014',
                     'status' => 'A',
                     'cost_center' => '',
@@ -13587,9 +12618,8 @@ class InternalOrdersTableSeeder extends Seeder
                 ),
                 469 => 
                 array (
-                    'id' => 970,
-                    'order_no' => 'ACDON-00001',
-                    'descr' => 'Donation for MMU Event',
+                    'id' => 'ACCST-00012',
+                'descr' => 'Discount- Fee Waiver (Student)',
                     'order_type' => 'Z014',
                     'status' => 'A',
                     'cost_center' => '',
@@ -13601,12 +12631,11 @@ class InternalOrdersTableSeeder extends Seeder
                 ),
                 470 => 
                 array (
-                    'id' => 971,
-                    'order_no' => 'ACDON-00002',
-                    'descr' => 'Contribution - Zakat Received',
+                    'id' => 'ACCST-0002A',
+                    'descr' => 'STF OT/TNT STAD CYBERJAYA',
                     'order_type' => 'Z014',
                     'status' => 'A',
-                    'cost_center' => '',
+                    'cost_center' => 'UTCSA0',
                     'company_code' => '3201',
                     'pers_responsible' => '',
                     'budget' => '0.00',
@@ -13615,12 +12644,11 @@ class InternalOrdersTableSeeder extends Seeder
                 ),
                 471 => 
                 array (
-                    'id' => 972,
-                    'order_no' => 'ACDON-00003',
-                    'descr' => 'Contribution - Tun Azmi Foundation',
+                    'id' => 'ACCST-0002B',
+                    'descr' => 'STF OT/TNT STAD MELAKA',
                     'order_type' => 'Z014',
                     'status' => 'A',
-                    'cost_center' => '',
+                    'cost_center' => 'UTMSA0',
                     'company_code' => '3201',
                     'pers_responsible' => '',
                     'budget' => '0.00',
@@ -13629,9 +12657,8 @@ class InternalOrdersTableSeeder extends Seeder
                 ),
                 472 => 
                 array (
-                    'id' => 973,
-                    'order_no' => 'ACDON-00004',
-                    'descr' => 'Contribution & Donation - Others',
+                    'id' => 'ACDEP-00001',
+                    'descr' => 'Student Deposit',
                     'order_type' => 'Z014',
                     'status' => 'A',
                     'cost_center' => '',
@@ -13643,13 +12670,12 @@ class InternalOrdersTableSeeder extends Seeder
                 ),
                 473 => 
                 array (
-                    'id' => 974,
-                    'order_no' => 'ACE',
-                'descr' => 'Asia Submarine Cable Express (Proj C M)',
-                    'order_type' => 'Z001',
+                    'id' => 'ACDEP-00002',
+                    'descr' => 'Deposit on Quarters Rental',
+                    'order_type' => 'Z014',
                     'status' => 'A',
-                    'cost_center' => 'WPNCM1',
-                    'company_code' => '1000',
+                    'cost_center' => '',
+                    'company_code' => '3201',
                     'pers_responsible' => '',
                     'budget' => '0.00',
                     'created_at' => '2020-02-09 00:00:00',
@@ -13657,9 +12683,8 @@ class InternalOrdersTableSeeder extends Seeder
                 ),
                 474 => 
                 array (
-                    'id' => 975,
-                    'order_no' => 'ACGCR-00000',
-                    'descr' => 'General Creditors - Others',
+                    'id' => 'ACDEP-00003',
+                    'descr' => 'Deposit on Business Premises',
                     'order_type' => 'Z014',
                     'status' => 'A',
                     'cost_center' => '',
@@ -13671,9 +12696,8 @@ class InternalOrdersTableSeeder extends Seeder
                 ),
                 475 => 
                 array (
-                    'id' => 976,
-                    'order_no' => 'ACGCR-00001',
-                    'descr' => 'General Creditors - MMU Alumni',
+                    'id' => 'ACDEP-00004',
+                    'descr' => 'Deposit on Office Rental',
                     'order_type' => 'Z014',
                     'status' => 'A',
                     'cost_center' => '',
@@ -13685,9 +12709,8 @@ class InternalOrdersTableSeeder extends Seeder
                 ),
                 476 => 
                 array (
-                    'id' => 977,
-                    'order_no' => 'ACGCR-00002',
-                    'descr' => 'General Creditors - MESRA',
+                    'id' => 'ACDEP-00005',
+                    'descr' => 'Deposit on Library for Public',
                     'order_type' => 'Z014',
                     'status' => 'A',
                     'cost_center' => '',
@@ -13699,9 +12722,8 @@ class InternalOrdersTableSeeder extends Seeder
                 ),
                 477 => 
                 array (
-                    'id' => 978,
-                    'order_no' => 'ACGCR-00003',
-                    'descr' => 'General Creditor-Ret. Sum-2nd phase dev.',
+                    'id' => 'ACDEP-00006',
+                    'descr' => 'Deposit on Student Hostel/ Apartment',
                     'order_type' => 'Z014',
                     'status' => 'A',
                     'cost_center' => '',
@@ -13713,9 +12735,8 @@ class InternalOrdersTableSeeder extends Seeder
                 ),
                 478 => 
                 array (
-                    'id' => 979,
-                    'order_no' => 'ACGCR-00004',
-                'descr' => 'General Creditors-Retention Sum (Others)',
+                    'id' => 'ACDON-00001',
+                    'descr' => 'Donation for MMU Event',
                     'order_type' => 'Z014',
                     'status' => 'A',
                     'cost_center' => '',
@@ -13727,12 +12748,11 @@ class InternalOrdersTableSeeder extends Seeder
                 ),
                 479 => 
                 array (
-                    'id' => 980,
-                    'order_no' => 'ACOBU-00001',
-                'descr' => 'Adv Rec (OCBU)',
+                    'id' => 'ACDON-00002',
+                    'descr' => 'Contribution - Zakat Received',
                     'order_type' => 'Z014',
                     'status' => 'A',
-                    'cost_center' => 'UTMBU0',
+                    'cost_center' => '',
                     'company_code' => '3201',
                     'pers_responsible' => '',
                     'budget' => '0.00',
@@ -13741,12 +12761,11 @@ class InternalOrdersTableSeeder extends Seeder
                 ),
                 480 => 
                 array (
-                    'id' => 981,
-                    'order_no' => 'ACPRJ-00001',
-                    'descr' => 'Project SMILES & OCMS',
+                    'id' => 'ACDON-00003',
+                    'descr' => 'Contribution - Tun Azmi Foundation',
                     'order_type' => 'Z014',
                     'status' => 'A',
-                    'cost_center' => 'UTCIT0',
+                    'cost_center' => '',
                     'company_code' => '3201',
                     'pers_responsible' => '',
                     'budget' => '0.00',
@@ -13755,9 +12774,8 @@ class InternalOrdersTableSeeder extends Seeder
                 ),
                 481 => 
                 array (
-                    'id' => 982,
-                    'order_no' => 'ACPRJ-00002',
-                    'descr' => 'Project OCMS',
+                    'id' => 'ACDON-00004',
+                    'descr' => 'Contribution & Donation - Others',
                     'order_type' => 'Z014',
                     'status' => 'A',
                     'cost_center' => '',
@@ -13769,8 +12787,124 @@ class InternalOrdersTableSeeder extends Seeder
                 ),
                 482 => 
                 array (
-                    'id' => 983,
-                    'order_no' => 'ACPRJ-00003',
+                    'id' => 'ACE',
+                'descr' => 'Asia Submarine Cable Express (Proj C M)',
+                    'order_type' => 'Z001',
+                    'status' => 'A',
+                    'cost_center' => 'WPNCM1',
+                    'company_code' => '1000',
+                    'pers_responsible' => '',
+                    'budget' => '0.00',
+                    'created_at' => '2020-02-09 00:00:00',
+                    'updated_at' => '2020-02-09 00:00:00',
+                ),
+                483 => 
+                array (
+                    'id' => 'ACGCR-00000',
+                    'descr' => 'General Creditors - Others',
+                    'order_type' => 'Z014',
+                    'status' => 'A',
+                    'cost_center' => '',
+                    'company_code' => '3201',
+                    'pers_responsible' => '',
+                    'budget' => '0.00',
+                    'created_at' => '2020-02-09 00:00:00',
+                    'updated_at' => '2020-02-09 00:00:00',
+                ),
+                484 => 
+                array (
+                    'id' => 'ACGCR-00001',
+                    'descr' => 'General Creditors - MMU Alumni',
+                    'order_type' => 'Z014',
+                    'status' => 'A',
+                    'cost_center' => '',
+                    'company_code' => '3201',
+                    'pers_responsible' => '',
+                    'budget' => '0.00',
+                    'created_at' => '2020-02-09 00:00:00',
+                    'updated_at' => '2020-02-09 00:00:00',
+                ),
+                485 => 
+                array (
+                    'id' => 'ACGCR-00002',
+                    'descr' => 'General Creditors - MESRA',
+                    'order_type' => 'Z014',
+                    'status' => 'A',
+                    'cost_center' => '',
+                    'company_code' => '3201',
+                    'pers_responsible' => '',
+                    'budget' => '0.00',
+                    'created_at' => '2020-02-09 00:00:00',
+                    'updated_at' => '2020-02-09 00:00:00',
+                ),
+                486 => 
+                array (
+                    'id' => 'ACGCR-00003',
+                    'descr' => 'General Creditor-Ret. Sum-2nd phase dev.',
+                    'order_type' => 'Z014',
+                    'status' => 'A',
+                    'cost_center' => '',
+                    'company_code' => '3201',
+                    'pers_responsible' => '',
+                    'budget' => '0.00',
+                    'created_at' => '2020-02-09 00:00:00',
+                    'updated_at' => '2020-02-09 00:00:00',
+                ),
+                487 => 
+                array (
+                    'id' => 'ACGCR-00004',
+                'descr' => 'General Creditors-Retention Sum (Others)',
+                    'order_type' => 'Z014',
+                    'status' => 'A',
+                    'cost_center' => '',
+                    'company_code' => '3201',
+                    'pers_responsible' => '',
+                    'budget' => '0.00',
+                    'created_at' => '2020-02-09 00:00:00',
+                    'updated_at' => '2020-02-09 00:00:00',
+                ),
+                488 => 
+                array (
+                    'id' => 'ACOBU-00001',
+                'descr' => 'Adv Rec (OCBU)',
+                    'order_type' => 'Z014',
+                    'status' => 'A',
+                    'cost_center' => 'UTMBU0',
+                    'company_code' => '3201',
+                    'pers_responsible' => '',
+                    'budget' => '0.00',
+                    'created_at' => '2020-02-09 00:00:00',
+                    'updated_at' => '2020-02-09 00:00:00',
+                ),
+                489 => 
+                array (
+                    'id' => 'ACPRJ-00001',
+                    'descr' => 'Project SMILES & OCMS',
+                    'order_type' => 'Z014',
+                    'status' => 'A',
+                    'cost_center' => 'UTCIT0',
+                    'company_code' => '3201',
+                    'pers_responsible' => '',
+                    'budget' => '0.00',
+                    'created_at' => '2020-02-09 00:00:00',
+                    'updated_at' => '2020-02-09 00:00:00',
+                ),
+                490 => 
+                array (
+                    'id' => 'ACPRJ-00002',
+                    'descr' => 'Project OCMS',
+                    'order_type' => 'Z014',
+                    'status' => 'A',
+                    'cost_center' => '',
+                    'company_code' => '3201',
+                    'pers_responsible' => '',
+                    'budget' => '0.00',
+                    'created_at' => '2020-02-09 00:00:00',
+                    'updated_at' => '2020-02-09 00:00:00',
+                ),
+                491 => 
+                array (
+                    'id' => 'ACPRJ-00003',
                     'descr' => 'TNT/OT for Vads',
                     'order_type' => 'Z014',
                     'status' => 'A',
@@ -13781,10 +12915,9 @@ class InternalOrdersTableSeeder extends Seeder
                     'created_at' => '2020-02-09 00:00:00',
                     'updated_at' => '2020-02-09 00:00:00',
                 ),
-                483 => 
+                492 => 
                 array (
-                    'id' => 984,
-                    'order_no' => 'ACPRJ-00004',
+                    'id' => 'ACPRJ-00004',
                     'descr' => 'Rhizhophora Training Fund',
                     'order_type' => 'Z014',
                     'status' => 'A',
@@ -13795,10 +12928,9 @@ class InternalOrdersTableSeeder extends Seeder
                     'created_at' => '2020-02-09 00:00:00',
                     'updated_at' => '2020-02-09 00:00:00',
                 ),
-                484 => 
+                493 => 
                 array (
-                    'id' => 985,
-                    'order_no' => 'ACPRJ-00005',
+                    'id' => 'ACPRJ-00005',
                     'descr' => 'CTPR - SDNCC',
                     'order_type' => 'Z014',
                     'status' => 'A',
@@ -13809,10 +12941,9 @@ class InternalOrdersTableSeeder extends Seeder
                     'created_at' => '2020-02-09 00:00:00',
                     'updated_at' => '2020-02-09 00:00:00',
                 ),
-                485 => 
+                494 => 
                 array (
-                    'id' => 986,
-                    'order_no' => 'ACPRJ-00006',
+                    'id' => 'ACPRJ-00006',
                     'descr' => 'MMU 20th Anniversary',
                     'order_type' => 'Z014',
                     'status' => 'A',
@@ -13823,10 +12954,9 @@ class InternalOrdersTableSeeder extends Seeder
                     'created_at' => '2020-02-09 00:00:00',
                     'updated_at' => '2020-02-09 00:00:00',
                 ),
-                486 => 
+                495 => 
                 array (
-                    'id' => 987,
-                    'order_no' => 'ACPRJ-00007',
+                    'id' => 'ACPRJ-00007',
                     'descr' => 'i-University',
                     'order_type' => 'Z014',
                     'status' => 'A',
@@ -13837,10 +12967,9 @@ class InternalOrdersTableSeeder extends Seeder
                     'created_at' => '2020-02-09 00:00:00',
                     'updated_at' => '2020-02-09 00:00:00',
                 ),
-                487 => 
+                496 => 
                 array (
-                    'id' => 988,
-                    'order_no' => 'ACPRJ-00008',
+                    'id' => 'ACPRJ-00008',
                     'descr' => 'Biz School - TM Talents Training',
                     'order_type' => 'Z014',
                     'status' => 'A',
@@ -13851,10 +12980,9 @@ class InternalOrdersTableSeeder extends Seeder
                     'created_at' => '2020-02-09 00:00:00',
                     'updated_at' => '2020-02-09 00:00:00',
                 ),
-                488 => 
+                497 => 
                 array (
-                    'id' => 989,
-                    'order_no' => 'ACPRJ-00009',
+                    'id' => 'ACPRJ-00009',
                     'descr' => 'Biz School - TM Staffs Training',
                     'order_type' => 'Z014',
                     'status' => 'A',
@@ -13865,10 +12993,9 @@ class InternalOrdersTableSeeder extends Seeder
                     'created_at' => '2020-02-09 00:00:00',
                     'updated_at' => '2020-02-09 00:00:00',
                 ),
-                489 => 
+                498 => 
                 array (
-                    'id' => 990,
-                    'order_no' => 'ACPRJ-00010',
+                    'id' => 'ACPRJ-00010',
                     'descr' => 'Biz School - Public Training',
                     'order_type' => 'Z014',
                     'status' => 'A',
@@ -13879,10 +13006,9 @@ class InternalOrdersTableSeeder extends Seeder
                     'created_at' => '2020-02-09 00:00:00',
                     'updated_at' => '2020-02-09 00:00:00',
                 ),
-                490 => 
+                499 => 
                 array (
-                    'id' => 991,
-                    'order_no' => 'ACPRJ-00011',
+                    'id' => 'ACPRJ-00011',
                     'descr' => 'Biz School - Corporate Training',
                     'order_type' => 'Z014',
                     'status' => 'A',
@@ -13893,142 +13019,15 @@ class InternalOrdersTableSeeder extends Seeder
                     'created_at' => '2020-02-09 00:00:00',
                     'updated_at' => '2020-02-09 00:00:00',
                 ),
-                491 => 
-                array (
-                    'id' => 992,
-                    'order_no' => 'ACPRJ-00012',
-                    'descr' => 'CTPR - ASEAN',
-                    'order_type' => 'Z014',
-                    'status' => 'A',
-                    'cost_center' => 'UTCGM0',
-                    'company_code' => '3201',
-                    'pers_responsible' => '',
-                    'budget' => '0.00',
-                    'created_at' => '2020-02-09 00:00:00',
-                    'updated_at' => '2020-02-09 00:00:00',
-                ),
-                492 => 
-                array (
-                    'id' => 993,
-                    'order_no' => 'ACPRJ-00013',
-                    'descr' => 'KL Module 2017 of IGLUS EPFL',
-                    'order_type' => 'Z014',
-                    'status' => 'A',
-                    'cost_center' => 'UTCSO0',
-                    'company_code' => '3201',
-                    'pers_responsible' => '',
-                    'budget' => '0.00',
-                    'created_at' => '2020-02-09 00:00:00',
-                    'updated_at' => '2020-02-09 00:00:00',
-                ),
-                493 => 
-                array (
-                    'id' => 994,
-                    'order_no' => 'ACPRJ-00014',
-                    'descr' => 'Biz School - Research & Consultancy',
-                    'order_type' => 'Z014',
-                    'status' => 'A',
-                    'cost_center' => 'UTCBS0',
-                    'company_code' => '3201',
-                    'pers_responsible' => '',
-                    'budget' => '0.00',
-                    'created_at' => '2020-02-09 00:00:00',
-                    'updated_at' => '2020-02-09 00:00:00',
-                ),
-                494 => 
-                array (
-                    'id' => 995,
-                    'order_no' => 'ACPRJ-00015',
-                    'descr' => 'ZTE-MMU Training Centre',
-                    'order_type' => 'Z014',
-                    'status' => 'A',
-                    'cost_center' => 'UTMET0',
-                    'company_code' => '3201',
-                    'pers_responsible' => '',
-                    'budget' => '0.00',
-                    'created_at' => '2020-02-09 00:00:00',
-                    'updated_at' => '2020-02-09 00:00:00',
-                ),
-                495 => 
-                array (
-                    'id' => 996,
-                    'order_no' => 'ACPRJ-00016',
-                'descr' => 'University Experience Program (UEP)',
-                    'order_type' => 'Z014',
-                    'status' => 'A',
-                    'cost_center' => 'UTCLP0',
-                    'company_code' => '3201',
-                    'pers_responsible' => '',
-                    'budget' => '0.00',
-                    'created_at' => '2020-02-09 00:00:00',
-                    'updated_at' => '2020-02-09 00:00:00',
-                ),
-                496 => 
-                array (
-                    'id' => 997,
-                    'order_no' => 'ACPRJ-00017',
-                    'descr' => 'FOM INTERNATIONAL FORUM',
-                    'order_type' => 'Z014',
-                    'status' => 'A',
-                    'cost_center' => 'UTCGM0',
-                    'company_code' => '3201',
-                    'pers_responsible' => '',
-                    'budget' => '0.00',
-                    'created_at' => '2020-02-09 00:00:00',
-                    'updated_at' => '2020-02-09 00:00:00',
-                ),
-                497 => 
-                array (
-                    'id' => 998,
-                    'order_no' => 'ACPRJ-00018',
-                    'descr' => 'MMU JUNIOR TRENDSETTER WORKSHOP',
-                    'order_type' => 'Z014',
-                    'status' => 'A',
-                    'cost_center' => 'UTCHR0',
-                    'company_code' => '3201',
-                    'pers_responsible' => '',
-                    'budget' => '0.00',
-                    'created_at' => '2020-02-09 00:00:00',
-                    'updated_at' => '2020-02-09 00:00:00',
-                ),
-                498 => 
-                array (
-                    'id' => 999,
-                    'order_no' => 'ACPRJ-00019',
-                    'descr' => 'JCAE 2019',
-                    'order_type' => 'Z014',
-                    'status' => 'A',
-                    'cost_center' => 'UTCMT0',
-                    'company_code' => '3201',
-                    'pers_responsible' => '',
-                    'budget' => '0.00',
-                    'created_at' => '2020-02-09 00:00:00',
-                    'updated_at' => '2020-02-09 00:00:00',
-                ),
-                499 => 
-                array (
-                    'id' => 1000,
-                    'order_no' => 'ACPRJ-00020',
-                    'descr' => 'Publication Fee',
-                    'order_type' => 'Z014',
-                    'status' => 'A',
-                    'cost_center' => 'UTCPR0',
-                    'company_code' => '3201',
-                    'pers_responsible' => '',
-                    'budget' => '0.00',
-                    'created_at' => '2020-02-09 00:00:00',
-                    'updated_at' => '2020-02-09 00:00:00',
-                ),
             ));
         \DB::table('internal_orders')->insert(array (
             0 => 
             array (
-                'id' => 1001,
-                'order_no' => 'ACPRJ-00021',
-                'descr' => 'OUTBOUND PROGRAMME',
+                'id' => 'ACPRJ-00012',
+                'descr' => 'CTPR - ASEAN',
                 'order_type' => 'Z014',
                 'status' => 'A',
-                'cost_center' => '',
+                'cost_center' => 'UTCGM0',
                 'company_code' => '3201',
                 'pers_responsible' => '',
                 'budget' => '0.00',
@@ -14037,12 +13036,11 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             1 => 
             array (
-                'id' => 1002,
-                'order_no' => 'ACPRJ-00022',
-                'descr' => 'Adept - Conference/Workshop',
+                'id' => 'ACPRJ-00013',
+                'descr' => 'KL Module 2017 of IGLUS EPFL',
                 'order_type' => 'Z014',
                 'status' => 'A',
-                'cost_center' => '',
+                'cost_center' => 'UTCSO0',
                 'company_code' => '3201',
                 'pers_responsible' => '',
                 'budget' => '0.00',
@@ -14051,12 +13049,11 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             2 => 
             array (
-                'id' => 1003,
-                'order_no' => 'ACPRJ-00023',
-                'descr' => 'ISPACS 2020',
+                'id' => 'ACPRJ-00014',
+                'descr' => 'Biz School - Research & Consultancy',
                 'order_type' => 'Z014',
                 'status' => 'A',
-                'cost_center' => 'UTCCI0',
+                'cost_center' => 'UTCBS0',
                 'company_code' => '3201',
                 'pers_responsible' => '',
                 'budget' => '0.00',
@@ -14065,12 +13062,11 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             3 => 
             array (
-                'id' => 1004,
-                'order_no' => 'ACQTR-00001',
-                'descr' => 'Staff Apartment - Quarters Rental',
+                'id' => 'ACPRJ-00015',
+                'descr' => 'ZTE-MMU Training Centre',
                 'order_type' => 'Z014',
                 'status' => 'A',
-                'cost_center' => 'UTCUM0',
+                'cost_center' => 'UTMET0',
                 'company_code' => '3201',
                 'pers_responsible' => '',
                 'budget' => '0.00',
@@ -14079,12 +13075,11 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             4 => 
             array (
-                'id' => 1005,
-                'order_no' => 'ACQTR-00002',
-                'descr' => 'Staff Apartment - Maintenance Fee',
+                'id' => 'ACPRJ-00016',
+            'descr' => 'University Experience Program (UEP)',
                 'order_type' => 'Z014',
                 'status' => 'A',
-                'cost_center' => 'UTCUM0',
+                'cost_center' => 'UTCLP0',
                 'company_code' => '3201',
                 'pers_responsible' => '',
                 'budget' => '0.00',
@@ -14093,12 +13088,11 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             5 => 
             array (
-                'id' => 1006,
-                'order_no' => 'ACRMO-00001',
-                'descr' => 'Repair/maintenance - Ext area/landscape',
+                'id' => 'ACPRJ-00017',
+                'descr' => 'FOM INTERNATIONAL FORUM',
                 'order_type' => 'Z014',
                 'status' => 'A',
-                'cost_center' => '',
+                'cost_center' => 'UTCGM0',
                 'company_code' => '3201',
                 'pers_responsible' => '',
                 'budget' => '0.00',
@@ -14107,12 +13101,11 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             6 => 
             array (
-                'id' => 1007,
-                'order_no' => 'ACRMO-00002',
-                'descr' => 'Repair/maintenance - Others',
+                'id' => 'ACPRJ-00018',
+                'descr' => 'MMU JUNIOR TRENDSETTER WORKSHOP',
                 'order_type' => 'Z014',
                 'status' => 'A',
-                'cost_center' => '',
+                'cost_center' => 'UTCHR0',
                 'company_code' => '3201',
                 'pers_responsible' => '',
                 'budget' => '0.00',
@@ -14121,12 +13114,11 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             7 => 
             array (
-                'id' => 1008,
-                'order_no' => 'ACSAD-00000',
-                'descr' => 'Staff Advance - Others',
+                'id' => 'ACPRJ-00019',
+                'descr' => 'JCAE 2019',
                 'order_type' => 'Z014',
                 'status' => 'A',
-                'cost_center' => '',
+                'cost_center' => 'UTCMT0',
                 'company_code' => '3201',
                 'pers_responsible' => '',
                 'budget' => '0.00',
@@ -14135,12 +13127,11 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             8 => 
             array (
-                'id' => 1009,
-                'order_no' => 'ACSAD-00001',
-                'descr' => 'Staff Advance - Student Activity',
+                'id' => 'ACPRJ-00020',
+                'descr' => 'Publication Fee',
                 'order_type' => 'Z014',
                 'status' => 'A',
-                'cost_center' => '',
+                'cost_center' => 'UTCPR0',
                 'company_code' => '3201',
                 'pers_responsible' => '',
                 'budget' => '0.00',
@@ -14149,9 +13140,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             9 => 
             array (
-                'id' => 1010,
-                'order_no' => 'ACSAL-00001',
-                'descr' => 'Salary Exec- Acad',
+                'id' => 'ACPRJ-00021',
+                'descr' => 'OUTBOUND PROGRAMME',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -14163,9 +13153,8 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             10 => 
             array (
-                'id' => 1011,
-                'order_no' => 'ACSAL-00002',
-                'descr' => 'Salary Exec- Part time',
+                'id' => 'ACPRJ-00022',
+                'descr' => 'Adept - Conference/Workshop',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => '',
@@ -14177,8 +13166,124 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             11 => 
             array (
-                'id' => 1012,
-                'order_no' => 'ACSHC-00001',
+                'id' => 'ACPRJ-00023',
+                'descr' => 'ISPACS 2020',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => 'UTCCI0',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            12 => 
+            array (
+                'id' => 'ACQTR-00001',
+                'descr' => 'Staff Apartment - Quarters Rental',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => 'UTCUM0',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            13 => 
+            array (
+                'id' => 'ACQTR-00002',
+                'descr' => 'Staff Apartment - Maintenance Fee',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => 'UTCUM0',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            14 => 
+            array (
+                'id' => 'ACRMO-00001',
+                'descr' => 'Repair/maintenance - Ext area/landscape',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => '',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            15 => 
+            array (
+                'id' => 'ACRMO-00002',
+                'descr' => 'Repair/maintenance - Others',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => '',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            16 => 
+            array (
+                'id' => 'ACSAD-00000',
+                'descr' => 'Staff Advance - Others',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => '',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            17 => 
+            array (
+                'id' => 'ACSAD-00001',
+                'descr' => 'Staff Advance - Student Activity',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => '',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            18 => 
+            array (
+                'id' => 'ACSAL-00001',
+                'descr' => 'Salary Exec- Acad',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => '',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            19 => 
+            array (
+                'id' => 'ACSAL-00002',
+                'descr' => 'Salary Exec- Part time',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => '',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            20 => 
+            array (
+                'id' => 'ACSHC-00001',
             'descr' => 'Adv Rec (SC)- CISCO Acct MK',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14189,10 +13294,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            12 => 
+            21 => 
             array (
-                'id' => 1013,
-                'order_no' => 'ACSHC-00002',
+                'id' => 'ACSHC-00002',
             'descr' => 'Adv Rec (SC)-Microsoft IT Acad (MSITA)CJ',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14203,10 +13307,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            13 => 
+            22 => 
             array (
-                'id' => 1014,
-                'order_no' => 'ACSHC-00003',
+                'id' => 'ACSHC-00003',
             'descr' => 'Adv Rec (SC)- ASEAN seminar e-learning',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14217,10 +13320,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            14 => 
+            23 => 
             array (
-                'id' => 1015,
-                'order_no' => 'ACSHC-00004',
+                'id' => 'ACSHC-00004',
             'descr' => 'Adv Rec (SC)- IMLC',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14231,10 +13333,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            15 => 
+            24 => 
             array (
-                'id' => 1016,
-                'order_no' => 'ACSHC-00005',
+                'id' => 'ACSHC-00005',
             'descr' => 'Adv Rec (SC)- FOSEE',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14245,10 +13346,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            16 => 
+            25 => 
             array (
-                'id' => 1017,
-                'order_no' => 'ACSHC-00006',
+                'id' => 'ACSHC-00006',
             'descr' => 'Adv Rec (SC)- ZTE -MMU Training Centre',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14259,10 +13359,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            17 => 
+            26 => 
             array (
-                'id' => 1018,
-                'order_no' => 'ACSHC-00007',
+                'id' => 'ACSHC-00007',
             'descr' => 'Adv Rec (SC)- FIT Novell (Linux Course)',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14273,10 +13372,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            18 => 
+            27 => 
             array (
-                'id' => 1019,
-                'order_no' => 'ACSHC-00008',
+                'id' => 'ACSHC-00008',
             'descr' => 'Adv Rec (SC)- CISCO Acct CJ',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14287,10 +13385,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            19 => 
+            28 => 
             array (
-                'id' => 1020,
-                'order_no' => 'ACSHC-00009',
+                'id' => 'ACSHC-00009',
             'descr' => 'Adv Rec (SC)- FIST Linux (Acad Course)',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14301,10 +13398,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            20 => 
+            29 => 
             array (
-                'id' => 1021,
-                'order_no' => 'ACSHC-00010',
+                'id' => 'ACSHC-00010',
             'descr' => 'Adv Rec (SC)- IBM',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14315,10 +13411,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            21 => 
+            30 => 
             array (
-                'id' => 1022,
-                'order_no' => 'ACSHC-00011',
+                'id' => 'ACSHC-00011',
             'descr' => 'Adv Rec (SC)- National Elect Med Ins SA',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14329,10 +13424,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            22 => 
+            31 => 
             array (
-                'id' => 1023,
-                'order_no' => 'ACSHC-00012',
+                'id' => 'ACSHC-00012',
             'descr' => 'Adv Rec (SC)- IWAIT workshop',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14343,137 +13437,10 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            23 => 
-            array (
-                'id' => 1024,
-                'order_no' => 'ACSHC-00013',
-            'descr' => 'Adv Rec (SC)- Robocon Fundraising',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => 'UTMST0',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            24 => 
-            array (
-                'id' => 1025,
-                'order_no' => 'ACSHC-00014',
-            'descr' => 'Adv Rec (SC)- Franchise Audit Visit',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => 'UTCII0',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            25 => 
-            array (
-                'id' => 1026,
-                'order_no' => 'ACSHC-00015',
-            'descr' => 'Adv Rec (SC)- Kish University',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => 'UTCMB0',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            26 => 
-            array (
-                'id' => 1027,
-                'order_no' => 'ACSHC-00016',
-            'descr' => 'Adv Rec (SC)- IPT Consumer Day',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => 'UTCMT0',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            27 => 
-            array (
-                'id' => 1028,
-                'order_no' => 'ACSHC-00017',
-            'descr' => 'Adv Rec (SC)- Canadian High Comm Fund',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => 'UTCCM0',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            28 => 
-            array (
-                'id' => 1029,
-                'order_no' => 'ACSHC-00018',
-            'descr' => 'Adv Rec (SC)- Infineon MMU Annual Proj C',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => 'UTMET0',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            29 => 
-            array (
-                'id' => 1030,
-                'order_no' => 'ACSHC-00019',
-            'descr' => 'Adv Rec (SC)- Provable Security 2010',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => 'UTMST0',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            30 => 
-            array (
-                'id' => 1031,
-                'order_no' => 'ACSHC-00020',
-            'descr' => 'Adv Rec (SC)- Crypto & Netw Sec (CANS)',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => 'UTMST0',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            31 => 
-            array (
-                'id' => 1032,
-                'order_no' => 'ACSHC-00021',
-            'descr' => 'Adv Rec (SC)- National Conf Physics 2010',
-                'order_type' => 'Z014',
-                'status' => 'A',
-                'cost_center' => 'UTCFE0',
-                'company_code' => '3201',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
             32 => 
             array (
-                'id' => 1033,
-                'order_no' => 'ACSHC-00022',
-            'descr' => 'Adv Rec (SC) - EC Council Academy MMU',
+                'id' => 'ACSHC-00013',
+            'descr' => 'Adv Rec (SC)- Robocon Fundraising',
                 'order_type' => 'Z014',
                 'status' => 'A',
                 'cost_center' => 'UTMST0',
@@ -14485,8 +13452,124 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             33 => 
             array (
-                'id' => 1034,
-                'order_no' => 'ACSHC-00023',
+                'id' => 'ACSHC-00014',
+            'descr' => 'Adv Rec (SC)- Franchise Audit Visit',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => 'UTCII0',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            34 => 
+            array (
+                'id' => 'ACSHC-00015',
+            'descr' => 'Adv Rec (SC)- Kish University',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => 'UTCMB0',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            35 => 
+            array (
+                'id' => 'ACSHC-00016',
+            'descr' => 'Adv Rec (SC)- IPT Consumer Day',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => 'UTCMT0',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            36 => 
+            array (
+                'id' => 'ACSHC-00017',
+            'descr' => 'Adv Rec (SC)- Canadian High Comm Fund',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => 'UTCCM0',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            37 => 
+            array (
+                'id' => 'ACSHC-00018',
+            'descr' => 'Adv Rec (SC)- Infineon MMU Annual Proj C',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => 'UTMET0',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            38 => 
+            array (
+                'id' => 'ACSHC-00019',
+            'descr' => 'Adv Rec (SC)- Provable Security 2010',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => 'UTMST0',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            39 => 
+            array (
+                'id' => 'ACSHC-00020',
+            'descr' => 'Adv Rec (SC)- Crypto & Netw Sec (CANS)',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => 'UTMST0',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            40 => 
+            array (
+                'id' => 'ACSHC-00021',
+            'descr' => 'Adv Rec (SC)- National Conf Physics 2010',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => 'UTCFE0',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            41 => 
+            array (
+                'id' => 'ACSHC-00022',
+            'descr' => 'Adv Rec (SC) - EC Council Academy MMU',
+                'order_type' => 'Z014',
+                'status' => 'A',
+                'cost_center' => 'UTMST0',
+                'company_code' => '3201',
+                'pers_responsible' => '',
+                'budget' => '0.00',
+                'created_at' => '2020-02-09 00:00:00',
+                'updated_at' => '2020-02-09 00:00:00',
+            ),
+            42 => 
+            array (
+                'id' => 'ACSHC-00023',
             'descr' => 'Adv Rec (SC)- HEP IPTS',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14497,10 +13580,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            34 => 
+            43 => 
             array (
-                'id' => 1035,
-                'order_no' => 'ACSHC-00024',
+                'id' => 'ACSHC-00024',
             'descr' => 'Adv Rec (SC)- Motorola FYP Collbrtn',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14511,10 +13593,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            35 => 
+            44 => 
             array (
-                'id' => 1036,
-                'order_no' => 'ACSHC-00025',
+                'id' => 'ACSHC-00025',
             'descr' => 'Adv Rec (SC)- Oracle Academy Cyberjaya',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14525,10 +13606,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            36 => 
+            45 => 
             array (
-                'id' => 1037,
-                'order_no' => 'ACSHC-00026',
+                'id' => 'ACSHC-00026',
             'descr' => 'Adv Rec (SC)- FCI IBM User Group',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14539,10 +13619,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            37 => 
+            46 => 
             array (
-                'id' => 1038,
-                'order_no' => 'ACSHC-00027',
+                'id' => 'ACSHC-00027',
             'descr' => 'Adv Rec (SC)- Robe Rental CJ',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14553,10 +13632,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            38 => 
+            47 => 
             array (
-                'id' => 1039,
-                'order_no' => 'ACSHC-00028',
+                'id' => 'ACSHC-00028',
             'descr' => 'Adv Rec (SC)- Robe Rental MK',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14567,10 +13645,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            39 => 
+            48 => 
             array (
-                'id' => 1040,
-                'order_no' => 'ACSHC-00029',
+                'id' => 'ACSHC-00029',
             'descr' => 'Adv Rec (SC)- FET Fund',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14581,10 +13658,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            40 => 
+            49 => 
             array (
-                'id' => 1041,
-                'order_no' => 'ACSHC-00030',
+                'id' => 'ACSHC-00030',
             'descr' => 'Adv Rec (SC)- Google Web Acad',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14595,10 +13671,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            41 => 
+            50 => 
             array (
-                'id' => 1042,
-                'order_no' => 'ACSHC-00031',
+                'id' => 'ACSHC-00031',
             'descr' => 'Adv Rec (SC)- Int. Conference on ICM',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14609,10 +13684,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            42 => 
+            51 => 
             array (
-                'id' => 1043,
-                'order_no' => 'ACSHC-00032',
+                'id' => 'ACSHC-00032',
             'descr' => 'Adv Rec (SC)- Oracle WDP MK',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14623,10 +13697,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            43 => 
+            52 => 
             array (
-                'id' => 1044,
-                'order_no' => 'ACSHC-00033',
+                'id' => 'ACSHC-00033',
             'descr' => 'Adv Rec (SC)- Special Re-instatment P',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14637,10 +13710,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            44 => 
+            53 => 
             array (
-                'id' => 1045,
-                'order_no' => 'ACSHC-00034',
+                'id' => 'ACSHC-00034',
             'descr' => 'Adv Rec (SC)- Ent Acct (FET)',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14651,10 +13723,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            45 => 
+            54 => 
             array (
-                'id' => 1046,
-                'order_no' => 'ACSHC-00035',
+                'id' => 'ACSHC-00035',
             'descr' => 'Adv Rec (SC)- Ent Acct (FOB)',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14665,10 +13736,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            46 => 
+            55 => 
             array (
-                'id' => 1047,
-                'order_no' => 'ACSHC-00036',
+                'id' => 'ACSHC-00036',
             'descr' => 'Adv Rec (SC)- Ent Acct (FOM)',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14679,10 +13749,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            47 => 
+            56 => 
             array (
-                'id' => 1048,
-                'order_no' => 'ACSHC-00037',
+                'id' => 'ACSHC-00037',
             'descr' => 'Adv Rec (SC)- Ent Acct (FCM)',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14693,10 +13762,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            48 => 
+            57 => 
             array (
-                'id' => 1049,
-                'order_no' => 'ACSHC-00038',
+                'id' => 'ACSHC-00038',
             'descr' => 'Adv Rec (SC)- Ent Acct (GSM)',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14707,10 +13775,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            49 => 
+            58 => 
             array (
-                'id' => 1050,
-                'order_no' => 'ACSHC-00039',
+                'id' => 'ACSHC-00039',
             'descr' => 'Adv Rec (SC)- Ent Acct (LIFE)',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14721,10 +13788,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            50 => 
+            59 => 
             array (
-                'id' => 1051,
-                'order_no' => 'ACSHC-00040',
+                'id' => 'ACSHC-00040',
             'descr' => 'Adv Rec (SC)- Ent Acct (FOE)',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14735,10 +13801,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            51 => 
+            60 => 
             array (
-                'id' => 1052,
-                'order_no' => 'ACSHC-00041',
+                'id' => 'ACSHC-00041',
             'descr' => 'Adv Rec (SC)- Ent Acct (FCI)',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14749,10 +13814,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            52 => 
+            61 => 
             array (
-                'id' => 1053,
-                'order_no' => 'ACSHC-00042',
+                'id' => 'ACSHC-00042',
             'descr' => 'Adv Rec (SC)- Ent Acct (ITSD)',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14763,10 +13827,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            53 => 
+            62 => 
             array (
-                'id' => 1054,
-                'order_no' => 'ACSHC-00043',
+                'id' => 'ACSHC-00043',
             'descr' => 'Adv Rec (SC)- Ent Acct (CDP)',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14777,10 +13840,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            54 => 
+            63 => 
             array (
-                'id' => 1055,
-                'order_no' => 'ACSHC-00044',
+                'id' => 'ACSHC-00044',
             'descr' => 'Adv Rec (SC)-Microsoft IT Acad (MSITA)MK',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14791,10 +13853,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            55 => 
+            64 => 
             array (
-                'id' => 1056,
-                'order_no' => 'ACSHC-00045',
+                'id' => 'ACSHC-00045',
             'descr' => 'Adv Rec (SC)- Ent Acct (STO)',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14805,10 +13866,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            56 => 
+            65 => 
             array (
-                'id' => 1057,
-                'order_no' => 'ACSHC-00046',
+                'id' => 'ACSHC-00046',
             'descr' => 'Adv Rec (SC)- Ent Acct (CTL)',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14819,10 +13879,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            57 => 
+            66 => 
             array (
-                'id' => 1058,
-                'order_no' => 'ACSHC-00047',
+                'id' => 'ACSHC-00047',
             'descr' => 'Adv Rec (SC)-Peer Tutoring Programme-FET',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14833,10 +13892,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            58 => 
+            67 => 
             array (
-                'id' => 1059,
-                'order_no' => 'ACSHC-00048',
+                'id' => 'ACSHC-00048',
             'descr' => 'Adv Rec (SC)- Rhizophora Scholarship',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14847,10 +13905,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            59 => 
+            68 => 
             array (
-                'id' => 1060,
-                'order_no' => 'ACSHC-00049',
+                'id' => 'ACSHC-00049',
             'descr' => 'Adv Rec (SC)- Ent Acct (FOL)',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14861,10 +13918,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            60 => 
+            69 => 
             array (
-                'id' => 1061,
-                'order_no' => 'ACSHC-00050',
+                'id' => 'ACSHC-00050',
             'descr' => 'Adv Rec (SC)-School Break Thinking Skill',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14875,10 +13931,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            61 => 
+            70 => 
             array (
-                'id' => 1062,
-                'order_no' => 'ACSHC-00051',
+                'id' => 'ACSHC-00051',
             'descr' => 'Adv Rec (SC)-Ent Acct (FCA)',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14889,10 +13944,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            62 => 
+            71 => 
             array (
-                'id' => 1063,
-                'order_no' => 'ACSHC-00052',
+                'id' => 'ACSHC-00052',
             'descr' => 'Adv Rec (SC)-ECI Training Programs',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14903,10 +13957,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            63 => 
+            72 => 
             array (
-                'id' => 1064,
-                'order_no' => 'ACSHC-00053',
+                'id' => 'ACSHC-00053',
             'descr' => 'Adv Rec (SC) - NViVO 11 Pro',
                 'order_type' => 'Z014',
                 'status' => 'A',
@@ -14917,10 +13970,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            64 => 
+            73 => 
             array (
-                'id' => 1065,
-                'order_no' => 'AGILE',
+                'id' => 'AGILE',
                 'descr' => 'PROJECT AGILE- OPERATIONAL COST',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -14931,10 +13983,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            65 => 
+            74 => 
             array (
-                'id' => 1066,
-                'order_no' => 'AIC-1000-BP',
+                'id' => 'AIC-1000-BP',
             'descr' => 'Accrual Intercompany-Billing Plan (TM)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -14945,10 +13996,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            66 => 
+            75 => 
             array (
-                'id' => 1067,
-                'order_no' => 'AIC-1000-N',
+                'id' => 'AIC-1000-N',
             'descr' => 'Accrual Intercompany-Normal (TM)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -14959,10 +14009,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            67 => 
+            76 => 
             array (
-                'id' => 1068,
-                'order_no' => 'AIC-1000-RR',
+                'id' => 'AIC-1000-RR',
             'descr' => 'Accrual Intercompany-Rev Recognition(TM)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -14973,10 +14022,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            68 => 
+            77 => 
             array (
-                'id' => 1069,
-                'order_no' => 'AIC-1010-BP',
+                'id' => 'AIC-1010-BP',
             'descr' => 'Accrual Intercompany-Billing Plan (GiTN)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -14987,10 +14035,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            69 => 
+            78 => 
             array (
-                'id' => 1070,
-                'order_no' => 'AIC-1010-N',
+                'id' => 'AIC-1010-N',
             'descr' => 'Accrual Intercompany-Normal (GiTN)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15001,10 +14048,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            70 => 
+            79 => 
             array (
-                'id' => 1071,
-                'order_no' => 'AIC-1020-BP',
+                'id' => 'AIC-1020-BP',
             'descr' => 'Accrual Intercompany-Billing Plan (MKL)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15015,10 +14061,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            71 => 
+            80 => 
             array (
-                'id' => 1072,
-                'order_no' => 'AIC-1020-N',
+                'id' => 'AIC-1020-N',
             'descr' => 'Accrual Intercompany-Normal (MKL)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15029,10 +14074,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            72 => 
+            81 => 
             array (
-                'id' => 1073,
-                'order_no' => 'AIC-1030-BP',
+                'id' => 'AIC-1030-BP',
             'descr' => 'Accrual Intercompany-Billing Plan (TAB)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15043,10 +14087,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            73 => 
+            82 => 
             array (
-                'id' => 1074,
-                'order_no' => 'AIC-1030-N',
+                'id' => 'AIC-1030-N',
             'descr' => 'Accrual Intercompany-Normal (TAB)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15057,10 +14100,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            74 => 
+            83 => 
             array (
-                'id' => 1075,
-                'order_no' => 'AIC-1040-BP',
+                'id' => 'AIC-1040-BP',
             'descr' => 'Accrual Intercompany-Billing Plan (TMIM)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15071,10 +14113,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            75 => 
+            84 => 
             array (
-                'id' => 1076,
-                'order_no' => 'AIC-1040-N',
+                'id' => 'AIC-1040-N',
             'descr' => 'Accrual Intercompany-Normal (TMIM)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15085,10 +14126,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            76 => 
+            85 => 
             array (
-                'id' => 1077,
-                'order_no' => 'AIC-1050-BP',
+                'id' => 'AIC-1050-BP',
             'descr' => 'Accrual Intercompany-Billing Plan(TMR&D)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15099,10 +14139,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            77 => 
+            86 => 
             array (
-                'id' => 1078,
-                'order_no' => 'AIC-1050-N',
+                'id' => 'AIC-1050-N',
             'descr' => 'Accrual Intercompany-Normal(TMR&D)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15113,10 +14152,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            78 => 
+            87 => 
             array (
-                'id' => 1079,
-                'order_no' => 'AIC-1060-BP',
+                'id' => 'AIC-1060-BP',
             'descr' => 'Accrual Intercompany-Billing Plan(TSSSB)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15127,10 +14165,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            79 => 
+            88 => 
             array (
-                'id' => 1080,
-                'order_no' => 'AIC-1060-N',
+                'id' => 'AIC-1060-N',
             'descr' => 'Accrual Intercompany-Normal (TSSSB)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15141,10 +14178,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            80 => 
+            89 => 
             array (
-                'id' => 1081,
-                'order_no' => 'AIC-1070-BP',
+                'id' => 'AIC-1070-BP',
             'descr' => 'Accrual Intercompany-Billing Plan(TMF)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15155,10 +14191,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            81 => 
+            90 => 
             array (
-                'id' => 1082,
-                'order_no' => 'AIC-1070-N',
+                'id' => 'AIC-1070-N',
             'descr' => 'Accrual Intercompany- Normal (TMF)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15169,10 +14204,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            82 => 
+            91 => 
             array (
-                'id' => 1083,
-                'order_no' => 'AIC-1071-BP',
+                'id' => 'AIC-1071-BP',
             'descr' => 'Accrual Intercompany-Billing Plan(TMFA)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15183,10 +14217,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            83 => 
+            92 => 
             array (
-                'id' => 1084,
-                'order_no' => 'AIC-1071-N',
+                'id' => 'AIC-1071-N',
             'descr' => 'Accrual Intercompany- Normal (TMFA)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15197,10 +14230,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            84 => 
+            93 => 
             array (
-                'id' => 1085,
-                'order_no' => 'AIC-1080-BP',
+                'id' => 'AIC-1080-BP',
             'descr' => 'Accrual Intercompany-Billing Plan(TMNET)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15211,10 +14243,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            85 => 
+            94 => 
             array (
-                'id' => 1086,
-                'order_no' => 'AIC-1080-N',
+                'id' => 'AIC-1080-N',
             'descr' => 'Accrual Intercompany-Normal(TMNET)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15225,10 +14256,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            86 => 
+            95 => 
             array (
-                'id' => 1087,
-                'order_no' => 'AIC-3001-BP',
+                'id' => 'AIC-3001-BP',
             'descr' => 'Accrual Intercomp.-Billing Plan(VADS B)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15239,10 +14269,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            87 => 
+            96 => 
             array (
-                'id' => 1088,
-                'order_no' => 'AIC-3001-N',
+                'id' => 'AIC-3001-N',
             'descr' => 'Accrual Intercomp.-Normal (VADS B)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15253,10 +14282,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            88 => 
+            97 => 
             array (
-                'id' => 1089,
-                'order_no' => 'AIC-3001-RR',
+                'id' => 'AIC-3001-RR',
             'descr' => 'Accrual Intercompany-Rev Recog.(VADS B)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15267,10 +14295,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            89 => 
+            98 => 
             array (
-                'id' => 1090,
-                'order_no' => 'AIC-3002-BP',
+                'id' => 'AIC-3002-BP',
             'descr' => 'Accrual Intercomp.-Billing Plan(VADS eS)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15281,10 +14308,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            90 => 
+            99 => 
             array (
-                'id' => 1091,
-                'order_no' => 'AIC-3002-N',
+                'id' => 'AIC-3002-N',
             'descr' => 'Accrual Intercompany-Normal (VADS e-Svc)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15295,10 +14321,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            91 => 
+            100 => 
             array (
-                'id' => 1092,
-                'order_no' => 'AIC-3002-RR',
+                'id' => 'AIC-3002-RR',
             'descr' => 'Accrual Intercompany-Rev Recog.(VADS eS)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15309,10 +14334,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            92 => 
+            101 => 
             array (
-                'id' => 1093,
-                'order_no' => 'AIC-3004-BP',
+                'id' => 'AIC-3004-BP',
             'descr' => 'Accrual Interco-Billing Plan(VADS Sol.)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15323,10 +14347,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            93 => 
+            102 => 
             array (
-                'id' => 1094,
-                'order_no' => 'AIC-3004-N',
+                'id' => 'AIC-3004-N',
             'descr' => 'Accrual Intercompany-Normal (VADS Sol.)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15337,10 +14360,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            94 => 
+            103 => 
             array (
-                'id' => 1095,
-                'order_no' => 'AIC-3004-RR',
+                'id' => 'AIC-3004-RR',
             'descr' => 'Accrual Interco.- Rev Recog.(VADS Sol.)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15351,10 +14373,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            95 => 
+            104 => 
             array (
-                'id' => 1096,
-                'order_no' => 'AIC-3005-BP',
+                'id' => 'AIC-3005-BP',
             'descr' => 'Accrual Interco-Billing Plan(VADS BP)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15365,10 +14386,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            96 => 
+            105 => 
             array (
-                'id' => 1097,
-                'order_no' => 'AIC-3005-N',
+                'id' => 'AIC-3005-N',
             'descr' => 'Accrual Intercompany-Normal (VADS BP)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15379,10 +14399,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            97 => 
+            106 => 
             array (
-                'id' => 1098,
-                'order_no' => 'AIC-3005-RR',
+                'id' => 'AIC-3005-RR',
             'descr' => 'Accrual Intercompany-Rev Recog.(VADS BP)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15393,10 +14412,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            98 => 
+            107 => 
             array (
-                'id' => 1099,
-                'order_no' => 'AIC-3006-BP',
+                'id' => 'AIC-3006-BP',
             'descr' => 'Accrual Interco.- Billing Plan (Meganet)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15407,10 +14425,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            99 => 
+            108 => 
             array (
-                'id' => 1100,
-                'order_no' => 'AIC-3006-N',
+                'id' => 'AIC-3006-N',
             'descr' => 'Accrual Intercompany-Normal (Meganet)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15421,10 +14438,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            100 => 
+            109 => 
             array (
-                'id' => 1101,
-                'order_no' => 'AIC-3006-RR',
+                'id' => 'AIC-3006-RR',
             'descr' => 'Accrual Intercompany-Rev Recog.(Meganet)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15435,10 +14451,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            101 => 
+            110 => 
             array (
-                'id' => 1102,
-                'order_no' => 'APCN',
+                'id' => 'APCN',
                 'descr' => 'Asia Pacific Cable Network',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15449,10 +14464,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            102 => 
+            111 => 
             array (
-                'id' => 1103,
-                'order_no' => 'APCN2',
+                'id' => 'APCN2',
                 'descr' => 'Asia Pacific Cable Network 2',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15463,10 +14477,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            103 => 
+            112 => 
             array (
-                'id' => 1104,
-                'order_no' => 'APCN2UPG',
+                'id' => 'APCN2UPG',
                 'descr' => 'Asia Pacific Cable Network 2 Upgrade',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15477,10 +14490,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            104 => 
+            113 => 
             array (
-                'id' => 1105,
-                'order_no' => 'ASDF',
+                'id' => 'ASDF',
                 'descr' => 'xxxxx',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -15491,136 +14503,9 @@ class InternalOrdersTableSeeder extends Seeder
                 'created_at' => '2020-02-09 00:00:00',
                 'updated_at' => '2020-02-09 00:00:00',
             ),
-            105 => 
-            array (
-                'id' => 1106,
-                'order_no' => 'A_BBGP',
-                'descr' => 'Amortization Grant BBGP',
-                'order_type' => 'Z017',
-                'status' => 'A',
-                'cost_center' => '',
-                'company_code' => '1000',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            106 => 
-            array (
-                'id' => 1107,
-                'order_no' => 'A_HSBB2',
-                'descr' => 'Amortization Grant HSBB2',
-                'order_type' => 'Z017',
-                'status' => 'A',
-                'cost_center' => '',
-                'company_code' => '1000',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            107 => 
-            array (
-                'id' => 1108,
-                'order_no' => 'A_HSBBPERLIS',
-                'descr' => 'Amortization Grant HSBB Perlis',
-                'order_type' => 'Z017',
-                'status' => 'A',
-                'cost_center' => '',
-                'company_code' => '1000',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            108 => 
-            array (
-                'id' => 1109,
-                'order_no' => 'A_ORANGE+',
-                'descr' => 'Amortization Grant Orange+',
-                'order_type' => 'Z017',
-                'status' => 'A',
-                'cost_center' => '',
-                'company_code' => '1000',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            109 => 
-            array (
-                'id' => 1110,
-                'order_no' => 'A_SKR1M',
-                'descr' => 'Amortization Grant SKR1M',
-                'order_type' => 'Z017',
-                'status' => 'A',
-                'cost_center' => '',
-                'company_code' => '1000',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            110 => 
-            array (
-                'id' => 1111,
-                'order_no' => 'A_SUBB',
-                'descr' => 'Amortization Grant SUBB',
-                'order_type' => 'Z017',
-                'status' => 'A',
-                'cost_center' => '',
-                'company_code' => '1000',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            111 => 
-            array (
-                'id' => 1112,
-                'order_no' => 'A_USPMDALING',
-                'descr' => 'Amortization Grant USP Mat Daling',
-                'order_type' => 'Z017',
-                'status' => 'A',
-                'cost_center' => '',
-                'company_code' => '1000',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            112 => 
-            array (
-                'id' => 1113,
-                'order_no' => 'A_USP_INFRA',
-                'descr' => 'Amortization Grant USP INFRA',
-                'order_type' => 'Z017',
-                'status' => 'A',
-                'cost_center' => '',
-                'company_code' => '1000',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
-            113 => 
-            array (
-                'id' => 1114,
-                'order_no' => 'A_USP_P&K',
-                'descr' => 'Amortization Grant USP PI1M & KTW',
-                'order_type' => 'Z017',
-                'status' => 'A',
-                'cost_center' => '',
-                'company_code' => '1000',
-                'pers_responsible' => '',
-                'budget' => '0.00',
-                'created_at' => '2020-02-09 00:00:00',
-                'updated_at' => '2020-02-09 00:00:00',
-            ),
             114 => 
             array (
-                'id' => 1115,
-                'order_no' => 'BANJIR-2014',
+                'id' => 'BANJIR-2014',
                 'descr' => 'Projek Banjir 2014',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15633,8 +14518,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             115 => 
             array (
-                'id' => 1116,
-                'order_no' => 'BANJIR14-NOC',
+                'id' => 'BANJIR14-NOC',
                 'descr' => 'NOC Flood Restoration',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15647,8 +14531,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             116 => 
             array (
-                'id' => 1117,
-                'order_no' => 'BAU',
+                'id' => 'BAU',
                 'descr' => 'BAU OPEX',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15661,8 +14544,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             117 => 
             array (
-                'id' => 1118,
-                'order_no' => 'BBG',
+                'id' => 'BBG',
                 'descr' => 'Bay of Bengal',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15675,8 +14557,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             118 => 
             array (
-                'id' => 1119,
-                'order_no' => 'BBGP-KDH',
+                'id' => 'BBGP-KDH',
                 'descr' => 'BBGP Maintenance - Kedah',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15689,8 +14570,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             119 => 
             array (
-                'id' => 1120,
-                'order_no' => 'BBGP-KTN',
+                'id' => 'BBGP-KTN',
                 'descr' => 'BBGP Maintenance - Kelantan',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15703,8 +14583,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             120 => 
             array (
-                'id' => 1121,
-                'order_no' => 'BBGP-PRK',
+                'id' => 'BBGP-PRK',
                 'descr' => 'BBGP Maintenance - Perak',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15717,8 +14596,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             121 => 
             array (
-                'id' => 1122,
-                'order_no' => 'BBGP-SBH',
+                'id' => 'BBGP-SBH',
                 'descr' => 'BBGP Maintenance - Sabah',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15731,8 +14609,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             122 => 
             array (
-                'id' => 1123,
-                'order_no' => 'BBGP-SWK',
+                'id' => 'BBGP-SWK',
                 'descr' => 'BBGP Maintenance - Sarawak',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15745,8 +14622,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             123 => 
             array (
-                'id' => 1124,
-                'order_no' => 'BBGP-TGG',
+                'id' => 'BBGP-TGG',
                 'descr' => 'BBGP Maintenance - Terengganu',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15759,8 +14635,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             124 => 
             array (
-                'id' => 1125,
-                'order_no' => 'BBGP2-BSM',
+                'id' => 'BBGP2-BSM',
             'descr' => 'BBGP2-Business Strategy Management(BSM)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15773,8 +14648,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             125 => 
             array (
-                'id' => 1126,
-                'order_no' => 'BBGP2-CSM',
+                'id' => 'BBGP2-CSM',
             'descr' => 'BBGP2-Carrier Service Management(CSM)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15787,8 +14661,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             126 => 
             array (
-                'id' => 1127,
-                'order_no' => 'BDM',
+                'id' => 'BDM',
                 'descr' => 'Batam Dumai Melaka',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -15801,8 +14674,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             127 => 
             array (
-                'id' => 1128,
-                'order_no' => 'C1000-APEC44',
+                'id' => 'C1000-APEC44',
                 'descr' => '44th Meeting- APEC Telecom&Info Work Grp',
                 'order_type' => 'Z002',
                 'status' => 'A',
@@ -15815,8 +14687,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             128 => 
             array (
-                'id' => 1129,
-                'order_no' => 'C1000-APRT11',
+                'id' => 'C1000-APRT11',
                 'descr' => '25th Asia-Pacific Round Table 2011',
                 'order_type' => 'Z002',
                 'status' => 'A',
@@ -15829,8 +14700,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             129 => 
             array (
-                'id' => 1130,
-                'order_no' => 'C1000-BMWO13',
+                'id' => 'C1000-BMWO13',
                 'descr' => 'BMW Malaysian Open 2013',
                 'order_type' => 'Z002',
                 'status' => 'A',
@@ -15843,8 +14713,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             130 => 
             array (
-                'id' => 1131,
-                'order_no' => 'C1000-CBTH09',
+                'id' => 'C1000-CBTH09',
                 'descr' => 'CR - CABLE THEFT',
                 'order_type' => 'Z002',
                 'status' => 'X',
@@ -15857,8 +14726,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             131 => 
             array (
-                'id' => 1132,
-                'order_no' => 'C1000-GLCD11',
+                'id' => 'C1000-GLCD11',
                 'descr' => 'GLC OPEN DAY 2011',
                 'order_type' => 'Z002',
                 'status' => 'A',
@@ -15871,8 +14739,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             132 => 
             array (
-                'id' => 1133,
-                'order_no' => 'C1000-GPDT11',
+                'id' => 'C1000-GPDT11',
                 'descr' => 'Global Premier Dinner Talk 2011',
                 'order_type' => 'Z002',
                 'status' => 'A',
@@ -15885,8 +14752,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             133 => 
             array (
-                'id' => 1134,
-                'order_no' => 'C1000-IPRO15',
+                'id' => 'C1000-IPRO15',
             'descr' => 'IProperty Events (7-8 April 2015)',
                 'order_type' => 'Z002',
                 'status' => 'X',
@@ -15899,8 +14765,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             134 => 
             array (
-                'id' => 1135,
-                'order_no' => 'C1000-J1MS11',
+                'id' => 'C1000-J1MS11',
                 'descr' => 'Jelajah 1 Malaysia 2011',
                 'order_type' => 'Z002',
                 'status' => 'A',
@@ -15913,8 +14778,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             135 => 
             array (
-                'id' => 1136,
-                'order_no' => 'C1000-KGL11',
+                'id' => 'C1000-KGL11',
                 'descr' => 'Khazanah Global Lectures 2011',
                 'order_type' => 'Z002',
                 'status' => 'A',
@@ -15927,8 +14791,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             136 => 
             array (
-                'id' => 1137,
-                'order_no' => 'C1000-LID11',
+                'id' => 'C1000-LID11',
                 'descr' => 'Langkawi International Dialogue 2011',
                 'order_type' => 'Z002',
                 'status' => 'A',
@@ -15941,8 +14804,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             137 => 
             array (
-                'id' => 1138,
-                'order_no' => 'C1000-LIMA09',
+                'id' => 'C1000-LIMA09',
                 'descr' => 'LIMA 2009',
                 'order_type' => 'Z002',
                 'status' => 'X',
@@ -15955,8 +14817,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             138 => 
             array (
-                'id' => 1139,
-                'order_no' => 'C1000-LIMA11',
+                'id' => 'C1000-LIMA11',
                 'descr' => 'Expenditure of LIMA 2011',
                 'order_type' => 'Z002',
                 'status' => 'A',
@@ -15969,8 +14830,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             139 => 
             array (
-                'id' => 1140,
-                'order_no' => 'C1000-LTDL10',
+                'id' => 'C1000-LTDL10',
                 'descr' => 'Le Tour de Langkawi 2010',
                 'order_type' => 'Z002',
                 'status' => 'X',
@@ -15983,8 +14843,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             140 => 
             array (
-                'id' => 1141,
-                'order_no' => 'C1000-LTDL11',
+                'id' => 'C1000-LTDL11',
                 'descr' => 'Le Tour de Langkawi 2011',
                 'order_type' => 'Z002',
                 'status' => 'A',
@@ -15997,8 +14856,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             141 => 
             array (
-                'id' => 1142,
-                'order_no' => 'C1000-LTDL12',
+                'id' => 'C1000-LTDL12',
                 'descr' => 'Le Tour de Langkawi 2012',
                 'order_type' => 'Z002',
                 'status' => 'A',
@@ -16011,8 +14869,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             142 => 
             array (
-                'id' => 1143,
-                'order_no' => 'C1000-MNSC09',
+                'id' => 'C1000-MNSC09',
                 'descr' => 'Monsoon Cup 2009',
                 'order_type' => 'Z002',
                 'status' => 'X',
@@ -16025,8 +14882,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             143 => 
             array (
-                'id' => 1144,
-                'order_no' => 'C1000-MNSC10',
+                'id' => 'C1000-MNSC10',
                 'descr' => 'Monsoon Cup 2010',
                 'order_type' => 'Z002',
                 'status' => 'X',
@@ -16039,8 +14895,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             144 => 
             array (
-                'id' => 1145,
-                'order_no' => 'C1000-MNSC11',
+                'id' => 'C1000-MNSC11',
                 'descr' => 'Monsoon Cup 2011',
                 'order_type' => 'Z002',
                 'status' => 'A',
@@ -16053,8 +14908,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             145 => 
             array (
-                'id' => 1146,
-                'order_no' => 'C1000-MRAK11',
+                'id' => 'C1000-MRAK11',
                 'descr' => 'Majlis Raya Aidilfitri &Kemerdekaan 2011',
                 'order_type' => 'Z002',
                 'status' => 'A',
@@ -16067,8 +14921,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             146 => 
             array (
-                'id' => 1147,
-                'order_no' => 'C1000-PFSM09',
+                'id' => 'C1000-PFSM09',
                 'descr' => 'CR - PROGRAM FOR SINGLE MOTHER',
                 'order_type' => 'Z002',
                 'status' => 'X',
@@ -16081,8 +14934,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             147 => 
             array (
-                'id' => 1148,
-                'order_no' => 'C1000-PNTR09',
+                'id' => 'C1000-PNTR09',
                 'descr' => 'CR - PINTAR',
                 'order_type' => 'Z002',
                 'status' => 'X',
@@ -16095,8 +14947,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             148 => 
             array (
-                'id' => 1149,
-                'order_no' => 'C1000-PPSA07',
+                'id' => 'C1000-PPSA07',
                 'descr' => 'CR-PROJEK SEKOLAH ANGKAT TM BERSAMA KPKK',
                 'order_type' => 'Z002',
                 'status' => 'X',
@@ -16109,8 +14960,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             149 => 
             array (
-                'id' => 1150,
-                'order_no' => 'C1000-PSM02',
+                'id' => 'C1000-PSM02',
                 'descr' => 'TM Program-Single Mothers Ph.2 Kelantan',
                 'order_type' => 'Z002',
                 'status' => 'A',
@@ -16123,8 +14973,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             150 => 
             array (
-                'id' => 1151,
-                'order_no' => 'C1000-SIFE11',
+                'id' => 'C1000-SIFE11',
                 'descr' => 'SIFE Malaysia International Exposition11',
                 'order_type' => 'Z002',
                 'status' => 'A',
@@ -16137,8 +14986,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             151 => 
             array (
-                'id' => 1152,
-                'order_no' => 'C1000-SMKCT',
+                'id' => 'C1000-SMKCT',
                 'descr' => 'TM Pintar School- SMK Chenderiang, Temoh',
                 'order_type' => 'Z002',
                 'status' => 'A',
@@ -16151,8 +14999,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             152 => 
             array (
-                'id' => 1153,
-                'order_no' => 'C1000-SMNE11',
+                'id' => 'C1000-SMNE11',
                 'descr' => 'Sife Malaysia National Exposition 2011',
                 'order_type' => 'Z002',
                 'status' => 'A',
@@ -16165,8 +15012,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             153 => 
             array (
-                'id' => 1154,
-                'order_no' => 'C1000-SRPKPT',
+                'id' => 'C1000-SRPKPT',
                 'descr' => 'TM Pintar School- SRPK Pekan Tuaran',
                 'order_type' => 'Z002',
                 'status' => 'A',
@@ -16179,8 +15025,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             154 => 
             array (
-                'id' => 1155,
-                'order_no' => 'C1000-SUD013',
+                'id' => 'C1000-SUD013',
                 'descr' => 'Sudirman Cup 2013',
                 'order_type' => 'Z002',
                 'status' => 'A',
@@ -16193,8 +15038,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             155 => 
             array (
-                'id' => 1156,
-                'order_no' => 'C1000-SUKM11',
+                'id' => 'C1000-SUKM11',
             'descr' => 'SUKAN MALAYSIA (SUKMA XIV) 2011',
                 'order_type' => 'Z002',
                 'status' => 'A',
@@ -16207,8 +15051,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             156 => 
             array (
-                'id' => 1157,
-                'order_no' => 'C1000-SWC11',
+                'id' => 'C1000-SWC11',
                 'descr' => 'SIFE World Cup 2011',
                 'order_type' => 'Z002',
                 'status' => 'A',
@@ -16221,8 +15064,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             157 => 
             array (
-                'id' => 1158,
-                'order_no' => 'C1000-TMEC',
+                'id' => 'C1000-TMEC',
                 'descr' => 'TM Earth Camp 2010',
                 'order_type' => 'Z002',
                 'status' => 'X',
@@ -16235,8 +15077,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             158 => 
             array (
-                'id' => 1159,
-                'order_no' => 'C1000-TMGE09',
+                'id' => 'C1000-TMGE09',
             'descr' => 'CR - TM\'S GREEN EFFORTS (ENVIRONMENT)',
                 'order_type' => 'Z002',
                 'status' => 'X',
@@ -16249,8 +15090,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             159 => 
             array (
-                'id' => 1160,
-                'order_no' => 'C1000-YJF11',
+                'id' => 'C1000-YJF11',
                 'descr' => 'BN Youth Job Fair 2011',
                 'order_type' => 'Z002',
                 'status' => 'A',
@@ -16263,8 +15103,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             160 => 
             array (
-                'id' => 1161,
-                'order_no' => 'C1003-LIMA09',
+                'id' => 'C1003-LIMA09',
                 'descr' => 'LIMA 2009',
                 'order_type' => 'Z002',
                 'status' => 'X',
@@ -16277,8 +15116,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             161 => 
             array (
-                'id' => 1162,
-                'order_no' => 'C1003-PPSA07',
+                'id' => 'C1003-PPSA07',
                 'descr' => 'CR-PROJEK SEKOLAH ANGKAT TM BERSAMA KPKK',
                 'order_type' => 'Z002',
                 'status' => 'X',
@@ -16291,8 +15129,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             162 => 
             array (
-                'id' => 1163,
-                'order_no' => 'C1010-GIEG01',
+                'id' => 'C1010-GIEG01',
                 'descr' => 'Rpt Segment  - EG-Net',
                 'order_type' => 'Z025',
                 'status' => 'A',
@@ -16305,8 +15142,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             163 => 
             array (
-                'id' => 1164,
-                'order_no' => 'C1010-GIMN01',
+                'id' => 'C1010-GIMN01',
                 'descr' => 'Rpt Segment - Manage Network Services',
                 'order_type' => 'Z025',
                 'status' => 'A',
@@ -16319,8 +15155,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             164 => 
             array (
-                'id' => 1165,
-                'order_no' => 'C1010-GIMO01',
+                'id' => 'C1010-GIMO01',
                 'descr' => 'Others',
                 'order_type' => 'Z025',
                 'status' => 'A',
@@ -16333,8 +15168,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             165 => 
             array (
-                'id' => 1166,
-                'order_no' => 'C1010-GIMS01',
+                'id' => 'C1010-GIMS01',
                 'descr' => 'Rpt Segment - Manage Security Services',
                 'order_type' => 'Z025',
                 'status' => 'A',
@@ -16347,8 +15181,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             166 => 
             array (
-                'id' => 1167,
-                'order_no' => 'C1010-GISC01',
+                'id' => 'C1010-GISC01',
                 'descr' => 'Rpt Segment - School-Net',
                 'order_type' => 'Z025',
                 'status' => 'A',
@@ -16361,8 +15194,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             167 => 
             array (
-                'id' => 1168,
-                'order_no' => 'CALIBRATION',
+                'id' => 'CALIBRATION',
                 'descr' => 'Calibration Works',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16375,8 +15207,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             168 => 
             array (
-                'id' => 1169,
-                'order_no' => 'CARINGBRIDGE',
+                'id' => 'CARINGBRIDGE',
                 'descr' => 'CARING BRIDGE PROGRAM BATU PAHAT,JOHOR',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16389,8 +15220,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             169 => 
             array (
-                'id' => 1170,
-                'order_no' => 'CIIC2019',
+                'id' => 'CIIC2019',
                 'descr' => 'GNT National CIIC 2019',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16403,8 +15233,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             170 => 
             array (
-                'id' => 1171,
-                'order_no' => 'CLOSED',
+                'id' => 'CLOSED',
                 'descr' => 'CLOSED IO',
                 'order_type' => 'Z002',
                 'status' => 'X',
@@ -16417,8 +15246,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             171 => 
             array (
-                'id' => 1172,
-                'order_no' => 'CMAAA',
+                'id' => 'CMAAA',
                 'descr' => 'AAA',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16431,8 +15259,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             172 => 
             array (
-                'id' => 1173,
-                'order_no' => 'CMACASIA',
+                'id' => 'CMACASIA',
                 'descr' => 'Comp Mtce & Support ACASIA',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16445,8 +15272,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             173 => 
             array (
-                'id' => 1174,
-                'order_no' => 'CMACXAS',
+                'id' => 'CMACXAS',
                 'descr' => 'ACX Router for PTP1588',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16459,8 +15285,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             174 => 
             array (
-                'id' => 1175,
-                'order_no' => 'CMACXMSB',
+                'id' => 'CMACXMSB',
                 'descr' => 'ACX Router for PTP1588',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16473,8 +15298,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             175 => 
             array (
-                'id' => 1176,
-                'order_no' => 'CMALCSDHDWDM',
+                'id' => 'CMALCSDHDWDM',
             'descr' => 'Alcatel SDH4 + NMS  (MSS4)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16487,8 +15311,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             176 => 
             array (
-                'id' => 1177,
-                'order_no' => 'CMAMARANTEN',
+                'id' => 'CMAMARANTEN',
                 'descr' => 'MSS Amaranten Firewall',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16501,8 +15324,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             177 => 
             array (
-                'id' => 1178,
-                'order_no' => 'CMATM',
+                'id' => 'CMATM',
                 'descr' => 'SOD ATM Server',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16515,8 +15337,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             178 => 
             array (
-                'id' => 1179,
-                'order_no' => 'CMATTEND',
+                'id' => 'CMATTEND',
                 'descr' => 'Biometric Attendance System Maintenance',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16529,8 +15350,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             179 => 
             array (
-                'id' => 1180,
-                'order_no' => 'CMAVAYA',
+                'id' => 'CMAVAYA',
                 'descr' => 'AVAYA',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16543,8 +15363,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             180 => 
             array (
-                'id' => 1181,
-                'order_no' => 'CMBACKEND',
+                'id' => 'CMBACKEND',
                 'descr' => 'MTCE FOR STREAMYX ZONE BACKEND',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16557,8 +15376,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             181 => 
             array (
-                'id' => 1182,
-                'order_no' => 'CMBBGP',
+                'id' => 'CMBBGP',
                 'descr' => 'Fibrecomm BBGP Kinabatangan',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16571,8 +15389,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             182 => 
             array (
-                'id' => 1183,
-                'order_no' => 'CMBMS',
+                'id' => 'CMBMS',
                 'descr' => 'Comp Mtce & Support BMS Software',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16585,8 +15402,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             183 => 
             array (
-                'id' => 1184,
-                'order_no' => 'CMBRAS1',
+                'id' => 'CMBRAS1',
                 'descr' => 'BRAS ROUTER',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16599,8 +15415,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             184 => 
             array (
-                'id' => 1185,
-                'order_no' => 'CMBRAS2',
+                'id' => 'CMBRAS2',
                 'descr' => 'BRAS ROUTER',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16613,8 +15428,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             185 => 
             array (
-                'id' => 1186,
-                'order_no' => 'CMBRASHW',
+                'id' => 'CMBRASHW',
                 'descr' => 'Huawei BRAS/LSN consolidated',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16627,8 +15441,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             186 => 
             array (
-                'id' => 1187,
-                'order_no' => 'CMBTIDWDM',
+                'id' => 'CMBTIDWDM',
                 'descr' => 'BTI  DWDM Mtce JB-Singapore',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16641,8 +15454,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             187 => 
             array (
-                'id' => 1188,
-                'order_no' => 'CMC0115001BP',
+                'id' => 'CMC0115001BP',
                 'descr' => 'CMC-JomPAY Marketing Plan',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -16655,8 +15467,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             188 => 
             array (
-                'id' => 1189,
-                'order_no' => 'CMC0115002BP',
+                'id' => 'CMC0115002BP',
             'descr' => 'CMC-Re-printing Leaflet (PC & Autopay)',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -16669,8 +15480,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             189 => 
             array (
-                'id' => 1190,
-                'order_no' => 'CMC0115003BP',
+                'id' => 'CMC0115003BP',
                 'descr' => 'CMC-Pay N Win Event',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -16683,8 +15493,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             190 => 
             array (
-                'id' => 1191,
-                'order_no' => 'CMC0116001BP',
+                'id' => 'CMC0116001BP',
                 'descr' => 'CMC-JomPAY leaflet & Autopay form',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -16697,8 +15506,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             191 => 
             array (
-                'id' => 1192,
-                'order_no' => 'CMC0116002BP',
+                'id' => 'CMC0116002BP',
                 'descr' => 'CMC-Payment Channel Info Leaflet',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -16711,8 +15519,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             192 => 
             array (
-                'id' => 1193,
-                'order_no' => 'CMC0116003BP',
+                'id' => 'CMC0116003BP',
                 'descr' => 'CMC-Autopay & Win Campaign',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -16725,8 +15532,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             193 => 
             array (
-                'id' => 1194,
-                'order_no' => 'CMC0116004PI',
+                'id' => 'CMC0116004PI',
                 'descr' => 'CMC-TM Autopay Premium Item',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -16739,8 +15545,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             194 => 
             array (
-                'id' => 1195,
-                'order_no' => 'CMC0117001BP',
+                'id' => 'CMC0117001BP',
                 'descr' => 'CMC-Autopay & Win Campaign',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -16753,8 +15558,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             195 => 
             array (
-                'id' => 1196,
-                'order_no' => 'CMC0117002PI',
+                'id' => 'CMC0117002PI',
                 'descr' => 'CMC-Autopay Premium Item',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -16767,8 +15571,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             196 => 
             array (
-                'id' => 1197,
-                'order_no' => 'CMC0117003BP',
+                'id' => 'CMC0117003BP',
                 'descr' => 'CMC-Visa Checkout Campaign',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -16781,8 +15584,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             197 => 
             array (
-                'id' => 1198,
-                'order_no' => 'CMC0117004BP',
+                'id' => 'CMC0117004BP',
                 'descr' => 'CMC-CPBR C Autopay Campaign',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -16795,8 +15597,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             198 => 
             array (
-                'id' => 1199,
-                'order_no' => 'CMC0117005BP',
+                'id' => 'CMC0117005BP',
                 'descr' => 'CMC-JomPAY Exclusive Campaign',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -16809,8 +15610,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             199 => 
             array (
-                'id' => 1200,
-                'order_no' => 'CMCALLCENTRE',
+                'id' => 'CMCALLCENTRE',
                 'descr' => 'CALL CENTRE',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16823,8 +15623,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             200 => 
             array (
-                'id' => 1201,
-                'order_no' => 'CMCAMA',
+                'id' => 'CMCAMA',
                 'descr' => 'Comp Mtce & Support for Traffic CAMA',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16837,8 +15636,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             201 => 
             array (
-                'id' => 1202,
-                'order_no' => 'CMCBYD',
+                'id' => 'CMCBYD',
                 'descr' => 'CBYD WEB PORTAL AGREEMENT',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16851,8 +15649,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             202 => 
             array (
-                'id' => 1203,
-                'order_no' => 'CMCCTV',
+                'id' => 'CMCCTV',
                 'descr' => 'Biometric Access and CCTV Surveillance',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16865,8 +15662,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             203 => 
             array (
-                'id' => 1204,
-                'order_no' => 'CMCISCOSW',
+                'id' => 'CMCISCOSW',
                 'descr' => 'Cisco Switch for TM ISPNM Brickfields Da',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16879,8 +15675,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             204 => 
             array (
-                'id' => 1205,
-                'order_no' => 'CMCLAVISTER',
+                'id' => 'CMCLAVISTER',
                 'descr' => 'Mtce & Support for CLAVISTER',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16893,8 +15688,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             205 => 
             array (
-                'id' => 1206,
-                'order_no' => 'CMCPAMS',
+                'id' => 'CMCPAMS',
                 'descr' => 'MSS CPAMS System',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16907,8 +15701,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             206 => 
             array (
-                'id' => 1207,
-                'order_no' => 'CMCPAMS3',
+                'id' => 'CMCPAMS3',
                 'descr' => 'CPAMS Phase3',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16921,8 +15714,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             207 => 
             array (
-                'id' => 1208,
-                'order_no' => 'CMDCMSCAMA',
+                'id' => 'CMDCMSCAMA',
                 'descr' => 'Comp Mtce & Support for DCMS CAMA',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16935,8 +15727,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             208 => 
             array (
-                'id' => 1209,
-                'order_no' => 'CMDCNCISCO',
+                'id' => 'CMDCNCISCO',
                 'descr' => 'DCN Cisco Network',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16949,8 +15740,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             209 => 
             array (
-                'id' => 1210,
-                'order_no' => 'CMDDNERIC',
+                'id' => 'CMDDNERIC',
                 'descr' => 'DDN Ericsson',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16963,8 +15753,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             210 => 
             array (
-                'id' => 1211,
-                'order_no' => 'CMDDNMAHKO',
+                'id' => 'CMDDNMAHKO',
                 'descr' => 'DDN Mahkota',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16977,8 +15766,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             211 => 
             array (
-                'id' => 1212,
-                'order_no' => 'CMDDNTELLABS',
+                'id' => 'CMDDNTELLABS',
                 'descr' => 'DDN Tellabs',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -16991,8 +15779,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             212 => 
             array (
-                'id' => 1213,
-                'order_no' => 'CMDNM2011E01',
+                'id' => 'CMDNM2011E01',
                 'descr' => 'CM Ericsson DDN1',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17005,8 +15792,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             213 => 
             array (
-                'id' => 1214,
-                'order_no' => 'CMDNM2011E02',
+                'id' => 'CMDNM2011E02',
                 'descr' => 'CM Ericsson DDN2',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17019,8 +15805,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             214 => 
             array (
-                'id' => 1215,
-                'order_no' => 'CMDNM2011E03',
+                'id' => 'CMDNM2011E03',
                 'descr' => 'CM Ericsson DDN3',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17033,8 +15818,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             215 => 
             array (
-                'id' => 1216,
-                'order_no' => 'CMDNM2011P01',
+                'id' => 'CMDNM2011P01',
             'descr' => 'CM Emerson (Liebert UPS)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17047,8 +15831,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             216 => 
             array (
-                'id' => 1217,
-                'order_no' => 'CMDNM2011P02',
+                'id' => 'CMDNM2011P02',
             'descr' => 'CM Schneider (MGE UPS)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17061,8 +15844,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             217 => 
             array (
-                'id' => 1218,
-                'order_no' => 'CMDNM2011P03',
+                'id' => 'CMDNM2011P03',
             'descr' => 'CM Century (MGE UPS)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17075,8 +15857,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             218 => 
             array (
-                'id' => 1219,
-                'order_no' => 'CMDNM2011P04',
+                'id' => 'CMDNM2011P04',
             'descr' => 'CM MGE (MGE UPS)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17089,8 +15870,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             219 => 
             array (
-                'id' => 1220,
-                'order_no' => 'CMDNM2011P05',
+                'id' => 'CMDNM2011P05',
             'descr' => 'CM UTS (Riello UPS)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17103,8 +15883,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             220 => 
             array (
-                'id' => 1221,
-                'order_no' => 'CMDNM2011T01',
+                'id' => 'CMDNM2011T01',
                 'descr' => 'CM Tellabs DDN1',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17117,8 +15896,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             221 => 
             array (
-                'id' => 1222,
-                'order_no' => 'CMDNM2011T02',
+                'id' => 'CMDNM2011T02',
                 'descr' => 'CM Tellabs DDN3',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17131,8 +15909,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             222 => 
             array (
-                'id' => 1223,
-                'order_no' => 'CMDNM2011T03',
+                'id' => 'CMDNM2011T03',
                 'descr' => 'CM Tellabs DDN3 Phase 2 Celcom Project',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17145,8 +15922,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             223 => 
             array (
-                'id' => 1224,
-                'order_no' => 'CMDNM2012T04',
+                'id' => 'CMDNM2012T04',
                 'descr' => 'Tellabs DDN4 K1260030/12',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17159,8 +15935,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             224 => 
             array (
-                'id' => 1225,
-                'order_no' => 'CMDNM2016C01',
+                'id' => 'CMDNM2016C01',
                 'descr' => 'DDN Consolidate 3400018534/K1260084/16',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17173,8 +15948,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             225 => 
             array (
-                'id' => 1226,
-                'order_no' => 'CMDNM2017C02',
+                'id' => 'CMDNM2017C02',
                 'descr' => 'Tellabs DDN Consolidt Comprehensive Mtce',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17187,8 +15961,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             226 => 
             array (
-                'id' => 1227,
-                'order_no' => 'CMDNS',
+                'id' => 'CMDNS',
                 'descr' => 'DNS Maintenance',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17201,8 +15974,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             227 => 
             array (
-                'id' => 1228,
-                'order_no' => 'CMDORADO',
+                'id' => 'CMDORADO',
                 'descr' => 'MSS of Dorado Software for TMs IPCORE',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17215,8 +15987,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             228 => 
             array (
-                'id' => 1229,
-                'order_no' => 'CMDSLAMKKUB',
+                'id' => 'CMDSLAMKKUB',
             'descr' => 'DSLAM Alcatel(ASAM) & Lucent - Kubtel',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17229,8 +16000,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             229 => 
             array (
-                'id' => 1230,
-                'order_no' => 'CMDSLAMKUB',
+                'id' => 'CMDSLAMKUB',
             'descr' => 'DSLAM Alcatel(ISAM)  - Kubtel',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17243,8 +16013,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             230 => 
             array (
-                'id' => 1231,
-                'order_no' => 'CMDSLAMPER',
+                'id' => 'CMDSLAMPER',
                 'descr' => 'DSLAM NEC - Pernec',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17257,8 +16026,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             231 => 
             array (
-                'id' => 1232,
-                'order_no' => 'CMDSLAMSR',
+                'id' => 'CMDSLAMSR',
                 'descr' => 'DSLAM Huawei - Silveridge',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17271,8 +16039,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             232 => 
             array (
-                'id' => 1233,
-                'order_no' => 'CMDSLM11A01',
+                'id' => 'CMDSLM11A01',
                 'descr' => 'Comp Mtce DSLAM Alcatel K1260006/10',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17285,8 +16052,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             233 => 
             array (
-                'id' => 1234,
-                'order_no' => 'CMDSLM11A02',
+                'id' => 'CMDSLM11A02',
                 'descr' => 'Comp Mtce DSLAM Alcatel K1250028/09',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17299,8 +16065,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             234 => 
             array (
-                'id' => 1235,
-                'order_no' => 'CMDSLM11A03',
+                'id' => 'CMDSLM11A03',
                 'descr' => 'Comp Mtce IPDSLAM Alcatel SUPPLY 3100003',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17313,8 +16078,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             235 => 
             array (
-                'id' => 1236,
-                'order_no' => 'CMDSLM11A04',
+                'id' => 'CMDSLM11A04',
                 'descr' => 'Comp Mtce DSLAM Alcatel K1260117/09',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17327,8 +16091,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             236 => 
             array (
-                'id' => 1237,
-                'order_no' => 'CMDSLM11D01',
+                'id' => 'CMDSLM11D01',
                 'descr' => 'Comp Mtce DSLAM Datang',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17341,8 +16104,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             237 => 
             array (
-                'id' => 1238,
-                'order_no' => 'CMDSLM11F01',
+                'id' => 'CMDSLM11F01',
                 'descr' => 'Comp Mtce DLSAM Fujitsu K1230007/08',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17355,8 +16117,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             238 => 
             array (
-                'id' => 1239,
-                'order_no' => 'CMDSLM11F02',
+                'id' => 'CMDSLM11F02',
                 'descr' => 'Comp Mtce DLSAM Fujitsu K1230034/09',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17369,8 +16130,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             239 => 
             array (
-                'id' => 1240,
-                'order_no' => 'CMDSLM11F03',
+                'id' => 'CMDSLM11F03',
                 'descr' => 'Comp Mtce DLSAM Fujits SUPPLY K1260058/0',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17383,8 +16143,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             240 => 
             array (
-                'id' => 1241,
-                'order_no' => 'CMDSLM11K01',
+                'id' => 'CMDSLM11K01',
                 'descr' => 'Comp Mtce DSLAM/RTDSLAM Lucent',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17397,8 +16156,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             241 => 
             array (
-                'id' => 1242,
-                'order_no' => 'CMDSLM11K01R',
+                'id' => 'CMDSLM11K01R',
                 'descr' => 'Renewal compr Mtce DSLAM/RTDSLAM Lucent',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17411,8 +16169,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             242 => 
             array (
-                'id' => 1243,
-                'order_no' => 'CMDSLM11P01',
+                'id' => 'CMDSLM11P01',
                 'descr' => 'Cmt.MtceNEC DSLAM K1260315/14-3400015161',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17425,8 +16182,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             243 => 
             array (
-                'id' => 1244,
-                'order_no' => 'CMDSLM11S01',
+                'id' => 'CMDSLM11S01',
                 'descr' => 'Comp Mtce DLSAM Huawei Silveridge Contra',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17439,8 +16195,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             244 => 
             array (
-                'id' => 1245,
-                'order_no' => 'CMDSLM11S02',
+                'id' => 'CMDSLM11S02',
                 'descr' => 'Comp Mtce DLSAM Huawei Silveridge Contra',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17453,8 +16208,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             245 => 
             array (
-                'id' => 1246,
-                'order_no' => 'CMDSLM11S03',
+                'id' => 'CMDSLM11S03',
                 'descr' => 'Comp Mtce DLSAM Huawei Silveridge Contra',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17467,8 +16221,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             246 => 
             array (
-                'id' => 1247,
-                'order_no' => 'CMDSLM11S04',
+                'id' => 'CMDSLM11S04',
                 'descr' => 'Comp Mtce DLSAM Huawei Silveridge Contra',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17481,8 +16234,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             247 => 
             array (
-                'id' => 1248,
-                'order_no' => 'CMDSLM11S05',
+                'id' => 'CMDSLM11S05',
                 'descr' => 'Comp Mtce DLSAM Huawei Silveridge Contra',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17495,8 +16247,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             248 => 
             array (
-                'id' => 1249,
-                'order_no' => 'CMDSLM13K01R',
+                'id' => 'CMDSLM13K01R',
                 'descr' => 'Consolidated DSLAM KUB - K1260150/12',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17509,8 +16260,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             249 => 
             array (
-                'id' => 1250,
-                'order_no' => 'CMDSLM13S01R',
+                'id' => 'CMDSLM13S01R',
                 'descr' => 'Consolidatd DSLAM SILVERIDGE-K1260032/13',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17523,8 +16273,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             250 => 
             array (
-                'id' => 1251,
-                'order_no' => 'CMDSLM14K01R',
+                'id' => 'CMDSLM14K01R',
             'descr' => 'IPDSLAM Alcatel Lucent (ISAM) K1260250',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17537,8 +16286,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             251 => 
             array (
-                'id' => 1252,
-                'order_no' => 'CMECGPA',
+                'id' => 'CMECGPA',
                 'descr' => 'E-CGPA +',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17551,8 +16299,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             252 => 
             array (
-                'id' => 1253,
-                'order_no' => 'CMEMAIL1',
+                'id' => 'CMEMAIL1',
                 'descr' => 'Email Antispamming & Antiviru',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17565,8 +16312,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             253 => 
             array (
-                'id' => 1254,
-                'order_no' => 'CMEMAIL2',
+                'id' => 'CMEMAIL2',
                 'descr' => 'Onsite Support',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17579,8 +16325,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             254 => 
             array (
-                'id' => 1255,
-                'order_no' => 'CMEMS',
+                'id' => 'CMEMS',
                 'descr' => 'EMS',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17593,8 +16338,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             255 => 
             array (
-                'id' => 1256,
-                'order_no' => 'CMEMSERIC14',
+                'id' => 'CMEMSERIC14',
                 'descr' => 'MTCE SUPPORT ERICSSON OPTICAL TXN EQPT &',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17607,8 +16351,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             256 => 
             array (
-                'id' => 1257,
-                'order_no' => 'CMEMSNID',
+                'id' => 'CMEMSNID',
                 'descr' => 'NID EMS',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17621,8 +16364,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             257 => 
             array (
-                'id' => 1258,
-                'order_no' => 'CMEMSOBSEQ',
+                'id' => 'CMEMSOBSEQ',
             'descr' => 'EMS for obsolete Eq (adsl)-Formis',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17635,8 +16377,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             258 => 
             array (
-                'id' => 1259,
-                'order_no' => 'CMERICSML15',
+                'id' => 'CMERICSML15',
                 'descr' => 'MTCE ERICSSON M/LINK DIGITAL M/WAVE SYST',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17649,8 +16390,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             259 => 
             array (
-                'id' => 1260,
-                'order_no' => 'CMEVERESTNMS',
+                'id' => 'CMEVERESTNMS',
                 'descr' => 'EVEREST NMS',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17663,8 +16403,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             260 => 
             array (
-                'id' => 1261,
-                'order_no' => 'CMFBERHOME12',
+                'id' => 'CMFBERHOME12',
             'descr' => 'Fiberhome Wuhan (MSS1)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17677,8 +16416,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             261 => 
             array (
-                'id' => 1262,
-                'order_no' => 'CMFCNBBGP001',
+                'id' => 'CMFCNBBGP001',
                 'descr' => 'ContractTM Broadband to BBGP in Sabah TM',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17691,8 +16429,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             262 => 
             array (
-                'id' => 1263,
-                'order_no' => 'CMFHOME14DP',
+                'id' => 'CMFHOME14DP',
                 'descr' => 'FIBERHOME DP SDH, WDM, OXC',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17705,8 +16442,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             263 => 
             array (
-                'id' => 1264,
-                'order_no' => 'CMFHOME14OT',
+                'id' => 'CMFHOME14OT',
                 'descr' => 'FIBERHOME OT SDH, WDM, OXC',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17719,8 +16455,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             264 => 
             array (
-                'id' => 1265,
-                'order_no' => 'CMFHOME2001',
+                'id' => 'CMFHOME2001',
                 'descr' => 'Fiberhome New Contract',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17733,8 +16468,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             265 => 
             array (
-                'id' => 1266,
-                'order_no' => 'CMFHOME3447',
+                'id' => 'CMFHOME3447',
             'descr' => 'Fiberhome OT (MSS3)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17747,8 +16481,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             266 => 
             array (
-                'id' => 1267,
-                'order_no' => 'CMFHOME3449',
+                'id' => 'CMFHOME3449',
             'descr' => 'Fiberhome DP (MSS2)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17761,8 +16494,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             267 => 
             array (
-                'id' => 1268,
-                'order_no' => 'CMFIREWALL',
+                'id' => 'CMFIREWALL',
                 'descr' => 'Amaranten Firewall',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17775,8 +16507,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             268 => 
             array (
-                'id' => 1269,
-                'order_no' => 'CMFOMSDIGI',
+                'id' => 'CMFOMSDIGI',
             'descr' => 'Fiber Optics Monitoring System (FOMS)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17789,8 +16520,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             269 => 
             array (
-                'id' => 1270,
-                'order_no' => 'CMFOMSRIGER',
+                'id' => 'CMFOMSRIGER',
             'descr' => 'Fiber Optics Monitoring System (FOMS) Ri',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17803,8 +16533,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             270 => 
             array (
-                'id' => 1271,
-                'order_no' => 'CMFRAMERELAY',
+                'id' => 'CMFRAMERELAY',
                 'descr' => 'Frame Relay',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17817,8 +16546,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             271 => 
             array (
-                'id' => 1272,
-                'order_no' => 'CMFTTH11A01',
+                'id' => 'CMFTTH11A01',
                 'descr' => 'Comp FTTH HSBB ALCATEL LUCENT Contract 1',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17831,8 +16559,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             272 => 
             array (
-                'id' => 1273,
-                'order_no' => 'CMFTTH11F01',
+                'id' => 'CMFTTH11F01',
                 'descr' => 'Comp FTTH HSBB FIBERHOME Contract 1',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17845,8 +16572,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             273 => 
             array (
-                'id' => 1274,
-                'order_no' => 'CMFTTH11H01',
+                'id' => 'CMFTTH11H01',
                 'descr' => 'Comp FTTH HSBB HUAWEI Contract 1',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17859,8 +16585,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             274 => 
             array (
-                'id' => 1275,
-                'order_no' => 'CMGDWS',
+                'id' => 'CMGDWS',
                 'descr' => 'MSS GDWS System',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17873,8 +16598,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             275 => 
             array (
-                'id' => 1276,
-                'order_no' => 'CMGEAG12P01',
+                'id' => 'CMGEAG12P01',
             'descr' => 'CM&Support Svc(GE Aggregator)-3400006808',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17887,8 +16611,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             276 => 
             array (
-                'id' => 1277,
-                'order_no' => 'CMGEINHW',
+                'id' => 'CMGEINHW',
                 'descr' => 'GE Aggregator Indoor Huawei - Huawei',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17901,8 +16624,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             277 => 
             array (
-                'id' => 1278,
-                'order_no' => 'CMGEOUTHW',
+                'id' => 'CMGEOUTHW',
                 'descr' => 'GE Aggregator Outdoor Huawei - Huawei',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17915,8 +16637,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             278 => 
             array (
-                'id' => 1279,
-                'order_no' => 'CMGEPERNEC',
+                'id' => 'CMGEPERNEC',
                 'descr' => 'GE Aggregator ZTE - Pernec',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17929,8 +16650,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             279 => 
             array (
-                'id' => 1280,
-                'order_no' => 'CMHSBBALCATE',
+                'id' => 'CMHSBBALCATE',
                 'descr' => 'SDH DWDM & OXC HSBB ALCATEL',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17943,8 +16663,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             280 => 
             array (
-                'id' => 1281,
-                'order_no' => 'CMHUAWDM6119',
+                'id' => 'CMHUAWDM6119',
                 'descr' => 'Maintenance Contract for Huawei DWDM',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17957,8 +16676,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             281 => 
             array (
-                'id' => 1282,
-                'order_no' => 'CMHWDWDM',
+                'id' => 'CMHWDWDM',
                 'descr' => 'Huawei DWDM',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17971,8 +16689,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             282 => 
             array (
-                'id' => 1283,
-                'order_no' => 'CMIBMNETCOOL',
+                'id' => 'CMIBMNETCOOL',
                 'descr' => 'IBM TIVOLI NETCOOL',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17985,8 +16702,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             283 => 
             array (
-                'id' => 1284,
-                'order_no' => 'CMIDIRECT',
+                'id' => 'CMIDIRECT',
             'descr' => 'iDirect VSAT Hub (KU-band)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -17999,8 +16715,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             284 => 
             array (
-                'id' => 1285,
-                'order_no' => 'CMIEMT',
+                'id' => 'CMIEMT',
                 'descr' => 'IEMT',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18013,8 +16728,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             285 => 
             array (
-                'id' => 1286,
-                'order_no' => 'CMINDNS',
+                'id' => 'CMINDNS',
                 'descr' => 'Support Service INS-DNS',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18027,8 +16741,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             286 => 
             array (
-                'id' => 1287,
-                'order_no' => 'CMINEOQUEST',
+                'id' => 'CMINEOQUEST',
                 'descr' => 'Ineoquest',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18041,8 +16754,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             287 => 
             array (
-                'id' => 1288,
-                'order_no' => 'CMINFOVISTA',
+                'id' => 'CMINFOVISTA',
                 'descr' => 'INFOVISTA',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18055,8 +16767,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             288 => 
             array (
-                'id' => 1289,
-                'order_no' => 'CMINMOCCAMS',
+                'id' => 'CMINMOCCAMS',
                 'descr' => 'Comp Mtce & Support of INMOCC AMS',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18069,8 +16780,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             289 => 
             array (
-                'id' => 1290,
-                'order_no' => 'CMINSRADIUS',
+                'id' => 'CMINSRADIUS',
                 'descr' => 'Public RADIUS Tech Refresh/ INS',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18083,8 +16793,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             290 => 
             array (
-                'id' => 1291,
-                'order_no' => 'CMIPCORE1',
+                'id' => 'CMIPCORE1',
                 'descr' => 'IPCORE',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18097,8 +16806,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             291 => 
             array (
-                'id' => 1292,
-                'order_no' => 'CMIPCORE10',
+                'id' => 'CMIPCORE10',
                 'descr' => 'Juniper BRAS',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18111,8 +16819,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             292 => 
             array (
-                'id' => 1293,
-                'order_no' => 'CMIPCORE11',
+                'id' => 'CMIPCORE11',
                 'descr' => 'IP Core Symantec',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18125,8 +16832,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             293 => 
             array (
-                'id' => 1294,
-                'order_no' => 'CMIPCORE2',
+                'id' => 'CMIPCORE2',
                 'descr' => 'IPCore Extension 1',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18139,8 +16845,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             294 => 
             array (
-                'id' => 1295,
-                'order_no' => 'CMIPCORE3',
+                'id' => 'CMIPCORE3',
                 'descr' => 'IPCore Extension 2',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18153,8 +16858,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             295 => 
             array (
-                'id' => 1296,
-                'order_no' => 'CMIPCORE4',
+                'id' => 'CMIPCORE4',
                 'descr' => 'IPCore - Mesiniaga',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18167,8 +16871,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             296 => 
             array (
-                'id' => 1297,
-                'order_no' => 'CMIPCORE5',
+                'id' => 'CMIPCORE5',
                 'descr' => 'IPCore - Airstar',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18181,8 +16884,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             297 => 
             array (
-                'id' => 1298,
-                'order_no' => 'CMIPCORE6',
+                'id' => 'CMIPCORE6',
                 'descr' => 'IPCORE LMS',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18195,8 +16897,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             298 => 
             array (
-                'id' => 1299,
-                'order_no' => 'CMIPCORE7',
+                'id' => 'CMIPCORE7',
                 'descr' => 'IPCORE - IBM',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18209,8 +16910,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             299 => 
             array (
-                'id' => 1300,
-                'order_no' => 'CMIPCORE8',
+                'id' => 'CMIPCORE8',
                 'descr' => 'IPCORE - Juniper',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18223,8 +16923,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             300 => 
             array (
-                'id' => 1301,
-                'order_no' => 'CMIPCORE9',
+                'id' => 'CMIPCORE9',
                 'descr' => 'BRAS Juniper - Apex',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18237,8 +16936,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             301 => 
             array (
-                'id' => 1302,
-                'order_no' => 'CMIPCOREIBM',
+                'id' => 'CMIPCOREIBM',
                 'descr' => 'IPCORE - IBM',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18251,8 +16949,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             302 => 
             array (
-                'id' => 1303,
-                'order_no' => 'CMIPCORELMS',
+                'id' => 'CMIPCORELMS',
                 'descr' => 'MSS for IP Core Infovista License',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18265,8 +16962,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             303 => 
             array (
-                'id' => 1304,
-                'order_no' => 'CMIPCOREVADS',
+                'id' => 'CMIPCOREVADS',
                 'descr' => 'MSS for Symantec Veritas IPCORE',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18279,8 +16975,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             304 => 
             array (
-                'id' => 1305,
-                'order_no' => 'CMIPNETWORK1',
+                'id' => 'CMIPNETWORK1',
                 'descr' => 'IPNETWORK JUNIPER',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18293,8 +16988,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             305 => 
             array (
-                'id' => 1306,
-                'order_no' => 'CMIPNETWORK2',
+                'id' => 'CMIPNETWORK2',
                 'descr' => 'IPNETWORK CISCO',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18307,8 +17001,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             306 => 
             array (
-                'id' => 1307,
-                'order_no' => 'CMIPNETWORK3',
+                'id' => 'CMIPNETWORK3',
                 'descr' => 'IPNETWORK CISCO',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18321,8 +17014,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             307 => 
             array (
-                'id' => 1308,
-                'order_no' => 'CMIPNMS',
+                'id' => 'CMIPNMS',
                 'descr' => 'IP NMS',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18335,8 +17027,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             308 => 
             array (
-                'id' => 1309,
-                'order_no' => 'CMIPPREPAID',
+                'id' => 'CMIPPREPAID',
             'descr' => 'ZTE IP Prepaid(Software)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18349,8 +17040,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             309 => 
             array (
-                'id' => 1310,
-                'order_no' => 'CMIPRAD2556',
+                'id' => 'CMIPRAD2556',
             'descr' => 'Alcatel IP Radio (new)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18363,8 +17053,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             310 => 
             array (
-                'id' => 1311,
-                'order_no' => 'CMIPS',
+                'id' => 'CMIPS',
             'descr' => 'MSS of Intrusion Prevention System (IPS)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18377,8 +17066,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             311 => 
             array (
-                'id' => 1312,
-                'order_no' => 'CMIPSC1',
+                'id' => 'CMIPSC1',
                 'descr' => 'IPSC',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18391,8 +17079,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             312 => 
             array (
-                'id' => 1313,
-                'order_no' => 'CMIPSC2',
+                'id' => 'CMIPSC2',
                 'descr' => 'SYMANTEC VERITAS',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18405,8 +17092,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             313 => 
             array (
-                'id' => 1314,
-                'order_no' => 'CMIPSC3',
+                'id' => 'CMIPSC3',
                 'descr' => 'NGN IP CORE PHASE 2 & EMS',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18419,8 +17105,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             314 => 
             array (
-                'id' => 1315,
-                'order_no' => 'CMIPSCINT',
+                'id' => 'CMIPSCINT',
                 'descr' => 'IPSC Cisco International',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18433,8 +17118,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             315 => 
             array (
-                'id' => 1316,
-                'order_no' => 'CMIPVPN1',
+                'id' => 'CMIPVPN1',
                 'descr' => 'IPVPN Cisco',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18447,8 +17131,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             316 => 
             array (
-                'id' => 1317,
-                'order_no' => 'CMIPVPN2',
+                'id' => 'CMIPVPN2',
                 'descr' => 'IPVPN Cisco',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18461,8 +17144,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             317 => 
             array (
-                'id' => 1318,
-                'order_no' => 'CMIPVPN3',
+                'id' => 'CMIPVPN3',
                 'descr' => 'CISCO Smartnet & Advanced Services IPVPN',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18475,8 +17157,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             318 => 
             array (
-                'id' => 1319,
-                'order_no' => 'CMIPVPN4',
+                'id' => 'CMIPVPN4',
                 'descr' => 'MSS for IPVPN Management',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18489,8 +17170,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             319 => 
             array (
-                'id' => 1320,
-                'order_no' => 'CMIPVPNBAH',
+                'id' => 'CMIPVPNBAH',
                 'descr' => 'IPVPN BAHRAIN',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18503,8 +17183,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             320 => 
             array (
-                'id' => 1321,
-                'order_no' => 'CMIPVPNEGT',
+                'id' => 'CMIPVPNEGT',
                 'descr' => 'IPVPN EGYPT',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18517,8 +17196,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             321 => 
             array (
-                'id' => 1322,
-                'order_no' => 'CMIPVPNINDO',
+                'id' => 'CMIPVPNINDO',
                 'descr' => 'IPVPN INDONESIA',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18531,8 +17209,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             322 => 
             array (
-                'id' => 1323,
-                'order_no' => 'CMIPVPNSIN',
+                'id' => 'CMIPVPNSIN',
                 'descr' => 'IPVPN SINGAPORE',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18545,8 +17222,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             323 => 
             array (
-                'id' => 1324,
-                'order_no' => 'CMIQMS',
+                'id' => 'CMIQMS',
                 'descr' => 'IQMS',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18559,8 +17235,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             324 => 
             array (
-                'id' => 1325,
-                'order_no' => 'CMISC',
+                'id' => 'CMISC',
                 'descr' => 'IP Solution Centre',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18573,8 +17248,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             325 => 
             array (
-                'id' => 1326,
-                'order_no' => 'CMISDNAMIRA',
+                'id' => 'CMISDNAMIRA',
             'descr' => 'Comp Mtce & Support ISDN (AMIRA)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18587,8 +17261,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             326 => 
             array (
-                'id' => 1327,
-                'order_no' => 'CMJNPRLANSW',
+                'id' => 'CMJNPRLANSW',
                 'descr' => 'Juniper Lan Switch',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18601,8 +17274,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             327 => 
             array (
-                'id' => 1328,
-                'order_no' => 'CMLBINS',
+                'id' => 'CMLBINS',
                 'descr' => 'ADX Load Balancer',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18615,8 +17287,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             328 => 
             array (
-                'id' => 1329,
-                'order_no' => 'CMMARVELAS',
+                'id' => 'CMMARVELAS',
                 'descr' => 'MARVEL - Airstar',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18629,8 +17300,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             329 => 
             array (
-                'id' => 1330,
-                'order_no' => 'CMMARVELMSB',
+                'id' => 'CMMARVELMSB',
                 'descr' => 'MARVEL - Mesiniaga',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18643,8 +17313,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             330 => 
             array (
-                'id' => 1331,
-                'order_no' => 'CMMDSCS',
+                'id' => 'CMMDSCS',
                 'descr' => 'MSS MDSCS and Its Management System',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18657,8 +17326,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             331 => 
             array (
-                'id' => 1332,
-                'order_no' => 'CMMEHSBB1',
+                'id' => 'CMMEHSBB1',
                 'descr' => 'Metro-E HSBB Alcatel-lucent',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18671,8 +17339,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             332 => 
             array (
-                'id' => 1333,
-                'order_no' => 'CMMEHSBB2',
+                'id' => 'CMMEHSBB2',
             'descr' => 'Metro-e HSBB (Huawei)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18685,8 +17352,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             333 => 
             array (
-                'id' => 1334,
-                'order_no' => 'CMMETROEALU1',
+                'id' => 'CMMETROEALU1',
                 'descr' => 'Metro E ALU Consolidated',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18699,8 +17365,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             334 => 
             array (
-                'id' => 1335,
-                'order_no' => 'CMMETROEALU2',
+                'id' => 'CMMETROEALU2',
             'descr' => 'Metro-E Alcatel (DP1-DP4)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18713,8 +17378,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             335 => 
             array (
-                'id' => 1336,
-                'order_no' => 'CMMETROEBBVS',
+                'id' => 'CMMETROEBBVS',
                 'descr' => 'Metro-E BBVS Switches',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18727,8 +17391,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             336 => 
             array (
-                'id' => 1337,
-                'order_no' => 'CMMETROEHUA1',
+                'id' => 'CMMETROEHUA1',
                 'descr' => 'Metro E HW Consolidated',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18741,8 +17404,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             337 => 
             array (
-                'id' => 1338,
-                'order_no' => 'CMMETROEHUA2',
+                'id' => 'CMMETROEHUA2',
             'descr' => 'Metro-E Huawei (DP1-DP4)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18755,8 +17417,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             338 => 
             array (
-                'id' => 1339,
-                'order_no' => 'CMMINITXEMS',
+                'id' => 'CMMINITXEMS',
                 'descr' => 'Comp Mtce & Support Microwave Minilink',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18769,8 +17430,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             339 => 
             array (
-                'id' => 1340,
-                'order_no' => 'CMMLINKERICS',
+                'id' => 'CMMLINKERICS',
                 'descr' => 'MINILINK ERICSSON',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18783,8 +17443,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             340 => 
             array (
-                'id' => 1341,
-                'order_no' => 'CMMLINKHUAWE',
+                'id' => 'CMMLINKHUAWE',
                 'descr' => 'Huawei',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18797,8 +17456,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             341 => 
             array (
-                'id' => 1342,
-                'order_no' => 'CMMSAN11E01',
+                'id' => 'CMMSAN11E01',
                 'descr' => 'Comp Mtce MSAN Marconi Contract 1',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18811,8 +17469,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             342 => 
             array (
-                'id' => 1343,
-                'order_no' => 'CMMSAN11E01R',
+                'id' => 'CMMSAN11E01R',
                 'descr' => 'Renewal compr Mtce MSAN Marconi Contract',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18825,8 +17482,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             343 => 
             array (
-                'id' => 1344,
-                'order_no' => 'CMMSAN11E02',
+                'id' => 'CMMSAN11E02',
                 'descr' => 'Comp Mtce MSAN Marconi Contract 2',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18839,8 +17495,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             344 => 
             array (
-                'id' => 1345,
-                'order_no' => 'CMMSAN11H01',
+                'id' => 'CMMSAN11H01',
                 'descr' => 'Comp Mtce MSAN HUAWEI HSBB Contract 1',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18853,8 +17508,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             345 => 
             array (
-                'id' => 1346,
-                'order_no' => 'CMMSAN11L01',
+                'id' => 'CMMSAN11L01',
                 'descr' => 'Comp Mtce MSAN Huawei Leadcom Contract 1',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18867,8 +17521,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             346 => 
             array (
-                'id' => 1347,
-                'order_no' => 'CMMSAN11L02',
+                'id' => 'CMMSAN11L02',
                 'descr' => 'Comp Mtce MSAN Huawei Leadcom Contract 2',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18881,8 +17534,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             347 => 
             array (
-                'id' => 1348,
-                'order_no' => 'CMMSAN11L03',
+                'id' => 'CMMSAN11L03',
                 'descr' => 'Comp Mtce MSAN Huawei Leadcom Contract 3',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18895,8 +17547,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             348 => 
             array (
-                'id' => 1349,
-                'order_no' => 'CMMSAN11L04',
+                'id' => 'CMMSAN11L04',
                 'descr' => 'Comp Mtce MSAN Huawei Leadcom Contract 4',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18909,8 +17560,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             349 => 
             array (
-                'id' => 1350,
-                'order_no' => 'CMMSAN11P01',
+                'id' => 'CMMSAN11P01',
                 'descr' => 'Comp Mtce MSAN ZTE Contract 1',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18923,8 +17573,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             350 => 
             array (
-                'id' => 1351,
-                'order_no' => 'CMMSAN11P01R',
+                'id' => 'CMMSAN11P01R',
                 'descr' => 'Renewal Comp Mtce MSAN ZTE Contract 1',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18937,8 +17586,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             351 => 
             array (
-                'id' => 1352,
-                'order_no' => 'CMMSAN11P02',
+                'id' => 'CMMSAN11P02',
                 'descr' => 'Comp Mtce MSAN ZTE Contract 2',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18951,8 +17599,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             352 => 
             array (
-                'id' => 1353,
-                'order_no' => 'CMMSAN11P03',
+                'id' => 'CMMSAN11P03',
                 'descr' => 'Comp Mtce MSAN ZTE Contract 3',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18965,8 +17612,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             353 => 
             array (
-                'id' => 1354,
-                'order_no' => 'CMMSAN11P04',
+                'id' => 'CMMSAN11P04',
                 'descr' => 'Comp Mtce MSAN ZTE Contract 4',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18979,8 +17625,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             354 => 
             array (
-                'id' => 1355,
-                'order_no' => 'CMMSAN11P05',
+                'id' => 'CMMSAN11P05',
                 'descr' => 'Comp Mtce MSAN ZTE Contract 5',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -18993,8 +17638,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             355 => 
             array (
-                'id' => 1356,
-                'order_no' => 'CMMSAN11P06',
+                'id' => 'CMMSAN11P06',
                 'descr' => 'Comp Mtce MSAN ZTE Contract 6',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -19007,8 +17651,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             356 => 
             array (
-                'id' => 1357,
-                'order_no' => 'CMMSAN11S01',
+                'id' => 'CMMSAN11S01',
                 'descr' => 'Comp Mtce MSAN Huawei Silveridge Contrac',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -19021,8 +17664,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             357 => 
             array (
-                'id' => 1358,
-                'order_no' => 'CMMSAN11S01R',
+                'id' => 'CMMSAN11S01R',
                 'descr' => 'Renewal compr Mtce MSAN Huawei Silveridg',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -19035,8 +17677,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             358 => 
             array (
-                'id' => 1359,
-                'order_no' => 'CMMSAN11S02',
+                'id' => 'CMMSAN11S02',
                 'descr' => 'Comp Mtce MSAN Huawei Silveridge Contrac',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -19049,8 +17690,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             359 => 
             array (
-                'id' => 1360,
-                'order_no' => 'CMMSAN11S03',
+                'id' => 'CMMSAN11S03',
                 'descr' => 'Comp Mtce MSAN Huawei Silveridge Contrac',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -19063,8 +17703,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             360 => 
             array (
-                'id' => 1361,
-                'order_no' => 'CMMSAN11S04',
+                'id' => 'CMMSAN11S04',
                 'descr' => 'Comp Mtce MSAN Huawei Silveridge Contrac',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -19077,8 +17716,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             361 => 
             array (
-                'id' => 1362,
-                'order_no' => 'CMMSAN11S05',
+                'id' => 'CMMSAN11S05',
                 'descr' => 'Comp Mtce MSAN Huawei Silveridge Contrac',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -19091,8 +17729,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             362 => 
             array (
-                'id' => 1363,
-                'order_no' => 'CMMSAN11Z01',
+                'id' => 'CMMSAN11Z01',
                 'descr' => 'Comp Mtce MSAN ZTE HSBB Contract 1',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -19105,8 +17742,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             363 => 
             array (
-                'id' => 1364,
-                'order_no' => 'CMMSAN13L01R',
+                'id' => 'CMMSAN13L01R',
                 'descr' => 'MSAN Huawei Leadcom Contract-K1260070/13',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -19119,8 +17755,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             364 => 
             array (
-                'id' => 1365,
-                'order_no' => 'CMMSANCDE13',
+                'id' => 'CMMSANCDE13',
                 'descr' => 'Consolidated Marconi MSAN - K1260262/13',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -19133,8 +17768,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             365 => 
             array (
-                'id' => 1366,
-                'order_no' => 'CMMSANCDP12',
+                'id' => 'CMMSANCDP12',
                 'descr' => 'Consolidated MSAN Pernec CM&S 3400006591',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -19147,8 +17781,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             366 => 
             array (
-                'id' => 1367,
-                'order_no' => 'CMMSANCDSR13',
+                'id' => 'CMMSANCDSR13',
                 'descr' => 'Consolidated Huawei MSAN - K1260249/13',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -19161,8 +17794,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             367 => 
             array (
-                'id' => 1368,
-                'order_no' => 'CMMSANHW',
+                'id' => 'CMMSANHW',
                 'descr' => 'MSAN Huawei - Huawei',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -19175,8 +17807,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             368 => 
             array (
-                'id' => 1369,
-                'order_no' => 'CMMSANSR',
+                'id' => 'CMMSANSR',
                 'descr' => 'MSAN Huawei - Silveridge',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -19189,8 +17820,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             369 => 
             array (
-                'id' => 1370,
-                'order_no' => 'CMMSANZTE',
+                'id' => 'CMMSANZTE',
                 'descr' => 'MSAN ZTE - ZTE HSBB',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -19203,8 +17833,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             370 => 
             array (
-                'id' => 1371,
-                'order_no' => 'CMNETAPPS',
+                'id' => 'CMNETAPPS',
                 'descr' => 'Netapp',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -19217,8 +17846,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             371 => 
             array (
-                'id' => 1372,
-                'order_no' => 'CMNETSCOUT',
+                'id' => 'CMNETSCOUT',
                 'descr' => 'NETSCOUT',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -19231,8 +17859,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             372 => 
             array (
-                'id' => 1373,
-                'order_no' => 'CMNEWOSS',
+                'id' => 'CMNEWOSS',
             'descr' => 'Comp Mtce & Support for NewOSS (Dascom)',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -19245,8 +17872,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             373 => 
             array (
-                'id' => 1374,
-                'order_no' => 'CMNMS',
+                'id' => 'CMNMS',
                 'descr' => 'LICENSE FOR NETWORK MONITORING SYSTEM',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -19259,8 +17885,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             374 => 
             array (
-                'id' => 1375,
-                'order_no' => 'CMNORTELDWDM',
+                'id' => 'CMNORTELDWDM',
                 'descr' => 'DWDM',
                 'order_type' => 'Z001',
                 'status' => 'A',
@@ -19273,8 +17898,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             375 => 
             array (
-                'id' => 1376,
-                'order_no' => 'CMO0014001DC',
+                'id' => 'CMO0014001DC',
                 'descr' => 'GBC-TM Flood Relief Contribution 2014',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19287,8 +17911,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             376 => 
             array (
-                'id' => 1377,
-                'order_no' => 'CMO011200101',
+                'id' => 'CMO011200101',
                 'descr' => 'CON A&P-Broadband and BAU Reprinting',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19301,8 +17924,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             377 => 
             array (
-                'id' => 1378,
-                'order_no' => 'CMO011200201',
+                'id' => 'CMO011200201',
                 'descr' => 'CON A&P-2012 Festive - CNY',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19315,8 +17937,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             378 => 
             array (
-                'id' => 1379,
-                'order_no' => 'CMO011200301',
+                'id' => 'CMO011200301',
                 'descr' => 'CON A&P-2012 Festive - GK',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19329,8 +17950,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             379 => 
             array (
-                'id' => 1380,
-                'order_no' => 'CMO011200401',
+                'id' => 'CMO011200401',
                 'descr' => 'CON A&P-2012 Festive - Merdeka',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19343,8 +17963,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             380 => 
             array (
-                'id' => 1381,
-                'order_no' => 'CMO011200501',
+                'id' => 'CMO011200501',
                 'descr' => 'CON A&P-2012 Festive - Raya',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19357,8 +17976,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             381 => 
             array (
-                'id' => 1382,
-                'order_no' => 'CMO011200601',
+                'id' => 'CMO011200601',
                 'descr' => 'CON A&P-2012 Festive - Malaysia Day',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19371,8 +17989,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             382 => 
             array (
-                'id' => 1383,
-                'order_no' => 'CMO011200701',
+                'id' => 'CMO011200701',
                 'descr' => 'CON A&P-2012 Festive - Deepavali',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19385,8 +18002,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             383 => 
             array (
-                'id' => 1384,
-                'order_no' => 'CMO011200801',
+                'id' => 'CMO011200801',
                 'descr' => 'CON A&P-UniFi BTL Reprinting',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19399,8 +18015,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             384 => 
             array (
-                'id' => 1385,
-                'order_no' => 'CMO011200901',
+                'id' => 'CMO011200901',
                 'descr' => 'CON A&P-UniFi Street Bunting 2012',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19413,8 +18028,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             385 => 
             array (
-                'id' => 1386,
-                'order_no' => 'CMO011201001',
+                'id' => 'CMO011201001',
             'descr' => 'CON A&P-Speed Upgrade (Creative)',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19427,8 +18041,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             386 => 
             array (
-                'id' => 1387,
-                'order_no' => 'CMO011201101',
+                'id' => 'CMO011201101',
             'descr' => 'CON A&P- Streamyx Thematical (Creative)',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19441,8 +18054,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             387 => 
             array (
-                'id' => 1388,
-                'order_no' => 'CMO011201201',
+                'id' => 'CMO011201201',
                 'descr' => 'CON A&P-Voice & Card Services Reprinting',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19455,8 +18067,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             388 => 
             array (
-                'id' => 1389,
-                'order_no' => 'CMO011201301',
+                'id' => 'CMO011201301',
             'descr' => 'CON A&P-UniFi Thematic (Creative)',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19469,8 +18080,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             389 => 
             array (
-                'id' => 1390,
-                'order_no' => 'CMO011201401',
+                'id' => 'CMO011201401',
                 'descr' => 'CON A&P-TMgo Softlaunch',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19483,8 +18093,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             390 => 
             array (
-                'id' => 1391,
-                'order_no' => 'CMO011201501',
+                'id' => 'CMO011201501',
             'descr' => 'CON A&P-Telefon Rakyat 1 Malaysia (TR1M)',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19497,8 +18106,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             391 => 
             array (
-                'id' => 1392,
-                'order_no' => 'CMO011201601',
+                'id' => 'CMO011201601',
                 'descr' => 'CON A&P-Credit Limit Policy',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19511,8 +18119,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             392 => 
             array (
-                'id' => 1393,
-                'order_no' => 'CMO011201701',
+                'id' => 'CMO011201701',
             'descr' => 'CON A&P-Broadband Champion (Creative)',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19525,8 +18132,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             393 => 
             array (
-                'id' => 1394,
-                'order_no' => 'CMO011201801',
+                'id' => 'CMO011201801',
                 'descr' => 'CON A&P-Pakej Mampu Milik 1Malaysia',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19539,8 +18145,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             394 => 
             array (
-                'id' => 1395,
-                'order_no' => 'CMO011201901',
+                'id' => 'CMO011201901',
                 'descr' => 'CON A&P-Festive Chinese New Year 2013',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19553,8 +18158,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             395 => 
             array (
-                'id' => 1396,
-                'order_no' => 'CMO011202001',
+                'id' => 'CMO011202001',
                 'descr' => 'CON A&P-Streamyx Quick Connection Guide',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19567,8 +18171,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             396 => 
             array (
-                'id' => 1397,
-                'order_no' => 'CMO011202101',
+                'id' => 'CMO011202101',
                 'descr' => 'CON A&P-UniFi.Streamyx Year End Campaign',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19581,8 +18184,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             397 => 
             array (
-                'id' => 1398,
-                'order_no' => 'CMO011202201',
+                'id' => 'CMO011202201',
                 'descr' => 'CON A&P-Streamyx High Speed 8mb Campaign',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19595,8 +18197,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             398 => 
             array (
-                'id' => 1399,
-                'order_no' => 'CMO011202301',
+                'id' => 'CMO011202301',
                 'descr' => 'CON A&P-Reprint Streamyx Leaflet Q1 2013',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19609,8 +18210,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             399 => 
             array (
-                'id' => 1400,
-                'order_no' => 'CMO0113001AC',
+                'id' => 'CMO0113001AC',
             'descr' => 'CON A&P-CNY2013 (ATL Creative)',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19623,8 +18223,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             400 => 
             array (
-                'id' => 1401,
-                'order_no' => 'CMO0113001BP',
+                'id' => 'CMO0113001BP',
             'descr' => 'CON A&P-CNY2013 (BTL Creative)',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19637,8 +18236,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             401 => 
             array (
-                'id' => 1402,
-                'order_no' => 'CMO0113002BP',
+                'id' => 'CMO0113002BP',
                 'descr' => 'CON A&P-TM WiFi Leaflet',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19651,8 +18249,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             402 => 
             array (
-                'id' => 1403,
-                'order_no' => 'CMO0113003AC',
+                'id' => 'CMO0113003AC',
                 'descr' => 'CON A&P-Streamyx 8Mbps Campaign',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19665,8 +18262,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             403 => 
             array (
-                'id' => 1404,
-                'order_no' => 'CMO0113003BP',
+                'id' => 'CMO0113003BP',
                 'descr' => 'CON A&P-Streamyx 8Mbps Campaign',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19679,8 +18275,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             404 => 
             array (
-                'id' => 1405,
-                'order_no' => 'CMO0113004BP',
+                'id' => 'CMO0113004BP',
                 'descr' => 'CON A&P-UniFi BTL Collateral Q1/13 Print',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19693,8 +18288,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             405 => 
             array (
-                'id' => 1406,
-                'order_no' => 'CMO0113005AC',
+                'id' => 'CMO0113005AC',
             'descr' => 'CON A&P-LifeMadeEasier-Conn.360 (Other)',
                 'order_type' => 'Z026',
                 'status' => 'A',
@@ -19707,8 +18301,7 @@ class InternalOrdersTableSeeder extends Seeder
             ),
             406 => 
             array (
-                'id' => 1407,
-                'order_no' => 'CMO0113005BP',
+                'id' => 'CMO0113005BP',
                 'descr' => 'CON A&P-LifeMadeEasier-Conn.360 (Creativ',
                     'order_type' => 'Z026',
                     'status' => 'A',
@@ -19721,8 +18314,7 @@ class InternalOrdersTableSeeder extends Seeder
                 ),
                 407 => 
                 array (
-                    'id' => 1408,
-                    'order_no' => 'CMO0113005CD',
+                    'id' => 'CMO0113005CD',
                     'descr' => 'CON A&P-LifeMadeEasier-Conn.360 (Outdoor',
                         'order_type' => 'Z026',
                         'status' => 'A',
@@ -19735,8 +18327,7 @@ class InternalOrdersTableSeeder extends Seeder
                     ),
                     408 => 
                     array (
-                        'id' => 1409,
-                        'order_no' => 'CMO0113005CO',
+                        'id' => 'CMO0113005CO',
                     'descr' => 'CON A&P-LifeMadeEasier-Conn.360 (Online)',
                         'order_type' => 'Z026',
                         'status' => 'A',
@@ -19749,8 +18340,7 @@ class InternalOrdersTableSeeder extends Seeder
                     ),
                     409 => 
                     array (
-                        'id' => 1410,
-                        'order_no' => 'CMO0113005CP',
+                        'id' => 'CMO0113005CP',
                     'descr' => 'CON A&P-LifeMadeEasier-Conn.360 (Press)',
                         'order_type' => 'Z026',
                         'status' => 'A',
@@ -19763,8 +18353,7 @@ class InternalOrdersTableSeeder extends Seeder
                     ),
                     410 => 
                     array (
-                        'id' => 1411,
-                        'order_no' => 'CMO0113005CR',
+                        'id' => 'CMO0113005CR',
                     'descr' => 'CON A&P-LifeMadeEasier-Conn.360 (Radio)',
                         'order_type' => 'Z026',
                         'status' => 'A',
@@ -19777,8 +18366,7 @@ class InternalOrdersTableSeeder extends Seeder
                     ),
                     411 => 
                     array (
-                        'id' => 1412,
-                        'order_no' => 'CMO0113005CT',
+                        'id' => 'CMO0113005CT',
                     'descr' => 'CON A&P-LifeMadeEasier-Conn.360 (TV)',
                         'order_type' => 'Z026',
                         'status' => 'A',
@@ -19791,8 +18379,7 @@ class InternalOrdersTableSeeder extends Seeder
                     ),
                     412 => 
                     array (
-                        'id' => 1413,
-                        'order_no' => 'CMO0113006BP',
+                        'id' => 'CMO0113006BP',
                         'descr' => 'CON A&P-HyppTV on Streamyx Phase I',
                         'order_type' => 'Z026',
                         'status' => 'A',
@@ -19805,8 +18392,7 @@ class InternalOrdersTableSeeder extends Seeder
                     ),
                     413 => 
                     array (
-                        'id' => 1414,
-                        'order_no' => 'CMO0113007BP',
+                        'id' => 'CMO0113007BP',
                     'descr' => 'CON A&P-Streamyx App.Form Q2 (Creative)',
                         'order_type' => 'Z026',
                         'status' => 'A',
@@ -19819,8 +18405,7 @@ class InternalOrdersTableSeeder extends Seeder
                     ),
                     414 => 
                     array (
-                        'id' => 1415,
-                        'order_no' => 'CMO0113008CO',
+                        'id' => 'CMO0113008CO',
                     'descr' => 'CON A&P-TM Voice Campaign (Online)',
                         'order_type' => 'Z026',
                         'status' => 'A',
@@ -19833,8 +18418,7 @@ class InternalOrdersTableSeeder extends Seeder
                     ),
                     415 => 
                     array (
-                        'id' => 1416,
-                        'order_no' => 'CMO0113008CR',
+                        'id' => 'CMO0113008CR',
                     'descr' => 'CON A&P-TM Voice Campaign (Radio)',
                         'order_type' => 'Z026',
                         'status' => 'A',
@@ -19847,8 +18431,7 @@ class InternalOrdersTableSeeder extends Seeder
                     ),
                     416 => 
                     array (
-                        'id' => 1417,
-                        'order_no' => 'CMO0113009BP',
+                        'id' => 'CMO0113009BP',
                         'descr' => 'CON A&P-Pakej Mampu Milik',
                         'order_type' => 'Z026',
                         'status' => 'A',
@@ -19861,8 +18444,7 @@ class InternalOrdersTableSeeder extends Seeder
                     ),
                     417 => 
                     array (
-                        'id' => 1418,
-                        'order_no' => 'CMO0113010BP',
+                        'id' => 'CMO0113010BP',
                         'descr' => 'CON A&P-UniFi VIP Q2 Form Reprinting',
                         'order_type' => 'Z026',
                         'status' => 'A',
@@ -19875,8 +18457,7 @@ class InternalOrdersTableSeeder extends Seeder
                     ),
                     418 => 
                     array (
-                        'id' => 1419,
-                        'order_no' => 'CMO0113011BP',
+                        'id' => 'CMO0113011BP',
                         'descr' => 'CON A&P-Streamyx Gradpack Q2 Reprint',
                         'order_type' => 'Z026',
                         'status' => 'A',

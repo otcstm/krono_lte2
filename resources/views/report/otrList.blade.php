@@ -34,6 +34,13 @@
       <th>Estimated Amount</th>
       <th>Claim Status</th>
       <th>Charge Type</th>
+      <th>Body Cost Center</th>
+      <th>Other Cost Center</th>
+      <th>Project Type</th>
+      <th>Project Number</th>
+      <th>Network Header</th>
+      <th>Network Activity</th>
+      <th>Order Number</th>
       <th>Total Hours</th>
       <th>Total Minutes</th>
       <th>Application Date</th>
@@ -81,6 +88,13 @@
       <td>{{ $otr->amount }}</td>
       <td>{{ $otr->OTStatus()->item3 }}</td>
       <td>{{ $otr->charge_type }}</td>
+      <td>{{ $otr->costcenter }}</td>
+      <td>{{ $otr->other_costcenter }}</td>
+      <td>{{ $otr->project_type }}</td>
+      <td>{{ $otr->project_no }}</td>
+      <td>{{ $otr->network_header }}</td>
+      <td>{{ $otr->network_act_no }}</td>
+      <td>{{ $otr->order_no }}</td>
       <td>{{ $otr->total_hour }}</td>
       <td>{{ $otr->total_minute }}</td>
       <td>{{ date('d-m-Y H:i:s', strtotime($otr->created_at)) }}</td>
