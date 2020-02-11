@@ -1,7 +1,7 @@
 <h1>Dashboard</h1>
 
 <div class="row">     
-  <div class="col-md-3 col-sm-6 col-xs-12">r
+  <div class="col-md-3 col-sm-6 col-xs-12">
   <a href="#" onclick="return puncho()"> 
     <div class="box box-solid">
     <div class="box-body">

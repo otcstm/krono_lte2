@@ -149,6 +149,18 @@ Route::group(['middleware' => ['auth']], function () {
 
 Route::get('/staff/profile', 'Admin\StaffController@showStaffProfile')->name('staff.profile');
 
+Route::get('/verifier', 'VerifierGroupController@index')->name('verifier.listGroup');
+Route::post('/verifier/group/create', 'VerifierGroupController@createGroup')->name('verifier.createGroup');
+Route::get('/verifier/group/view', 'VerifierGroupController@viewGroup')->name('verifier.viewGroup');
+Route::post('/verifier/group/update', 'VerifierGroupController@updateGroup')->name('verifier.updateGroup');
+Route::post('/verifier/group/del', 'VerifierGroupController@delGroup')->name('verifier.delGroup');
+Route::post('/verifier/group/staff/add', 'VerifierGroupController@addUser')->name('verifier.addUser');
+Route::post('/verifier/group/staff/remove', 'VerifierGroupController@removeUser')->name('verifier.removeUser');
+
+Route::post('/admin/verifier/staff', 'UserVerifierController@staffverifier')->name('verifier.staff');
+Route::get('/admin/verifier/staffsearch', 'UserVerifierController@staffsearch');
+Route::get('/admin/verifier/subordSearch', 'UserVerifierController@subordSearch');
+
 });
 Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
   Route::get('/', 'ShiftPatternController@index')->name('index');
@@ -179,18 +191,6 @@ Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth
   Route::get('/staff', 'ShiftPlanController@staffInfo')->name('staff');
   Route::post('/staff/push', 'ShiftPlanController@staffPushTemplate')->name('staff.push');
   Route::post('/staff/pop', 'ShiftPlanController@staffPopTemplate')->name('staff.pop');
-
-  Route::get('/verifier', 'VerifierGroupController@index')->name('verifier.listGroup');
-  Route::post('/verifier/group/create', 'VerifierGroupController@createGroup')->name('verifier.createGroup');
-  Route::get('/verifier/group/view', 'VerifierGroupController@viewGroup')->name('verifier.viewGroup');
-  Route::post('/verifier/group/update', 'VerifierGroupController@updateGroup')->name('verifier.updateGroup');
-  Route::post('/verifier/group/del', 'VerifierGroupController@delGroup')->name('verifier.delGroup');
-  Route::post('/verifier/group/staff/add', 'VerifierGroupController@addUser')->name('verifier.addUser');
-  Route::post('/verifier/group/staff/remove', 'VerifierGroupController@removeUser')->name('verifier.removeUser');
-  
-  Route::post('/admin/verifier/staff', 'UserVerifierController@staffverifier')->name('verifier.staff');
-  Route::get('/admin/verifier/staffsearch', 'UserVerifierController@staffsearch');
-  Route::get('/admin/verifier/subordSearch', 'UserVerifierController@subordSearch');
   
 });
 
