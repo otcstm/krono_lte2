@@ -1,8 +1,8 @@
 <h1>Dashboard</h1>
 
 <div class="row">     
-  <div class="col-md-3 col-sm-6 col-xs-12">
-  <a href="{{ route('ot.formnew', [], false) }}">
+  <div class="col-md-3 col-sm-6 col-xs-12">r
+  <a href="#" onclick="return puncho()"> 
     <div class="box box-solid">
     <div class="box-body">
     <div class="media">
@@ -10,7 +10,7 @@
         <img src="vendor/ot-assets/ot-clock-icon.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
-        <h4 class="media-heading">New OT</h4>
+        <h4 class="media-heading">Start OT</h4>
         <p>Apply New Overtime</p>
       </div>
     </div>

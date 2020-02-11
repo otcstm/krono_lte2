@@ -180,18 +180,21 @@ Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth
   Route::post('/staff/push', 'ShiftPlanController@staffPushTemplate')->name('staff.push');
   Route::post('/staff/pop', 'ShiftPlanController@staffPopTemplate')->name('staff.pop');
 
-
+  Route::get('/verifier', 'VerifierGroupController@index')->name('verifier.listGroup');
+  Route::post('/verifier/group/create', 'VerifierGroupController@createGroup')->name('verifier.createGroup');
+  Route::get('/verifier/group/view', 'VerifierGroupController@viewGroup')->name('verifier.viewGroup');
+  Route::post('/verifier/group/update', 'VerifierGroupController@updateGroup')->name('verifier.updateGroup');
+  Route::post('/verifier/group/del', 'VerifierGroupController@delGroup')->name('verifier.delGroup');
+  Route::post('/verifier/group/staff/add', 'VerifierGroupController@addUser')->name('verifier.addUser');
+  Route::post('/verifier/group/staff/remove', 'VerifierGroupController@removeUser')->name('verifier.removeUser');
+  
+  Route::post('/admin/verifier/staff', 'UserVerifierController@staffverifier')->name('verifier.staff');
+  Route::get('/admin/verifier/staffsearch', 'UserVerifierController@staffsearch');
+  Route::get('/admin/verifier/subordSearch', 'UserVerifierController@subordSearch');
+  
 });
 
   Route::get('/email/dummy', 'EmailController@dummyEmail')->name('email.dummy');
   Route::post('/email/dummy', 'EmailController@sendDummyEmail')->name('email.senddummy');
 
-  Route::get('/verifier', 'VerifierGroupController@index')->name('verifier.listGroup');
-  Route::get('/verifier/create', 'VerifierGroupController@creategroup')->name('verifier.create');
-  Route::get('/verifier/assignment', 'VerifierGroupController@defaultVerifier')->name('verifier.listSubordinates');
 
-  Route::get('/admin/verifier/', 'UserVerifierController@search')->name('verifier.search');
-  Route::post('/admin/verifier/staff', 'UserVerifierController@staffverifier')->name('verifier.staff');
-  Route::get('/admin/verifier/staffsearch', 'UserVerifierController@staffsearch');
-  Route::get('/admin/verifier/subordSearch', 'UserVerifierController@subordSearch');
-  Route::get('/admin/verifier/createGroup','VerifierGroupController@createGroup')->name('verifier.createGroup');

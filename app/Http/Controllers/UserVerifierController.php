@@ -48,7 +48,14 @@ class UserVerifierController extends Controller
             $data = User::select("id","name")
                     ->where('reptto','=',$req->user()->id)
                     ->where('name','LIKE',"%$search%")
+                    //->orWhere('id', $req->user()->id)
                     ->get();
+            if($data->count() == 0){                
+                $data = User::select("id","name")
+                ->where('reptto','=',$req->user()->id)
+                ->where('id','LIKE',"%$search%")
+                ->get();
+            }
         }         
         return response()->json($data);
     }
