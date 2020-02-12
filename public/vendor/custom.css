@@ -297,6 +297,37 @@ body{
     background: #F00000 !important;
 }
 
+/* .test2{
+    border-radius: 5px !important;
+    width: 80vw !important;
+} */
+
+.swal2-popup.test2{
+    
+    padding: 25px !important;
+    border-radius: 5px !important;
+    width: 60vw !important;
+}
+
+.swollo{
+    width: 32em;
+    margin: 0 auto 30px;
+}
+
+@media(max-width: 992px){
+    .swal2-popup.test2{
+        
+        padding: 5 !important;
+        border-radius: 25px !important;
+        width: 36em !important;
+    }
+
+    .swollo{
+        width: 32em; 
+        margin: 0 auto 30px;
+    }
+}
+
 .swal2-cancel{
     padding: 6px 50px !important;
     border-radius: 25px !important;
@@ -561,4 +592,32 @@ ul.pagination > li.active a{
     width: 100%;
     border-top: 2px solid #707070 !important;
     margin: 50px 0;
+}
+
+.w-10{
+    width: 10%
+}
+
+.w-30{
+    width: 30%
+}
+
+.w-70{
+    width: 70%
+}
+
+@media(max-width: 992px){
+    .w-10{
+        width: 100%
+    }
+
+    .w-30{
+     
+        width: 100%
+    }
+
+    
+.w-70{
+    width: 100%
+}
 }

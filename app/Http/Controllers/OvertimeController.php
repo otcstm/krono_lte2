@@ -678,6 +678,32 @@ class OvertimeController extends Controller{
         }
     }
 
+    public function search(Request $req){
+        $date = date('Y-m-d');
+        $staff = UserRecord::where('name', 'LIKE', '%' .$req->name. '%')->where('upd_sap','<=',$date)->orderBy('name', 'ASC')->get();
+        // if(count($staff)>0){
+        //     return count($staff);
+        // }else{
+        //     return count($staff);
+        // }
+        $arr = [];
+        foreach($staff as $s){
+            array_push($arr, [
+                'name'=>$s->name, 
+                'persno'=>sprintf('%08d', $s->persno), 
+                'staffno'=>$s->staff_no,
+                'companycode'=>$s->companyid->company_descr,
+                'costcenter'=>$s->name,
+                'persarea'=>$s->persarea,
+                'empsubgroup'=>$s->name,
+                'email'=>$s->email,
+                'mobile'=>$s->name,
+            ]);
+        }
+        return $arr;
+        // return $date;
+    }
+
   public static function getQueryAmount(){
         // $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', 'PV')->orWhere('approver_id', $req->user()->id)->where('status', 'PA')->orderBy('date_expiry')->orderBy('date')->get();
         // $count =  count($otlist);

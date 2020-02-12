@@ -164,6 +164,9 @@
 
 @section('js')
 <script type="text/javascript">
+
+    var htmlstring = '<div style="border: 1px solid #DDDDDD; max-height: 60vh; overflow-y: scroll;  overflow-x: hidden;">';
+    var htmlstringshow = '';
     $(document).ready(function() {
         $('#tOTList').DataTable({
             "responsive": "true",
@@ -231,7 +234,7 @@
                         }
                 })
             }else if($("#action-"+i).val()=="Assign"){
-                normal();
+                normal(i);
             }else{
                 Swal.fire({
                     title: 'Terms and Conditions',
@@ -258,12 +261,12 @@
                             @endif
                         @endif
                         $("#inputremark-"+i).prop('disabled',true);
-                            $("#inputremark-"+i).val("");
-                            $("#inputremark-"+i).prop('required',false);
+                        $("#inputremark-"+i).val("");
+                        $("#inputremark-"+i).prop('required',false);
                     }else{
                         $("#action-"+i).val("");
                         $("#inputremark-"+i).prop('disabled',true);
-                            $("#inputremark-"+i).prop('required',false);
+                        $("#inputremark-"+i).prop('required',false);
                     }
                 })
             }
@@ -274,11 +277,20 @@
         $('#namet').val('');
         $('#namex').css('visibility','hidden');
     }
+    function checkstring(){
+        if(($('#namet').val().length)>3){
+            $('#namex').css('visibility', 'visible');
+            $('#3more').css('display', 'none');
+        }else{
+            $('#namex').css('visibility','hidden');
+            $('#3more').css('display','block');
+        }
+    }
 
-    function normal(){
+    function normal(i){
         Swal.fire({
             title: "Verifier's Name",
-            html: "<div class='text-left'><input id='namet' placeholder=\"Enter Employee's Name\" style='width: 100%; box-sizing: border-box;' onkeyup='this.onchange();' onchange=\"$('#namex').css('visibility', 'visible');\"><button type='button' id='namex' onclick='return cleart()' style='visibility: hidden;display: inline; position: absolute; right: 30px; margin-top: 3px' class='btn-no'><i class='far fa-times-circle'></i></button><i style='display: inline; position: absolute; right: 15px; margin-top: 5px' class='fas fa-search'></i><br><br><a href='' onClick='return advance()' style='color: #143A8C'><b><u>Advance Search</u></b></a></div>",
+            html: "<div class='text-left'><input id='namet' placeholder=\"Enter Employee's Name\" style='width: 100%; box-sizing: border-box;' onkeyup='this.onchange();' onchange='return checkstring();'><button type='button' id='namex' onclick='return cleart()' style='visibility: hidden;display: inline; position: absolute; right: 30px; margin-top: 3px' class='btn-no'><i class='far fa-times-circle'></i></button><i style='display: inline; position: absolute; right: 15px; margin-top: 5px' class='fas fa-search'></i><p id='3more' style=' margin-top: 5px; color: #F00000; display: none'>Search input must be more than 3 alphabets!</p><a href='' onClick='return advance()' style='color: #143A8C'><b><u>Advance Search</u></b></a></div>",
             confirmButtonText:
                 'NEXT',
             showCancelButton: false,
@@ -288,20 +300,26 @@
         }).then((result) => {
             if (result.value) {
                 $("#inputremark-"+i).val($('#remark').val());
-                if($("#namet").val()!=''){
-
+                if(($('#namet').val().length)<3){
+                    normalerror(i);
                 }else{
-                    normalerror();
+                    search($('#namet').val());
                 }
-                
+                $("#inputremark-"+i).prop('disabled',true);
+                $("#inputremark-"+i).val("");
+                $("#inputremark-"+i).prop('required',false);
+            }else{
+                $("#action-"+i).val("");
+                $("#inputremark-"+i).prop('disabled',true);
+                $("#inputremark-"+i).prop('required',false);
             }
         });
     }
 
-    function normalerror(){
+    function normalerror(i){
         Swal.fire({
             title: "Verifier's Name",
-            html: "<div class='text-left'><input id='namet' placeholder=\"Enter Employee's Name\" style='box-shadow: 0 0 5px rgba(240, 0, 0, 0.2); border: 1px solid #F00000; width: 100%; box-sizing: border-box;' onkeyup='this.onchange();' onchange=\"$('#namex').css('visibility', 'visible');\"><button type='button' id='namex' onclick='return cleart()' style='visibility: hidden;display: inline; position: absolute; right: 30px; margin-top: 3px' class='btn-no'><i class='far fa-times-circle'></i></button><i style='display: inline; position: absolute; right: 15px; margin-top: 5px' class='fas fa-search'></i><p style='color: #F00000'>Search input must be more than 3 alphabets!</p><a href='' onClick='return advance()' style='color: #143A8C'><b><u>Advance Search</u></b></a></div>",
+            html: "<div class='text-left'><input id='namet' placeholder=\"Enter Employee's Name\" onkeyup='this.onchange();' onchange=\"$('#namex').css('visibility', 'visible');\" onchange='return checkstring();'><button type='button' id='namex' onclick='return cleart()' style='visibility: hidden;display: inline; position: absolute; right: 30px; margin-top: 3px' class='btn-no'><i class='far fa-times-circle'></i></button><i style='display: inline; position: absolute; right: 15px; margin-top: 5px' class='fas fa-search'></i><p id='3more' style=' margin-top: 5px; color: #F00000'>Search input must be more than 3 alphabets!</p><a href='' onClick='return advance()' style='color: #143A8C'><b><u>Advance Search</u></b></a></div>",
             confirmButtonText:
                 'NEXT',
             showCancelButton: false,
@@ -311,20 +329,135 @@
         }).then((result) => {
             if (result.value) {
                 $("#inputremark-"+i).val($('#remark').val());
-                if($("#namet").val()!=''){
-
+                if(($('#namet').val().length)<3){
+                    normalerror(i);
                 }else{
-                    normalerror();
+                    search($('#namet').val());
                 }
-                
+                $("#inputremark-"+i).prop('disabled',true);
+                $("#inputremark-"+i).val("");
+                $("#inputremark-"+i).prop('required',false);
+            }else{
+                $("#action-"+i).val("");
+                $("#inputremark-"+i).prop('disabled',true);
+                $("#inputremark-"+i).prop('required',false);
             }
         });
+    }
+    
+
+    function updateResp(item, index){
+        htmlstring = htmlstring + 
+            "<button style='border: 1px solid #DDDDDD; min-height: 10vh; width: 100%; padding: 5px; text-align: left; background: transparent'>"+
+                "<div style='display: flex; flex-wrap: wrap; width: 95%; margin-left: 3%' padding: 15px>"+
+                    "<div class='w-10'><i style='height: 100%' class='fas fa-user-circle'></i>"+index+"</div>"+
+                    "<div class='w-30'>"+
+                        "<div style='display: flex; flex-wrap: wrap; width: 100%;'>"+
+                            "<div class='w-30'>Name</div>"+
+                            "<div class='w-70'>: <b>"+item.name+"</b></div>"+
+                        "</div>"+
+                        "<div style='display: flex; flex-wrap: wrap; width: 100%;'>"+
+                            "<div class='w-30'>Personnel No</div>"+
+                            "<div class='w-70'>: <b>"+item.persno+"</b></div>"+
+                        "</div>"+
+                        "<div style='display: flex; flex-wrap: wrap; width: 100%;'>"+
+                            "<div class='w-30'>Staff No</div>"+
+                            "<div class='w-70'>: <b>"+item.staffno+"</b></div>"+
+                        "</div>"+
+                    "</div>"+
+                    "<div class='w-30'>"+
+                        "<div style='display: flex; flex-wrap: wrap; width: 100%;'>"+
+                            "<div class='w-30'>Company Code</div>"+
+                            "<div class='w-70'>: <b>"+item.companycode+"</b></div>"+
+                        "</div>"+
+                        "<div style='display: flex; flex-wrap: wrap; width: 100%;'>"+
+                            "<div class='w-30'>Cost Center</div>"+
+                            "<div class='w-70'>: <b>"+item.costcenter+"</b></div>"+
+                        "</div>"+
+                        "<div style='display: flex; flex-wrap: wrap; width: 100%;'>"+
+                            "<div class='w-30'>Personnel Area</div>"+
+                            "<div class='w-70'>: <b>"+item.persarea+"</b></div>"+
+                        "</div>"+
+                    "</div>"+
+                    "<div class='w-30'>"+
+                        "<div style='display: flex; flex-wrap: wrap; width: 100%;'>"+
+                            "<div class='w-30'>Employee Subgroup</div>"+
+                            "<div class='w-70'>: <b>"+item.empsubgroup+"</b></div>"+
+                        "</div>"+
+                        "<div style='display: flex; flex-wrap: wrap; width: 100%;'>"+
+                            "<div class='w-30'>Email</div>"+
+                            "<div class='w-70'>: <b>"+item.email+"</b></div>"+
+                        "</div>"+
+                        "<div style='display: flex; flex-wrap: wrap; width: 100%;'>"+
+                            "<div class='w-30'>Mobile No</div>"+
+                            "<div class='w-70'>: <b>"+item.mobile+"</b></div>"+
+                        "</div>"+
+                    "</div>"+
+                "</div>"+
+            "</button>";
+            
+    }
+
+    // function pass(htmlstring){
+    //     htmlstringshow = htmlstring;
+    // }
+
+    function search(searchn){
+        const url='{{ route("ot.search", [], false)}}';
+        
+        $.ajax({
+            type: "GET",
+            url: url+"?name="+searchn,
+            success: function(resp) {
+                resp.forEach(updateResp);
+                htmlstring = htmlstring + "</tbody></table></div>";
+                Swal.fire({
+                    title: "Verifier's Name",
+                    customClass: 'test2',
+                    // width: '75%',
+                    html: "<div class='text-left swollo'><input id='namet' placeholder=\"Enter Employee's Name\" style='width: 100%; box-sizing: border-box;' onkeyup='this.onchange();' onchange='return checkstring();'><button type='button' id='namex' onclick='return cleart()' style='visibility: hidden;display: inline; position: absolute; right: 30px; margin-top: 3px' class='btn-no'><i class='far fa-times-circle'></i></button><i style='display: inline; position: absolute; right: 15px; margin-top: 5px' class='fas fa-search'></i><p id='3more' style=' margin-top: 5px; color: #F00000; display: none'>Search input must be more than 3 alphabets!</p><a href='' onClick='return advance()' style='color: #143A8C'><b><u>Advance Search</u></b></a></div><div class='text-left'>"+htmlstring+"</div>",
+                    confirmButtonText:
+                        'NEXT',
+                    showCancelButton: false,
+                    inputValidator: (result) => {
+                        return !result && 'You need to agree with T&C'
+                    }
+                }).then((result) => {
+                    if (result.value) {
+                        $("#inputremark-"+i).val($('#remark').val());
+                        if(($('#namet').val().length)<3){
+                            normalerror(i);
+                        }else{
+                            search($('#namet').val());
+                        }
+                        $("#inputremark-"+i).prop('disabled',true);
+                        $("#inputremark-"+i).val("");
+                        $("#inputremark-"+i).prop('required',false);
+                    }else{
+                        $("#action-"+i).val("");
+                        $("#inputremark-"+i).prop('disabled',true);
+                        $("#inputremark-"+i).prop('required',false);
+                    }
+                });
+                $('#tsearch').DataTable({
+                    "responsive": "true",
+                    // "order" : [[1, "asc"]],
+                    // "bLengthChange": false,
+                    // "pageLength" : 3,
+                    "searching": false,
+                    "bSort": false
+                });
+                
+            }
+        });      
+        
     }
 
     function advance(){
         alert("kon");
         return false;
     }
+
 
     function remark2(i){
         return function(){
