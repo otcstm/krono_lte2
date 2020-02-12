@@ -14,10 +14,8 @@ class SalaryController extends Controller
     public function list()
     {
         $sal = Salary::all();
-
         return $sal;
     }
-
 
     public function insert(Request $req)
     {
@@ -30,33 +28,20 @@ class SalaryController extends Controller
         $s->payscale_area = $req->trfgb;
         $s->salary        = $req->betrg;
         $s->save();
+        return "ddd";
     }
-
-
-    public function insert_bak(
-        $user_id,
-        $upd_sap,
-        $start_date,
-        $end_date,
-        $payscale_type,
-        $payscale_area,
-        $salary
-    ) {
-        $s = new Salary;
-        $s->user_id = $user_id;
-
-        $s->upd_sap       = $upd_sap;
-        $s->start_date    = $start_date;
-        $s->end_date      = $end_date;
-        $s->payscale_type = $payscale_type;
-        $s->payscale_area = $payscale_area;
-        $s->salary        = $salary;
-        $s->save();
-    }
-
 
     public function returnABC()
     {
+      Salary::all();
         return "ABCDE";
+    }
+
+    public function returnMaxDate()
+    {
+        $upd_sap = Salary::max('upd_sap');
+
+        return $upd_sap;
+
     }
 }
