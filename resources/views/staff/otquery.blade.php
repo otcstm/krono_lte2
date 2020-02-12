@@ -112,7 +112,7 @@
             </div>
             
             @if(($view=='verifier')||($view=='approver'))
-            <div id="submitbtn" class="text-center" onsubmit="return confirm('I understand and agree this to claim. If deemed false I can be taken to disciplinary action.')">
+            <div id="submitbtn" class="text-center" style="margin: 5vh 0 20vh;" onsubmit="return confirm('I understand and agree this to claim. If deemed false I can be taken to disciplinary action.')">
                 <button type="submit" class="btn btn-primary btn-p">SUBMIT</button>
             </div>
             
@@ -203,15 +203,10 @@
     function remark(i){
         return function(){
             if($("#action-"+i).val()=="Q2"){
-                // $('#remark-'+i).css("display", "table-row");
+                $('#remark-'+i).css("display", "table-row");
                 Swal.fire({
                     title: 'Remarks',
-                    input: 'textarea',
-                    inputPlaceholder: 'This is mandatory field. Please key in remarks here!',
-                    inputAttributes: {
-                        'aria-label': 'This is mandatory field. Please key in remarks here!'
-                    },
-                    html: "<p>Are you sure to query this claim application?</p>",
+                    html: "<textarea id='remark' rows='4' cols='50' placeholder='This is mandatory field. Please key in remarks here!' style='resize: none;'></textarea><p>Are you sure to query this claim application?</p>",
                     confirmButtonText:
                         'YES',
                         cancelButtonText: 'NO',
@@ -224,7 +219,7 @@
                             
                             $("#inputremark-"+i).prop('disabled',false);
                             $("#inputremark-"+i).prop('required',true);
-                            $("#inputremark-"+i).val(result.value);
+                            $("#inputremark-"+i).val($('#remark').val());
                             
                         }else{
                             
@@ -235,8 +230,9 @@
                             $("#inputremark-"+i).prop('required',false);
                         }
                 })
+            }else if($("#action-"+i).val()=="Assign"){
+                normal();
             }else{
-                // $('#remark-'+i).css("display", "none");
                 Swal.fire({
                     title: 'Terms and Conditions',
                     input: 'checkbox',
@@ -274,6 +270,62 @@
         };
     };
 
+    function cleart(){
+        $('#namet').val('');
+        $('#namex').css('visibility','hidden');
+    }
+
+    function normal(){
+        Swal.fire({
+            title: "Verifier's Name",
+            html: "<div class='text-left'><input id='namet' placeholder=\"Enter Employee's Name\" style='width: 100%; box-sizing: border-box;' onkeyup='this.onchange();' onchange=\"$('#namex').css('visibility', 'visible');\"><button type='button' id='namex' onclick='return cleart()' style='visibility: hidden;display: inline; position: absolute; right: 30px; margin-top: 3px' class='btn-no'><i class='far fa-times-circle'></i></button><i style='display: inline; position: absolute; right: 15px; margin-top: 5px' class='fas fa-search'></i><br><br><a href='' onClick='return advance()' style='color: #143A8C'><b><u>Advance Search</u></b></a></div>",
+            confirmButtonText:
+                'NEXT',
+            showCancelButton: false,
+            inputValidator: (result) => {
+                return !result && 'You need to agree with T&C'
+            }
+        }).then((result) => {
+            if (result.value) {
+                $("#inputremark-"+i).val($('#remark').val());
+                if($("#namet").val()!=''){
+
+                }else{
+                    normalerror();
+                }
+                
+            }
+        });
+    }
+
+    function normalerror(){
+        Swal.fire({
+            title: "Verifier's Name",
+            html: "<div class='text-left'><input id='namet' placeholder=\"Enter Employee's Name\" style='box-shadow: 0 0 5px rgba(240, 0, 0, 0.2); border: 1px solid #F00000; width: 100%; box-sizing: border-box;' onkeyup='this.onchange();' onchange=\"$('#namex').css('visibility', 'visible');\"><button type='button' id='namex' onclick='return cleart()' style='visibility: hidden;display: inline; position: absolute; right: 30px; margin-top: 3px' class='btn-no'><i class='far fa-times-circle'></i></button><i style='display: inline; position: absolute; right: 15px; margin-top: 5px' class='fas fa-search'></i><p style='color: #F00000'>Search input must be more than 3 alphabets!</p><a href='' onClick='return advance()' style='color: #143A8C'><b><u>Advance Search</u></b></a></div>",
+            confirmButtonText:
+                'NEXT',
+            showCancelButton: false,
+            inputValidator: (result) => {
+                return !result && 'You need to agree with T&C'
+            }
+        }).then((result) => {
+            if (result.value) {
+                $("#inputremark-"+i).val($('#remark').val());
+                if($("#namet").val()!=''){
+
+                }else{
+                    normalerror();
+                }
+                
+            }
+        });
+    }
+
+    function advance(){
+        alert("kon");
+        return false;
+    }
+
     function remark2(i){
         return function(){
             // alert("");
@@ -281,22 +333,20 @@
                 var str = $("#inputremark-"+i).val();
                 Swal.fire({
                     title: 'Remarks',
-                    input: 'textarea',
-                    inputValue: str,
-                    inputAttributes: {
-                        'aria-label': 'This is mandatory field. Please key in remarks here!'
-                    },
-                    html: "<p>Are you sure to query this claim application?</p>",
+                    html: "<textarea id='remark' rows='4' cols='50' placeholder='This is mandatory field. Please key in remarks here!' style='resize: none;'>"+str+"</textarea><p>Are you sure to query this claim application?</p>",
                     confirmButtonText:
                         'YES',
                         cancelButtonText: 'NO',
-                    showCancelButton: true
-                    }).then((result) => {
+                    showCancelButton: true,
+                    inputValidator: (result) => {
+                        return !result && 'You need to agree with T&C'
+                    }
+                }).then((result) => {
                         if (result.value) {
                             
                             $("#inputremark-"+i).prop('disabled',false);
                             $("#inputremark-"+i).prop('required',true);
-                            $("#inputremark-"+i).val(result.value);
+                            $("#inputremark-"+i).val($('#remark').val());
                             
                         }else{
                             
