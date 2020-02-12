@@ -113,12 +113,14 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post( '/admin/pygroup/update','Admin\PayrollgroupController@update')->name('pygroup.update');
   Route::post('/admin/pygroup/delete','Admin\PayrollgroupController@destroy')->name('pygroup.delete');
   //Report
-  Route::get('/admin/report/otd', 'Admin\OtReportController@viewOTd')->name('otr.viewOTd'); //rep1
-  Route::post('/admin/report/otd', 'Admin\OtReportController@viewOTd')->name('otr.viewOTd');
-  Route::get('/admin/report/ot', 'Admin\OtReportController@viewOT')->name('otr.viewOT'); //rep2
-  Route::post('/admin/report/ot', 'Admin\OtReportController@viewOT')->name('otr.viewOT');
-  Route::get('/admin/report/otlog', 'Admin\OtReportController@viewLC')->name('otr.viewOTLog'); //rep2
-  Route::post('/admin/report/otlog', 'Admin\OtReportController@viewLC')->name('otr.viewOTLog');
+  Route::get('/admreport/otd', 'Admin\OtReportController@viewOTd')->name('otr.viewOTd'); //rep1
+  Route::post('/admreport/otd', 'Admin\OtReportController@viewOTd')->name('otr.viewOTd');
+  Route::get('/admreport/ot', 'Admin\OtReportController@viewOT')->name('otr.viewOT'); //rep2
+  Route::post('/admreport/ot', 'Admin\OtReportController@viewOT')->name('otr.viewOT');
+  Route::get('/admreport/otlog', 'Admin\OtReportController@viewLC')->name('otr.viewOTLog'); //rep3
+  Route::post('/admreport/otlog', 'Admin\OtReportController@viewLC')->name('otr.viewOTLog');
+  Route::get('/admreport/StEdOt', 'Admin\OtReportController@viewStEd')->name('otr.viewStEd'); //rep4
+  Route::post('/admreport/StEdOt', 'Admin\OtReportController@viewStEd')->name('otr.viewStEd');
 
   // /admins ------------------------------------
   //Log activity

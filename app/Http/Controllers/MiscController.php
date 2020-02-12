@@ -63,7 +63,7 @@ class MiscController extends Controller
   public function showPunchView(Request $req){
     $punlis = UserHelper::GetPunchList($req->user()->id);
     return view('staff.punchlist', [
-      
+
       'p_list' => $punlis,
       'p_gotdata' => $punlis->count() != 0
     ]);
@@ -73,10 +73,12 @@ class MiscController extends Controller
     // $req->time = "2020-01-23 18:40:09"; //testing
     $date = date("Y-m-d", strtotime($req->time));
     $day = UserHelper::CheckDay($req->user()->id, $date);
+    $userrecordid = UserHelper::getUserRecordByDate($req->user()->id, $date);
     $currentp = new StaffPunch;
     $currentp->user_id = $req->user()->id;
     $currentp->day_type = $day[2];
     $currentp->punch_in_time = $req->time;
+    $currentp->user_records_id = $userrecordid->id;
     $currentp->in_latitude = 0.0; //temp
     $currentp->in_longitude = 0.0; //temp
     $currentp->save();
@@ -97,6 +99,7 @@ class MiscController extends Controller
     $sdate = date("Y-m-d", strtotime($req->stime));
     $edate = date("Y-m-d", strtotime($req->etime));
     $eday = UserHelper::CheckDay($req->user()->id, $req->etime);
+    $userrecordid = UserHelper::getUserRecordByDate($req->user()->id, $sdate);
     $currentp = StaffPunch::where("user_id", $req->user()->id)->where("punch_in_time", $req->stime)->first();
     if(((date("j", strtotime($req->etime)))- (date("j", strtotime($req->stime)))) > 0){
       $currentp->punch_out_time = $edate." 00:00:00";
@@ -115,9 +118,10 @@ class MiscController extends Controller
       $currentp->out_latitude = 0.0; //temp
       $currentp->out_longitude = 0.0; //temp
       $currentp->status = 'out';
+      $currentp->user_records_id = $userrecordid->id;
       $currentp->save();
       $execute = UserHelper::AddOTPunch($req->user()->id, $edate, $edate." 00:00:00", $req->etime, $currentp->id, $currentp->in_latitude, $currentp->in_longitude, $currentp->out_latitude, $currentp->out_longitude);
-    
+
       // return ['result'=> 'tea'];
     }else{
       $currentp->punch_out_time = $req->etime;
@@ -129,7 +133,7 @@ class MiscController extends Controller
       $execute = UserHelper::AddOTPunch($req->user()->id, $edate, $req->stime, $req->etime, $currentp->id, $currentp->in_latitude, $currentp->in_longitude, $currentp->out_latitude, $currentp->out_longitude);
       // return ['result'=>'kontol'];
     }
-    
+
     // return ['result'=>(date("j", strtotime($req->etime)))- (date("j", strtotime($req->stime)))];
   }
 
@@ -152,7 +156,7 @@ class MiscController extends Controller
     }
   }
 
-  
+
 
   public function doClockOut(Request $req){
     $time = Carbon::now('Asia/Kuala_Lumpur');

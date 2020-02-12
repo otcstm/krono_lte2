@@ -46,9 +46,10 @@ return [
     'shift_template'  => 'Shift Template',
 
     'rpt_menu'        => 'REPORT',
-    'otr'               => 'Overtime',
     'otr_details'       => 'Overtime Details',
-    'otr_log'           => 'Overtime Log Changes',
+    'otr_startend'      => 'List of Start/End OT Time',
+    'otr'               => 'Summary of OT Claim',
+    'otr_log'           => 'OT Log Changes',
 
     'info_menu'       => 'INFORMATION',
     'user_guide'      => 'GUIDELINE',
