@@ -301,6 +301,7 @@ $('.verifierListId').select2({
 
 } );
 
+
 //when click delete group
 function deletefile(id,gname){
 var fid = id;
@@ -326,7 +327,6 @@ var gname = gname;
   }
 })
 } //deletefile
-
 
 function advSearchSubmit(){
 
