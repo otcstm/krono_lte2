@@ -23,6 +23,8 @@
 $api = app('Dingo\Api\Routing\Router');
 $api->version('v1', function ($api) {
 $api->get('salary/retABC', 'App\Api\Datamart\SalaryController@returnABC');
+$api->get('salary/getLastUpdSAP', 'App\Api\Datamart\SalaryController@returnMaxDate');
+$api->post('salary/insertSalary', 'App\Api\Datamart\SalaryController@insert');
 
     //Route::get('/salary/retABC', 'Datamart\SalaryController@returnABC')->name('salary.abc');
 
