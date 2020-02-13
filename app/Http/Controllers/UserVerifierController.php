@@ -89,7 +89,7 @@ class UserVerifierController extends Controller
         $data = User::query();
         $data = $data->select("id","name","staff_no","email","company_id","persarea","perssubarea","empgroup","empsgroup");
         if(strlen(trim($empl_name)) > 0){
-            $data = $data->orWhere(DB::raw('upper(name)'),'LIKE','"%' .$empl_name. '%');
+            $data = $data->orWhere(DB::raw('upper(name)'),'LIKE','%' .$empl_name. '%');
             $checkCondition++;
         }
         if(strlen(trim($empl_persno)) > 0){
