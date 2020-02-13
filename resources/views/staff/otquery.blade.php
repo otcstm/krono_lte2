@@ -50,7 +50,7 @@
                     <tbody>
                         @foreach($otlist as $no=>$singleuser)
                         <tr>
-                            <input type="text" class="form-control hidden" id="inputid" name="inputid[]" value="{{$singleuser->id}}" required>
+                            <input type="text" class="form-control hidden" name="inputid[]" value="{{$singleuser->id}}" required>
                             <td>{{++$no}}</td>
                             <td>
                                 <a href="" id="a-{{$no}}" style="font-weight: bold; color: #143A8C" data-id="{{$singleuser->id}}">{{ $singleuser->refno }}</a>
@@ -90,7 +90,9 @@
                                     @if($view=="verifier")<option value="PA">Verify</option>
                                     @elseif($view=='approver')
                                         <option value="A">Approve</option>
-                                        <option value="Assign">Assign Verifier</option>
+                                        @if($singleuser->verifier_id==null)
+                                            <option value="Assign">Assign Verifier</option>
+                                        @endif
                                     @endif
                                     <option value="Q2">Query</option>
                                 </select>
@@ -160,6 +162,11 @@
         </form>
     </div>
 </div>
+
+<form action="{{route('ot.addverifier')}}" method="POST" id="formverifier"> 
+    @csrf    
+    <input type="text" class="" name="verifier" id="verifier" >     
+</form>
 @stop
 
 @section('js')
@@ -167,6 +174,7 @@
 
     var htmlstring = '<div style="border: 1px solid #DDDDDD; max-height: 60vh; overflow-y: scroll;  overflow-x: hidden;">';
     var htmlstringshow = '';
+
     $(document).ready(function() {
         $('#tOTList').DataTable({
             "responsive": "true",
@@ -234,7 +242,7 @@
                         }
                 })
             }else if($("#action-"+i).val()=="Assign"){
-                normal(i);
+                normal(i, 'none');
             }else{
                 Swal.fire({
                     title: 'Terms and Conditions',
@@ -277,20 +285,33 @@
         $('#namet').val('');
         $('#namex').css('visibility','hidden');
     }
+
     function checkstring(){
         if(($('#namet').val().length)>3){
             $('#namex').css('visibility', 'visible');
             $('#3more').css('display', 'none');
+            $('#margin').css('margin-left', '-20px');
         }else{
             $('#namex').css('visibility','hidden');
             $('#3more').css('display','block');
+            $('#margin').css('margin-left','0');
         }
     }
-
-    function normal(i){
+    var number =  0;
+    function normal(i, block){
         Swal.fire({
             title: "Verifier's Name",
-            html: "<div class='text-left'><input id='namet' placeholder=\"Enter Employee's Name\" style='width: 100%; box-sizing: border-box;' onkeyup='this.onchange();' onchange='return checkstring();'><button type='button' id='namex' onclick='return cleart()' style='visibility: hidden;display: inline; position: absolute; right: 30px; margin-top: 3px' class='btn-no'><i class='far fa-times-circle'></i></button><i style='display: inline; position: absolute; right: 15px; margin-top: 5px' class='fas fa-search'></i><p id='3more' style=' margin-top: 5px; color: #F00000; display: none'>Search input must be more than 3 alphabets!</p><a href='' onClick='return advance()' style='color: #143A8C'><b><u>Advance Search</u></b></a></div>",
+            html: "<div class='text-left'>"+
+                    "<input id='namet' placeholder=\"Enter Employee's Name\" style='width: 100%; box-sizing: border-box;' onkeyup='this.onchange();' onchange='return checkstring();'>"+
+                        "<button type='button' id='namex' onclick='return cleart()' style='visibility: hidden;display: inline; position: absolute; right: 30px; margin-top: 3px' class='btn-no'>"+
+                            "<i class='far fa-times-circle'></i>"+
+                        "</button>"+
+                        "<button type='button' id='namex' onclick='return searcho("+i+")' style='display: inline; position: absolute; right: 15px; margin-top: 5px' class='btn-no'>"+
+                            "<i  class='fas fa-search'></i>"+
+                        "</button>"+
+                        "<p id='3more' style=' margin-top: 5px; color: #F00000; display: "+block+"'>Search input must be more than 3 alphabets!</p>"+
+                        "<a href='' onClick='return advance()' style='color: #143A8C'><b><u>Advance Search</u></b></a>"+
+                    "</div>",
             confirmButtonText:
                 'NEXT',
             showCancelButton: false,
@@ -300,97 +321,63 @@
         }).then((result) => {
             if (result.value) {
                 $("#inputremark-"+i).val($('#remark').val());
-                if(($('#namet').val().length)<3){
-                    normalerror(i);
-                }else{
-                    search($('#namet').val());
-                }
                 $("#inputremark-"+i).prop('disabled',true);
                 $("#inputremark-"+i).val("");
                 $("#inputremark-"+i).prop('required',false);
+                return searcho(i);
             }else{
                 $("#action-"+i).val("");
                 $("#inputremark-"+i).prop('disabled',true);
                 $("#inputremark-"+i).prop('required',false);
             }
         });
-    }
-
-    function normalerror(i){
-        Swal.fire({
-            title: "Verifier's Name",
-            html: "<div class='text-left'><input id='namet' placeholder=\"Enter Employee's Name\" onkeyup='this.onchange();' onchange=\"$('#namex').css('visibility', 'visible');\" onchange='return checkstring();'><button type='button' id='namex' onclick='return cleart()' style='visibility: hidden;display: inline; position: absolute; right: 30px; margin-top: 3px' class='btn-no'><i class='far fa-times-circle'></i></button><i style='display: inline; position: absolute; right: 15px; margin-top: 5px' class='fas fa-search'></i><p id='3more' style=' margin-top: 5px; color: #F00000'>Search input must be more than 3 alphabets!</p><a href='' onClick='return advance()' style='color: #143A8C'><b><u>Advance Search</u></b></a></div>",
-            confirmButtonText:
-                'NEXT',
-            showCancelButton: false,
-            inputValidator: (result) => {
-                return !result && 'You need to agree with T&C'
-            }
-        }).then((result) => {
-            if (result.value) {
-                $("#inputremark-"+i).val($('#remark').val());
-                if(($('#namet').val().length)<3){
-                    normalerror(i);
-                }else{
-                    search($('#namet').val());
-                }
-                $("#inputremark-"+i).prop('disabled',true);
-                $("#inputremark-"+i).val("");
-                $("#inputremark-"+i).prop('required',false);
-            }else{
-                $("#action-"+i).val("");
-                $("#inputremark-"+i).prop('disabled',true);
-                $("#inputremark-"+i).prop('required',false);
-            }
-        });
-    }
-    
+    }    
 
     function updateResp(item, index){
         htmlstring = htmlstring + 
-            "<button style='border: 1px solid #DDDDDD; min-height: 10vh; width: 100%; padding: 5px; text-align: left; background: transparent'>"+
-                "<div style='display: flex; flex-wrap: wrap; width: 95%; margin-left: 3%' padding: 15px>"+
-                    "<div class='w-10'><i style='height: 100%' class='fas fa-user-circle'></i>"+index+"</div>"+
-                    "<div class='w-30'>"+
-                        "<div style='display: flex; flex-wrap: wrap; width: 100%;'>"+
-                            "<div class='w-30'>Name</div>"+
-                            "<div class='w-70'>: <b>"+item.name+"</b></div>"+
+            "<button style='border: 1px solid #DDDDDD; min-height: 10vh; width: 100%; padding: 5px; text-align: left; background: transparent' onclick='addverifier(\""+item.persno+"\","+index+");' id='addv-"+index+"'>"+
+                "<div style='display: flex; align-items: center; flex-wrap: wrap; width: 95%; margin-left: 3%' padding: 15px>"+
+                    "<div class='w-10 text-center'><img src='{{asset('vendor/ot-assets/man.jpg')}}' class='approval-search-img'></div>"+
+                    "<div class='w-30 m-15'>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Name<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.name+"</b></div>"+
                         "</div>"+
-                        "<div style='display: flex; flex-wrap: wrap; width: 100%;'>"+
-                            "<div class='w-30'>Personnel No</div>"+
-                            "<div class='w-70'>: <b>"+item.persno+"</b></div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Personnel No<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'><span class='dm'>: </span></span><b>"+item.persno+"</b></div>"+
                         "</div>"+
-                        "<div style='display: flex; flex-wrap: wrap; width: 100%;'>"+
-                            "<div class='w-30'>Staff No</div>"+
-                            "<div class='w-70'>: <b>"+item.staffno+"</b></div>"+
-                        "</div>"+
-                    "</div>"+
-                    "<div class='w-30'>"+
-                        "<div style='display: flex; flex-wrap: wrap; width: 100%;'>"+
-                            "<div class='w-30'>Company Code</div>"+
-                            "<div class='w-70'>: <b>"+item.companycode+"</b></div>"+
-                        "</div>"+
-                        "<div style='display: flex; flex-wrap: wrap; width: 100%;'>"+
-                            "<div class='w-30'>Cost Center</div>"+
-                            "<div class='w-70'>: <b>"+item.costcenter+"</b></div>"+
-                        "</div>"+
-                        "<div style='display: flex; flex-wrap: wrap; width: 100%;'>"+
-                            "<div class='w-30'>Personnel Area</div>"+
-                            "<div class='w-70'>: <b>"+item.persarea+"</b></div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Staff No<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.staffno+"</b></div>"+
                         "</div>"+
                     "</div>"+
-                    "<div class='w-30'>"+
-                        "<div style='display: flex; flex-wrap: wrap; width: 100%;'>"+
-                            "<div class='w-30'>Employee Subgroup</div>"+
-                            "<div class='w-70'>: <b>"+item.empsubgroup+"</b></div>"+
+                    "<div class='w-30 m-15'>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Company Code<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.companycode+"</b></div>"+
                         "</div>"+
-                        "<div style='display: flex; flex-wrap: wrap; width: 100%;'>"+
-                            "<div class='w-30'>Email</div>"+
-                            "<div class='w-70'>: <b>"+item.email+"</b></div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Cost Center<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.costcenter+"</b></div>"+
                         "</div>"+
-                        "<div style='display: flex; flex-wrap: wrap; width: 100%;'>"+
-                            "<div class='w-30'>Mobile No</div>"+
-                            "<div class='w-70'>: <b>"+item.mobile+"</b></div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Personnel Area<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.persarea+"</b></div>"+
+                        "</div>"+
+                    "</div>"+
+                    "<div class='w-30 m-15'>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Employee Subgroup<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.empsubgroup+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Email<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.email+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Mobile No<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.mobile+"</b></div>"+
                         "</div>"+
                     "</div>"+
                 "</div>"+
@@ -402,34 +389,76 @@
     //     htmlstringshow = htmlstring;
     // }
 
-    function search(searchn){
+        function addverifier(id, num){
+            $('#verifier').val(id);
+            for(i = 0; i<number; i++){
+                if(i!=num){
+                    $('#addv-'+i).css('outline','none');
+                    $('#addv-'+i).css('border','1px solid #DDDDDD');
+                }else{
+                    $('#addv-'+i).css('outline','1px solid #71A4F6');
+                    $('#addv-'+i).css('border','1px solid #95B7EE');
+                }
+            }
+        }
+    
+    function search(searchn, block){
         const url='{{ route("ot.search", [], false)}}';
+        htmlstring = '<div style="border: 1px solid #DDDDDD; max-height: 60vh; overflow-y: scroll;  overflow-x: hidden;">';
         
         $.ajax({
             type: "GET",
             url: url+"?name="+searchn,
             success: function(resp) {
-                resp.forEach(updateResp);
-                htmlstring = htmlstring + "</tbody></table></div>";
+                if(resp.length>0){
+                    number = resp.length;
+                    resp.forEach(updateResp);
+                    cfm = 'SELECT VERIFIER';
+                    yes = true;
+                }
+                else{
+                    htmlstring = "<div style=' width: 100%; padding: 5px; text-align: center; vertical-align: middle'>"+
+                                    "<p>No maching records found. Try to search again.</p>"+
+                                    "</div>";
+                                    
+                    cfm = 'NEXT';
+                    yes = false;
+                }
                 Swal.fire({
                     title: "Verifier's Name",
                     customClass: 'test2',
                     // width: '75%',
-                    html: "<div class='text-left swollo'><input id='namet' placeholder=\"Enter Employee's Name\" style='width: 100%; box-sizing: border-box;' onkeyup='this.onchange();' onchange='return checkstring();'><button type='button' id='namex' onclick='return cleart()' style='visibility: hidden;display: inline; position: absolute; right: 30px; margin-top: 3px' class='btn-no'><i class='far fa-times-circle'></i></button><i style='display: inline; position: absolute; right: 15px; margin-top: 5px' class='fas fa-search'></i><p id='3more' style=' margin-top: 5px; color: #F00000; display: none'>Search input must be more than 3 alphabets!</p><a href='' onClick='return advance()' style='color: #143A8C'><b><u>Advance Search</u></b></a></div><div class='text-left'>"+htmlstring+"</div>",
+                    html: "<div class='text-left swollo'>"+
+                            "<input id='namet' placeholder=\"Enter Employee's Name\" style='width: 100%; box-sizing: border-box;' onkeyup='this.onchange();' onchange='return checkstring();'>"+
+                            "<button type='button' id='namex' onclick='return cleart()' class='approval-search-x btn-no'>"+
+                                "<i class='far fa-times-circle'></i>"+
+                            "</button>"+
+                            "<button type='button' id='namex' onclick='return searcho("+i+")' class='approval-search-icon btn-no'>"+
+                                "<i class='fas fa-search'></i>"+
+                            "</button>"+
+                            "<p id='3more' style=' margin-top: 5px; color: #F00000; display: none'>Search input must be more than 3 alphabets!</p>"+
+                            "<a id='margin' href='' onClick='return advance()' style='margin-left: -20px; color: #143A8C'>"+
+                                "<b><u>Advance Search</u></b>"+
+                            "</a>"+
+                        "</div>"+
+                        "<p style=' margin-top: 5px; color: #F00000; display: "+block+"'>Please select verifier!</p>"+
+                        "<div class='text-left'>"+htmlstring+"</div>",
                     confirmButtonText:
-                        'NEXT',
-                    showCancelButton: false,
-                    inputValidator: (result) => {
-                        return !result && 'You need to agree with T&C'
-                    }
+                        cfm,
+                    showCancelButton: yes,
+                    cancelButtonText: 'CANCEL',
                 }).then((result) => {
                     if (result.value) {
                         $("#inputremark-"+i).val($('#remark').val());
-                        if(($('#namet').val().length)<3){
-                            normalerror(i);
-                        }else{
-                            search($('#namet').val());
-                        }
+                            if(yes){
+                                if($('#verifier').val()!=''){
+                                    $('#formverifier').submit();
+                                }else{
+                                    search(searchn, 'block');
+                                }
+                            }else{
+                                return searcho(i);
+                            }
                         $("#inputremark-"+i).prop('disabled',true);
                         $("#inputremark-"+i).val("");
                         $("#inputremark-"+i).prop('required',false);
@@ -458,6 +487,14 @@
         return false;
     }
 
+    function searcho(i){
+        htmlstring = '<div style="border: 1px solid #DDDDDD; max-height: 60vh; overflow-y: scroll;  overflow-x: hidden;">';
+        if(($('#namet').val().length)<3){
+                    normal(i, 'block');
+        }else{
+            search($('#namet').val(), 'none');
+        }
+    }
 
     function remark2(i){
         return function(){
@@ -494,6 +531,8 @@
             }
         }
     }
+
+    search('fauzi', 'none');
 
     for (i=1; i<{{count($otlist)+1}}; i++) {
         $("#action-"+i).change(remark(i));

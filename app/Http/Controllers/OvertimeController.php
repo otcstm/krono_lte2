@@ -690,8 +690,8 @@ class OvertimeController extends Controller{
         foreach($staff as $s){
             array_push($arr, [
                 'name'=>$s->name, 
-                'persno'=>sprintf('%08d', $s->persno), 
-                'staffno'=>$s->staff_no,
+                'persno'=>sprintf('%08d', $s->user_id), 
+                'staffno'=>$s->staffno,
                 'companycode'=>$s->companyid->company_descr,
                 'costcenter'=>$s->name,
                 'persarea'=>$s->persarea,
@@ -702,6 +702,10 @@ class OvertimeController extends Controller{
         }
         return $arr;
         // return $date;
+    }
+
+  public function addverifier(Request $req){
+       dd($req->verifier);
     }
 
   public static function getQueryAmount(){
