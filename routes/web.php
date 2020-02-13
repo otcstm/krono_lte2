@@ -122,6 +122,9 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/admreport/StEdOt', 'Admin\OtReportController@viewStEd')->name('otr.viewStEd'); //rep4
   Route::post('/admreport/StEdOt', 'Admin\OtReportController@viewStEd')->name('otr.viewStEd');
 
+  Route::get('/admreport/ot2', 'Admin\OtReport2Controller@viewOT2')->name('otr.viewOT2'); //rep5
+  Route::post('/admreport/ot2', 'Admin\OtReport2Controller@viewOT2')->name('otr.viewOT2');
+
   // /admins ------------------------------------
   //Log activity
   Route::get('/log/listUserLogs', 'MiscController@listUserLogs')->name('log.listUserLogs');
