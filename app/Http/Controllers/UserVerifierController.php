@@ -97,27 +97,27 @@ class UserVerifierController extends Controller
             $checkCondition++;
         }
         if(strlen(trim($empl_staffno)) > 0){
-            $data = $data->orWhere(DB::raw('upper(staff_no)'),'LIKE','%' .$empl_staffno. '%"');
+            $data = $data->orWhere(DB::raw('upper(staff_no)'),'LIKE','%' .$empl_staffno. '%');
             $checkCondition++;
         }
         if(strlen(trim($empl_email)) > 0){
-            $data = $data->orWhere(DB::raw('upper(email)'),'LIKE','%' .$empl_email. '%"');
+            $data = $data->orWhere(DB::raw('upper(email)'),'LIKE','%' .$empl_email. '%');
             $checkCondition++;
         }
         if(strlen(trim($empl_compcode)) > 0){
-            $data = $data->orWhere('company_id','LIKE','%' .$empl_compcode. '%"');
+            $data = $data->orWhere('company_id','LIKE','%' .$empl_compcode. '%');
             $checkCondition++;
         }
         if(strlen(trim($empl_personalarea)) > 0){
-            $data = $data->orWhere('persarea','LIKE','%' .$empl_personalarea. '%"');
+            $data = $data->orWhere('persarea','LIKE','%' .$empl_personalarea. '%');
             $checkCondition++;
         }
         if(strlen(trim($empl_personalsubarea)) > 0){
-            $data = $data->orWhere('perssubarea','LIKE','%' .$empl_personalsubarea. '%"');
+            $data = $data->orWhere('perssubarea','LIKE','%' .$empl_personalsubarea. '%');
             $checkCondition++;
         }
         if(strlen(trim($empl_subgroup)) > 0){
-            $data = $data->orWhere('empsgroup','LIKE','%' .$empl_subgroup. '%"');
+            $data = $data->orWhere('empsgroup','LIKE','%' .$empl_subgroup. '%');
             $checkCondition++;
         }
         if($checkCondition == 0){
