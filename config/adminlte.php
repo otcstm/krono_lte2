@@ -305,6 +305,15 @@ return [
                 'icon' => '',
                 // 'can' => 'ot-nav-menu',
             ],
+            [
+                'text' => 'ot_approve_report',
+                'url'  => '/overtime/approval/report',
+                    // 'label'       => UserHelper::GetRequireAttCount(),
+                // 'label' => OvertimeController::getQueryAmount(),
+                'label_color' => 'warning',
+                'icon' => '',
+                // 'can' => 'ot-nav-menu',
+            ],
             // [
             //     'text' => 'ot_history',
             //     'url'  => '/overtime/logs',
@@ -379,18 +388,24 @@ return [
             'icon' => 'fas fa-print',
             'submenu' => [
               [
-                'text' => 'otr',
-                'url'  => '/admin/report/ot',
+                'text' => 'otr_details',
+                'url'  => '/admreport/otd',
                 'icon' => 'fas fa-user-ninja',
               ],
               [
-                'text' => 'otr_details',
-                'url'  => '/admin/report/otd',
+                'text' => 'otr_startend',
+                'url'  => '/admreport/StEdOt',
                 'icon' => 'fas fa-user-ninja',
               ],
+              [
+                'text' => 'otr',
+                'url'  => '/admreport/ot',
+                'icon' => 'fas fa-user-ninja',
+              ],
+
               [
                 'text' => 'otr_log',
-                'url'  => '/admin/report/otlog',
+                'url'  => '/admreport/otlog',
                 'icon' => 'fas fa-user-ninja',
               ],
             ],

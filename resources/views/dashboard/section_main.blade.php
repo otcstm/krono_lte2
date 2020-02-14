@@ -1,16 +1,16 @@
-<h3 class="box-title">Dashboard</h3>
+<h1>Dashboard</h1>
 
 <div class="row">     
   <div class="col-md-3 col-sm-6 col-xs-12">
   <a href="{{ route('ot.formnew', [], false) }}">
-    <div class="box box-solid box-warning">
+    <div class="box box-solid">
     <div class="box-body">
     <div class="media">
       <div class="media-left">
-        <img src="vendor/ot-assets/ot-clock-icon.PNG" class="media-object" style="width:50px">
+        <img src="vendor/ot-assets/ot-clock-icon.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
-        <h4 class="media-heading">NEW OT</h4>
+        <h4 class="media-heading">New OT</h4>
         <p>Apply New Overtime</p>
       </div>
     </div>
@@ -22,7 +22,7 @@
   </a>  
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="box box-solid box-warning">
+    <div class="box box-solid">
                         <div class="box-body">
     
 <div class="media">
@@ -30,7 +30,7 @@
     <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px">
   </div>
   <div class="media-body">
-    <h4 class="media-heading">MY WORK</h4>
+    <h4 class="media-heading">My Work</h4>
     <p>My Work Schedule</p>
   </div>
 </div>
@@ -41,7 +41,7 @@
     </div>
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="box box-solid box-warning">
+    <div class="box box-solid">
                         <div class="box-body">
   <div class="media">
   <div class="media-left">
@@ -59,7 +59,7 @@
     </div>
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="box box-solid box-warning">
+    <div class="box box-solid">
     <div class="box-body">
     <div class="media">
   <div class="media-left">
@@ -81,7 +81,7 @@
 
 <div class="row">     
   <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="box box-solid box-warning">
+    <div class="box box-solid">
                         <div class="box-body">
     <div class="media">
       <div class="media-left">
@@ -99,7 +99,7 @@
     </div>
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="box box-solid box-warning">
+    <div class="box box-solid">
                         <div class="box-body">
     
 <div class="media">
@@ -118,7 +118,7 @@
     </div>
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="box box-solid box-warning">
+    <div class="box box-solid">
                         <div class="box-body">
   <div class="media">
   <div class="media-left">
@@ -136,7 +136,7 @@
     </div>
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="box box-solid box-warning">
+    <div class="box box-solid">
     <div class="box-body">
     <div class="media">
   <div class="media-left">
@@ -158,11 +158,11 @@
 
 <div class="row">     
   <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="box box-solid box-warning">
+    <div class="box box-solid">
   <div class="box-body">
     <div class="media">
       <div class="media-left">
-        <img src="vendor/ot-assets/ot-clock-icon.PNG" class="media-object" style="width:50px">
+        <img src="vendor/ot-assets/ot-clock-icon.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
         <h4 class="media-heading">4 Planned OT</h4>

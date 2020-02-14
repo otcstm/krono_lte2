@@ -194,7 +194,6 @@ function deletec(i){
                                 cancelButtonText: 'NO',
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Delete'
             }).then((result) => {
             if (result.value) {
                 $("#form").submit();

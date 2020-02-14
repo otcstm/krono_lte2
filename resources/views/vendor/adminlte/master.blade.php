@@ -34,8 +34,12 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
 </head>
 <body class="hold-transition @yield('body_class')">
-
+    
+@php($page=Request::segment(1))
 @yield('body')
+<!-- <div class="punch-layer"> -->
+@if(($page!='login')&&($page!='home'))<button id="punchb" class="btn btn-punch-layer" type="button" onclick="return puncho()"><i class="fas fa-clock"></i> START OT</button>@endif
+<!-- </div> -->
 <footer class="foot">
     <div class="container" style="padding: 0 2.5vw; width: 100%">
         <div class="foot-text">Copyright © 2020 Telekom Malaysia Berhad. All rights reserved.</div>
@@ -45,11 +49,12 @@
 <script src="{{ secure_asset('vendor/jquery/dist/jquery.min.js') }}"></script>
 <script src="{{ secure_asset('vendor/jquery/dist/jquery.slimscroll.min.js') }}"></script>
 <script src="{{ secure_asset('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-<script src="{{ secure_asset('vendor/custom.js') }}"></script>
 
 @include('adminlte::plugins', ['type' => 'js'])
 
 @yield('adminlte_js')
 
+
+@if($page!='login')<script src="{{ secure_asset('vendor/custom.js') }}"></script>@endif
 </body>
 </html>

@@ -1,10 +1,6 @@
-<h3 class="box-title">Start Overtime</h3>
+<h1>Start Overtime</h1>
 
-<div class="box box-solid">
-    <div class="box-header">
-    <h4 class="box-title">
+<div class="boxman">
     <i class="glyphicon glyphicon-time"></i> Do you want to start overtime now?  
-    <a href="{{ route('punch.list', [], false) }}" class="btn btn-sm btn-success"> Start </a>
-    </h4>
-    </div><!-- /.box-header -->
+    <a href="{{ route('punch.list', [], false) }}" class="btn btn-start-punch">START </a>
 </div>

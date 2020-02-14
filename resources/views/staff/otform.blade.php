@@ -3,6 +3,11 @@
 @section('title', 'Overtime Form')
 
 @section('content')
+<style>
+    .form-select{
+        min-width: 40%;
+    }
+</style>
 
 <h1>Apply New Overtime</h1>
 @if($claim ?? '')
@@ -21,7 +26,7 @@
 <div class="panel panel-default panel-main">
     <div class="panel panel-default">
         <div class="panel-heading panel-primary">Overtime Application</div>
-        <div class="panel-body">
+        <div class="panel-body" style="min-height:50vh">
             {{--@if(session()->has('feedback'))
             <div class="alert alert-{{session()->get('feedback_type')}} alert-dismissible" id="alert">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -30,7 +35,27 @@
             @endif--}}
             <div class="row">
                 <div class="col-md-6">
-                    <form id="formdate" action="{{route('ot.formdate')}}" method="POST">
+                    
+                    <div>
+                        <p>Reference No: 
+                            @if($claim ?? '') 
+                                {{$claim->refno}} 
+                            @elseif($draft ?? '') 
+                                {{$draft[0]}} 
+                            @else 
+                                N/A
+                            @endif
+                        </p>
+                        <p>State Calendar: 
+                            @if($claim ?? '') 
+                                {{$claim->state->state_descr}}
+                            @elseif($draft ?? '') 
+                                {{$draft[7]}} 
+                            @else 
+                                {{Auth::user()->stateid->state_descr}}
+                            @endif
+                        </p>
+                        <form id="formdate" action="{{route('ot.formdate')}}" method="POST">
                         @csrf
                         <p>OT Date: <input type="date" id="inputdate" name="inputdate" value=@if($claim ?? '')
                                 "{{$claim->date}}"
@@ -39,58 +64,38 @@
                             @endif required  onkeydown="return false">
                             <!-- <button type="button" id="btn-date" class="btn btn-primary" style="padding: 2px 3px; margin: 0; margin-top: -3px;"><i class="fas fa-share-square"></i></button> -->
                         </p>
-                    </form>
-                    <div>
-                    <p>Reference No: 
-                        @if($claim ?? '') 
-                            {{$claim->refno}} 
-                        @elseif($draft ?? '') 
-                            {{$draft[0]}} 
-                        @else 
-                            N/A
-                        @endif
-                    </p>
-                    <p>State Calendar: 
-                        @if($claim ?? '') 
-                            {{$claim->state->state_descr}}
-                        @elseif($draft ?? '') 
-                            {{$draft[7]}} 
-                        @else 
-                            {{Auth::user()->stateid->state_descr}}
-                        @endif
-                    </p>
-                         
-                    <p>Day Type:
-                        @if($claim ?? '')  
-                            {{$claim->daytype->description}}
-                        @elseif(($draft ?? ''))
-                            {{$draft[8]}}
-                        @else 
-                            N/A
-                        @endif</p>   
-                    @if(($c ?? '')||($d ?? ''))
-                        @php($expiry = true)
-                        @if(($claim ?? ''))
-                            @if($claim->date_expiry==null)
-                                @php($expiry = false)
+                    </form>    
+                        <p>Day Type:
+                            @if($claim ?? '')  
+                                {{$claim->daytype->description}}
+                            @elseif(($draft ?? ''))
+                                {{$draft[8]}}
+                            @else 
+                                N/A
+                            @endif</p>   
+                        @if(($c ?? '')||($d ?? ''))
+                            @php($expiry = true)
+                            @if(($claim ?? ''))
+                                @if($claim->date_expiry==null)
+                                    @php($expiry = false)
+                                @endif
+                            @elseif(($draft ?? ''))
+                                @if($draft[1]==null)
+                                    @php($expiry = false)
+                                @endif
                             @endif
-                        @elseif(($draft ?? ''))
-                            @if($draft[1]==null)
-                                @php($expiry = false)
+                            @if(!(($claim ?? '')||($draft ?? '')))
+                                <p>Charging type: {{$claim->charge_type}}</p>
                             @endif
+                        @elseif($q ?? '')
+                            <p>Query Message: 
+                                @foreach($claim->log as $logs) 
+                                    @if(strpos($logs->message,"Queried")!==false) 
+                                        @php($query = $logs->message) 
+                                    @endif 
+                                @endforeach 
+                                {{str_replace('"', '', str_replace('Queried with message: "', '', $query))}}</p>
                         @endif
-                        @if(!(($claim ?? '')||($draft ?? '')))
-                            <p>Charging type: {{$claim->charge_type}}</p>
-                        @endif
-                    @elseif($q ?? '')
-                        <p>Query Message: 
-                            @foreach($claim->log as $logs) 
-                                @if(strpos($logs->message,"Queried")!==false) 
-                                    @php($query = $logs->message) 
-                                @endif 
-                            @endforeach 
-                            {{str_replace('"', '', str_replace('Queried with message: "', '', $query))}}</p>
-                    @endif
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -113,25 +118,22 @@
                             Draft 
                         @else 
                             N/A
-                        @endif</p>
+                        @endif
+                    </p>
                     <p>Verifier: 
                         @if($claim ?? '') 
-                            @if($claim->verifier_id!=null)
-                                {{$claim->verifier->name}}
-                            @else
-                                N/A
-                            @endif
+                            {{$claim->verifier->name}}
+                        @elseif($draft ?? '')
+                            {{$draft[9]}} 
                         @else 
                             N/A 
                         @endif
                     </p>
                     <p>Approver: 
-                        @if($claim ?? '') 
-                            @if($claim->approver_id!=null)
-                                {{$claim->approver->name}}
-                            @else
-                                N/A
-                            @endif
+                        @if($claim ?? '')
+                            {{$claim->approver->name}}
+                        @elseif($draft ?? '')
+                            {{$draft[10]}}
                         @else 
                             N/A
                         @endif
@@ -376,7 +378,7 @@
                                         <label>Charge Type:</label>
                                     </div>
                                     <div class="col-md-9">
-                                        <select name="chargetype" class="chargetype" id="chargetype" value="
+                                        <select name="chargetype" class="chargetype form-select" id="chargetype" value="
                                             @if($claim ?? '')
                                                 {{$claim->charge_type}}
                                             @endif" required>
@@ -389,35 +391,59 @@
                                                     selected
                                                 @endif>Select Charge Type
                                             </option>
-                                            <option value="Cost Center" 
+                                            <option value="Own Cost Center" 
                                                 @if($claim ?? '') 
-                                                    @if($claim->charge_type=="Cost Center")
+                                                    @if($claim->charge_type=="Own Cost Center")
                                                         selected
                                                     @endif 
-                                                @endif>Cost Center</option>
+                                                @endif>OWN COST CENTER</option>
                                             <option value="Project" 
                                                 @if($claim ?? '') 
                                                     @if($claim->charge_type=="Project") 
                                                         selected 
                                                     @endif 
                                                 @endif>
-                                                Project
+                                                PROJECT
+                                            </option>
+                                            <option value="Internal Order" 
+                                                @if($claim ?? '') 
+                                                    @if($claim->charge_type=="Internal Order") 
+                                                        selected 
+                                                    @endif 
+                                                @endif>
+                                                INTERNAL ORDER
+                                            </option>
+                                            <option value="Maintenance Order" 
+                                                @if($claim ?? '') 
+                                                    @if($claim->charge_type=="Maintenance Order") 
+                                                        selected 
+                                                    @endif 
+                                                @endif>
+                                                MAINTENANCE ORDER
+                                            </option>
+                                            <option value="Other Cost Center" 
+                                                @if($claim ?? '') 
+                                                    @if($claim->charge_type=="Other Cost Center") 
+                                                        selected 
+                                                    @endif 
+                                                @endif>
+                                                OTHER COST CENTER
                                             </option>
                                         </select> 
                                     </div>
                                 </div>
                                 @if($claim ?? '')
-                                    <div id="costcenter" 
-                                        @if($claim->charge_type!="Cost Center") 
+                                    <div id="owncostcenter" 
+                                        @if(!(in_array($claim->charge_type, $array = array("Own Cost Center", "Internal Order", "Maintenance Order", "Other Cost Center"))))
                                             style="display: none" 
                                         @endif>
                                         <div class="row" style="margin-bottom: 5px;">
                                             <div class="col-md-3">
-                                                <label>Charging:</label>
+                                                <label>Type:</label>
                                             </div>
                                             <div class="col-md-9">
-                                                <select name="charging" id="charging" 
-                                                    @if($claim->charge_type=="Cost Center") 
+                                                <select class="form-select" name="charging" id="charging" 
+                                                    @if($claim->charge_type!="Project") 
                                                         required 
                                                     @endif>
                                                     <option value="ATAC07">ATAC07</option>
@@ -434,24 +460,24 @@
                                                 <label>Type:</label>
                                             </div>
                                             <div class="col-md-9">
-                                                <select name="type" id="type" 
+                                                <select class="form-select" name="type" id="type" 
                                                     @if($claim->charge_type=="Project") 
                                                         required 
                                                     @endif>
-                                                    <option value="CUST23234">CUST23234</option>
+                                                    <option value="TMAC/190001">TMAC/190001</option>
                                                 </select> 
                                             </div>
                                         </div>
                                         <div class="row" style="margin-bottom: 5px;">
                                             <div class="col-md-3">
-                                                <label>Network Header:</label>
+                                                <label>Project:</label>
                                             </div>
                                             <div class="col-md-9">
-                                                <select name="header" id="header" 
+                                                <select class="form-select" name="header" id="header" 
                                                     @if($claim->charge_type=="Project")
                                                         required
                                                     @endif>
-                                                    <option value="PRJ123124">PRJ123124</option>
+                                                    <option value="CNTW">CNTW</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -460,35 +486,35 @@
                                                 <label>Code:</label>
                                             </div>
                                             <div class="col-md-9">
-                                                <select name="code" id="code" 
+                                                <select class="form-select" name="code" id="code" 
                                                     @if($claim->charge_type=="Project")
                                                         required
                                                     @endif>
-                                                    <option value="PRJ123124">PRJ123124</option>
+                                                    <option value="4000047">4000047</option>
                                                 </select> 
                                             </div>
                                         </div>
                                         <div class="row" style="margin-bottom: 5px;">
                                             <div class="col-md-3">
-                                                <label>Activity:</label>
+                                                <label>Network Header:</label>
                                             </div>
                                             <div class="col-md-9">
-                                                <select name="activity" id="activity" 
+                                                <select class="form-select" name="activity" id="activity" 
                                                     @if($claim->charge_type=="Project") 
                                                         required
                                                     @endif>
                                                     <option value="PRJ123124">PRJ123124</option>
                                                 </select> 
                                             </div>
+                                        </div>
                                 
-                                    </div>
-                                
+                                        </div>
                                 @endif
-                                </div><div class="row" style="margin-bottom: 5px;">
+                                <div class="row" style="margin-bottom: 5px;">
                                     <div class="col-md-3">
                                         <label>Document:</label>
                                     </div>
-                                    <div class="col-md-9" class="maxfilef">
+                                    <div class="col-md-9 maxfilef">
                                         <input type="file" name="inputfile" id="inputfile" accept="image/*, .pdf, .jpeg, .jpg, .bmp, .png, .tiff" style="position:absolute; right:-100vw;">
                                         <span id="inputfiletext">File: .bmp, .pdf, .png, .tiff</span>
                                         <a href="#" id="btn-file-2"><i class="fas fa-times-circle"></i></a>

@@ -23,10 +23,19 @@ Route::get('/ur/show/{persno}/{dt}', 'URController@gUR')->name('ur.listAll');
 Route::group(['middleware' => ['auth']], function () {
   Route::get('/home', 'MiscController@home')->name('misc.home');
   Route::get('/role', 'Admin\RoleController@index')->name('role.index');
-  // clock-in related
+
+  // // clock-in related OLD
+  // Route::get('/punch',      'MiscController@showPunchView')->name('punch.list');
+  // Route::post('/punch/in',  'MiscController@doClockIn')->name('punch.in');
+  // Route::post('/punch/out', 'MiscController@doClockOut')->name('punch.out');
+  // Route::post('/punch/delete', 'MiscController@delete')->name('punch.delete');
+
+  // clock-in related NEW
   Route::get('/punch',      'MiscController@showPunchView')->name('punch.list');
-  Route::post('/punch/in',  'MiscController@doClockIn')->name('punch.in');
-  Route::post('/punch/out', 'MiscController@doClockOut')->name('punch.out');
+  Route::get('/punch/start',  'MiscController@startPunch')->name('punch.start');
+  Route::get('/punch/check',  'MiscController@checkPunch')->name('punch.check');
+  Route::get('/punch/end',  'MiscController@endPunch')->name('punch.end');
+  Route::get('/punch/cancel',  'MiscController@cancelPunch')->name('punch.cancel');
   Route::post('/punch/delete', 'MiscController@delete')->name('punch.delete');
 
   //List staff & search
@@ -104,12 +113,14 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post( '/admin/pygroup/update','Admin\PayrollgroupController@update')->name('pygroup.update');
   Route::post('/admin/pygroup/delete','Admin\PayrollgroupController@destroy')->name('pygroup.delete');
   //Report
-  Route::get('/admin/report/otd', 'Admin\OtReportController@viewOTd')->name('otr.viewOTd'); //rep1
-  Route::post('/admin/report/otd', 'Admin\OtReportController@viewOTd')->name('otr.viewOTd');
-  Route::get('/admin/report/ot', 'Admin\OtReportController@viewOT')->name('otr.viewOT'); //rep2
-  Route::post('/admin/report/ot', 'Admin\OtReportController@viewOT')->name('otr.viewOT');
-  Route::get('/admin/report/otlog', 'Admin\OtReportController@viewLC')->name('otr.viewOTLog'); //rep2
-  Route::post('/admin/report/otlog', 'Admin\OtReportController@viewLC')->name('otr.viewOTLog');
+  Route::get('/admreport/otd', 'Admin\OtReportController@viewOTd')->name('otr.viewOTd'); //rep1
+  Route::post('/admreport/otd', 'Admin\OtReportController@viewOTd')->name('otr.viewOTd');
+  Route::get('/admreport/ot', 'Admin\OtReportController@viewOT')->name('otr.viewOT'); //rep2
+  Route::post('/admreport/ot', 'Admin\OtReportController@viewOT')->name('otr.viewOT');
+  Route::get('/admreport/otlog', 'Admin\OtReportController@viewLC')->name('otr.viewOTLog'); //rep3
+  Route::post('/admreport/otlog', 'Admin\OtReportController@viewLC')->name('otr.viewOTLog');
+  Route::get('/admreport/StEdOt', 'Admin\OtReportController@viewStEd')->name('otr.viewStEd'); //rep4
+  Route::post('/admreport/StEdOt', 'Admin\OtReportController@viewStEd')->name('otr.viewStEd');
 
   // /admins ------------------------------------
   //Log activity
@@ -133,6 +144,8 @@ Route::group(['middleware' => ['auth']], function () {
   //OT activity - Approver
   Route::get('/overtime/approval', 'OvertimeController@approval')->name('ot.approval');
   Route::post('/overtime/approval', 'OvertimeController@approval')->name('ot.approval');
+  Route::get('/overtime/approval/report', 'OvertimeController@approvalrept')->name('ot.approvalrept');
+  Route::post('/overtime/approval/report', 'OvertimeController@approvalrept')->name('ot.approvalrept');
   Route::get('/overtime/query', 'OvertimeController@query')->name('ot.query');
   Route::post('/overtime/query', 'OvertimeController@query')->name('ot.query');
 
@@ -175,5 +188,7 @@ Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth
   Route::get('/email/dummy', 'EmailController@dummyEmail')->name('email.dummy');
   Route::post('/email/dummy', 'EmailController@sendDummyEmail')->name('email.senddummy');
 
-  Route::get('/verifier/staff/search', 'UserVerifierController@index')->name('verifier.staff');
-  Route::get('/verifier/staff/persno', 'UserVerifierController@search')->name('verifier.search');
+  Route::get('/admin/verifier/', 'UserVerifierController@search')->name('verifier.search');
+  Route::post('/admin/verifier/staff', 'UserVerifierController@staffverifier')->name('verifier.staff');
+  Route::get('/admin/verifier/staffsearch', 'UserVerifierController@staffsearch');
+  Route::get('/admin/verifier/create','UserVerifierController@create')->name('verifier.create');

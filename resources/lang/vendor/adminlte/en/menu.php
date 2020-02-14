@@ -33,6 +33,7 @@ return [
     'ot_apply'        => 'Apply New Overtime',
     'ot_history'      => 'OT History',
     'ot_approve'      => 'Pending Verification Claim',
+    'ot_approve_report'      => 'Claim Verification Report',
     'ot_verify'       => 'Verify OT',
     'ot_list'         => 'List of Overtime Claim',
     'staff_list'      => 'LIST OF STAFF',
@@ -45,9 +46,10 @@ return [
     'shift_template'  => 'Shift Template',
 
     'rpt_menu'        => 'REPORT',
-    'otr'               => 'Overtime',
     'otr_details'       => 'Overtime Details',
-    'otr_log'           => 'Overtime Log Changes',
+    'otr_startend'      => 'List of Start/End OT Time',
+    'otr'               => 'Summary of OT Claim',
+    'otr_log'           => 'OT Log Changes',
 
     'info_menu'       => 'INFORMATION',
     'user_guide'      => 'GUIDELINE',
