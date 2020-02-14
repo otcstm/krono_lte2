@@ -3,7 +3,7 @@
 @section('title', 'Verifier Management')
 
 @section('content')
-     <div class="box box-primary">
+     <div class="box box-warning">
             <div class="box-header with-border">
               <h3 class="box-title">Staff</h3>
             </div>
@@ -31,7 +31,7 @@
 <div class="row">
 <div class="col-md-12">
 
-  <div class="box box-primary">
+  <div class="box box-warning">
             <div class="box-header with-border">
               <h3 class="box-title">Verifier</h3>
 
@@ -39,7 +39,7 @@
 <form action="{{ route('verifier.create',[],false) }}" style="display:inline; float:right">
 @csrf
 <input type="hidden" name="uid" id="uid" value="{{ $userdata->id }}" />
-<button type="submit" name="submit" class="btn btn-xs btn-default">
+<button type="submit" name="submit" class="btn btn-xs btn-primary btn-outline">
   <i class="fa fa-plus"></i> Add Verifier</button>
 </form> 
 </div>
@@ -85,7 +85,7 @@
 <div class="row">
 <div class="col-md-12">
 
-          <div class="box box-primary">
+          <div class="box box-warning">
             <div class="box-header with-border">
               <h3 class="box-title">Subordinates</h3>
             </div>

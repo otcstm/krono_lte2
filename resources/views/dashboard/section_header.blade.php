@@ -2,5 +2,5 @@
 
 <div class="boxman">
     <i class="glyphicon glyphicon-time"></i> Do you want to start overtime now?  
-    <a href="{{ route('punch.list', [], false) }}" class="btn btn-start-punch">START </a>
+    <a href="#" onclick="return puncho()" class="btn btn-start-punch">START </a> 
 </div>
