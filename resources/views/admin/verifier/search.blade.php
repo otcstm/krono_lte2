@@ -3,7 +3,7 @@
 @section('title', 'Verifier')
 
 @section('content')
-     <div class="box box-info">
+     <div class="box box-warning">
             <div class="box-header with-border">
               <h3 class="box-title">Search Staff</h3>
             </div>
@@ -18,7 +18,7 @@
             </div>
             <!-- /.box-body -->
               <div class="box-footer clearfix">
-              <button type="submit" class="btn btn-sm btn-info btn-flat pull-left">Get Staff</button>
+              <button type="submit" class="btn btn-primary btn-outline">Get Staff</button>
             </div>
 
 
@@ -41,6 +41,7 @@
         ajax: {
           url: '/admin/verifier/staffsearch',
           dataType: 'json',
+          minLength: 3,
           delay: 250,
           processResults: function (data) {
             return {

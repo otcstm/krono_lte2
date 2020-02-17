@@ -3,7 +3,7 @@
 namespace App\Shared;
 use App\User;
 use App\UserRecord;
-use App\CompRegionConfig;
+use App\OvertimeEligibility;
 use App\StaffPunch;
 use App\SetupCode;
 use App\OvertimeLog;
@@ -112,7 +112,7 @@ class URHelper
 
       public static function getUserCapping( $comp,$reg)
       {
-        $salcapping = CompRegionConfig::where('company_id',$comp)->where('region',$reg)->first();
+        $salcapping = OvertimeEligibility::where('company_id',$comp)->where('region',$reg)->first();
         return $salcapping;
       }
 
@@ -127,6 +127,11 @@ class URHelper
         $st = SetupCode::where('item1','ot_status')->where('item2',$code)->first();
         return $st;
       }
+      public static function getRegion($psubarea)
+      {
+        $getreg = Psubarea::where('perssubarea',$psubarea)->first();
+        return $getreg;
+      }
 
       public static function getOTLog($otid)
       {
@@ -137,6 +142,14 @@ class URHelper
         return $otlog;
 
       }
+
+
+
+      // public static function getStatusPIO( $persno,$st,$et)//get claim status for every single punch in/out
+      // {
+      //   $applyOT = OvertimeDetail::where('user_id',$persno)->where('start_time','=',$st)->where('end_time','=',$et)->get()->first();
+      //   return $applyOT;
+      // }
 
 
 

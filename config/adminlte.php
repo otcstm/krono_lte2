@@ -370,6 +370,14 @@ return [
             //     'label_color' => 'warning',
             //     // 'can' => 'ot-nav-menu',
             // ],
+
+            
+            [
+                'text' => 'ot_def_ver',
+                'url'  => '/verifier',
+                'icon' => '',
+                // 'can' => 'ot-nav-menu',
+            ],
           ]
         ],
         [
@@ -421,18 +429,24 @@ return [
             'icon' => 'fas fa-print',
             'submenu' => [
               [
-                'text' => 'otr',
-                'url'  => '/admin/report/ot',
+                'text' => 'otr_details',
+                'url'  => '/admreport/otd',
                 'icon' => 'fas fa-user-ninja',
               ],
               [
-                'text' => 'otr_details',
-                'url'  => '/admin/report/otd',
+                'text' => 'otr_startend',
+                'url'  => '/admreport/StEdOt',
                 'icon' => 'fas fa-user-ninja',
               ],
+              [
+                'text' => 'otr',
+                'url'  => '/admreport/ot',
+                'icon' => 'fas fa-user-ninja',
+              ],
+
               [
                 'text' => 'otr_log',
-                'url'  => '/admin/report/otlog',
+                'url'  => '/admreport/otlog',
                 'icon' => 'fas fa-user-ninja',
               ],
             ],

@@ -101,6 +101,11 @@
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
+    
+      <div class="user-panel">
+      <a href="{{ route('staff.profile',[],false) }}" class="btn btn-xs btn-p btn-primary btn-outline">
+        Profile</a>     
+      </div>     
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu" data-widget="tree">
                     @each('adminlte::partials.menu-item', $adminlte->menu(), 'item')

@@ -113,12 +113,14 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post( '/admin/pygroup/update','Admin\PayrollgroupController@update')->name('pygroup.update');
   Route::post('/admin/pygroup/delete','Admin\PayrollgroupController@destroy')->name('pygroup.delete');
   //Report
-  Route::get('/admin/report/otd', 'Admin\OtReportController@viewOTd')->name('otr.viewOTd'); //rep1
-  Route::post('/admin/report/otd', 'Admin\OtReportController@viewOTd')->name('otr.viewOTd');
-  Route::get('/admin/report/ot', 'Admin\OtReportController@viewOT')->name('otr.viewOT'); //rep2
-  Route::post('/admin/report/ot', 'Admin\OtReportController@viewOT')->name('otr.viewOT');
-  Route::get('/admin/report/otlog', 'Admin\OtReportController@viewLC')->name('otr.viewOTLog'); //rep2
-  Route::post('/admin/report/otlog', 'Admin\OtReportController@viewLC')->name('otr.viewOTLog');
+  Route::get('/admreport/otd', 'Admin\OtReportController@viewOTd')->name('otr.viewOTd'); //rep1
+  Route::post('/admreport/otd', 'Admin\OtReportController@viewOTd')->name('otr.viewOTd');
+  Route::get('/admreport/ot', 'Admin\OtReportController@viewOT')->name('otr.viewOT'); //rep2
+  Route::post('/admreport/ot', 'Admin\OtReportController@viewOT')->name('otr.viewOT');
+  Route::get('/admreport/otlog', 'Admin\OtReportController@viewLC')->name('otr.viewOTLog'); //rep3
+  Route::post('/admreport/otlog', 'Admin\OtReportController@viewLC')->name('otr.viewOTLog');
+  Route::get('/admreport/StEdOt', 'Admin\OtReportController@viewStEd')->name('otr.viewStEd'); //rep4
+  Route::post('/admreport/StEdOt', 'Admin\OtReportController@viewStEd')->name('otr.viewStEd');
 
   // /admins ------------------------------------
   //Log activity
@@ -154,7 +156,26 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/overtime/query', 'OvertimeController@query')->name('ot.query');
   Route::post('/overtime/query/addverifier', 'OvertimeController@addverifier')->name('ot.addverifier');
 
-Route::get('/staff/profile', 'Admin\StaffController@showStaffProfile')->name('staff.profile');
+  //staff profile with subordinates reptto
+  Route::get('/staff/profile', 'Admin\StaffController@showStaffProfile')->name('staff.profile');
+
+  //set default verifier
+  Route::get('/verifier', 'VerifierGroupController@index')->name('verifier.listGroup');
+  Route::post('/verifier/group/create', 'VerifierGroupController@createGroup')->name('verifier.createGroup');
+  Route::get('/verifier/group/view', 'VerifierGroupController@viewGroup')->name('verifier.viewGroup');
+  Route::post('/verifier/group/update', 'VerifierGroupController@updateGroup')->name('verifier.updateGroup');
+  Route::post('/verifier/group/del', 'VerifierGroupController@delGroup')->name('verifier.delGroup');
+  Route::post('/verifier/group/staff/add', 'VerifierGroupController@addUser')->name('verifier.addUser');
+  Route::post('/verifier/group/staff/remove', 'VerifierGroupController@removeUser')->name('verifier.removeUser');
+
+  //admin verifier
+  Route::post('/admin/verifier/staff', 'UserVerifierController@staffverifier')->name('verifier.staff');
+  
+  //admin ajax search
+  Route::get('/admin/verifier/staffsearch', 'UserVerifierController@staffsearch')->name('verifier.staffsearch');
+  Route::get('/admin/verifier/subordSearch', 'UserVerifierController@subordSearch')->name('verifier.subordSearch');
+  Route::get('/admin/verifier/ajaxAdvSearchSubord', 'UserVerifierController@ajaxAdvSearchSubord')->name('verifier.ajaxAdvSearchSubord');
+  Route::post('/admin/verifier/advSearch', 'UserVerifierController@advSearchSubord')->name('verifier.advSearchSubord');
 
 });
 Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
@@ -186,14 +207,10 @@ Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth
   Route::get('/staff', 'ShiftPlanController@staffInfo')->name('staff');
   Route::post('/staff/push', 'ShiftPlanController@staffPushTemplate')->name('staff.push');
   Route::post('/staff/pop', 'ShiftPlanController@staffPopTemplate')->name('staff.pop');
-
-
+  
 });
 
   Route::get('/email/dummy', 'EmailController@dummyEmail')->name('email.dummy');
   Route::post('/email/dummy', 'EmailController@sendDummyEmail')->name('email.senddummy');
 
-  Route::get('/admin/verifier/', 'UserVerifierController@search')->name('verifier.search');
-  Route::post('/admin/verifier/staff', 'UserVerifierController@staffverifier')->name('verifier.staff');
-  Route::get('/admin/verifier/staffsearch', 'UserVerifierController@staffsearch');
-  Route::get('/admin/verifier/create','UserVerifierController@create')->name('verifier.create');
+

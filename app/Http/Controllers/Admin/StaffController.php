@@ -167,8 +167,27 @@ class StaffController extends Controller
       ->orderBy('updated_at', 'desc')
       ->first();
 
+      $verifierGroupMember = VerifierGroupMember::where('user_id', '=', $req->user()->id)
+      ->where('start_date', '>=' ,NOW())  
+      ->where('end_date', '<' ,NOW())     
+      ->get();
+      //dd($verifierGroupMember);
+
+      if($verifierGroupMember->count() > 0)
+      {
+      $verifierGroup = VerifierGroup::find($verifierGroupMember->user_verifier_groups_id);
+      $verifier_detail = UserRecord::where('user_id', '=', $verifierGroup->verifier_id)
+      ->orderBy('updated_at', 'desc')
+      ->first();
+      }
+      else
+      {
+        $verifierGroup = [];
+        $verifier_detail = [];
+      };    
+
       $listsubord = User::where('reptto','=',$req->user()->id)
-      ->orderBy('name', 'desc')
+      ->orderBy('name', 'asc')
       ->get();
       
       //$staff_comp = Company::find($staff->company_id);
@@ -183,8 +202,10 @@ class StaffController extends Controller
       'staff_detail' => $staff_detail, 
       'direct_report' => $directreport,
       'direct_report_detail' => $directreport_detail,
-      'list_subord' => $listsubord,
+      'verifier_group' => $verifierGroup,
+      'verifier_detail' => $verifier_detail,
       'staff_psubarea' => $staff_psubarea,
+      'list_subord' => $listsubord
       ]
       );
 }
