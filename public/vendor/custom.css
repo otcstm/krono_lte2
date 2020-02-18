@@ -42,11 +42,6 @@ body{
     font-weight: 600;
 }
 
-.modal{
-    /* position: fixed; */
-    /* z-index: 10 !important; */
-}
-
 .login{
     height: 100vh;
 }
