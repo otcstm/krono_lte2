@@ -490,7 +490,6 @@ ul.pagination > li.active a{
     }
 }
 
-<<<<<<< HEAD
 /*
  * Row with equal height columns
  * --------------------------------------------------
@@ -503,6 +502,7 @@ ul.pagination > li.active a{
     /* display: table; */
     margin-right: -15px;
     margin-left: -15px;
+    margin-bottom: 15px;
   }
 
 .row-eq-height [class*="col-"] {
@@ -512,9 +512,9 @@ ul.pagination > li.active a{
 }
 
 .boxfullheight {
-    height: 95% !important; 
+    height: 100% !important; 
 }
-=======
+
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
     /* background-color: #eee; */
     border: 1px solid #aaa;
@@ -525,4 +525,3 @@ ul.pagination > li.active a{
     margin-top: 5px;
     padding: 0 5px;
 }
->>>>>>> c408fc396db91e6065bbe7b3a4f1bc333fd49079

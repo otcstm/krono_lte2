@@ -15,8 +15,36 @@ use DateTime;
 class MiscController extends Controller
 {
   public function home(Request $req){
+
+    //user
+    //actual payment for current month        
+    $dataUser = User::where('id', '=', $req->user()->id)->latest('updated_at')->first();
+
+    //Pending payment last month
+
+    //total hour OT from current month
+
+    //next payment schedule
+
+    //approver
+    //Last approval date
+    
+    //pending approval count()
+
+    //link set default verifier
+
+    //link overtime plan
+
+    //mainpower request count()
+
+    //claim approval report
+
+
     // dd($req->user()->name);
-    return view('home', ['uname' => $req->user()->name]);
+    return view('home', [
+      'uname' => $req->user()->name,
+      ''
+      ]);
   }
 
   public function index(){

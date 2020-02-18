@@ -6,7 +6,7 @@
 <h3 class="box-title">Profile</h3>
 <div class="row-eq-height">
 
-<div class="col-md-6">
+<div class="col-md-6 col-xs-12">
 <div class="panel panel-default boxfullheight">
         <div class="panel-heading">              
             <i class="glyphicon glyphicon-user"></i> My Profile
@@ -53,7 +53,7 @@
             <!-- /.box-body -->
     </div>
 </div>
-<div class="col-md-6">
+<div class="col-md-6 col-xs-12">
 <div class="panel panel-default boxfullheight">
         <div class="panel-heading">              
               <i class="glyphicon glyphicon-queen"></i> Direct Report
@@ -104,7 +104,7 @@
 
 <div class="row-eq-height">
 
-<div class="col-md-6">
+<div class="col-md-6 col-xs-12">
 
 <div class="panel panel-default boxfullheight">
         <div class="panel-heading"> 
@@ -138,7 +138,7 @@
 </div>
 
 @if(!empty($verifier_detail))
-<div class="col-md-6">
+<div class="col-md-6  col-xs-12">
 
 <div class="panel panel-default boxfullheight">
         <div class="panel-heading">   
@@ -245,7 +245,8 @@
                             {{ $row_subord->ot_hour_exception }}
                             @endif
                             <br />
-                            <i class="glyphicon glyphicon-envelope"></i> <b>Email:</b> {{ $row_subord->email }} 
+                            <i class="glyphicon glyphicon-envelope"></i> <b>Email:</b>
+                            <span style="word-break: break-all">{{ $row_subord->email }}</span> 
                             <br />
             </div>  
             </div>
