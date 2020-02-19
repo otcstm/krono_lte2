@@ -633,6 +633,9 @@ class OvertimeController extends Controller{
                 $expiry = OvertimeExpiry::where('company_id', $otlist[$i]->name->company_id)->where('region', $reg->region)->where('start_date','<=', $otlist[$i]->date)->where('end_date','>', $otlist[$i]->date)->first();               
                 $updateclaim = Overtime::find($req->inputid[$i]);
                 $updateclaim->status=$req->inputaction[$i];
+                if(($updateclaim->status=="PV")&&($updateclaim->verifier_id==null)){
+                    $updateclaim->status=="PA";
+                }
                 if($req->inputaction[$i]=="PA"){
                     // $updateclaim->date_expiry = date('Y-m-d', strtotime("+90 days"));
                     $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Verified', 'Verified');
@@ -648,12 +651,15 @@ class OvertimeController extends Controller{
                     // dd($updatemonth->total_hour);
                     $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Queried', 'Queried with message: "'.$req->inputremark[$i].'"');
                     // $updateclaim->date_expiry = date('Y-m-d', strtotime("+90 days"));
+                }else if($req->inputaction[$i]=="Assign"){
+                    $updateclaim->status="PV";
                 }
                 if($expiry->status == "ACTIVE"){
                     if((($expiry->based_date == "Submit to Approver Date")&&($updateclaim->status == 'PA'))||(($expiry->based_date == "Query Date")&&($updateclaim->status == 'Q2'))){
                         $draftclaim->date_expiry = date('Y-m-d', strtotime("+".$expiry->noofmonth." months"));
                     }
                 }
+                $updateclaim->verifier_id=$req->verifier[$i];
                 $updateclaim->save();
                 $yes = true;
             }
@@ -681,11 +687,6 @@ class OvertimeController extends Controller{
     public function search(Request $req){
         $date = date('Y-m-d');
         $staff = UserRecord::where('name', 'LIKE', '%' .$req->name. '%')->where('upd_sap','<=',$date)->orderBy('name', 'ASC')->get();
-        // if(count($staff)>0){
-        //     return count($staff);
-        // }else{
-        //     return count($staff);
-        // }
         $arr = [];
         foreach($staff as $s){
             array_push($arr, [
@@ -695,7 +696,7 @@ class OvertimeController extends Controller{
                 'companycode'=>$s->companyid->company_descr,
                 'costcenter'=>$s->name,
                 'persarea'=>$s->persarea,
-                'empsubgroup'=>$s->name,
+                'empsubgroup'=>$s->empsgroup,
                 'email'=>$s->email,
                 'mobile'=>$s->name,
             ]);
@@ -704,8 +705,19 @@ class OvertimeController extends Controller{
         // return $date;
     }
 
-  public function addverifier(Request $req){
-       dd($req->verifier);
+  public function getverifier(Request $req){
+        $date = date('Y-m-d');
+        $staff = UserRecord::where('user_id', $req->id)->where('upd_sap','<=',$date)->first();
+        
+        return ['name'=>$staff->name, 
+                'persno'=>sprintf('%08d', $staff->user_id), 
+                'staffno'=>$staff->staffno,
+                'companycode'=>$staff->companyid->company_descr,
+                'costcenter'=>$staff->name,
+                'persarea'=>$staff->persarea,
+                'empsubgroup'=>$staff->empsgroup,
+                'email'=>$staff->email,
+                'mobile'=>$staff->name];
     }
 
   public static function getQueryAmount(){

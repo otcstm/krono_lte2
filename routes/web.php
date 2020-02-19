@@ -154,7 +154,8 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/overtime/approval/search', 'OvertimeController@search')->name('ot.search');
   Route::get('/overtime/query', 'OvertimeController@query')->name('ot.query');
   Route::post('/overtime/query', 'OvertimeController@query')->name('ot.query');
-  Route::post('/overtime/query/addverifier', 'OvertimeController@addverifier')->name('ot.addverifier');
+  // Route::post('/overtime/query/addverifier', 'OvertimeController@addverifier')->name('ot.addverifier');
+  Route::get('/overtime/query/getverifier', 'OvertimeController@getverifier')->name('ot.getverifier');
 
   //staff profile with subordinates reptto
   Route::get('/staff/profile', 'Admin\StaffController@showStaffProfile')->name('staff.profile');

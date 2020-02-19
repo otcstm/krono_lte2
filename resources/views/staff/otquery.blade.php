@@ -81,9 +81,18 @@
                             
                             @if(($view=='verifier')||($view=='approver'))
                                 @if($view=='approver')
-                                    <td>{{$singleuser->verifier->name}}</td>
+                                    <td>
+                                        <span class='hidden' id="show-verifier-cache-{{$no}}">{{$singleuser->verifier->name}}</span>
+                                        
+                                        <span id="show-verifier-na-{{$no}}" @if($singleuser->verifier->name!="N/A") class="hidden" @endif >{{$singleuser->verifier->name}}</span>
+                                        
+                                        <a id="show-verifier-a-{{$no}}" href="#" style="font-weight: bold; color: #143A8C" @if($singleuser->verifier->name=="N/A") class="hidden" @endif onclick="showverifier({{$no}})" data-id="{{$singleuser->verifier_id}}"><span id="show-verifier-{{$no}}">{{$singleuser->verifier->name}}</span></a>
+                                        
+                                    </td>
                                 @endif
                             <td>
+                                <input type="text" class="hidden"  id="verifier-cache-{{$no}}" value="{{$singleuser->verifier_id}}">
+                                <input type="text" class="hidden"  id="verifier-{{$no}}" name="verifier[]" value="{{$singleuser->verifier_id}}">
                                 <select name="inputaction[]" id="action-{{$no}}">
                                     <option selected value="">Select Action</option>
                                     <!-- <option hidden disabled selected value="">Select Action</option> -->
@@ -162,18 +171,13 @@
         </form>
     </div>
 </div>
-
-<form action="{{route('ot.addverifier')}}" method="POST" id="formverifier"> 
-    @csrf    
-    <input type="text" class="" name="verifier" id="verifier" >     
-</form>
 @stop
 
 @section('js')
 <script type="text/javascript">
 
     var htmlstring = '<div style="border: 1px solid #DDDDDD; max-height: 60vh; overflow-y: scroll;  overflow-x: hidden;">';
-    var htmlstringshow = '';
+    var no = 0
 
     $(document).ready(function() {
         $('#tOTList').DataTable({
@@ -207,6 +211,17 @@
         }
     }
 
+    function reset(i){
+        $("#action-"+i).val("");
+        $("#inputremark-"+i).prop('disabled',true);
+        $("#inputremark-"+i).val("");
+        $("#inputremark-"+i).prop('required',false);
+        @if($view=='approver')
+            $("#verifier-"+i).val($("#verifier-cache-"+i).val());
+            $("#show-verifier-"+i).text($("#show-verifier-cache-"+i).text());
+        @endif
+    }
+
     for(i=1; i<{{count($otlist)+1}}; i++){
         $("#a-"+i).on("click", yes(i));
     }
@@ -231,16 +246,19 @@
                             $("#inputremark-"+i).prop('disabled',false);
                             $("#inputremark-"+i).prop('required',true);
                             $("#inputremark-"+i).val($('#remark').val());
+                            @if($view=='approver')
+                                $("#verifier-"+i).val($("#verifier-cache-"+i).val());
+                                $("#show-verifier-"+i).text($("#show-verifier-cache-"+i).text());
+                            @endif
                             
                         }else{
                             
                             
-                            $("#action-"+i).val("");
-                            $("#inputremark-"+i).prop('disabled',true);
-                            $("#inputremark-"+i).val("");
-                            $("#inputremark-"+i).prop('required',false);
+                            reset(i);
                         }
                 })
+            }else if($("#action-"+i).val()==""){
+                reset(i);
             }else if($("#action-"+i).val()=="Assign"){
                 normal(i, 'none');
             }else{
@@ -271,10 +289,12 @@
                         $("#inputremark-"+i).prop('disabled',true);
                         $("#inputremark-"+i).val("");
                         $("#inputremark-"+i).prop('required',false);
+                        @if($view=='approver')
+                            $("#verifier-"+i).val($("#verifier-cache-"+i).val());
+                            $("#show-verifier-"+i).text($("#show-verifier-cache-"+i).text());
+                        @endif
                     }else{
-                        $("#action-"+i).val("");
-                        $("#inputremark-"+i).prop('disabled',true);
-                        $("#inputremark-"+i).prop('required',false);
+                        reset(i);
                     }
                 })
             }
@@ -324,18 +344,20 @@
                 $("#inputremark-"+i).prop('disabled',true);
                 $("#inputremark-"+i).val("");
                 $("#inputremark-"+i).prop('required',false);
+                @if($view=='approver')
+                    $("#verifier-"+i).val($("#verifier-cache-"+i).val());
+                    $("#show-verifier-"+i).text($("#show-verifier-cache-"+i).text());
+                @endif
                 return searcho(i);
             }else{
-                $("#action-"+i).val("");
-                $("#inputremark-"+i).prop('disabled',true);
-                $("#inputremark-"+i).prop('required',false);
+                reset(i);
             }
         });
     }    
 
     function updateResp(item, index){
         htmlstring = htmlstring + 
-            "<button style='border: 1px solid #DDDDDD; min-height: 10vh; width: 100%; padding: 5px; text-align: left; background: transparent' onclick='addverifier(\""+item.persno+"\","+index+");' id='addv-"+index+"'>"+
+            "<button style='border: 1px solid #DDDDDD; min-height: 10vh; width: 100%; padding: 5px; text-align: left; background: transparent' onclick='addverifier(\""+item.persno+"\","+index+",\""+item.name+"\");' id='addv-"+index+"'>"+
                 "<div style='display: flex; align-items: center; flex-wrap: wrap; width: 95%; margin-left: 3%' padding: 15px>"+
                     "<div class='w-10 text-center'><img src='{{asset('vendor/ot-assets/man.jpg')}}' class='approval-search-img'></div>"+
                     "<div class='w-30 m-15'>"+
@@ -389,23 +411,27 @@
     //     htmlstringshow = htmlstring;
     // }
 
-        function addverifier(id, num){
-            $('#verifier').val(id);
+        function addverifier(id, num, name){
+            $('#verifier-'+no).val(id);
+            $('#show-verifier-'+no).text(name);
+            $('#show-verifier-na-'+no).addClass("hidden");
+            $('#show-verifier-a-'+no).removeClass("hidden");
+            $('#show-verifier-a-'+no).data("id", "'"+id+"'");
             for(i = 0; i<number; i++){
                 if(i!=num){
                     $('#addv-'+i).css('outline','none');
                     $('#addv-'+i).css('border','1px solid #DDDDDD');
                 }else{
-                    $('#addv-'+i).css('outline','1px solid #71A4F6');
-                    $('#addv-'+i).css('border','1px solid #95B7EE');
+                    $('#addv-'+i).css('outline','1px solid #143A8C');
+                    $('#addv-'+i).css('border','2px solid #143A8C');
                 }
             }
         }
     
-    function search(searchn, block){
+    function search(searchn, block, i){
         const url='{{ route("ot.search", [], false)}}';
+        no = i;
         htmlstring = '<div style="border: 1px solid #DDDDDD; max-height: 60vh; overflow-y: scroll;  overflow-x: hidden;">';
-        
         $.ajax({
             type: "GET",
             url: url+"?name="+searchn,
@@ -454,7 +480,7 @@
                                 if($('#verifier').val()!=''){
                                     $('#formverifier').submit();
                                 }else{
-                                    search(searchn, 'block');
+                                    search(searchn, 'block', i);
                                 }
                             }else{
                                 return searcho(i);
@@ -463,22 +489,12 @@
                         $("#inputremark-"+i).val("");
                         $("#inputremark-"+i).prop('required',false);
                     }else{
-                        $("#action-"+i).val("");
-                        $("#inputremark-"+i).prop('disabled',true);
-                        $("#inputremark-"+i).prop('required',false);
+                        reset(i);
                     }
-                });
-                $('#tsearch').DataTable({
-                    "responsive": "true",
-                    // "order" : [[1, "asc"]],
-                    // "bLengthChange": false,
-                    // "pageLength" : 3,
-                    "searching": false,
-                    "bSort": false
                 });
                 
             }
-        });      
+        });   
         
     }
 
@@ -492,8 +508,80 @@
         if(($('#namet').val().length)<3){
                     normal(i, 'block');
         }else{
-            search($('#namet').val(), 'none');
+            search($('#namet').val(), 'none', i);
         }
+    }
+
+    function showverifier(id){
+        const url='{{ route("ot.getverifier", [], false)}}';
+        userid = $("#show-verifier-a-"+id).data("id");
+        $.ajax({
+            type: "GET",
+            url: url+"?id="+userid,
+            success: function(resp) {
+                Swal.fire({
+                    title: "Current Assigned Verifier",
+                    customClass: 'test2',
+                    // width: '75%',
+                    html: "<div style='border: 1px solid #DDDDDD; min-height: 10vh; width: 100%; padding: 5px; text-align: left;'>"+
+                "<div style='display: flex; align-items: center; flex-wrap: wrap; width: 95%; margin-left: 3%' padding: 15px>"+
+                    "<div class='w-10 text-center'><img src='{{asset('vendor/ot-assets/man.jpg')}}' class='approval-search-img'></div>"+
+                    "<div class='w-30 m-15'>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Name<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+resp.name+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Personnel No<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'><span class='dm'>: </span></span><b>"+resp.persno+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Staff No<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+resp.staffno+"</b></div>"+
+                        "</div>"+
+                    "</div>"+
+                    "<div class='w-30 m-15'>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Company Code<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+resp.companycode+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Cost Center<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+resp.costcenter+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Personnel Area<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+resp.persarea+"</b></div>"+
+                        "</div>"+
+                    "</div>"+
+                    "<div class='w-30 m-15'>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Employee Subgroup<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+resp.empsubgroup+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Email<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+resp.email+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Mobile No<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+resp.mobile+"</b></div>"+
+                        "</div>"+
+                    "</div>"+
+                "</div>"+
+            "</div>",
+                    confirmButtonText: 'REMOVE VERIFIER',
+                    showCancelButton: yes,
+                    cancelButtonText: 'CHANGE VERIFIER',
+                }).then((result) => {
+                    if (result.value) {
+                        
+                    }else{
+                        normal(id, 'none');
+                    }
+                });
+            }
+        });   
     }
 
     function remark2(i){
@@ -517,22 +605,17 @@
                             $("#inputremark-"+i).prop('disabled',false);
                             $("#inputremark-"+i).prop('required',true);
                             $("#inputremark-"+i).val($('#remark').val());
-                            
+                            @if($view=='approver')
+                                $("#verifier-"+i).val($("#verifier-cache-"+i).val());
+                                $("#show-verifier-"+i).text($("#show-verifier-cache-"+i).text());
+                            @endif
                         }else{
-                            
-                            
-                        $("#action-"+i).val("");
-                            $("#inputremark-"+i).prop('disabled',true);
-                            $("#inputremark-"+i).val("");
-                            $("#inputremark-"+i).prop('required',false);
-                            
+                            reset(i);   
                         }
                 })
             }
         }
     }
-
-    search('fauzi', 'none');
 
     for (i=1; i<{{count($otlist)+1}}; i++) {
         $("#action-"+i).change(remark(i));
