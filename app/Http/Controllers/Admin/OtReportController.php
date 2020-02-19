@@ -176,18 +176,19 @@ class OtReportController extends Controller
       if($req->filled('fcompany')){
         // dd('ada input comp')
         if(in_array($rekodpengguna->company_id, $company)){
+          // echo("$rekodpengguna->user_id,$rekodpengguna->company_id ,company true <br/>");
         } else {
           // dd($otrStEd);
         // if($rekodpengguna->company_id != $req->comp_no){
           unset($otrStEd[$key]);
-          continue;
+      continue;
         }
       }
       if($req->filled('fstate')){
         if(in_array($rekodpengguna->state_id, $state)){
-        } else {
+      } else {
           unset($otrStEd[$key]);
-          continue;
+        continue;
         }
       }
       if($req->filled('fregion')){
@@ -212,6 +213,7 @@ class OtReportController extends Controller
       }
       // dd($StEd);
     }
+    // dd('stop');
     return $otrStEd;
   }
 }
