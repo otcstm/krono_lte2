@@ -653,6 +653,8 @@ class OvertimeController extends Controller{
                     // $updateclaim->date_expiry = date('Y-m-d', strtotime("+90 days"));
                 }else if($req->inputaction[$i]=="Assign"){
                     $updateclaim->status="PV";
+                }else if($req->inputaction[$i]=="Remove"){
+                    $updateclaim->status="PA";
                 }
                 if($expiry->status == "ACTIVE"){
                     if((($expiry->based_date == "Submit to Approver Date")&&($updateclaim->status == 'PA'))||(($expiry->based_date == "Query Date")&&($updateclaim->status == 'Q2'))){
@@ -692,6 +694,7 @@ class OvertimeController extends Controller{
             array_push($arr, [
                 'name'=>$s->name, 
                 'persno'=>sprintf('%08d', $s->user_id), 
+                'persnoo'=> $s->user_id, 
                 'staffno'=>$s->staffno,
                 'companycode'=>$s->companyid->company_descr,
                 'costcenter'=>$s->name,

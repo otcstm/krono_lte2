@@ -95,13 +95,13 @@
                                 <input type="text" class="hidden"  id="verifier-{{$no}}" name="verifier[]" value="{{$singleuser->verifier_id}}">
                                 <select name="inputaction[]" id="action-{{$no}}">
                                     <option selected value="">Select Action</option>
+                                    <option hidden value="Remove">Remove Verifier</option>
                                     <!-- <option hidden disabled selected value="">Select Action</option> -->
                                     @if($view=="verifier")<option value="PA">Verify</option>
                                     @elseif($view=='approver')
                                         <option value="A">Approve</option>
-                                        @if($singleuser->verifier_id==null)
-                                            <option value="Assign">Assign Verifier</option>
-                                        @endif
+                                        <option @if($singleuser->verifier_id!=null) hidden @endif  value="Assign" id="assign-{{$no}}">Assign Verifier</option>
+                                        
                                     @endif
                                     <option value="Q2">Query</option>
                                 </select>
@@ -221,6 +221,16 @@
             $("#show-verifier-"+i).text($("#show-verifier-cache-"+i).text());
         @endif
     }
+
+    function remove(i){
+            $("#verifier-"+i).val("");
+            $("#show-verifier-na-"+i).text("N/A");
+            $('#show-verifier-na-'+i).removeClass("hidden");
+            $('#show-verifier-a-'+i).addClass("hidden");
+            $('#action-'+i).val("Remove");
+            $("#assign-"+i).prop('hidden',false);
+    }
+
 
     for(i=1; i<{{count($otlist)+1}}; i++){
         $("#a-"+i).on("click", yes(i));
@@ -357,7 +367,7 @@
 
     function updateResp(item, index){
         htmlstring = htmlstring + 
-            "<button style='border: 1px solid #DDDDDD; min-height: 10vh; width: 100%; padding: 5px; text-align: left; background: transparent' onclick='addverifier(\""+item.persno+"\","+index+",\""+item.name+"\");' id='addv-"+index+"'>"+
+            "<button style='border: 1px solid #DDDDDD; min-height: 10vh; width: 100%; padding: 5px; text-align: left; background: transparent' onclick='addverifier(\""+item.persnoo+"\","+index+",\""+item.name+"\");' id='addv-"+index+"'>"+
                 "<div style='display: flex; align-items: center; flex-wrap: wrap; width: 95%; margin-left: 3%' padding: 15px>"+
                     "<div class='w-10 text-center'><img src='{{asset('vendor/ot-assets/man.jpg')}}' class='approval-search-img'></div>"+
                     "<div class='w-30 m-15'>"+
@@ -416,7 +426,7 @@
             $('#show-verifier-'+no).text(name);
             $('#show-verifier-na-'+no).addClass("hidden");
             $('#show-verifier-a-'+no).removeClass("hidden");
-            $('#show-verifier-a-'+no).data("id", "'"+id+"'");
+            $('#show-verifier-a-'+no).data("id", id);
             for(i = 0; i<number; i++){
                 if(i!=num){
                     $('#addv-'+i).css('outline','none');
@@ -524,59 +534,59 @@
                     customClass: 'test2',
                     // width: '75%',
                     html: "<div style='border: 1px solid #DDDDDD; min-height: 10vh; width: 100%; padding: 5px; text-align: left;'>"+
-                "<div style='display: flex; align-items: center; flex-wrap: wrap; width: 95%; margin-left: 3%' padding: 15px>"+
-                    "<div class='w-10 text-center'><img src='{{asset('vendor/ot-assets/man.jpg')}}' class='approval-search-img'></div>"+
-                    "<div class='w-30 m-15'>"+
-                        "<div class='approval-search-item'>"+
-                            "<div class='w-30'>Name<span class='dmx'>:</span></div>"+
-                            "<div class='w-70'><span class='dm'>: </span><b>"+resp.name+"</b></div>"+
-                        "</div>"+
-                        "<div class='approval-search-item'>"+
-                            "<div class='w-30'>Personnel No<span class='dmx'>:</span></div>"+
-                            "<div class='w-70'><span class='dm'><span class='dm'>: </span></span><b>"+resp.persno+"</b></div>"+
-                        "</div>"+
-                        "<div class='approval-search-item'>"+
-                            "<div class='w-30'>Staff No<span class='dmx'>:</span></div>"+
-                            "<div class='w-70'><span class='dm'>: </span><b>"+resp.staffno+"</b></div>"+
-                        "</div>"+
-                    "</div>"+
-                    "<div class='w-30 m-15'>"+
-                        "<div class='approval-search-item'>"+
-                            "<div class='w-30'>Company Code<span class='dmx'>:</span></div>"+
-                            "<div class='w-70'><span class='dm'>: </span><b>"+resp.companycode+"</b></div>"+
-                        "</div>"+
-                        "<div class='approval-search-item'>"+
-                            "<div class='w-30'>Cost Center<span class='dmx'>:</span></div>"+
-                            "<div class='w-70'><span class='dm'>: </span><b>"+resp.costcenter+"</b></div>"+
-                        "</div>"+
-                        "<div class='approval-search-item'>"+
-                            "<div class='w-30'>Personnel Area<span class='dmx'>:</span></div>"+
-                            "<div class='w-70'><span class='dm'>: </span><b>"+resp.persarea+"</b></div>"+
-                        "</div>"+
-                    "</div>"+
-                    "<div class='w-30 m-15'>"+
-                        "<div class='approval-search-item'>"+
-                            "<div class='w-30'>Employee Subgroup<span class='dmx'>:</span></div>"+
-                            "<div class='w-70'><span class='dm'>: </span><b>"+resp.empsubgroup+"</b></div>"+
-                        "</div>"+
-                        "<div class='approval-search-item'>"+
-                            "<div class='w-30'>Email<span class='dmx'>:</span></div>"+
-                            "<div class='w-70'><span class='dm'>: </span><b>"+resp.email+"</b></div>"+
-                        "</div>"+
-                        "<div class='approval-search-item'>"+
-                            "<div class='w-30'>Mobile No<span class='dmx'>:</span></div>"+
-                            "<div class='w-70'><span class='dm'>: </span><b>"+resp.mobile+"</b></div>"+
-                        "</div>"+
-                    "</div>"+
-                "</div>"+
-            "</div>",
+                            "<div style='display: flex; align-items: center; flex-wrap: wrap; width: 95%; margin-left: 3%' padding: 15px>"+
+                                "<div class='w-10 text-center'><img src='{{asset('vendor/ot-assets/man.jpg')}}' class='approval-search-img'></div>"+
+                                "<div class='w-30 m-15'>"+
+                                    "<div class='approval-search-item'>"+
+                                        "<div class='w-30'>Name<span class='dmx'>:</span></div>"+
+                                        "<div class='w-70'><span class='dm'>: </span><b>"+resp.name+"</b></div>"+
+                                    "</div>"+
+                                    "<div class='approval-search-item'>"+
+                                        "<div class='w-30'>Personnel No<span class='dmx'>:</span></div>"+
+                                        "<div class='w-70'><span class='dm'><span class='dm'>: </span></span><b>"+resp.persno+"</b></div>"+
+                                    "</div>"+
+                                    "<div class='approval-search-item'>"+
+                                        "<div class='w-30'>Staff No<span class='dmx'>:</span></div>"+
+                                        "<div class='w-70'><span class='dm'>: </span><b>"+resp.staffno+"</b></div>"+
+                                    "</div>"+
+                                "</div>"+
+                                "<div class='w-30 m-15'>"+
+                                    "<div class='approval-search-item'>"+
+                                        "<div class='w-30'>Company Code<span class='dmx'>:</span></div>"+
+                                        "<div class='w-70'><span class='dm'>: </span><b>"+resp.companycode+"</b></div>"+
+                                    "</div>"+
+                                    "<div class='approval-search-item'>"+
+                                        "<div class='w-30'>Cost Center<span class='dmx'>:</span></div>"+
+                                        "<div class='w-70'><span class='dm'>: </span><b>"+resp.costcenter+"</b></div>"+
+                                    "</div>"+
+                                    "<div class='approval-search-item'>"+
+                                        "<div class='w-30'>Personnel Area<span class='dmx'>:</span></div>"+
+                                        "<div class='w-70'><span class='dm'>: </span><b>"+resp.persarea+"</b></div>"+
+                                    "</div>"+
+                                "</div>"+
+                                "<div class='w-30 m-15'>"+
+                                    "<div class='approval-search-item'>"+
+                                        "<div class='w-30'>Employee Subgroup<span class='dmx'>:</span></div>"+
+                                        "<div class='w-70'><span class='dm'>: </span><b>"+resp.empsubgroup+"</b></div>"+
+                                    "</div>"+
+                                    "<div class='approval-search-item'>"+
+                                        "<div class='w-30'>Email<span class='dmx'>:</span></div>"+
+                                        "<div class='w-70'><span class='dm'>: </span><b>"+resp.email+"</b></div>"+
+                                    "</div>"+
+                                    "<div class='approval-search-item'>"+
+                                        "<div class='w-30'>Mobile No<span class='dmx'>:</span></div>"+
+                                        "<div class='w-70'><span class='dm'>: </span><b>"+resp.mobile+"</b></div>"+
+                                    "</div>"+
+                                "</div>"+
+                            "</div>"+
+                        "</div>",
                     confirmButtonText: 'REMOVE VERIFIER',
                     showCancelButton: yes,
                     cancelButtonText: 'CHANGE VERIFIER',
                 }).then((result) => {
                     if (result.value) {
-                        
-                    }else{
+                        remove(id);
+                    }else if (result.dismiss === Swal.DismissReason.cancel){
                         normal(id, 'none');
                     }
                 });
