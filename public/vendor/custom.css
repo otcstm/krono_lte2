@@ -309,6 +309,13 @@ body{
     width: 70vw !important;
 }
 
+.swal2-popup.test3{
+    
+    padding: 25px !important;
+    border-radius: 5px !important;
+    width: 35vw !important;
+}
+
 .swollo{
     width: 32em;
     margin: 0 auto 30px;
@@ -316,6 +323,13 @@ body{
 
 @media(max-width: 992px){
     .swal2-popup.test2{
+        
+        padding: 5 !important;
+        border-radius: 25px !important;
+        width: 36em !important;
+    }
+    
+    .swal2-popup.test3{
         
         padding: 5 !important;
         border-radius: 25px !important;

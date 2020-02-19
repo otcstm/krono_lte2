@@ -328,6 +328,7 @@
         }
     }
     var number =  0;
+
     function normal(i, block){
         Swal.fire({
             title: "Verifier's Name",
@@ -340,7 +341,7 @@
                             "<i  class='fas fa-search'></i>"+
                         "</button>"+
                         "<p id='3more' style=' margin-top: 5px; color: #F00000; display: "+block+"'>Search input must be more than 3 alphabets!</p>"+
-                        "<a href='' onClick='return advance()' style='color: #143A8C'><b><u>Advance Search</u></b></a>"+
+                        "<a href='' onclick='return advance("+i+")' style='color: #143A8C'><b><u>Advance Search</u></b></a>"+
                     "</div>",
             confirmButtonText:
                 'NEXT',
@@ -417,34 +418,30 @@
             
     }
 
-    // function pass(htmlstring){
-    //     htmlstringshow = htmlstring;
-    // }
-
-        function addverifier(id, num, name){
-            $('#verifier-'+no).val(id);
-            $('#show-verifier-'+no).text(name);
-            $('#show-verifier-na-'+no).addClass("hidden");
-            $('#show-verifier-a-'+no).removeClass("hidden");
-            $('#show-verifier-a-'+no).data("id", id);
-            for(i = 0; i<number; i++){
-                if(i!=num){
-                    $('#addv-'+i).css('outline','none');
-                    $('#addv-'+i).css('border','1px solid #DDDDDD');
-                }else{
-                    $('#addv-'+i).css('outline','1px solid #143A8C');
-                    $('#addv-'+i).css('border','2px solid #143A8C');
-                }
+    function addverifier(id, num, name){
+        $('#verifier-'+no).val(id);
+        $('#show-verifier-'+no).text(name);
+        $('#show-verifier-na-'+no).addClass("hidden");
+        $('#show-verifier-a-'+no).removeClass("hidden");
+        $('#show-verifier-a-'+no).data("id", id);
+        for(i = 0; i<number; i++){
+            if(i!=num){
+                $('#addv-'+i).css('outline','none');
+                $('#addv-'+i).css('border','1px solid #DDDDDD');
+            }else{
+                $('#addv-'+i).css('outline','1px solid #143A8C');
+                $('#addv-'+i).css('border','2px solid #143A8C');
             }
         }
+    }
     
-    function search(searchn, block, i){
+    function search(searchn, searchpn, searchsn, searchp, searchcc, searchct, searchpa, searchpsa, searchesg, searche, searchmn, searchon, type, block, i){
         const url='{{ route("ot.search", [], false)}}';
         no = i;
         htmlstring = '<div style="border: 1px solid #DDDDDD; max-height: 60vh; overflow-y: scroll;  overflow-x: hidden;">';
         $.ajax({
             type: "GET",
-            url: url+"?name="+searchn,
+            url: url+"?name="+searchn+"&persno="+searchpn+"&staffno="+searchsn+"&position="+searchp+"&company="+searchcc+"&cost="+searchct+"&persarea="+searchpa+"&perssarea="+searchpsa+"&empsgroup"+searchesg+"&email="+searche+"&mobile="+searchmn+"&office="+searchon+"&type="+type,
             success: function(resp) {
                 if(resp.length>0){
                     number = resp.length;
@@ -473,7 +470,7 @@
                                 "<i class='fas fa-search'></i>"+
                             "</button>"+
                             "<p id='3more' style=' margin-top: 5px; color: #F00000; display: none'>Search input must be more than 3 alphabets!</p>"+
-                            "<a id='margin' href='' onClick='return advance()' style='margin-left: -20px; color: #143A8C'>"+
+                            "<a id='margin' href='' onclick='return advance("+i+")' style='margin-left: -20px; color: #143A8C'>"+
                                 "<b><u>Advance Search</u></b>"+
                             "</a>"+
                         "</div>"+
@@ -486,15 +483,15 @@
                 }).then((result) => {
                     if (result.value) {
                         $("#inputremark-"+i).val($('#remark').val());
-                            if(yes){
-                                if($('#verifier').val()!=''){
-                                    $('#formverifier').submit();
-                                }else{
-                                    search(searchn, 'block', i);
-                                }
-                            }else{
-                                return searcho(i);
-                            }
+                            // if(yes){
+                            //     if($('#verifier').val()!=''){
+                            //         $('#formverifier').submit();
+                            //     }else{
+                            //         search(searchn, 'block', i);
+                            //     }
+                            // }else{
+                            //     return searcho(i);
+                            // }
                         $("#inputremark-"+i).prop('disabled',true);
                         $("#inputremark-"+i).val("");
                         $("#inputremark-"+i).prop('required',false);
@@ -508,8 +505,142 @@
         
     }
 
-    function advance(){
-        alert("kon");
+    advance(i);
+
+    function advance(i){
+        var checksend = true;
+        Swal.fire({
+            title: "Advance Search",
+            customClass: "test3",
+            html: 
+            "<div class='text-left'>"+
+                        "<div class='row'>"+
+                            "<div class='col-md-3'>"+
+                                "<p><b>Name of Employee</b></p>"+
+                            "</div>"+
+                            "<div class='col-md-9'>"+
+                                "<input type='text' id='sname' style='width: 100%; box-sizing: border-box;'>"+
+                            "</div>"+
+                        "</div>"+
+                        
+                        "<div class='row'>"+
+                            "<div class='col-md-3'>"+
+                                "<p><b>Personnel Number</b></p>"+
+                            "</div>"+
+                            "<div class='col-md-9'>"+
+                            "<input type='text' id='spersno' style='width: 100%; box-sizing: border-box;'>"+
+                            "</div>"+
+                        "</div>"+
+                        
+                        "<div class='row'>"+
+                            "<div class='col-md-3'>"+
+                                "<p><b>Staff Number</b></p>"+
+                            "</div>"+
+                            "<div class='col-md-9'>"+
+                                "<input type='text' id='sstaffno' style='width: 100%; box-sizing: border-box;'>"+
+                            "</div>"+
+                        "</div>"+
+
+                        "<div class='row'>"+
+                            "<div class='col-md-3'>"+
+                                "<p><b>Position</b></p>"+
+                            "</div>"+
+                            "<div class='col-md-9'>"+
+                            "<input type='text' id='position' style='width: 100%; box-sizing: border-box;'>"+
+                            "</div>"+
+                        "</div>"+
+                        
+                        "<div class='row'>"+
+                            "<div class='col-md-3'>"+
+                                "<p><b>Company Code</b></p>"+
+                            "</div>"+
+                            "<div class='col-md-9'>"+
+                                "<input type='text' id='scompc' style='width: 100%; box-sizing: border-box;'>"+
+                            "</div>"+
+                        "</div>"+
+
+                        "<div class='row'>"+
+                            "<div class='col-md-3'>"+
+                                "<p><b>Cost Center</b></p>"+
+                            "</div>"+
+                            "<div class='col-md-9'>"+
+                            "<input type='text' id='scostc' style='width: 100%; box-sizing: border-box;'>"+
+                            "</div>"+
+                        "</div>"+
+                        
+                        "<div class='row'>"+
+                            "<div class='col-md-3'>"+
+                                "<p><b>Personnel Area</b></p>"+
+                            "</div>"+
+                            "<div class='col-md-9'>"+
+                                "<input type='text' id='spersarea' style='width: 100%; box-sizing: border-box;'>"+
+                            "</div>"+
+                        "</div>"+
+
+                        "<div class='row'>"+
+                            "<div class='col-md-3'>"+
+                                "<p><b>Personnel Subarea</b></p>"+
+                            "</div>"+
+                            "<div class='col-md-9'>"+
+                            "<input type='text' id='sperssarea' style='width: 100%; box-sizing: border-box;'>"+
+                            "</div>"+
+                        "</div>"+
+                        
+                        "<div class='row'>"+
+                            "<div class='col-md-3'>"+
+                                "<p><b>Employee Subgroup</b></p>"+
+                            "</div>"+
+                            "<div class='col-md-9'>"+
+                                "<input type='text' id='sempsg' style='width: 100%; box-sizing: border-box;'>"+
+                            "</div>"+
+                        "</div>"+
+
+                        "<div class='row'>"+
+                            "<div class='col-md-3'>"+
+                                "<p><b>Email</b></p>"+
+                            "</div>"+
+                            "<div class='col-md-9'>"+
+                            "<input type='text' id='semail' style='width: 100%; box-sizing: border-box;'>"+
+                            "</div>"+
+                        "</div>"+
+                        
+                        "<div class='row'>"+
+                            "<div class='col-md-3'>"+
+                                "<p><b>Mobile Number</b></p>"+
+                            "</div>"+
+                            "<div class='col-md-9'>"+
+                                "<input type='text' id='smobile' style='width: 100%; box-sizing: border-box;'>"+
+                            "</div>"+
+                        "</div>"+
+
+                        "<div class='row'>"+
+                            "<div class='col-md-3'>"+
+                                "<p><b>Office Number</b></p>"+
+                            "</div>"+
+                            "<div class='col-md-9'>"+
+                            "<input type='text' id='soffice' style='width: 100%; box-sizing: border-box;'>"+
+                            "</div>"+
+                        "</div>"+
+                        
+                    "</div>",
+            confirmButtonText:
+                'SEARCH',
+            showCancelButton: true,
+            cancelButtonText:
+                'CANCEL',
+        }).then((result) => {
+            if (result.value) {
+                if(($("#sname").val()=="")&&($("#spersno").val()=="")&&($("#sstaffno").val()=="")&&($("#position").val()=="")&&($("#scompc").val()=="")&&($("#scostc").val()=="")&&($("#spersarea").val()=="")&&($("#sperssarea").val()=="")&&($("#sempsg").val()=="")&&($("#semail").val()=="")&&($("#smobile").val()=="")&&($("#soffice").val()=="")){
+                    checksend = false;
+                }
+                if(checksend){
+                    search($('#sname').val(), $('#spersno').val(), $('#sstaffno').val(), $('#position').val(), $('#scompc').val(), $('#scostc').val(), $('#spersarea').val(), $('#sperssarea').val(), $('#sempsg').val(), $('#semail').val(), $('#smobile').val(), $('#soffice').val(), 'advance', 'none', i);
+                }else{
+                    advance(i);
+                }
+            }
+        });
+        
         return false;
     }
 
@@ -518,7 +649,7 @@
         if(($('#namet').val().length)<3){
                     normal(i, 'block');
         }else{
-            search($('#namet').val(), 'none', i);
+            search($('#namet').val(), '', '', '', '', '', '', '', '', '', '', '', 'normal', 'none', i);
         }
     }
 

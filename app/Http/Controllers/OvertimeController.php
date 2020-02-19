@@ -688,7 +688,48 @@ class OvertimeController extends Controller{
 
     public function search(Request $req){
         $date = date('Y-m-d');
-        $staff = UserRecord::where('name', 'LIKE', '%' .$req->name. '%')->where('upd_sap','<=',$date)->orderBy('name', 'ASC')->get();
+        if($req->type=="normal"){
+            $staff = UserRecord::where('name', 'LIKE', '%' .$req->name. '%')->where('upd_sap','<=',$date)->orderBy('name', 'ASC')->get();
+        }else{
+            $staff = UserRecord::query();
+            if($req->name!=""){
+                $staff = $staff->orWhere('name', 'LIKE', '%' .$req->name. '%');
+            }
+            if($req->persno!=""){
+                $staff = $staff->orWhere('user_id', 'LIKE', '%' .$req->persno. '%');
+            }
+            if($req->staffno!=""){
+                $staff = $staff->orWhere('staffno', 'LIKE', '%' .$req->staffno. '%');
+            }
+            if($req->position!=""){
+                $staff = $staff->orWhere('position', 'LIKE', '%' .$req->position. '%');
+            }
+            if($req->company!=""){
+                $staff = $staff->orWhere('company_id', 'LIKE', '%' .$req->company. '%');
+            }
+            if($req->cost!=""){
+                $staff = $staff->orWhere('costcentr', 'LIKE', '%' .$req->cost. '%');
+            }
+            if($req->persarea!=""){
+                $staff = $staff->orWhere('persarea', 'LIKE', '%' .$req->persarea. '%');
+            }
+            if($req->perssarea!=""){
+                $staff = $staff->orWhere('perssubarea', 'LIKE', '%' .$req->perssarea. '%');
+            }
+            if($req->empsgroup!=""){
+                $staff = $staff->orWhere('empsgrounp', 'LIKE', '%' .$req->empsgroup. '%');
+            }
+            if($req->email!=""){
+                $staff = $staff->orWhere('email', 'LIKE', '%' .$req->email. '%');
+            }
+            // if($req->mobile!=""){
+            //     $staff = $staff->orWhere('name', 'LIKE', '%' .$req->mobile. '%');
+            // }
+            // if($req->office!=""){
+            //     $staff = $staff->orWhere('name', 'LIKE', '%' .$req->office. '%');
+            // }
+            $staff = $staff->where('upd_sap','<=',$date)->orderBy('name', 'ASC')->get();
+        }
         $arr = [];
         foreach($staff as $s){
             array_push($arr, [
