@@ -490,6 +490,29 @@ ul.pagination > li.active a{
     }
 }
 
+/*
+ * Row with equal height columns
+ * --------------------------------------------------
+ */
+ .row-eq-height {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    /* display: flex; */
+    /* display: table; */
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+
+.row-eq-height [class*="col-"] {
+    float: none;
+    display: table-cell;
+    vertical-align: top;
+}
+
+.boxfullheight {
+    height: 95% !important;
+}
 .selectReport  {
     /* background-color: #eee; */
     border: 1px solid #aaa;

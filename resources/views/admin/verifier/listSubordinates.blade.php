@@ -3,44 +3,61 @@
 @section('title', 'Verifier')
 
 @section('content')
-     <div class="box box-warning">
+     <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">Search Staff</h3>
+              <h3 class="box-title">List of Subordinate</h3>
             </div>
             <!-- /.box-header -->
-              <form action="{{ route('verifier.staff') }}" method="POST">
-                @csrf
-                @method('POST')
             <div class="box-body">
+              <div class="table-responsive">
+     
+              <table id="userList" class="table table-hover">
+                  <thead>
+        <tr>
+            <th>No</th>
+            <!-- <th>ID</th> -->
+            <th>User Name</th>
+            <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach ($subordinate as $row)
+        <tr>
+            <td>{{ $i ?? '' }}</td>
+            <td>{{ $row->name }}</td>
+            <td>{{ $row->email }}</td>           
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
 
-              <select class="userId form-control" name=userId></select>
-             
+
+              </div>
+              <!-- /.table-responsive -->
             </div>
             <!-- /.box-body -->
-              <div class="box-footer clearfix">
-              <button type="submit" class="btn btn-primary btn-outline">Get Staff</button>
-            </div>
-
-
-              
-          </form>
            <!--  <div class="box-footer clearfix">
               <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">Place New Order</a>
               <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
             </div> -->
             <!-- /.box-footer -->
-            
           </div>
           @stop
 
 @section('js')
 <script type="text/javascript">
-      $('.userId').select2({
-        placeholder: 'Type a name',
+$(document).ready(function() {
+    $('#userList').DataTable({
+      "responsive": "true",
+      "order" : [[0, "desc"]]
+    });
+} );
+
+      $('.itemName').select2({
+        placeholder: 'Select an item',
         ajax: {
-          url: '/admin/verifier/staffsearch',
+          url: '/verifier/staff/persno',
           dataType: 'json',
-          minLength: 3,
           delay: 250,
           processResults: function (data) {
             return {
