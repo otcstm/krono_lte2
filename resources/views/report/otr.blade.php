@@ -51,7 +51,7 @@
   <div class="form-group">
     <label for="fcompany">Company Code</label>
     <br>
-    <select class="js-example-basic-multiple form-control" name="fcompany[]" multiple="multiple">
+    <select class="selectReport form-control" name="fcompany[]" multiple="multiple">
       @if($companies ?? '')
           @foreach($companies as $no=>$company)
     <option value="{{$company->id}}">{{$company->id}}-{{$company->company_descr}}</option>
@@ -64,7 +64,7 @@
   <div class="form-group">
     <label for="fstate">State</label>
     <br>
-    <select class="js-example-basic-multiple form-control" name="fstate[]" multiple="multiple">
+    <select class="selectReport form-control" name="fstate[]" multiple="multiple">
       @if($states ?? '')
           @foreach($states as $no=>$state)
     <option value="{{$state->id}}">{{$state->id}}-{{$state->state_descr}}</option>
@@ -77,7 +77,7 @@
   <div class="form-group">
     <label for="fregion">Region</label>
     <br>
-    <select class="js-example-basic-multiple form-control" name="fregion[]" multiple="multiple">
+    <select class="selectReport form-control" name="fregion[]" multiple="multiple">
       @if($regions ?? '')
           @foreach($regions as $no=>$region)
     <option value="{{$region->item2}}">{{$region->item3}}</option>
@@ -100,7 +100,7 @@
 @section('js')
 <script type="text/javascript">
 $(document).ready(function() {
-    $('.js-example-basic-multiple').select2();
+    $('.selectReport').select2();
 });
 </script>
 @stop

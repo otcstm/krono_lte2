@@ -490,7 +490,7 @@ ul.pagination > li.active a{
     }
 }
 
-.select2-container--default .select2-selection--multiple .select2-selection__choice {
+.selectReport  {
     /* background-color: #eee; */
     border: 1px solid #aaa;
     border-radius: 4px;

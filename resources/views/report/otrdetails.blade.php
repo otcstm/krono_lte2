@@ -1,7 +1,4 @@
 @extends('adminlte::page')
-@section('css')
-<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-@stop
 @section('title', 'Report')
 @section('content')
 
@@ -52,7 +49,7 @@
   <div class="form-group">
     <label for="fcompany">Company Code</label>
     <br>
-    <select class="js-example-basic-multiple form-control" name="fcompany[]" multiple="multiple">
+    <select class="selectReport form-control" name="fcompany[]" multiple="multiple">
       @if($companies ?? '')
           @foreach($companies as $no=>$company)
     <option value="{{$company->id}}">{{$company->id}}-{{$company->company_descr}}</option>
@@ -65,7 +62,7 @@
   <div class="form-group">
     <label for="fstate">State</label>
     <br>
-    <select class="js-example-basic-multiple form-control" name="fstate[]" multiple="multiple">
+    <select class="selectReport form-control" name="fstate[]" multiple="multiple">
       @if($states ?? '')
           @foreach($states as $no=>$state)
     <option value="{{$state->id}}">{{$state->id}}-{{$state->state_descr}}</option>
@@ -78,7 +75,7 @@
   <div class="form-group">
     <label for="fregion">Region</label>
     <br>
-    <select class="js-example-basic-multiple form-control" name="fregion[]" multiple="multiple">
+    <select class="selectReport form-control" name="fregion[]" multiple="multiple">
       @if($regions ?? '')
           @foreach($regions as $no=>$region)
     <option value="{{$region->item2}}">{{$region->item3}}</option>
@@ -100,12 +97,9 @@
 
 @stop
 @section('js')
-
 <script type="text/javascript">
 $(document).ready(function() {
-    $('.js-example-basic-multiple').select2();
+    $('.selectReport').select2();
 });
 </script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
-
 @stop
