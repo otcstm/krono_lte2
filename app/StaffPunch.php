@@ -13,7 +13,7 @@ class StaffPunch extends Model
 
   public function detail()
   {
-      return $this->hasMany(OvertimePunch::class, 'parent_punch');
+      return $this->hasMany(OvertimePunch::class, 'punch_id');
   }
 
   public function URpio(){//User record based on date punch in/out

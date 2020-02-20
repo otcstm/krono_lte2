@@ -233,7 +233,6 @@ class UserHelper {
         $newtime = new OvertimePunch;
         $newtime->user_id = $staff_id;
         $newtime->punch_id = $id;
-        $newtime->parent_punch = $parentp->id;
         $newtime->date = $date;
         $newtime->start_time = $date." ".$day[1].":00";
         $newtime->end_time = $out_time;
@@ -250,7 +249,6 @@ class UserHelper {
         $newtime = new OvertimePunch;
         $newtime->user_id = $staff_id;
         $newtime->punch_id = $id;
-        $newtime->parent_punch = $parentp->id;
         $newtime->date = $date;
         $newtime->start_time = $timein;
         $newtime->end_time = $date." ".$day[0].":00";
@@ -267,7 +265,6 @@ class UserHelper {
         $newtime = new OvertimePunch;
         $newtime->user_id = $staff_id;
         $newtime->punch_id = $id;
-        $newtime->parent_punch = $parentp->id;
         $newtime->date = $date;
         $newtime->start_time = $timein;
         $newtime->end_time = $date." ".$day[0].":00";
@@ -282,7 +279,6 @@ class UserHelper {
         $newtime = new OvertimePunch;
         $newtime->user_id = $staff_id;
         $newtime->punch_id = $id;
-        $newtime->parent_punch = $parentp->id;
         $newtime->date = $date;
         $newtime->start_time = $date." ".$day[1].":00";
         $newtime->end_time = $out_time;
@@ -299,7 +295,6 @@ class UserHelper {
       $newtime = new OvertimePunch;
       $newtime->user_id = $staff_id;
       $newtime->punch_id = $id;
-      $newtime->parent_punch = $parentp->id;
       $newtime->date = $date;
       $newtime->start_time = $timein;
       $newtime->end_time = $out_time;
