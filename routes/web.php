@@ -141,13 +141,21 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/overtime/form/delete', 'OvertimeController@formdelete')->name('ot.formdelete');
   Route::get('/overtime/form/getthumbnail', 'OvertimeController@getthumbnail')->name('ot.thumbnail');
   Route::get('/overtime/form/getfile', 'OvertimeController@getfile')->name('ot.file');
+  //OT activity - Verifier
+  Route::get('/overtime/verify', 'OvertimeController@verify')->name('ot.verify');
+  Route::post('/overtime/verify', 'OvertimeController@verify')->name('ot.verify');
+  Route::get('/overtime/verify/report', 'OvertimeController@verifyrept')->name('ot.verifyrept');
+  Route::post('/overtime/verify/report', 'OvertimeController@verifyrept')->name('ot.verifyrept');
   //OT activity - Approver
   Route::get('/overtime/approval', 'OvertimeController@approval')->name('ot.approval');
   Route::post('/overtime/approval', 'OvertimeController@approval')->name('ot.approval');
   Route::get('/overtime/approval/report', 'OvertimeController@approvalrept')->name('ot.approvalrept');
   Route::post('/overtime/approval/report', 'OvertimeController@approvalrept')->name('ot.approvalrept');
+  Route::get('/overtime/approval/search', 'OvertimeController@search')->name('ot.search');
   Route::get('/overtime/query', 'OvertimeController@query')->name('ot.query');
   Route::post('/overtime/query', 'OvertimeController@query')->name('ot.query');
+  // Route::post('/overtime/query/addverifier', 'OvertimeController@addverifier')->name('ot.addverifier');
+  Route::get('/overtime/query/getverifier', 'OvertimeController@getverifier')->name('ot.getverifier');
 
   //staff profile with subordinates reptto
   Route::get('/staff/profile', 'Admin\StaffController@showStaffProfile')->name('staff.profile');
