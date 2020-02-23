@@ -55,10 +55,13 @@ $.ajax({
     }
 });
 
+
 function puncho(){
     // var now = new Date(); 
     var now = new Date(); 
-    startclock = Date.parse(now).toString("yyyy-MM-dd HH:mm:ss");
+    startclock = Date.parse(now).toString("yyyy-MM-dd HH:mm");
+    startclock = startclock+":00";
+    // startclock = Date.parse(now).toString("yyyy-MM-dd HH:mm:ss");
     // startclock = Date.parse(now).toString("yyyy-MM-dd HH:mm:ss");
     // alert(startclock);
     timere = "00:00:00";
@@ -81,7 +84,7 @@ function puncho(){
                         success: function(resp) {
                             starttime(now, startclock);
                             timestart = setInterval(timer(0, 0, 0, parseInt(Date.parse(now).toString("ss")), parseInt(Date.parse(now).toString("mm")), parseInt(Date.parse(now).toString("H")), now), 1000);
-                            // alert(resp.kon);
+                            // alert(resp.nigga);
                         },
                         error: function(err) {
                             puncho();
@@ -94,7 +97,9 @@ function puncho(){
 
 function starttime(now, startclock){
         var future = new Date(); 
-        endclock = Date.parse(future).toString("yyyy-MM-dd HH:mm:ss");
+        endclock = Date.parse(future).toString("yyyy-MM-dd HH:mm");
+        endclock = endclock+":00";
+        // endclock = Date.parse(future).toString("yyyy-MM-dd HH:mm:ss");
         Swal.fire({
             title: 'Start Overtime',
             customClass: 'test',
@@ -200,6 +205,15 @@ function timer(psecond, pminute, phour, dsecond, dminute, dhour, now){
 }
 
 
+$( ".punchdiv" ).draggable();  
+$(function() {  
+    $( ".punchdiv" ).draggable();  
+  }); 
+
+$( "#punchb" ).draggable();  
+$(function() {  
+    $( "#punchb" ).draggable();  
+  }); 
 // setInterval(function() {
 //         $("#x").text((new Date - start) / 1000 + " Seconds");
 //         //  $('.Timer').text((new Date - start) / 1000 + " Seconds");

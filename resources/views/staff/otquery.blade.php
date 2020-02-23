@@ -505,7 +505,7 @@
         
     }
 
-    advance(i);
+    // advance(i);
 
     function advance(i){
         var checksend = true;
@@ -638,6 +638,9 @@
                 }else{
                     advance(i);
                 }
+            }else{
+                
+                reset(i); 
             }
         });
         

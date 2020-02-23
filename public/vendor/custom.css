@@ -199,9 +199,15 @@ body{
 .btn-start-punch{
     margin-left: 4vw;
     margin-right: 4vw;
-    background: #00D300;
+    background: #36B500;
     color: white;
 
+}
+
+.btn-start-punch:focus,
+.btn-start-punch:hover{
+    background: #33AA00;
+    color: white;
 }
 
 .punch-layer{
@@ -210,19 +216,71 @@ body{
 
 
 .btn-punch-layer{
+    display: flex;
+    flex-direction: column;
     position: fixed;
+    justify-content: center;
+    align-items: center;
     right: 15px;
     bottom: 75px;
     z-index: 10;
-    background: #00D300;
+    border: 3px solid #FFF;
+    border-radius: 50px;
+    height: 100px;
+    width: 100px;
+    background: #36B500;
     color: white;
+    font-weight: bold;
+    box-shadow: 0 8px 8px rgb(0, 0, 0, 0.5)
+
+}
+
+.punchdiv{
+    border: 1px solid red;
+    position: fixed;
+    border-radius: 50px;
+    height: 100px;
+    width: 100px;
+    right: 15px;
+    bottom: 75px;
+    z-index: 10;
+}
+
+.btn-punch-layer img{
+    margin-top: 5px;
+
+}
+
+.btn-punch-layer p{
+    /* margin-top: 5px; */
 
 }
 
 .btn-punch-layer:focus,
 .btn-punch-layer:hover{
-    background: #00C400;
+    background: #33AA00;
     color: white;
+}
+
+
+@media(max-width: 768px){
+
+    .btn-punch-layer{
+        border-radius: 35px;
+        height: 70px;
+        width: 70px;
+    
+    }
+    .btn-punch-layer img{
+
+        margin-top: 2px;
+        height: 25px;
+    }
+    .btn-punch-layer p{
+        margin-top: 2px;
+    
+    }
+    
 }
 
 .btn-up{
@@ -266,9 +324,9 @@ body{
 .btn-nob{
     padding: 2px 10px;
     background: transparent;
-    border: 2px solid #707070;
+    border: 2px solid #12347C;
     border-radius: 5px;
-    color: #707070;
+    color: #12347C;
 }
 
 .btn-no{
@@ -306,14 +364,14 @@ body{
     
     padding: 25px !important;
     border-radius: 5px !important;
-    width: 70vw !important;
+    width: 85vw !important;
 }
 
 .swal2-popup.test3{
     
     padding: 25px !important;
     border-radius: 5px !important;
-    width: 35vw !important;
+    width: 45vw !important;
 }
 
 .swollo{

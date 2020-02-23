@@ -456,6 +456,8 @@ class UserHelper {
       // dd($day);
       $start = "00:00";
       $end =  "00:00";
+      
+      // $day_type = 'Off Day'; //temp
       if($day==6){
         $day_type = 'Off Day';
       }elseif($day>6){

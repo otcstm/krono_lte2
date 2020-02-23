@@ -19,6 +19,8 @@
 
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ secure_asset('vendor/adminlte/dist/css/AdminLTE.min.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('vendor/jqueryui/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('vendor/jqueryui/jquery-ui.theme.css') }}">
     <link rel="stylesheet" href="{{ secure_asset('vendor/custom.css') }}">
 
     @yield('adminlte_css')
@@ -38,7 +40,8 @@
 @php($page=Request::segment(1))
 @yield('body')
 <!-- <div class="punch-layer"> -->
-@if(($page!='login')&&($page!='home'))<button id="punchb" class="btn btn-punch-layer" type="button" onclick="return puncho()"><i class="fas fa-clock"></i> START OT</button>@endif
+@if(($page!='login')&&($page!='home'))<div class="punchdiv" class="ui-widget-content"><button id="punchb" class="btn btn-punch-layer"  type="button" onclick="return puncho()"> <img src="{{ secure_asset('vendor/ot-assets/ot-clock.png') }}"><p>START</p></button></div>@endif
+<!-- <button id="punchb" class="btn btn-punch-layer" type="button" onclick="return puncho()"><i class="fas fa-clock"></i> START OT</button> -->
 <!-- </div> -->
 <footer class="foot">
     <div class="container" style="padding: 0 2.5vw; width: 100%">
@@ -47,6 +50,7 @@
     </div>
 </footer>
 <script src="{{ secure_asset('vendor/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ secure_asset('vendor/jqueryui/jquery-ui.min.js') }}"></script>
 <script src="{{ secure_asset('vendor/jquery/dist/jquery.slimscroll.min.js') }}"></script>
 <script src="{{ secure_asset('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 

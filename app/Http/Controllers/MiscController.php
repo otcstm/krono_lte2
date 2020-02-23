@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Shared\UserHelper;
+use App\Shared\URHelper;
 use App\StaffPunch;
 use App\OvertimePunch;
 use App\User;
@@ -71,17 +72,17 @@ class MiscController extends Controller
 
   public function startPunch(Request $req){
 
-    $req->time = "2020-02-05 07:24:09"; //testing
+    // $req->time = "2020-02-05 07:24:09"; //testing
     // $req->time = "2020-02-05 19:24:09"; //testing
-
+    
     $date = date("Y-m-d", strtotime($req->time));
     $day = UserHelper::CheckDay($req->user()->id, $date);
-    // $userrecordid = UserHelper::getUserRecordByDate($req->user()->id, $date);
+    $userrecordid = URHelper::getUserRecordByDate($req->user()->id, $date);
     $currentp = new StaffPunch;
     $currentp->user_id = $req->user()->id;
     $currentp->day_type = $day[2];
     $currentp->punch_in_time = $req->time;
-    // $currentp->user_records_id = $userrecordid->id;
+    $currentp->user_records_id = $userrecordid->id;
     // $currentp->in_latitude = 0.0; //temp
     // $currentp->in_longitude = 0.0; //temp
     $currentp->out_latitude = 3.1390; //temp
@@ -101,15 +102,15 @@ class MiscController extends Controller
 
   public function endPunch(Request $req){
     
-    $req->stime = "2020-02-05 07:24:09"; //testing
-    $req->etime = "2020-02-05 18:40:09"; //testing
+    // $req->stime = "2020-02-05 07:24:09"; //testing
+    // $req->etime = "2020-02-05 18:40:09"; //testing
     // $req->stime = "2020-02-05 19:24:09"; //testing
     // $req->etime = "2020-02-05 20:40:09"; //testing
 
     $sdate = date("Y-m-d", strtotime($req->stime));
     $edate = date("Y-m-d", strtotime($req->etime));
     $eday = UserHelper::CheckDay($req->user()->id, $req->etime);
-    // $userrecordid = UserHelper::getUserRecordByDate($req->user()->id, $sdate);
+    $userrecordid = URHelper::getUserRecordByDate($req->user()->id, $sdate);
     $currentp = StaffPunch::where("user_id", $req->user()->id)->where("punch_in_time", $req->stime)->first();
     if(((date("j", strtotime($req->etime)))- (date("j", strtotime($req->stime)))) > 0){
       $currentp->punch_out_time = $edate." 00:00:00";
@@ -134,7 +135,7 @@ class MiscController extends Controller
       // $currentp->out_latitude = 0.0; //temp
       // $currentp->out_longitude = 0.0; //temp
       $currentp->status = 'out';
-      // $currentp->user_records_id = $userrecordid->id;
+      $currentp->user_records_id = $userrecordid->id;
       $currentp->save();
       $execute = UserHelper::AddOTPunch($req->user()->id, $edate, $edate." 00:00:00", $req->etime, $currentp->id, $currentp->in_latitude, $currentp->in_longitude, $currentp->out_latitude, $currentp->out_longitude);
       $dt = OvertimePunch::where('punch_id', $currentp->id)->get();

@@ -9,7 +9,7 @@
         <div class="text-right" style="margin-bottom: 15px">
             <form action="{{route('ot.formnew')}}" method="POST" style="display:inline;">
                 @csrf
-                <button type="submit" class="btn-up" style=" margin-top: 15px">CREATE NEW CLAIM</button>
+                <button type="submit" class="btn-up" style=" margin-top: 15px">APPLY NEW OVERTIME</button>
             </form>
         </div>
         {{--@if(session()->has('feedback'))

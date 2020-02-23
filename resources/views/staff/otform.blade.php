@@ -155,9 +155,7 @@
                                     {{date("m.d.Y", strtotime($claim->date_expiry))}}
                                 @else 
                                     {{date("m.d.Y", strtotime($draft[1]))}} 
-                                @endif
-                            </p>
-                            <p>Unsubmitted claims will be deleted after the due date</p>
+                                @endif Unsubmitted claims will be deleted after the due date</p>
                         </span>
                         @endif
                     @else
@@ -221,7 +219,7 @@
                                     <th>Start OT</th>
                                     <th>End OT</th>
                                     <th>Hours/Minutes</th>
-                                    <th>OT Type</th>
+                                    <th>Input Type</th>
                                     <th>Location</th>
                                     <th>OT Remark</th>
                                 @if(($c ?? '')||($d ?? '')||($q ?? ''))
@@ -303,9 +301,9 @@
                                                 </td>
                                                 <td>
                                                     @if($singleuser->clock_in!="")
-                                                        System Input
+                                                        Auto
                                                     @else 
-                                                        Manual Input
+                                                        Manual
                                                     @endif
                                                 </td>
                                                 <td>{{ $singleuser->in_latitude }} {{ $singleuser->out_longitude }}</td>
@@ -352,7 +350,7 @@
                                     <span id="olddm-0" class="hidden">0</span>
                                     <span id="inputduration-0"></span>
                                 </td>
-                                <td>Manual Input</td>
+                                <td>Manual</td>
                                 <td></td>
                                 <td><textarea rows = "1" cols = "60" type="text"  id="inputremark-0" name="inputremarknew" placeholder="Input remark" style="resize: none" class="check-0 check-0-2"></textarea></td>
                                 <td>

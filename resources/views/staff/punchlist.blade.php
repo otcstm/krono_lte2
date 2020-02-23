@@ -147,7 +147,7 @@ $(".del").on("click", function(){
   }
   $('#inputid').val(id);
   Swal.fire({
-      title: 'Are you sure to delete Clock In?',
+      title: 'Are you sure to permanently delete Clock In?',
       text: "Delete clock in time "+s+" - "+e,
       icon: 'warning',
       showCancelButton: true,

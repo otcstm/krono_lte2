@@ -33,10 +33,10 @@ return [
     |
     */
 
-    'logo' => 'OT System',
+    'logo' => 'OT Claim System',
 
     // 'logo_mini' => '<b>A</b>LT',
-    'logo_mini' => 'OTS',
+    'logo_mini' => 'OTCS',
 
     /*
     |--------------------------------------------------------------------------
@@ -131,128 +131,128 @@ return [
 
     'menu' => [
 
-        //UNCOMMENT THIS LATER
-      ['header' => 'admin_menu'],
-      [
-        'text' => 'ot_menu',
-        'icon' => 'fas f fa-user-clock',
-        'submenu' => [
-          [
-              'text' => 'manage_role',
-              'url'  => '/admin/role',
-              'icon' => '',
-            //   'icon' => 'fas fa-lock-open',
-              // 'can' => 'admin-nav-menu',
-          ],
-          [
-              'text' => 'manage_company',
-              'url'  => '/admin/company',
-              'icon' => '',
-            //   'icon' => 'fas fa-briefcase',
-              // 'can' => 'admin-nav-menu',
-          ],
-          [
-              'text' => 'manage_state',
-              'url' => '/admin/state/show',
-              'icon' => '',
-            //   'icon' => 'fas fa-map-marked-alt',
-              // 'can' => 'admin-nav-menu',
-          ],
-          [
-              'text' => 'manage_holiday',
-              'url' => '/admin/holiday/show',
-              'icon' => '',
-            //   'icon' => 'fas fa-umbrella-beach',
-              //'icon' => 'fas fa-hiking',
-              // 'can' => 'admin-nav-menu',
-          ],
-          [
-              'text' => 'manage_psubarea',
-              'url' => '/admin/psubarea',
-              'icon' => '',
-            //   'icon' => 'fas fa-map-marked-alt',
-              // 'can' => 'admin-nav-menu',
-          ],
-          [
-              'text' => 'manage_overtime',
-              'url' => '/admin/overtime',
-              'otm' => '',
-              'icon' => '',
-            //   'icon' => 'fas fas fa-clock',
-              // 'can' => 'admin-nav-menu',
-          ],
-          [
-              'text' => 'manage_wdays',
-              'url'  => '/admin/workday',
-              'icon' => '',
-            //   'icon' => 'far fa-calendar-alt',
-              // 'can' => 'admin-nav-menu',
-          ],
-          [
-              'text' => 'shift_template',
-              'url'  => '/admin/shift_pattern',
-              'icon' => '',
-            //   'icon' => 'far fa-calendar-alt',
-              // 'can' => 'ot-nav-menu',
-          ],
-          [
-              'text' => 'payrollgroup',
-              'url' => '/admin/pygroup',
-              'icon' => '',
-            //   'icon' => 'fas fa-calendar-alt',
-              // 'can' => 'admin-nav-menu',
-          ],
-          [
-              'text' => 'paymentsch',
-              'url' => '/admin/paymentsc',
-              'icon' => '',
-            //   'icon' => 'fas fa-calendar-alt',
-              // 'can' => 'admin-nav-menu',
-          ],
-        ],
-      ],
-      [
-        'text' => 'admin_user_menu',
-        'icon' => 'fas fa-user-ninja',
-        'submenu' => [
-          [
-              'text' => 'user_autho',
-              'url'  => '/admin/staff/auth',
-              'icon' => '',
-            //   'icon' => 'fas fa-key',
-              // 'can' => 'admin-nav-menu',
-          ],
-          [
-              'text' => 'user_management',
-              'url'  => '/admin/staff',
-              'icon' => '',
-            //   'icon' => 'far fa-folder-open',
-              // 'can' => 'admin-nav-menu',
-          ],
-          [
-              'text' => 'user_logs',
-              //'url'  => route('state.show', [], false),
-              'url' => '/log/listUserLogs',
-              'icon' => '',
-            //   'icon' => 'fas fa-user-secret',
-              // 'can' => 'admin-nav-menu',
-          ],
-        ]
-      ],
+      //   //UNCOMMENT THIS LATER
+      // ['header' => 'admin_menu'],
+      // [
+      //   'text' => 'ot_menu',
+      //   'icon' => 'fas f fa-user-clock',
+      //   'submenu' => [
+      //     [
+      //         'text' => 'manage_role',
+      //         'url'  => '/admin/role',
+      //         'icon' => '',
+      //       //   'icon' => 'fas fa-lock-open',
+      //         // 'can' => 'admin-nav-menu',
+      //     ],
+      //     [
+      //         'text' => 'manage_company',
+      //         'url'  => '/admin/company',
+      //         'icon' => '',
+      //       //   'icon' => 'fas fa-briefcase',
+      //         // 'can' => 'admin-nav-menu',
+      //     ],
+      //     [
+      //         'text' => 'manage_state',
+      //         'url' => '/admin/state/show',
+      //         'icon' => '',
+      //       //   'icon' => 'fas fa-map-marked-alt',
+      //         // 'can' => 'admin-nav-menu',
+      //     ],
+      //     [
+      //         'text' => 'manage_holiday',
+      //         'url' => '/admin/holiday/show',
+      //         'icon' => '',
+      //       //   'icon' => 'fas fa-umbrella-beach',
+      //         //'icon' => 'fas fa-hiking',
+      //         // 'can' => 'admin-nav-menu',
+      //     ],
+      //     [
+      //         'text' => 'manage_psubarea',
+      //         'url' => '/admin/psubarea',
+      //         'icon' => '',
+      //       //   'icon' => 'fas fa-map-marked-alt',
+      //         // 'can' => 'admin-nav-menu',
+      //     ],
+      //     [
+      //         'text' => 'manage_overtime',
+      //         'url' => '/admin/overtime',
+      //         'otm' => '',
+      //         'icon' => '',
+      //       //   'icon' => 'fas fas fa-clock',
+      //         // 'can' => 'admin-nav-menu',
+      //     ],
+      //     [
+      //         'text' => 'manage_wdays',
+      //         'url'  => '/admin/workday',
+      //         'icon' => '',
+      //       //   'icon' => 'far fa-calendar-alt',
+      //         // 'can' => 'admin-nav-menu',
+      //     ],
+      //     [
+      //         'text' => 'shift_template',
+      //         'url'  => '/admin/shift_pattern',
+      //         'icon' => '',
+      //       //   'icon' => 'far fa-calendar-alt',
+      //         // 'can' => 'ot-nav-menu',
+      //     ],
+      //     [
+      //         'text' => 'payrollgroup',
+      //         'url' => '/admin/pygroup',
+      //         'icon' => '',
+      //       //   'icon' => 'fas fa-calendar-alt',
+      //         // 'can' => 'admin-nav-menu',
+      //     ],
+      //     [
+      //         'text' => 'paymentsch',
+      //         'url' => '/admin/paymentsc',
+      //         'icon' => '',
+      //       //   'icon' => 'fas fa-calendar-alt',
+      //         // 'can' => 'admin-nav-menu',
+      //     ],
+      //   ],
+      // ],
+      // [
+      //   'text' => 'admin_user_menu',
+      //   'icon' => 'fas fa-user-ninja',
+      //   'submenu' => [
+      //     [
+      //         'text' => 'user_autho',
+      //         'url'  => '/admin/staff/auth',
+      //         'icon' => '',
+      //       //   'icon' => 'fas fa-key',
+      //         // 'can' => 'admin-nav-menu',
+      //     ],
+      //     [
+      //         'text' => 'user_management',
+      //         'url'  => '/admin/staff',
+      //         'icon' => '',
+      //       //   'icon' => 'far fa-folder-open',
+      //         // 'can' => 'admin-nav-menu',
+      //     ],
+      //     [
+      //         'text' => 'user_logs',
+      //         //'url'  => route('state.show', [], false),
+      //         'url' => '/log/listUserLogs',
+      //         'icon' => '',
+      //       //   'icon' => 'fas fa-user-secret',
+      //         // 'can' => 'admin-nav-menu',
+      //     ],
+      //   ]
+      // ],
 
 
-      [
-        'text' => 'Dummy',
-        'icon' => 'fas fa-carrot',
-        'submenu' => [
-          [
-              'text' => 'Dummy Email',
-              'url'  => '/email/dummy',
-              'icon' => 'fas fa-envelope',
-              // 'can' => 'admin-nav-menu',
-          ],
-        ]
-      ],
+      // [
+      //   'text' => 'Dummy',
+      //   'icon' => 'fas fa-carrot',
+      //   'submenu' => [
+      //     [
+      //         'text' => 'Dummy Email',
+      //         'url'  => '/email/dummy',
+      //         'icon' => 'fas fa-envelope',
+      //         // 'can' => 'admin-nav-menu',
+      //     ],
+      //   ]
+      // ],
 //UNCOMMENT THIS LATER
 
 
