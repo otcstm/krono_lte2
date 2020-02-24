@@ -321,9 +321,9 @@
                                                 </td>
                                                 @if(($c ?? '')||($d ?? '')||($q ?? ''))
                                                     <td>
-                                                        @if($singleuser->clock_in=="")
-                                                            <button type="button" class="btn btn-sm btn-x" id="delete-{{$no}}" data-id="{{$singleuser->id}}" data-start="{{date('H:i', strtotime($singleuser->start_time))}}" data-end="{{date('H:i', strtotime($singleuser->end_time))}}"><i class="fas fa-times"></i></button>
-                                                        @endif
+                                                        {{--@if($singleuser->clock_in=="")--}}
+                                                            <button type="button" class="btn btn-np" id="delete-{{$no}}" data-id="{{$singleuser->id}}" data-start="{{date('H:i', strtotime($singleuser->start_time))}}" data-end="{{date('H:i', strtotime($singleuser->end_time))}}"><i class="fas fa-trash-alt"></i></button>
+                                                        {{--@endif--}}
                                                     </td>
                                                 @endif
                                             @endif
@@ -608,7 +608,7 @@
     var y = today.getFullYear();
     var d = today.getDate().toString();
     var minm = today.getMonth()-1;
-    if (minm<0){
+    if (minm==0){
         minm=minm+12;
         miny=y-1;
     }else{

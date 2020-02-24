@@ -7,9 +7,9 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="text-right" style="margin-bottom: 15px">
-            <form action="{{route('ot.formnew')}}" method="POST" style="display:inline">
+            <form action="{{route('ot.formnew')}}" method="POST" style="display:inline;">
                 @csrf
-                <button type="submit" class="btn btn-primary">CREATE NEW CLAIM</button>
+                <button type="submit" class="btn-up" style=" margin-top: 15px">CREATE NEW CLAIM</button>
             </form>
         </div>
         {{--@if(session()->has('feedback'))
@@ -111,7 +111,7 @@
         
     </div>
     <div id="submitbtn" class="panel-footer" style="display: none">
-        <div class="text-right">
+        <div class="text-center">
             <form id="submitform" action="{{route('ot.submit')}}" method="POST"  style="display:inline">
                 @csrf
                 <input type="text" class="hidden" id="submitid" name="submitid" value="" required>
