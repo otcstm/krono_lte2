@@ -1,8 +1,6 @@
-<h1>Dashboard</h1>
 
 <div class="row">     
   <div class="col-md-3 col-sm-6 col-xs-12">
-  <a href="#" onclick="return puncho()"> 
     <div class="box box-solid">
     <div class="box-body">
     <div class="media">
@@ -19,12 +17,11 @@
     <h3 class="box-title">Overtime Application</h3>
     </div><!-- /.box-header -->
     </div>
-  </a>  
   </div>
+
   <div class="col-md-3 col-sm-6 col-xs-12">
     <div class="box box-solid">
-                        <div class="box-body">
-    
+<div class="box-body">    
 <div class="media">
   <div class="media-left">
     <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px">
@@ -117,64 +114,9 @@
     </div><!-- /.box-header -->
     </div>
   </div>
-  <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="box box-solid">
-                        <div class="box-body">
-  <div class="media">
-  <div class="media-left">
-    <img src="vendor/ot-assets/stopwatch.jpg" class="media-object" style="width:50px">
-  </div>
-  <div class="media-body">
-    <h4 class="media-heading">List OT</h4>
-    <p>Start/End Date</p>
-  </div>
-</div>
-    </div><!-- /.box-body -->
-    <div class="box-header text-center bg-yellow-active color-palette">
-    <h3 class="box-title">RM 158.00</h3>
-    </div><!-- /.box-header -->
-    </div>
-  </div>
-  <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="box box-solid">
-    <div class="box-body">
-    <div class="media">
-  <div class="media-left">
-    <img src="vendor/ot-assets/claim.jpg" class="media-object" style="width:50px; height:50px;">
-  </div>
-  <div class="media-body">
-    <h4 class="media-heading">List Claim</h4>
-    <p>All Claim</p>
-  </div>
-</div>
-    </div><!-- /.box-body -->
-    <div class="box-header text-center bg-yellow-active color-palette">
-    <h3 class="box-title">Display all claims</h3>
-    </div><!-- /.box-header -->
-    </div>
-  </div>
-
+ 
 </div><!-- /.row -->
 
-<div class="row">     
-  <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="box box-solid">
-  <div class="box-body">
-    <div class="media">
-      <div class="media-left">
-        <img src="vendor/ot-assets/ot-clock-icon.png" class="media-object" style="width:50px">
-      </div>
-      <div class="media-body">
-        <h4 class="media-heading">4 Planned OT</h4>
-        <p>Request</p>
-      </div>
-    </div>
-    </div><!-- /.box-body -->
-    <div class="box-header text-center bg-yellow-active color-palette">
-    <h3 class="box-title">Planned OT Request</h3>
-    </div><!-- /.box-header -->
-    </div>
-  </div>
 
 
 </div><!-- /.row -->
