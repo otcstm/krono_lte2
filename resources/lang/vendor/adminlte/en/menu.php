@@ -12,7 +12,7 @@ return [
     'manual_overtime' => 'Claim Manual Approval',
     'manage_overtimeex' => 'Manage Overtime Expiry',
     'manage_wdays'    => 'Work Day Type',
-    'admin_user_menu'   => 'User Admin Thingy',
+    'admin_user_menu'   => 'USER MANAGMENT',
     'manage_holiday'    => 'Manage Holiday',
     'paymentsch' => 'Payment Schedule',
     'payrollgroup' => 'Payroll Grouping',

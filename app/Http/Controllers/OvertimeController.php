@@ -618,14 +618,11 @@ class OvertimeController extends Controller{
     }
 
     public function admin(Request $req){
-        // $otlist = Overtime::where('status', 'PV')->orWhere('status', 'PA')->where('approver_id', $req->user()->id)->orderBy('date_expiry')->orderBy('date')->get();
-        // $otlist = Overtime::where('approver_id', $req->user()->id)
-        // ->where(function($q) {
-        //     $q->where('status', 'PV')->orWhere('status', 'PA');
-        // })
-        // ->get();
-        
-        $otlist = [];
+        if($req->session()->get('otlist')==null){
+            $otlist = [];
+        }else{
+            $otlist = $req->session()->get('otlist');
+        }
         $view = "admin";
         return view('staff.otquery', ['otlist' => $otlist, 'view' => $view]);
     }

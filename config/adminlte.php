@@ -213,7 +213,7 @@ return [
       ],
       [
         'text' => 'admin_user_menu',
-        'icon' => 'fas fa-user-ninja',
+        'icon' => 'fas fa-clock',
         'submenu' => [
           [
               'text' => 'user_autho',
