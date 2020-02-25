@@ -54,15 +54,8 @@ class OvertimeController extends Controller{
 
     public function detail(Request $req){
         $claim = Overtime::where('id', $req->detailid)->first();
-        // dd($req->detailid);
         Session::put(['draft' => [], 'claim' => $claim]);
-        if($req->type=="ot"){
-            Session::put(['back' => 'ot']);        
-        }else if($req->type=="query"){
-            Session::put(['back' => 'query']);        
-        }else{
-            Session::put(['back' => 'report']);    
-        }        
+        Session::put(['back' => $req->type]); 
         return view('staff.otdetail', ['claim' => $req->session()->get('claim')]);
     }
 
@@ -111,7 +104,8 @@ class OvertimeController extends Controller{
             for($i = 0; $i<count($id); $i++){
                 $updateclaim = Overtime::find($id[$i]);
                 $updateclaim->approver_id = $req->user()->reptto;
-                $updateclaim->verifier_id =  $req->user()->id; //temp
+                // $updateclaim->verifier_id =  $req->user()->id; //temp 
+                // $updateclaim->verifier_id =  "55323"; //temp 
                 $execute = UserHelper::LogOT($id[$i], $req->user()->id, "Submitted", "Submitted ".$updateclaim->refno);
                 if($updateclaim->verifier_id==null){
                     $updateclaim->status = 'PA';
@@ -200,7 +194,8 @@ class OvertimeController extends Controller{
                     }
                 }
                 $draftclaim->approver_id = $req->user()->reptto;
-                $draftclaim->verifier_id =  $req->user()->id; //temp
+                // $draftclaim->verifier_id =  $req->user()->id; //temp 
+                // $draftclaim->verifier_id =  55323; //temp 
                 $draftclaim->state_id =  $req->user()->state_id;
                 $draftclaim->daytype_id =  $day_type;
                 $draftclaim->region =  $req->user()->id;
@@ -314,7 +309,8 @@ class OvertimeController extends Controller{
             }else{
                 $day_type = 2;
             }
-            $draftclaim->verifier_id =  $req->user()->id; //temp
+            // $draftclaim->verifier_id =  $req->user()->id; //temp 
+            // $draftclaim->verifier_id =  55323; //temp 
             // temp=====================================================
             $draftclaim->approver_id = $req->user()->reptto;
             $draftclaim->daytype_id =  $day_type;
@@ -519,7 +515,8 @@ class OvertimeController extends Controller{
             $updatemonth->save();
             $updateclaim = Overtime::find($claim->id);
             $updateclaim->approver_id = $req->user()->reptto;
-            $updateclaim->verifier_id =  $req->user()->id; //temp
+            // $updateclaim->verifier_id =  $req->user()->id; //temp 
+            // $updateclaim->verifier_id =  "55323"; //temp 
             $execute = UserHelper::LogOT($claim->id, $req->user()->id, "Submitted", "Submitted ".$updateclaim->refno);   
             $expiry = OvertimeExpiry::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $claim->date)->where('end_date','>', $claim->date)->first();               
             if($updateclaim->verifier_id==null){
@@ -572,6 +569,9 @@ class OvertimeController extends Controller{
         $updateclaim->total_minute = ($totaltime%60);
         $updateclaim->amount = $updateclaim->amount - $claimdetail->amount;
         OvertimeDetail::find($req->delid)->delete();
+        if($claimdetail->clock_in!=NULL){
+            $delotpunch = OvertimePunch::where('start_time', $claimdetail->clock_in)->delete();
+        }
         $claimdetail = OvertimeDetail::where('ot_id', $claim->id)->get();
         if(count($claimdetail)==0){
             $updateclaim->status = 'D1';
@@ -587,18 +587,45 @@ class OvertimeController extends Controller{
         ]);
     }
 
+    public function verify(Request $req){
+        $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', 'PV')->orderBy('date_expiry')->orderBy('date')->get();
+        $view = "verifier";
+        return view('staff.otquery', ['otlist' => $otlist, 'view' => $view]);
+    }
+
+    public function verifyrept(Request $req){
+        $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', '!=' , 'D1')->where('status', '!=' , 'D2')->orderBy('date_expiry')->orderBy('date')->get();
+        $view = "verifierrept";
+        return view('staff.otquery', ['otlist' => $otlist, 'view' => $view]);
+    }
+
     public function approval(Request $req){
-        $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', 'PV')->orWhere('approver_id', $req->user()->id)->where('status', 'PA')->orderBy('date_expiry')->orderBy('date')->get();
-        return view('staff.otquery', ['otlist' => $otlist]);
+        // $otlist = Overtime::where('status', 'PV')->orWhere('status', 'PA')->where('approver_id', $req->user()->id)->orderBy('date_expiry')->orderBy('date')->get();
+        $otlist = Overtime::where('approver_id', $req->user()->id)
+        ->where(function($q) {
+            $q->where('status', 'PV')->orWhere('status', 'PA');
+        })
+        ->get();
+        $view = "approver";
+        return view('staff.otquery', ['otlist' => $otlist, 'view' => $view]);
     }
 
     public function approvalrept(Request $req){
-        $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', '!=' , 'D1')->orWhere('approver_id', $req->user()->id)->where('status', '!=' , 'D2')->orderBy('date_expiry')->orderBy('date')->get();
-        return view('staff.otqueryrept', ['otlist' => $otlist]);
+        $otlist = Overtime::where('approver_id', $req->user()->id)->where('status', '!=' , 'D1')->where('status', '!=' , 'D2')->orderBy('date_expiry')->orderBy('date')->get();
+        $view = "approverrept";
+        return view('staff.otquery', ['otlist' => $otlist, 'view' => $view]);
     }
 
     public function query (Request $req){
-        $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', 'PV')->orWhere('approver_id', $req->user()->id)->where('status', 'PA')->orderBy('date_expiry')->orderBy('date')->get();
+        if($req->typef=="verifier"){
+            $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', 'PV')->orderBy('date_expiry')->orderBy('date')->get();
+        }else if($req->typef=="approver"){
+            $otlist = Overtime::where('approver_id', $req->user()->id)
+            ->where(function($q) {
+                $q->where('status', 'PV')->orWhere('status', 'PA');
+            })
+            ->get();
+        }
         $yes = false;
         for($i=0; $i<count($otlist); $i++){
             if($req->inputaction[$i]!=""){
@@ -606,6 +633,9 @@ class OvertimeController extends Controller{
                 $expiry = OvertimeExpiry::where('company_id', $otlist[$i]->name->company_id)->where('region', $reg->region)->where('start_date','<=', $otlist[$i]->date)->where('end_date','>', $otlist[$i]->date)->first();               
                 $updateclaim = Overtime::find($req->inputid[$i]);
                 $updateclaim->status=$req->inputaction[$i];
+                if(($updateclaim->status=="PV")&&($updateclaim->verifier_id==null)){
+                    $updateclaim->status=="PA";
+                }
                 if($req->inputaction[$i]=="PA"){
                     // $updateclaim->date_expiry = date('Y-m-d', strtotime("+90 days"));
                     $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Verified', 'Verified');
@@ -621,32 +651,122 @@ class OvertimeController extends Controller{
                     // dd($updatemonth->total_hour);
                     $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Queried', 'Queried with message: "'.$req->inputremark[$i].'"');
                     // $updateclaim->date_expiry = date('Y-m-d', strtotime("+90 days"));
+                }else if($req->inputaction[$i]=="Assign"){
+                    $updateclaim->status="PV";
+                }else if($req->inputaction[$i]=="Remove"){
+                    $updateclaim->status="PA";
                 }
                 if($expiry->status == "ACTIVE"){
                     if((($expiry->based_date == "Submit to Approver Date")&&($updateclaim->status == 'PA'))||(($expiry->based_date == "Query Date")&&($updateclaim->status == 'Q2'))){
                         $draftclaim->date_expiry = date('Y-m-d', strtotime("+".$expiry->noofmonth." months"));
                     }
                 }
+                $updateclaim->verifier_id=$req->verifier[$i];
                 $updateclaim->save();
                 $yes = true;
             }
         }
         // return redirect(route('ot.approval',[],false));
         if($yes){
-            return redirect(route('ot.approval',[],false))->with([
-                'feedback' => true,
-                'feedback_text' => "Your overtime claim has successfully been submitted.",
-                'feedback_title' => "Successfully Submitted"
-            ]);
+            if($req->typef=="verifier"){
+                return redirect(route('ot.verify',[],false))->with([
+                    'feedback' => true,
+                    'feedback_text' => "Your pending overtime claim has successfully been submitted.",
+                    'feedback_title' => "Successfully Submitted"
+                ]);
+            }else if($req->typef=="approver"){
+                return redirect(route('ot.approval',[],false))->with([
+                    'feedback' => true,
+                    'feedback_text' => "Your pending overtime claim has successfully been submitted.",
+                    'feedback_title' => "Successfully Submitted"
+                ]);
+            }
         }else{
             return redirect(route('ot.approval',[],false))->with([]);
         }
     }
 
-    
+    public function search(Request $req){
+        $date = date('Y-m-d');
+        if($req->type=="normal"){
+            $staff = UserRecord::where('name', 'LIKE', '%' .$req->name. '%')->where('upd_sap','<=',$date)->orderBy('name', 'ASC')->get();
+        }else{
+            $staff = UserRecord::query();
+            if($req->name!=""){
+                $staff = $staff->orWhere('name', 'LIKE', '%' .$req->name. '%');
+            }
+            if($req->persno!=""){
+                $staff = $staff->orWhere('user_id', 'LIKE', '%' .$req->persno. '%');
+            }
+            if($req->staffno!=""){
+                $staff = $staff->orWhere('staffno', 'LIKE', '%' .$req->staffno. '%');
+            }
+            if($req->position!=""){
+                $staff = $staff->orWhere('position', 'LIKE', '%' .$req->position. '%');
+            }
+            if($req->company!=""){
+                $staff = $staff->orWhere('company_id', 'LIKE', '%' .$req->company. '%');
+            }
+            if($req->cost!=""){
+                $staff = $staff->orWhere('costcentr', 'LIKE', '%' .$req->cost. '%');
+            }
+            if($req->persarea!=""){
+                $staff = $staff->orWhere('persarea', 'LIKE', '%' .$req->persarea. '%');
+            }
+            if($req->perssarea!=""){
+                $staff = $staff->orWhere('perssubarea', 'LIKE', '%' .$req->perssarea. '%');
+            }
+            if($req->empsgroup!=""){
+                $staff = $staff->orWhere('empsgrounp', 'LIKE', '%' .$req->empsgroup. '%');
+            }
+            if($req->email!=""){
+                $staff = $staff->orWhere('email', 'LIKE', '%' .$req->email. '%');
+            }
+            // if($req->mobile!=""){
+            //     $staff = $staff->orWhere('name', 'LIKE', '%' .$req->mobile. '%');
+            // }
+            // if($req->office!=""){
+            //     $staff = $staff->orWhere('name', 'LIKE', '%' .$req->office. '%');
+            // }
+            $staff = $staff->where('upd_sap','<=',$date)->orderBy('name', 'ASC')->get();
+        }
+        $arr = [];
+        foreach($staff as $s){
+            array_push($arr, [
+                'name'=>$s->name, 
+                'persno'=>sprintf('%08d', $s->user_id), 
+                'persnoo'=> $s->user_id, 
+                'staffno'=>$s->staffno,
+                'companycode'=>$s->companyid->company_descr,
+                'costcenter'=>$s->name,
+                'persarea'=>$s->persarea,
+                'empsubgroup'=>$s->empsgroup,
+                'email'=>$s->email,
+                'mobile'=>$s->name,
+            ]);
+        }
+        return $arr;
+        // return $date;
+    }
+
+  public function getverifier(Request $req){
+        $date = date('Y-m-d');
+        $staff = UserRecord::where('user_id', $req->id)->where('upd_sap','<=',$date)->first();
+        
+        return ['name'=>$staff->name, 
+                'persno'=>sprintf('%08d', $staff->user_id), 
+                'staffno'=>$staff->staffno,
+                'companycode'=>$staff->companyid->company_descr,
+                'costcenter'=>$staff->name,
+                'persarea'=>$staff->persarea,
+                'empsubgroup'=>$staff->empsgroup,
+                'email'=>$staff->email,
+                'mobile'=>$staff->name];
+    }
+
   public static function getQueryAmount(){
-    // $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', 'PV')->orWhere('approver_id', $req->user()->id)->where('status', 'PA')->orderBy('date_expiry')->orderBy('date')->get();
-    // $count =  count($otlist);
-    // return 5;
-}
+        // $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', 'PV')->orWhere('approver_id', $req->user()->id)->where('status', 'PA')->orderBy('date_expiry')->orderBy('date')->get();
+        // $count =  count($otlist);
+        // return 5;
+    }
 }

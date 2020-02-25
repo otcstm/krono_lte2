@@ -67,7 +67,7 @@ class Overtime extends Model
         return $this->hasMany(OvertimeLog::class, 'ot_id');
     }
 
-    public function URecord(){//based on created date
+    public function URecord(){//based on OT date
       return $this->belongsTo(UserRecord::class, 'user_records_id');
     }
 
