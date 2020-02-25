@@ -11,11 +11,65 @@
 <h1>Pending Approval Claim</h1>
 @elseif($view=='approverrept')
 <h1>Claim Approval Report</h1>
+@elseif($view=='admin')
+<h1>Claim Manual Approval</h1>
 @endif
 <div class="panel panel-main panel-default">
     <div class="panel-body">
         
+        @if($view=='admin')
+        
+        <form action="{{route('ot.adminsearch')}}" method="POST"> 
+            @csrf    
+            <h4><b>Search Parameter</b></h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-3">Company Code</div>
+                        <div class="col-md-8"><input type="text" id="search-1" name="searchcomp" style="width: 90%; " data-text="Company Code"><i style="position: relative; margin-left: -20px" class="far fa-share-square"></i></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">Personnel Number</div>
+                        <div class="col-md-8"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">Personnel Area</div>
+                        <div class="col-md-8"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">Personnel Sub Area</div>
+                        <div class="col-md-8"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-3">Submission Date</div>
+                        <div class="col-md-8"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">Claim Status</div>
+                        <div class="col-md-8"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">Overtime Date</div>
+                        <div class="col-md-8"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right">
+                <button class="btn-up">SEARCH</button>
+            </div>
+            <br>
+        </form>
+        @endif
+
         @if(count($otlist)!=0)
+        
+        @if($view=='admin')
+        <div class="line2"></div>
+        <h4><b>Search Result</b></h4>
+        <br>
+        @endif
         <form action="{{route('ot.query')}}" method="POST" style="display:inline"> 
             @csrf    
             @if($view=='verifier')
@@ -764,6 +818,79 @@
     for (i=1; i<{{count($otlist)+1}}; i++) {
         $("#action-"+i).change(remark(i));
         $("#inputremark-"+i).on("click",remark2(i));
+    }
+
+    for (i=1; i<9; i++) {
+        $("#search-"+i).on('click', searchparam(i));
+    }
+
+    // $("#searchcomp").on('click', function(){
+    //     searchparam('Company Code');
+    // });
+    var html;
+    var n;
+    var text; 
+    function searchparam(i){
+        return function(){
+            var value = "";
+            if($("#search-"+i).val()!=""){
+                value = $("#search-"+i).val().split(', ');
+            }
+            // else{
+                
+            // }
+            text = $("#search-"+i).data("text");
+            // alert(value+" "+text);
+            html = "<div class='row text-left'><div class='col-md-3'>"+text+"</div>";
+            n = 1;
+            // alert(value.length);
+            if(value.length>0){
+                // for(){
+
+                // }
+            }else{
+                html = html + "<div class='col-md-9'>"+
+                                    "<input id='value-"+n+"' class='countsearch' type=''text' style='width: 90%'>"+
+                                    "<span style='width: 10%'>"+
+                                        "<button onclick=' addsearch()' type='button' class='btn btn-plus' style='display: inline'><i class='fas fa-plus-circle'></i></button>"+
+                                    "</span>"+
+                                "</div>";
+            }
+            searchalert();            
+           
+        }
+    }
+
+    function addsearch(){
+        n=n+1;
+        html = "<div class='row text-left'><div class='col-md-3'>"+text+"</div>";
+        // alert(html);
+        prev = html;
+        html = html + "<div class='col-md-9 col-md-offset-3'>"+
+                            "<input id='value-"+n+"'  class='countsearch' type=''text' style='width: 90%'>"+
+                            "<span style='width: 10%'>"+
+                                "<button onclick='addsearch()' type='button' class='btn btn-plus' style='display: inline'><i class='fas fa-plus-circle'></i></button>"+
+                                "<button onclick='removesearch()' type='button' class='btn btn-times' style='display: inline'><i class='fas fa-times-circle'></i></button>"+
+                            "</span>"+
+                        "</div>";
+        searchalert();
+    }
+
+    function searchalert(){
+        Swal.fire({
+                title: 'Multiple Search Parameter',
+                html: html+"</div>",
+                customClass: 'test4',
+                confirmButtonText:
+                    'SELECT',
+                    cancelButtonText: 'CANCEL',
+                showCancelButton: true,
+            }).then((result) => {
+                    if (result.value) {
+                        
+                        
+                    }
+            })
     }
 
     @if(session()->has('feedback'))

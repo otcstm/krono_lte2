@@ -10,7 +10,7 @@
         <img src="vendor/ot-assets/ot-clock-icon.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
-        <h4 class="media-heading">Start OT</h4>
+        <h4 class="media-heading">Apply Claim</h4>
         <p>Apply New Overtime</p>
       </div>
     </div>
