@@ -157,6 +157,8 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/overtime/query', 'OvertimeController@query')->name('ot.query');
   //OT activity - Admin
   Route::get('/admin/overtime/approval', 'OvertimeController@admin')->name('ot.admin');
+  Route::get('/admin/overtime/approval/view', 'OvertimeController@adminview')->name('ot.adminview');
+  Route::post('/admin/overtime/approval/view', 'OvertimeController@adminview')->name('ot.adminview');
   Route::post('/admin/overtime/approval', 'OvertimeController@admin')->name('ot.admin');
   Route::post('/admin/overtime/search', 'OvertimeController@adminsearch')->name('ot.adminsearch');
 

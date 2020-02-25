@@ -2,7 +2,7 @@
 
 <div class="row">     
   <div class="col-md-3 col-sm-6 col-xs-12">
-  <a href="#" onclick="return puncho()"> 
+  <a href="{{route('ot.formnew')}}"> 
     <div class="box box-solid">
     <div class="box-body">
     <div class="media">

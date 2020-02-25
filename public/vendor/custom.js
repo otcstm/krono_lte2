@@ -61,7 +61,7 @@ $("#punchb").on('mousedown', function() {
     n=0;
     once=true;
     timeoutId = setTimeout(function(){ n=n+1;}, 100);
-}).on('mouseup mouseleave', function() {
+}).on('mouseup', function() {
     if(n<1){
         if(once){
             puncho();
@@ -275,7 +275,7 @@ function timer(psecond, pminute, phour, dsecond, dminute, dhour, now){
 }
 
 
-$( "#punchb" ).draggable();  
+// $( "#punchb" ).draggable();  
 // $(function() {  
 //     $( ".punchdiv" ).draggable();  
 //   }); 

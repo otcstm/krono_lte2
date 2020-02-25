@@ -118,6 +118,8 @@
 
 @section('js')
 <script type="text/javascript">
+
+@if(count($p_list)>0)
 $(document).ready(function() {
     $('#tPunchHIstory').DataTable({
       "responsive": "true",
@@ -128,7 +130,7 @@ $(document).ready(function() {
       ],
     });
 } );
-
+@endif
 // var now = new Date(); 
 // x = Date.parse(now).toString("yyyy-MM-dd HH:mm:ss")
 // $("#timesss").val(x);

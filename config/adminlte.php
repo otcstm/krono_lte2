@@ -232,6 +232,7 @@ return [
           [
               'text' => 'manual_overtime',
               'url' => '/admin/overtime/approval',
+              'otv' => '',
               'icon' => '',
             //   'icon' => 'fas fas fa-clock',
               // 'can' => 'admin-nav-menu',

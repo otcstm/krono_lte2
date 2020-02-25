@@ -1042,28 +1042,28 @@
             pv = "";
             pa = "";
             a = "";
-            d = "";
-            q = "";
+            // d = "";
+            // q = "";
             for(v=0; v<(value.length)+1; v++){
                 if(value[v]=="Pending Verification"){
                     pv = "checked";
                 }else if(value[v]=="Pending Approval"){
                     pa = "checked";
                 }else if(value[v]=="Approved"){
-                    a = "checked";
-                }else if(value[v]=="Draft"){
-                    d = "checked";
-                }else if(value[v]=="Query"){
-                    q = "checked";
-                }
+                    a = "checked";}
+                // }else if(value[v]=="Draft"){
+                //     d = "checked";
+                // }else if(value[v]=="Query"){
+                //     q = "checked";
+                // }
             }
             html = html + "<div class='col-md-9'>"+
-                                "<input id='value-0' class='countsearch' type='checkbox'value='Draft' "+d+"> Draft"+
-                            "</div>"+
-                            "<div class='col-md-9 col-md-offset-3'>"+
-                                "<input id='value-1' class='countsearch' type='checkbox' value='Query' "+q+"> Query"+
-                            "</div>"+
-                            "<div class='col-md-9 col-md-offset-3'>"+
+                            //     "<input id='value-0' class='countsearch' type='checkbox'value='Draft' "+d+"> Draft"+
+                            // "</div>"+
+                            // "<div class='col-md-9 col-md-offset-3'>"+
+                            //     "<input id='value-1' class='countsearch' type='checkbox' value='Query' "+q+"> Query"+
+                            // "</div>"+
+                            // "<div class='col-md-9 col-md-offset-3'>"+
                                 "<input id='value-2' class='countsearch' type='checkbox' value='Pending Verification' "+pv+"> Pending Verification"+
                             "</div>"+
                             "<div class='col-md-9 col-md-offset-3'>"+
