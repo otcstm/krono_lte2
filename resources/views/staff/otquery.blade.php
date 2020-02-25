@@ -76,6 +76,8 @@
             <input type="text" class="hidden" name="typef" value="verifier" required>
             @elseif($view=='approver')
             <input type="text" class="hidden" name="typef" value="approver" required>
+            @elseif($view=='admin')
+            <input type="text" class="hidden" name="typef" value="admin" required>
             @endif
             <div class="table-responsive">
                 <table id="tOTList" class="table table-bordered">
@@ -92,7 +94,7 @@
                             <th>Location</th>
                             <th>Amount (Estimated)</th>
                             <th>Status</th>
-                            @if(($view=='verifier')||($view=='approver'))
+                            @if(($view=='verifier')||($view=='approver')||($view=='admin'))
                                 @if($view=='approver')
                                 <th>Verifier</th>
                                 @endif
@@ -133,7 +135,7 @@
                                 @endif
                             </td>
                             
-                            @if(($view=='verifier')||($view=='approver'))
+                            @if(($view=='verifier')||($view=='approver')||($view=='admin'))
                                 @if($view=='approver')
                                     <td>
                                         <span class='hidden' id="show-verifier-cache-{{$no}}">{{$singleuser->verifier->name}}</span>

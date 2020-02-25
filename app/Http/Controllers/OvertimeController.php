@@ -627,6 +627,19 @@ class OvertimeController extends Controller{
         return view('staff.otquery', ['otlist' => $otlist, 'view' => $view]);
     }
 
+    public function adminsearch(Request $req){
+        $otlist = Overtime::query();
+        if($req->searchcomp!=""){
+            $onecomp = explode(", ", $req->searchcomp);
+            foreach($onecomp as $one){
+                $otlist = $otlist->orWhere('company_id', 'LIKE', '%' .$one. '%');
+            }
+        }
+        $otlist = $otlist->orderBy('date_expiry')->orderBy('date')->get();
+        Session::put(['otlist' => $otlist]);
+        return redirect(route('ot.admin',[],false));
+    }
+
     public function query (Request $req){
         if($req->typef=="verifier"){
             $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', 'PV')->orderBy('date_expiry')->orderBy('date')->get();
@@ -636,6 +649,8 @@ class OvertimeController extends Controller{
                 $q->where('status', 'PV')->orWhere('status', 'PA');
             })
             ->get();
+        }else if($req->typef=="admin"){
+            $otlist = $req->session()->get('otlist');
         }
         $yes = false;
         for($i=0; $i<count($otlist); $i++){
@@ -687,6 +702,12 @@ class OvertimeController extends Controller{
                 ]);
             }else if($req->typef=="approver"){
                 return redirect(route('ot.approval',[],false))->with([
+                    'feedback' => true,
+                    'feedback_text' => "Your pending overtime claim has successfully been submitted.",
+                    'feedback_title' => "Successfully Submitted"
+                ]);
+            }else if($req->typef=="admin"){
+                return redirect(route('ot.admin',[],false))->with([
                     'feedback' => true,
                     'feedback_text' => "Your pending overtime claim has successfully been submitted.",
                     'feedback_title' => "Successfully Submitted"

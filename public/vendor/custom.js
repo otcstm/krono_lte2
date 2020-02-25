@@ -165,7 +165,7 @@ function starttime(now, startclock){
                     //endot ajx
                     sstime = Date.parse(startclock).toString("mm");
                     eetime = Date.parse(future).toString("mm");
-                    // alert();
+                    // alert(parseInt(eetime)-parseInt(sstime));
                     if(parseInt(eetime)-parseInt(sstime)!=0){
                         $.ajax({
                             url: '/punch/end?stime='+startclock+'&etime='+endclock,
