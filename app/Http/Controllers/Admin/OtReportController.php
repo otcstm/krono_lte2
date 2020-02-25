@@ -18,12 +18,14 @@ class OtReportController extends Controller
 {
   public function viewOT(Request $req)//OT Summary
   {
+    set_time_limit(0);
     $company = Company::all();
     $state = State::all();
     $region = SetupCode::where('item1', 'region')->get();
 
     if($req->filled('searching')){
       $otr = $this->fetch($req);
+
       return view('report.otrList',['otrep' => $otr,]);
     }
     return view('report.otr',['companies'=>$company,'states'=>$state,'regions'=>$region ]);
@@ -31,6 +33,7 @@ class OtReportController extends Controller
 
   public function viewOTd(Request $req)//OT Detail
   {
+    set_time_limit(0);
     $company = Company::all();
     $state = State::all();
     $region = SetupCode::where('item1', 'region')->get();
@@ -98,6 +101,8 @@ class OtReportController extends Controller
 
   public function viewLC(Request $req)
   {
+    set_time_limit(0);
+
     if($req->filled('searching')){
       $otr = $this->fetchLC($req);
       $otid = $otr->pluck('ot_id');
@@ -134,6 +139,8 @@ class OtReportController extends Controller
 
   public function viewStEd(Request $req)//List of Start/End OT Time (Punch)
   {
+    set_time_limit(0);
+
     $company = Company::all();
     $state = State::all();
     $region = SetupCode::where('item1', 'region')->get();

@@ -660,7 +660,8 @@ ul.pagination > li.active a{
 .boxfullheight {
     height: 95% !important;
 }
-.selectReport  {
+
+.selectReport {
     /* background-color: #eee; */
     border: 1px solid #aaa;
     border-radius: 4px;
