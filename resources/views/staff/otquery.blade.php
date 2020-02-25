@@ -841,12 +841,12 @@
         return function(){
             type = types;
             $("#search-"+i).blur();
-            makeview(i, type);    
+            makeview(i, "");    
            
         }
     }
 
-    function makeview(i){
+    function makeview(i, operation){
     
         var value = "";
         if($("#search-"+i).val()!=""){
@@ -854,38 +854,80 @@
         }
         text = $("#search-"+i).data("text");
         html = "<div class='row text-left'><div class='col-md-3'>"+text+"</div>";
-        if(value.length>0){
-            for(v=0; v<(value.length)+1; v++){
-                if(v==0){
-                    html = html + "<div class='col-md-9'>"+
-                                    "<input id='value-"+v+"' class='countsearch' type='"+type+"' style='width: 90%' value='"+value[v]+"'>"+
-                                    "<span style='width: 10%'>"+
-                                        "<button onclick='removesearch("+i+","+v+")' type='button' class='btn btn-times' style='display: inline'><i class='fas fa-times-circle'></i></button>"+
-                                    "</span>"+
-                                "</div>";
-                }else if(v<value.length){
-                    html = html + "<div class='col-md-9 col-md-offset-3'>"+
-                                    "<input id='value-"+v+"' class='countsearch' type='"+type+"' style='width: 90%' value='"+value[v]+"'>"+
-                                    "<span style='width: 10%'>"+
-                                        "<button onclick='removesearch("+i+","+v+")' type='button' class='btn btn-times' style='display: inline'><i class='fas fa-times-circle'></i></button>"+
-                                    "</span>"+
-                                "</div>";
+        if(operation!="add"){
+            if(value.length>0){
+                if(operation!="remove"){
+                    for(v=0; v<(value.length)+1; v++){
+                        if(v==0){
+                            html = html + "<div class='col-md-9'>"+
+                                            "<input id='value-"+v+"' class='countsearch' type='"+type+"' style='width: 90%' value='"+value[v]+"'>"+
+                                            "<span style='width: 10%'>"+
+                                                "<button onclick='removesearch("+i+","+v+")' type='button' class='btn btn-times' style='display: inline'><i class='fas fa-times-circle'></i></button>"+
+                                            "</span>"+
+                                        "</div>";
+                        }else if(v<value.length){
+                            html = html + "<div class='col-md-9 col-md-offset-3'>"+
+                                            "<input id='value-"+v+"' class='countsearch' type='"+type+"' style='width: 90%' value='"+value[v]+"'>"+
+                                            "<span style='width: 10%'>"+
+                                                "<button onclick='removesearch("+i+","+v+")' type='button' class='btn btn-times' style='display: inline'><i class='fas fa-times-circle'></i></button>"+
+                                            "</span>"+
+                                        "</div>";
+                        }else{
+                            html = html + "<div class='col-md-9 col-md-offset-3'>"+
+                                            "<input id='value-"+v+"' class='countsearch' type='"+type+"' style='width: 90%'>"+
+                                            "<span style='width: 10%'>"+
+                                                "<button onclick='return addsearch("+i+")' type='button' class='btn btn-plus' style='display: inline'><i class='fas fa-plus-circle'></i></button>"+
+                                            "</span>"+
+                                        "</div>"; 
+                        }
+                    }
                 }else{
-                    html = html + "<div class='col-md-9 col-md-offset-3'>"+
-                                    "<input id='value-"+v+"' class='countsearch' type='"+type+"' style='width: 90%'>"+
+                    for(v=0; v<value.length; v++){
+                        if(v==0){
+                            html = html + "<div class='col-md-9'>"+
+                                            "<input id='value-"+v+"' class='countsearch' type='"+type+"' style='width: 90%' value='"+value[v]+"'>"+
+                                            "<span style='width: 10%'>"+
+                                                "<button onclick='removesearch("+i+","+v+")' type='button' class='btn btn-times' style='display: inline'><i class='fas fa-times-circle'></i></button>"+
+                                            "</span>"+
+                                        "</div>";
+                        }else if(v==value.length-1){
+                            html = html + "<div class='col-md-9 col-md-offset-3'>"+
+                                            "<input id='value-"+v+"' class='countsearch' type='"+type+"' style='width: 90%' value='"+value[v]+"'>"+
+                                            "<span style='width: 10%'>"+
+                                                "<button onclick='return addsearch("+i+")' type='button' class='btn btn-plus' style='display: inline'><i class='fas fa-plus-circle'></i></button>"+
+                                            "</span>"+
+                                        "</div>"; 
+                        }else if(v<value.length){
+                            html = html + "<div class='col-md-9 col-md-offset-3'>"+
+                                            "<input id='value-"+v+"' class='countsearch' type='"+type+"' style='width: 90%' value='"+value[v]+"'>"+
+                                            "<span style='width: 10%'>"+
+                                                "<button onclick='removesearch("+i+","+v+")' type='button' class='btn btn-times' style='display: inline'><i class='fas fa-times-circle'></i></button>"+
+                                            "</span>"+
+                                        "</div>";
+                        }
+                    }
+                }
+            }else{
+                html = html + "<div class='col-md-9'>"+
+                                    "<input id='value-0' class='countsearch' type='"+type+"' style='width: 90%'>"+
                                     "<span style='width: 10%'>"+
                                         "<button onclick='return addsearch("+i+")' type='button' class='btn btn-plus' style='display: inline'><i class='fas fa-plus-circle'></i></button>"+
                                     "</span>"+
-                                "</div>"; 
-                }
+                                "</div>";
             }
         }else{
             html = html + "<div class='col-md-9'>"+
                                 "<input id='value-0' class='countsearch' type='"+type+"' style='width: 90%'>"+
                                 "<span style='width: 10%'>"+
+                                    "<button onclick='removesearch("+i+",0)' type='button' class='btn btn-times' style='display: inline'><i class='fas fa-times-circle'></i></button>"+
+                                "</span>"+
+                            "</div>"+ 
+                            "<div class='col-md-9 col-md-offset-3'>"+
+                                "<input id='value-1' class='countsearch' type='"+type+"' style='width: 90%'>"+
+                                "<span style='width: 10%'>"+
                                     "<button onclick='return addsearch("+i+")' type='button' class='btn btn-plus' style='display: inline'><i class='fas fa-plus-circle'></i></button>"+
                                 "</span>"+
-                            "</div>";
+                            "</div>"; 
         }
         searchalert(i);        
     }
@@ -899,23 +941,31 @@
                 $("#search-"+i).val( $("#search-"+i).val()+", "+$("#value-"+n).val());
             }
         }
-        makeview(i);
+        if(($(".countsearch").length==1)&&($("#value-0").val()=="")){
+            makeview(i, "add");
+        }else{
+            makeview(i, "");
+
+        }
     }
 
     function removesearch(i, v){
         $("#search-"+i).val("");
         for(n=0; n<$(".countsearch").length; n++){
             if(n!=v){
-                if($("#value-"+n).val()!=""){
+                // if($("#value-"+n).val()!=""){
                     if(n==0){
                         $("#search-"+i).val($("#value-"+n).val()); 
-                    }else{
+                    }else if((n==1)&&(v==0)){
+                        $("#search-"+i).val($("#value-"+n).val());
+                    }
+                    else{
                         $("#search-"+i).val( $("#search-"+i).val()+", "+$("#value-"+n).val());
                     }
-                }
+                // }
             }
         }
-        makeview(i);
+        makeview(i, "remove");
     }
     
     function searchalert(i){
