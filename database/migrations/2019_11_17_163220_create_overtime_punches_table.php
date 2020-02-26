@@ -18,7 +18,6 @@ class CreateOvertimePunchesTable extends Migration
             $table->timestamps();
             $table->integer('user_id');
             $table->integer('punch_id');
-            $table->integer('parent_punch');
             $table->date('date');
             $table->datetime('start_time');
             $table->datetime('end_time');
