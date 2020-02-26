@@ -199,9 +199,15 @@ body{
 .btn-start-punch{
     margin-left: 4vw;
     margin-right: 4vw;
-    background: #00D300;
+    background: #36B500;
     color: white;
 
+}
+
+.btn-start-punch:focus,
+.btn-start-punch:hover{
+    background: #33AA00;
+    color: white;
 }
 
 .punch-layer{
@@ -210,19 +216,72 @@ body{
 
 
 .btn-punch-layer{
+    display: flex;
+    flex-direction: column;
     position: fixed;
+    justify-content: center;
+    align-items: center;
     right: 15px;
     bottom: 75px;
-    z-index: 10;
-    background: #00D300;
+    z-index: 999;
+    border: 3px solid #FFF;
+    border-radius: 50px;
+    height: 100px;
+    width: 100px;
+    background: #36B500;
     color: white;
+    font-weight: bold;
+    box-shadow: 0 8px 8px rgb(0, 0, 0, 0.5)
+
+}
+
+.punchdiv{
+    background: transparent;
+    border: transparent;
+    position: fixed;
+    border-radius: 50px;
+    height: 100px;
+    width: 100px;
+    right: 15px;
+    bottom: 75px;
+    z-index: 999;
+}
+
+.btn-punch-layer img{
+    margin-top: 5px;
+
+}
+
+.btn-punch-layer p{
+    /* margin-top: 5px; */
 
 }
 
 .btn-punch-layer:focus,
 .btn-punch-layer:hover{
-    background: #00C400;
+    background: #33AA00;
     color: white;
+}
+
+
+@media(max-width: 768px){
+
+    .btn-punch-layer{
+        border-radius: 35px;
+        height: 70px;
+        width: 70px;
+    
+    }
+    .btn-punch-layer img{
+
+        margin-top: 2px;
+        height: 25px;
+    }
+    .btn-punch-layer p{
+        margin-top: 2px;
+    
+    }
+    
 }
 
 .btn-up{
@@ -266,9 +325,9 @@ body{
 .btn-nob{
     padding: 2px 10px;
     background: transparent;
-    border: 2px solid #707070;
+    border: 2px solid #12347C;
     border-radius: 5px;
-    color: #707070;
+    color: #12347C;
 }
 
 .btn-no{
@@ -284,14 +343,14 @@ body{
 
 
 .swal2-confirm{
-    padding: 6px 50px !important;
+    padding: 6px 30px !important;
     border-radius: 25px !important;
     border: 2px solid #EF7202 !important;
     background: #EF7202 !important;
 }
 
 .test .swal2-confirm{
-    padding: 6px 50px !important;
+    padding: 6px 30px !important;
     border-radius: 25px !important;
     border: 2px solid #F00000 !important;
     background: #F00000 !important;
@@ -302,18 +361,29 @@ body{
     width: 80vw !important;
 } */
 
+/* .swal2-popup{
+
+    width: 42em !important;
+} */
+
 .swal2-popup.test2{
     
     padding: 25px !important;
     border-radius: 5px !important;
-    width: 70vw !important;
+    width: 85vw !important;
 }
 
 .swal2-popup.test3{
     
     padding: 25px !important;
     border-radius: 5px !important;
-    width: 35vw !important;
+    width: 45vw !important;
+}
+.swal2-popup.test4{
+    
+    padding: 25px !important;
+    border-radius: 5px !important;
+    width: 60em !important;
 }
 
 .swollo{
@@ -321,15 +391,19 @@ body{
     margin: 0 auto 30px;
 }
 
+.swal2-header{
+    font-size: 1.25rem !important;
+}
+
+.swal2-content{
+    font-size: 1.25rem !important;
+}
+
+.swal2-actions{
+    font-size: 1.25rem !important;
+}
 @media(max-width: 992px){
-    .swal2-popup.test2{
-        
-        padding: 5 !important;
-        border-radius: 25px !important;
-        width: 36em !important;
-    }
-    
-    .swal2-popup.test3{
+    .swal2-popup.test2, .swal2-popup.test3,  .swal2-popup.test4{
         
         padding: 5 !important;
         border-radius: 25px !important;
@@ -343,7 +417,7 @@ body{
 }
 
 .swal2-cancel{
-    padding: 6px 50px !important;
+    padding: 6px 30px !important;
     border-radius: 25px !important;
     border: 2px solid #EF7202 !important;
     background: transparent !important;
@@ -386,6 +460,25 @@ body{
     background: #DD4B39;
 }
 
+.btn-plus{
+    color: white;
+    margin-left: 5px;
+    /* border-radius: 25px !important; */
+    padding: 0!important;
+    font-size: 20px;
+    background: transparent;
+    color: #143A8C;
+}
+.btn-times{
+    color: white;
+    margin-left: 5px;
+    /* border-radius: 25px !important; */
+    padding: 0!important;
+    font-size: 20px;
+    background: transparent;
+    color: #DD4B39;
+}
+
 .btn-x-sm{
     margin-right: 25px;
     padding: 0 5px !important;
@@ -397,6 +490,16 @@ body{
 .btn-x:focus{
     background: #AC2925;
     color: white !important;
+}
+
+.btn-plus:hover,
+.btn-plus:focus{
+    color: #12347C;
+}
+
+.btn-times:hover,
+.btn-times:focus{
+    color: #DD4B39;
 }
 
 th{
@@ -441,16 +544,16 @@ tr > td:first-child{
     text-align: center !important;
 }
 
-.table-bordered th{
+/* .table-bordered th{
     border: 1px solid #DDDDDD !important;
-}
+} */
 
-.table-bordered  td{
+/* .table-bordered  td{
     border: 1px solid #DDDDDD !important;
     border-right: 1px solid #DDDDDD !important;
     border-left: 1px solid #DDDDDD !important;
     border-top: 1px solid #DDDDDD !important;
-}
+} */
 
 .fill{
     /* width: 100%;
@@ -607,6 +710,12 @@ ul.pagination > li.active a{
     margin: 50px 0;
 }
 
+.line2{
+    width: 100%;
+    border-top: 2px solid #707070 !important;
+    margin: -15px 0 15px;
+}
+
 .approval-search-item{
     display: flex; 
     flex-wrap: wrap;
@@ -736,4 +845,8 @@ ul.pagination > li.active a{
     margin-right: 5px;
     margin-top: 5px;
     padding: 0 5px;
+}
+
+.border{
+    border: 2px solid black;
 }

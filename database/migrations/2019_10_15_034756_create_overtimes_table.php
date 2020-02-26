@@ -28,12 +28,15 @@ class CreateOvertimesTable extends Migration
             $table->integer('profile_id')->nullable();
             $table->string('status')->default("D1");
             $table->string('company_id')->nullable();
+            $table->string('persarea')->nullable();
+            $table->string('perssubarea')->nullable();
             $table->string('state_id')->nullable();
             $table->integer('approver_id')->unsigned()->nullable();
             $table->integer('verifier_id')->unsigned()->nullable();            
             $table->integer('daytype_id')->nullable();
             $table->string('charge_type')->nullable();
             $table->datetime('approved_date')->nullable();
+            $table->datetime('submitted_date')->nullable();
             $table->datetime('verification_date')->nullable();
             $table->datetime('queried_date')->nullable();
             $table->integer('queried_id')->nullable();
