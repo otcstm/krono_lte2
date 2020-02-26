@@ -16,9 +16,9 @@ class CreateSalariesTable extends Migration
         Schema::create('salaries', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id');
-            $table->timestamp('upd_sap')->nullable();
-            $table->timestamp('start_date')->nullable();
-            $table->timestamp('end_date')->nullable();
+            $table->dateTime('upd_sap')->nullable();
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
             $table->string('payscale_type',20);
             $table->string('payscale_area',20);
             $table->decimal('salary', 10, 3)->default(0.0);

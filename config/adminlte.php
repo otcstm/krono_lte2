@@ -33,10 +33,10 @@ return [
     |
     */
 
-    'logo' => 'OT System',
+    'logo' => 'OT Claim System',
 
     // 'logo_mini' => '<b>A</b>LT',
-    'logo_mini' => 'OTS',
+    'logo_mini' => 'OTCS',
 
     /*
     |--------------------------------------------------------------------------
@@ -130,96 +130,119 @@ return [
     */
 
     'menu' => [
+
+      //   //UNCOMMENT THIS LATER
       ['header' => 'admin_menu'],
       [
-        'text' => 'system_config',
-        'icon' => 'fas fa-fw fa-tools',
+        'text' => 'ot_menu',
+        'icon' => 'fas f fa-user-clock',
         'submenu' => [
           [
               'text' => 'manage_role',
               'url'  => '/admin/role',
-              'icon' => 'fas fa-lock-open',
+              'icon' => '',
+            //   'icon' => 'fas fa-lock-open',
               // 'can' => 'admin-nav-menu',
           ],
           [
               'text' => 'manage_company',
               'url'  => '/admin/company',
-              'icon' => 'fas fa-briefcase',
+              'icon' => '',
+            //   'icon' => 'fas fa-briefcase',
               // 'can' => 'admin-nav-menu',
           ],
           [
               'text' => 'manage_state',
               'url' => '/admin/state/show',
-              'icon' => 'fas fa-map-marked-alt',
+              'icon' => '',
+            //   'icon' => 'fas fa-map-marked-alt',
               // 'can' => 'admin-nav-menu',
           ],
           [
               'text' => 'manage_holiday',
               'url' => '/admin/holiday/show',
-              'icon' => 'fas fa-umbrella-beach',
+              'icon' => '',
+            //   'icon' => 'fas fa-umbrella-beach',
               //'icon' => 'fas fa-hiking',
               // 'can' => 'admin-nav-menu',
           ],
           [
               'text' => 'manage_psubarea',
               'url' => '/admin/psubarea',
-              'icon' => 'fas fa-map-marked-alt',
+              'icon' => '',
+            //   'icon' => 'fas fa-map-marked-alt',
               // 'can' => 'admin-nav-menu',
           ],
           [
               'text' => 'manage_overtime',
               'url' => '/admin/overtime',
               'otm' => '',
-              'icon' => 'fas fas fa-clock',
+              'icon' => '',
+            //   'icon' => 'fas fas fa-clock',
               // 'can' => 'admin-nav-menu',
           ],
           [
               'text' => 'manage_wdays',
               'url'  => '/admin/workday',
-              'icon' => 'far fa-calendar-alt',
+              'icon' => '',
+            //   'icon' => 'far fa-calendar-alt',
               // 'can' => 'admin-nav-menu',
           ],
           [
               'text' => 'shift_template',
               'url'  => '/admin/shift_pattern',
-              'icon' => 'far fa-calendar-alt',
+              'icon' => '',
+            //   'icon' => 'far fa-calendar-alt',
               // 'can' => 'ot-nav-menu',
           ],
           [
               'text' => 'payrollgroup',
               'url' => '/admin/pygroup',
-              'icon' => 'fas fa-calendar-alt',
+              'icon' => '',
+            //   'icon' => 'fas fa-calendar-alt',
               // 'can' => 'admin-nav-menu',
           ],
           [
               'text' => 'paymentsch',
               'url' => '/admin/paymentsc',
-              'icon' => 'fas fa-calendar-alt',
+              'icon' => '',
+            //   'icon' => 'fas fa-calendar-alt',
               // 'can' => 'admin-nav-menu',
           ],
         ],
       ],
       [
         'text' => 'admin_user_menu',
-        'icon' => 'fas fa-user-ninja',
+        'icon' => 'fas fa-clock',
         'submenu' => [
           [
               'text' => 'user_autho',
               'url'  => '/admin/staff/auth',
-              'icon' => 'fas fa-key',
+              'icon' => '',
+            //   'icon' => 'fas fa-key',
               // 'can' => 'admin-nav-menu',
           ],
           [
               'text' => 'user_management',
               'url'  => '/admin/staff',
-              'icon' => 'far fa-folder-open',
+              'icon' => '',
+            //   'icon' => 'far fa-folder-open',
+              // 'can' => 'admin-nav-menu',
+          ],
+          [
+              'text' => 'manual_overtime',
+              'url' => '/admin/overtime/approval',
+              'otv' => '',
+              'icon' => '',
+            //   'icon' => 'fas fas fa-clock',
               // 'can' => 'admin-nav-menu',
           ],
           [
               'text' => 'user_logs',
               //'url'  => route('state.show', [], false),
               'url' => '/log/listUserLogs',
-              'icon' => 'fas fa-user-secret',
+              'icon' => '',
+            //   'icon' => 'fas fa-user-secret',
               // 'can' => 'admin-nav-menu',
           ],
         ]
@@ -238,7 +261,7 @@ return [
           ],
         ]
       ],
-
+//UNCOMMENT THIS LATER
 
 
 
@@ -293,6 +316,24 @@ return [
             [
                 'text' => 'ot_list',
                 'url'  => '/overtime',
+                'icon' => '',
+                // 'can' => 'ot-nav-menu',
+            ],
+            [
+                'text' => 'ot_verify',
+                'url'  => '/overtime/verify',
+                    // 'label'       => UserHelper::GetRequireAttCount(),
+                // 'label' => OvertimeController::getQueryAmount(),
+                'label_color' => 'warning',
+                'icon' => '',
+                // 'can' => 'ot-nav-menu',
+            ],
+            [
+                'text' => 'ot_verify_report',
+                'url'  => '/overtime/verify/report',
+                    // 'label'       => UserHelper::GetRequireAttCount(),
+                // 'label' => OvertimeController::getQueryAmount(),
+                'label_color' => 'warning',
                 'icon' => '',
                 // 'can' => 'ot-nav-menu',
             ],

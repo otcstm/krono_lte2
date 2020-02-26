@@ -21,7 +21,6 @@
   </div>
 </div> -->--}}
 
-@if($p_gotdata == true)
 <div class="panel panel-default">
   <div class="panel-body">
     <div class="table-responsive">
@@ -31,6 +30,7 @@
            <th>Date</th>
            <th>Start OT</th>
            <th>End OT</th>
+           <th></th>
            <th>Day Type</th>
            <th>Hours/Minutes</th>
            <th>Start Location</th>
@@ -38,69 +38,74 @@
            <th>Action</th>
          </tr>
        </thead>
-       <tbody>
-         @php($date1 = null)
-         @php($date2 = null)
-         @foreach($p_list as $ap)
-          @php($date1 = date('Y-m-d', strtotime($ap->punch_in_time)))
-            @if($date1!=$date2)
-            <tr>
-              <td>{{date('d.m.Y', strtotime($ap->punch_in_time))}}</td>
-              <td>
-              @if(count($ap->detail)!=0)
-                @foreach($ap->detail as $no=>$aps)
-                  {{date('Hi', strtotime($aps->start_time))}}<br>
-                  @if($no==0)
-                    @php($first=$aps->start_time)
+      <tbody>
+       @if(count($p_list)>0)
+          @php($date1 = null)
+          @php($date2 = null)
+          @foreach($p_list as $ap)
+            @php($date1 = date('Y-m-d', strtotime($ap->punch_in_time)))
+              @if($date1!=$date2)
+              <tr>
+                <td>{{date('d.m.Y', strtotime($ap->punch_in_time))}}</td>
+                <td>
+                  @foreach($p_list as $app)
+                    @if(date('Y-m-d', strtotime($app->punch_in_time))==$date1)
+                      @foreach($app->detail as $no=>$aps)
+                        <p style="margin: 2px 0;">{{date('Hi', strtotime($aps->start_time))}}</p>
+                      @endforeach
+                    @endif
+                  @endforeach
+                </td>
+                <td>
+                  @foreach($p_list as $app)
+                    @if(date('Y-m-d', strtotime($app->punch_in_time))==$date1)
+                      @foreach($app->detail as $no=>$aps)
+                        <p style="margin: 2px 0;">{{date('Hi', strtotime($aps->end_time))}}</p>
+                      @endforeach
+                    @endif
+                  @endforeach
+                </td>
+                <td>
+                @foreach($p_list as $app)
+                  @if(date('Y-m-d', strtotime($app->punch_in_time))==$date1)
+                    @foreach($app->detail as $no=>$aps)
+                    @if($ap->apply_ot!="X") <p style="margin: 2px 0;"><button type="button" data-id="{{ $aps->id }}" data-start="{{$aps->start_time}}" data-end="{{$aps->end_time}}" class="del btn btn-sm btn-x btn-x-sm" style="display: block;" ><i class="fas fa-times"></i></button></p> @endif
+                    @endforeach
                   @endif
                 @endforeach
-              @else
-                N/A
-              @endif
-              </td>
-              <td>
-              @if(count($ap->detail)!=0)
-                @foreach($ap->detail as $no=>$aps)
-                  {{date('Hi', strtotime($aps->end_time))}}<br>
-                  @if($no==count($ap->detail)-1)
-                    @php($last=$aps->end_time)
-                  @endif
-                @endforeach
-              @else
-                N/A
-              @endif
-              </td>
-              <td>{{$ap->day_type}}</td>
-              <td>
-              @if(count($ap->detail)!=0)
-                @foreach($ap->detail as $aps)
-                  {{$aps->hour}}h/{{$aps->minute}}m<br>
-                @endforeach
-              @else
-                N/A
-              @endif
-              </td>
-              <td>{{$ap->in_latitude}} {{$ap->in_longitude}}</td>
-              <td>{{$ap->out_latitude}} {{$ap->out_longitude}}</td>
-              <td>
-                @if($ap->punch_out_time!=null)
-                  <div style="display: flex">
-                  <form id="formdate" action="{{route('ot.formdate')}}" method="POST">
-                    @csrf
-                    <input type="date" id="inputdate" class="hidden" name="inputdate" value="{{ date('Y-m-d', strtotime($ap->punch_in_time)) }}" required>
-                        
-                      <button type="submit" class="btn btn-sm btn-primary" @if($ap->apply_ot=="X") disabled @endif>APPLY OT</button>
+                </td>
+                <td>{{$ap->day_type}}</td>
+                <td>
+                  @foreach($p_list as $app)
+                    @if(date('Y-m-d', strtotime($app->punch_in_time))==$date1)
+                      @foreach($app->detail as $no=>$aps)
+                        {{$aps->hour}}h/{{$aps->minute}}m<br>
+                      @endforeach
+                    @endif
+                  @endforeach
+                </td>
+                <td>{{$ap->in_latitude}} {{$ap->in_longitude}}</td>
+                <td>{{$ap->out_latitude}} {{$ap->out_longitude}}</td>
+                <td>
+                  @if($ap->punch_out_time!=null)
+                    <form id="formdate" action="{{route('ot.formdate')}}" method="POST">
+                      @csrf
+                      <input type="date" id="inputdate" class="hidden" name="inputdate" value="{{ date('Y-m-d', strtotime($ap->punch_in_time)) }}" required>
+                          
+                      @if($ap->apply_ot!="X")<button type="submit" class="btn btn-sm btn-primary">APPLY OT</button> @endif
 
-                  </form>
-                  <button type="button" data-date="{{ date('Y-m-d', strtotime($ap->punch_in_time)) }}" data-start="{{$first}}" data-end="{{$last}}" class="del btn btn-sm btn-x" style="margin-left: 3px" @if($ap->apply_ot=="X") disabled @endif><i class="fas fa-times"></i></button>
-                  </div>
-                @endif
-              </td>
-            </tr>
-            @endif
-          @php($date2 = date('Y-m-d', strtotime($ap->punch_in_time)))
-         @endforeach
-       </tbody>
+                    </form>
+                  @endif
+                </td>
+              </tr>
+              @endif
+            @php($date2 = date('Y-m-d', strtotime($ap->punch_in_time)))
+          @endforeach
+        @else
+          <td colspan="9"><div class="text-center"><i>Not available</i></div></td>
+        @endif
+
+        </tbody>
      </table>
     </div>
   </div>
@@ -109,32 +114,42 @@
   @csrf
   <input type="text" class="hidden" id="inputid" name="inputid" required>
 </form>
-@endif
 @stop
 
 @section('js')
 <script type="text/javascript">
+
+@if(count($p_list)>0)
 $(document).ready(function() {
     $('#tPunchHIstory').DataTable({
       "responsive": "true",
       "order" : [[0, "desc"]],
-      fixedHeader : true
+      fixedHeader : true,
+      "columnDefs": [
+        { "orderable": false,  "targets": 3 }
+      ],
     });
 } );
-
+@endif
 // var now = new Date(); 
 // x = Date.parse(now).toString("yyyy-MM-dd HH:mm:ss")
 // $("#timesss").val(x);
 
 $(".del").on("click", function(){
-  var date = $(this).data('date');
+  var id = $(this).data('id');
   var start = $(this).data('start');
   var end = $(this).data('end');
-  var s = Date.parse(start).toString("dd.MM.yyyy HH:mm:ss");  
-  var e = Date.parse(end).toString("dd.MM.yyyy HH:mm:ss");  
-  $('#inputid').val(date);
+  var s="N/A";
+  var e="N/A";
+  if(start!=""){
+    s = Date.parse(start).toString("dd.MM.yyyy HH:mm:ss");  
+  }
+  if(end!=""){
+    e = Date.parse(end).toString("dd.MM.yyyy HH:mm:ss");  
+  }
+  $('#inputid').val(id);
   Swal.fire({
-      title: 'Are you sure to delete Clock In?',
+      title: 'Are you sure to permanently delete Clock In?',
       text: "Delete clock in time "+s+" - "+e,
       icon: 'warning',
       showCancelButton: true,
