@@ -265,7 +265,7 @@ function edit(i){
                 if({{$no}}==1){
                     html = html +"<div class='col-md-8'>";
                 }else{
-                    html = html +"<div class='col-md-8'>";
+                    html = html +"<div class='col-md-8 col-md-offset-4'>";
                 }
                 
                 for(i=0; i<role_permissions.length; i++){
@@ -273,7 +273,7 @@ function edit(i){
                         checked = "checked";
                     }
                 }
-                html = html + "<input type='checkbox' id='checkbox_{{$singlerole->id}}' name='permission[]' value='{{$singlerole->id}} "+checked+">{{$singlerole->title}}"+
+                html = html + "<input type='checkbox' id='checkbox_{{$singlerole->id}}' name='permission[]' value='{{$singlerole->id}}' "+checked+">{{$singlerole->title}}"+
                 "</div>";
         //     html = html +"<div class='col-md-8'>"+
 		// 				    "<input type='checkbox' id='checkbox_{{$singlerole->id}}' name='permission[]' value='{{$singlerole->id}}'  style='width: 100%' >{{$singlerole->title}}"+
@@ -285,7 +285,8 @@ function edit(i){
         @endif
 		Swal.fire({
 			title: 'Edit Company',
-			html: html+
+			html: "<div class='text-left'>"+html+
+				"</div>"+
 				"</div>",
 			showCancelButton: true,
 			customClass:'test4',
