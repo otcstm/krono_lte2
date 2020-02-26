@@ -144,6 +144,8 @@
             <a href="{{route('ot.verifyrept')}}"><button type="button" class="btn btn-p btn-primary" style="display: inline">BACK</button></a>
             @elseif(session()->get('back')=="approver")
             <a href="{{route('ot.approval')}}"><button type="button" class="btn btn-p btn-primary" style="display: inline">BACK</button></a>
+            @elseif(session()->get('back')=="admin")
+            <a href="{{route('ot.admin')}}"><button type="button" class="btn btn-p btn-primary" style="display: inline">BACK</button></a>
             @elseif(session()->get('back')=="approverrept")
             <a href="{{route('ot.approvalrept')}}"><button type="button" class="btn btn-p btn-primary" style="display: inline">BACK</button></a>
             @endif

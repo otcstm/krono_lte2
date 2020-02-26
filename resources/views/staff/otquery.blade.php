@@ -221,6 +221,8 @@
             <input type="text" class="hidden" name="type" value="verifierrept" required>
             @elseif($view=='approver')
             <input type="text" class="hidden" name="type" value="approver" required>
+            @elseif($view=='admin')
+            <input type="text" class="hidden" name="type" value="admin" required>
             @elseif($view=='approverrept')
             <input type="text" class="hidden" name="type" value="approverrept" required>
             @endif

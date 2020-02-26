@@ -48,7 +48,7 @@ class CompanyController extends Controller
 
   public function update(Request $req)
     {
-    //  dd($req->all());
+    //  dd($req->eid);
       $company_var = Company::find($req->eid);
       $old = $company_var->company_descr;
             $company_var->company_descr = $req->editdescr;

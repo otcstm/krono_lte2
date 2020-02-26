@@ -60,7 +60,7 @@ var timeoutId;
 $("#punchb").on('mousedown', function() {
     n=0;
     once=true;
-    timeoutId = setTimeout(function(){ n=n+1;}, 100);
+    timeoutId = setTimeout(function(){ n=n+1;}, 500);
 }).on('mouseup', function() {
     if(n<1){
         if(once){
