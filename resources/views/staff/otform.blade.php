@@ -389,12 +389,12 @@
                                                     selected
                                                 @endif>Select Charge Type
                                             </option>
-                                            <option value="Own Cost Center" 
+                                            <option value="Body Cost Center" 
                                                 @if($claim ?? '') 
-                                                    @if($claim->charge_type=="Own Cost Center")
+                                                    @if($claim->charge_type=="Body Cost Center")
                                                         selected
                                                     @endif 
-                                                @endif>OWN COST CENTER</option>
+                                                @endif>BODY COST CENTER</option>
                                             <option value="Project" 
                                                 @if($claim ?? '') 
                                                     @if($claim->charge_type=="Project") 
@@ -1081,7 +1081,7 @@
             if (filesize > 1000000) { 
                 Swal.fire({
                     icon: 'error',
-                    title: 'Unable to choose file',
+                    title: 'Error',
                     text: 'File size has exceeded 1MB!'
                 })
                 $("#inputfile").val("");
@@ -1271,7 +1271,7 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Unable to submit form',
-                    text: 'Please add some claim time before submitting the form!'
+                    text: 'Please add time to your claim'
                 })
                 $("#inputstart-0").prop('required',true);
                 $("#inputend-0").prop('required',true);

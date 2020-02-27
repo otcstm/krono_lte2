@@ -79,7 +79,7 @@ class OvertimeController extends Controller{
         Session::put(['draft' => [], 'claim' => []]);
         return redirect(route('ot.list',[],false))->with([
             'feedback' => true,
-            'feedback_text' => "Your claim application ".$claim->refno." has successfully been deleted.",
+            'feedback_text' => "Your claim application ".$claim->refno." has successfully deleted.",
             'feedback_title' => "Successfully Deleted"
         ]);
     }
@@ -129,7 +129,7 @@ class OvertimeController extends Controller{
 
             return redirect(route('ot.list',[],false))->with([
                 'feedback' => true,
-                'feedback_text' => "Your overtime claim has successfully been submitted.",
+                'feedback_text' => "Your overtime claim has successfully submitted.",
                 'feedback_title' => "Successfully Submitted"
             ]);
         }else{
@@ -491,7 +491,7 @@ class OvertimeController extends Controller{
         if($req->formtype=="add"){ //if add only
             return redirect(route('ot.form',[],false))->with([
                 'feedback' => true,
-                'feedback_text' => "New overtime has successfully been added.",
+                'feedback_text' => "New overtime has successfully added.",
                 'feedback_title' => "Successfully Added Time"
             ]);
         }
@@ -547,7 +547,7 @@ class OvertimeController extends Controller{
             $updateclaim->save();
             return redirect(route('ot.list',[],false))->with([
                 'feedback' => true,
-                'feedback_text' => "Your overtime claim has successfully been submitted.",
+                'feedback_text' => "Your overtime claim has successfully submitted.",
                 'feedback_title' => "Successfully Submitted"
             ]);
             // }
@@ -596,7 +596,7 @@ class OvertimeController extends Controller{
         Session::put(['claim' => $claim]);
         return redirect(route('ot.form',[],false))->with([
             'feedback' => true,
-            'feedback_text' => "Your time ranged from ".date("Hi", strtotime($start))." to ".date("Hi", strtotime($end))." has been deleted.",
+            'feedback_text' => "Your time ranged from ".date("Hi", strtotime($start))." to ".date("Hi", strtotime($end))." has deleted.",
             'feedback_title' => "Successfully Deleted"
         ]);
     }
@@ -774,19 +774,19 @@ class OvertimeController extends Controller{
             if($req->typef=="verifier"){
                 return redirect(route('ot.verify',[],false))->with([
                     'feedback' => true,
-                    'feedback_text' => "Your pending overtime claim has successfully been submitted.",
+                    'feedback_text' => "Your pending overtime claim has successfully submitted.",
                     'feedback_title' => "Successfully Submitted"
                 ]);
             }else if($req->typef=="approver"){
                 return redirect(route('ot.approval',[],false))->with([
                     'feedback' => true,
-                    'feedback_text' => "Your pending overtime claim has successfully been submitted.",
+                    'feedback_text' => "Your pending overtime claim has successfully submitted.",
                     'feedback_title' => "Successfully Submitted"
                 ]);
             }else if($req->typef=="admin"){
                 return redirect(route('ot.admin',[],false))->with([
                     'feedback' => true,
-                    'feedback_text' => "Your pending overtime claim has successfully been submitted.",
+                    'feedback_text' => "Your pending overtime claim has successfully submitted.",
                     'feedback_title' => "Successfully Submitted"
                 ]);
             }

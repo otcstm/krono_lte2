@@ -249,18 +249,18 @@ return [
       ],
 
 
-      [
-        'text' => 'Dummy',
-        'icon' => 'fas fa-carrot',
-        'submenu' => [
-          [
-              'text' => 'Dummy Email',
-              'url'  => '/email/dummy',
-              'icon' => 'fas fa-envelope',
-              // 'can' => 'admin-nav-menu',
-          ],
-        ]
-      ],
+      // [
+      //   'text' => 'Dummy',
+      //   'icon' => 'fas fa-carrot',
+      //   'submenu' => [
+      //     [
+      //         'text' => 'Dummy Email',
+      //         'url'  => '/email/dummy',
+      //         'icon' => 'fas fa-envelope',
+      //         // 'can' => 'admin-nav-menu',
+      //     ],
+      //   ]
+      // ],
 //UNCOMMENT THIS LATER
 
 
@@ -395,19 +395,19 @@ return [
             [
                 'text' => 'user_shift_sc',
                 'url'  => '#',
-                'icon' => 'fas fa-calendar-check',
+                'icon' => '',
                 // 'can' => 'ot-nav-menu',
             ],
             [
                 'text' => 'shift_plan',
                 'url'  => '/shift_plan',
-                'icon' => 'fas fa-calendar-plus',
+                'icon' => '',
                 // 'can' => 'ot-nav-menu',
             ],
             [
                 'text' => 'shift_group',
                 'url'  => '/shift_plan/group',
-                'icon' => 'fas fa-users',
+                'icon' => '',
                 // 'can' => 'ot-nav-menu',
             ],
           ]

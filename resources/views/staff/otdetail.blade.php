@@ -16,24 +16,24 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="row">
-                                <div class="col-md-4">State</div><div class="col-md-6">: <b>{{$claim->state->state_descr}}</b></div>
-                                <div class="col-md-4">Salary Exception</div><div class="col-md-6">: <b>
+                                <div class="col-md-4">State</div><div class="col-md-8">: <b>{{$claim->state->state_descr}}</b></div>
+                                <div class="col-md-4">Salary Exception</div><div class="col-md-8">: <b>
                                     @if($claim->URecord->ot_salary_exception=="X")
                                         Yes
                                     @else
                                         No
                                     @endif
                                 </b></div>
-                                <div class="col-md-4">OT Date</div><div class="col-md-6">: <b>{{date('d.m.Y', strtotime($claim->date))}}</b></div>
-                                <div class="col-md-4">Total Hours/Minute</div><div class="col-md-6">: <b>{{$claim->total_hour}}h/{{$claim->total_minute}}m</b></div>
+                                <div class="col-md-4">OT Date</div><div class="col-md-8">: <b>{{date('d.m.Y', strtotime($claim->date))}}</b></div>
+                                <div class="col-md-4">Total Hours/Minute</div><div class="col-md-8">: <b>{{$claim->total_hour}}h {{$claim->total_minute}}m</b></div>
                                 </div>
                         </div>
                         <div class="col-md-6">
                             <div class="row">
-                                <div class="col-md-4">Charge Type</div><div class="col-md-6">: <b>{{$claim->charge_type}}</b></div>
-                                <div class="col-md-4">Verifier</div><div class="col-md-6">: <b>{{$claim->verifier->name}}</b></div>
-                                <div class="col-md-4">Approver</div><div class="col-md-6">: <b>{{$claim->approver->name}}</b></div>
-                                <div class="col-md-4">Estimated Amount</div><div class="col-md-6">: <b>RM{{$claim->amount}}</b></div>
+                                <div class="col-md-4">Charge Type</div><div class="col-md-8">: <b>{{$claim->charge_type}}</b></div>
+                                <div class="col-md-4">Verifier</div><div class="col-md-8">: <b>{{$claim->verifier->name}}</b></div>
+                                <div class="col-md-4">Approver</div><div class="col-md-8">: <b>{{$claim->approver->name}}</b></div>
+                                <div class="col-md-4">Estimated Amount</div><div class="col-md-8">: <b>RM {{$claim->amount}}</b></div>
                             </div>
                         </div>
                     </div>
@@ -113,14 +113,14 @@
                                 <tr>
                                     <th width="10%">Date</th>
                                     <th width="10%">Time</th>
-                                    <th width="25%">Action By</th>
+                                    <th width="25%">Action by</th>
                                     <th>Message</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($claim->log as $singleuser)
                                 <tr>
-                                    <td>{{date("m.d.Y", strtotime($singleuser->created_at))}}</td>
+                                    <td>{{date("d.m.Y", strtotime($singleuser->created_at))}}</td>
                                     <td>{{date("Hi", strtotime($singleuser->created_at))}}</td>
                                     <td>{{$singleuser->name->name}}</td>
                                     <td>{{$singleuser->message}}</td>

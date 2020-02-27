@@ -453,7 +453,7 @@ class UserHelper {
     public static function CheckDay($user, $date)
     {
       $day = date('N', strtotime($date));
-      // $day = 4;
+      // $day = 6;
       // dd($day);
       $start = "00:00";
       $end =  "00:00";
