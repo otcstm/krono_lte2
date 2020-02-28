@@ -300,7 +300,7 @@
                 $('#remark-'+i).css("display", "table-row");
                 Swal.fire({
                     title: 'Remarks',
-                    html: "<textarea id='remark' rows='4' cols='50' placeholder='This is mandatory field. Please key in remarks here!' style='resize: none;'></textarea><p>Are you sure to query this claim application?</p>",
+                    html: "<textarea id='remark' rows='4' style='width: 90%' placeholder='This is mandatory field. Please key in remarks here!' style='resize: none;'></textarea><p>Are you sure to query this claim application?</p>",
                     confirmButtonText:
                         'YES',
                         cancelButtonText: 'NO',
@@ -793,7 +793,7 @@
                 var str = $("#inputremark-"+i).val();
                 Swal.fire({
                     title: 'Remarks',
-                    html: "<textarea id='remark' rows='4' cols='50' placeholder='This is mandatory field. Please key in remarks here!' style='resize: none;'>"+str+"</textarea><p>Are you sure to query this claim application?</p>",
+                    html: "<textarea id='remark' rows='4' style='width: 90%' placeholder='This is mandatory field. Please key in remarks here!' style='resize: none;'>"+str+"</textarea><p>Are you sure to query this claim application?</p>",
                     confirmButtonText:
                         'YES',
                         cancelButtonText: 'NO',

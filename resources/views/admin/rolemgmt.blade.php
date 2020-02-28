@@ -24,10 +24,10 @@
                     <tbody>
                         @foreach($roles as $no => $singleuser)
                         <tr>
-                            <td>{{ $singleuser->id }}</td>
+                            <td>{{++$no}}</td>
                             <td>{{ $singleuser->title }}</td>
                             <td>{{ $singleuser->createdby->name }}</td>
-                            <td>@foreach ($singleuser->permissions as $indexKey => $user)<p>{{$indexKey+1}}. {{ $user->title }}</p>@endforeach</td>
+                            <td class="td-left">@foreach ($singleuser->permissions as $indexKey => $user)<p>{{$indexKey+1}}. {{ $user->title }}</p>@endforeach</td>
                             <td>
                                 <form method="post" action="{{ route('role.delete', [], false) }}" id="formdelete">
                                     @csrf
@@ -86,86 +86,17 @@
     </div>
 </div>
 
-<div id="editRole" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Edit Role</h4>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('role.edit') }}" method="POST">
-                    @csrf
-                    <input type="text" class="form-control hidden" id="inputid" name="inputid" value="" required>
-                    <div class="form-group">
-                        <label for="inputname">Role Name:</label>
-                        <input type="text" class="form-control" id="inputname" name="inputname" value="" required autofocus>
-                    </div>
-                    <p><b>Set Permissions:</b></p>
-                    <div style="max-height: 210px; overflow-y: scroll">
-                    @if($permissions ?? '')
-                        @foreach($permissions as $singlerole)
-                        <div class="checkbox">
-                            <label><input type="checkbox" class="checkbox_{{$singlerole->id}}" name="permission[]" value="{{$singlerole->id}}">{{$singlerole->title}}</label>
-                        </div>
-                        @endforeach
-                    @endif
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary">SAVE</button>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="deleteRole" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Delete Role</h4>
-            </div>
-            <div class="modal-body text-center">
-                <div class="glyphicon glyphicon-warning-sign" style="color: #F0AD4E; font-size: 32px;"></div>
-                <p>Are you sure you want to delete role <span id="showname"></span>?<p>
-                <form action="{{ route('role.delete') }}" method="POST">
-                    @csrf
-                    <input type="text" class="form-control hidden" id="inputid" name="inputid" value="" required>
-                    <input type="text" class="form-control hidden" id="inputname" name="inputname" value="" required>
-                    <button type="submit" class="btn btn-primary">DELETE</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-@if(session()->has('feedback'))
-<div id="feedback" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-            <div class="modal-body text-center">
-                <div class="glyphicon glyphicon-{{session()->get('feedback_icon')}}" style="color: {{session()->get('feedback_color')}}; font-size: 32px;"></div>
-                <p>{{session()->get('feedback_text')}}<p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">CLOSE</button>
-            </div>
-        </div>
-    </div>
-</div>
-@endif
-
+<form action="{{ route('role.edit') }}" method="POST" id="edit" class="hidden">
+	@csrf
+	<input type="text" class="form-control" id="eid" name="inputid" value="">
+	<input type="text" class="form-control" id="ename" name="inputname" value="">
+        @if($permissions ?? '')
+            @foreach($permissions as $no => $singlerole)
+            <input type='checkbox' id='check-{{++$no}}' name='permission[]' value='{{$singlerole->id}}'>
+	
+            @endforeach
+        @endif
+</form>
 @stop
 
 @section('js')
@@ -234,7 +165,7 @@ function deleteid(){
     })
 }
 
-for(i = 0; i<{{count($roles)}}; i++){
+for(i = 0; i<{{count($roles)}}+1; i++){
 	$("#edit-"+i).on("click", edit(i));
 	
 }
@@ -250,7 +181,7 @@ function edit(i){
 						"<p>Role Name</p>"+
 					"</div>"+
 					"<div class='col-md-8'>"+
-						"<input type='text' id='cid' value='"+role_name+"' style='width: 100%'>"+
+						"<input type='text' id='cname' value='"+role_name+"' style='width: 100%' required>"+
 					"</div>"+
 				"</div>"+
 				"<div class='row'>"+
@@ -273,14 +204,9 @@ function edit(i){
                         checked = "checked";
                     }
                 }
-                html = html + "<input type='checkbox' id='checkbox_{{$singlerole->id}}' name='permission[]' value='{{$singlerole->id}}' "+checked+">{{$singlerole->title}}"+
+                html = html + "<input type='checkbox' id='checkbox-{{$no}}' name='permission[]' value='{{$singlerole->id}}' "+checked+"> {{$singlerole->title}}"+
                 "</div>";
-        //     html = html +"<div class='col-md-8'>"+
-		// 				    "<input type='checkbox' id='checkbox_{{$singlerole->id}}' name='permission[]' value='{{$singlerole->id}}'  style='width: 100%' >{{$singlerole->title}}"+
-		// 			    "</div>";
-        //     <div class="checkbox">
-        //         <label><input type="checkbox" id="checkbox_{{$singlerole->id}}" name="permission[]" value="{{$singlerole->id}}">{{$singlerole->title}}</label>
-        //     </div>
+        
             @endforeach
         @endif
 		Swal.fire({
@@ -296,18 +222,30 @@ function edit(i){
 			cancelButtonText: 'CANCEL'
 			}).then((result) => {
 			if (result.value) {
-				if(($('#cid').val()!="")&&($('#cdes').val()!="")){
-					$('#eid').val($('#cid').val());
-					$('#editdescr').val($('#cdes').val());
+				if(($('#cname').val()!="")){
+                    $('#eid').val(role_id);
+                    $('#ename').val($('#cname').val());
+                    for(x=1; x<5; x++){
+                        if ($('#checkbox-'+x).is(':checked')){
+                            $('#check-'+x).prop('checked', true);
+                        }
+                    }
 					$("#edit").submit();
 					// alert($('#cid').val()+" "+$('#eid').val());
 				}else{
-					Swal.fire({
-							icon: 'error',
-							title: 'Edit Error',
-					text: "One of the input fields cannot be empty!",
-					confirmButtonText:'OK'
-					})
+					// Swal.fire({
+					// 		icon: 'error',
+					// 		title: 'Edit Error',
+					// text: "Name field cannot be empty!",
+					// confirmButtonText:'OK'
+					// }).then((result) => {
+                    //     if (result.value) {
+                    //       return edit(i);  
+                    //     }
+                    // })
+                    if($('#cname').get(0).checkValidity()==false){
+                        $('#cname').get(0).reportValidity();
+                    }
 				}
 			}
 		})

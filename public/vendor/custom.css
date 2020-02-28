@@ -539,6 +539,11 @@ tr > td.td-btn{
     min-width: 80px;
 }
 
+
+tr > td.td-left{
+    text-align: left !important;
+}
+
 tr > td:first-child{
     border-left: 1px solid #DDDDDD !important;
     text-align: center !important;
