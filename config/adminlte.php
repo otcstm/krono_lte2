@@ -33,10 +33,10 @@ return [
     |
     */
 
-    'logo' => 'OT System',
+    'logo' => 'OT Claim System',
 
     // 'logo_mini' => '<b>A</b>LT',
-    'logo_mini' => 'OTS',
+    'logo_mini' => 'OTCS',
 
     /*
     |--------------------------------------------------------------------------
@@ -131,7 +131,7 @@ return [
 
     'menu' => [
 
-        //UNCOMMENT THIS LATER
+      //   //UNCOMMENT THIS LATER
       ['header' => 'admin_menu'],
       [
         'text' => 'ot_menu',
@@ -213,7 +213,7 @@ return [
       ],
       [
         'text' => 'admin_user_menu',
-        'icon' => 'fas fa-user-ninja',
+        'icon' => 'fas fa-clock',
         'submenu' => [
           [
               'text' => 'user_autho',
@@ -227,6 +227,14 @@ return [
               'url'  => '/admin/staff',
               'icon' => '',
             //   'icon' => 'far fa-folder-open',
+              // 'can' => 'admin-nav-menu',
+          ],
+          [
+              'text' => 'manual_overtime',
+              'url' => '/admin/overtime/approval',
+              'otv' => '',
+              'icon' => '',
+            //   'icon' => 'fas fas fa-clock',
               // 'can' => 'admin-nav-menu',
           ],
           [
