@@ -4,8 +4,11 @@ namespace App\Api\Datamart;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\Controller;
 use App\UserShiftPattern;
+use App\ShiftPattern;
 use \Carbon\Carbon;
 use DateTime;
+use App\CustomCollection;
+use Illuminate\Support\Collection;
 
 use Illuminate\Http\Request;
 
@@ -34,12 +37,14 @@ class UserShiftPatternController extends Controller
         $nsp->save();
       }
 
-      $sp = ShiftPattern::where('code', $req->$shift_pattern_code)->first();
+      $sp = ShiftPattern::where('code', $shift_pattern_code)->first();
       $startDate = DateTime::createFromFormat('Ymd', $req->start_date);
 
 
-      $usp->user_id           = $req->pernr;
-      $usp->shift_pattern_id  = $req->$sp;
+
+
+      $usp->user_id           = $req->pers_no;
+      $usp->shift_pattern_id  = $sp->id;
 
       $usp->start_date        = $req->start_date;
       $usp->end_date          = $req->end_date;
@@ -48,8 +53,16 @@ class UserShiftPatternController extends Controller
       $usp->source            = 'SAP' ;
 
       $usp->save();
-      return {'persno':$usp->persno,
-      'shift_pattern':$sp->description};
+      $collection = ["user_id" => $usp->user_id, "shift_pattern" => $sp->code ];
+
+
+
+
+
+      return $collection;
+
+
+      ;
   }
 
   public function returnMaxDate()
