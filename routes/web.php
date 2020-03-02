@@ -59,6 +59,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/admin/staff', 'Admin\StaffController@showMgmt')->name('staff.list.mgmt');
   Route::post('/admin/staff/edit', 'Admin\StaffController@updateMgmt')->name('staff.edit.mgmt');
   //User authorization
+  Route::get('/admin/staff/auth/empty', 'Admin\StaffController@emptystaffauth')->name('staff.list.auth.empty');
   Route::get('/admin/staff/auth', 'Admin\StaffController@showRole')->name('staff.list.auth');
   Route::post('/admin/staff/auth/edit', 'Admin\StaffController@updateRole')->name('staff.edit.auth');
   //Role management

@@ -3,7 +3,7 @@
 return [
     'admin_menu'      => 'ADMIN',
     'system_config'   => 'System Configuration',
-    'user_autho'      => 'User Authorization',
+    'user_autho'      => 'Set User Authorization',
     'manage_role'     => 'Manage Role',
     'manage_company'  => 'Manage Company',
     'manage_state'    => 'Manage State',

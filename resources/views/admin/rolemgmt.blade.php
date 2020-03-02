@@ -31,8 +31,7 @@
                             <td>
                                 <form method="post" action="{{ route('role.delete', [], false) }}" id="formdelete">
                                     @csrf
-                                    <button type="button" class="btn btn-np" title="Edit" id="edit-{{$no}}" data-role_id="{{$singleuser['id']}}" data-role_name="{{$singleuser['title']}}" data-role_permission="@foreach ($singleuser->permissions as $user){{ $user->id }} @endforeach"
-                                        >
+                                    <button type="button" class="btn btn-np" title="Edit" id="edit-{{$no}}" data-role_id="{{$singleuser['id']}}" data-role_name="{{$singleuser['title']}}" data-role_permission="@foreach ($singleuser->permissions as $user){{ $user->id }} @endforeach">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <button type="button" class="btn btn-np" title="Delete" data-compdescr="{{$singleuser['title']}}" onclick="return deleteid()" id="buttond">
@@ -113,27 +112,6 @@ $(document).ready(function() {
             { "width": "10%" }
         ]
     });
-});
-
-function populate(e){
-    var role_id = $(e.relatedTarget).data('role_id');
-    var role_name = $(e.relatedTarget).data('role_name')
-    var role_permission = $(e.relatedTarget).data(('role_permission'));
-    var role_permissions = role_permission.split(" ");
-    $('input[name=inputid]').val(role_id);
-    $('input[name=inputname]').val(role_name);
-    $('#showname').text(role_name);
-    for(i=0; i<role_permissions.length; i++){
-        $(".checkbox_"+role_permissions[i]).prop('checked', true);
-    }
-}
-
-$('#editRole').on('show.bs.modal', function(e) {
-    populate(e);
-});
-
-$('#deleteRole').on('show.bs.modal', function(e) {
-    populate(e);
 });
 
 @if(session()->has('feedback'))
@@ -231,18 +209,7 @@ function edit(i){
                         }
                     }
 					$("#edit").submit();
-					// alert($('#cid').val()+" "+$('#eid').val());
 				}else{
-					// Swal.fire({
-					// 		icon: 'error',
-					// 		title: 'Edit Error',
-					// text: "Name field cannot be empty!",
-					// confirmButtonText:'OK'
-					// }).then((result) => {
-                    //     if (result.value) {
-                    //       return edit(i);  
-                    //     }
-                    // })
                     if($('#cname').get(0).checkValidity()==false){
                         $('#cname').get(0).reportValidity();
                     }
