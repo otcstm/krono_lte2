@@ -68,9 +68,9 @@ class RoleController extends Controller{
         $delete_role->deleted_by = $req->user()->id;
         $delete_role->save();
         Role::find($req->inputid)->delete();
-        $execute = UserHelper::LogUserAct($req, "Role Management", "Delete Role " .$req->inputname);
+        $execute = UserHelper::LogUserAct($req, "Role Management", "Delete Role " .$delete_role->title);
         $feedback = true;
-        $feedback_text = "Successfully deleted role " .$req->inputname. ".";
+        $feedback_text = "Successfully deleted role " .$delete_role->title. ".";
         $role = Role::all(); 
         return redirect(route('role.list',[],false))->with([
             'role' => $role,

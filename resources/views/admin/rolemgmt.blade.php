@@ -29,12 +29,12 @@
                             <td>{{ $singleuser->createdby->name }}</td>
                             <td class="td-left">@foreach ($singleuser->permissions as $indexKey => $user)<p>{{$indexKey+1}}. {{ $user->title }}</p>@endforeach</td>
                             <td>
-                                <form method="post" action="{{ route('role.delete', [], false) }}" id="formdelete">
+                                <form method="post" action="{{ route('role.delete', [], false) }}" id="formdelete-{{$no}}">
                                     @csrf
                                     <button type="button" class="btn btn-np" title="Edit" id="edit-{{$no}}" data-role_id="{{$singleuser['id']}}" data-role_name="{{$singleuser['title']}}" data-role_permission="@foreach ($singleuser->permissions as $user){{ $user->id }} @endforeach">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button type="button" class="btn btn-np" title="Delete" data-compdescr="{{$singleuser['title']}}" onclick="return deleteid()" id="buttond">
+                                    <button type="button" class="btn btn-np" title="Delete" data-compdescr="{{$singleuser['title']}}" id="del-{{$no}}">
                                             <i class="fas fa-trash-alt"></i>
                                     </button>
                                     <input type="hidden" name="inputid" value="{{$singleuser->id}}">
@@ -124,29 +124,32 @@ $(document).ready(function() {
 
 
 
-function deleteid(){
+function deleteid(i){
+	return function(){
 	
-    var ps_comp = $("#buttond").data('compdescr');
-	Swal.fire({
-        title: 'Are you sure?',
-        text: "Delete role "+ps_comp+"?",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'DELETE',
-        cancelButtonText: 'CANCEL'
-        }).then((result) => {
-        if (result.value) {
-            $("#formdelete").submit();
-        }
-    })
+        var ps_comp = $("#del-"+i).data('compdescr');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Delete role "+ps_comp+"?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'DELETE',
+            cancelButtonText: 'CANCEL'
+            }).then((result) => {
+            if (result.value) {
+                $("#formdelete-"+i).submit();
+            }
+        })
+    }
 }
 
 for(i = 0; i<{{count($roles)}}+1; i++){
 	$("#edit-"+i).on("click", edit(i));
-	
+	$("#del-"+i).on("click", deleteid(i));	
 }
+
 
 function edit(i){
 	return function(){

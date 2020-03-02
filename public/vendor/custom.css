@@ -525,7 +525,7 @@ tr > td:last-child{
 
 td{
     vertical-align: middle !important;
-    text-align: center;
+    text-align: left;
     border: 1px solid #DDDDDD !important;
     border-right: 0 !important;
     border-left: 0 !important;
@@ -854,4 +854,20 @@ ul.pagination > li.active a{
 
 .border{
     border: 2px solid black;
+}
+
+input{
+    height: 25px;
+    border-radius: 3px;
+    border: 1px solid #707070;
+}
+
+input[type=checkbox]{
+    height: initial;
+}
+
+select{
+    height: 25px;
+    border-radius: 3px;
+    border: 1px solid #707070;
 }
