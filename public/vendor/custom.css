@@ -296,6 +296,11 @@ body{
     font-weight: bold;
 }
 
+.btn-up:hover, .btn-up:focus{
+    color: #143A8C;;
+    background: transparent;
+}
+
 .btn-p{
     padding: 6px 50px;
     margin-left: 25px;
@@ -870,4 +875,31 @@ select{
     height: 25px;
     border-radius: 3px;
     border: 1px solid #707070;
+}
+
+.flext{
+    display: flex !important; 
+    justify-content: space-between;
+}
+
+.flext div{
+    display: inline;
+}
+
+.buttons-csv, .buttons-excel, .buttons-pdf{
+    position: relative;
+    padding: 2px 15px !important;
+    border-radius: 5px !important;
+    background: #143A8C;
+    color: white;
+    border: 2px solid #143A8C;
+    margin-left: 5px !important;
+    font-weight: bold;
+}
+
+.buttons-csv:hover, .buttons-excel:hover, .buttons-pdf:hover,
+.buttons-csv:focus, .buttons-excel:focus, .buttons-pdf:focus{
+    background: transparent;
+    border: 2px solid #143A8C !important;
+    color: #143A8C;
 }

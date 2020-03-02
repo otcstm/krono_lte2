@@ -134,7 +134,7 @@ return [
       //   //UNCOMMENT THIS LATER
       ['header' => 'admin_menu'],
       [
-        'text' => 'ot_menu',
+        'text' => 'admin_menu',
         'icon' => 'fas f fa-user-clock',
         'submenu' => [
           [
@@ -173,10 +173,17 @@ return [
             //   'icon' => 'fas fa-map-marked-alt',
               // 'can' => 'admin-nav-menu',
           ],
+          // [
+          //     'text' => 'manage_overtime',
+          //     'url' => '/admin/overtime',
+          //     'otm' => '',
+          //     'icon' => '',
+          //   //   'icon' => 'fas fas fa-clock',
+          //     // 'can' => 'admin-nav-menu',
+          // ],
           [
-              'text' => 'manage_overtime',
-              'url' => '/admin/overtime',
-              'otm' => '',
+              'text' => 'manage_eligibility',
+              'url' => '/admin/overtime/eligibility',
               'icon' => '',
             //   'icon' => 'fas fas fa-clock',
               // 'can' => 'admin-nav-menu',
@@ -500,9 +507,37 @@ return [
 
     'plugins' => [
         [
+          'name' => 'Jszip',
+          'active' => true,
+          'files' => [
+              [
+                  'type' => 'js',
+                  'asset' => false,
+                  'location' => '//cdnjs.cloudflare.com/ajax/libs/jszip/3.2.2/jszip.min.js',
+              ],
+          ],
+        ],
+        [
+          'name' => 'PDFmake',
+          'active' => true,
+          'files' => [
+              [
+                  'type' => 'js',
+                  'asset' => false,
+                  'location' => '//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.62/pdfmake.min.js',
+              ],
+          ],
+        ],
+        [
             'name' => 'Datatables',
             'active' => true,
             'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    // 'location' => '//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js',
+                    'location' => '//cdn.datatables.net/v/bs/dt-1.10.20/b-1.6.0/b-html5-1.6.0/fh-3.1.6/datatables.min.js',
+                ],
                 [
                     'type' => 'js',
                     'asset' => false,
@@ -514,6 +549,12 @@ return [
                     'asset' => false,
                     // 'location' => '//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css',
                     'location' => '//cdn.datatables.net/v/bs/dt-1.10.20/b-1.6.0/b-html5-1.6.0/fh-3.1.6/datatables.min.css',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    // 'location' => '//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css',
+                    'location' => '//cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css',
                 ],
 
             ],

@@ -46,7 +46,7 @@
             </span></a>
     </li>
 @elseif (isset($item['otm']))
-    <li class="{{ $item['class'] }}">
+    <!-- <li class="{{ $item['class'] }}">
         <a href="{{ route('oe.otm') }}"
            @if (isset($item['target'])) target="{{ $item['target'] }}" @endif
         >
@@ -54,7 +54,7 @@
             <span>
                 {{ $item['text'] }}
             </span></a>
-    </li>
+    </li> -->
 @elseif (isset($item['otv']))
     <li class="{{ $item['class'] }}">
         <a href="{{ route('ot.adminview') }}"

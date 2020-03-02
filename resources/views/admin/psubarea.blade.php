@@ -251,7 +251,7 @@ function edit(i){
 							"<p>Company Code</p>"+
 						"</div>"+
 						"<div class='col-md-8'>"+
-							"<input type='text' id='ps_comp' class='check-0' value='"+ps_comp+"' style='width: 100%' disabled>"+
+							"<input type='text' id='sps_comp' class='check-0' value='"+ps_comp+"' style='width: 100%' disabled>"+
 						"</div>"+
 					"</div>"+
         			"<div class='row'>"+

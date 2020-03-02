@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\OvertimeEligibility;
 use App\OvertimeExpiry;
 use App\Company;
+use App\UserRecord;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
@@ -13,26 +14,104 @@ use Session;
 class OvertimeMgmtController extends Controller
 {
 
-    public function show(Request $req){  
-        // dd($req->session()->get('type'));
-        if($req->session()->get('type')!=null){
-            $req->formtype = $req->session()->get('type');
-            $req->inputregion = $req->session()->get('region');
-            $req->inputcompany = $req->session()->get('company');
+    // public function show(Request $req){  
+    //     // dd($req->session()->get('type'));
+    //     if($req->session()->get('type')!=null){
+    //         $req->formtype = $req->session()->get('type');
+    //         $req->inputregion = $req->session()->get('region');
+    //         $req->inputcompany = $req->session()->get('company');
+    //     }
+    //     if($req->formtype==""){
+    //         $oe = OvertimeEligibility::all();     
+    //         return view('admin.otmgmt', ['oe' => $oe]);
+    //     }else if($req->formtype=="eligibility"){
+    //         $oe = OvertimeEligibility::where('company_id', $req->inputcompany)->where('region', $req->inputregion)->get();  
+    //         // dd($oe);
+    //         return view('admin.otmgmteligibility', ['oe' => $oe]);
+    //     }else if($req->formtype=="expiry"){
+    //         // dd($req->inputcompany);
+    //         $oe = OvertimeExpiry::where('company_id', $req->inputcompany)->where('region', $req->inputregion)->get();  
+    //         // dd($oe);
+    //         return view('admin.otmgmtexpiry', ['oe' => $oe]);
+    //     }
+    // }
+
+    public function eligibilityshow(Request $req){  
+        $oe = OvertimeEligibility::all();  
+        $comp = Company::all();  
+        return view('admin.oteligibility', ['oe' => $oe, 'comp' => $comp]);
+    }
+
+    public function eligibilityadd(Request $req){  
+        $latest = OvertimeEligibility::where('company_id', $req->companycode)->where('region', $req->region)->where('empgroup', $req->empgroup)->where('empsgroup', $req->empsgroup)->where('psgroup', $req->psgroup)->latest('created_at')->first();
+        $staffr = UserRecord::where('user_id', $req->user()->id)->where('upd_sap','<=',date('Y-m-d'))->first();
+        $add = new OvertimeEligibility;
+        if($latest->start_date!=$req->sdate){
+            $add->company_id = $req->companycode;
+            $add->region = $req->region;
+            $add->empgroup = $req->empgroup;
+            $add->empsgroup = $req->empsgroup;
+            $add->psgroup = $req->psgroup;
+            $add->salary_cap = $req->capping;
+            $add->min_salary = $req->minsalary;
+            $add->max_salary = $req->maxsalary;
+            $add->hourpermonth = $req->hours;
+            $add->start_date = $req->sdate;
+            $add->end_date = '9999-12-31';
+            $add->created_by = $req->user()->id;
+            $add->save();
+            if($latest!=null){
+                $old = OvertimeEligibility::find($latest->id);
+                $old->end_date = $req->sdate;
+                $old->save();
+            }
+            return redirect(route('oe.eligibility.show',[],false))->with([
+                'feedback' => true,
+                'feedback_text' => "Successfully added a new system eligibility!",
+                'feedback_title' => "Success"
+            ]);
+        }else{
+            return redirect(route('oe.eligibility.show',[],false))->with([
+                'feedback' => true,
+                'feedback_text' => "New system eligibility cannot have the same start date as current configuration!",
+                'feedback_title' => "Failed"
+            ]);
         }
-        if($req->formtype==""){
-            $oe = OvertimeEligibility::all();     
-            return view('admin.otmgmt', ['oe' => $oe]);
-        }else if($req->formtype=="eligibility"){
-            $oe = OvertimeEligibility::where('company_id', $req->inputcompany)->where('region', $req->inputregion)->get();  
-            // dd($oe);
-            return view('admin.otmgmteligibility', ['oe' => $oe]);
-        }else if($req->formtype=="expiry"){
-            // dd($req->inputcompany);
-            $oe = OvertimeExpiry::where('company_id', $req->inputcompany)->where('region', $req->inputregion)->get();  
-            // dd($oe);
-            return view('admin.otmgmtexpiry', ['oe' => $oe]);
+    }
+    public function eligibilityremove(Request $req){  
+        $date = OvertimeEligibility::where('id',$req->inputid)->first();
+        $delete = OvertimeEligibility::find($req->inputid)->delete();
+        $old = OvertimeEligibility::where('end_date', $date->start_date)->first();
+        if($old!=null){
+            $old->end_date = '9999-12-31';
+            $old->save();
         }
+        return redirect(route('oe.eligibility.show',[],false))->with([
+            'feedback' => true,
+            'feedback_text' => "Successfully deleted a system eligibility!",
+            'feedback_title' => "Success"
+        ]);
+    }
+
+    public function eligibilityupdate(Request $req){  
+        $date = OvertimeEligibility::where('id',$req->eid)->first();
+        $old = OvertimeEligibility::where('end_date', $date->start_date)->first();
+        $update = OvertimeEligibility::find($req->eid);
+        if($old!=null){
+            $old->end_date = $req->esdate;
+            $old->save();
+        }
+        $update->salary_cap = $req->ecapping;
+        $update->min_salary = $req->eminsalary;
+        $update->max_salary = $req->emaxsalary;
+        $update->hourpermonth = $req->ehours;
+        $update->start_date = $req->esdate;
+        $update->save();
+        return redirect(route('oe.eligibility.show',[],false))->with([
+            'feedback' => true,
+            'feedback_text' => "Successfully update a system eligibility!",
+            'feedback_title' => "Success"
+        ]);
     }
 
     public function otm(){  

@@ -93,20 +93,26 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/admin/paymentsc/delete','Admin\PaymentScheduleController@destroy')->name('paymentsc.delete');
 
   //OT Config
-  Route::get('/admin/overtime', 'Admin\OvertimeMgmtController@show')->name('oe.show');
-  Route::post('/admin/overtime', 'Admin\OvertimeMgmtController@show')->name('oe.show');
-  Route::get('/admin/overtime/m', 'Admin\OvertimeMgmtController@otm')->name('oe.otm');
-  Route::get('/admin/overtime/getcompany', 'Admin\OvertimeMgmtController@getCompany')->name('oe.getcompany');
-  Route::get('/admin/overtime/eligible/getlast', 'Admin\OvertimeMgmtController@getLast')->name('oe.eligiblegetlast');
-  Route::post('/admin/overtime/eligible/store', 'Admin\OvertimeMgmtController@eligiblestore')->name('oe.eligiblestore');
-  Route::post('/admin/overtime/eligible/update', 'Admin\OvertimeMgmtController@eligibleupdate')->name('oe.eligibleupdate');
-  Route::post('/admin/overtime/eligible/delete', 'Admin\OvertimeMgmtController@eligibledelete')->name('oe.eligibledelete');
-  Route::post('/admin/overtime/expiry/store', 'Admin\OvertimeMgmtController@expirystore')->name('oe.expirystore');
-  Route::post('/admin/overtime/expiry/update', 'Admin\OvertimeMgmtController@expiryupdate')->name('oe.expiryupdate');
-  Route::post('/admin/overtime/expiry/delete', 'Admin\OvertimeMgmtController@expirydelete')->name('oe.expirydelete');
-  Route::post('/admin/overtime/expiry/active', 'Admin\OvertimeMgmtController@active')->name('oe.active');
-  Route::get('/admin/overtime/expiry/getexpiry', 'Admin\OvertimeMgmtController@getExpiry')->name('oe.getexpiry');
-  Route::get('/admin/overtime/expiry/getlast', 'Admin\OvertimeMgmtController@getLast2')->name('oe.expirygetlast');
+  // Route::get('/admin/overtime', 'Admin\OvertimeMgmtController@show')->name('oe.show');
+  // Route::post('/admin/overtime', 'Admin\OvertimeMgmtController@show')->name('oe.show');
+  // Route::get('/admin/overtime/m', 'Admin\OvertimeMgmtController@otm')->name('oe.otm');
+  // Route::get('/admin/overtime/getcompany', 'Admin\OvertimeMgmtController@getCompany')->name('oe.getcompany');
+  // Route::get('/admin/overtime/eligible/getlast', 'Admin\OvertimeMgmtController@getLast')->name('oe.eligiblegetlast');
+  // Route::post('/admin/overtime/eligible/store', 'Admin\OvertimeMgmtController@eligiblestore')->name('oe.eligiblestore');
+  // Route::post('/admin/overtime/eligible/update', 'Admin\OvertimeMgmtController@eligibleupdate')->name('oe.eligibleupdate');
+  // Route::post('/admin/overtime/eligible/delete', 'Admin\OvertimeMgmtController@eligibledelete')->name('oe.eligibledelete');
+  // Route::post('/admin/overtime/expiry/store', 'Admin\OvertimeMgmtController@expirystore')->name('oe.expirystore');
+  // Route::post('/admin/overtime/expiry/update', 'Admin\OvertimeMgmtController@expiryupdate')->name('oe.expiryupdate');
+  // Route::post('/admin/overtime/expiry/delete', 'Admin\OvertimeMgmtController@expirydelete')->name('oe.expirydelete');
+  // Route::post('/admin/overtime/expiry/active', 'Admin\OvertimeMgmtController@active')->name('oe.active');
+  // Route::get('/admin/overtime/expiry/getexpiry', 'Admin\OvertimeMgmtController@getExpiry')->name('oe.getexpiry');
+  // Route::get('/admin/overtime/expiry/getlast', 'Admin\OvertimeMgmtController@getLast2')->name('oe.expirygetlast');
+  
+  Route::get('/admin/overtime/eligibility', 'Admin\OvertimeMgmtController@eligibilityshow')->name('oe.eligibility.show');
+  Route::post('/admin/overtime/eligibility/add', 'Admin\OvertimeMgmtController@eligibilityadd')->name('oe.eligibility.add');
+  Route::post('/admin/overtime/eligibility/remove', 'Admin\OvertimeMgmtController@eligibilityremove')->name('oe.eligibility.remove');
+  Route::post('/admin/overtime/eligibility/update', 'Admin\OvertimeMgmtController@eligibilityupdate')->name('oe.eligibility.update');
+
   //Payroll Group
   Route::get( '/admin/pygroup','Admin\PayrollgroupController@index')->name('pygroup.index');
   Route::get('/admin/pygroup/create', 'Admin\PayrollgroupController@create')->name('pygroup.create');

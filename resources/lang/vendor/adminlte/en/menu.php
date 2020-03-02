@@ -1,19 +1,20 @@
 <?php
 
 return [
-    'admin_menu'      => 'ADMIN',
+    'admin_menu'      => 'SYSTEM CONFIGURATION',
     'system_config'   => 'System Configuration',
     'user_autho'      => 'Set User Authorization',
-    'manage_role'     => 'Manage Role',
-    'manage_company'  => 'Manage Company',
-    'manage_state'    => 'Manage State',
-    'manage_psubarea' => 'Manage Psubarea',
-    'manage_overtime' => 'Manage Overtime',
+    'manage_role'     => 'Role Management',
+    'manage_company'  => 'Company Management',
+    'manage_state'    => 'State Management',
+    'manage_psubarea' => 'Psubarea Management',
+    'manage_overtime' => 'Overtime Management',
+    'manage_eligibility' => 'System Eligibility',
     'manual_overtime' => 'Claim Manual Approval',
     'manage_overtimeex' => 'Manage Overtime Expiry',
     'manage_wdays'    => 'Work Day Type',
     'admin_user_menu'   => 'USER MANAGMENT',
-    'manage_holiday'    => 'Manage Holiday',
+    'manage_holiday'    => 'Holiday Management',
     'paymentsch' => 'Payment Schedule',
     'payrollgroup' => 'Payroll Grouping',
 
