@@ -38,7 +38,9 @@ class UserShiftPatternController extends Controller
       }
 
       $sp = ShiftPattern::where('code', $shift_pattern_code)->first();
-      $startDate = DateTime::createFromFormat('Ymd', $req->start_date);
+      $startDate = DateTime::createFromFormat('Ymd H:i:s', $req->start_date .' 00:00:00');
+      $endDate = DateTime::createFromFormat('Ymd H:i:s', $req->end_date .' 00:00:00');
+      $upd_sap = DateTime::createFromFormat('Ymd H:i:s', $req->change_on .' 00:00:00');
 
 
 
@@ -46,9 +48,11 @@ class UserShiftPatternController extends Controller
       $usp->user_id           = $req->pers_no;
       $usp->shift_pattern_id  = $sp->id;
 
-      $usp->start_date        = $req->start_date;
-      $usp->end_date          = $req->end_date;
+      $usp->start_date        = $startDate;
+      $usp->end_date          = $endDate;
       $usp->sap_code          = $shift_pattern_code;
+      $usp->upd_sap           = $upd_sap;
+
       $usp->created_by        = 0;
       $usp->source            = 'SAP' ;
 
