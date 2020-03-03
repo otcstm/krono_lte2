@@ -27,6 +27,8 @@ $api->version('v1', function ($api) {
   $api->post('salary/insertSalary', 'App\Api\Datamart\SalaryController@insert');
   $api->get('userShiftPattern/getLastUpdSAP', 'App\Api\Datamart\UserShiftPatternController@returnMaxDate');
   $api->post('userShiftPattern/insert', 'App\Api\Datamart\UserShiftPatternController@insert');
+  $api->post('cc/delAll', 'App\Api\Datamart\CcController@deleteAll');
+  $api->post('cc/insert', 'App\Api\Datamart\CcController@insert');
 
     //Route::get('/salary/retABC', 'Datamart\SalaryController@returnABC')->name('salary.abc');
 
