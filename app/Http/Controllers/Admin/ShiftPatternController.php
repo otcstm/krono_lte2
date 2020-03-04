@@ -25,6 +25,7 @@ class ShiftPatternController extends Controller
     $nsp->description = $req->description;
     $nsp->is_weekly = $req->filled('is_weekly');
     $nsp->created_by = $req->user()->id;
+    $nsp->source = 'OTCS';
     $nsp->save();
 
     return redirect(route('sp.view', ['id' => $nsp->id], false));
@@ -78,6 +79,7 @@ class ShiftPatternController extends Controller
       // $tsp->total_minutes += $tdaytype->total_minutes;
       // $tsp->days_count = $curdaycount;
       $tsp->last_edited_by = $req->user()->id;
+      $tsp->source = 'OTCS';
       $tsp->save();
       // $tsp->updateTotals();
 
@@ -96,8 +98,10 @@ class ShiftPatternController extends Controller
     if($spd){
       $tsp = $spd->ShiftPattern;
       $tsp->last_edited_by = $req->user()->id;
+      $tsp->source = 'OTCS';
       $tsp->save();
       $code = $spd->Day->code;
+
       $spd->delete();
 
       // $tsp->updateTotals();
@@ -115,6 +119,7 @@ class ShiftPatternController extends Controller
     if($tsp){
       $tsp->description = $req->description;
       $tsp->last_edited_by = $req->user()->id;
+      $tsp->source = 'OTCS';
       $tsp->save();
 
       return redirect(route('sp.view', ['id' => $req->id], false))->with(['alert' => 'Description updated', 'a_type' => 'success']);
