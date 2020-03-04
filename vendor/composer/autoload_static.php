@@ -487,6 +487,7 @@ class ComposerStaticInit70b8d08227d7c3b552893f13c0169706
     public static $classMap = array (
         'AmerPermissionSeeder' => __DIR__ . '/../..' . '/database/seeds/AmerPermissionSeeder.php',
         'App\\AlertHistory' => __DIR__ . '/../..' . '/app/AlertHistory.php',
+        'App\\Api\\Datamart\\UserShiftPatternController' => __DIR__ . '/../..' . '/app/Api/Datamart/UserShiftPatternController.php',
         'App\\Company' => __DIR__ . '/../..' . '/app/Company.php',
         'App\\CompanyPayrollgroup' => __DIR__ . '/../..' . '/app/CompanyPayrollgroup.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
@@ -532,7 +533,6 @@ class ComposerStaticInit70b8d08227d7c3b552893f13c0169706
         'App\\Http\\Controllers\\ShiftPlanController' => __DIR__ . '/../..' . '/app/Http/Controllers/ShiftPlanController.php',
         'App\\Http\\Controllers\\TempController' => __DIR__ . '/../..' . '/app/Http/Controllers/TempController.php',
         'App\\Http\\Controllers\\URController' => __DIR__ . '/../..' . '/app/Http/Controllers/URController.php',
-        'App\\Http\\Controllers\\UserShiftPatternController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserShiftPatternController.php',
         'App\\Http\\Controllers\\UserVerifierController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserVerifierController.php',
         'App\\Http\\Controllers\\VerifierGroupController' => __DIR__ . '/../..' . '/app/Http/Controllers/VerifierGroupController.php',
         'App\\Http\\Controllers\\VerifierGroupMemberController' => __DIR__ . '/../..' . '/app/Http/Controllers/VerifierGroupMemberController.php',

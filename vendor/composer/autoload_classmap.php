@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'AmerPermissionSeeder' => $baseDir . '/database/seeds/AmerPermissionSeeder.php',
     'App\\AlertHistory' => $baseDir . '/app/AlertHistory.php',
+    'App\\Api\\Datamart\\UserShiftPatternController' => $baseDir . '/app/Api/Datamart/UserShiftPatternController.php',
     'App\\Company' => $baseDir . '/app/Company.php',
     'App\\CompanyPayrollgroup' => $baseDir . '/app/CompanyPayrollgroup.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
@@ -53,7 +54,6 @@ return array(
     'App\\Http\\Controllers\\ShiftPlanController' => $baseDir . '/app/Http/Controllers/ShiftPlanController.php',
     'App\\Http\\Controllers\\TempController' => $baseDir . '/app/Http/Controllers/TempController.php',
     'App\\Http\\Controllers\\URController' => $baseDir . '/app/Http/Controllers/URController.php',
-    'App\\Http\\Controllers\\UserShiftPatternController' => $baseDir . '/app/Http/Controllers/UserShiftPatternController.php',
     'App\\Http\\Controllers\\UserVerifierController' => $baseDir . '/app/Http/Controllers/UserVerifierController.php',
     'App\\Http\\Controllers\\VerifierGroupController' => $baseDir . '/app/Http/Controllers/VerifierGroupController.php',
     'App\\Http\\Controllers\\VerifierGroupMemberController' => $baseDir . '/app/Http/Controllers/VerifierGroupMemberController.php',
