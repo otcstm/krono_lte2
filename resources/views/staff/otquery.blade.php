@@ -14,7 +14,7 @@
 @elseif($view=='admin')
 <h1>Claim Manual Approval</h1>
 @endif
-<div class="panel panel-main panel-default">
+<div class="panel panel-default">
     <div class="panel-body">
         
         @if($view=='admin')
@@ -68,7 +68,7 @@
         <br>
         @endif
 
-        @if(count($otlist)!=0)
+    @if(count($otlist)!=0)
         
         <form action="{{route('ot.query')}}" method="POST" style="display:inline"> 
             @csrf    
@@ -84,22 +84,19 @@
                     <thead style="background: grey">
                         <tr>
                             <th>No</th>
-                            <th>Reference No</th>
                             <th>Name</th>
                             <th>Date</th>
                             <th>Start OT</th>
                             <th>End OT</th>
                             <th>Total Hours/Minutes</th>
-                            <th>Charge Code</th>
-                            <th>Location</th>
                             <th>Amount (Estimated)</th>
                             <th>Status</th>
                             @if(($view=='verifier')||($view=='approver')||($view=='admin'))
-                                @if($view=='approver')
+                                @if(($view=='approver')||($view=='admin'))
                                 <th>Verifier</th>
                                 @endif
-                            <th>Action</th>
-                            <th>Action Remark</th>
+                            <th class="border-right" id="borderman">Action</th>
+                            <th id="aremark" style="display: none">Action Remark</th>
                             @endif
                         </tr>
                     </thead>
@@ -108,11 +105,8 @@
                         <tr>
                             <input type="text" class="form-control hidden" name="inputid[]" value="{{$singleuser->id}}" required>
                             <td>{{++$no}}</td>
-                            <td>
-                                <a href="" id="a-{{$no}}" style="font-weight: bold; color: #143A8C" data-id="{{$singleuser->id}}">{{ $singleuser->refno }}</a>
-                            </td>
                             <td>{{ $singleuser->name->name }}</td>
-                            <td>{{ date("d.m.Y", strtotime($singleuser->date)) }}</td>
+                            <td><a href="" id="a-{{$no}}" style="font-weight: bold; color: #143A8C" data-id="{{$singleuser->id}}">{{ date("d.m.Y", strtotime($singleuser->date)) }}</a></td>
                             <td>
                                 @foreach($singleuser->detail as $details)
                                     {{date('Hi', strtotime($details->start_time)) }}<br>
@@ -124,8 +118,6 @@
                                 @endforeach
                             </td>
                             <td>{{ $singleuser->total_hour }}h/{{ $singleuser->total_minute }}m</td>
-                            <td>{{$singleuser->charge_type}}</td>
-                            <td>@foreach($singleuser->detail as $details){{$details->in_latitude}} {{$details->in_longitude}}<br>@endforeach</td> 
                             <td>RM{{$singleuser->amount}}</td>
                             <td>
                                 @if($singleuser->status=="PA")
@@ -136,7 +128,7 @@
                             </td>
                             
                             @if(($view=='verifier')||($view=='approver')||($view=='admin'))
-                                @if($view=='approver')
+                                @if(($view=='approver')||($view=='admin'))
                                     <td>
                                         <span class='hidden' id="show-verifier-cache-{{$no}}">{{$singleuser->verifier->name}}</span>
                                         
@@ -146,15 +138,15 @@
                                         
                                     </td>
                                 @endif
-                            <td>
+                            <td class="border-right" id="borderman-{{$no}}">
                                 <input type="text" class="hidden"  id="verifier-cache-{{$no}}" value="{{$singleuser->verifier_id}}">
                                 <input type="text" class="hidden"  id="verifier-{{$no}}" name="verifier[]" value="{{$singleuser->verifier_id}}">
                                 <select name="inputaction[]" id="action-{{$no}}">
                                     <option selected value="">Select Action</option>
                                     <option hidden value="Remove">Remove Verifier</option>
                                     <!-- <option hidden disabled selected value="">Select Action</option> -->
-                                    @if($view=="verifier")<option value="PA">Verify</option>
-                                    @elseif($view=='approver')
+                                    @if(($view=="verifier")||($view=='admin'))<option value="PA">Verify</option>@endif
+                                    @if(($view=='approver')||($view=='admin'))
                                         <option value="A">Approve</option>
                                         <option @if($singleuser->verifier_id!=null) hidden @endif  value="Assign" id="assign-{{$no}}">Assign Verifier</option>
                                         
@@ -162,7 +154,7 @@
                                     <option value="Q2">Query</option>
                                 </select>
                             </td>
-                            <td>
+                            <td id="aremark-{{$no}}" style="display: none">
                                 <textarea rows = "1" cols="40" type="text"  id="inputremark-{{$no}}" name="inputremark[]" value="" placeholder="" style="resize: none; display: inline" disabled></textarea>
                             </td>
                             @endif
@@ -177,12 +169,14 @@
                     </tbody>
                 </table>
             </div>
-            
-            @if(($view=='verifier')||($view=='approver'))
-            <div id="submitbtn" class="text-center" style="margin: 5vh 0 20vh;" onsubmit="return confirm('I understand and agree this to claim. If deemed false I can be taken to disciplinary action.')">
-                <button type="submit" class="btn btn-primary btn-p">SUBMIT</button>
-            </div>
-            
+            @if(($view=='verifier')||($view=='approver')||($view=='admin'))
+                @if($otlist ?? '')
+                <div id="submitbtn" class="panel-footer">
+                    <div class="text-right">    
+                        <button type="submit" class="btn btn-primary btn-p">SUBMIT</button>
+                    </div>
+                </div>
+                @endif
             @endif
         </form>
         @else
@@ -191,52 +185,61 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Reference No</th>
                         <th>Name</th>
                         <th>Date</th>
                         <th>Start OT</th>
                         <th>End OT</th>
                         <th>Total Hours/Minutes</th>
-                        <th>Charge Code</th>
-                        <th>Location</th>
                         <th>Amount (Estimated)</th>
                         <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td colspan="11"><div class="text-center"><i>Not available</i></div></td>
+                        <td colspan="8"><div class="text-center"><i>Not available</i></div></td>
                     </tr>
                 </tbody>
             </table>
         </div>
         @endif
-        
-        <form action="{{route('ot.detail')}}" method="POST" class="hidden" id="form">
-            @csrf
-            <input type="text" class="hidden" name="detailid" id="detailid" value="" required>
-            @if($view=='verifier')
-            <input type="text" class="hidden" name="type" value="verifier" required>
-            @elseif($view=='verifierrept')
-            <input type="text" class="hidden" name="type" value="verifierrept" required>
-            @elseif($view=='approver')
-            <input type="text" class="hidden" name="type" value="approver" required>
-            @elseif($view=='admin')
-            <input type="text" class="hidden" name="type" value="admin" required>
-            @elseif($view=='approverrept')
-            <input type="text" class="hidden" name="type" value="approverrept" required>
-            @endif
-        </form>
     </div>
+    
 </div>
+
+        
+<form action="{{route('ot.detail')}}" method="POST" class="hidden" id="form">
+    @csrf
+    <input type="text" class="hidden" name="detailid" id="detailid" value="" required>
+    @if($view=='verifier')
+    <input type="text" class="hidden" name="type" value="verifier" required>
+    @elseif($view=='verifierrept')
+    <input type="text" class="hidden" name="type" value="verifierrept" required>
+    @elseif($view=='approver')
+    <input type="text" class="hidden" name="type" value="approver" required>
+    @elseif($view=='admin')
+    <input type="text" class="hidden" name="type" value="admin" required>
+    @elseif($view=='approverrept')
+    <input type="text" class="hidden" name="type" value="approverrept" required>
+    @endif
+</form>
 @stop
 
 @section('js')
 <script type="text/javascript">
 
+    var today = new Date();
     var htmlstring = '<div style="border: 1px solid #DDDDDD; max-height: 60vh; overflow-y: scroll;  overflow-x: hidden;">';
     var no = 0
-
+    var m = today.getMonth()+1;
+    var y = today.getFullYear();
+    var d = today.getDate().toString();
+    if(m < 10){
+        m = "0"+m;
+    }
+    while(d.length<2){
+        d = "0"+d;
+    }
+    $("#search-date-2").attr("max", y+"-"+m+"-"+d);
     $(document).ready(function() {
         $('#tOTList').DataTable({
             "responsive": "true",
@@ -278,6 +281,9 @@
             $("#verifier-"+i).val($("#verifier-cache-"+i).val());
             $("#show-verifier-"+i).text($("#show-verifier-cache-"+i).text());
         @endif
+        @if($otlist ?? '')
+            table();
+        @endif
     }
 
     function remove(i){
@@ -294,8 +300,34 @@
         $("#a-"+i).on("click", yes(i));
     }
 
+    function table(){
+        
+        @if($otlist ?? '')
+        for(x=1; x<{{count($otlist)}}+1; x++){
+                if(($("#action-"+x).val()=="Q2")||($("#action-"+x).val()=="Assign")){
+                    $("#aremark").css("display","table-cell");
+                    $("#aremark-"+x).css("display","table-cell");
+                    $("#borderman").removeClass("border-right");
+                    for(g=1; g<{{count($otlist)}}+1; g++){
+                        $("#borderman-"+g).removeClass("border-right");
+                    }
+                }else{
+                    $("#aremark").css("display","none");
+                    $("#aremark-"+x).css("display","none");
+                    $("#borderman").addClass("border-right");
+                    for(g=1; g<{{count($otlist)}}+1; g++){
+                        $("#borderman-"+g).addClass("border-right");
+                    }
+                }
+            }
+        @endif
+    }
+
     function remark(i){
         return function(){
+            @if($otlist ?? '')
+                table();
+            @endif
             if($("#action-"+i).val()=="Q2"){
                 $('#remark-'+i).css("display", "table-row");
                 Swal.fire({
@@ -314,7 +346,7 @@
                             $("#inputremark-"+i).prop('disabled',false);
                             $("#inputremark-"+i).prop('required',true);
                             $("#inputremark-"+i).val($('#remark').val());
-                            @if($view=='approver')
+                            @if(($view=='approver')||($view=='admin'))
                                 $("#verifier-"+i).val($("#verifier-cache-"+i).val());
                                 $("#show-verifier-"+i).text($("#show-verifier-cache-"+i).text());
                             @endif
@@ -539,22 +571,48 @@
                     showCancelButton: yes,
                     cancelButtonText: 'CANCEL',
                 }).then((result) => {
-                    if (result.value) {
-                        $("#inputremark-"+i).val($('#remark').val());
-                            // if(yes){
-                            //     if($('#verifier').val()!=''){
-                            //         $('#formverifier').submit();
-                            //     }else{
-                            //         search(searchn, 'block', i);
-                            //     }
-                            // }else{
-                            //     return searcho(i);
-                            // }
-                        $("#inputremark-"+i).prop('disabled',true);
-                        $("#inputremark-"+i).val("");
-                        $("#inputremark-"+i).prop('required',false);
+                    if(yes){
+                        if (result.value) {            
+                            $("#action-"+i).val("Assign");
+                            table();
+                            $('#remark-'+i).css("display", "table-row");
+                            Swal.fire({
+                                    title: 'Remarks',
+                                    html: "<textarea id='remark' rows='4' style='width: 90%' placeholder='This is mandatory field. Please key in remarks here!' style='resize: none;'></textarea><p>Are you sure to assign new verifier to this claim application?</p>",
+                                    confirmButtonText:
+                                        'YES',
+                                        cancelButtonText: 'NO',
+                                    showCancelButton: true,
+                                    inputValidator: (result) => {
+                                        return !result && 'You need to agree with T&C'
+                                    }
+                                }).then((result) => {
+                                        if (result.value) {
+                                                                    
+                                            $("#inputremark-"+i).prop('disabled',false);
+                                            $("#inputremark-"+i).prop('required',true);
+                                            $("#inputremark-"+i).val($('#remark').val());  
+                                            // $("#inputremark-"+i).val($('#remark').val());
+                                                // if(yes){
+                                                //     if($('#verifier').val()!=''){
+                                                //         $('#formverifier').submit();
+                                                //     }else{
+                                                //         search(searchn, 'block', i);
+                                                //     }
+                                                // }else{
+                                                //     return searcho(i);
+                                                // }
+                                        }else{
+                                            
+                                            
+                                            reset(i);
+                                        }
+                                })
+                        }else{
+                            reset(i);
+                        }
                     }else{
-                        reset(i);
+                        normal(i, 'none');
                     }
                 });
                 
@@ -583,15 +641,6 @@
                         
                         "<div class='row'>"+
                             "<div class='col-md-3'>"+
-                                "<p><b>Personnel Number</b></p>"+
-                            "</div>"+
-                            "<div class='col-md-9'>"+
-                            "<input type='text' id='spersno' style='width: 100%; box-sizing: border-box;'>"+
-                            "</div>"+
-                        "</div>"+
-                        
-                        "<div class='row'>"+
-                            "<div class='col-md-3'>"+
                                 "<p><b>Staff Number</b></p>"+
                             "</div>"+
                             "<div class='col-md-9'>"+
@@ -601,82 +650,10 @@
 
                         "<div class='row'>"+
                             "<div class='col-md-3'>"+
-                                "<p><b>Position</b></p>"+
-                            "</div>"+
-                            "<div class='col-md-9'>"+
-                            "<input type='text' id='position' style='width: 100%; box-sizing: border-box;'>"+
-                            "</div>"+
-                        "</div>"+
-                        
-                        "<div class='row'>"+
-                            "<div class='col-md-3'>"+
-                                "<p><b>Company Code</b></p>"+
-                            "</div>"+
-                            "<div class='col-md-9'>"+
-                                "<input type='text' id='scompc' style='width: 100%; box-sizing: border-box;'>"+
-                            "</div>"+
-                        "</div>"+
-
-                        "<div class='row'>"+
-                            "<div class='col-md-3'>"+
-                                "<p><b>Cost Center</b></p>"+
-                            "</div>"+
-                            "<div class='col-md-9'>"+
-                            "<input type='text' id='scostc' style='width: 100%; box-sizing: border-box;'>"+
-                            "</div>"+
-                        "</div>"+
-                        
-                        "<div class='row'>"+
-                            "<div class='col-md-3'>"+
-                                "<p><b>Personnel Area</b></p>"+
-                            "</div>"+
-                            "<div class='col-md-9'>"+
-                                "<input type='text' id='spersarea' style='width: 100%; box-sizing: border-box;'>"+
-                            "</div>"+
-                        "</div>"+
-
-                        "<div class='row'>"+
-                            "<div class='col-md-3'>"+
-                                "<p><b>Personnel Subarea</b></p>"+
-                            "</div>"+
-                            "<div class='col-md-9'>"+
-                            "<input type='text' id='sperssarea' style='width: 100%; box-sizing: border-box;'>"+
-                            "</div>"+
-                        "</div>"+
-                        
-                        "<div class='row'>"+
-                            "<div class='col-md-3'>"+
-                                "<p><b>Employee Subgroup</b></p>"+
-                            "</div>"+
-                            "<div class='col-md-9'>"+
-                                "<input type='text' id='sempsg' style='width: 100%; box-sizing: border-box;'>"+
-                            "</div>"+
-                        "</div>"+
-
-                        "<div class='row'>"+
-                            "<div class='col-md-3'>"+
                                 "<p><b>Email</b></p>"+
                             "</div>"+
                             "<div class='col-md-9'>"+
                             "<input type='text' id='semail' style='width: 100%; box-sizing: border-box;'>"+
-                            "</div>"+
-                        "</div>"+
-                        
-                        "<div class='row'>"+
-                            "<div class='col-md-3'>"+
-                                "<p><b>Mobile Number</b></p>"+
-                            "</div>"+
-                            "<div class='col-md-9'>"+
-                                "<input type='text' id='smobile' style='width: 100%; box-sizing: border-box;'>"+
-                            "</div>"+
-                        "</div>"+
-
-                        "<div class='row'>"+
-                            "<div class='col-md-3'>"+
-                                "<p><b>Office Number</b></p>"+
-                            "</div>"+
-                            "<div class='col-md-9'>"+
-                            "<input type='text' id='soffice' style='width: 100%; box-sizing: border-box;'>"+
                             "</div>"+
                         "</div>"+
                         
@@ -772,13 +749,16 @@
                                 "</div>"+
                             "</div>"+
                         "</div>",
-                    confirmButtonText: 'REMOVE VERIFIER',
-                    showCancelButton: yes,
-                    cancelButtonText: 'CHANGE VERIFIER',
+                    confirmButtonText: 'CHANGE VERIFIER',
+                    // showCancelButton: yes,
+                    // cancelButtonText: 'CHANGE VERIFIER',
                 }).then((result) => {
+                    // if (result.value) {
+                    //     remove(id);
+                    // }else if (result.dismiss === Swal.DismissReason.cancel){
+                    //     normal(id, 'none');
+                    // }
                     if (result.value) {
-                        remove(id);
-                    }else if (result.dismiss === Swal.DismissReason.cancel){
                         normal(id, 'none');
                     }
                 });
@@ -788,12 +768,18 @@
 
     function remark2(i){
         return function(){
-            // alert("");
-            if($("#action-"+i).val()=="Q2"){
+            // alert("s");
+            if(($("#action-"+i).val()=="Q2")||($("#action-"+i).val()=="Assign")){
+                if($("#action-"+i).val()=="Q2"){
+                    tx = "Are you sure to query this claim application?";
+                }else{
+                    
+                    tx = "Are you sure to assign new verifier to this claim application?";
+                }
                 var str = $("#inputremark-"+i).val();
                 Swal.fire({
                     title: 'Remarks',
-                    html: "<textarea id='remark' rows='4' style='width: 90%' placeholder='This is mandatory field. Please key in remarks here!' style='resize: none;'>"+str+"</textarea><p>Are you sure to query this claim application?</p>",
+                    html: "<textarea id='remark' rows='4' style='width: 90%' placeholder='This is mandatory field. Please key in remarks here!' style='resize: none;'>"+str+"</textarea><p>"+tx+"</p>",
                     confirmButtonText:
                         'YES',
                         cancelButtonText: 'NO',
@@ -807,12 +793,18 @@
                             $("#inputremark-"+i).prop('disabled',false);
                             $("#inputremark-"+i).prop('required',true);
                             $("#inputremark-"+i).val($('#remark').val());
-                            @if($view=='approver')
-                                $("#verifier-"+i).val($("#verifier-cache-"+i).val());
-                                $("#show-verifier-"+i).text($("#show-verifier-cache-"+i).text());
-                            @endif
+                            if($("#action-"+i).val()=="Q2"){
+                                @if(($view=='approver')||($view=='admin'))
+                                    $("#verifier-"+i).val($("#verifier-cache-"+i).val());
+                                    $("#show-verifier-"+i).text($("#show-verifier-cache-"+i).text());
+                                @endif
+                            }
                         }else{
-                            reset(i);   
+                            
+                            // if($("#action-"+i).val()=="Q2"){
+                            //     reset(i);   
+                            // }
+                            $("#inputremark-"+i).blur();
                         }
                 })
             }

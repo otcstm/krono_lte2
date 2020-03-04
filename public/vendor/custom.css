@@ -526,11 +526,12 @@ tr > th:last-child{
 
 tr > td:last-child{
     border-right: 1px solid #DDDDDD !important;
+    text-align: left !important;
 }
 
 td{
     vertical-align: middle !important;
-    text-align: left;
+    text-align: center;
     border: 1px solid #DDDDDD !important;
     border-right: 0 !important;
     border-left: 0 !important;
@@ -554,6 +555,9 @@ tr > td:first-child{
     text-align: center !important;
 }
 
+tr .border-right{
+    border-right: 1px solid #DDDDDD !important
+}
 /* .table-bordered th{
     border: 1px solid #DDDDDD !important;
 } */

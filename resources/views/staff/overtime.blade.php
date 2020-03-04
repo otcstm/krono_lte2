@@ -43,8 +43,8 @@
                             <td></td>
                             <td>{{ $singleuser->refno }}</td>
                             <td>{{ date("d.m.Y", strtotime($singleuser->date)) }}</td>
-                            <td>@foreach($singleuser->detail as $details){{date('Hi', strtotime($details->start_time)) }}<br>@endforeach</td>
-                            <td>@foreach($singleuser->detail as $details){{ date('Hi', strtotime($details->end_time))}}<br>@endforeach</td>
+                            <td>@foreach($singleuser->detail as $details) @if($details->checked=="Y") {{date('Hi', strtotime($details->start_time)) }}<br> @endif @endforeach</td>
+                            <td>@foreach($singleuser->detail as $details) @if($details->checked=="Y") {{ date('Hi', strtotime($details->end_time))}}<br> @endif @endforeach</td>
                             <td>{{ $singleuser->total_hour }}h/{{ $singleuser->total_minute }}m</td>
                             <td>{{$singleuser->daytype->description}}</td> 
                             <td>
@@ -54,7 +54,7 @@
                                     N/A
                                 @endif
                             </td> 
-                            <td>@foreach($singleuser->detail as $details){{$details->in_latitude}} {{$details->in_longitude}}<br>@endforeach</td> 
+                            <td>@if(count($singleuser->detail)) @foreach($singleuser->detail as $details) @if($details->checked=="Y") {{$details->in_latitude}} {{$details->in_longitude}}<br> @endif @endforeach @else No data @endif</td> 
                             <td 
                                 @foreach($singleuser->log as $logs) 
                                     @if(strpos($logs->message,"Queried")!==false) 
@@ -65,7 +65,7 @@
                                     title = "{{str_replace('"', '', str_replace('Queried with message: "', '', $query))}}"
                                 @endif> 
                                 @if(($singleuser->status=="D2")||($singleuser->status=="D1"))
-                                    Draft <p style="color: red">Due: {{$singleuser->date_expiry}}</p> 
+                                    Draft @if($singleuser->date_expiry!="")<p style="color: red">Due: {{$singleuser->date_expiry}}</p> @endif
                                 @elseif(($singleuser->status=="Q2")||($singleuser->status=="Q1"))
                                     @php($query = "") <p>Query</p>
                                 @elseif($singleuser->status=="PA")
@@ -111,7 +111,7 @@
         
     </div>
     <div id="submitbtn" class="panel-footer" style="display: none">
-        <div class="text-center">
+        <div class="text-right">
             <form id="submitform" action="{{route('ot.submit')}}" method="POST"  style="display:inline">
                 @csrf
                 <input type="text" class="hidden" id="submitid" name="submitid" value="" required>

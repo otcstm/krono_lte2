@@ -60,23 +60,40 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($claim->detail as $no => $details)
-                                <tr>
-                                    <td>{{++$no}}</td>
-                                    <td>{{ date('Hi', strtotime($details->start_time)) }}</td>
-                                    <td>{{ date('Hi', strtotime($details->end_time)) }}</td>
-                                    <td>{{ $details->hour }}h/{{$details->minute}}</td>
-                                    <td>
-                                        @if($details->clock_in!="")
-                                            System Input
-                                        @else 
-                                            Manual Input
+                                @if(count($claim->detail))
+                                    @php($nox = 0)
+                                    @foreach($claim->detail as $no => $details)
+                                        @php(++$nox)
+                                        @if($details->checked=="Y")
+                                        <tr>
+                                            <td>{{++$no}}</td>
+                                            <td>{{ date('Hi', strtotime($details->start_time)) }}</td>
+                                            <td>{{ date('Hi', strtotime($details->end_time)) }}</td>
+                                            <td>{{ $details->hour }}h/{{$details->minute}}</td>
+                                            <td>
+                                                @if($details->clock_in!="")
+                                                    System Input
+                                                @else 
+                                                    Manual Input
+                                                @endif
+                                            </td>
+                                            <td>{{ $details->in_latitude }} {{ $details->out_longitude }}</td>
+                                            <td>{{$details->justification}}</td>
+                                        </tr>
+                                        @else
+                                        @php(--$nox)
                                         @endif
-                                    </td>
-                                    <td>{{ $details->in_latitude }} {{ $details->out_longitude }}</td>
-                                    <td>{{$details->justification}}</td>
-                                </tr>
-                                @endforeach
+                                    @endforeach
+                                    @if($nox==0)
+                                    <tr>
+                                        <td colspan="7"><i>Not Available</i></td> 
+                                    </tr>
+                                    @endif
+                                @else
+                                    <tr>
+                                        <td colspan="7"><i>Not Available</i></td> 
+                                    </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -93,7 +110,8 @@
         @if(count($claim->file)!=0)
                     @foreach($claim->file as $f=>$singlefile)
                         @php(++$f)
-                        <a href="{{route('ot.file', ['tid'=>$singlefile->id], false)}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9; margin-bottom: 10px;"></a>
+                        <a href="{{ asset('storage/'.$singlefile->filename)}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9; margin-bottom: 10px;"></a>
+                        <!-- <a href="{{--route('ot.file', ['tid'=>$singlefile->id], false)--}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9; margin-bottom: 10px;"></a> -->
                     @endforeach
         @else <p>No attachment</p>            
         @endif
