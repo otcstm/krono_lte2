@@ -15,10 +15,14 @@ class CreateUserShiftPatternsTable extends Migration
     {
         Schema::create('user_shift_patterns', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->smallInteger('user_id');
             $table->smallInteger('shift_pattern_id');
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
             $table->string('sap_code', 20);
-            $table->integer('created_by');
-            $table->string('source','5');
+            $table->integer('created_by')->default(0);
+            $table->string('source','5')->default('SAP');
+            $table->dateTime('upd_sap')->nullable();
             $table->timestamps();
         });
     }
