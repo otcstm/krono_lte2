@@ -30,10 +30,10 @@
   	<input type="text" class="form-control" id="frefno" name="frefno">
   </div>
   </div>
-  <div class="col-sm-12">
+  <div class="col-lg-12">  <BR>
   <div class="form-group text-center">
-    <input type="hidden" name="searching" value="log">
-    <button type="submit" class="btn btn-primary">Search</button>
+    <button type="submit" name="searching" value="excellog" class="btn btn-primary">Download</button>
+    <button type="submit" name="searching" value="log" class="btn btn-primary">View</button>
   </div>
   </div>
   </form>

@@ -66,12 +66,65 @@
   </div>
   </div>
   <div class="col-lg-12">
+  <!-- <div class="form-group"> -->
+    <div class="form-check" >
+    <label for="cball">Select Column :</label>
+    <input type="checkbox" id="cball" onclick="for(c in document.getElementsByName('cbcol[]')) document.getElementsByName('cbcol[]').item(c).checked = this.checked">
+    <label class="form-check-label" for="cball" >  All
+    </label>
+
+  </div>
+
+  <div class="col-sm-4">
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="psarea" id="persarea" name="cbcol[]" >
+    <label class="form-check-label" for="persarea"> Personnel Area  </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="psbarea" id="persbarea" name="cbcol[]" >
+    <label class="form-check-label" for="persbarea"> Personnel Subarea  </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="state" id="st" name="cbcol[]" >
+    <label class="form-check-label" for="st"> State  </label>
+  </div>
+  </div>
+  <div class="col-sm-4">
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="region" id="reg" name="cbcol[]" >
+    <label class="form-check-label" for="reg"> Region  </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="empgrp" id="emgrp" name="cbcol[]" >
+    <label class="form-check-label" for="emgrp"> Employee Group  </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="empsubgrp" id="emsubgrp" name="cbcol[]" >
+    <label class="form-check-label" for="emsubgrp"> Employee Subgroup  </label>
+  </div>
+  </div>
+  <div class="col-sm-4">
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="dytype" id="dyty" name="cbcol[]" >
+    <label class="form-check-label" for="dyty"> Day Type  </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="loc" id="loctn" name="cbcol[]" >
+    <label class="form-check-label" for="loctn"> Location</label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="claim" id="clm" name="cbcol[]" >
+    <label class="form-check-label" for="clm"> Apply OT Claim</label>
+  </div>
+  </div>
+
+  <div class="col-lg-12">  <BR>
   <div class="form-group text-center">
-    <input type="hidden" name="searching" value="SdEd">
-    <button type="submit" class="btn btn-primary">Search</button>
+    <button type="submit" name="searching" value="excelSE" class="btn btn-primary">Download</button>
+    <button type="submit" name="searching" value="StEt" class="btn btn-primary">View</button>
   </div>
   </div>
-  </form>
+</form>
 </div>
 </div>
 
