@@ -120,7 +120,7 @@ body{
 }
 
 .flex{
-    
+
     display: flex;
     flex-wrap: wrap;
 }
@@ -167,7 +167,7 @@ body{
     border-radius: 10px !important;
     padding: 15px 30px;
     background: #FFF;
-    
+
 }
 .box-solid{
     display: inline-block;
@@ -270,7 +270,7 @@ body{
         border-radius: 35px;
         height: 70px;
         width: 70px;
-    
+
     }
     .btn-punch-layer img{
 
@@ -279,9 +279,9 @@ body{
     }
     .btn-punch-layer p{
         margin-top: 2px;
-    
+
     }
-    
+
 }
 
 .btn-up{
@@ -367,20 +367,20 @@ body{
 } */
 
 .swal2-popup.test2{
-    
+
     padding: 25px !important;
     border-radius: 5px !important;
     width: 85vw !important;
 }
 
 .swal2-popup.test3{
-    
+
     padding: 25px !important;
     border-radius: 5px !important;
     width: 45vw !important;
 }
 .swal2-popup.test4{
-    
+
     padding: 25px !important;
     border-radius: 5px !important;
     width: 60em !important;
@@ -404,14 +404,14 @@ body{
 }
 @media(max-width: 992px){
     .swal2-popup.test2, .swal2-popup.test3,  .swal2-popup.test4{
-        
+
         padding: 5 !important;
         border-radius: 25px !important;
         width: 36em !important;
     }
 
     .swollo{
-        width: 90%; 
+        width: 90%;
         margin: 0 auto 30px;
     }
 }
@@ -717,7 +717,7 @@ ul.pagination > li.active a{
 }
 
 .approval-search-item{
-    display: flex; 
+    display: flex;
     flex-wrap: wrap;
     width: 100%;
 }
@@ -740,79 +740,12 @@ ul.pagination > li.active a{
 
 .approval-search-x{
     visibility: hidden;
-    position: relative; 
+    position: relative;
     z-index: 1;
     left: calc(29em + 4px);
-    top: -20px; 
+    top: -20px;
 }
 
-.approval-search-icon{
-    position: relative; 
-    z-index: 1;
-    left: calc(30em - 3px);
-    top: -20px; 
-}
-
-
-.approval-search-img{
-    border-radius: 50% !important;
-    margin: auto;
-    width: 5vw;
-    height: 5vw;
-}
-
-.dm{
-    display: inline;
-}
-
-.dmx{
-    display: none;
-}
-
-@media(max-width: 992px){
-    .w-10{
-        width: 100%
-    }
-
-    .w-30{
-     
-        width: 100%
-    }
-    
-    .w-70{
-        width: 100%
-    }
-
-    .m-15{
-        padding-left: 0;
-    }
-
-    
-    .approval-search-img{
-        width: 10em;
-        height: 10em;
-    }
-    
-        .approval-search-x{
-            visibility: hidden;
-            position: relative; 
-            left: 87%; 
-        }
-
-        .approval-search-icon{
-            position: relative; 
-            left: 88%; 
-        }
-
-        .dm{
-            display: none;
-        }
-        
-    .dmx{
-        display: inline;
-    }
-
-}
 /*
  * Row with equal height columns
  * --------------------------------------------------
@@ -834,9 +767,10 @@ ul.pagination > li.active a{
 }
 
 .boxfullheight {
-    height: 95% !important; 
+    height: 95% !important;
 }
-.select2-container--default .select2-selection--multiple .select2-selection__choice {
+
+.selectReport {
     /* background-color: #eee; */
     border: 1px solid #aaa;
     border-radius: 4px;
@@ -847,6 +781,10 @@ ul.pagination > li.active a{
     padding: 0 5px;
 }
 
+.select2 {
+  width: 100% !important;
+
+}
 .border{
     border: 2px solid black;
 }

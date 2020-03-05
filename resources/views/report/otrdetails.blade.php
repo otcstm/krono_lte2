@@ -1,7 +1,4 @@
 @extends('adminlte::page')
-@section('css')
-<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-@stop
 @section('title', 'Report')
 @section('content')
 
@@ -52,7 +49,7 @@
   <div class="form-group">
     <label for="fcompany">Company Code</label>
     <br>
-    <select class="js-example-basic-multiple form-control" name="fcompany[]" multiple="multiple">
+    <select class="selectReport form-control" name="fcompany[]" multiple="multiple">
       @if($companies ?? '')
           @foreach($companies as $no=>$company)
     <option value="{{$company->id}}">{{$company->id}}-{{$company->company_descr}}</option>
@@ -65,7 +62,7 @@
   <div class="form-group">
     <label for="fstate">State</label>
     <br>
-    <select class="js-example-basic-multiple form-control" name="fstate[]" multiple="multiple">
+    <select class="selectReport form-control" name="fstate[]" multiple="multiple">
       @if($states ?? '')
           @foreach($states as $no=>$state)
     <option value="{{$state->id}}">{{$state->id}}-{{$state->state_descr}}</option>
@@ -78,7 +75,7 @@
   <div class="form-group">
     <label for="fregion">Region</label>
     <br>
-    <select class="js-example-basic-multiple form-control" name="fregion[]" multiple="multiple">
+    <select class="selectReport form-control" name="fregion[]" multiple="multiple">
       @if($regions ?? '')
           @foreach($regions as $no=>$region)
     <option value="{{$region->item2}}">{{$region->item3}}</option>
@@ -89,9 +86,134 @@
   </div>
 
   <div class="col-lg-12">
-  <div class="form-group text-center">
-    <input type="hidden" name="searching" value="detail">
-    <button type="submit" class="btn btn-primary">Search</button>
+    <div class="form-check" >
+    <label for="cball">Select Column :</label>
+    <input type="checkbox" id="cball" onclick="for(c in document.getElementsByName('cbcol[]')) document.getElementsByName('cbcol[]').item(c).checked = this.checked">
+    <label class="form-check-label" for="cball" >  All
+    </label>
+  </div>
+
+  <div class="col-sm-3">
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="psarea" id="persarea" name="cbcol[]" >
+    <label class="form-check-label" for="persarea"> Personnel Area  </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="psbarea" id="persbarea" name="cbcol[]" >
+    <label class="form-check-label" for="persbarea"> Personnel Subarea  </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="state" id="st" name="cbcol[]" >
+    <label class="form-check-label" for="st"> State  </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="region" id="reg" name="cbcol[]" >
+    <label class="form-check-label" for="reg"> Region  </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="empgrp" id="emgrp" name="cbcol[]" >
+    <label class="form-check-label" for="emgrp"> Employee Group  </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="empsubgrp" id="emsubgrp" name="cbcol[]" >
+    <label class="form-check-label" for="emsubgrp"> Employee Subgroup  </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="salexp" id="salexcp" name="cbcol[]" >
+    <label class="form-check-label" for="salexcp"> Salary Exception  </label>
+  </div>
+  </div>
+  <div class="col-sm-3">
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="capsal" id="capsalry" name="cbcol[]" >
+    <label class="form-check-label" for="capsalry"> Capping Salary (RM)  </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="empst" id="empstt" name="cbcol[]" >
+    <label class="form-check-label" for="empstt"> Employment Status  </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="mflag" id="mflg" name="cbcol[]" >
+    <label class="form-check-label" for="mflg"> Manual Flag </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="dytype" id="dyty" name="cbcol[]" >
+    <label class="form-check-label" for="dyty"> Day Type  </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="loc" id="loctn" name="cbcol[]" >
+    <label class="form-check-label" for="loctn"> Location</label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="trnscd" id="trncd" name="cbcol[]" >
+    <label class="form-check-label" for="trncd"> Transaction Code  </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="estamnt" id="estamt" name="cbcol[]" >
+    <label class="form-check-label" for="estamt"> Estimated Amount  </label>
+  </div>
+  </div>
+  <div class="col-sm-3">
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="clmstatus" id="clmst" name="cbcol[]" >
+    <label class="form-check-label" for="clmst"> Claim Status  </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="chrtype" id="chtype" name="cbcol[]" >
+    <label class="form-check-label" for="chtype"> Charge Type </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="noh" id="numoh" name="cbcol[]" >
+    <label class="form-check-label" for="numoh"> Number of Hours </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="nom" id="numom" name="cbcol[]" >
+    <label class="form-check-label" for="numom"> Number of Minutes </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="jst" id="just" name="cbcol[]" >
+    <label class="form-check-label" for="just"> Justification </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="appdate" id="appdt" name="cbcol[]" >
+    <label class="form-check-label" for="appdt"> Application Date </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="verdate" id="verdt" name="cbcol[]" >
+    <label class="form-check-label" for="verdt"> Verification Date </label>
+  </div>
+  </div>
+  <div class="col-sm-3">
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="verid" id="ver" name="cbcol[]" >
+    <label class="form-check-label" for="ver"> Verifier </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="appdate" id="appdt" name="cbcol[]" >
+    <label class="form-check-label" for="appdt"> Approval Date </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="apprvrid" id="apprvr" name="cbcol[]" >
+    <label class="form-check-label" for="apprvr"> Approver </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="qrdate" id="qrdt" name="cbcol[]" >
+    <label class="form-check-label" for="qrdt"> Queried Date </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="qrdby" id="qrby" name="cbcol[]" >
+    <label class="form-check-label" for="qrby"> Queried By </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input-inline" type="checkbox" value="pydate" id="pydt" name="cbcol[]" >
+    <label class="form-check-label" for="pydt"> Payment Date </label>
+  </div>
+  </div>
+
+  <div class="col-lg-12">
+  <div class="form-group text-center"><br>
+    <button type="submit" name="searching" value="exceld" class="btn btn-primary">Download</button>
+    <button type="submit" name="searching" value="detail" class="btn btn-primary">View</button>
   </div>
   </div>
   </form>
@@ -100,12 +222,9 @@
 
 @stop
 @section('js')
-
 <script type="text/javascript">
 $(document).ready(function() {
-    $('.js-example-basic-multiple').select2();
+    $('.selectReport').select2();
 });
 </script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
-
 @stop
