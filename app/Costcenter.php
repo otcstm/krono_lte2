@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Costcenter extends Model
 {
+  public $incrementing = false;
     //
 }

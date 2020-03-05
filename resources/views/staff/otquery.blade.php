@@ -11,17 +11,73 @@
 <h1>Pending Approval Claim</h1>
 @elseif($view=='approverrept')
 <h1>Claim Approval Report</h1>
+@elseif($view=='admin')
+<h1>Claim Manual Approval</h1>
 @endif
 <div class="panel panel-main panel-default">
     <div class="panel-body">
         
+        @if($view=='admin')
+        
+        <form action="{{route('ot.adminsearch')}}" method="POST" onsubmit="return submitsearch()"> 
+            @csrf    
+            <h4><b>Search Parameter</b></h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-4">Company Code</div>
+                        <div class="col-md-8"><input type="text" id="search-1" class="searchman searchman-1" name="searchcomp" style="width: 100%; " data-text="Company Code"><i style="position: relative; margin-left: -20px" class="far fa-share-square"></i></div>
+                    </div>
+                    <div class="row" style="margin-top: 5px">
+                        <div class="col-md-4">Personnel Number</div>
+                        <div class="col-md-8"><input type="text" id="search-2" class="searchman searchman-2" name="searchpersno" style="width: 100%; " data-text="Personnel Number"><i style="position: relative; margin-left: -20px" class="far fa-share-square"></i></div>
+                    </div>
+                    <div class="row" style="margin-top: 5px">
+                        <div class="col-md-4">Personnel Area</div>
+                        <div class="col-md-8"><input type="text" id="search-3" class="searchman searchman-3" name="searchpersarea" style="width: 100%; " data-text="Personnel Area"><i style="position: relative; margin-left: -20px" class="far fa-share-square"></i></div>
+                    </div>
+                    <div class="row" style="margin-top: 5px">
+                        <div class="col-md-4">Personnel Sub Area</div>
+                        <div class="col-md-8"><input type="text" id="search-4" class="searchman searchman-4" name="searchperssarea" style="width: 100%; " data-text="Personnel Sub Area"><i style="position: relative; margin-left: -20px" class="far fa-share-square"></i></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-4">Submission Date</div>
+                        <div class="col-md-4"><input type="date" id="search-date-1" name="searchdate1" style="width: 100%; position: relative; z-index: 11; border: 1px solid #A9A9A9; background: transparent" data-text="Company Code"><i style="position: relative; margin-left: -20px; z-index: 10" class="far fa-calendar-alt"></i></div>
+                        <div class="col-md-4"><input type="date" id="search-date-2" name="searchdate2" style="width: 100%; position: relative; z-index: 11; border: 1px solid #A9A9A9; background: transparent" data-text="Company Code"><i style="position: relative; margin-left: -20px; z-index: 10" class="far fa-calendar-alt"></i></div>       
+                    </div>
+                    <div class="row" style="margin-top: 5px">
+                        <div class="col-md-4">Claim Status</div>
+                        <div class="col-md-8"><input type="text" id="search-5" class="searchman searchman-5" name="searchstatus" style="width: 100%; " data-text="Claim Status"><i style="position: relative; margin-left: -20px" class="far fa-share-square"></i></div>
+                    </div>
+                    <div class="row" style="margin-top: 5px">
+                        <div class="col-md-4">Overtime Date</div>
+                        <div class="col-md-8"><input type="text" id="search-6" class="searchman searchman-6" name="searchotdate" style="width: 100%; " data-text="Overtime Date"><i style="position: relative; margin-left: -20px" class="far fa-share-square"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right">
+                <button class="btn-up">SEARCH</button>
+            </div>
+            <br>
+        </form>
+        
+        <div class="line2"></div>
+        <h4><b>Search Result</b></h4>
+        <br>
+        @endif
+
         @if(count($otlist)!=0)
+        
         <form action="{{route('ot.query')}}" method="POST" style="display:inline"> 
             @csrf    
             @if($view=='verifier')
             <input type="text" class="hidden" name="typef" value="verifier" required>
             @elseif($view=='approver')
             <input type="text" class="hidden" name="typef" value="approver" required>
+            @elseif($view=='admin')
+            <input type="text" class="hidden" name="typef" value="admin" required>
             @endif
             <div class="table-responsive">
                 <table id="tOTList" class="table table-bordered">
@@ -38,7 +94,7 @@
                             <th>Location</th>
                             <th>Amount (Estimated)</th>
                             <th>Status</th>
-                            @if(($view=='verifier')||($view=='approver'))
+                            @if(($view=='verifier')||($view=='approver')||($view=='admin'))
                                 @if($view=='approver')
                                 <th>Verifier</th>
                                 @endif
@@ -79,7 +135,7 @@
                                 @endif
                             </td>
                             
-                            @if(($view=='verifier')||($view=='approver'))
+                            @if(($view=='verifier')||($view=='approver')||($view=='admin'))
                                 @if($view=='approver')
                                     <td>
                                         <span class='hidden' id="show-verifier-cache-{{$no}}">{{$singleuser->verifier->name}}</span>
@@ -505,7 +561,7 @@
         
     }
 
-    advance(i);
+    // advance(i);
 
     function advance(i){
         var checksend = true;
@@ -638,6 +694,9 @@
                 }else{
                     advance(i);
                 }
+            }else{
+                
+                reset(i); 
             }
         });
         
@@ -761,6 +820,306 @@
     for (i=1; i<{{count($otlist)+1}}; i++) {
         $("#action-"+i).change(remark(i));
         $("#inputremark-"+i).on("click",remark2(i));
+    }
+
+    for (i=1; i<7; i++) {
+        if(i==5){
+            
+            $("#search-"+i).on('click', roleparam(i));
+        }else if(i==6){
+            $("#search-"+i).on('click', searchparam(i, "date"));
+        }else{
+            $("#search-"+i).on('click', searchparam(i, "text"));
+        }
+    }
+
+    // $("#searchcomp").on('click', function(){
+    //     searchparam('Company Code');
+    // });
+    var html;
+    var text; 
+    var type;
+    function searchparam(i, types){
+        return function(){
+            type = types;
+            $("#search-"+i).blur();
+            makeview(i, "");    
+           
+        }
+    }
+
+    function makeview(i, operation){
+    
+        var value = "";
+        if($("#search-"+i).val()!=""){
+            value = $("#search-"+i).val().split(', ');
+        }
+        text = $("#search-"+i).data("text");
+        html = "<div class='row text-left'><div class='col-md-3'>"+text+"</div>";
+        if(operation!="add"){
+            if(value.length>0){
+                if(operation!="remove"){
+                    for(v=0; v<(value.length)+1; v++){
+                        if(v==0){
+                            html = html + "<div class='col-md-9'>"+
+                                            "<input id='value-"+v+"' class='countsearch' type='"+type+"' style='width: 90%' value='"+value[v]+"'>"+
+                                            "<span style='width: 10%'>"+
+                                                "<button onclick='removesearch("+i+","+v+")' type='button' class='btn btn-times' style='display: inline'><i class='fas fa-times-circle'></i></button>"+
+                                            "</span>"+
+                                        "</div>";
+                        }else if(v<value.length){
+                            html = html + "<div class='col-md-9 col-md-offset-3'>"+
+                                            "<input id='value-"+v+"' class='countsearch' type='"+type+"' style='width: 90%' value='"+value[v]+"'>"+
+                                            "<span style='width: 10%'>"+
+                                                "<button onclick='removesearch("+i+","+v+")' type='button' class='btn btn-times' style='display: inline'><i class='fas fa-times-circle'></i></button>"+
+                                            "</span>"+
+                                        "</div>";
+                        }else{
+                            html = html + "<div class='col-md-9 col-md-offset-3'>"+
+                                            "<input id='value-"+v+"' class='countsearch' type='"+type+"' style='width: 90%'>"+
+                                            "<span style='width: 10%'>"+
+                                                "<button onclick='return addsearch("+i+")' type='button' class='btn btn-plus' style='display: inline'><i class='fas fa-plus-circle'></i></button>"+
+                                            "</span>"+
+                                        "</div>"; 
+                        }
+                    }
+                }else{
+                    for(v=0; v<value.length; v++){
+                        if(v==0){
+                            html = html + "<div class='col-md-9'>"+
+                                            "<input id='value-"+v+"' class='countsearch' type='"+type+"' style='width: 90%' value='"+value[v]+"'>"+
+                                            "<span style='width: 10%'>"+
+                                                "<button onclick='removesearch("+i+","+v+")' type='button' class='btn btn-times' style='display: inline'><i class='fas fa-times-circle'></i></button>"+
+                                            "</span>"+
+                                        "</div>";
+                        }else if(v==value.length-1){
+                            html = html + "<div class='col-md-9 col-md-offset-3'>"+
+                                            "<input id='value-"+v+"' class='countsearch' type='"+type+"' style='width: 90%' value='"+value[v]+"'>"+
+                                            "<span style='width: 10%'>"+
+                                                "<button onclick='return addsearch("+i+")' type='button' class='btn btn-plus' style='display: inline'><i class='fas fa-plus-circle'></i></button>"+
+                                            "</span>"+
+                                        "</div>"; 
+                        }else if(v<value.length){
+                            html = html + "<div class='col-md-9 col-md-offset-3'>"+
+                                            "<input id='value-"+v+"' class='countsearch' type='"+type+"' style='width: 90%' value='"+value[v]+"'>"+
+                                            "<span style='width: 10%'>"+
+                                                "<button onclick='removesearch("+i+","+v+")' type='button' class='btn btn-times' style='display: inline'><i class='fas fa-times-circle'></i></button>"+
+                                            "</span>"+
+                                        "</div>";
+                        }
+                    }
+                }
+            }else{
+                html = html + "<div class='col-md-9'>"+
+                                    "<input id='value-0' class='countsearch' type='"+type+"' style='width: 90%'>"+
+                                    "<span style='width: 10%'>"+
+                                        "<button onclick='return addsearch("+i+")' type='button' class='btn btn-plus' style='display: inline'><i class='fas fa-plus-circle'></i></button>"+
+                                    "</span>"+
+                                "</div>";
+            }
+        }else{
+            html = html + "<div class='col-md-9'>"+
+                                "<input id='value-0' class='countsearch' type='"+type+"' style='width: 90%'>"+
+                                "<span style='width: 10%'>"+
+                                    "<button onclick='removesearch("+i+",0)' type='button' class='btn btn-times' style='display: inline'><i class='fas fa-times-circle'></i></button>"+
+                                "</span>"+
+                            "</div>"+ 
+                            "<div class='col-md-9 col-md-offset-3'>"+
+                                "<input id='value-1' class='countsearch' type='"+type+"' style='width: 90%'>"+
+                                "<span style='width: 10%'>"+
+                                    "<button onclick='return addsearch("+i+")' type='button' class='btn btn-plus' style='display: inline'><i class='fas fa-plus-circle'></i></button>"+
+                                "</span>"+
+                            "</div>"; 
+        }
+        searchalert(i);        
+    }
+
+    function addsearch(i){
+        $("#search-"+i).val("");
+        for(n=0; n<$(".countsearch").length; n++){
+            if(n==0){
+                $("#search-"+i).val($("#value-"+n).val()); 
+            }else{
+                $("#search-"+i).val( $("#search-"+i).val()+", "+$("#value-"+n).val());
+            }
+        }
+        if(($(".countsearch").length==1)&&($("#value-0").val()=="")){
+            makeview(i, "add");
+        }else{
+            makeview(i, "");
+
+        }
+    }
+
+    function removesearch(i, v){
+        $("#search-"+i).val("");
+        for(n=0; n<$(".countsearch").length; n++){
+            if(n!=v){
+                // if($("#value-"+n).val()!=""){
+                    if(n==0){
+                        $("#search-"+i).val($("#value-"+n).val()); 
+                    }else if((n==1)&&(v==0)){
+                        $("#search-"+i).val($("#value-"+n).val());
+                    }
+                    else{
+                        $("#search-"+i).val( $("#search-"+i).val()+", "+$("#value-"+n).val());
+                    }
+                // }
+            }
+        }
+        makeview(i, "remove");
+    }
+    
+    function searchalert(i){
+        Swal.fire({
+            title: 'Multiple Search Parameter',
+            html: html+"</div>",
+            customClass: 'test4',
+            confirmButtonText:
+                'SELECT',
+                cancelButtonText: 'CANCEL',
+            showCancelButton: true,
+        }).then((result) => {
+            if (result.value) {
+                
+                $("#search-"+i).val("");
+                for(n=0; n<$(".countsearch").length; n++){
+                    if($("#value-"+n).val()!=""){
+                        if(n==0){
+                            $("#search-"+i).val($("#value-"+n).val()); 
+                        }else{
+                            $("#search-"+i).val( $("#search-"+i).val()+", "+$("#value-"+n).val());
+                        }
+                    }
+                }
+            }else{
+                $("#search-"+i).val("");
+            }
+        })
+    }
+
+    $("#search-date-1").on("change", function(){
+        if($("#search-date-2").val()!=""){
+            st = $("#search-date-1").val().split('-');
+            et =$("#search-date-2").val().split('-');
+            if((st[0]*365)+(st[1]*30)+st[2]>(et[0]*365)+(et[1]*30)+et[2]){
+                $("#search-date-1").val("");
+                $("#search-date-2").val("");
+                Swal.fire({
+                        icon: 'error',
+                        title: 'Date Error',
+                text: "Start date cannot be after end date!",
+                confirmButtonText:'OK'
+                })
+            }
+        }
+    })
+
+    $("#search-date-2").on("change", function(){
+        if($("#search-date-1").val()!=""){
+            st = $("#search-date-1").val().split('-');
+            et =$("#search-date-2").val().split('-');
+            if((st[0]*365)+(st[1]*30)+st[2]>(et[0]*365)+(et[1]*30)+et[2]){
+                $("#search-date-1").val("");
+                $("#search-date-2").val("");
+                Swal.fire({
+                        icon: 'error',
+                        title: 'Date Error',
+                text: "End date cannot be before start date!",
+                confirmButtonText:'OK'
+                })
+            }
+        }
+    })
+
+    function roleparam(i){
+        return function(){
+            var value = "";
+            if($("#search-"+i).val()!=""){
+                value = $("#search-"+i).val().split(', ');
+            }
+            html = "<div class='row text-left'><div class='col-md-3'>Claim Status</div>";
+            pv = "";
+            pa = "";
+            a = "";
+            // d = "";
+            // q = "";
+            for(v=0; v<(value.length)+1; v++){
+                if(value[v]=="Pending Verification"){
+                    pv = "checked";
+                }else if(value[v]=="Pending Approval"){
+                    pa = "checked";
+                }else if(value[v]=="Approved"){
+                    a = "checked";}
+                // }else if(value[v]=="Draft"){
+                //     d = "checked";
+                // }else if(value[v]=="Query"){
+                //     q = "checked";
+                // }
+            }
+            html = html + "<div class='col-md-9'>"+
+                            //     "<input id='value-0' class='countsearch' type='checkbox'value='Draft' "+d+"> Draft"+
+                            // "</div>"+
+                            // "<div class='col-md-9 col-md-offset-3'>"+
+                            //     "<input id='value-1' class='countsearch' type='checkbox' value='Query' "+q+"> Query"+
+                            // "</div>"+
+                            // "<div class='col-md-9 col-md-offset-3'>"+
+                                "<input id='value-2' class='countsearch' type='checkbox' value='Pending Verification' "+pv+"> Pending Verification"+
+                            "</div>"+
+                            "<div class='col-md-9 col-md-offset-3'>"+
+                                "<input id='value-3' class='countsearch' type='checkbox' value='Pending Approval' "+pa+"> Pending Approval"+
+                            "</div>"+
+                            "<div class='col-md-9 col-md-offset-3'>"+
+                                "<input id='value-4' class='countsearch' type='checkbox' value='Approved' "+a+"> Approved"+
+                            "</div>";
+            Swal.fire({
+                title: 'Multiple Search Parameter',
+                html: html+"</div>",
+                customClass: 'test4',
+                confirmButtonText:
+                    'SELECT',
+                    cancelButtonText: 'CANCEL',
+                showCancelButton: true,
+            }).then((result) => {
+                if (result.value) {
+                    
+                    $("#search-"+i).val("");
+                    for(n=0; n<$(".countsearch").length; n++){
+                        if($("#value-"+n).is(":checked")){
+                            if($("#search-"+i).val()==""){
+                                $("#search-"+i).val($("#value-"+n).val()); 
+                            }else{
+                                $("#search-"+i).val( $("#search-"+i).val()+", "+$("#value-"+n).val());
+                            }
+                        }
+                    }
+                }
+            })
+        }
+    }
+
+    function submitsearch(){
+        var status = false;
+        for(n=1; n<$(".searchman").length+1; n++){
+            if($(".searchman-"+n).val()!=""){
+                status = true;
+            }
+        }
+        if(($("#search-date-1").val()!="")&&($("#search-date-2").val()!="")){
+            status = true;
+        }
+        if(!(status)){
+            Swal.fire({
+                
+                icon: 'error',
+                    title: 'Search Error',
+            text: "Please input at least 1 search parameter!",
+            confirmButtonText:'OK'
+            })
+            return false;
+        }
+
+        
     }
 
     @if(session()->has('feedback'))

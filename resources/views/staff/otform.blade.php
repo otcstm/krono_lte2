@@ -152,12 +152,10 @@
                         <span style="color: red">
                             <p>Submission Due Date: 
                                 @if($claim ?? '') 
-                                    {{date("m.d.Y", strtotime($claim->date_expiry))}}
+                                    {{date("d.m.Y", strtotime($claim->date_expiry))}}
                                 @else 
-                                    {{date("m.d.Y", strtotime($draft[1]))}} 
-                                @endif
-                            </p>
-                            <p>Unsubmitted claims will be deleted after the due date</p>
+                                    {{date("d.m.Y", strtotime($draft[1]))}} 
+                                @endif Unsubmitted claims will be deleted after the due date</p>
                         </span>
                         @endif
                     @else
@@ -178,7 +176,7 @@
                     @endif
                     @if(($c ?? '')||($d ?? '')||($q ?? ''))
                     <div class="text-right" >
-                        <button type="button" class="btn btn-nob" id="add" style="margin-bottom: 5px;">
+                        <button type="button" class="btn-up" id="add" style="margin-bottom: 5px;">
                         <i class="fas fa-plus-circle"></i> ADD TIME
                         </button>
                         <p>Total time: 
@@ -221,7 +219,7 @@
                                     <th>Start OT</th>
                                     <th>End OT</th>
                                     <th>Hours/Minutes</th>
-                                    <th>OT Type</th>
+                                    <th>Input Type</th>
                                     <th>Location</th>
                                     <th>OT Remark</th>
                                 @if(($c ?? '')||($d ?? '')||($q ?? ''))
@@ -303,15 +301,15 @@
                                                 </td>
                                                 <td>
                                                     @if($singleuser->clock_in!="")
-                                                        System Input
+                                                        Auto
                                                     @else 
-                                                        Manual Input
+                                                        Manual
                                                     @endif
                                                 </td>
-                                                <td>{{ $singleuser->in_latitude }} {{ $singleuser->out_longitude }}</td>
+                                                <td>@if($singleuser->clock_in=="") Not Applicable @else {{ $singleuser->in_latitude }} {{ $singleuser->out_longitude }} @endif</td>
                                                 <td>
                                                     @if(($c ?? '')||($d ?? '')||($q ?? ''))
-                                                        <textarea rows = "1" cols = "60" type="text" id="inputremark-{{$no}}" name="inputremark[]" placeholder="Input remark" class="check-{{$no}} check-{{$no}}-2 @if($singleuser->checked=="N") hidden @endif" style="resize: none" @if($singleuser->clock_in!="") readonly @else required @endif >{{$singleuser->justification}}</textarea>
+                                                        <textarea rows = "1" cols = "60" type="text" id="inputremark-{{$no}}" name="inputremark[]" placeholder="Input remark" class="check-{{$no}} check-{{$no}}-2 @if($singleuser->checked=="N") hidden @endif" style="resize: none" @if($singleuser->checked=="Y") required  @endif>{{$singleuser->justification}}</textarea>
                                                         @if($singleuser->checked=="N")
                                                             {{$singleuser->justification}}
                                                         @endif
@@ -321,9 +319,9 @@
                                                 </td>
                                                 @if(($c ?? '')||($d ?? '')||($q ?? ''))
                                                     <td>
-                                                        {{--@if($singleuser->clock_in=="")--}}
+                                                        @if($singleuser->clock_in=="")
                                                             <button type="button" class="btn btn-np" id="delete-{{$no}}" data-id="{{$singleuser->id}}" data-start="{{date('H:i', strtotime($singleuser->start_time))}}" data-end="{{date('H:i', strtotime($singleuser->end_time))}}"><i class="fas fa-trash-alt"></i></button>
-                                                        {{--@endif--}}
+                                                        @endif
                                                     </td>
                                                 @endif
                                             @endif
@@ -352,8 +350,8 @@
                                     <span id="olddm-0" class="hidden">0</span>
                                     <span id="inputduration-0"></span>
                                 </td>
-                                <td>Manual Input</td>
-                                <td></td>
+                                <td>Manual</td>
+                                <td>Not Applicable</td>
                                 <td><textarea rows = "1" cols = "60" type="text"  id="inputremark-0" name="inputremarknew" placeholder="Input remark" style="resize: none" class="check-0 check-0-2"></textarea></td>
                                 <td>
                                     <!-- <button type="button" class="btn btn-primary" id="btn-add"><i class="fas fa-save"></i></button> -->
