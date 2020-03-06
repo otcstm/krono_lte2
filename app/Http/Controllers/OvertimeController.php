@@ -30,6 +30,7 @@ class OvertimeController extends Controller{
 
     public function form(Request $req){
         $reg = Psubarea::where('state_id', $req->user()->state_id)->first();
+        // $total = 
         // dd($reg->region);
        if($req->session()->get('claim')!=null){
             $day = UserHelper::CheckDay($req->user()->id, $req->session()->get('claim')->date);
@@ -147,22 +148,23 @@ class OvertimeController extends Controller{
     }
 
     public function formdate(Request $req){
-        $difdatem = date('m') - date('m',strtotime($req->inputdate));
-        $difdated = date('d') - date('d',strtotime($req->inputdate));
-        if($difdatem<0){
-            $difdatem=$difdatem+12;
-        }
+        // $difdatem = date('m') - date('m',strtotime($req->inputdate));
+        // $difdated = date('d') - date('d',strtotime($req->inputdate));
+        // if($difdatem<0){
+        //     $difdatem=$difdatem+12;
+        // }
         
-        // dd($difdated);
-        $gm = true;
-        if(($difdatem<4)){
-            $gm = false;
-            if($difdatem==3){
-                if($difdated>0){
-                  $gm = true;
-                }
-            }
-        }
+        // // dd($difdated);
+        // $gm = true;
+        // if(($difdatem<4)){
+        //     $gm = false;
+        //     if($difdatem==3){
+        //         if($difdated>=0){
+        //           $gm = true;
+        //         }
+        //     }
+        // }
+        $gm = UserHelper::CheckGM(date("Y-m-d"), $req->inputdate);
         // dd($difdated);
         // dd($req->inputdate);
         // dd(date('m')-date('m',strtotime($req->inputdate)));
@@ -334,20 +336,22 @@ class OvertimeController extends Controller{
         $reg = Psubarea::where('state_id', $req->user()->state_id)->first();
         
         if($req->inputid==""){
-            $difdatem = date('m') - date('m',strtotime($req->inputdate));
-            $difdated = date('d') - date('d',strtotime($req->inputdate));
-            if($difdatem<0){
-                $difdatem=$difdatem+12;
-            }
-            $gm = true;
-            if(($difdatem<4)){
-                $gm = false;
-                if($difdatem==3){
-                    if($difdated>0){
-                    $gm = true;
-                    }
-                }
-            }
+            // $difdatem = date('m') - date('m',strtotime($req->inputdate));
+            // $difdated = date('d') - date('d',strtotime($req->inputdate));
+            // if($difdatem<0){
+            //     $difdatem=$difdatem+12;
+            // }
+            // $gm = true;
+            // if(($difdatem<4)){
+            //     $gm = false;
+            //     if($difdatem==3){
+            //         if($difdated>=0){
+            //         $gm = true;
+            //         }
+            //     }
+            // }
+            // dd(date("Y-m-d", strtotime(($req->session()->get('draft'))[2])));
+            $gm = UserHelper::CheckGM(date("Y-m-d"), date("Y-m-d", strtotime(($req->session()->get('draft'))[2])));
             $staffr = UserRecord::where('user_id', $req->user()->id)->where('upd_sap','<=',date('Y-m-d'))->first();
             $wage = OvertimeFormula::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', ($req->session()->get('draft'))[4])->where('end_date','>', ($req->session()->get('draft'))[4])->first();   //temp
             $draftclaim = new Overtime;
@@ -398,20 +402,23 @@ class OvertimeController extends Controller{
         }else{
 
             $claim = Overtime::where('id', $req->inputid)->first();
-            $difdatem = date('m') - date('m',strtotime($claim->date));
-            $difdated = date('d') - date('d',strtotime($claim->date));
-            if($difdatem<0){
-                $difdatem=$difdatem+12;
-            }
-            $gm = true;
-            if(($difdatem<4)){
-                $gm = false;
-                if($difdatem==3){
-                    if($difdated>0){
-                    $gm = true;
-                    }
-                }
-            }
+            // $difdatem = date('m',strtotime($claim->date_created)) - date('m',strtotime($claim->date));
+            // $difdated = date('m',strtotime($claim->date_created)) - date('d',strtotime($claim->date));
+            // if($difdatem<0){
+            //     $difdatem=$difdatem+12;
+            // }
+            // $gm = true;
+            // if(($difdatem<4)){
+            //     $gm = false;
+            //     if($difdatem==3){
+            //         if($difdated>=0){
+            //         $gm = true;
+            //         }
+            //     }
+            // }
+            
+            $gm = UserHelper::CheckGM($claim->date_created, $claim->date);
+            // dd($difdated);
         }
         $salary = $req->user()->salary;
         if($req->user()->ot_salary_exception=="X"){
@@ -529,13 +536,15 @@ class OvertimeController extends Controller{
             }
         }
         
-        if($req->chargetype=="Project"){
-            $updateclaim->approver_id = 16926;
-        }else{
+        
             if($gm){
                 $updateclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($updateclaim->date)));
-                $updateclaim->verifier_id =  $req->user()->reptto;
+                // $updateclaim->verifier_id =  $req->user()->reptto;
             }else{
+                if($req->chargetype=="Project"){
+                    $updateclaim->approver_id = 16926;
+                    // $updateclaim->verifier_id =  null;
+                }else{
                 $updateclaim->approver_id = $req->user()->reptto;
             }
         }
@@ -659,10 +668,14 @@ class OvertimeController extends Controller{
     public function getfile(Request $req){
         $file = OvertimeFile::find($req->tid);
         if($file){
-            return asset('public/'.$file->filename);
+            //ADD PERMISSION
+
+            // return asset('public/'.$file->filename);
             // dd(asset('public/'.$file->filename));
             // return (Storage::download('public/'.$file->filename));
-            // return Storage::download('public/'.$file->filename);
+            return Storage::download('public/'.$file->filename, $file->filename, [
+                'Content-Disposition' => 'inline'
+            ]);
         }
     }
 

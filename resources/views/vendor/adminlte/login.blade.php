@@ -8,77 +8,56 @@
 @section('body_class', 'login-page')
 
 @section('body')
-<div class="loginbgfull">
-<nav class="navbar navbar-inverse navtop navnyal">
-<div class="container"> 
-    <img class="foot-img navbar-right" src="/vendor/images/tmlogo.png">
-</div>
-</nav>
+<div class="row master">
+    <div class="col-md-7 login">
 
-<div class="container login">
-<div class="row">
-<div class="cold-md-8">
-</div>
-<div class="cold-md-4 col-md-offset-6">
-<div class="login-box" style="margin-top: 10px;">
-        <div class="login-logo">
-            <a href="{{ route('misc.home', [], false) }}">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
+        <div class="login-title">
+            <img src="/vendor/images/logintext.png">
         </div>
-        <!-- /.login-logo -->
-        <div class="login-box-body">
-            <p class="login-box-msg">{{ __('adminlte::adminlte.login_message') }}</p>
+    </div>
+    <div class="col-md-5 login-d">
+        <div class="login-logo">
+            <img src="/vendor/images/tmlogo.png">
+        </div>
+        <div class="login-text">
             <form action="{{ route('login', [], false) }}" method="post">
                 {{ csrf_field() }}
-
-                <div class="form-group has-feedback {{ $errors->has('staff_no') ? 'has-error' : '' }}">
-                    <input type="text" name="staff_no" class="form-control" value="{{ old('staff_no') }}"
-                           placeholder="Staff No">
-                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                    @if ($errors->has('staff_no'))
+                <h1>Login to Get Started</h1>
+                <br>
+                <p>Your Staff ID</p>
+                <div class="form-group has-feedback {{ $errors->has('username') ? 'has-error' : '' }}">
+                    <input type="text" name="username" class="form-control" value="{{ old('username') }}"
+                           placeholder="Eg: TM52025">
+                    @if ($errors->has('username'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('staff_no') }}</strong>
+                            <strong>{{ $errors->first('username') }}</strong>
                         </span>
                     @endif
                 </div>
+                <p>Your Password</p>
                 <div class="form-group has-feedback {{ $errors->has('password') ? 'has-error' : '' }}">
                     <input type="password" name="password" class="form-control"
                            placeholder="{{ __('adminlte::adminlte.password') }}">
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     @if ($errors->has('password'))
                         <span class="help-block">
                             <strong>{{ $errors->first('password') }}</strong>
                         </span>
                     @endif
                 </div>
-                <div class="row">
-                    <div class="col-xs-8">
-                        <div class="icheck-primary">
-                            <input type="checkbox" name="remember" id="remember">
-                            <label for="remember">{{ __('adminlte::adminlte.remember_me') }}</label>
-                            <br /><br />
-                            <i class="fa fa-key"></i> <a href="https://idss.tm.com.my/" target="_blank"><i class="glyphicon glyphicon-key"></i> I forgot my password</a>
-                        </div>
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">
+            <br class="d-none">
+                <div class="login-flex">
+                    <a href="https://idss.tm.com.my/" target="_blank">Forgot Password</a>
+                    <button type="submit" class="btn btn-primary">
                             {{ __('adminlte::adminlte.sign_in') }}
-                        </button>
-                    </div>
-                    <!-- /.col -->
+                    </button>
                 </div>
             </form>
-            <br>
-<small>Dear User, <br />
-If you have any queries, problems or have not received any ID and password for OT System, please log into 
-<a href="https://iris2.tm.com.my/" target="_blank">IRIS Self Service System</a></small>
+            <br class="d-none"><br class="d-none">
+            <small>Dear User, <br />
+            If you have any queries, problems or have not received any ID and password for OT System, please log into 
+            <a href="https://iris2.tm.com.my/" target="_blank">IRIS Self Service System</a></small>
         </div>
-        <!-- /.login-box-body -->
-    </div><!-- /.login-box -->
-</div>
-</div>
-</div>
-</div>
+    </div>
 </div>
 @stop
 

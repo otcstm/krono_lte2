@@ -14,27 +14,27 @@ use Session;
 class OvertimeMgmtController extends Controller
 {
 
-    // public function show(Request $req){  
-    //     // dd($req->session()->get('type'));
-    //     if($req->session()->get('type')!=null){
-    //         $req->formtype = $req->session()->get('type');
-    //         $req->inputregion = $req->session()->get('region');
-    //         $req->inputcompany = $req->session()->get('company');
-    //     }
-    //     if($req->formtype==""){
-    //         $oe = OvertimeEligibility::all();     
-    //         return view('admin.otmgmt', ['oe' => $oe]);
-    //     }else if($req->formtype=="eligibility"){
-    //         $oe = OvertimeEligibility::where('company_id', $req->inputcompany)->where('region', $req->inputregion)->get();  
-    //         // dd($oe);
-    //         return view('admin.otmgmteligibility', ['oe' => $oe]);
-    //     }else if($req->formtype=="expiry"){
-    //         // dd($req->inputcompany);
-    //         $oe = OvertimeExpiry::where('company_id', $req->inputcompany)->where('region', $req->inputregion)->get();  
-    //         // dd($oe);
-    //         return view('admin.otmgmtexpiry', ['oe' => $oe]);
-    //     }
-    // }
+    public function show(Request $req){  
+        // dd($req->session()->get('type'));
+        if($req->session()->get('type')!=null){
+            $req->formtype = $req->session()->get('type');
+            $req->inputregion = $req->session()->get('region');
+            $req->inputcompany = $req->session()->get('company');
+        }
+        if($req->formtype==""){
+            $oe = OvertimeEligibility::all();     
+            return view('admin.otmgmt', ['oe' => $oe]);
+        }else if($req->formtype=="eligibility"){
+            $oe = OvertimeEligibility::where('company_id', $req->inputcompany)->where('region', $req->inputregion)->get();  
+            // dd($oe);
+            return view('admin.otmgmteligibility', ['oe' => $oe]);
+        }else if($req->formtype=="expiry"){
+            // dd($req->inputcompany);
+            $oe = OvertimeExpiry::where('company_id', $req->inputcompany)->where('region', $req->inputregion)->get();  
+            // dd($oe);
+            return view('admin.otmgmtexpiry', ['oe' => $oe]);
+        }
+    }
 
     public function eligibilityshow(Request $req){  
         $oe = OvertimeEligibility::all();  

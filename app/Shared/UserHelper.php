@@ -493,4 +493,24 @@ class UserHelper {
 
   }
 
+  public static function CheckGM($todate, $otdate){
+    $difdatem = date('m',strtotime($todate)) - date('m',strtotime($otdate));
+    $difdated = date('d',strtotime($todate)) - date('d',strtotime($otdate));
+        if($difdatem<0){
+            $difdatem=$difdatem+12;
+        }
+        
+        // dd($otdate);
+        $gm = true;
+        if(($difdatem<4)){
+            $gm = false;
+            if($difdatem==3){
+                if($difdated>=0){
+                  $gm = true;
+                }
+            }
+        }
+        return $gm;
+  }
+
 }

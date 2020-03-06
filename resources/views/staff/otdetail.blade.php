@@ -69,7 +69,7 @@
                                             <td>{{++$no}}</td>
                                             <td>{{ date('Hi', strtotime($details->start_time)) }}</td>
                                             <td>{{ date('Hi', strtotime($details->end_time)) }}</td>
-                                            <td>{{ $details->hour }}h/{{$details->minute}}</td>
+                                            <td>{{ $details->hour }}h {{$details->minute}}m</td>
                                             <td>
                                                 @if($details->clock_in!="")
                                                     System Input

@@ -173,14 +173,14 @@ return [
             //   'icon' => 'fas fa-map-marked-alt',
               // 'can' => 'admin-nav-menu',
           ],
-          // [
-          //     'text' => 'manage_overtime',
-          //     'url' => '/admin/overtime',
-          //     'otm' => '',
-          //     'icon' => '',
-          //   //   'icon' => 'fas fas fa-clock',
-          //     // 'can' => 'admin-nav-menu',
-          // ],
+          [
+              'text' => 'manage_overtime',
+              'url' => '/admin/overtime',
+              'otm' => '',
+              'icon' => '',
+            //   'icon' => 'fas fas fa-clock',
+              // 'can' => 'admin-nav-menu',
+          ],
           [
               'text' => 'manage_eligibility',
               'url' => '/admin/overtime/eligibility',

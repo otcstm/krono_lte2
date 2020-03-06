@@ -121,9 +121,9 @@
         <!-- <div class="content-wrapper" style="background: transparent"> -->
         <div class="content-wrapper">
         
-            <div class="bckg">
+            <!-- <div class="bckg">
                 <img src="/vendor/ot-assets/main-bg.png" class="bckg-img">
-            </div>
+            </div> -->
             @if(config('adminlte.layout') == 'top-nav')
             <div class="container">
             @endif

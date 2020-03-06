@@ -297,7 +297,7 @@
                                                     <span id="fixdm-{{$no}}" class="hidden">{{$singleuser->minute}}</span>
                                                     <span id="olddh-{{$no}}" class="hidden">{{$singleuser->hour}}</span>
                                                     <span id="olddm-{{$no}}" class="hidden">{{$singleuser->minute}}</span>
-                                                    <span id="inputduration-{{$no}}">{{ $singleuser->hour }}h/{{$singleuser->minute}}</span>
+                                                    <span id="inputduration-{{$no}}">{{ $singleuser->hour }}h {{$singleuser->minute}}m</span>
                                                 </td>
                                                 <td>
                                                     @if($singleuser->clock_in!="")
@@ -306,7 +306,7 @@
                                                         Manual
                                                     @endif
                                                 </td>
-                                                <td>@if($singleuser->clock_in=="") Not Applicable @else {{ $singleuser->in_latitude }} {{ $singleuser->out_longitude }} @endif</td>
+                                                <td>@if($singleuser->clock_in=="") - @else {{ $singleuser->in_latitude }} {{ $singleuser->out_longitude }} @endif</td>
                                                 <td>
                                                     @if(($c ?? '')||($d ?? '')||($q ?? ''))
                                                         <textarea rows = "1" cols = "60" type="text" id="inputremark-{{$no}}" name="inputremark[]" placeholder="Input remark" class="check-{{$no}} check-{{$no}}-3 @if($singleuser->checked=="N") hidden @endif" style="resize: none" @if($singleuser->checked=="Y") required  @endif>{{$singleuser->justification}}</textarea>
@@ -351,7 +351,7 @@
                                     <span id="inputduration-0"></span>
                                 </td>
                                 <td>Manual</td>
-                                <td>Not Applicable</td>
+                                <td>-</td>
                                 <td><textarea rows = "1" cols = "60" type="text"  id="inputremark-0" name="inputremarknew" placeholder="Input remark" style="resize: none" class="check-0 check-0-2"></textarea></td>
                                 <td>
                                     <!-- <button type="button" class="btn btn-primary" id="btn-add"><i class="fas fa-save"></i></button> -->
@@ -368,7 +368,7 @@
                         <br>* Make sure your PDF document is <u>not password protected</u> and <u>not corrupted</u> </p>
                     </small></div> -->
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-10">
                             <div class="form-group">
                                 
                                 <div class="row" style="margin-bottom: 5px;">
@@ -521,8 +521,8 @@
                                         @if($claim ?? '')
                                             @foreach($claim->file as $f=>$singlefile)
                                                 @php(++$f)
-                                                <a href="{{ asset('storage/'.$singlefile->filename)}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9; margin-bottom: 10px;"></a>
-                                                <!-- <a href="{{--route('ot.file', ['tid'=>$singlefile->id], false)--}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9; margin-bottom: 10px;"></a> -->
+                                                <!-- <a href="{{-- asset('storage/'.$singlefile->filename)--}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9; margin-bottom: 10px;"></a> -->
+                                                <a href="{{route('ot.file', ['tid'=>$singlefile->id], false)}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9; margin-bottom: 10px;"></a>
                                                 <a href="#" id="btn-file-del-{{$f}}" style="position: absolute; margin-left: -22px; top: 3px; color: red;" data-id="{{$singlefile->id}}" data-img="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" data-name="{{substr($singlefile->filename, 22)}}"><i class="fas fa-times-circle"></i></a>
 
                                             @endforeach
@@ -1027,15 +1027,15 @@
                 //     }
                     Swal.fire({
                         icon: 'error',
-                        title: 'Unable to add time',
-                        text: 'Please complete current time input before adding a new one!'
+                        title: 'Incomplete',
+                        text: 'Please complete current input fields before adding a new one!'
                     })
                 }
             }else{
                 Swal.fire({
                     icon: 'error',
-                    title: 'Unable to add time',
-                    text: 'Please complete current time input before adding a new one!'
+                    title: 'Incomplete',
+                    text: 'Please complete current input fields before adding a new one!'
                 }) 
             }
         });

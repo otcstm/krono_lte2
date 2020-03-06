@@ -117,7 +117,7 @@
                                     {{ date('Hi', strtotime($details->end_time))}}<br>
                                 @endforeach
                             </td>
-                            <td>{{ $singleuser->total_hour }}h/{{ $singleuser->total_minute }}m</td>
+                            <td>{{ $singleuser->total_hour }}h {{ $singleuser->total_minute }}m</td>
                             <td>RM{{$singleuser->amount}}</td>
                             <td>
                                 @if($singleuser->status=="PA")
@@ -155,7 +155,7 @@
                                 </select>
                             </td>
                             <td id="aremark-{{$no}}" style="display: none">
-                                <textarea rows = "1" cols="40" type="text"  id="inputremark-{{$no}}" name="inputremark[]" value="" placeholder="" style="resize: none; display: inline" disabled></textarea>
+                                <textarea rows = "5" cols="40" type="text"  id="inputremark-{{$no}}" name="inputremark[]" value="" placeholder="" style="resize: none; display: inline" disabled></textarea>
                             </td>
                             @endif
                         </tr>
