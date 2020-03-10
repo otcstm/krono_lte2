@@ -75,7 +75,7 @@ return [
     |
     */
 
-    'collapse_sidebar' => false,
+    'collapse_sidebar' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -525,6 +525,11 @@ return [
                   'type' => 'js',
                   'asset' => false,
                   'location' => '//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.62/pdfmake.min.js',
+              ],
+              [
+                  'type' => 'js',
+                  'asset' => false,
+                  'location' => '//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.62/vfs_fonts.js',
               ],
           ],
         ],

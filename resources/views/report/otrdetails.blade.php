@@ -216,8 +216,6 @@
         </div> 
       </div>
 
-
-    
     <div class="flexd">
       <div class="col-mx-5">
         <div>

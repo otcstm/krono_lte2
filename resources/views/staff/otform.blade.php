@@ -87,14 +87,6 @@
                             @if(!(($claim ?? '')||($draft ?? '')))
                                 <p>Charging type: {{$claim->charge_type}}</p>
                             @endif
-                        @elseif($q ?? '')
-                            <p>Query Message: 
-                                @foreach($claim->log as $logs) 
-                                    @if(strpos($logs->message,"Queried")!==false) 
-                                        @php($query = $logs->message) 
-                                    @endif 
-                                @endforeach 
-                                {{str_replace('"', '', str_replace('Queried with message: "', '', $query))}}</p>
                         @endif
                     </div>
                 </div>
@@ -138,6 +130,15 @@
                             N/A
                         @endif
                     </p>
+                    @if($q ?? '')
+                        <p>Query Message: 
+                            @foreach($claim->log as $logs) 
+                                @if(strpos($logs->message,"Queried")!==false) 
+                                    @php($query = $logs->message) 
+                                @endif 
+                            @endforeach 
+                            {{str_replace('"', '', str_replace('Queried with message: "', '', $query))}}</p>
+                    @endif
                     {{--<!-- <p>Estimated Amount: RM
                         @if($claim ?? '') 
                             {{$claim->amount}} 
@@ -146,8 +147,8 @@
                         @endif</p> -->--}}
                 </div>
                 <div class="col-md-12">
-                 @if(($c ?? '')||($d ?? ''))
-                    @if(($claim ?? '')||($draft ?? ''))
+                 @if(($c ?? '')||($d ?? '')||($q ?? ''))
+                    {{--@if(($claim ?? '')||($draft ?? ''))--}}
                         @if($expiry)
                         <span style="color: red">
                             <p>Submission Due Date: 
@@ -158,9 +159,9 @@
                                 @endif Unsubmitted claims will be deleted after the due date</p>
                         </span>
                         @endif
-                    @else
-                        <p>Charging type: {{$claim->charge_type}}</p>
-                    @endif
+                    {{--@else--}}
+                        <!-- <p>Charging type: {{--$claim->charge_type--}}</p> -->
+                    {{--@endif--}}
                 @endif
                 </div>
             </div>
@@ -522,8 +523,8 @@
                                             @foreach($claim->file as $f=>$singlefile)
                                                 @php(++$f)
                                                 <!-- <a href="{{-- asset('storage/'.$singlefile->filename)--}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9; margin-bottom: 10px;"></a> -->
-                                                <a href="{{route('ot.file', ['tid'=>$singlefile->id], false)}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9; margin-bottom: 10px;"></a>
-                                                <a href="#" id="btn-file-del-{{$f}}" style="position: absolute; margin-left: -22px; top: 3px; color: red;" data-id="{{$singlefile->id}}" data-img="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" data-name="{{substr($singlefile->filename, 22)}}"><i class="fas fa-times-circle"></i></a>
+                                                <a href="{{route('ot.file', ['tid'=>$singlefile->id], false)}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9; margin-right: 10px; margin-bottom: 10px;"></a>
+                                                <a href="#" id="btn-file-del-{{$f}}" style="position: absolute; margin-left: -35px; top: 3px; color: red;" data-id="{{$singlefile->id}}" data-img="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" data-name="{{substr($singlefile->filename, 22)}}"><i class="fas fa-times-circle"></i></a>
 
                                             @endforeach
                                         @endif

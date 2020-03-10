@@ -1,5 +1,8 @@
 body{
-    font-family: 'Poppins', sans-serif;
+    /* font-family: 'Poppins', sans-serif; */
+    font-family: 'Cousine', monospace;
+    /* font-family: 'B612 Mono', monospace; */
+    /* font-family: 'Source Code Pro', monospace; */
     font-size: 10pt;
     background-color:transparent !important;
     height: 100%;
@@ -533,6 +536,12 @@ body{
     color: white;
 }
 
+a.btn-outline:hover{
+    background: #EF7202;
+    border: 2px solid #EF7202;
+    color: white !important;
+}
+
 .btn-x{
     /* background: transparent;
     color: #DD4B39 !important;
@@ -837,7 +846,73 @@ ul.pagination > li.active a{
     left: calc(29em + 4px);
     top: -20px;
 }
+.approval-search-icon{
+    position: relative; 
+    z-index: 1;
+    left: calc(30em - 3px);
+    top: -20px; 
+}
 
+
+.approval-search-img{
+    border-radius: 50% !important;
+    margin: auto;
+    width: 5vw;
+    height: 5vw;
+}
+
+.dm{
+    display: inline;
+}
+
+.dmx{
+    display: none;
+}
+
+@media(max-width: 992px){
+    .w-10{
+        width: 100%
+    }
+
+    .w-30{
+     
+        width: 100%
+    }
+    
+    .w-70{
+        width: 100%
+    }
+
+    .m-15{
+        padding-left: 0;
+    }
+
+    
+    .approval-search-img{
+        width: 10em;
+        height: 10em;
+    }
+    
+        .approval-search-x{
+            visibility: hidden;
+            position: relative; 
+            left: 87%; 
+        }
+
+        .approval-search-icon{
+            position: relative; 
+            left: 88%; 
+        }
+
+        .dm{
+            display: none;
+        }
+        
+    .dmx{
+        display: inline;
+    }
+
+}
 /*
  * Row with equal height columns
  * --------------------------------------------------
@@ -907,21 +982,21 @@ select{
 }
 
 .buttons-csv, .buttons-excel, .buttons-pdf{
-    position: relative;
+    position: relative!important;;
     padding: 2px 15px !important;
     border-radius: 5px !important;
-    background: #143A8C;
-    color: white;
-    border: 2px solid #143A8C;
+    background: #143A8C!important;
+    color: white!important;
+    border: 2px solid #143A8C!important;;
     margin-left: 5px !important;
-    font-weight: bold;
+    font-weight: bold!important;;
 }
 
 .buttons-csv:hover, .buttons-excel:hover, .buttons-pdf:hover,
 .buttons-csv:focus, .buttons-excel:focus, .buttons-pdf:focus{
-    background: transparent;
+    background: transparent!important;;
     border: 2px solid #143A8C !important;
-    color: #143A8C;
+    color: #143A8C!important;;
 }
 
 .flexd{
@@ -994,4 +1069,35 @@ select{
     .col-mx-5 div, .col-mx-2 div{
         height: 80vh !important;
     }
+}
+
+.user-panel{
+    height: 120px !important;
+}
+
+.sidebar-collapse .user-panel{
+    height: 100% !important;
+}
+
+.btn-user{
+    padding: 2px 30px;
+    background: transparent;
+    border: 2px solid #143A8C;
+    border-radius: 5px;
+    /* margin: auto; */
+    color: #143A8C !important;
+}
+
+.btn-user:hover{
+    background: #143A8C !important;
+    color: #FFF !important;
+}
+.user-panel .profile{
+    width: 100%;
+    margin-top: 20px;
+}
+
+.treeview-menu {
+    
+    margin-top: -1px !important;
 }

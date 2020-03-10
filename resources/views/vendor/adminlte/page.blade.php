@@ -96,16 +96,17 @@
         <div class="pull-left image">
           <img src="/vendor/images/useravatar.png" class="img-circle" alt="User Image">
         </div>
-        <div class="pull-left info">
+        <div class=" info">
           <p class="wraptext">{{ Auth::user()->name }}</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          <p class="profile"><a class="btn-user" href="{{ route('staff.profile',[],false) }}">Profile</a></p>
         </div>
       </div>
     
-      <div class="user-panel">
-      <a href="{{ route('staff.profile',[],false) }}" class="btn btn-xs btn-p btn-primary btn-outline">
+      <!-- <div class="user-panel">
+        <a href="{{ route('staff.profile',[],false) }}" class="image btn btn-xs btn-p btn-primary btn-outline">
         Profile</a>     
-      </div>     
+      </div>      -->   
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu" data-widget="tree">
                     @each('adminlte::partials.menu-item', $adminlte->menu(), 'item')

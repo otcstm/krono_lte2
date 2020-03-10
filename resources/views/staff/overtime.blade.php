@@ -161,6 +161,10 @@ $(document).ready(function() {
     var t = $('#tOTList').DataTable({
         "responsive": "true",
         "order" : [[0, "desc"]],
+        dom: '<"flext"lB>rtip',
+        buttons: [
+            'csv', 'excel', 'pdf'
+        ]
     });
 
     t.on( 'order.dt search.dt', function () {

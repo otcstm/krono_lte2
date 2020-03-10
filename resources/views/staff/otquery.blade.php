@@ -155,7 +155,8 @@
                                 </select>
                             </td>
                             <td id="aremark-{{$no}}" style="display: none">
-                                <textarea rows = "5" cols="40" type="text"  id="inputremark-{{$no}}" name="inputremark[]" value="" placeholder="" style="resize: none; display: inline" disabled></textarea>
+                                <textarea rows = "2" cols="40" type="text" maxlength="300" id="inputremark-{{$no}}" name="inputremark[]" value="" placeholder="" onkeydown="this.onchange();"  onkeyup="this.onchange();" onchange='return checkstringx({{$no}});' style="max-height: 180px; resize: vertical; overflow-y: scroll; display: inline" disabled></textarea>
+                                <p style="float: right">Text remaining: <span id="textremain-{{$no}}">300</span></p>
                             </td>
                             @endif
                         </tr>
@@ -245,7 +246,11 @@
             "responsive": "true",
             // "order" : [[1, "asc"]],
             "searching": false,
-            "bSort": false
+            "bSort": false,
+            dom: '<"flext"lB>rtip',
+            buttons: [
+                'csv', 'excel', 'pdf'
+            ]
         });
 
         // var t = $('#time').DataTable({
@@ -272,11 +277,17 @@
         }
     }
 
+    function checkstringx(i){
+        $("#textremain-"+i).text(300-$("#inputremark-"+i).val().length);
+    }
+
     function reset(i){
         $("#action-"+i).val("");
         $("#inputremark-"+i).prop('disabled',true);
         $("#inputremark-"+i).val("");
         $("#inputremark-"+i).prop('required',false);
+        $("#inputremark-"+i).attr("placeholder", "");
+        $("textremain-"+i).text("300");
         @if($view=='approver')
             $("#verifier-"+i).val($("#verifier-cache-"+i).val());
             $("#show-verifier-"+i).text($("#show-verifier-cache-"+i).text());
@@ -303,23 +314,30 @@
     function table(){
         
         @if($otlist ?? '')
+        var aremark = false;
         for(x=1; x<{{count($otlist)}}+1; x++){
-                if(($("#action-"+x).val()=="Q2")||($("#action-"+x).val()=="Assign")){
-                    $("#aremark").css("display","table-cell");
-                    $("#aremark-"+x).css("display","table-cell");
-                    $("#borderman").removeClass("border-right");
-                    for(g=1; g<{{count($otlist)}}+1; g++){
-                        $("#borderman-"+g).removeClass("border-right");
-                    }
-                }else{
-                    $("#aremark").css("display","none");
-                    $("#aremark-"+x).css("display","none");
-                    $("#borderman").addClass("border-right");
-                    for(g=1; g<{{count($otlist)}}+1; g++){
-                        $("#borderman-"+g).addClass("border-right");
-                    }
-                }
+            if(($("#action-"+x).val()=="Q2")||($("#action-"+x).val()=="Assign")){
+                aremark = true;
             }
+        }
+        
+        for(x=1; x<{{count($otlist)}}+1; x++){
+            if(aremark){
+                $("#aremark").css("display","table-cell");
+                $("#aremark-"+x).css("display","table-cell");
+                $("#borderman").removeClass("border-right");
+                for(g=1; g<{{count($otlist)}}+1; g++){
+                    $("#borderman-"+g).removeClass("border-right");
+                }
+            }else{
+                $("#aremark").css("display","none");
+                $("#aremark-"+x).css("display","none");
+                $("#borderman").addClass("border-right");
+                for(g=1; g<{{count($otlist)}}+1; g++){
+                    $("#borderman-"+g).addClass("border-right");
+                }
+            }   
+        }   
         @endif
     }
 
@@ -329,34 +347,43 @@
                 table();
             @endif
             if($("#action-"+i).val()=="Q2"){
-                $('#remark-'+i).css("display", "table-row");
-                Swal.fire({
-                    title: 'Remarks',
-                    html: "<textarea id='remark' rows='4' style='width: 90%' placeholder='This is mandatory field. Please key in remarks here!' style='resize: none;'></textarea><p>Are you sure to query this claim application?</p>",
-                    confirmButtonText:
-                        'YES',
-                        cancelButtonText: 'NO',
-                    showCancelButton: true,
-                    inputValidator: (result) => {
-                        return !result && 'You need to agree with T&C'
-                    }
-                }).then((result) => {
-                        if (result.value) {
+                // $('#remark-'+i).css("display", "table-row");
+                // Swal.fire({
+                //     title: 'Remarks',
+                //     html: "<textarea id='remark' rows='4' style='width: 90%' placeholder='This is mandatory field. Please key in remarks here!' style='resize: none;'></textarea><p>Are you sure to query this claim application?</p>",
+                //     confirmButtonText:
+                //         'YES',
+                //         cancelButtonText: 'NO',
+                //     showCancelButton: true,
+                //     inputValidator: (result) => {
+                //         return !result && 'You need to agree with T&C'
+                //     }
+                // }).then((result) => {
+                //         if (result.value) {
                             
-                            $("#inputremark-"+i).prop('disabled',false);
-                            $("#inputremark-"+i).prop('required',true);
-                            $("#inputremark-"+i).val($('#remark').val());
-                            @if(($view=='approver')||($view=='admin'))
-                                $("#verifier-"+i).val($("#verifier-cache-"+i).val());
-                                $("#show-verifier-"+i).text($("#show-verifier-cache-"+i).text());
-                            @endif
+                //             $("#inputremark-"+i).prop('disabled',false);
+                //             $("#inputremark-"+i).prop('required',true);
+                //             $("#inputremark-"+i).val($('#remark').val());
+                //             @if(($view=='approver')||($view=='admin'))
+                //                 $("#verifier-"+i).val($("#verifier-cache-"+i).val());
+                //                 $("#show-verifier-"+i).text($("#show-verifier-cache-"+i).text());
+                //             @endif
                             
-                        }else{
+                //         }else{
                             
                             
-                            reset(i);
-                        }
-                })
+                //             reset(i);
+                //         }
+                // })
+                $("#inputremark-"+i).attr("placeholder", "This is mandatory field. Please key in remarks here!");
+                $("#inputremark-"+i).prop('disabled',false);
+                $("#inputremark-"+i).prop('required',true);
+                $("#inputremark-"+i).val($('#remark').val());
+                @if(($view=='approver')||($view=='admin'))
+                    $("#verifier-"+i).val($("#verifier-cache-"+i).val());
+                    $("#show-verifier-"+i).text($("#show-verifier-cache-"+i).text());
+                @endif
+                table();
             }else if($("#action-"+i).val()==""){
                 reset(i);
             }else if($("#action-"+i).val()=="Assign"){
@@ -576,22 +603,23 @@
                             $("#action-"+i).val("Assign");
                             table();
                             $('#remark-'+i).css("display", "table-row");
-                            Swal.fire({
-                                    title: 'Remarks',
-                                    html: "<textarea id='remark' rows='4' style='width: 90%' placeholder='This is mandatory field. Please key in remarks here!' style='resize: none;'></textarea><p>Are you sure to assign new verifier to this claim application?</p>",
-                                    confirmButtonText:
-                                        'YES',
-                                        cancelButtonText: 'NO',
-                                    showCancelButton: true,
-                                    inputValidator: (result) => {
-                                        return !result && 'You need to agree with T&C'
-                                    }
-                                }).then((result) => {
-                                        if (result.value) {
+                            // Swal.fire({
+                            //         title: 'Remarks',
+                            //         html: "<textarea id='remark' rows='4' style='width: 90%' placeholder='This is mandatory field. Please key in remarks here!' style='resize: none;'></textarea><p>Are you sure to assign new verifier to this claim application?</p>",
+                            //         confirmButtonText:
+                            //             'YES',
+                            //             cancelButtonText: 'NO',
+                            //         showCancelButton: true,
+                            //         inputValidator: (result) => {
+                            //             return !result && 'You need to agree with T&C'
+                            //         }
+                            //     }).then((result) => {
+                            //             if (result.value) {
                                                                     
+                                            $("#inputremark-"+i).attr("placeholder", "This is mandatory field. Please key in remarks here!");
                                             $("#inputremark-"+i).prop('disabled',false);
                                             $("#inputremark-"+i).prop('required',true);
-                                            $("#inputremark-"+i).val($('#remark').val());  
+                                            // $("#inputremark-"+i).val($('#remark').val());  
                                             // $("#inputremark-"+i).val($('#remark').val());
                                                 // if(yes){
                                                 //     if($('#verifier').val()!=''){
@@ -602,12 +630,12 @@
                                                 // }else{
                                                 //     return searcho(i);
                                                 // }
-                                        }else{
+                                //         }else{
                                             
                                             
-                                            reset(i);
-                                        }
-                                })
+                                //             reset(i);
+                                //         }
+                                // })
                         }else{
                             reset(i);
                         }
@@ -813,7 +841,7 @@
 
     for (i=1; i<{{count($otlist)+1}}; i++) {
         $("#action-"+i).change(remark(i));
-        $("#inputremark-"+i).on("click",remark2(i));
+        // $("#inputremark-"+i).on("click",remark2(i));
     }
 
     for (i=1; i<7; i++) {
