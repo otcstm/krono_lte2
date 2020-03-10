@@ -109,6 +109,18 @@ class URHelper
         return $u;
       }
 
+      public static function getGM( $persno,$dt)
+      {
+        $ur = UserRecord::where('user_id',$persno)->where('upd_sap','<=',$dt)->get()->first();
+        $repto = UserRecord::where('user_id',$ur->reptto)->where('upd_sap','<=',$dt)->get()->first();
+        // dd($repto);
+        if($repto->empsgroup=="Senior Management"){
+          return $repto->user_id;
+        }else{
+          return URHelper::getGM($repto->user_id, $dt);
+        }
+      }
+
 
       public static function getUserCapping( $comp,$reg)
       {

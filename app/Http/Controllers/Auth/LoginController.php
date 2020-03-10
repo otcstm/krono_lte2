@@ -37,12 +37,12 @@ class LoginController extends Controller
     public function login(Request $req)
     {
       $this->validate($req, [
-            'staff_no' => 'required', 'password' => 'required',
+            'username' => 'required', 'password' => 'required',
       ]);
-      $udata = LdapHelper::DoLogin($req->staff_no, $req->password);
+      $udata = LdapHelper::DoLogin($req->username, $req->password);
       if($udata['code'] == 200){
         // session(['staffdata' => $logresp['user']]);
-        $cuser = User::where('staff_no', $req->staff_no)->first();
+        $cuser = User::where('staff_no', $req->username)->first();
         if($cuser){
         } else {
           // temporary: use ldap data to create user

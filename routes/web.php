@@ -59,6 +59,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/admin/staff', 'Admin\StaffController@showMgmt')->name('staff.list.mgmt');
   Route::post('/admin/staff/edit', 'Admin\StaffController@updateMgmt')->name('staff.edit.mgmt');
   //User authorization
+  Route::get('/admin/staff/auth/empty', 'Admin\StaffController@emptystaffauth')->name('staff.list.auth.empty');
   Route::get('/admin/staff/auth', 'Admin\StaffController@showRole')->name('staff.list.auth');
   Route::post('/admin/staff/auth/edit', 'Admin\StaffController@updateRole')->name('staff.edit.auth');
   //Role management
@@ -106,6 +107,12 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/admin/overtime/expiry/active', 'Admin\OvertimeMgmtController@active')->name('oe.active');
   Route::get('/admin/overtime/expiry/getexpiry', 'Admin\OvertimeMgmtController@getExpiry')->name('oe.getexpiry');
   Route::get('/admin/overtime/expiry/getlast', 'Admin\OvertimeMgmtController@getLast2')->name('oe.expirygetlast');
+  
+  Route::get('/admin/overtime/eligibility', 'Admin\OvertimeMgmtController@eligibilityshow')->name('oe.eligibility.show');
+  Route::post('/admin/overtime/eligibility/add', 'Admin\OvertimeMgmtController@eligibilityadd')->name('oe.eligibility.add');
+  Route::post('/admin/overtime/eligibility/remove', 'Admin\OvertimeMgmtController@eligibilityremove')->name('oe.eligibility.remove');
+  Route::post('/admin/overtime/eligibility/update', 'Admin\OvertimeMgmtController@eligibilityupdate')->name('oe.eligibility.update');
+
   //Payroll Group
   Route::get( '/admin/pygroup','Admin\PayrollgroupController@index')->name('pygroup.index');
   Route::get('/admin/pygroup/create', 'Admin\PayrollgroupController@create')->name('pygroup.create');
@@ -114,14 +121,23 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post( '/admin/pygroup/update','Admin\PayrollgroupController@update')->name('pygroup.update');
   Route::post('/admin/pygroup/delete','Admin\PayrollgroupController@destroy')->name('pygroup.delete');
   //Report
-  Route::get('/admreport/otd', 'Admin\OtReportController@viewOTd')->name('otr.viewOTd'); //rep1
-  Route::post('/admreport/otd', 'Admin\OtReportController@viewOTd')->name('otr.viewOTd');
-  Route::get('/admreport/ot', 'Admin\OtReportController@viewOT')->name('otr.viewOT'); //rep2
-  Route::post('/admreport/ot', 'Admin\OtReportController@viewOT')->name('otr.viewOT');
-  Route::get('/admreport/otlog', 'Admin\OtReportController@viewLC')->name('otr.viewOTLog'); //rep3
-  Route::post('/admreport/otlog', 'Admin\OtReportController@viewLC')->name('otr.viewOTLog');
-  Route::get('/admreport/StEdOt', 'Admin\OtReportController@viewStEd')->name('otr.viewStEd'); //rep4
-  Route::post('/admreport/StEdOt', 'Admin\OtReportController@viewStEd')->name('otr.viewStEd');
+  // Route::get('/admreport/otd', 'Admin\OtReportController@viewOTd')->name('otr.viewOTd'); //rep1
+  // Route::post('/admreport/otd', 'Admin\OtReportController@viewOTd')->name('otr.viewOTd');
+  // Route::get('/admreport/ot', 'Admin\OtReportController@viewOT')->name('otr.viewOT'); //rep2
+  // Route::post('/admreport/ot', 'Admin\OtReportController@viewOT')->name('otr.viewOT');
+  // Route::get('/admreport/otlog', 'Admin\OtReportController@viewLC')->name('otr.viewOTLog'); //rep3
+  // Route::post('/admreport/otlog', 'Admin\OtReportController@viewLC')->name('otr.viewOTLog');
+  // Route::get('/admreport/StEdOt', 'Admin\OtReportController@viewStEd')->name('otr.viewStEd'); //rep4
+  // Route::post('/admreport/StEdOt', 'Admin\OtReportController@viewStEd')->name('otr.viewStEd');
+
+  Route::get('/admreport/ot', 'Admin\OtReport2Controller@viewOT')->name('otr.viewOT'); //dowload rep1
+  Route::post('/admreport/ot', 'Admin\OtReport2Controller@viewOT')->name('otr.viewOT');
+  Route::get('/admreport/otd', 'Admin\OtReport2Controller@viewOTd')->name('otr.viewOTd'); //dowload rep2
+  Route::post('/admreport/otd', 'Admin\OtReport2Controller@viewOTd')->name('otr.viewOTd');
+  Route::get('/admreport/StEdOt', 'Admin\OtReport2Controller@viewStEd')->name('otr.viewStEd'); //dowload rep4
+  Route::post('/admreport/StEdOt', 'Admin\OtReport2Controller@viewStEd')->name('otr.viewStEd');
+  Route::get('/admreport/otlog', 'Admin\OtReport2Controller@viewLC')->name('otr.viewOTLog'); //dowload rep3
+  Route::post('/admreport/otlog', 'Admin\OtReport2Controller@viewLC')->name('otr.viewOTLog');
 
   // /admins ------------------------------------
   //Log activity
@@ -179,7 +195,7 @@ Route::group(['middleware' => ['auth']], function () {
 
   //admin verifier
   Route::post('/admin/verifier/staff', 'UserVerifierController@staffverifier')->name('verifier.staff');
-  
+
   //admin ajax search
   Route::get('/admin/verifier/staffsearch', 'UserVerifierController@staffsearch')->name('verifier.staffsearch');
   Route::get('/admin/verifier/subordSearch', 'UserVerifierController@subordSearch')->name('verifier.subordSearch');
@@ -216,10 +232,8 @@ Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth
   Route::get('/staff', 'ShiftPlanController@staffInfo')->name('staff');
   Route::post('/staff/push', 'ShiftPlanController@staffPushTemplate')->name('staff.push');
   Route::post('/staff/pop', 'ShiftPlanController@staffPopTemplate')->name('staff.pop');
-  
+
 });
 
   Route::get('/email/dummy', 'EmailController@dummyEmail')->name('email.dummy');
   Route::post('/email/dummy', 'EmailController@sendDummyEmail')->name('email.senddummy');
-
-
