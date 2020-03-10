@@ -75,7 +75,7 @@ return [
     |
     */
 
-    'collapse_sidebar' => false,
+    'collapse_sidebar' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -134,7 +134,7 @@ return [
       //   //UNCOMMENT THIS LATER
       ['header' => 'admin_menu'],
       [
-        'text' => 'ot_menu',
+        'text' => 'admin_menu',
         'icon' => 'fas f fa-user-clock',
         'submenu' => [
           [
@@ -182,6 +182,13 @@ return [
               // 'can' => 'admin-nav-menu',
           ],
           [
+              'text' => 'manage_eligibility',
+              'url' => '/admin/overtime/eligibility',
+              'icon' => '',
+            //   'icon' => 'fas fas fa-clock',
+              // 'can' => 'admin-nav-menu',
+          ],
+          [
               'text' => 'manage_wdays',
               'url'  => '/admin/workday',
               'icon' => '',
@@ -219,16 +226,17 @@ return [
               'text' => 'user_autho',
               'url'  => '/admin/staff/auth',
               'icon' => '',
+              'estaffauth' => '',
             //   'icon' => 'fas fa-key',
               // 'can' => 'admin-nav-menu',
           ],
-          [
-              'text' => 'user_management',
-              'url'  => '/admin/staff',
-              'icon' => '',
-            //   'icon' => 'far fa-folder-open',
-              // 'can' => 'admin-nav-menu',
-          ],
+          // [
+          //     'text' => 'user_management',
+          //     'url'  => '/admin/staff',
+          //     'icon' => '',
+          //   //   'icon' => 'far fa-folder-open',
+          //     // 'can' => 'admin-nav-menu',
+          // ],
           [
               'text' => 'manual_overtime',
               'url' => '/admin/overtime/approval',
@@ -249,18 +257,18 @@ return [
       ],
 
 
-      [
-        'text' => 'Dummy',
-        'icon' => 'fas fa-carrot',
-        'submenu' => [
-          [
-              'text' => 'Dummy Email',
-              'url'  => '/email/dummy',
-              'icon' => 'fas fa-envelope',
-              // 'can' => 'admin-nav-menu',
-          ],
-        ]
-      ],
+      // [
+      //   'text' => 'Dummy',
+      //   'icon' => 'fas fa-carrot',
+      //   'submenu' => [
+      //     [
+      //         'text' => 'Dummy Email',
+      //         'url'  => '/email/dummy',
+      //         'icon' => 'fas fa-envelope',
+      //         // 'can' => 'admin-nav-menu',
+      //     ],
+      //   ]
+      // ],
 //UNCOMMENT THIS LATER
 
 
@@ -395,19 +403,19 @@ return [
             [
                 'text' => 'user_shift_sc',
                 'url'  => '#',
-                'icon' => 'fas fa-calendar-check',
+                'icon' => '',
                 // 'can' => 'ot-nav-menu',
             ],
             [
                 'text' => 'shift_plan',
                 'url'  => '/shift_plan',
-                'icon' => 'fas fa-calendar-plus',
+                'icon' => '',
                 // 'can' => 'ot-nav-menu',
             ],
             [
                 'text' => 'shift_group',
                 'url'  => '/shift_plan/group',
-                'icon' => 'fas fa-users',
+                'icon' => '',
                 // 'can' => 'ot-nav-menu',
             ],
           ]
@@ -499,9 +507,42 @@ return [
 
     'plugins' => [
         [
+          'name' => 'Jszip',
+          'active' => true,
+          'files' => [
+              [
+                  'type' => 'js',
+                  'asset' => false,
+                  'location' => '//cdnjs.cloudflare.com/ajax/libs/jszip/3.2.2/jszip.min.js',
+              ],
+          ],
+        ],
+        [
+          'name' => 'PDFmake',
+          'active' => true,
+          'files' => [
+              [
+                  'type' => 'js',
+                  'asset' => false,
+                  'location' => '//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.62/pdfmake.min.js',
+              ],
+              [
+                  'type' => 'js',
+                  'asset' => false,
+                  'location' => '//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.62/vfs_fonts.js',
+              ],
+          ],
+        ],
+        [
             'name' => 'Datatables',
             'active' => true,
             'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    // 'location' => '//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js',
+                    'location' => '//cdn.datatables.net/v/bs/dt-1.10.20/b-1.6.0/b-html5-1.6.0/fh-3.1.6/datatables.min.js',
+                ],
                 [
                     'type' => 'js',
                     'asset' => false,
@@ -513,6 +554,12 @@ return [
                     'asset' => false,
                     // 'location' => '//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css',
                     'location' => '//cdn.datatables.net/v/bs/dt-1.10.20/b-1.6.0/b-html5-1.6.0/fh-3.1.6/datatables.min.css',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    // 'location' => '//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css',
+                    'location' => '//cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css',
                 ],
 
             ],

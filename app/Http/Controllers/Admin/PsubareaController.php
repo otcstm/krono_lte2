@@ -53,15 +53,20 @@ class PsubareaController extends Controller
       $new_psubarea-> created_by= $req->user()->id;
       $new_psubarea->save();
       $execute = UserHelper::LogUserAct($req, "Psubarea Management", "Create Psubarea " .$var_state. ", id ".$var_id);
-      $a_text = "Successfully created Psubarea for state " .$var_state. ".";
-      $a_type = "success";
+      $feedback_text = "Successfully created Psubarea for state " .$var_state. ".";
+      $feedback_title = "Successfully Created";
   }
   else{
-      $a_text = 'Personnel subarea already exist.';
-      $a_type = "warning";
+      $feedback_text = "Failed to creat Psubarea for state " .$var_state. ".";
+      $feedback_title = "Failed to Create";
       }
       return redirect(route('psubarea.index', [], false))
       ->with(['a_text' => $a_text,'a_type' => $a_type]);
+      return redirect(route('psubarea.index',[],false))->with([
+        'feedback' => true,
+        'feedback_text' => $feedback_text,
+        'feedback_title' => $feedback_title]
+    );
     }
 
   public function update(Request $req)
@@ -88,15 +93,27 @@ class PsubareaController extends Controller
             $ps-> last_edited_by = $req->user()->id;
             $ps->save();
             $execute = UserHelper::LogUserAct($req, "Psubarea Management", "Update Psubarea " .$req ->inputstate. ", id ".$req->inputid);
-            return redirect(route('psubarea.index', [], false))->with(['a_text' => 'Psubarea for state '. $req->inputstate . ' updated', 'a_type' => 'success']);
+            return redirect(route('psubarea.index', [], false))->with([
+              'feedback' => true,
+              'feedback_text' => 'Psubarea for state '. $req->inputstate . ' updated', 
+              'feedback_title' => 'Success']);
           }
           else{
 
-              return redirect(route('psubarea.index', [], false))->with(['a_text' =>'Personnel subarea already exist', 'a_type' => 'warning']);
+              return redirect(route('psubarea.index', [], false))->with([
+                
+              'feedback' => true,
+              'feedback_text' =>'Personnel subarea already exist', 
+              'feedback_title' => 'failed']);
               }
       } else {
         return redirect(route('psubarea.index', [], false))
-        ->with(['a_text' =>'Psubarea not found.', 'a_type' => 'warning']);
+        ->with([
+          
+          'feedback' => true,
+          'feedback_text' => 'Psubarea not found',
+          'feedback_title' => "Failed"
+          ]);
       }
     }
 
@@ -109,9 +126,16 @@ class PsubareaController extends Controller
         $ps->save();
         $ps->delete();
 
-        return redirect(route('psubarea.index', [], false))->with(['alert' => 'Psubarea for '.$ps ->state_id. ' deleted', 'a_type' => 'warning']);
+        return redirect(route('psubarea.index', [], false))->with([
+          'feedback' => true,
+          'feedback_text' => 'Psubarea for '.$ps ->state_id. ' deleted',
+           'feedback_title' => 'Success']);
       } else {
-        return redirect(route('psubarea.index', [], false))->with(['alert' => 'Psubarea for '.$ps ->state_id. ' not found', 'a_type' => 'danger']);
+        return redirect(route('psubarea.index', [], false))->with([
+          'feedback' => true,
+          'feedback_text' =>  'Psubarea for '.$ps ->state_id. ' not found', 
+          'feedback_title' => 'Failed']);
       }
+
     }
   }

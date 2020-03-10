@@ -3,43 +3,36 @@
 @section('title', 'List Activity Logs')
 
 @section('content')
-     <div class="box box-info">
-            <div class="box-header with-border">
-              <h3 class="box-title">List Activity Logs</h3>
 
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
+<h1>List Activity Logs</h1>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
               <div class="table-responsive">
                 <table id="userLogs" class="table table-hover">
                   <thead>
         <tr>
             <th>No</th>
+            <th>Date Time</th>
             <!-- <th>ID</th> -->
-            <th>User Name</th>
-            <th>Module Name</th>
+            <th>User</th>
+            <th>Module</th>
             <th>Activity Type</th>
             <th>IP Address</th>
             <th>User Agent</th>
-            <th>Session ID</th>
         </tr>
       </thead>
       <tbody>
         @foreach ($listUserLogs as $userLog)
         <tr>
-            <td>{{ ++$i }}</td>
+            <td></td>
+            <td>{{ $userLog->created_at }}</td>
             <!-- <td>{{ $userLog->id }}</td> -->
             <td>{{ $userLog->getUserTbl->name }}</td>
             <td>{{ $userLog->module_name }}</td>
             <td>{{ $userLog->activity_type }}</td>
             <td>{{ $userLog->ip_address }}</td>
             <td>{{ $userLog->user_agent }}</td>
-            <td>{{ $userLog->session_id }}</td>
            
         </tr>
         @endforeach
@@ -62,10 +55,21 @@
 @section('js')
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#userLogs').DataTable({
+  var t = $('#userLogs').DataTable({
       "responsive": "true",
-      "order" : [[0, "desc"]]
+      "order" : [[0, "desc"]],
+      
+      dom: '<"flext"lB>rtip',
+      buttons: [
+            'csv', 'excel', 'pdf'
+        ]
     });
+
+    t.on( 'order.dt search.dt', function () {
+        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+    } ).draw();
 } );
 
 // $('#viewUser').on('show.bs.modal', function(e) {

@@ -48,11 +48,11 @@
                         </p>
                         <p>State Calendar: 
                             @if($claim ?? '') 
-                                {{$claim->state->state_descr}}
+                                {{str_replace(')', '', str_replace('Malaysia (', '', $claim->state->state_descr))}}
                             @elseif($draft ?? '') 
-                                {{$draft[7]}} 
+                                {{str_replace(')', '', str_replace('Malaysia (', '', $draft[7]))}}
                             @else 
-                                {{Auth::user()->stateid->state_descr}}
+                                {{str_replace(')', '', str_replace('Malaysia (', '', Auth::user()->stateid->state_descr))}} {{--draft{{Auth::user()->stateid->state_descr}}--}}
                             @endif
                         </p>
                         <form id="formdate" action="{{route('ot.formdate')}}" method="POST">
@@ -87,14 +87,6 @@
                             @if(!(($claim ?? '')||($draft ?? '')))
                                 <p>Charging type: {{$claim->charge_type}}</p>
                             @endif
-                        @elseif($q ?? '')
-                            <p>Query Message: 
-                                @foreach($claim->log as $logs) 
-                                    @if(strpos($logs->message,"Queried")!==false) 
-                                        @php($query = $logs->message) 
-                                    @endif 
-                                @endforeach 
-                                {{str_replace('"', '', str_replace('Queried with message: "', '', $query))}}</p>
                         @endif
                     </div>
                 </div>
@@ -138,6 +130,15 @@
                             N/A
                         @endif
                     </p>
+                    @if($q ?? '')
+                        <p>Query Message: 
+                            @foreach($claim->log as $logs) 
+                                @if(strpos($logs->message,"Queried")!==false) 
+                                    @php($query = $logs->message) 
+                                @endif 
+                            @endforeach 
+                            {{str_replace('"', '', str_replace('Queried with message: "', '', $query))}}</p>
+                    @endif
                     {{--<!-- <p>Estimated Amount: RM
                         @if($claim ?? '') 
                             {{$claim->amount}} 
@@ -146,8 +147,8 @@
                         @endif</p> -->--}}
                 </div>
                 <div class="col-md-12">
-                 @if(($c ?? '')||($d ?? ''))
-                    @if(($claim ?? '')||($draft ?? ''))
+                 @if(($c ?? '')||($d ?? '')||($q ?? ''))
+                    {{--@if(($claim ?? '')||($draft ?? ''))--}}
                         @if($expiry)
                         <span style="color: red">
                             <p>Submission Due Date: 
@@ -158,9 +159,9 @@
                                 @endif Unsubmitted claims will be deleted after the due date</p>
                         </span>
                         @endif
-                    @else
-                        <p>Charging type: {{$claim->charge_type}}</p>
-                    @endif
+                    {{--@else--}}
+                        <!-- <p>Charging type: {{--$claim->charge_type--}}</p> -->
+                    {{--@endif--}}
                 @endif
                 </div>
             </div>
@@ -244,7 +245,7 @@
                                             @endif
                                             @if($s)
                                                 @if(($c ?? '')||($d ?? '')||($q ?? ''))
-                                                    <td><input type="checkbox" id="inputcheck-{{++$no}}"
+                                                    <td><input type="checkbox" id="inputcheck-{{++$no}}" class="check-{{$no}}-0"
                                                         @if($singleuser->checked=="Y")
                                                             checked
                                                         @endif >
@@ -264,7 +265,7 @@
                                                 <td>
                                                     @if(($c ?? '')||($d ?? '')||($q ?? ''))
                                                         <span id="oldds-{{$no}}" class="hidden">{{date('H:i', strtotime($singleuser->start_time))}}</span>
-                                                        <input style="width: 40px" id="inputstart-{{$no}}" name="inputstart[]" type="text" class="timepicker check-{{$no}} check-{{$no}}-0 @if($singleuser->checked=="N") hidden @endif" 
+                                                        <input style="width: 40px" id="inputstart-{{$no}}" name="inputstart[]" type="text" class="timepicker check-{{$no}} check-{{$no}}-1 @if($singleuser->checked=="N") hidden @endif" 
                                                             data-clock_in="{{ date('H:i', strtotime($singleuser->clock_in))}}"
                                                             data-start_time="{{ date('H:i', strtotime($singleuser->start_time))}}"
                                                             @if($singleuser->clock_in!="")
@@ -281,7 +282,7 @@
                                                 <td>
                                                     @if(($c ?? '')||($d ?? '')||($q ?? ''))
                                                         <span id="oldde-{{$no}}" class="hidden">{{date('H:i', strtotime($singleuser->end_time))}}</span>
-                                                        <input style="width: 40px" id="inputend-{{$no}}" name="inputend[]" type="text" class="timepicker check-{{$no}} check-{{$no}}-1 @if($singleuser->checked=="N") hidden @endif" 
+                                                        <input style="width: 40px" id="inputend-{{$no}}" name="inputend[]" type="text" class="timepicker check-{{$no}} check-{{$no}}-2 @if($singleuser->checked=="N") hidden @endif" 
                                                             data-clock_out="{{ date('H:i', strtotime($singleuser->clock_out))}}"
                                                             data-end_time="{{ date('H:i', strtotime($singleuser->end_time))}}"
                                                             value="{{ date('H:i', strtotime($singleuser->end_time))}}" required>
@@ -297,7 +298,7 @@
                                                     <span id="fixdm-{{$no}}" class="hidden">{{$singleuser->minute}}</span>
                                                     <span id="olddh-{{$no}}" class="hidden">{{$singleuser->hour}}</span>
                                                     <span id="olddm-{{$no}}" class="hidden">{{$singleuser->minute}}</span>
-                                                    <span id="inputduration-{{$no}}">{{ $singleuser->hour }}h/{{$singleuser->minute}}</span>
+                                                    <span id="inputduration-{{$no}}">{{ $singleuser->hour }}h {{$singleuser->minute}}m</span>
                                                 </td>
                                                 <td>
                                                     @if($singleuser->clock_in!="")
@@ -306,10 +307,10 @@
                                                         Manual
                                                     @endif
                                                 </td>
-                                                <td>@if($singleuser->clock_in=="") Not Applicable @else {{ $singleuser->in_latitude }} {{ $singleuser->out_longitude }} @endif</td>
+                                                <td>@if($singleuser->clock_in=="") - @else {{ $singleuser->in_latitude }} {{ $singleuser->out_longitude }} @endif</td>
                                                 <td>
                                                     @if(($c ?? '')||($d ?? '')||($q ?? ''))
-                                                        <textarea rows = "1" cols = "60" type="text" id="inputremark-{{$no}}" name="inputremark[]" placeholder="Input remark" class="check-{{$no}} check-{{$no}}-2 @if($singleuser->checked=="N") hidden @endif" style="resize: none" @if($singleuser->checked=="Y") required  @endif>{{$singleuser->justification}}</textarea>
+                                                        <textarea rows = "1" cols = "60" type="text" id="inputremark-{{$no}}" name="inputremark[]" placeholder="Input remark" class="check-{{$no}} check-{{$no}}-3 @if($singleuser->checked=="N") hidden @endif" style="resize: none" @if($singleuser->checked=="Y") required  @endif>{{$singleuser->justification}}</textarea>
                                                         @if($singleuser->checked=="N")
                                                             {{$singleuser->justification}}
                                                         @endif
@@ -351,11 +352,11 @@
                                     <span id="inputduration-0"></span>
                                 </td>
                                 <td>Manual</td>
-                                <td>Not Applicable</td>
+                                <td>-</td>
                                 <td><textarea rows = "1" cols = "60" type="text"  id="inputremark-0" name="inputremarknew" placeholder="Input remark" style="resize: none" class="check-0 check-0-2"></textarea></td>
                                 <td>
                                     <!-- <button type="button" class="btn btn-primary" id="btn-add"><i class="fas fa-save"></i></button> -->
-                                    <button type="button" class="btn btn-np" id="cancel" style="display: inline"><i class="fas fa-trash"></i></button>
+                                    <button type="button" class="btn btn-np" id="cancel" style="display: inline"><i class="fas fa-trash-alt"></i></button>
                                 </td>
                             </tr>
                         </tbody>  
@@ -368,7 +369,7 @@
                         <br>* Make sure your PDF document is <u>not password protected</u> and <u>not corrupted</u> </p>
                     </small></div> -->
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-10">
                             <div class="form-group">
                                 
                                 <div class="row" style="margin-bottom: 5px;">
@@ -380,21 +381,14 @@
                                             @if($claim ?? '')
                                                 {{$claim->charge_type}}
                                             @endif" required>
-                                            <option hidden disabled value="" 
+                                            <option value="Body Cost Center" 
                                                 @if($claim ?? '') 
-                                                    @if($claim->charge_type=="") 
-                                                        selected 
+                                                    @if($claim->charge_type=="Body Cost Center")
+                                                        selected
                                                     @endif 
                                                 @else 
                                                     selected
-                                                @endif>Select Charge Type
-                                            </option>
-                                            <option value="Own Cost Center" 
-                                                @if($claim ?? '') 
-                                                    @if($claim->charge_type=="Own Cost Center")
-                                                        selected
-                                                    @endif 
-                                                @endif>OWN COST CENTER</option>
+                                                @endif>BODY COST CENTER</option>
                                             <option value="Project" 
                                                 @if($claim ?? '') 
                                                     @if($claim->charge_type=="Project") 
@@ -514,7 +508,7 @@
                                     </div>
                                     <div class="col-md-9 maxfilef">
                                         <input type="file" name="inputfile" id="inputfile" accept="image/*, .pdf, .jpeg, .jpg, .bmp, .png, .tiff" style="position:absolute; right:-100vw;">
-                                        <span id="inputfiletext">File: .bmp, .pdf, .png, .tiff</span>
+                                        <span id="inputfiletext" style="height: 25px; border-radius: 3px; border: 1px solid #707070;">File: .bmp, .pdf, .png, .jpg, .jpeg, .tiff</span>
                                         <a href="#" id="btn-file-2"><i class="fas fa-times-circle"></i></a>
                                         <button type="button" class="btn-up" id="btn-file-1" style="min-width: 80px">BROWSE</button>
                                         <button type="button" class="btn-up" id="btn-file-3" style="min-width: 80px; display: none;">UPLOAD</button>
@@ -528,8 +522,9 @@
                                         @if($claim ?? '')
                                             @foreach($claim->file as $f=>$singlefile)
                                                 @php(++$f)
-                                                <a href="{{route('ot.file', ['tid'=>$singlefile->id], false)}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9; margin-bottom: 10px;"></a>
-                                                <a href="#" id="btn-file-del-{{$f}}" style="position: absolute; margin-left: -22px; top: 3px; color: red;" data-id="{{$singlefile->id}}" data-img="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" data-name="{{substr($singlefile->filename, 22)}}"><i class="fas fa-times-circle"></i></a>
+                                                <!-- <a href="{{-- asset('storage/'.$singlefile->filename)--}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9; margin-bottom: 10px;"></a> -->
+                                                <a href="{{route('ot.file', ['tid'=>$singlefile->id], false)}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9; margin-right: 10px; margin-bottom: 10px;"></a>
+                                                <a href="#" id="btn-file-del-{{$f}}" style="position: absolute; margin-left: -35px; top: 3px; color: red;" data-id="{{$singlefile->id}}" data-img="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" data-name="{{substr($singlefile->filename, 22)}}"><i class="fas fa-times-circle"></i></a>
 
                                             @endforeach
                                         @endif
@@ -539,11 +534,9 @@
                         </div>
                     </div>
                     <br>
-
-               
-        </div>   
-            @if((($c ?? '')||($d ?? '')||($q ?? '')))
-            <div class="panel-footer">
+                </div>   
+                    @if((($c ?? '')||($d ?? '')||($q ?? '')))
+                    <div class="panel-footer">
                         <div class="text-right">
                         <a href="{{route('ot.list')}}"><button type="button" class="btn btn-p btn-primary btn-outline" style="display: inline">BACK</button></a>
                             <!-- <button type="button" id="btn-save" class="btn btn-primary" style="display: inline"><i class="fas fa-save"></i> SAVE</button> -->
@@ -556,9 +549,8 @@
                     <input type="text" id="delid" name="delid" value="">
                 </form>
             </div>
-            @endif
-        @empty($claim ?? '')
-            @if(!($d ?? ''))
+                @endif
+            @if(!(($c ?? '')||($d ?? '')||($q ?? '')))
             </div> 
             <div class="panel-footer">
                     <div class="text-right">
@@ -566,8 +558,6 @@
                     </div>
             </div>
             @endif
-       
-        @endempty
     </div>
 </div>
 @stop
@@ -621,42 +611,42 @@
     while(d.length<2){
         d = "0"+d;
     }
-    $("#inputdate").attr("min", miny+"-"+minm+"-01");
+    // $("#inputdate").attr("min", miny+"-"+minm+"-01");
     $("#inputdate").attr("max", y+"-"+m+"-"+d);
 
     // //when date input is changed
     $("#inputdate").change(function(){
     // $("#btn-date").on('click', function(){
         
-        if(
-            ((Date.parse($("#inputdate").val()))<=Date.parse(monthNames[m-1]+" "+d+", "+y+" 23:59:59"))&&
-            ((Date.parse($("#inputdate").val()))>=Date.parse(monthNames[minm-1]+" 01, "+miny+" 00:00:00"))
-            ){
+        // if(
+        //     ((Date.parse($("#inputdate").val()))<=Date.parse(monthNames[m-1]+" "+d+", "+y+" 23:59:59"))&&
+        //     ((Date.parse($("#inputdate").val()))>=Date.parse(monthNames[minm-1]+" 01, "+miny+" 00:00:00"))
+        //     ){
             $("#formdate").submit();
-        }
+        // }
     });
         
-    $("#inputdate").change(function(){
-        if(
-            !(((Date.parse($("#inputdate").val()))<=Date.parse(monthNames[m-1]+" "+d+", "+y+" 23:59:59"))&&
-            ((Date.parse($("#inputdate").val()))>=Date.parse(monthNames[minm-1]+" 01, "+miny+" 00:00:00")))
-            ){
-                Swal.fire(
-                    'Invalid date input!',
-                    "Claim date must be between 01-"+minm+"-"+miny+" and "+d+"-"+m+"-"+y+"!",
-                    'error'
-                )
-                // alert("Claim date must be between "+miny+"-"+minm+"-01 and "+y+"-"+m+"-"+d+"!");
+    // $("#inputdate").change(function(){
+    //     if(
+    //         !(((Date.parse($("#inputdate").val()))<=Date.parse(monthNames[m-1]+" "+d+", "+y+" 23:59:59"))&&
+    //         ((Date.parse($("#inputdate").val()))>=Date.parse(monthNames[minm-1]+" 01, "+miny+" 00:00:00")))
+    //         ){
+    //             Swal.fire(
+    //                 'Invalid date input!',
+    //                 "Claim date must be between 01-"+minm+"-"+miny+" and "+d+"-"+m+"-"+y+"!",
+    //                 'error'
+    //             )
+    //             // alert("Claim date must be between "+miny+"-"+minm+"-01 and "+y+"-"+m+"-"+d+"!");
                 
-                @if($claim ?? '')
-                    $("#inputdate").val("{{$claim->date}}");
-                @elseif($draft ?? '')
-                    $("#inputdate").val("{{$draft[4]}}");
-                @else
-                    $("#inputdate").val("");
-                @endif
-            }
-        });
+    //             @if($claim ?? '')
+    //                 $("#inputdate").val("{{$claim->date}}");
+    //             @elseif($draft ?? '')
+    //                 $("#inputdate").val("{{$draft[4]}}");
+    //             @else
+    //                 $("#inputdate").val("");
+    //             @endif
+    //         }
+    //     });
 
     //apply timepicker plugin to all time input
     $('.timepicker').timepicker({
@@ -1001,35 +991,59 @@
         };
         
         //when click add time
+        var canadd = true
+
         $("#add").on('click', function(){
-            // if(add){
-                // $('#oldds-0').text($("#inputstart-0").val());
-                // $('#oldde-0').text($("#inputend-0").val());
-                $('#addform').css("display", "table-row");
-                $("#inputstart-0").prop('required',true);
-                $("#inputend-0").prop('required',true);
-                $("#inputremark-0").prop('required',true);
-                // calshowtime(0, (parseInt($("#olddh-0").text()*60)+parseInt($("#olddm-0").text())), 0, 0, $("#    oldth").text(), $("#oldtm").text());
-                $('#nodata').css("display","none");
-                $('#add').prop("disabled",true);
-                // add=false;  
-            // }else{
-            //     for(j=0; j<3;j++){
-            //         if($('.check-0-'+j).get(0).checkValidity()==false){
-            //             $('.check-0-'+j).get(0).reportValidity();
-            //         }
-            //     }
-            //     // Swal.fire({
-            //     //     icon: 'error',
-            //     //     title: 'Unable to add time',
-            //     //     text: 'Please complete current time input before adding a new one!'
-            //     // })
-            // }
+            @if($claim ?? '')
+            for(j=1; j<{{count($claim->detail)}}+1;j++){
+                if($(".check-"+j+"-0").prop("checked") == true){
+                    // alert(yes);
+                    for(m=1; m<4;m++){
+                        if($('.check-'+j+"-"+m).get(0).checkValidity()==false){
+                            $('.check-'+j+"-"+m).get(0).reportValidity();
+                            canadd = false;
+                        }
+                    }
+                }
+            }
+            @endif
+            // alert(canadd);
+            if(canadd){
+                if(add){
+                    // $('#oldds-0').text($("#inputstart-0").val());
+                    // $('#oldde-0').text($("#inputend-0").val());
+                    $('#addform').css("display", "table-row");
+                    $("#inputstart-0").prop('required',true);
+                    $("#inputend-0").prop('required',true);
+                    $("#inputremark-0").prop('required',true);
+                    // calshowtime(0, (parseInt($("#olddh-0").text()*60)+parseInt($("#olddm-0").text())), 0, 0, $("#    oldth").text(), $("#oldtm").text());
+                    $('#nodata').css("display","none");
+                    // $('#add').prop("disabled",true);
+                    add=false;  
+                }else{
+                //     for(j=0; j<3;j++){
+                //         if($('.check-0-'+j).get(0).checkValidity()==false){
+                //             $('.check-0-'+j).get(0).reportValidity();
+                //         }
+                //     }
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Incomplete',
+                        text: 'Please complete current input fields before adding a new one!'
+                    })
+                }
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Incomplete',
+                    text: 'Please complete current input fields before adding a new one!'
+                }) 
+            }
         });
         
         //when cancel add time
         $("#cancel").on('click', function(){
-            // if(!(add)){
+            if(!(add)){
                 $('#oldds-0').text("0");
                 $('#oldde-0').text("0");
                 $('#addform').css("display", "none");
@@ -1044,9 +1058,9 @@
                 $("#oldtm").text(nhm[1]);
                 $("#showtime").text(nhm[0]+"h "+nhm[1]+"m");
                 $('#nodata').css("display","table-row");
-                $('#add').prop("disabled",false);
-                // add=true;  
-            // }
+                // $('#add').prop("disabled",false);
+                add=true;  
+            }
         });
 
         $("#btn-file-1").on('click', function(){
@@ -1081,7 +1095,7 @@
             if (filesize > 1000000) { 
                 Swal.fire({
                     icon: 'error',
-                    title: 'Unable to choose file',
+                    title: 'Error',
                     text: 'File size has exceeded 1MB!'
                 })
                 $("#inputfile").val("");
@@ -1271,7 +1285,7 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Unable to submit form',
-                    text: 'Please add some claim time before submitting the form!'
+                    text: 'Please add time to your claim'
                 })
                 $("#inputstart-0").prop('required',true);
                 $("#inputend-0").prop('required',true);
