@@ -6,7 +6,7 @@
 @section('title', 'Report')
 @section('content')
 
-
+<h1>Report Details</h1>
 <div class="panel panel-default">
 <div class="panel-heading panel-primary">List of Start/End OT Time</div>
 <div class="panel-body">
@@ -89,7 +89,7 @@
   </table>
   </div>
   <div class="form-group text-center"><br>
-    <button onclick="goBack()" class="btn btn-primary">Go Back</button>
+    <button onclick="goBack()" class="btn btn-primary">RETURN</button>
   </div>
 </div>
 </div>
@@ -118,11 +118,15 @@ $(document).ready(function() {
   $('#tOtlist').DataTable({
     "responsive": "true",
     "order" : [[0, "asc"]],
-    dom: 'Bfrtip',
-		buttons: [
-    {extend: 'excelHtml5', exportOptions: {columns: ':visible'}, filename: 'OT Details Report', sheetName: 'OT Details', title: 'OT Details Report'},
-    {extend: 'pdfHtml5', exportOptions: {columns: ':visible'}, filename: 'OT Details Report', sheetName: 'OT Details', title: 'OT Details Report'},
-		{extend: 'colvis', collectionLayout: 'fixed three-column'}]
+    dom: '<"flext"lB>rtip',
+    buttons: [
+        'csv', 'excel', 'pdf'
+    ]
+    // dom: 'Bfrtip',
+		// buttons: [
+    // {extend: 'excelHtml5', exportOptions: {columns: ':visible'}, filename: 'OT Details Report', sheetName: 'OT Details', title: 'OT Details Report'},
+    // {extend: 'pdfHtml5', exportOptions: {columns: ':visible'}, filename: 'OT Details Report', sheetName: 'OT Details', title: 'OT Details Report'},
+		// {extend: 'colvis', collectionLayout: 'fixed three-column'}]
   });
 });
 </script>

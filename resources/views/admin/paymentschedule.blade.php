@@ -11,13 +11,7 @@
 <div class="panel panel-default">
 	<div class="panel-heading"><strong>Payment Schedule</strong></div>
 
-	<div class="panel-body">
-		@if (session()->has('a_text'))
-		<div class="alert alert-{{ session()->get('a_type') }} alert-dismissible">
-			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			<strong>{{ session()->get('a_text') }}</strong>
-		</div>
-		@endif
+	<!-- <div class="panel-body">
 		<div>
 			<input type="hidden" name="slctyr" id="slctyr_hidden" value="{{$slctyr}}" />
 			<form  method="post" class="form-horizontal" id="fselectyear" >
@@ -32,7 +26,7 @@
 					</td></tr></table>
 			</form>
 		</div>
-	</div>
+	</div> -->
 		<div class="panel-body">
 		<div class="table-responsive" >
 			<table id="tpayment_sche" class="table table-hover table-bordered" >
@@ -200,32 +194,32 @@ $("#slctyr_id").val('{{$slctyr}}');
 $(document).ready(function() {
     $('#tpayment_sche').DataTable({
         "responsive": "true",
-        "order" : [[0, "asc"]],
-				dom: 'Bfrtip',
-				buttons: [         {
-                extend: 'copyHtml5',
-                exportOptions: {
-                    columns:  ':visible'
-                }
-            },
-            {
-                extend: 'excelHtml5',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            {
-                extend: 'pdfHtml5',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-						{
-						                extend: 'colvis',
-						                collectionLayout: 'fixed three-column'
-						            }
+        "order" : [[0, "asc"]]
+			// 	dom: 'Bfrtip',
+			// 	buttons: [         {
+            //     extend: 'copyHtml5',
+            //     exportOptions: {
+            //         columns:  ':visible'
+            //     }
+            // },
+            // {
+            //     extend: 'excelHtml5',
+            //     exportOptions: {
+            //         columns: ':visible'
+            //     }
+            // },
+            // {
+            //     extend: 'pdfHtml5',
+            //     exportOptions: {
+            //         columns: ':visible'
+            //     }
+            // },
+			// 			{
+			// 			                extend: 'colvis',
+			// 			                collectionLayout: 'fixed three-column'
+			// 			            }
 
-					]
+			// 		]
 });
 });
 

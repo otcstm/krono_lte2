@@ -21,13 +21,15 @@ class StaffController extends Controller
         if($req->session()->has('staffs')) {
           // $staff = $req->session()->get('staffs');
           $staff = User::find($req->session()->get('staffs'));
+          $role = Role::all();
           return view('admin.staff',[
             // 'staffs' => $req->session()->get('staffs')
-            'staffs' => $staff
+            'staffs' => $staff,
+            'roles' => $role
           ]);
         }else{
           $staff = [];
-          return view('admin.staff',['staffs' => $staff]);
+          return view('admin.staff',['staffs' => $staff, 'roles' => $role]);
         }
     }
 
@@ -64,6 +66,13 @@ class StaffController extends Controller
         return redirect(route('staff.list',[],false));
       }
     }
+
+    
+    public function emptystaffauth(){
+        Session::put(['staffs'=>[]]);
+        return redirect(route('staff.list.auth',[],false));
+    }
+
 
     public function showRole(Request $req){
       $auth = true;
@@ -117,16 +126,14 @@ class StaffController extends Controller
       $update_staff->roles()->sync($role);
       $execute = UserHelper::LogUserAct($req, "User Management", "Update " .$req->inputname. " authorization");
       $feedback = true;
-      $feedback_text = "Successfully updated " .$req->inputno. " roles.";
-      $feedback_icon = "ok";
-      $feedback_color = "#5CB85C";
+      $feedback_text = "Successfully updated " .$req->inputno. " roles for user ".$update_staff->staff_no.".";
+      $feedback_title = "Successfully Updated";
       // $staff = User::all();
       return redirect(route('staff.list.auth',[],false))->with([
           // 'staffs'=>$staff,
           'feedback' => $feedback,
           'feedback_text' => $feedback_text,
-          'feedback_icon' => $feedback_icon,
-          'feedback_color' => $feedback_color]
+          'feedback_title' => $feedback_title]
       );
   }
     public function updateMgmt(Request $req){

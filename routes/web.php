@@ -59,6 +59,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/admin/staff', 'Admin\StaffController@showMgmt')->name('staff.list.mgmt');
   Route::post('/admin/staff/edit', 'Admin\StaffController@updateMgmt')->name('staff.edit.mgmt');
   //User authorization
+  Route::get('/admin/staff/auth/empty', 'Admin\StaffController@emptystaffauth')->name('staff.list.auth.empty');
   Route::get('/admin/staff/auth', 'Admin\StaffController@showRole')->name('staff.list.auth');
   Route::post('/admin/staff/auth/edit', 'Admin\StaffController@updateRole')->name('staff.edit.auth');
   //Role management
@@ -106,6 +107,12 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/admin/overtime/expiry/active', 'Admin\OvertimeMgmtController@active')->name('oe.active');
   Route::get('/admin/overtime/expiry/getexpiry', 'Admin\OvertimeMgmtController@getExpiry')->name('oe.getexpiry');
   Route::get('/admin/overtime/expiry/getlast', 'Admin\OvertimeMgmtController@getLast2')->name('oe.expirygetlast');
+  
+  Route::get('/admin/overtime/eligibility', 'Admin\OvertimeMgmtController@eligibilityshow')->name('oe.eligibility.show');
+  Route::post('/admin/overtime/eligibility/add', 'Admin\OvertimeMgmtController@eligibilityadd')->name('oe.eligibility.add');
+  Route::post('/admin/overtime/eligibility/remove', 'Admin\OvertimeMgmtController@eligibilityremove')->name('oe.eligibility.remove');
+  Route::post('/admin/overtime/eligibility/update', 'Admin\OvertimeMgmtController@eligibilityupdate')->name('oe.eligibility.update');
+
   //Payroll Group
   Route::get( '/admin/pygroup','Admin\PayrollgroupController@index')->name('pygroup.index');
   Route::get('/admin/pygroup/create', 'Admin\PayrollgroupController@create')->name('pygroup.create');

@@ -32,18 +32,15 @@ class RoleController extends Controller{
             $new_role->permissions()->sync($permission);
             $execute = UserHelper::LogUserAct($req, "Role Management", "Create Role " .$name);
             $feedback_text = "Successfully created role " .$name. ".";
-            $feedback_icon = "ok";
-            $feedback_color = "#5CB85C";
+            $feedback_title = "Successfully Created";
         }else{
             $feedback_text = "There is already a role named " .$name. ".";
-            $feedback_icon = "remove";
-            $feedback_color = "#D9534F";
+            $feedback_title = "Failed";
         }
         return redirect(route('role.list',[],false))->with([
-            'feedback' => $feedback,
+            'feedback' => true,
             'feedback_text' => $feedback_text,
-            'feedback_icon' => $feedback_icon,
-            'feedback_color' => $feedback_color]
+            'feedback_title' => $feedback_title]
         );
     }
 
@@ -57,15 +54,12 @@ class RoleController extends Controller{
         $execute = UserHelper::LogUserAct($req, "Role Management", "Update Role " .$req->inputname);
         $feedback = true;
         $feedback_text = "Successfully updated role " .$req->inputname. ".";
-        $feedback_icon = "ok";
-        $feedback_color = "#5CB85C";
         $role = Role::all(); 
         return redirect(route('role.list',[],false))->with([
             'role' => $role,
             'feedback' => $feedback,
             'feedback_text' => $feedback_text,
-            'feedback_icon' => $feedback_icon,
-            'feedback_color' => $feedback_color]
+            'feedback_title' => "Successfully Updated"]
         );
     }
 
@@ -74,18 +68,15 @@ class RoleController extends Controller{
         $delete_role->deleted_by = $req->user()->id;
         $delete_role->save();
         Role::find($req->inputid)->delete();
-        $execute = UserHelper::LogUserAct($req, "Role Management", "Delete Role " .$req->inputname);
+        $execute = UserHelper::LogUserAct($req, "Role Management", "Delete Role " .$delete_role->title);
         $feedback = true;
-        $feedback_text = "Successfully deleted role " .$req->inputname. ".";
-        $feedback_icon = "ok";
-        $feedback_color = "#5CB85C";
+        $feedback_text = "Successfully deleted role " .$delete_role->title. ".";
         $role = Role::all(); 
         return redirect(route('role.list',[],false))->with([
             'role' => $role,
             'feedback' => $feedback,
             'feedback_text' => $feedback_text,
-            'feedback_icon' => $feedback_icon,
-            'feedback_color' => $feedback_color]
+            'feedback_title' => "Successfully Deleted"]
         );
     }
 }
