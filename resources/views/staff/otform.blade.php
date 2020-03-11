@@ -307,7 +307,7 @@
                                                         Manual
                                                     @endif
                                                 </td>
-                                                <td>@if($singleuser->clock_in=="") - @else {{ $singleuser->in_latitude }} {{ $singleuser->out_longitude }} @endif</td>
+                                                <td>@if($singleuser->clock_in=="") - @else <a href = "https://www.google.com/maps/search/?api=1&query={{$singleuser->in_latitude}},{{$singleuser->in_longitude}}" target="_blank" style="font-weight: bold; color: #143A8C">{{ $singleuser->in_latitude }} {{ $singleuser->in_longitude }}</a> @endif</td>
                                                 <td>
                                                     @if(($c ?? '')||($d ?? '')||($q ?? ''))
                                                         <textarea rows = "1" cols = "60" type="text" id="inputremark-{{$no}}" name="inputremark[]" placeholder="Input remark" class="check-{{$no}} check-{{$no}}-3 @if($singleuser->checked=="N") hidden @endif" style="resize: none" @if($singleuser->checked=="Y") required  @endif>{{$singleuser->justification}}</textarea>
