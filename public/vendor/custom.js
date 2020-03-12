@@ -187,8 +187,8 @@ function showError2(error) {
         case error.PERMISSION_DENIED:
             if(showerror2){
                 Swal.fire({
-                    title: 'Error',
-                    html: "User denied the request for Geolocation." ,
+                    title: 'Error End Overtime',
+                    html: "It seems that your browser setting has blocked Geolocation. Please enable your browser Geolocation settings to end your overtime. You may refer to the guideline to enable it hHERE" ,
                     confirmButtonText: "OK"
                 }).then((result) => {
                     if (result.value) {

@@ -45,7 +45,7 @@
                             <td>{{ date("d.m.Y", strtotime($singleuser->date)) }}</td>
                             <td>@foreach($singleuser->detail as $details) @if($details->checked=="Y") {{date('Hi', strtotime($details->start_time)) }}<br> @endif @endforeach</td>
                             <td>@foreach($singleuser->detail as $details) @if($details->checked=="Y") {{ date('Hi', strtotime($details->end_time))}}<br> @endif @endforeach</td>
-                            <td>{{ $singleuser->total_hour }}h/{{ $singleuser->total_minute }}m</td>
+                            <td>{{ $singleuser->total_hour }}h {{ $singleuser->total_minute }}m</td>
                             <td>{{$singleuser->daytype->description}}</td> 
                             <td>
                                 @if($singleuser->charge_type!=null)
@@ -54,7 +54,7 @@
                                     N/A
                                 @endif
                             </td> 
-                            <td>@if(count($singleuser->detail)) @foreach($singleuser->detail as $details) @if($details->checked=="Y") {{$details->in_latitude}} {{$details->in_longitude}}<br> @endif @endforeach @else - @endif</td> 
+                            <td>@if(count($singleuser->detail)) @foreach($singleuser->detail as $details) @if($details->checked=="Y")<a href = "https://www.google.com/maps/search/?api=1&query={{$details->in_latitude}},{{$details->in_longitude}}" target="_blank" style="font-weight: bold; color: #143A8C"> {{$details->in_latitude}} {{$details->in_longitude}}</a><br> @endif @endforeach @else - @endif</td> 
                             <td 
                                 @foreach($singleuser->log as $logs) 
                                     @if(strpos($logs->message,"Queried")!==false) 
