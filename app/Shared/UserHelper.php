@@ -453,9 +453,12 @@ class UserHelper {
     public static function CheckDay($user, $date)
     {
       $day = date('N', strtotime($date));
+      // $day = 6;
       // dd($day);
       $start = "00:00";
       $end =  "00:00";
+      
+      // $day_type = 'Off Day'; //temp
       if($day==6){
         $day_type = 'Off Day';
       }elseif($day>6){
@@ -463,9 +466,10 @@ class UserHelper {
       }else{
         $start = "08:30";
         $end = "17:30";
+        // $end = "22:30";
         $day_type = 'Normal Day';
       }
-      return [$start, $end, $day_type];
+      return [$start, $end, $day_type, $day];
     }
      // temp=====================================================
 
@@ -487,6 +491,26 @@ class UserHelper {
 
     return $retval;
 
+  }
+
+  public static function CheckGM($todate, $otdate){
+    $difdatem = date('m',strtotime($todate)) - date('m',strtotime($otdate));
+    $difdated = date('d',strtotime($todate)) - date('d',strtotime($otdate));
+        if($difdatem<0){
+            $difdatem=$difdatem+12;
+        }
+        
+        // dd($otdate);
+        $gm = true;
+        if(($difdatem<4)){
+            $gm = false;
+            if($difdatem==3){
+                if($difdated>=0){
+                  $gm = true;
+                }
+            }
+        }
+        return $gm;
   }
 
 }

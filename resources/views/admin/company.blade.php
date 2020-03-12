@@ -20,7 +20,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach ($companies as $company)
+						@foreach ($companies as $no => $company)
 						<tr>
 								<td>{{ $company->id }}</td>
 								<td>{{ $company->company_descr }}</td>
@@ -29,12 +29,11 @@
 									<form method="post" action="{{ route('company.delete', [], false) }}" id="formdelete">
 										@csrf
 										<button type="button" class="btn btn-np" title="Edit"
-												data-toggle="modal"
-												data-target="#editCompany"
-												data-id="{{$company->id}}"
-												data-compdescr="{{$company->company_descr}}"
-												>
-												<i class="fas fa-edit"></i>
+											id="edit-{{$no}}"
+											data-id="{{$company->id}}"
+											data-compdescr="{{$company->company_descr}}"
+											>
+											<i class="fas fa-edit"></i>
 										</button>
 										<button type="button" class="btn btn-np" title="Delete" data-compdescr="{{$company->company_descr}}" onclick="return deleteid()" id="buttond">
 												<i class="fas fa-trash-alt"></i>
@@ -47,7 +46,8 @@
 					</tbody>
 				</table>
 			</div>
-			<strong>Add New Company</strong><br>
+			<div class="line"></div>
+			<h4><b>Add New Company</b></h4>
 			<form action="{{ route('company.store', [], false) }}" method="post">
 				@csrf
 				<div class="row">
@@ -75,7 +75,7 @@
 		<div class="panel-footer">
 		
 		<div class="text-right">
-							<button type="submit" class="btn btn-p btn-primary">CREATE</button>
+							<button type="submit" class="btn btn-p btn-primary">CREATE NEW COMPANY</button>
 							
 		</div>
 			</form>
@@ -84,7 +84,7 @@
 </div>
 
 <!-- edit Psubarea -->
-<div id="editCompany" class="modal fade" role="dialog">
+<!-- <div id="editCompany" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
         <form action="{{ route('company.update') }}" method="POST">
@@ -113,8 +113,15 @@
         </form>
         </div>
     </div>
-</div>
+</div> -->
 
+
+<form action="{{ route('company.update') }}" method="POST" id="edit" class="hidden">
+	@csrf
+	<input type="text" class="form-control" id="eid" name="eid" value="">
+	<input type="text" class="form-control" id="editdescr" name="editdescr" value="">
+</form>
+		
 @stop
 
 @section('js')
@@ -137,6 +144,60 @@ function populate(e){
 $('#editCompany').on('show.bs.modal', function(e) {
     populate(e);
 });
+
+for(i = 0; i<{{count($companies)}}; i++){
+	$("#edit-"+i).on("click", edit(i));
+	
+}
+
+function edit(i){
+	return function(){
+		var ps_id = $("#edit-"+i).data('id');
+		var ps_comp = $("#edit-"+i).data('compdescr');
+		Swal.fire({
+			title: 'Edit Company',
+			html: 
+				"<div class='row'>"+
+					"<div class='col-md-4'>"+
+						"<p>Company ID</p>"+
+					"</div>"+
+					"<div class='col-md-8'>"+
+						"<input type='text' id='cid' value='"+ps_id+"' style='width: 100%' disabled>"+
+					"</div>"+
+				"</div>"+
+				"<div class='row'>"+
+					"<div class='col-md-4'>"+
+						"<p>Company Description</p>"+
+					"</div>"+
+					"<div class='col-md-8'>"+
+						"<input type='text' id='cdes' value='"+ps_comp+"' style='width: 100%'>"+
+					"</div>"+
+				"</div>",
+			showCancelButton: true,
+			customClass:'test4',
+			confirmButtonColor: '#d33',
+			cancelButtonColor: '#3085d6',
+			confirmButtonText: 'SELECT',
+			cancelButtonText: 'CANCEL'
+			}).then((result) => {
+			if (result.value) {
+				if(($('#cid').val()!="")&&($('#cdes').val()!="")){
+					$('#eid').val($('#cid').val());
+					$('#editdescr').val($('#cdes').val());
+					$("#edit").submit();
+					// alert($('#cid').val()+" "+$('#eid').val());
+				}else{
+					Swal.fire({
+							icon: 'error',
+							title: 'Edit Error',
+					text: "One of the input fields cannot be empty!",
+					confirmButtonText:'OK'
+					})
+				}
+			}
+		})
+	}
+}
 
 function deleteid(){
 	

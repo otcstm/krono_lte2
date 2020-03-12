@@ -69,7 +69,7 @@
                 @foreach($p_list as $app)
                   @if(date('Y-m-d', strtotime($app->punch_in_time))==$date1)
                     @foreach($app->detail as $no=>$aps)
-                      <p style="margin: 2px 0;"><button type="button" data-id="{{ $aps->id }}" data-start="{{$aps->start_time}}" data-end="{{$aps->end_time}}" class="del btn btn-sm btn-x btn-x-sm" style="display: block;" @if($ap->apply_ot=="X") disabled @endif><i class="fas fa-times"></i></button></p>
+                    @if($ap->apply_ot!="X") <p style="margin: 2px 0;"><button type="button" data-id="{{ $aps->id }}" data-start="{{$aps->start_time}}" data-end="{{$aps->end_time}}" class="del btn btn-sm btn-x btn-x-sm" style="display: block;" ><i class="fas fa-times"></i></button></p> @endif
                     @endforeach
                   @endif
                 @endforeach
@@ -92,7 +92,7 @@
                       @csrf
                       <input type="date" id="inputdate" class="hidden" name="inputdate" value="{{ date('Y-m-d', strtotime($ap->punch_in_time)) }}" required>
                           
-                        <button type="submit" class="btn btn-sm btn-primary" @if($ap->apply_ot=="X") disabled @endif>APPLY OT</button>
+                      @if($ap->apply_ot!="X")<button type="submit" class="btn btn-sm btn-primary">APPLY OT</button> @endif
 
                     </form>
                   @endif
@@ -118,6 +118,8 @@
 
 @section('js')
 <script type="text/javascript">
+
+@if(count($p_list)>0)
 $(document).ready(function() {
     $('#tPunchHIstory').DataTable({
       "responsive": "true",
@@ -128,7 +130,7 @@ $(document).ready(function() {
       ],
     });
 } );
-
+@endif
 // var now = new Date(); 
 // x = Date.parse(now).toString("yyyy-MM-dd HH:mm:ss")
 // $("#timesss").val(x);
@@ -147,7 +149,7 @@ $(".del").on("click", function(){
   }
   $('#inputid').val(id);
   Swal.fire({
-      title: 'Are you sure to delete Clock In?',
+      title: 'Are you sure to permanently delete Clock In?',
       text: "Delete clock in time "+s+" - "+e,
       icon: 'warning',
       showCancelButton: true,
