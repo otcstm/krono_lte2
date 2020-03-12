@@ -3,15 +3,11 @@
 @section('title', 'Payroll Group List')
 
 @section('content')
+<h1>Payroll Group</h1>
+<div class="panel panel-default panel-main">
 <div class="panel panel-default">
-    <div class="panel-heading panel-primary">Payroll Groups</div>
+    <div class="panel-heading panel-primary">Payroll Group Management</div>
     <div class="panel-body">
-      @if (session()->has('a_text'))
-      <div class="alert alert-{{ session()->get('a_type') }} alert-dismissible">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>{{ session()->get('a_text') }}</strong>
-      </div>
-      @endif
         <div class="table-responsive">
             <table id="tPygList" class="table table-hover table-bordered">
                 <thead>
@@ -37,8 +33,8 @@
                       <td>
                       <form method="post" action="{{ route('pygroup.delete', [], false) }}" onsubmit="return confirm('Are you sure you want to delete?')">
                         @csrf
-                        <a href="{{ route('pygroup.editnew',['id'=>$pygroup['id']],false) }}" class="btn btn-xs btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                        <button type="submit" class="btn btn-xs btn-danger" title="Delete">
+                        <a href="{{ route('pygroup.editnew',['id'=>$pygroup['id']],false) }}" class="btn btn-np"><i class="fas fa-pencil-alt"></i></a>
+                        <button type="submit" class="btn btn-np" title="Delete">
       											<i class="fas fa-trash-alt"></i>
       									</button>
       									<input type="hidden" name="inputid" value="{{$pygroup->id}}">
@@ -49,16 +45,21 @@
                 </tbody>
             </table>
         </div>
-        <div class="form-group text-center">
+        <!-- <div class="form-group text-center"> -->
+			</div>
+				<div class="panel-footer">
+					<div class="text-right">
           <form action="{{ route('pygroup.create',[],false) }}" style="display:inline; float:center">
             @csrf
-            <input type="submit" name="submit" value="Create New PYG" class="btn btn-primary "/>
+            <button type="submit" name="submit" value="Create New PYG" class="btn btn-primary">CREATE NEW PAYROLL</button>
           </form>
         </div>
 
+				</div>
     </div>
 </div>
 <div id="deletePyg" class="modal fade" role="dialog">
+</div>
 </div>
 
 @stop
@@ -74,7 +75,11 @@ $(document).ready(function() {
 });
 
 @if(session()->has('feedback'))
-    $('#feedback').modal('show');
+    Swal.fire({
+        title: "{{session()->get('feedback_title')}}",
+        html: "{{session()->get('feedback_text')}}",
+        confirmButtonText: 'DONE'
+    })
 @endif
 </script>
 @stop
