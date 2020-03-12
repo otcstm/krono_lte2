@@ -7,29 +7,76 @@ use App\Shared\UserHelper;
 use App\StaffPunch;
 use App\OvertimePunch;
 use App\User;
+use App\Overtime;
 use App\UserLog;
+use App\PaymentSchedule;
 use \Carbon\Carbon;
 use DateTime;
+use DB;
 //use DateTimeZone;
 
 class MiscController extends Controller
 {
   public function home(Request $req){
 
+    $last_month = Carbon::now()->addMonths(-1); 
+    $first_last_month = date('01-m-Y',strtotime($last_month));
+
+    $curr_date = now(); 
+
+    $next_month = Carbon::now()->addMonths(1); 
+    $first_next_month = date('01-m-Y',strtotime($next_month));
+
     //user
     //actual payment for current month        
-    $dataUser = User::where('id', '=', $req->user()->id)->latest('updated_at')->first();
+    $act_payment_curr_month = 
+    Overtime::where('user_id','=',$req->user()->id)
+    ->where('status','=','PAID')
+    ->whereYear('date','=', $curr_date)
+    ->whereMonth('date','=', $curr_date)
+    ->sum('amount');
+    //->with(['detail' => function($query){
+    //  $query->sum('amount');
+    //}])
+    //dd($act_payment_curr_month);
 
-    //Pending payment last month
+    //Pending payment last month      
+    $pending_payment_last_month = 
+    Overtime::where('user_id','=',$req->user()->id)
+    ->where('status','=','PAID')
+    ->whereYear('date','=', $last_month)
+    ->whereMonth('date','=', $last_month)
+    ->sum('amount');
 
-    //total hour OT from current month
+    //total hour OT from current month 
+    $total_hour_ot_curr_month = 
+    Overtime::where('user_id','=',$req->user()->id)
+    ->where('status','=','PAID')
+    ->whereYear('date','=', $curr_date)
+    ->whereMonth('date','=', $curr_date)
+    ->sum('total_hour');
 
     //next payment schedule
-
+    $next_payment_sch = 
+    PaymentSchedule::whereYear('payment_date','=', $next_month)
+    ->whereMonth('payment_date','=', $next_month)
+    ->max('payment_date');
+    //dd($next_payment_sch);    
+    
     //approver
     //Last approval date
+    $last_approval_date = 
+    PaymentSchedule::whereYear('payment_date','=', $curr_date)
+    ->whereMonth('payment_date','=', $curr_date)
+    ->max('last_approval_date');
     
     //pending approval count()
+    $pending_approval_count = 
+    Overtime::where('user_id','=',$req->user()->id)
+    ->where('status','=','PAID')
+    ->whereYear('date','=', $curr_date)
+    ->whereMonth('date','=', $curr_date)
+    ->sum('total_hour');
 
     //link set default verifier
 
@@ -43,7 +90,14 @@ class MiscController extends Controller
     // dd($req->user()->name);
     return view('home', [
       'uname' => $req->user()->name,
-      ''
+      'first_last_month' => $first_last_month,
+      'first_next_month' => $first_next_month,
+      'act_payment_curr_month' => $act_payment_curr_month,
+      'pending_payment_last_month' => $pending_payment_last_month,
+      'total_hour_ot_curr_month' => $total_hour_ot_curr_month,
+      'next_payment_sch' => $next_payment_sch,
+      'last_approval_date' => $last_approval_date,
+      'pending_approval_count' => $pending_approval_count
       ]);
   }
 

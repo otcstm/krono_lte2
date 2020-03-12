@@ -712,18 +712,13 @@ ul.pagination > li.active a{
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
-    /* display: flex; */
-    /* display: table; */
-    margin-right: -15px;
-    margin-left: -15px;
-    margin-bottom: 15px;
+    display:         flex;
+    flex-wrap: wrap;
   }
-
-.row-eq-height [class*="col-"] {
-    float: none;
-    display: table-cell;
-    vertical-align: top;
-}
+  .row-eq-height > [class*='col-'] {
+    display: flex;
+    flex-direction: column;
+  }
 
 .boxfullheight {
     height: 100% !important; 
@@ -739,4 +734,8 @@ ul.pagination > li.active a{
     margin-top: 5px;
     padding: 0 5px;
 }
+
+.select2 {
+    width:100% !important;
+    }
 

@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SetupCodesTableSeeder::class);
 
         // $this->call(PaymentSchedulesTableSeeder::class);
-        $this->call(ShiftPatternDaysTableSeeder::class);
+        //$this->call(ShiftPatternDaysTableSeeder::class);
 
 
         // $this->call(ProjectsTableSeeder::class);
