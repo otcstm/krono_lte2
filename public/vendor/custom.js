@@ -13,7 +13,12 @@ if($('.login').height()<=$(window).height()){
 // alert($('.login').height());
 
 var timestart;
-
+var lat = 0;
+var long = 0;
+var lat2 = 0;
+var long2 = 0;
+var startclockt;
+var canstart = false;
 var check = new Date(); 
 // checkclock = Date.parse(check).toString("yyyy-MM-dd HH:mm:ss");
 $.ajax({
@@ -54,6 +59,7 @@ $.ajax({
         puncho();
     }
 });
+
 var once =true;
 var n = 0;
 var timeoutId;
@@ -64,12 +70,178 @@ $("#punchb").on('mousedown', function() {
 }).on('mouseup', function() {
     if(n<1){
         if(once){
-            puncho();
+            getLocation();
         }
     }
     // alert(n);
     clearTimeout(timeoutId);
 });
+
+// function getlocation(){
+// 	if ("geolocation" in navigator){
+//         navigator.geolocation.getCurrentPosition(function success(pos){
+//             lat = pos.coords.latitude;
+//             long = pos.coords.longitude;
+//         }, function error(err){
+//             getlocation();
+//         });
+// 	}else{
+// 		alert("Browser doesn't support geolocation!");
+// 	}
+// }
+
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition,showError);
+    } else {
+        Swal.fire({
+            title: 'Error',
+            html: "Geolocation is not supported by this browser." ,
+            confirmButtonText: "OK"
+        })
+    }
+}   
+
+function showPosition(position) {
+    lat =position.coords.latitude;
+    long =position.coords.longitude;
+    puncho();
+}
+
+var showerror = true;
+function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            if(showerror){
+                Swal.fire({
+                    title: 'Error',
+                    html: "User denied the request for Geolocation." ,
+                    confirmButtonText: "OK"
+                }).then((result) => {
+                    if (result.value) {
+                        showerror = true;
+                    }
+                })
+                showerror = false;
+                getLocation();
+            }
+        break;
+        case error.POSITION_UNAVAILABLE:
+            if(showerror){
+                Swal.fire({
+                    title: 'Error',
+                    html: "Location information is unavailable." ,
+                    confirmButtonText: "OK"
+                }).then((result) => {
+                    if (result.value) {
+                        showerror = true;
+                    }
+                })
+                showerror = false;
+                getLocation();
+            }
+        break;
+        case error.TIMEOUT:
+            if(showerror){
+                Swal.fire({
+                    title: 'Error',
+                    html: "The request to get user location timed out." ,
+                    confirmButtonText: "OK"
+                }).then((result) => {
+                    if (result.value) {
+                        showerror = true;
+                    }
+                })
+                showerror = false;
+                getLocation();
+            }
+        break;
+        case error.UNKNOWN_ERROR:
+            if(showerror){
+                Swal.fire({
+                    title: 'Error',
+                    html: "An unknown error occurred." ,
+                    confirmButtonText: "OK"
+                }).then((result) => {
+                    if (result.value) {
+                        showerror = true;
+                    }
+                })
+                showerror = false;
+                    getLocation();
+            }
+        break;
+    }
+}
+
+function getPosition(position){
+    lat2 =position.coords.latitude;
+    long2 =position.coords.longitude;
+    endpunch();
+}
+
+var showerror2 = true;
+function showError2(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            if(showerror2){
+                Swal.fire({
+                    title: 'Error',
+                    html: "User denied the request for Geolocation." ,
+                    confirmButtonText: "OK"
+                }).then((result) => {
+                    if (result.value) {
+                        location.reload();
+                    }
+                })
+                showerror2 = false;
+            }
+        break;
+        case error.POSITION_UNAVAILABLE:
+            if(showerror2){
+                Swal.fire({
+                    title: 'Error',
+                    html: "Location information is unavailable." ,
+                    confirmButtonText: "OK"
+                }).then((result) => {
+                    if (result.value) {
+                        location.reload();
+                    }
+                })
+                showerror2 = false;
+            }
+        break;
+        case error.TIMEOUT:
+            if(showerror2){
+                Swal.fire({
+                    title: 'Error',
+                    html: "The request to get user location timed out." ,
+                    confirmButtonText: "OK"
+                }).then((result) => {
+                    if (result.value) {
+                        location.reload();
+                    }
+                })
+                showerror2 = false;
+            }
+        break;
+        case error.UNKNOWN_ERROR:
+            if(showerror2){
+                Swal.fire({
+                    title: 'Error',
+                    html: "An unknown error occurred." ,
+                    confirmButtonText: "OK"
+                }).then((result) => {
+                    if (result.value) {
+                        location.reload();
+                    }
+                })
+                showerror2 = false;
+            }
+        break;
+    }
+}
 
 function puncho(){
     // var now = new Date(); 
@@ -94,12 +266,12 @@ function puncho(){
                         cancelButtonColor: '#3085d6'
                         }).then((result) => {
                             //startot ajx
-                            
                             if (result.value) {
                                 $.ajax({
-                                    url: '/punch/start?time='+startclock,
+                                    url: '/punch/start?time='+startclock+'&lat='+lat+'=&long='+long,
                                     type: "GET",
                                     success: function(resp) {
+                                            // location.reload();
                                         starttime(now, startclock);
                                         timestart = setInterval(timer(0, 0, 0, parseInt(Date.parse(now).toString("ss")), parseInt(Date.parse(now).toString("mm")), parseInt(Date.parse(now).toString("H")), now), 1000);
                                         // alert(resp.nigga);
@@ -130,11 +302,12 @@ function puncho(){
     // startclock = Date.parse(now).toString("yyyy-MM-dd HH:mm:ss");
     // alert(startclock);
      
-    }
+}
     
-
+var future
 function starttime(now, startclock){
-    var future = new Date(); 
+    startclockt = startclock;
+    future = new Date(); 
     endclock = Date.parse(future).toString("yyyy-MM-dd HH:mm");
     endclock = endclock+":00";
     // endclock = Date.parse(future).toString("yyyy-MM-dd HH:mm:ss");
@@ -163,44 +336,46 @@ function starttime(now, startclock){
                 }).then((result) => {
                 if (result.value) {
                     //endot ajx
-                    sstime = Date.parse(startclock).toString("mm");
-                    eetime = Date.parse(future).toString("mm");
-                    // alert(parseInt(eetime)-parseInt(sstime));
-                    if(parseInt(eetime)-parseInt(sstime)!=0){
-                        $.ajax({
-                            url: '/punch/end?stime='+startclock+'&etime='+endclock,
-                            type: "GET", 
-                            success: function(resp) {
-                                clearInterval(timestart); 
-                                var path = window.location.pathname;
-                                if(path=="/punch"){
-                                    location.reload();
-                                }
-                            },
-                                error: function(err) {
-                                    starttime(now, startclock);
-                                }
-                            }
-                        );
-                    }else{
-                        clearInterval(timestart); 
-                        $.ajax({
-                            url: '/punch/cancel?time='+startclock,
-                            type: "GET",
+                    navigator.geolocation.getCurrentPosition(getPosition,showError2);
+
+                    // sstime = Date.parse(startclock).toString("mm");
+                    // eetime = Date.parse(future).toString("mm");
+                    // // alert(parseInt(eetime)-parseInt(sstime));
+                    // if(parseInt(eetime)-parseInt(sstime)>0){
+                    //     $.ajax({
+                    //         url: '/punch/end?stime='+startclock+'&etime='+endclock,
+                    //         type: "GET", 
+                    //         success: function(resp) {
+                    //             clearInterval(timestart); 
+                    //             var path = window.location.pathname;
+                    //             if(path=="/punch"){
+                    //                 location.reload();
+                    //             }
+                    //         },
+                    //             error: function(err) {
+                    //                 starttime(now, startclock);
+                    //             }
+                    //         }
+                    //     );
+                    // }else{
+                    //     clearInterval(timestart); 
+                    //     $.ajax({
+                    //         url: '/punch/cancel?time='+startclock,
+                    //         type: "GET",
                             
-                            success: function(resp) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Overtime Cancelled',
-                                    text: "Your overtime duration is less than a minute!",
-                                    showCancelButton: false,
-                                    confirmButtonText: 'OK',
-                                })
-                            },
-                            error: function(err) {
-                            }
-                        });
-                    }
+                    //         success: function(resp) {
+                    //             Swal.fire({
+                    //                 icon: 'error',
+                    //                 title: 'Overtime Cancelled',
+                    //                 text: "Your overtime duration is less than a minute!",
+                    //                 showCancelButton: false,
+                    //                 confirmButtonText: 'OK',
+                    //             })
+                    //         },
+                    //         error: function(err) {
+                    //         }
+                    //     });
+                    // }
                 }else{
                     
                     starttime(now, startclock);
@@ -229,7 +404,12 @@ function starttime(now, startclock){
                                 text: "Your overtime has been cancelled!",
                                 showCancelButton: false,
                                 confirmButtonText: 'OK',
+                            }).then((result) => {
+                                if (result.value) {
+                                    location.reload();
+                                }
                             })
+
                         },
                         error: function(err) {
                         }
@@ -240,6 +420,51 @@ function starttime(now, startclock){
             })
         }            
     })
+}
+
+function endpunch(){
+    sstime = Date.parse(startclockt).toString("mm");
+    eetime = Date.parse(future).toString("mm");
+    // alert(parseInt(eetime)-parseInt(sstime));
+    if(parseInt(eetime)-parseInt(sstime)>0){
+        $.ajax({
+            url: '/punch/end?stime='+startclockt+'&etime='+endclock+'&lat='+lat+'&long='+long+'&lat2='+lat2+'&long2='+long2,
+            type: "GET", 
+            success: function(resp) {
+                clearInterval(timestart); 
+                var path = window.location.pathname;
+                if(path=="/punch"){
+                    location.reload();
+                }
+            },
+                error: function(err) {
+                    starttime(now, startclockt);
+                }
+            }
+        );
+    }else{
+        clearInterval(timestart); 
+        $.ajax({
+            url: '/punch/cancel?time='+startclockt,
+            type: "GET",
+            
+            success: function(resp) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Overtime Cancelled',
+                    text: "Your overtime duration is less than a minute!",
+                    showCancelButton: false,
+                    confirmButtonText: 'OK',
+                }).then((result) => {
+                    if (result.value) {
+                        location.reload();
+                    }
+                })
+            },
+            error: function(err) {
+            }
+        });
+    }
 }
 
 function timer(psecond, pminute, phour, dsecond, dminute, dhour, now){
@@ -288,47 +513,50 @@ function timer(psecond, pminute, phour, dsecond, dminute, dhour, now){
 //         $("#x").text((new Date - start) / 1000 + " Seconds");
 //         //  $('.Timer').text((new Date - start) / 1000 + " Seconds");
 //     }, 1000);</script>
+var title = document.title;
 
+if(title != 'OTCS - Dashboard'){
 
-dragElement(document.getElementById("punchb"));
+    dragElement(document.getElementById("punchb"));
 
-function dragElement(elmnt) {
-  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  if (document.getElementById(elmnt.id + "header")) {
-    // if present, the header is where you move the DIV from:
-    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-  } else {
-    // otherwise, move the DIV from anywhere inside the DIV:
-    elmnt.onmousedown = dragMouseDown;
-  }
+    function dragElement(elmnt) {
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    if (document.getElementById(elmnt.id + "header")) {
+        // if present, the header is where you move the DIV from:
+        document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+    } else {
+        // otherwise, move the DIV from anywhere inside the DIV:
+        elmnt.onmousedown = dragMouseDown;
+    }
 
-  function dragMouseDown(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // get the mouse cursor position at startup:
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    document.onmouseup = closeDragElement;
-    // call a function whenever the cursor moves:
-    document.onmousemove = elementDrag;
-  }
+    function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+    }
 
-  function elementDrag(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // calculate the new cursor position:
-    pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    // set the element's new position:
-    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-  }
+    function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+    }
 
-  function closeDragElement() {
-    // stop moving when mouse button is released:
-    document.onmouseup = null;
-    document.onmousemove = null;
-  }
+    function closeDragElement() {
+        // stop moving when mouse button is released:
+        document.onmouseup = null;
+        document.onmousemove = null;
+    }
+    }
 }
