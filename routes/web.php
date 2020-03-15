@@ -24,6 +24,13 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/home', 'MiscController@home')->name('misc.home');
   Route::get('/role', 'Admin\RoleController@index')->name('role.index');
 
+
+  //guide
+  Route::get('/guide/calendar', 'GuideController@viewCalendar')->name('guide.calendar');
+  Route::get('/guide/calendar/empty', 'GuideController@viewCalendarEmpty')->name('guide.calendar.empty');
+  Route::post('/guide/calendar/empty', 'GuideController@viewCalendarEmpty')->name('guide.calendar.empty');
+  Route::post('/guide/date/calendar', 'GuideController@dateCalendar')->name('guide.datecalendar');
+
   // // clock-in related OLD
   // Route::get('/punch',      'MiscController@showPunchView')->name('punch.list');
   // Route::post('/punch/in',  'MiscController@doClockIn')->name('punch.in');

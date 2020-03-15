@@ -429,14 +429,20 @@ return [
             'icon' => 'fas fa-info-circle',
             'submenu' => [
               [
-                'text' => 'admin_guideline',
-                'url'  => '#',
-                'icon' => 'fas fa-user-ninja',
+                'text' => 'guideline_calendar',
+                'url'  => 'guide/calendar',
+                'icon' => '',
+                'guide' => '',
               ],
               [
-                'text' => 'user_guideline',
+                'text' => 'guideline_system',
                 'url'  => '#',
-                'icon' => 'fas fa-users',
+                'icon' => '',
+              ],
+              [
+                'text' => 'guideline_payment',
+                'url'  => '#',
+                'icon' => '',
               ],
             ],
         ],

@@ -1104,3 +1104,79 @@ select{
 }
 
 select[disabled] { background-color: #EBEBE4; }
+
+.guide{
+    display: flex;
+    height: 100%;
+    
+    
+}
+
+/* .guide .col-md-8{
+    height: 100% !important;
+}
+ */
+.guide .col-md-4{
+    height: 100% !important;
+    margin: auto;
+    padding: 20px;
+}
+
+.flexg{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flexg div{
+    width: 14.2857%;
+}
+
+.guide-calendar{
+    height: 230px;
+    padding: 10px 20px;
+    color: #40486B;
+}
+
+.guide-calendar-grid{
+    padding: 5px;
+    background: #FFF;
+    height: 190px;
+    /* width: 260px; */
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+.flexg .red{
+    color: #EA618A;
+}
+
+.orange{
+    height: 100% !important;
+    background: #FDEFE5;
+    margin: 0;
+    padding: 15px;
+    margin-right: 15px;
+    
+}
+
+.orange h2{
+    color:#143A8C;
+}
+
+.flexg .circle{
+    background: #FFE8D9;
+    color: #A9A0A7;
+    border: 2px solid #707070;
+    border-radius: 26px;
+    width: 23px;
+
+}
+.flexg .circle-red{
+    background: #FFE8D9;
+    color: #F5ABB5;
+    border: 2px solid #707070;
+    border-radius: 26px;
+    width: 23px;
+}
+
+.flexg > div >div{}

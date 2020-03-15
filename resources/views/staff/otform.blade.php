@@ -437,7 +437,7 @@
                                             <label>Company Code:</label>
                                         </div>
                                         <div class="col-md-9">
-                                            <select class="form-select" name="compn" id="compn" required>
+                                            <select class="form-select" name="compn" id="compn" @if($claim->charge_type!="Own Cost Center") required @endif>
                                                 @if($claim ?? '')
                                                     <option value="" @if($claim->company_code==NULL) selected @endif hidden>Select company code</option>
                                                     @if($compn!=null)
@@ -557,6 +557,29 @@
                                                         @else
                                                             <option value="{{$singleorder->id}}" @if($claim->order_no==$singleorder->id) selected @endif>{{$singleorder->id}}</option>
                                                         @endif
+                                                    @endforeach
+                                                @endif
+                                            </select> 
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- approver id-->
+                                <div
+                                    @if(!(in_array($claim->charge_type, $array = array("Internal Order", "Other Cost Center"))))
+                                        style="display: none"
+                                    @endif
+                                >
+                                    <div class="row" style="margin-bottom: 5px;">
+                                        <div class="col-md-3">
+                                            <label>Approver:</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                                <select class="form-select" name="approvern" id="approvern" required @if($appr==null) disabled @endif>
+                                                    <option value="" @if($claim->approver_id==NULL) selected @endif hidden>Select approver</option>
+                                                @if($appr!=null)
+                                                    @foreach($appr as $singleappr)
+                                                        <option value="{{$singleappr->user_id}}" @if($claim->approver_id==$singleappr->user_id) selected @endif>{{$singleappr->user_id}} {{$singleappr->name}}</option>
                                                     @endforeach
                                                 @endif
                                             </select> 
@@ -1426,6 +1449,10 @@
         $("#form").submit();
     });    
     $("#networkn").change(function(){
+        $("#formtype").val("save");
+        $("#form").submit();
+    });    
+    $("#approvern").change(function(){
         $("#formtype").val("save");
         $("#form").submit();
     });    
