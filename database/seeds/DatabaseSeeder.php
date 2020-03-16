@@ -42,8 +42,8 @@ class DatabaseSeeder extends Seeder
         //$this->call(ShiftPatternDaysTableSeeder::class);
 
 
-        // $this->call(ProjectsTableSeeder::class);
-        // $this->call(MaintenanceOrdersTableSeeder::class);
-        // $this->call(InternalOrdersTableSeeder::class);
+        $this->call(ProjectsTableSeeder::class);
+        $this->call(MaintenanceOrdersTableSeeder::class);
+        $this->call(InternalOrdersTableSeeder::class);
     }
 }

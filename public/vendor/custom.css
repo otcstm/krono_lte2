@@ -947,6 +947,7 @@ ul.pagination > li.active a{
 .select2 {
     width:100% !important;
     }
+    
 .border{
     border: 2px solid black;
 }
@@ -1096,3 +1097,5 @@ select{
     
     margin-top: -1px !important;
 }
+
+select[disabled] { background-color: #EBEBE4; }

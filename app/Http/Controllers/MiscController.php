@@ -178,8 +178,8 @@ class MiscController extends Controller
     $currentp->user_records_id = $userrecordid->id;
     // $currentp->in_latitude = 0.0; //temp
     // $currentp->in_longitude = 0.0; //temp
-    $currentp->out_latitude = 3.1390; //temp
-    $currentp->out_longitude = 101.6869; //temp
+    $currentp->in_latitude = $req->lat; //temp
+    $currentp->in_longitude = $req->long; //temp
    
     $currentp->save();
   }
@@ -226,8 +226,9 @@ class MiscController extends Controller
     $currentp = StaffPunch::where("user_id", $req->user()->id)->where("punch_in_time", $req->stime)->first();
     if(((date("j", strtotime($req->etime)))- (date("j", strtotime($req->stime)))) > 0){
       $currentp->punch_out_time = $edate." 00:00:00";
-      $currentp->out_latitude = 3.1390; //temp
-      $currentp->out_longitude = 101.6869; //temp
+      
+      $currentp->out_latitude = $req->lat2; //temp
+      $currentp->out_longitude = $req->long2; //temp
       // $currentp->out_latitude = 0.0; //temp
       // $currentp->out_longitude = 0.0; //temp
       $currentp->status = 'out';
@@ -237,15 +238,11 @@ class MiscController extends Controller
       $currentp->user_id = $req->user()->id;
       $currentp->day_type = $eday[2];
       $currentp->punch_in_time = $edate." 00:00:00";
-      $currentp->in_latitude = 3.1390; //temp
-      $currentp->in_longitude = 101.6869; //temp
-      // $currentp->in_latitude = 0.0; //temp
-      // $currentp->in_longitude = 0.0; //temp
+      $currentp->in_latitude = $req->lat; 
+      $currentp->in_longitude = $req->long; 
       $currentp->punch_out_time = $req->etime;
-      $currentp->out_latitude = 3.1390; //temp
-      $currentp->out_longitude = 101.6869; //temp
-      // $currentp->out_latitude = 0.0; //temp
-      // $currentp->out_longitude = 0.0; //temp
+      $currentp->out_latitude = $req->lat2; 
+      $currentp->out_longitude = $req->long2; 
       $currentp->status = 'out';
       $currentp->user_records_id = $userrecordid->id;
       $currentp->save();
@@ -257,10 +254,8 @@ class MiscController extends Controller
       return ['result'=> 'tea'];
     }else{
       $currentp->punch_out_time = $req->etime;
-      $currentp->out_latitude = 3.1390; //temp
-      $currentp->out_longitude = 101.6869; //temp
-      // $currentp->out_latitude = 0.0; //temp
-      // $currentp->out_longitude = 0.0; //temp
+      $currentp->out_latitude = $req->lat2; 
+      $currentp->out_longitude = $req->long2; 
       $currentp->status = 'out';
       $currentp->save();
       // return ['result'=> $currentp->in_latitude];

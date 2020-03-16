@@ -77,7 +77,7 @@
                                                     Manual Input
                                                 @endif
                                             </td>
-                                            <td>{{ $details->in_latitude }} {{ $details->out_longitude }}</td>
+                                            <td><a href = "https://www.google.com/maps/search/?api=1&query={{$details->in_latitude}},{{$details->in_longitude}}" target="_blank" style="font-weight: bold; color: #143A8C">{{ $details->in_latitude }} {{ $details->in_longitude }}</p></td>
                                             <td>{{$details->justification}}</td>
                                         </tr>
                                         @else
