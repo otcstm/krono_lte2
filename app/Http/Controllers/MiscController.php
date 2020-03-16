@@ -62,7 +62,18 @@ class MiscController extends Controller
     PaymentSchedule::whereYear('payment_date','=', $next_month)
     ->whereMonth('payment_date','=', $next_month)
     ->max('payment_date');
-    //dd($next_payment_sch);    
+    //dd($next_payment_sch);  
+    
+    if(is_null($next_payment_sch)){
+      $next_payment_sch = 0;
+    };
+
+    //verifier
+    //Last approval date
+    $last_approval_date = 
+    PaymentSchedule::whereYear('payment_date','=', $curr_date)
+    ->whereMonth('payment_date','=', $curr_date)
+    ->max('last_approval_date');
     
     //approver
     //Last approval date

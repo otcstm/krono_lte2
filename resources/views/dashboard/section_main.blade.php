@@ -104,7 +104,6 @@
     </div>
   </div>
   @endif  
-
   @if(isset($next_payment_sch))
   <div class="col-md-3 col-sm-6 col-xs-12">
     <div class="box box-solid">
@@ -127,6 +126,7 @@
   </div>
   @endif  
 
+  
   <div class="col-md-3 col-sm-6 col-xs-12">
     
   <a href="{{ route('punch.list', [], false) }}">
