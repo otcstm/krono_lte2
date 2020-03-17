@@ -58,9 +58,9 @@ class LoginController extends Controller
           // $cuser->persno = $udata['data']['PERSNO'];
           $cuser->new_ic = $udata['data']['NIRC'];
           $cuser->save();
-          // also give the super admin role lol
-          // $cuser->roles()->attach(1);
         }
+        // attach normal user
+        $cuser->roles()->attach(1);
         Auth::loginUsingId($cuser->id, true);
         return redirect()->intended(route('misc.home', [], false), 302, [], true);
       }
