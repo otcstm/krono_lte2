@@ -6,7 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'AmerPermissionSeeder' => $baseDir . '/database/seeds/AmerPermissionSeeder.php',
     'App\\AlertHistory' => $baseDir . '/app/AlertHistory.php',
     'App\\Api\\Datamart\\UserShiftPatternController' => $baseDir . '/app/Api/Datamart/UserShiftPatternController.php',
     'App\\Company' => $baseDir . '/app/Company.php',
@@ -68,6 +67,7 @@ return array(
     'App\\Http\\Middleware\\TrimStrings' => $baseDir . '/app/Http/Middleware/TrimStrings.php',
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
+    'App\\InternalOrder' => $baseDir . '/app/InternalOrder.php',
     'App\\MaddHatter\\LaravelFullcalendar\\Calendar' => $baseDir . '/app/MaddHatter/LaravelFullcalendar/Calendar.php',
     'App\\MaddHatter\\LaravelFullcalendar\\Event' => $baseDir . '/app/MaddHatter/LaravelFullcalendar/Event.php',
     'App\\MaddHatter\\LaravelFullcalendar\\EventCollection' => $baseDir . '/app/MaddHatter/LaravelFullcalendar/EventCollection.php',
@@ -76,6 +76,7 @@ return array(
     'App\\MaddHatter\\LaravelFullcalendar\\ServiceProvider' => $baseDir . '/app/MaddHatter/LaravelFullcalendar/ServiceProvider.php',
     'App\\MaddHatter\\LaravelFullcalendar\\SimpleEvent' => $baseDir . '/app/MaddHatter/LaravelFullcalendar/SimpleEvent.php',
     'App\\Mail\\SendMailable' => $baseDir . '/app/Mail/SendMailable.php',
+    'App\\MaintenanceOrder' => $baseDir . '/app/MaintenanceOrder.php',
     'App\\Overtime' => $baseDir . '/app/Overtime.php',
     'App\\OvertimeDetail' => $baseDir . '/app/OvertimeDetail.php',
     'App\\OvertimeEligibility' => $baseDir . '/app/OvertimeEligibility.php',
@@ -88,6 +89,7 @@ return array(
     'App\\PaymentSchedule' => $baseDir . '/app/PaymentSchedule.php',
     'App\\Payrollgroup' => $baseDir . '/app/Payrollgroup.php',
     'App\\Permission' => $baseDir . '/app/Permission.php',
+    'App\\Project' => $baseDir . '/app/Project.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',
@@ -3165,6 +3167,8 @@ return array(
     'PHP_Token_XOR_EQUAL' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
     'PHP_Token_YIELD' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
     'PHP_Token_YIELD_FROM' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
+    'PermissionRoleTableSeeder' => $baseDir . '/database/seeds/PermissionRoleTableSeeder.php',
+    'PermissionsTableSeeder' => $baseDir . '/database/seeds/PermissionsTableSeeder.php',
     'PharIo\\Manifest\\Application' => $vendorDir . '/phar-io/manifest/src/values/Application.php',
     'PharIo\\Manifest\\ApplicationName' => $vendorDir . '/phar-io/manifest/src/values/ApplicationName.php',
     'PharIo\\Manifest\\Author' => $vendorDir . '/phar-io/manifest/src/values/Author.php',
