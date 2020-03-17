@@ -1101,3 +1101,5 @@ select{
     
     margin-top: -1px !important;
 }
+
+select[disabled] { background-color: #EBEBE4; }

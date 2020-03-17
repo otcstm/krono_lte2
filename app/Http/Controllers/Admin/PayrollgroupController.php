@@ -52,7 +52,7 @@ class PayrollgroupController extends Controller
               $cpyg->end_date = $enddt;
               $cpyg->save();
               $a_text = "Successfully created payroll group " .$cekpyg.".";
-              $a_type = "success";
+              $a_type = "Success";
               // dd(trim($comp->id),$pyg->id);
               $oldrecords = CompanyPayrollgroup::where('company_id',$comp->id)
               ->where('payrollgroup_id','!=',$pyg->id)->where('end_date','9999-12-31')->get();
@@ -67,9 +67,9 @@ class PayrollgroupController extends Controller
         }
       }else{
           $a_text = "There is already a group named ".$cekpyg. ".";
-          $a_type = "warning";
+          $a_type = "Failed to Create";
       }
-      return redirect(route('pygroup.index',[],false))->with(['a_text'=>$a_text,'a_type'=>$a_type]);
+      return redirect(route('pygroup.index',[],false))->with(['feedback' => true, 'feedback_text'=>$a_text,'feedback_title'=>$a_type]);
   }
 
   public function edit($id)
@@ -113,7 +113,7 @@ class PayrollgroupController extends Controller
               //only new addition would left
               unset($arr[$key]);
               $a_text = "Payroll Group $pygroup->pygroup updated!";
-              $a_type = "success";
+              $a_type = "Success";
 
               // dd('if');
           } else {
@@ -124,7 +124,7 @@ class PayrollgroupController extends Controller
              ->wheredate('end_date', '9999-12-31')
              ->delete();
              $a_text = "Payroll Group $pygroup->pygroup updated!";
-             $a_type = "success";
+             $a_type = "Success";
              // dd('else');
 
           }
@@ -138,7 +138,7 @@ class PayrollgroupController extends Controller
         $ncp->end_date = '9999-12-31';
         $ncp->save();
         $a_text = "Payroll Group $pygroup->pygroup updated!";
-        $a_type = "success";
+        $a_type = "Success";
         $oldrecords = CompanyPayrollgroup::where('company_id',$newselectedCompany)
         ->where('payrollgroup_id','!=',$pygroup->id)->wheredate('end_date','9999-12-31')->get();
         // dd([$oldrecords]);
@@ -150,7 +150,7 @@ class PayrollgroupController extends Controller
         }
       }
       //**check selectedcompany yang enddate 9999-12-31 dalam db, if exist update enddate = $sdt-1
-      return redirect(route('pygroup.index',[],false))->with(['a_text'=>$a_text, 'a_type'=>$a_type]);
+      return redirect(route('pygroup.index',[],false))->with(['feedback' => true,'feedback_text'=>$a_text, 'feedback_title'=>$a_type]);
   }
 
   public function destroy(Request $req)
@@ -159,11 +159,11 @@ class PayrollgroupController extends Controller
     if($pyg){
       $pyg->delete();
       $a_text = "Payroll Group $pyg->pygroup deleted!";
-      $a_type = "warning";
+      $a_type = "Success";
     } else {
       $a_text = "Payroll Group $pyg->pygroup not found";
-      $a_type = "danger";
+      $a_type = "Error";
     }
-    return redirect(route('pygroup.index', [], false))->with(['a_text'=>$a_text, 'a_type'=>$a_type]);
+    return redirect(route('pygroup.index', [], false))->with(['feedback' => true, 'feedback_text'=>$a_text, 'feedback_title'=>$a_type]);
   }
 }

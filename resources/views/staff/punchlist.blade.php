@@ -84,8 +84,24 @@
                     @endif
                   @endforeach
                 </td>
-                <td>{{$ap->in_latitude}} {{$ap->in_longitude}}</td>
-                <td>{{$ap->out_latitude}} {{$ap->out_longitude}}</td>
+                <td>
+                  @foreach($p_list as $app)
+                      @if(date('Y-m-d', strtotime($app->punch_in_time))==$date1)
+                        @foreach($app->detail as $no=>$aps)
+                          <a href = "https://www.google.com/maps/search/?api=1&query={{$aps->in_latitude}},{{$aps->in_longitude}}" target="_blank" style="font-weight: bold; color: #143A8C">{{$aps->in_latitude}} {{$aps->in_longitude}}</a><br>
+                        @endforeach
+                      @endif
+                  @endforeach
+                </td>
+                <td>
+                  @foreach($p_list as $app)
+                      @if(date('Y-m-d', strtotime($app->punch_in_time))==$date1)
+                        @foreach($app->detail as $no=>$aps)
+                          <a href = "https://www.google.com/maps/search/?api=1&query={{$aps->out_latitude}},{{$aps->out_longitude}}" target="_blank" style="font-weight: bold; color: #143A8C">{{$aps->out_latitude}} {{$aps->out_longitude}}</a><br>
+                        @endforeach
+                      @endif
+                  @endforeach
+                </td>
                 <td>
                   @if($ap->punch_out_time!=null)
                     <form id="formdate" action="{{route('ot.formdate')}}" method="POST">
