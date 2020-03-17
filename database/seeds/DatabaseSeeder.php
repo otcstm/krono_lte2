@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
      ini_set("memory_limit","256M");
       ini_set('max_execution_time', 3000); // 300 seconds = 5 minutes
       set_time_limit(0);
-        $this->call(AmerPermissionSeeder::class);
+        // $this->call(AmerPermissionSeeder::class);
 
         // $this->call(RolesTableSeeder::class);
         // $this->call(RoleUserTableSeeder::class);
@@ -42,8 +42,10 @@ class DatabaseSeeder extends Seeder
         $this->call(ShiftPatternDaysTableSeeder::class);
 
 
-        // $this->call(ProjectsTableSeeder::class);
-        // $this->call(MaintenanceOrdersTableSeeder::class);
-        // $this->call(InternalOrdersTableSeeder::class);
+        $this->call(ProjectsTableSeeder::class);
+        $this->call(MaintenanceOrdersTableSeeder::class);
+        $this->call(InternalOrdersTableSeeder::class);
+        $this->call(PermissionsTableSeeder::class);
+        $this->call(PermissionRoleTableSeeder::class);
     }
 }

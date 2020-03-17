@@ -73,7 +73,7 @@
                             @else 
                                 N/A
                             @endif</p>   
-                        @if(($c ?? '')||($d ?? ''))
+                        @if(($c ?? '')||($d ?? '')||($q ?? ''))
                             @php($expiry = true)
                             @if(($claim ?? ''))
                                 @if($claim->date_expiry==null)
@@ -307,7 +307,7 @@
                                                         Manual
                                                     @endif
                                                 </td>
-                                                <td>@if($singleuser->clock_in=="") - @else {{ $singleuser->in_latitude }} {{ $singleuser->out_longitude }} @endif</td>
+                                                <td>@if($singleuser->clock_in=="") - @else <a href = "https://www.google.com/maps/search/?api=1&query={{$singleuser->in_latitude}},{{$singleuser->in_longitude}}" target="_blank" style="font-weight: bold; color: #143A8C">{{ $singleuser->in_latitude }} {{ $singleuser->in_longitude }}</a> @endif</td>
                                                 <td>
                                                     @if(($c ?? '')||($d ?? '')||($q ?? ''))
                                                         <textarea rows = "1" cols = "60" type="text" id="inputremark-{{$no}}" name="inputremark[]" placeholder="Input remark" class="check-{{$no}} check-{{$no}}-3 @if($singleuser->checked=="N") hidden @endif" style="resize: none" @if($singleuser->checked=="Y") required  @endif>{{$singleuser->justification}}</textarea>
@@ -381,14 +381,14 @@
                                             @if($claim ?? '')
                                                 {{$claim->charge_type}}
                                             @endif" required>
-                                            <option value="Body Cost Center" 
+                                            <option value="Own Cost Center" 
                                                 @if($claim ?? '') 
-                                                    @if($claim->charge_type=="Body Cost Center")
+                                                    @if($claim->charge_type=="Own Cost Center")
                                                         selected
                                                     @endif 
                                                 @else 
                                                     selected
-                                                @endif>BODY COST CENTER</option>
+                                                @endif>OWN COST CENTER</option>
                                             <option value="Project" 
                                                 @if($claim ?? '') 
                                                     @if($claim->charge_type=="Project") 
@@ -424,84 +424,187 @@
                                         </select> 
                                     </div>
                                 </div>
-                                @if($claim ?? '')
-                                    <div id="owncostcenter" 
-                                        @if(!(in_array($claim->charge_type, $array = array("Own Cost Center", "Internal Order", "Maintenance Order", "Other Cost Center"))))
+
+                                <!-- company code-->
+                                <div
+                                    @if($claim ?? '')
+                                        @if(in_array($claim->charge_type, $array = array("Own Cost Center")))
                                             style="display: none" 
-                                        @endif>
-                                        <div class="row" style="margin-bottom: 5px;">
-                                            <div class="col-md-3">
-                                                <label>Type:</label>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <select class="form-select" name="charging" id="charging" 
-                                                    @if($claim->charge_type!="Project") 
-                                                        required 
-                                                    @endif>
-                                                    <option value="ATAC07">ATAC07</option>
-                                                </select> 
-                                            </div>
+                                        @endif
+                                    @endif >
+                                    <div class="row" style="margin-bottom: 5px;">
+                                        <div class="col-md-3">
+                                            <label>Company Code:</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <select class="form-select" name="compn" id="compn" required>
+                                                @if($claim ?? '')
+                                                    <option value="" @if($claim->company_code==NULL) selected @endif hidden>Select company code</option>
+                                                    @if($compn!=null)
+                                                        @foreach($compn as $singlecompn)
+                                                            @if($claim->charge_type=="Other Cost Center") 
+                                                                <option value="{{$singlecompn->company_id}}" @if($claim->company_id==$singlecompn->company_id) selected @endif>{{$singlecompn->company_id}}</option>
+                                                            @else
+                                                                <option value="{{$singlecompn->company_code}}" @if($claim->company_id==$singlecompn->company_code) selected @endif>{{$singlecompn->company_code}}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+                                                @endif
+                                            </select> 
                                         </div>
                                     </div>
-                                    <div id="project" 
-                                        @if($claim->charge_type!="Project")
-                                            style="display: none" 
-                                        @endif>
-                                        <div class="row" style="margin-bottom: 5px;">
-                                            <div class="col-md-3">
-                                                <label>Type:</label>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <select class="form-select" name="type" id="type" 
-                                                    @if($claim->charge_type=="Project") 
-                                                        required 
-                                                    @endif>
-                                                    <option value="TMAC/190001">TMAC/190001</option>
-                                                </select> 
-                                            </div>
-                                        </div>
-                                        <div class="row" style="margin-bottom: 5px;">
-                                            <div class="col-md-3">
-                                                <label>Project:</label>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <select class="form-select" name="header" id="header" 
-                                                    @if($claim->charge_type=="Project")
-                                                        required
-                                                    @endif>
-                                                    <option value="CNTW">CNTW</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row" style="margin-bottom: 5px;">
-                                            <div class="col-md-3">
-                                                <label>Code:</label>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <select class="form-select" name="code" id="code" 
-                                                    @if($claim->charge_type=="Project")
-                                                        required
-                                                    @endif>
-                                                    <option value="4000047">4000047</option>
-                                                </select> 
-                                            </div>
-                                        </div>
-                                        <div class="row" style="margin-bottom: 5px;">
-                                            <div class="col-md-3">
-                                                <label>Network Header:</label>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <select class="form-select" name="activity" id="activity" 
-                                                    @if($claim->charge_type=="Project") 
-                                                        required
-                                                    @endif>
-                                                    <option value="PRJ123124">PRJ123124</option>
-                                                </select> 
-                                            </div>
-                                        </div>
+                                </div>
                                 
+                                <!-- cost center -->
+                                <div
+                                    {{--@if($claim ?? '')
+                                        @if(!(in_array($claim->charge_type, $array = array("Own Cost Center", "Other Cost Center"))))
+                                            style="display: none" 
+                                        @endif
+                                    @endif--}} >
+                                    <div class="row" style="margin-bottom: 5px;">
+                                        <div class="col-md-3">
+                                            <label>Cost Center:</label>
                                         </div>
+                                        <div class="col-md-9">
+                                            <select class="form-select" name="costc" id="costc" 
+                                                @if($claim ?? '')
+                                                    @if(($claim->charge_type=="Other Cost Center")&&($costc!=null)))
+                                                        required 
+                                                    @endif
+                                                    @if(($claim->charge_type=="Own Cost Center")||($costc==null))
+                                                        disabled 
+                                                    @endif
+                                                @elseif($draft ?? '')
+                                                disabled
+                                                @endif>
+                                                @if($claim ?? '')
+                                                    @if($claim->charge_type=="Own Cost Center") 
+                                                        <option value="{{$claim->costcenter}}">{{$claim->costcenter}}</option>
+                                                    @else
+                                                        <option value="" @if($claim->other_costcenter==NULL) selected @endif hidden>Select cost center</option>
+                                                        @if($costc!=null)
+                                                            @foreach($costc as $singlecostc)
+                                                                @if($claim->charge_type=="Other Cost Center") 
+                                                                    <option value="{{$singlecostc->id}}" @if($claim->other_costcenter==$singlecostc->id) selected @endif>{{$singlecostc->id}}</option>
+                                                                @else
+                                                                    <option value="@if($singlecostc->cost_center!=NULL) {{$singlecostc->cost_center}} @else No Cost Center @endif"
+                                                                    @php($nocost=false)
+                                                                    @if($singlecostc->cost_center=="")
+                                                                        @php($nocost=true)
+                                                                    @endif
+                                                                    @if(($claim->other_costcenter==$singlecostc->cost_center)||($nocost))selected @endif>@if($singlecostc->cost_center=="") No cost center @else {{$singlecostc->cost_center}} @endif</option>
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    @endif
+                                                @elseif($draft ?? '')
+                                                    <option value="{{$draft[11]}}">{{$draft[11]}}</option>
+                                                @endif
+                                            </select> 
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+
+                                @if($claim ?? '')
+                                <!-- type-->
+                                <div
+                                    @if(!(in_array($claim->charge_type, $array = array("Project", "Internal Order", "Maintenance Order"))))
+                                        style="display: none"
+                                    @endif
+                                >
+                                    <div class="row" style="margin-bottom: 5px;">
+                                        <div class="col-md-3">
+                                            <label>Type:</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                                <select class="form-select" name="type" id="type" required @if($type==null) disabled @endif>
+                                                    <option value="" @if($claim->project_type==NULL) selected @endif hidden>Select type</option>
+                                                @if($type!=null)
+                                                    @foreach($type as $singletype)
+                                                    
+                                                        @if(($claim->charge_type=="Project")||($claim->charge_type=="Maintenance Order")) 
+                                                            <option value="{{$singletype->type}}" @if($claim->project_type==$singletype->type) selected @endif>{{$singletype->type}}</option>
+                                                        @else
+                                                        <option value="{{$singletype->order_type}}" @if($claim->project_type==$singletype->order_type) selected @endif>{{$singletype->order_type}}</option>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            </select> 
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- order no-->
+                                <div
+                                    @if(!(in_array($claim->charge_type, $array = array("Project", "Internal Order", "Maintenance Order"))))
+                                        style="display: none"
+                                    @endif
+                                >
+                                    <div class="row" style="margin-bottom: 5px;">
+                                        <div class="col-md-3">
+                                            <label>No:</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                                <select class="form-select" name="orderno" id="orderno" required @if($orderno==null) disabled @endif>
+                                                    <option value="" @if($claim->project_type==NULL) selected @endif hidden>Select @if($claim->charge_type=="Project") project @else order @endif no</option>
+                                                @if($orderno!=null)
+                                                    @foreach($orderno as $singleorder)
+                                                        @if($claim->charge_type=="Project") 
+                                                            <option value="{{$singleorder->project_no}}" @if($claim->project_no==$singleorder->project_no) selected @endif>{{$singleorder->project_no}}</option>
+                                                        @else
+                                                            <option value="{{$singleorder->id}}" @if($claim->order_no==$singleorder->id) selected @endif>{{$singleorder->id}}</option>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            </select> 
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- network header-->
+                                <div
+                                    @if(!($claim->charge_type=="Project"))
+                                        style="display: none"
+                                    @endif
+                                >
+                                    <div class="row" style="margin-bottom: 5px;">
+                                        <div class="col-md-3">
+                                            <label>Network Header:</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                                <select class="form-select" name="networkh" id="networkh" required @if($networkh==null) disabled @endif>
+                                                    <option value="" @if($claim->project_type==NULL) selected @endif hidden>Select network header</option>
+                                                @if($networkh!=null)
+                                                    @foreach($networkh as $singlenet)
+                                                        <option value="{{$singlenet->network_header}}" @if($claim->network_header==$singlenet->network_header) selected @endif>{{$singlenet->network_header}}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select> 
+                                        </div>
+                                    </div>
+
+                                <!-- network activity no-->
+                                    <div class="row" style="margin-bottom: 5px;">
+                                        <div class="col-md-3">
+                                            <label>Network Activity No:</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                                <select class="form-select" name="networkn" id="networkn" required @if($networkn==null) disabled @endif>
+                                                    <option value="" @if($claim->project_type==NULL) selected @endif hidden>Select network activity no</option>
+                                                @if($networkn!=null)
+                                                    @foreach($networkn as $singlenet)
+                                                        <option value="{{$singlenet->network_act_no}}" @if($claim->network_act_no==$singlenet->network_act_no) selected @endif>{{$singlenet->network_act_no}}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select> 
+                                        </div>
+                                    </div>
+                                </div>
                                 @endif
+
                                 <div class="row" style="margin-bottom: 5px;">
                                     <div class="col-md-3">
                                         <label>Document:</label>
@@ -1296,16 +1399,35 @@
     }
 
     $("#chargetype").change(function(){
-        // alert()
         $("#formtype").val("save");
         $("#form").submit();
-        // if($("#chargetype").val()=="Cost Center"){
-        //     $("#costcenter").css("display", "block");
-        //     $("#project").css("display", "none");
-        // }else if($("#chargetype").val()=="Project"){
-        //     $("#project").css("display", "block");
-        //     $("#costcenter").css("display", "none");
-        // }
+    });   
+
+    $("#costc").change(function(){
+        $("#formtype").val("save");
+        $("#form").submit();
+    });    
+    
+    $("#compn").change(function(){
+        $("#formtype").val("save");
+        $("#form").submit();
+    });    
+
+    $("#type").change(function(){
+        $("#formtype").val("save");
+        $("#form").submit();
+    });    
+    $("#orderno").change(function(){
+        $("#formtype").val("save");
+        $("#form").submit();
+    });    
+    $("#networkh").change(function(){
+        $("#formtype").val("save");
+        $("#form").submit();
+    });    
+    $("#networkn").change(function(){
+        $("#formtype").val("save");
+        $("#form").submit();
     });    
 
     @if(session()->has('feedback'))
