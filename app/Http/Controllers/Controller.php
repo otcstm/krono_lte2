@@ -25,4 +25,11 @@ class Controller extends BaseController
 
         // dd(session()->all());
     }
+
+    public function errorHandler($errno, $errstr) {
+  		return [
+        'code' => $errno,
+        'msg' => $errstr
+      ];
+  	}
 }
