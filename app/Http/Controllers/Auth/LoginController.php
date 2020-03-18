@@ -42,7 +42,8 @@ class LoginController extends Controller
       $udata = LdapHelper::DoLogin($req->username, $req->password);
       if($udata['code'] == 200){
         // session(['staffdata' => $logresp['user']]);
-        $cuser = User::find($udata['data']);
+        // $cuser = User::find($udata['data']);
+        $cuser = User::where('staff_no', $req->username)->first();
         if($cuser){
         } else {
           return redirect()->back()->withErrors(['username' => 'User not in OT system']);
