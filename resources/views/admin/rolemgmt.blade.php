@@ -27,7 +27,7 @@
                             <td>{{++$no}}</td>
                             <td>{{ $singleuser->title }}</td>
                             <td>{{ $singleuser->createdby->name }}</td>
-                            <td class="td-left">@foreach ($singleuser->permissions as $indexKey => $user)<p>{{$indexKey+1}}. {{ $user->title }}</p>@endforeach</td>
+                            <td class="td-left">@foreach ($singleuser->permissions as $indexKey => $user)<p>{{$indexKey+1}}. {{ $user->descr }}</p>@endforeach</td>
                             <td>
                                 <form method="post" action="{{ route('role.delete', [], false) }}" id="formdelete-{{$no}}">
                                     @csrf
@@ -50,35 +50,35 @@
 			<form action="{{ route('role.store', [], false) }}" method="post">
 				@csrf
 				<div class="row">
-					<div class="col-md-8">
+					<div class="col-md-12">
 						<div class="row" style="margin-top: 15px;">
 							<div class="col-md-3">
 								<label for="inputname">Role Name:</label>
 							</div>
 							<div class="col-md-3">
-                            <input type="text" id="inputname" name="inputname" placeholder="{{ __('adminlte::adminlte.input_role_name') }}" value="{{ old('inputname') }}" required autofocus>
+                <input type="text" id="inputname" name="inputname" placeholder="{{ __('adminlte::adminlte.input_role_name') }}" value="{{ old('inputname') }}" required autofocus>
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-3 col-md-offset-3">
-                            @if($permissions ?? '')
-                                @foreach($permissions as $singlerole)
-                                <div class="checkbox">
-                                    <label><input type="checkbox" id="checkbox_{{$singlerole->id}}" name="permission[]" value="{{$singlerole->id}}">{{$singlerole->title}}</label>
-                                </div>
-                                @endforeach
-                            @endif
+              @if($permissions ?? '')
+              @foreach($permissions as $singlerole)
+							<div class="col-md-3">
+                <div class="checkbox">
+                    <label><input type="checkbox" id="checkbox_{{$singlerole->id}}" name="permission[]" value="{{$singlerole->id}}">{{$singlerole->descr}}</label>
+                </div>
 							</div>
+              @endforeach
+              @endif
 						</div>
-						
+
 					</div>
 				</div>
 		</div>
 		<div class="panel-footer">
-		
+
 		<div class="text-right">
                 <button type="submit" class="btn btn-p btn-primary">CREATE NEW ROLE</button>
-							
+
 		</div>
 			</form>
         </div>
@@ -89,12 +89,7 @@
 	@csrf
 	<input type="text" class="form-control" id="eid" name="inputid" value="">
 	<input type="text" class="form-control" id="ename" name="inputname" value="">
-        @if($permissions ?? '')
-            @foreach($permissions as $no => $singlerole)
-            <input type='checkbox' id='check-{{++$no}}' name='permission[]' value='{{$singlerole->id}}'>
-	
-            @endforeach
-        @endif
+  <input type="hidden" class="form-control" id="epermisi" name="permission" value="">
 </form>
 @stop
 
@@ -126,7 +121,7 @@ $(document).ready(function() {
 
 function deleteid(i){
 	return function(){
-	
+
         var ps_comp = $("#del-"+i).data('compdescr');
         Swal.fire({
             title: 'Are you sure?',
@@ -147,9 +142,8 @@ function deleteid(i){
 
 for(i = 0; i<{{count($roles)}}+1; i++){
 	$("#edit-"+i).on("click", edit(i));
-	$("#del-"+i).on("click", deleteid(i));	
+	$("#del-"+i).on("click", deleteid(i));
 }
-
 
 function edit(i){
 	return function(){
@@ -166,32 +160,31 @@ function edit(i){
 					"</div>"+
 				"</div>"+
 				"<div class='row'>"+
-					"<div class='col-md-4'>"+
+					"<div class='col-md-12'>"+
 						"<p>Set Permission</p>"+
                     "</div>";
         var checked = "";
+        var cekboses = [];
         @if($permissions ?? '')
             @foreach($permissions as $no => $singlerole)
                 @php(++$no)
                 checked = "";
-                if({{$no}}==1){
-                    html = html +"<div class='col-md-8'>";
-                }else{
-                    html = html +"<div class='col-md-8 col-md-offset-4'>";
-                }
-                
+
+                html = html +"<div class='col-md-6'>";
+
+
                 for(i=0; i<role_permissions.length; i++){
                     if(role_permissions[i]=={{$singlerole->id}}){
                         checked = "checked";
                     }
                 }
-                html = html + "<input type='checkbox' id='checkbox-{{$no}}' name='permission[]' value='{{$singlerole->id}}' "+checked+"> {{$singlerole->title}}"+
+                html = html + "<input type='checkbox' id='checkbox-{{$no}}' name='updermisson[]' value='{{$singlerole->id}}' "+checked+"> {{$singlerole->descr}}"+
                 "</div>";
-        
+
             @endforeach
         @endif
 		Swal.fire({
-			title: 'Edit Company',
+			title: 'Edit Role',
 			html: "<div class='text-left'>"+html+
 				"</div>"+
 				"</div>",
@@ -199,23 +192,26 @@ function edit(i){
 			customClass:'test4',
 			confirmButtonColor: '#d33',
 			cancelButtonColor: '#3085d6',
-			confirmButtonText: 'SELECT',
-			cancelButtonText: 'CANCEL'
-			}).then((result) => {
+			confirmButtonText: 'Update',
+			cancelButtonText: 'CANCEL',
+      preConfirm: () => {
+        cekboses = $("input[name='updermisson[]']:checked").map(function(){
+          return $(this).val()
+        }).get();
+
+
+      }
+		}).then((result) => {
 			if (result.value) {
 				if(($('#cname').val()!="")){
-                    $('#eid').val(role_id);
-                    $('#ename').val($('#cname').val());
-                    for(x=1; x<5; x++){
-                        if ($('#checkbox-'+x).is(':checked')){
-                            $('#check-'+x).prop('checked', true);
-                        }
-                    }
-					$("#edit").submit();
+          $('#eid').val(role_id);
+          $('#epermisi').val(cekboses);
+          $('#ename').val($('#cname').val());
+					$('#edit').submit();
 				}else{
-                    if($('#cname').get(0).checkValidity()==false){
-                        $('#cname').get(0).reportValidity();
-                    }
+          if($('#cname').get(0).checkValidity()==false){
+              $('#cname').get(0).reportValidity();
+          }
 				}
 			}
 		})
