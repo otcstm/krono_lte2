@@ -35,25 +35,24 @@
 					<thead>
 						<tr>
 							<!-- <th>Year</th> -->
+							<th>Month</th>
 							<th>Group</th>
 							<th>Last Submission Date</th>
 							<th>Last Approval Date</th>
 							<th>Interface Date</th>
 							<th>Payment Date</th>
-							<th>Created By</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
 						@foreach($ps_list as $no => $ps)
 						<tr>
-							<!-- <td>{{ $ps->year}}</td> -->
+							<td>{{ date("F", strtotime($ps->payment_date)) }}</td>
 							<td>{{ $ps->payrollgroupid->pygroup }}</td>
 							<td>{{ $ps->last_sub_date->format('d/m/Y') }}</td>
 							<td>{{ $ps->last_approval_date->format('d/m/Y') }}</td>
 							<td>{{ $ps->interface_date->format('d/m/Y') }}</td>
 							<td>{{ $ps->payment_date->format('d/m/Y') }}</td>
-							<td>{{ $ps->created_by }}</td>
 							<td>
 								<form method="post" action="{{ route('paymentsc.delete', [], false) }}" id="deln-{{$no}}">
 									@csrf

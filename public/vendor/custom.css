@@ -1129,10 +1129,11 @@ select[disabled] { background-color: #EBEBE4; }
 
 .flexg div{
     width: 14.2857%;
+    align-items: center
 }
 
 .guide-calendar{
-    height: 230px;
+    height: 250px;
     padding: 10px 20px;
     color: #40486B;
 }
@@ -1140,7 +1141,7 @@ select[disabled] { background-color: #EBEBE4; }
 .guide-calendar-grid{
     padding: 5px;
     background: #FFF;
-    height: 190px;
+    height: 210px;
     /* width: 260px; */
     border-radius: 15px;
     font-weight: bold;
@@ -1171,6 +1172,7 @@ select[disabled] { background-color: #EBEBE4; }
     width: 23px;
 
 }
+
 .flexg .circle-red{
     background: #FFE8D9;
     color: #F5ABB5;
@@ -1179,4 +1181,41 @@ select[disabled] { background-color: #EBEBE4; }
     width: 23px;
 }
 
-.flexg > div >div{}
+.guide-system{
+    padding: 40px 60px;
+    border-radius: 20px;
+    background: #FFF;
+    margin-bottom: 25px;
+}
+
+.guide-system-inside{
+    align-items: center;
+    vertical-align: middle;
+    padding: 20px;
+    border: 2px solid #CACED5;
+    height: 120px
+}
+
+.guide-system .flex{
+    
+    display: flex;
+}
+
+.guide-system-inside img{
+    width: 120px;
+}
+
+.panel-guide{
+    border-radius: 25px;
+    border: 0;
+    margin-bottom: 25px;
+}
+
+.panel-guide .panel-heading{
+    
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    background: #143A8C;
+    color: #FFF;
+    font-weight: bold;
+}

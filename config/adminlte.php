@@ -436,12 +436,12 @@ return [
               ],
               [
                 'text' => 'guideline_system',
-                'url'  => '#',
+                'url'  => 'guide/system',
                 'icon' => '',
               ],
               [
                 'text' => 'guideline_payment',
-                'url'  => '#',
+                'url'  => 'guide/calendar/payment',
                 'icon' => '',
               ],
             ],

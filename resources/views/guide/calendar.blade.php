@@ -78,9 +78,9 @@
             <div class="row">
                 <div class="col-md-12" style="height: 5px;"></div>
             @foreach($holiday as $singleday)
-                <div class="col-md-2" style="font-weight: bold">{{date("m.d", strtotime($singleday->dt))}}</div>
-                <div class="col-md-3">{{date("l", strtotime($singleday->dt))}}</div>
-                <div class="col-md-7">  @if(strpos($singleday->descr, "(MY)") !== false) 
+                <div class="col-xs-2" style="font-weight: bold">{{date("m.d", strtotime($singleday->dt))}}</div>
+                <div class="col-xs-3">{{date("l", strtotime($singleday->dt))}}</div>
+                <div class="col-xs-7">  @if(strpos($singleday->descr, "(MY)") !== false) 
                                             {{str_replace(" (MY)", "", $singleday->descr)}} 
                                         @elseif(strpos($singleday->descr, "MY") !== false)  
                                             {{str_replace(" MY", "", $singleday->descr)}} 

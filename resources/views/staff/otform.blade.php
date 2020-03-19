@@ -431,13 +431,15 @@
                                         @if(in_array($claim->charge_type, $array = array("Own Cost Center")))
                                             style="display: none" 
                                         @endif
+                                    @elseif($draft ?? '')
+                                        style="display: none" 
                                     @endif >
                                     <div class="row" style="margin-bottom: 5px;">
                                         <div class="col-md-3">
                                             <label>Company Code:</label>
                                         </div>
                                         <div class="col-md-9">
-                                            <select class="form-select" name="compn" id="compn" @if($claim->charge_type!="Own Cost Center") required @endif>
+                                            <select class="form-select" name="compn" id="compn" @if($claim ?? '') @if($claim->charge_type!="Own Cost Center") required @endif @endif>
                                                 @if($claim ?? '')
                                                     <option value="" @if($claim->company_code==NULL) selected @endif hidden>Select company code</option>
                                                     @if($compn!=null)

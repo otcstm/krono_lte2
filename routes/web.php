@@ -29,7 +29,10 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/guide/calendar', 'GuideController@viewCalendar')->name('guide.calendar');
   Route::get('/guide/calendar/empty', 'GuideController@viewCalendarEmpty')->name('guide.calendar.empty');
   Route::post('/guide/calendar/empty', 'GuideController@viewCalendarEmpty')->name('guide.calendar.empty');
+  Route::get('/guide/date/calendar', 'GuideController@dateCalendar')->name('guide.datecalendar');
   Route::post('/guide/date/calendar', 'GuideController@dateCalendar')->name('guide.datecalendar');
+  Route::get('/guide/system', 'GuideController@viewSystem')->name('guide.system');
+  Route::get('/guide/calendar/payment', 'GuideController@viewPaymentCalendar')->name('guide.paymentcalendar');
 
   // // clock-in related OLD
   // Route::get('/punch',      'MiscController@showPunchView')->name('punch.list');

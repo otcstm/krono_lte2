@@ -32,4 +32,12 @@ class GuideController extends Controller
         Session::put(['stateman' => null]); 
         return redirect(route('guide.calendar',[],false));
     }
+
+    public function viewSystem(Request $req){
+        return view('guide.systemguideline',[]);
+    }
+
+    public function viewPaymentCalendar(Request $req){
+        return view('guide.paymentcalendar',[]);
+    }
 }
