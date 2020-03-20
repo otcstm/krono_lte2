@@ -8,6 +8,7 @@ use App\Overtime;
 use App\OvertimeLog;
 use App\OvertimePunch;
 use App\StaffPunch;
+use App\DayType;
 use App\SapPersdata;
 use \Carbon\Carbon;
 use DateTime;
@@ -453,22 +454,27 @@ class UserHelper {
     public static function CheckDay($user, $date)
     {
       $day = date('N', strtotime($date));
-      $day = 6;
+      // $day = 6;
       // dd($day);
       $start = "00:00";
       $end =  "00:00";
       
-      $day_type = 'Off Day'; //temp
-      // if($day==6){
-      //   $day_type = 'Off Day';
-      // }elseif($day>6){
-      //   $day_type = 'Rest Day';
-      // }else{
-      //   $start = "08:30";
-      //   $end = "17:30";
-      //   // $end = "22:30";
-      //   $day_type = 'Normal Day';
-      // }
+      // $day_type = 'Off Day'; //temp
+      if($day==6){
+        $day_type = 'Off Day';
+      }elseif($day>6){
+        $day_type = 'Rest Day';
+      }else{
+        $start = "08:30";
+        $end = "17:30";
+        // $end = "22:30";
+        $day_type = 'Normal Day';
+      }
+
+      // $daytpe = DayType::where()->first();
+
+
+
       return [$start, $end, $day_type, $day];
     }
      // temp=====================================================
