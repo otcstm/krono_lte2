@@ -62,4 +62,8 @@ return [
     'user_guideline'  => 'User',
     'admin_guideline' => 'Admin',
 
+    'guideline_calendar' => 'Calendar',
+    'guideline_system' => 'System Guideline',
+    'guideline_payment' => 'Payment Calendar',
+
 ];

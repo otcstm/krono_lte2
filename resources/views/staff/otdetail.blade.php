@@ -16,7 +16,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="row">
-                                <div class="col-md-4">State</div><div class="col-md-8">: <b>{{$claim->state->state_descr}}</b></div>
+                                <div class="col-md-4">State</div><div class="col-md-8">: <b>{{str_replace(')', '', str_replace('Malaysia (', '', $claim->state->state_descr))}}</b></div>
                                 <div class="col-md-4">Salary Exception</div><div class="col-md-8">: <b>
                                     @if($claim->URecord->ot_salary_exception=="X")
                                         Yes
@@ -77,7 +77,7 @@
                                                     Manual Input
                                                 @endif
                                             </td>
-                                            <td><a href = "https://www.google.com/maps/search/?api=1&query={{$details->in_latitude}},{{$details->in_longitude}}" target="_blank" style="font-weight: bold; color: #143A8C">{{ $details->in_latitude }} {{ $details->in_longitude }}</p></td>
+                                            <td><a href = "https://www.google.com/maps/search/?api=1&query={{$details->in_latitude}},{{$details->in_longitude}}" target="_blank" style="font-weight: bold; color: #143A8C">{{ $details->in_latitude }} {{ $details->in_longitude }}</a></td>
                                             <td>{{$details->justification}}</td>
                                         </tr>
                                         @else
