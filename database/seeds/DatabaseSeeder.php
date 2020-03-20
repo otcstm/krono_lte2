@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
       set_time_limit(0);
         // $this->call(AmerPermissionSeeder::class);
 
-        // $this->call(RolesTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
         // $this->call(RoleUserTableSeeder::class);
 
         $this->call(CompaniesTableSeeder::class);

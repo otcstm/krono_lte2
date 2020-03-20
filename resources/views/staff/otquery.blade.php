@@ -155,7 +155,7 @@
                                 </select>
                             </td>
                             <td id="aremark-{{$no}}" style="display: none">
-                                <textarea rows = "2" cols="40" type="text" maxlength="300" id="inputremark-{{$no}}" name="inputremark[]" value="" placeholder="" onkeydown="this.onchange();"  onkeyup="this.onchange();" onchange='return checkstringx({{$no}});' style="max-height: 180px; resize: vertical; overflow-y: scroll; display: inline" disabled></textarea>
+                                <textarea rows = "4" cols="40" type="text" maxlength="300" id="inputremark-{{$no}}" name="inputremark[]" value="" placeholder="" onkeydown="this.onchange();"  onkeyup="this.onchange();" onchange='return checkstringx({{$no}});' style="max-height: 180px; resize: vertical; overflow-y: scroll; display: inline" disabled></textarea>
                                 <p style="float: right" class="small">Text remaining: <span id="textremain-{{$no}}">300</span></p>
                             </td>
                             @endif
