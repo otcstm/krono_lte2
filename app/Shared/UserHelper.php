@@ -8,6 +8,7 @@ use App\Overtime;
 use App\OvertimeLog;
 use App\OvertimePunch;
 use App\StaffPunch;
+use App\DayType;
 use App\SapPersdata;
 use \Carbon\Carbon;
 use DateTime;
@@ -469,6 +470,11 @@ class UserHelper {
         // $end = "22:30";
         $day_type = 'Normal Day';
       }
+
+      // $daytpe = DayType::where()->first();
+
+
+
       return [$start, $end, $day_type, $day];
     }
      // temp=====================================================

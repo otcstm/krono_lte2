@@ -42,6 +42,7 @@ class OvertimeController extends Controller{
         $orderno = null;
         $networkh = null;
         $networkn = null;
+        $appr = null;
         // dd($cc);
         // $total = 
         // dd($reg->region);
@@ -57,8 +58,10 @@ class OvertimeController extends Controller{
                 if(count($costc)==0){
                     $costc = null;
                 }
-                // $costc = Costcenter::where('company_id', $req->session()->get('claim')->company_id)->groupBy('id')->get();
-                // dd($costc);
+                $appr = UserRecord::where('upd_sap','<=',date('Y-m-d'))->where('company_id', $req->session()->get('claim')->company_id)->where('costcentr', $req->session()->get('claim')->other_costcenter)->where('user_id', '!=', $req->user()->id)->get();
+                if(count($appr)==0){
+                    $appr = null;
+                }
             }else if($req->session()->get('claim')->charge_type=="Project"){
                 $compn = Project::groupBy('company_code')->get();
                 $costc = Project::where('company_code', $req->session()->get('claim')->company_id)->groupBy('cost_center')->get();
@@ -103,6 +106,15 @@ class OvertimeController extends Controller{
                 if(count($orderno)==0){
                     $orderno = null;
                 }
+                if(($req->session()->get('claim')->other_costcenter=="No Cost Center")&&($cost!=null)&&($type!=null)&&($orderno!=null)){
+                    // $orderno= InternalOrder::where('company_code', $req->user()->company_id)->where('cost_center', '')->where('order_type', $req->session()->get('claim')->project_type)->get();
+                }else{
+                    $appr = UserRecord::where('upd_sap','<=',date('Y-m-d'))->where('company_id', $req->session()->get('claim')->company_id)->where('costcentr', $req->session()->get('claim')->other_costcenter)->where('user_id', '!=', $req->user()->id)->get();
+                
+                }
+                if(count($appr)==0){
+                    $appr = null;
+                }
             }else if($req->session()->get('claim')->charge_type=="Maintenance Order"){
                 $compn = MaintenanceOrder::groupBy('company_code')->get();
                 $costc = MaintenanceOrder::where('company_code', $req->session()->get('claim')->company_id)->groupBy('cost_center')->get();
@@ -122,7 +134,7 @@ class OvertimeController extends Controller{
             }
 
 
-            return view('staff.otform', ['draft' =>[], 'claim' => $req->session()->get('claim'), 'day' => $day, 'eligiblehour' => $eligiblehour->hourpermonth, 'costc' => $costc, 'compn' => $compn, 'type' => $type, 'orderno' => $orderno, 'networkh' => $networkh, 'networkn' => $networkn]);
+            return view('staff.otform', ['draft' =>[], 'claim' => $req->session()->get('claim'), 'day' => $day, 'eligiblehour' => $eligiblehour->hourpermonth, 'costc' => $costc, 'compn' => $compn, 'type' => $type, 'orderno' => $orderno, 'networkh' => $networkh, 'networkn' => $networkn, 'appr' => $appr]);
         }else if($req->session()->get('draft')!=null){
             $draft = $req->session()->get('draft');
             $day = UserHelper::CheckDay($req->user()->id, date('Y-m-d', strtotime($draft[4])));
@@ -622,14 +634,20 @@ class OvertimeController extends Controller{
             $updateclaim->network_header = null;
             $updateclaim->network_act_no = null;
             $changecompany = false;
-            if(!(($updateclaim->status=="Q1")||($updateclaim->status=="Q2"))){
+            // if(!(($updateclaim->status=="Q1")||($updateclaim->status=="Q2"))){
                 if($gm){
-                    $updateclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($updateclaim->date)));
-                    $updateclaim->verifier_id =  $req->user()->reptto;
+                    $updateclaim->verifier_id =  null;
                 }else{
-                    $updateclaim->approver_id = $req->user()->reptto;
+                    $updateclaim->verifier_id =  null;
+                    $updateclaim->approver_id = null;
                 }
-            }
+                // if($gm){
+                //     $updateclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($updateclaim->date)));
+                //     $updateclaim->verifier_id =  $req->user()->reptto;
+                // }else{
+                //     $updateclaim->approver_id = $req->user()->reptto;
+                // }
+            // }
         }
         // dd($req->compn);
         $updateclaim->charge_type = $req->chargetype;
@@ -652,7 +670,7 @@ class OvertimeController extends Controller{
 
 
         //change approver
-        if(in_array($req->chargetype, $array = array("Project", "Internal Order", "Maintenance Order"))){
+        if(in_array($req->chargetype, $array = array("Project", "Internal Order", "Maintenance Order", "Other Cost Center"))){
             if($req->chargetype=="Project"){
                 // $updateclaim->approver_id = 16926;
                 // if(!(($updateclaim->status=="Q1")||($updateclaim->status=="Q2"))){
@@ -660,30 +678,51 @@ class OvertimeController extends Controller{
                 // }
                 $projecta= Project::where('company_code', $req->user()->company_id)->where('cost_center', $updateclaim->other_costcenter)->where('type', $updateclaim->project_type)->where('project_no', $updateclaim->project_no)->where('network_header', $updateclaim->network_header)->where('network_act_no',$updateclaim->network_act_no )->first();
                 if($projecta!=null){
-                    $updateclaim->approver_id = $projecta->approver_id;
+                    if($gm){
+                        $updateclaim->verifier_id = $projecta->approver_id;
+                    }else{
+                        $updateclaim->approver_id = $projecta->approver_id;
+                    }
                 }
             }else if($req->chargetype=="Internal Order"){
                 $ordern= InternalOrder::where('company_code', $req->user()->company_id)->where('cost_center', $updateclaim->other_costcenter)->where('order_type', $updateclaim->project_type)->where('id', $updateclaim->order_no)->first();
                 if($ordern!=null){
                     if($ordern->pers_responsible!=""){
-                        $updateclaim->approver_id = $ordern->pers_responsible;
+                        if($gm){
+                            $updateclaim->verifier_id = $ordern->pers_responsible;
+                        }else{
+                            $updateclaim->approver_id = $ordern->pers_responsible;
+                        }
                     }
                 }
             }else if($req->chargetype=="Maintenance Order"){
                 $ordern= MaintenanceOrder::where('company_code', $req->user()->company_id)->where('cost_center', $updateclaim->other_costcenter)->where('type', $updateclaim->project_type)->where('id', $updateclaim->order_no)->first();
                 if($ordern!=null){
-                    $updateclaim->approver_id = $ordern->approver_id;
+                    if($gm){
+                        $updateclaim->verifier_id = $ordern->approver_id;
+                    }else{
+                        $updateclaim->approver_id = $ordern->approver_id;
+                    }
+                }
+            }else if($req->chargetype=="Other Cost Center"){
+            // if(!(($updateclaim->status=="Q1")||($updateclaim->status=="Q2"))){
+                if($gm){
+                    $updateclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($updateclaim->date)));
+                    $updateclaim->verifier_id =  $req->approvern;
+                }else{
+                    $updateclaim->approver_id = $req->approvern;
                 }
             }
+            // dd($req->approvern);
         }else{
-            if(!(($updateclaim->status=="Q1")||($updateclaim->status=="Q2"))){
+            // if(!(($updateclaim->status=="Q1")||($updateclaim->status=="Q2"))){
                 if($gm){
                     $updateclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($updateclaim->date)));
                     $updateclaim->verifier_id =  $req->user()->reptto;
                 }else{
                     $updateclaim->approver_id = $req->user()->reptto;
                 }
-            }
+            // }
         }
 
         $updateclaim->save();
