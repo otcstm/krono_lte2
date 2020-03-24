@@ -171,7 +171,7 @@
 
   
   <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="box box-solid">
+    <!-- <div class="box box-solid">
   <div class="box-body">
     <div class="media">
       <div class="media-left">
@@ -182,14 +182,20 @@
         <p>Request</p>
       </div>
     </div>
-    </div><!-- /.box-body -->
+    </div>
     <div class="box-header text-center bg-yellow-active color-palette">
     <h3 class="box-title">Planned OT Request</h3>
-    </div><!-- /.box-header -->
     </div>
+    </div> -->
   </div>
 
-
 </div><!-- /.row-eq-height -->
+
+<!-- 
+<div class="row">
+<div class="col-md-3 col-sm-6 col-xs-12">
+chart code put here
+</div>
+</div> -->
 
 

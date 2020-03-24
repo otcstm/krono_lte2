@@ -12,6 +12,7 @@ use App\Overtime;
 use App\UserLog;
 use App\PaymentSchedule;
 use \Carbon\Carbon;
+use Session;
 use DateTime;
 use DB;
 //use DateTimeZone;
@@ -84,11 +85,10 @@ class MiscController extends Controller
     
     //pending approval count()
     $pending_approval_count = 
-    Overtime::where('user_id','=',$req->user()->id)
-    ->where('status','=','PAID')
-    ->whereYear('date','=', $curr_date)
-    ->whereMonth('date','=', $curr_date)
-    ->sum('total_hour');
+    Overtime::where('approver_id','=',$req->user()->id)
+    ->orWhere('verifier_id','=',$req->user()->id)
+    ->whereIn('status',array('PA','PV'))
+    ->count();
 
     //link set default verifier
 
@@ -97,6 +97,118 @@ class MiscController extends Controller
     //mainpower request count()
 
     //claim approval report
+
+    //notification top
+
+    //to do notification
+    $to_do_list = Overtime::join('setup_codes', 'overtimes.status', '=', 'setup_codes.item2')
+    ->select('overtimes.*', 'setup_codes.item3')
+    ->where('overtimes.user_id','=',$req->user()->id)
+    ->whereIn('overtimes.status',array('PA', 'A'))
+    ->groupBy('overtimes.refno')
+    ->groupBy('overtimes.status')
+    ->get();
+    Session::put(['to_do_list' => $to_do_list]);
+
+    //chart yearly bar
+    //usage view: {!! $chart->render() !!}
+
+    // //chart dataset 1 pending
+    // $dataPendingMonth = 
+    // Overtime::select(
+    // DB::raw("sum(amount) as sum_amount"), 
+    // DB::raw("DATE_FORMAT(date, '%Y') year_label"),  
+    // DB::raw("DATE_FORMAT(date, '%m') month_label")
+    // )
+    // ->where('user_id','=',$req->user()->id)
+    // ->whereIn('status',array('PA', 'A'))
+    // ->whereYear('date','=', $curr_date)
+    // ->groupby('year_label','month_label')
+    // ->get();
+    // //->toSql();
+    // //dd($dataPendingMonth);
+    // $pendingMonth = [];
+    // foreach ($dataPendingMonth as $key => $value) {
+    //   $pendingMonth[] = $value['sum_amount'];
+    // }
+
+    // //chart dataset 2 paid
+    // $dataPaidMonth = 
+    // Overtime::select(
+    // DB::raw("sum(amount) as sum_amount"), 
+    // DB::raw("DATE_FORMAT(date, '%Y') year_label"),  
+    // DB::raw("DATE_FORMAT(date, '%m') month_label")
+    // )
+    // ->where('user_id','=',$req->user()->id)
+    // ->whereIn('status','=','PAID')
+    // ->whereYear('date','=', $curr_date)
+    // ->groupby('year_label','month_label')
+    // ->get();
+    // //->toSql();
+    // //dd($dataPaidMonth);
+    // $paidMonth = [];
+    // foreach ($dataPaidMonth as $key => $value) {
+    //   $paidMonth[] = $value['sum_amount'];
+    // }
+
+    // $monthYearLabel = [];
+    // for ($m=1; $m<=12; $m++) {
+    //   $month = date('F', mktime(0,0,0,$m, 1, date('Y')));
+    //   array_push($monthYearLabel, date('F', mktime(0,0,0,$m, 1, date('Y'))));;
+    // }
+
+    // $otYearChart = app()->chartjs
+    // ->name('barChartTest')
+    // ->type('bar')
+    // // ->size(['width' => 400, 'height' => 400])
+    // ->labels($monthYear)
+    // ->datasets([
+    //   [
+    //         'label' => 'Pending',
+    //         'backgroundColor' => 'rgba(191, 191, 63)',
+    //         'borderColor' => '#000',
+    //         'data' => $pendingByMonth,
+    //         'lineTension' => 0
+    //   ],
+    //   [
+    //         'label' => 'Paid',
+    //         'backgroundColor' => 'rgba(63, 191, 63)',
+    //         'borderColor' => '#000',
+    //         'data' => $pendingByMonth,
+    //         'lineTension' => 0
+    //   ]
+    // ])
+    // ->options([
+    //   'responsive' => true,
+    //   'title' => [
+    //     'display' => true,
+    //     'text' => 'OT Year',
+    //   ],
+    //   'tooltips' => [
+    //     'mode' => 'index',
+    //     'intersect' => false,
+    //   ],
+    //   'hover' => [
+    //     'mode' => 'nearest',
+    //     'intersect' => false,
+    //   ],
+    //   'scales' => [
+    //     'xAxes' => [[
+    //       'display' => true,
+    //       'scaleLabel' => [
+    //         'display' => true,
+    //         'LabelString' => 'Date',
+    //       ]
+    //     ]],
+    //     'yAxes' => [[
+    //       'display' => true,
+    //       'scaleLabel' => [
+    //         'display' => true,
+    //         'LabelString' => '%',
+    //       ]
+    //     ]]
+    //   ]
+    // ]);
 
 
     // dd($req->user()->name);
@@ -109,7 +221,9 @@ class MiscController extends Controller
       'total_hour_ot_curr_month' => $total_hour_ot_curr_month,
       'next_payment_sch' => $next_payment_sch,
       'last_approval_date' => $last_approval_date,
-      'pending_approval_count' => $pending_approval_count
+      'pending_approval_count' => $pending_approval_count,
+      'to_do_list' => $to_do_list
+      //'otYearChart' => $otYearChart      
       ]);
   }
 

@@ -9,7 +9,7 @@
       </div>
       <div class="media-body">
         <h4 class="media-heading">LAST APPROVAL DATE</h4>
-        <p>31 December 2019</p>
+        <p>{{ date('j F Y', strtotime($last_approval_date)) }}</p>
       </div>
     </div>
     </div><!-- /.box-body -->
@@ -27,7 +27,7 @@
     <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px">
   </div>
   <div class="media-body">
-    <h4 class="media-heading">10 PENDING</h4>
+    <h4 class="media-heading">{{ $pending_approval_count }} PENDING</h4>
     <p>APPROVAL</p>
   </div>
 </div>
@@ -36,7 +36,7 @@
     <h3 class="box-title">Pending OT for Verification</h3>
     </div><!-- /.box-header -->
     </div>
-  </div>
+  </div>  
   <div class="col-md-3 col-sm-6 col-xs-12">
     
   <a href="{{ route('verifier.listGroup', [], false) }}">
