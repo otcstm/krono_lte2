@@ -20,15 +20,16 @@ class SalaryController extends Controller
     public function insert(Request $req)
     {
         $s = new Salary;
-        $s->user_id       = $req->pernr;
-        $s->upd_sap       = $req->aedtm;
-        $s->start_date    = $req->begda;
-        $s->end_date      = $req->endda;
-        $s->payscale_type = $req->trfar;
-        $s->payscale_area = $req->trfgb;
-        $s->salary        = $req->betrg;
+        $s->user_id       = $req->pers_no;
+        $s->upd_sap       = $req->change_on;
+        $s->start_date    = $req->start_date;
+        $s->end_date      = $req->end_date;
+        $s->payscale_type = $req->payscale_type;
+        $s->payscale_area = $req->payscale_area;
+        $s->salary        = $req->salary;
         $s->save();
-        return "ddd";
+        $collection = ["user_id" => $s->user_id, "start_date" => $s->start_date ];
+        return $collection;
     }
 
     public function returnABC()
