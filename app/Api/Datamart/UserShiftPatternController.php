@@ -58,11 +58,6 @@ class UserShiftPatternController extends Controller
 
       $usp->save();
       $collection = ["user_id" => $usp->user_id, "shift_pattern" => $sp->code ];
-
-
-
-
-
       return $collection;
 
 

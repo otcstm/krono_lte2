@@ -30,6 +30,9 @@ $api->version('v1', function ($api) {
   $api->post('cc/delAll', 'App\Api\Datamart\CcController@deleteAll');
   $api->post('cc/insert', 'App\Api\Datamart\CcController@insert');
 
+  $api->get('proj/getLastUpdDM', 'App\Api\Datamart\ProjectController@returnMaxDate');
+  $api->post('proj/insert', 'App\Api\Datamart\ProjectController@insert');
+
     //Route::get('/salary/retABC', 'Datamart\SalaryController@returnABC')->name('salary.abc');
 
 
