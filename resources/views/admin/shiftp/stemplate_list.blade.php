@@ -33,7 +33,7 @@
            <td>{{ $ap->days_count }}</td>
            <td>{{ $ap->total_hours }}</td>
            <td>
-             @if($ap->is_weekly)
+             @if($ap->is_weekly == true)
              &#10004;
              @else
              &#10008;

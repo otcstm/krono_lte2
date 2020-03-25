@@ -1,8 +1,8 @@
 <h1>Dashboard</h1>
 
-<div class="row">     
+<div class="row">
   <div class="col-md-3 col-sm-6 col-xs-12">
-  <a href="{{route('ot.formnew')}}"> 
+  <a href="{{route('ot.formnew')}}">
     <div class="box box-solid">
     <div class="box-body">
     <div class="media">
@@ -19,26 +19,27 @@
     <h3 class="box-title">Overtime Application</h3>
     </div><!-- /.box-header -->
     </div>
-  </a>  
+  </a>
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="box box-solid">
-                        <div class="box-body">
-    
-<div class="media">
-  <div class="media-left">
-    <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px">
-  </div>
-  <div class="media-body">
-    <h4 class="media-heading">My Work</h4>
-    <p>My Work Schedule</p>
-  </div>
-</div>
-    </div><!-- /.box-body -->
-    <div class="box-header text-center bg-yellow-active color-palette">
-    <h3 class="box-title">Schedule</h3>
-    </div><!-- /.box-header -->
-    </div>
+    <a href="{{route('staff.worksched')}}">
+      <div class="box box-solid">
+        <div class="box-body">
+          <div class="media">
+            <div class="media-left">
+              <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px">
+            </div>
+            <div class="media-body">
+              <h4 class="media-heading">My Work</h4>
+              <p>My Work Schedule</p>
+            </div>
+          </div>
+        </div><!-- /.box-body -->
+        <div class="box-header text-center bg-yellow-active color-palette">
+          <h3 class="box-title">Schedule</h3>
+        </div><!-- /.box-header -->
+      </div>
+    </a>
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12">
     <div class="box box-solid">
@@ -79,7 +80,7 @@
 
 </div><!-- /.row -->
 
-<div class="row">     
+<div class="row">
   <div class="col-md-3 col-sm-6 col-xs-12">
     <div class="box box-solid">
                         <div class="box-body">
@@ -101,7 +102,7 @@
   <div class="col-md-3 col-sm-6 col-xs-12">
     <div class="box box-solid">
                         <div class="box-body">
-    
+
 <div class="media">
   <div class="media-left">
     <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px">
@@ -156,7 +157,7 @@
 
 </div><!-- /.row -->
 
-<div class="row">     
+<div class="row">
   <div class="col-md-3 col-sm-6 col-xs-12">
     <div class="box box-solid">
   <div class="box-body">
@@ -192,5 +193,4 @@
             <!-- /.box-body -->
           </div>
       </div>
-</div>    
-
+</div>
