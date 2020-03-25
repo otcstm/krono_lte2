@@ -179,6 +179,20 @@ $(document).ready(function() {
 
 function selectOneStaff(persno){
   document.getElementById('group_owner_id').value = persno;
+
+  var search_url = "{{ route('shift.group.api.getname', ['uid' => '']) }}" + persno;
+
+  $.ajax({
+    url: search_url,
+    success: function(result) {
+      document.getElementById('owner_name').value = result;
+    },
+    error: function(xhr){
+      alert("An error occured: " + xhr.status + " " + xhr.statusText);
+    }
+  });
+
+
   $('#sfresult').modal('hide');
 }
 

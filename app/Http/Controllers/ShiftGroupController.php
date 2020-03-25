@@ -205,10 +205,18 @@ class ShiftGroupController extends Controller
       }
     }
 
-
-
-
     return $retarr;
+  }
+
+  public function ApiGetStaffName(Request $req){
+    if($req->filled('uid')){
+      $user = User::find($req->uid);
+      if($user){
+        return $user->name;
+      }
+    }
+
+    return "404";
   }
 
 }
