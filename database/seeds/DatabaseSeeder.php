@@ -38,13 +38,14 @@ class DatabaseSeeder extends Seeder
         $this->call(HolidaysTableSeeder::class);
         $this->call(SetupCodesTableSeeder::class);
 
-        //$this->call(PaymentSchedulesTableSeeder::class);
-        //$this->call(ShiftPatternDaysTableSeeder::class);
-        
-        $this->call(ProjectsTableSeeder::class);
-        $this->call(MaintenanceOrdersTableSeeder::class);
-        $this->call(InternalOrdersTableSeeder::class);
-        $this->call(PermissionsTableSeeder::class);
+        // $this->call(PaymentSchedulesTableSeeder::class);
+        $this->call(ShiftPatternDaysTableSeeder::class);
+
+
+  //    $this->call(ProjectsTableSeeder::class);
+  //      $this->call(MaintenanceOrdersTableSeeder::class);
+  //      $this->call(InternalOrdersTableSeeder::class);
+      $this->call(PermissionsTableSeeder::class);
         $this->call(PermissionRoleTableSeeder::class);
     }
 }

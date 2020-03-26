@@ -17,13 +17,13 @@ class ShiftPatternController extends Controller
   public function addShiftPattern(Request $req){
     $exsp = ShiftPattern::where('code', $req->code)->first();
     if($exsp){
-      return redirect()->back()->withInput()->with(['code' => 'already exist']);
+      return redirect()->back()->withInput()->withErrors(['code' => 'already exist']);
     }
 
     $nsp = new ShiftPattern;
     $nsp->code = $req->code;
     $nsp->description = $req->description;
-    $nsp->is_weekly = $req->filled('is_weekly');
+    $nsp->is_weekly = $req->has('is_weekly');
     $nsp->created_by = $req->user()->id;
     $nsp->source = 'OTCS';
     $nsp->save();

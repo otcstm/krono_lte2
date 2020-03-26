@@ -372,7 +372,7 @@ return [
           'submenu' => [
             [
                 'text' => 'user_shift_sc',
-                'url'  => '#',
+                'route'  => 'staff.worksched',
                 'icon' => '',
                 'can' => '5-shift-calendar',
             ],

@@ -30,7 +30,14 @@ $api->version('v1', function ($api) {
   $api->post('cc/delAll', 'App\Api\Datamart\CcController@deleteAll');
   $api->post('cc/insert', 'App\Api\Datamart\CcController@insert');
 
-    //Route::get('/salary/retABC', 'Datamart\SalaryController@returnABC')->name('salary.abc');
+  $api->get('proj/getLastUpdDM', 'App\Api\Datamart\ProjectController@returnMaxDate');
+  $api->post('proj/insert', 'App\Api\Datamart\ProjectController@insert');
+
+  $api->get('pm/getLastUpdPM', 'App\Api\Datamart\PMController@returnMaxDate');
+  $api->post('pm/insert', 'App\Api\Datamart\PMController@insert');
+
+  $api->get('io/getLastUpdIO', 'App\Api\Datamart\IOController@returnMaxDate');
+  $api->post('io/insert', 'App\Api\Datamart\IOController@insert');
 
 
 });

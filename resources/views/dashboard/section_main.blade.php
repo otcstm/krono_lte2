@@ -1,9 +1,13 @@
 <h1>Dashboard</h1>
 
+<<<<<<< HEAD
 <div class="row-eq-height"> 
 
+=======
+<div class="row">
+>>>>>>> 0cf71fad06a817e5598c57fb8d31d76d45971c5a
   <div class="col-md-3 col-sm-6 col-xs-12">
-  <a href="{{route('ot.formnew')}}"> 
+  <a href="{{route('ot.formnew')}}">
     <div class="box box-solid">
     <div class="box-body">
     <div class="media">
@@ -20,26 +24,27 @@
     <h3 class="box-title">Overtime Application</h3>
     </div><!-- /.box-header -->
     </div>
-  </a>  
+  </a>
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="box box-solid">
-                        <div class="box-body">
-    
-<div class="media">
-  <div class="media-left">
-    <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px">
-  </div>
-  <div class="media-body">
-    <h4 class="media-heading">My Work</h4>
-    <p>My Work Schedule</p>
-  </div>
-</div>
-    </div><!-- /.box-body -->
-    <div class="box-header text-center bg-yellow-active color-palette">
-    <h3 class="box-title">Schedule</h3>
-    </div><!-- /.box-header -->
-    </div>
+    <a href="{{route('staff.worksched')}}">
+      <div class="box box-solid">
+        <div class="box-body">
+          <div class="media">
+            <div class="media-left">
+              <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px">
+            </div>
+            <div class="media-body">
+              <h4 class="media-heading">My Work</h4>
+              <p>My Work Schedule</p>
+            </div>
+          </div>
+        </div><!-- /.box-body -->
+        <div class="box-header text-center bg-yellow-active color-palette">
+          <h3 class="box-title">Schedule</h3>
+        </div><!-- /.box-header -->
+      </div>
+    </a>
   </div>
   @if(isset($act_payment_curr_month))
   <div class="col-md-3 col-sm-6 col-xs-12">
@@ -84,7 +89,11 @@
   @endif
 
 
+<<<<<<< HEAD
 @if(isset($total_hour_ot_curr_month))
+=======
+<div class="row">
+>>>>>>> 0cf71fad06a817e5598c57fb8d31d76d45971c5a
   <div class="col-md-3 col-sm-6 col-xs-12">
     <div class="box box-solid">
   <div class="box-body">
@@ -107,8 +116,13 @@
   @if(isset($next_payment_sch))
   <div class="col-md-3 col-sm-6 col-xs-12">
     <div class="box box-solid">
+<<<<<<< HEAD
 <div class="box-body">
     
+=======
+                        <div class="box-body">
+
+>>>>>>> 0cf71fad06a817e5598c57fb8d31d76d45971c5a
 <div class="media">
   <div class="media-left">
     <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px">
@@ -169,7 +183,9 @@
 </a>
   </div>
 
-  
+</div><!-- /.row -->
+
+<div class="row">
   <div class="col-md-3 col-sm-6 col-xs-12">
     <!-- <div class="box box-solid">
   <div class="box-body">

@@ -31,10 +31,7 @@ class ShiftGroupController extends Controller
       ->orWhere('planner_id', $req->user()->id)->get();
 
     return view('shiftplan.shift_group', [
-      'p_list' => $glist,
-      'stafflist' => $all_subord,
-      's_list' => $freesubord,
-      'in_grp' => $ingroup
+      'p_list' => $glist
     ]);
   }
 
@@ -165,6 +162,61 @@ class ShiftGroupController extends Controller
     } else {
       return redirect(route('shift.group', [], false))->with(['alert' => 'Group not found', 'a_type' => 'warning']);
     }
+  }
+
+  public function ApiSearchStaff(Request $req){
+    $retarr = [];
+
+    if($req->filled('input')){
+      // first, try to search by exact persno
+      if(is_int($req->input)){
+        $yser = User::find($req->input);
+        if($yser){
+          // found exact persno. return it
+          array_push($retarr, [
+            'staff_no' => $yser->staff_no,
+            'name' => $yser->name,
+            'id' => $yser->id
+          ]);
+          return $retarr;
+        }
+      }
+
+      // then try search by staff_no
+      $yser = User::where('staff_no', $req->input)->first();
+      if($yser){
+        // found exact staff. return it
+        array_push($retarr, [
+          'staff_no' => $yser->staff_no,
+          'name' => $yser->name,
+          'id' => $yser->id
+        ]);
+        return $retarr;
+      }
+
+      // if it reaches here, try to search by name
+      $user = User::where('name', 'like', '%' . $req->input . '%')->get();
+      foreach ($user as $key => $value) {
+        array_push($retarr, [
+          'staff_no' => $value->staff_no,
+          'name' => $value->name,
+          'id' => $value->id
+        ]);
+      }
+    }
+
+    return $retarr;
+  }
+
+  public function ApiGetStaffName(Request $req){
+    if($req->filled('uid')){
+      $user = User::find($req->uid);
+      if($user){
+        return $user->name;
+      }
+    }
+
+    return "404";
   }
 
 }

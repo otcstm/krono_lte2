@@ -23,6 +23,7 @@ Route::get('/ur/show/{persno}/{dt}', 'URController@gUR')->name('ur.listAll');
 Route::group(['middleware' => ['auth']], function () {
   Route::get('/home', 'MiscController@home')->name('misc.home');
   Route::get('/role', 'Admin\RoleController@index')->name('role.index');
+  Route::get('/workschedule', 'StaffController@showCalendar')->name('staff.worksched');
 
 
   //guide
@@ -117,7 +118,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/admin/overtime/expiry/active', 'Admin\OvertimeMgmtController@active')->name('oe.active');
   Route::get('/admin/overtime/expiry/getexpiry', 'Admin\OvertimeMgmtController@getExpiry')->name('oe.getexpiry');
   Route::get('/admin/overtime/expiry/getlast', 'Admin\OvertimeMgmtController@getLast2')->name('oe.expirygetlast');
-  
+
   Route::get('/admin/overtime/eligibility', 'Admin\OvertimeMgmtController@eligibilityshow')->name('oe.eligibility.show');
   Route::post('/admin/overtime/eligibility/add', 'Admin\OvertimeMgmtController@eligibilityadd')->name('oe.eligibility.add');
   Route::post('/admin/overtime/eligibility/remove', 'Admin\OvertimeMgmtController@eligibilityremove')->name('oe.eligibility.remove');
@@ -213,6 +214,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/admin/verifier/advSearch', 'UserVerifierController@advSearchSubord')->name('verifier.advSearchSubord');
 
 });
+
 Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
   Route::get('/', 'ShiftPatternController@index')->name('index');
   Route::post('/add', 'ShiftPatternController@addShiftPattern')->name('add');
@@ -222,6 +224,7 @@ Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => '
   Route::post('/day/push', 'ShiftPatternController@pushDay')->name('day.add');
   Route::post('/day/pop', 'ShiftPatternController@popDay')->name('day.del');
 });
+
 Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth']], function () {
   Route::get('/', 'ShiftPlanController@index')->name('index');
   // ShiftPlan crud
@@ -238,6 +241,10 @@ Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth
   Route::post('/group/edit', 'ShiftGroupController@editGroup')->name('group.edit');
   Route::post('/staff/add', 'ShiftGroupController@addStaff')->name('staff.add');
   Route::post('/staff/del', 'ShiftGroupController@removeStaff')->name('staff.del');
+  Route::get('/group/api/sstaff', 'ShiftGroupController@ApiSearchStaff')->name('group.api.searchstaff');
+  Route::get('/group/api/gname', 'ShiftGroupController@ApiGetStaffName')->name('group.api.getname');
+
+
   // ShiftPlanStaff
   Route::get('/staff', 'ShiftPlanController@staffInfo')->name('staff');
   Route::post('/staff/push', 'ShiftPlanController@staffPushTemplate')->name('staff.push');
