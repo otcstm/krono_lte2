@@ -1,11 +1,7 @@
 <h1>Dashboard</h1>
 
-<<<<<<< HEAD
 <div class="row-eq-height"> 
 
-=======
-<div class="row">
->>>>>>> 0cf71fad06a817e5598c57fb8d31d76d45971c5a
   <div class="col-md-3 col-sm-6 col-xs-12">
   <a href="{{route('ot.formnew')}}">
     <div class="box box-solid">
@@ -89,11 +85,7 @@
   @endif
 
 
-<<<<<<< HEAD
 @if(isset($total_hour_ot_curr_month))
-=======
-<div class="row">
->>>>>>> 0cf71fad06a817e5598c57fb8d31d76d45971c5a
   <div class="col-md-3 col-sm-6 col-xs-12">
     <div class="box box-solid">
   <div class="box-body">
