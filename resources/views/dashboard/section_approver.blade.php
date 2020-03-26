@@ -8,13 +8,13 @@
         <img src="vendor/ot-assets/ot-clock-icon.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
-        <h4 class="media-heading">LAST APPROVAL DATE</h4>
+        <h4 class="media-heading text-left">LAST APPROVAL DATE</h4>
         <p>{{ date('j F Y', strtotime($last_approval_date)) }}</p>
       </div>
     </div>
     </div><!-- /.box-body -->
     <div class="box-header text-center bg-yellow-active color-palette">
-    <h3 class="box-title">Last Approval Date</h3>
+    <h3 class="box-title text-left">Last Approval Date</h3>
     </div><!-- /.box-header -->
     </div>
   </div>
@@ -33,7 +33,7 @@
 </div>
     </div><!-- /.box-body -->
     <div class="box-header text-center bg-yellow-active color-palette">
-    <h3 class="box-title">Pending OT for Verification</h3>
+    <h3 class="box-title text-left">Pending OT for Verification</h3>
     </div><!-- /.box-header -->
     </div>
   </div>  
@@ -54,7 +54,7 @@
   </div>
       </div><!-- /.box-body -->
       <div class="box-header text-center bg-yellow-active color-palette">
-      <h3 class="box-title">Set Default Verifier</h3>
+      <h3 class="box-title text-left">Set Default Verifier</h3>
       </div><!-- /.box-header -->
       </div>
 </a>
@@ -74,7 +74,7 @@
 </div>
     </div><!-- /.box-body -->
     <div class="box-header text-center bg-yellow-active color-palette">
-    <h3 class="box-title">List & Create OT Plan</h3>
+    <h3 class="box-title text-left">List & Create OT Plan</h3>
     </div><!-- /.box-header -->
     </div>
   </div>
@@ -94,7 +94,7 @@
     </div>
     </div><!-- /.box-body -->
     <div class="box-header text-center bg-yellow-active color-palette">
-    <h3 class="box-title">Manpower Request for Planned OT</h3>
+    <h3 class="box-title text-left">Manpower Request for Planned OT</h3>
     </div><!-- /.box-header -->
     </div>
   </div>
@@ -114,7 +114,7 @@
             </div>
         </div><!-- /.box-body -->
         <div class="box-header text-center bg-yellow-active color-palette">
-          <h3 class="box-title">Claim Approval Report</h3>
+          <h3 class="box-title text-left">Claim Approval Report</h3>
         </div><!-- /.box-header -->
     </div>
     </a>

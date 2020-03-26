@@ -270,7 +270,7 @@ body{
 }
 
 .media{
-    text-align: center;
+    text-align: left;
 }
 
 .media-body, .media-heading{
@@ -336,7 +336,6 @@ body{
 
 .btn-punch-layer p{
     /* margin-top: 5px; */
-
 }
 
 .btn-punch-layer:focus,
@@ -1104,8 +1103,6 @@ select[disabled] { background-color: #EBEBE4; }
 .guide{
     display: flex;
     height: 100%;
-    
-    
 }
 
 /* .guide .col-md-8{
@@ -1214,4 +1211,20 @@ select[disabled] { background-color: #EBEBE4; }
     background: #143A8C;
     color: #FFF;
     font-weight: bold;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: 'Roboto Mono', monospace;
+}
+
+.box-body {
+    padding: 15px !important;
+}
+
+.box-title{
+    display: inherit !important;
+}
+
+.box-header {
+    padding-left: 20px;
 }

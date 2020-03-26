@@ -16,8 +16,8 @@
       </div>
     </div>
     </div><!-- /.box-body -->
-    <div class="box-header text-center bg-yellow-active color-palette">
-    <h3 class="box-title">Overtime Application</h3>
+    <div class="box-header bg-yellow-active color-palette">
+    <h3 class="box-title text-left">Overtime Application</h3>
     </div><!-- /.box-header -->
     </div>
   </a>
@@ -36,8 +36,8 @@
             </div>
           </div>
         </div><!-- /.box-body -->
-        <div class="box-header text-center bg-yellow-active color-palette">
-          <h3 class="box-title">Schedule</h3>
+        <div class="box-header bg-yellow-active color-palette">
+          <h3 class="box-title text-left">Schedule</h3>
         </div><!-- /.box-header -->
       </div>
     </a>
@@ -56,8 +56,8 @@
   </div>
 </div>
     </div><!-- /.box-body -->
-    <div class="box-header text-center bg-yellow-active color-palette">
-    <h3 class="box-title">RM {{ $act_payment_curr_month }}</h3>
+    <div class="box-header bg-yellow-active color-palette">
+    <h3 class="box-title text-left">RM {{ $act_payment_curr_month }}</h3>
     </div><!-- /.box-header -->
     </div>
   </div>
@@ -77,8 +77,8 @@
   </div>
 </div>
     </div><!-- /.box-body -->
-    <div class="box-header text-center bg-yellow-active color-palette">
-    <h3 class="box-title">RM {{ $pending_payment_last_month }} (Estimated)</h3>
+    <div class="box-header bg-yellow-active color-palette">
+    <h3 class="box-title text-left">RM {{ $pending_payment_last_month }} (Estimated)</h3>
     </div><!-- /.box-header -->
     </div>
   </div>  
@@ -99,8 +99,8 @@
       </div>
     </div>
     </div><!-- /.box-body -->
-    <div class="box-header text-center bg-yellow-active color-palette">
-    <h3 class="box-title">Total OT Hour Monthly</h3>
+    <div class="box-header bg-yellow-active color-palette">
+    <h3 class="box-title text-left">Total OT Hour Monthly</h3>
     </div><!-- /.box-header -->
     </div>
   </div>
@@ -120,8 +120,8 @@
   </div>
 </div>
     </div><!-- /.box-body -->
-    <div class="box-header text-center bg-yellow-active color-palette">
-    <h3 class="box-title">Next Payment Date</h3>
+    <div class="box-header bg-yellow-active color-palette">
+    <h3 class="box-title text-left">Next Payment Date</h3>
     </div><!-- /.box-header -->
     </div>
   </div>
@@ -143,8 +143,8 @@
   </div>
 </div>
     </div><!-- /.box-body -->
-    <div class="box-header text-center bg-yellow-active color-palette">
-    <h3 class="box-title">Display all clocking time</h3>
+    <div class="box-header bg-yellow-active color-palette">
+    <h3 class="box-title text-left">Display all clocking time</h3>
     </div><!-- /.box-header -->
     </div>
 </a>
@@ -163,8 +163,8 @@
   </div>
 </div>
     </div><!-- /.box-body -->
-    <div class="box-header text-center bg-yellow-active color-palette">
-    <h3 class="box-title">Display all claims</h3>
+    <div class="box-header bg-yellow-active color-palette">
+    <h3 class="box-title text-left">Display all claims</h3>
     </div><!-- /.box-header -->
     </div>
 </a>
@@ -186,8 +186,8 @@
       </div>
     </div>
     </div>
-    <div class="box-header text-center bg-yellow-active color-palette">
-    <h3 class="box-title">Planned OT Request</h3>
+    <div class="box-header bg-yellow-active color-palette">
+    <h3 class="box-title text-left">Planned OT Request</h3>
     </div>
     </div> -->
   </div>
