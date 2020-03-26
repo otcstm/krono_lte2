@@ -116,13 +116,8 @@
   @if(isset($next_payment_sch))
   <div class="col-md-3 col-sm-6 col-xs-12">
     <div class="box box-solid">
-<<<<<<< HEAD
 <div class="box-body">
     
-=======
-                        <div class="box-body">
-
->>>>>>> 0cf71fad06a817e5598c57fb8d31d76d45971c5a
 <div class="media">
   <div class="media-left">
     <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px">
