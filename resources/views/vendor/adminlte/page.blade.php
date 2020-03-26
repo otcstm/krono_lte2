@@ -79,15 +79,8 @@
                   @foreach($to_do_list as $to_do_list_row)
                   <li><!-- Task item -->
                     <a href="#">
-                      <h3>
-                        Design some buttons
-                        <small class="pull-right">20%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">20% Complete</span>
-                        </div>
-                      </div>
+                      {{ $to_do_list_row->item3 }}
+                        <small class="label label-default pull-right">{{ $to_do_list->count() }}</small>
                     </a>
                   </li>
                   <!-- end task item -->
@@ -119,13 +112,13 @@
               <!-- <span class="label label-warning">10</span> -->
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
+              <li class="header">You dont have new notifications</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
                   <li>
                     <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                      <i class="fa fa-users text-aqua"></i> Update on covid-19
                     </a>
                   </li>
                 </ul>
