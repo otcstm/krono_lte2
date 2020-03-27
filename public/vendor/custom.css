@@ -1228,3 +1228,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .box-header {
     padding-left: 20px;
 }
+
+.bg-blue-active {
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+}
+

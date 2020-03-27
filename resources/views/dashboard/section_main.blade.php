@@ -172,7 +172,7 @@
 
 </div><!-- /.row -->
 
-<div class="row">
+{{-- <div class="row">
   <div class="col-md-3 col-sm-6 col-xs-12">
     <!-- <div class="box box-solid">
   <div class="box-body">
@@ -191,14 +191,6 @@
     </div>
     </div> -->
   </div>
-
-</div><!-- /.row-eq-height -->
-
-<!-- 
-<div class="row">
-<div class="col-md-3 col-sm-6 col-xs-12">
-chart code put here
-</div>
-</div> -->
+</div> --}}
 
 
