@@ -6,6 +6,7 @@
 <!-- <h3><p>Welcome {{ $uname }}!</p></h3> -->
 @include('dashboard/section_header')
 @include('dashboard/section_main')
-
+@include('dashboard/section_approver')
+{{-- @include('dashboard/section_admin') --}}
 
 @stop

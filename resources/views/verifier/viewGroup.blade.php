@@ -64,6 +64,7 @@
     </div><!--- .panel-heading --->
     <div class="panel-body">  
 
+    <div class="table-responsive">
     <table id="subord_group" class="table">
     <thead>
       <tr>
@@ -97,6 +98,7 @@
 @endforeach  
     </tbody>
     </table>
+    </div>
 
     </div><!--- .panel-body --->
 </div><!--- .panel panel-default --->
@@ -113,7 +115,7 @@
     </div><!--- .panel-heading --->
     <div class="panel-body">  
 
-  
+<div class="table-responsive">  
 <table id="subord_nogroup" class="table">
     <thead>
       <tr>
@@ -147,7 +149,7 @@
 @endforeach  
     </tbody>
     </table>
-
+    </div>
     </div><!--- .panel-body --->
 </div><!--- .panel panel-default --->
 
