@@ -113,105 +113,146 @@ class MiscController extends Controller
     //chart yearly bar
     //usage view: {!! $chart->render() !!}
 
-    // //chart dataset 1 pending
-    // $dataPendingMonth = 
-    // Overtime::select(
-    // DB::raw("sum(amount) as sum_amount"), 
-    // DB::raw("DATE_FORMAT(date, '%Y') year_label"),  
-    // DB::raw("DATE_FORMAT(date, '%m') month_label")
-    // )
-    // ->where('user_id','=',$req->user()->id)
-    // ->whereIn('status',array('PA', 'A'))
-    // ->whereYear('date','=', $curr_date)
-    // ->groupby('year_label','month_label')
-    // ->get();
-    // //->toSql();
-    // //dd($dataPendingMonth);
-    // $pendingMonth = [];
-    // foreach ($dataPendingMonth as $key => $value) {
-    //   $pendingMonth[] = $value['sum_amount'];
-    // }
+    //chart dataset 1 pending
+    $dataPendingMonth = 
+    Overtime::select(
+    DB::raw("sum(amount) as sum_amount"), 
+    DB::raw("DATE_FORMAT(date, '%Y') year_label"),  
+    DB::raw("DATE_FORMAT(date, '%m') month_label")
+    )
+    ->where('user_id','=',$req->user()->id)
+    ->whereIn('status',array('PA', 'A'))
+    ->whereYear('date','=', $curr_date)
+    ->groupby('year_label','month_label')
+    ->get();
+    
+    $pendingMonthly = [];
+    for ($m=1; $m<=12; $m++) {
+      if($dataPendingMonth->count() > 0)
+      {
+        if($dataPendingMonth->month_label == $m){
+          array_push($pendingMonthly, $dataPendingMonth->sum_amount);
+        }
+        else
+        {
+          array_push($pendingMonthly, 0);
+        }
+      }
+      else
+      {
+        array_push($pendingMonthly, 0);
+      }
+    }
 
-    // //chart dataset 2 paid
-    // $dataPaidMonth = 
-    // Overtime::select(
-    // DB::raw("sum(amount) as sum_amount"), 
-    // DB::raw("DATE_FORMAT(date, '%Y') year_label"),  
-    // DB::raw("DATE_FORMAT(date, '%m') month_label")
-    // )
-    // ->where('user_id','=',$req->user()->id)
-    // ->whereIn('status','=','PAID')
-    // ->whereYear('date','=', $curr_date)
-    // ->groupby('year_label','month_label')
-    // ->get();
-    // //->toSql();
-    // //dd($dataPaidMonth);
-    // $paidMonth = [];
-    // foreach ($dataPaidMonth as $key => $value) {
-    //   $paidMonth[] = $value['sum_amount'];
-    // }
+    // chart dataset 2 paid
+      $dataPaidMonth = 
+      Overtime::select(
+      DB::raw("sum(amount) as sum_amount"), 
+      DB::raw("DATE_FORMAT(date, '%Y') year_label"),  
+      DB::raw("DATE_FORMAT(date, '%m') month_label")
+      )
+      ->where('user_id','=',$req->user()->id)
+      ->where('status','=','PAID')
+      ->whereYear('date','=', $curr_date)
+      ->groupby('year_label','month_label')
+      ->get();
+    //->toSql();
+     //dd($dataPaidMonth);
 
-    // $monthYearLabel = [];
-    // for ($m=1; $m<=12; $m++) {
-    //   $month = date('F', mktime(0,0,0,$m, 1, date('Y')));
-    //   array_push($monthYearLabel, date('F', mktime(0,0,0,$m, 1, date('Y'))));;
-    // }
+      $paidMonthly = [];
+      for ($m=1; $m<=12; $m++) {
+       if($dataPaidMonth->count() > 0)
+       {
+         if($dataPaidMonth->month_label == $m){
+           array_push($paidMonthly, $dataPaidMonth->sum_amount);
+         }
+         else
+         {
+           array_push($paidMonthly, 0);
+         }
+       }
+       else
+       {
+         array_push($paidMonthly, 0);
+       }
+     }
+    
+    // dd($paidMonthly);
 
-    // $otYearChart = app()->chartjs
-    // ->name('barChartTest')
-    // ->type('bar')
-    // // ->size(['width' => 400, 'height' => 400])
-    // ->labels($monthYear)
-    // ->datasets([
-    //   [
-    //         'label' => 'Pending',
-    //         'backgroundColor' => 'rgba(191, 191, 63)',
-    //         'borderColor' => '#000',
-    //         'data' => $pendingByMonth,
-    //         'lineTension' => 0
-    //   ],
-    //   [
-    //         'label' => 'Paid',
-    //         'backgroundColor' => 'rgba(63, 191, 63)',
-    //         'borderColor' => '#000',
-    //         'data' => $pendingByMonth,
-    //         'lineTension' => 0
-    //   ]
-    // ])
-    // ->options([
-    //   'responsive' => true,
-    //   'title' => [
-    //     'display' => true,
-    //     'text' => 'OT Year',
-    //   ],
-    //   'tooltips' => [
-    //     'mode' => 'index',
-    //     'intersect' => false,
-    //   ],
-    //   'hover' => [
-    //     'mode' => 'nearest',
-    //     'intersect' => false,
-    //   ],
-    //   'scales' => [
-    //     'xAxes' => [[
-    //       'display' => true,
-    //       'scaleLabel' => [
-    //         'display' => true,
-    //         'LabelString' => 'Date',
-    //       ]
-    //     ]],
-    //     'yAxes' => [[
-    //       'display' => true,
-    //       'scaleLabel' => [
-    //         'display' => true,
-    //         'LabelString' => '%',
-    //       ]
-    //     ]]
-    //   ]
-    // ]);
+    $monthYearLabel = [];
+    for ($m=1; $m<=12; $m++) {
+      $month = date('F', mktime(0,0,0,$m, 1, date('Y')));
+      array_push($monthYearLabel, date('F', mktime(0,0,0,$m, 1, date('Y'))));;
+    }
 
+  $colordata1 = "rgba(193, 66, 66, 0.5)";
+  $colordata2 = "rgba(0,83,132,1)";
+
+    $otYearChart = app()->chartjs
+         ->name('barChartTest')
+         ->type('bar')
+         //->size(['width' => 400, 'height' => 200])
+         ->labels($monthYearLabel)
+         ->datasets([
+             [
+                 "label" => "Pending",
+                 'backgroundColor' => [
+                  $colordata1, $colordata1, $colordata1, $colordata1,
+                  $colordata1, $colordata1, $colordata1, $colordata1,
+                  $colordata1, $colordata1, $colordata1, $colordata1
+                 ],
+                 'borderColor' => '#000',
+                 'lineTension' => 0,
+                 'data' => $pendingMonthly
+             ],
+             [
+                 "label" => "Paid",
+                 'backgroundColor' => [
+                  $colordata2, $colordata2, $colordata2, $colordata2,
+                  $colordata2, $colordata2, $colordata2, $colordata2,
+                  $colordata2, $colordata2, $colordata2, $colordata2
+                 ],
+                 'borderColor' => '#000',
+                 'lineTension' => 0,
+                 'data' => $paidMonthly
+             ]
+         ])
+         ->options([
+          'scales' => [
+                 'yAxes' => [[
+                   'display' => true,
+                   'ticks' => [
+                     'suggestedMin' => 0,
+                     'beginAtZero' => 0
+                   ],
+                   'scaleLabel' => [
+                     'display' => true,
+                     'labelString' => 'RM'
+                    ]
+                 ]]
+               ]
+         ]);
+   
+    //verifier
+    $isVerifier = 0;
+    $checkVerifier = Overtime::where('verifier_id','=',$req->user()->id)
+    ->get();
+    if($checkVerifier->count() > 0)
+    {
+      $isVerifier = 1;
+    }
+
+    //approver
+    $isApprover = 0;
+    $checkApprover = Overtime::where('approver_id','=',$req->user()->id)
+    ->get();
+    if($checkApprover->count() > 0)
+    {
+      $isApprover = 1;
+    }
 
     // dd($req->user()->name);
+
     return view('home', [
       'uname' => $req->user()->name,
       'first_last_month' => $first_last_month,
@@ -222,8 +263,10 @@ class MiscController extends Controller
       'next_payment_sch' => $next_payment_sch,
       'last_approval_date' => $last_approval_date,
       'pending_approval_count' => $pending_approval_count,
-      'to_do_list' => $to_do_list
-      //'otYearChart' => $otYearChart      
+      'to_do_list' => $to_do_list,
+      'isVerifier' => $isVerifier,
+      'isApprover' => $isApprover,
+      'otYearChart' => $otYearChart      
       ]);
   }
 
