@@ -3,7 +3,7 @@
 
 @section('title', 'Dashboard')
 @section('content')
-<!-- <h3><p>Welcome {{ $uname }}!</p></h3> -->
+{{-- <h3><p>Welcome {{ $uname }}!</p></h3> --}}
 @include('dashboard/section_header')
 @include('dashboard/section_main')
 @if($isVerifier==1)
