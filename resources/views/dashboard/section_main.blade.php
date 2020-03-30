@@ -138,7 +138,7 @@
     <img src="vendor/ot-assets/stopwatch.jpg" class="media-object" style="width:50px">
   </div>
   <div class="media-body">
-    <h4 class="media-heading">List OT</h4>
+    <h4 class="media-heading">Overtime List</h4>
     <p>Start/End Date</p>
   </div>
 </div>
@@ -158,7 +158,7 @@
     <img src="vendor/ot-assets/claim.jpg" class="media-object" style="width:50px; height:50px;">
   </div>
   <div class="media-body">
-    <h4 class="media-heading">List Claim</h4>
+    <h4 class="media-heading">Claim List</h4>
     <p>All Claim</p>
   </div>
 </div>
