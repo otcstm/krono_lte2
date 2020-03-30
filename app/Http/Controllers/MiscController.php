@@ -113,43 +113,42 @@ class MiscController extends Controller
     //chart yearly bar
     //usage view: {!! $chart->render() !!}
 
-    //chart dataset 1 pending
-    $dataPendingMonth = 
-    Overtime::select(
-    DB::raw("sum(amount) as sum_amount"), 
-    DB::raw("DATE_FORMAT(date, '%Y') year_label"),  
-    DB::raw("DATE_FORMAT(date, '%m') month_label")
-    )
-    ->where('user_id','=',$req->user()->id)
-    ->whereIn('status',array('PA', 'A'))
-    ->whereYear('date','=', $curr_date)
-    ->groupby('year_label','month_label')
-    ->get();
+    // //chart dataset 1 pending
+    // $dataPendingMonth = 
+    // Overtime::select(
+    // DB::raw("sum(amount) as sum_amount"), 
+    // DB::raw("DATE_FORMAT(date, '%Y') year_label"),  
+    // DB::raw("DATE_FORMAT(date, '%m') month_label")
+    // )
+    // ->where('user_id','=',$req->user()->id)
+    // ->whereIn('status',array('PA', 'A'))
+    // ->whereYear('date','=', $curr_date)
+    // ->groupby('year_label','month_label')
+    // ->get();
     
-    $pendingMonthly = [];
-    for ($m=1; $m<=12; $m++) {
-      if($dataPendingMonth->count() > 0)
-      {
-        if($dataPendingMonth->month_label == $m){
-          array_push($pendingMonthly, $dataPendingMonth->sum_amount);
-        }
-        else
-        {
-          array_push($pendingMonthly, 0);
-        }
-      }
-      else
-      {
-        array_push($pendingMonthly, 0);
-      }
-    }
+    // $pendingMonthly = [];
+    // for ($m=1; $m<=12; $m++) {
+    //   if($dataPendingMonth->count() > 0)
+    //   {
+    //     if($dataPendingMonth->month_label == $m){
+    //       array_push($pendingMonthly, $dataPendingMonth->sum_amount);
+    //     }
+    //     else
+    //     {
+    //       array_push($pendingMonthly, 0);
+    //     }
+    //   }
+    //   else
+    //   {
+    //     array_push($pendingMonthly, 0);
+    //   }
+    // }
 
     // chart dataset 2 paid
-      $dataPaidMonth = 
-      Overtime::select(
+      $dataPaidMonth = Overtime::select(
       DB::raw("sum(amount) as sum_amount"), 
-      DB::raw("DATE_FORMAT(date, '%Y') year_label"),  
-      DB::raw("DATE_FORMAT(date, '%m') month_label")
+      DB::raw("DATE_FORMAT(date, '%Y') as year_label"),  
+      DB::raw("DATE_FORMAT(date, '%c') as month_label")
       )
       ->where('user_id','=',$req->user()->id)
       ->where('status','=','PAID')
@@ -157,36 +156,52 @@ class MiscController extends Controller
       ->groupby('year_label','month_label')
       ->get();
     //->toSql();
-     //dd($dataPaidMonth);
+     //dd($dataPaidMonth->sum('sum_amount'));
+    // dd($dataPaidMonth->count());
 
       $paidMonthly = [];
-      for ($m=1; $m<=12; $m++) {
-       if($dataPaidMonth->count() > 0)
-       {
-         if($dataPaidMonth->month_label == $m){
-           array_push($paidMonthly, $dataPaidMonth->sum_amount);
-         }
-         else
-         {
-           array_push($paidMonthly, 0);
-         }
-       }
-       else
-       {
-         array_push($paidMonthly, 0);
-       }
-     }
+      
+        for ($m=1; $m<=12; $m++) {
+          if($dataPaidMonth->count() > 0)
+          {          
+            
+          foreach($dataPaidMonth as $dataPaidMonthRow){
+            if($dataPaidMonthRow->month_label == $m){
+              array_push($paidMonthly, $dataPaidMonthRow->sum_amount);
+            }
+            else
+            {
+              array_push($paidMonthly, 0);
+            }
+          }
+
+          }
+          else
+          {
+            array_push($paidMonthly, 0);
+          }
+        }          
+      
     
-    // dd($paidMonthly);
+    //dd($paidMonthly);
 
     $monthYearLabel = [];
     for ($m=1; $m<=12; $m++) {
-      $month = date('F', mktime(0,0,0,$m, 1, date('Y')));
+      //$month = date('F', mktime(0,0,0,$m, 1, date('Y')));
       array_push($monthYearLabel, date('F', mktime(0,0,0,$m, 1, date('Y'))));;
     }
 
-  $colordata1 = "rgba(193, 66, 66, 0.5)";
+  //$colordata1 = "rgba(193, 66, 66, 0.5)";
   $colordata2 = "rgba(0,83,132,1)";
+
+  if($dataPaidMonth->sum('sum_amount') > 0){
+    $setScalesMax = $dataPaidMonth->sum('sum_amount')+10;
+    $setStepSize = $dataPaidMonth->sum('sum_amount')+10;
+  }
+  else{
+    $setScalesMax = 100;
+    $setStepSize = 10;
+  }
 
     $otYearChart = app()->chartjs
          ->name('barChartTest')
@@ -194,17 +209,17 @@ class MiscController extends Controller
          //->size(['width' => 400, 'height' => 200])
          ->labels($monthYearLabel)
          ->datasets([
-             [
-                 "label" => "Pending",
-                 'backgroundColor' => [
-                  $colordata1, $colordata1, $colordata1, $colordata1,
-                  $colordata1, $colordata1, $colordata1, $colordata1,
-                  $colordata1, $colordata1, $colordata1, $colordata1
-                 ],
-                 'borderColor' => '#000',
-                 'lineTension' => 0,
-                 'data' => $pendingMonthly
-             ],
+            //  [
+            //      "label" => "Pending",
+            //      'backgroundColor' => [
+            //       $colordata1, $colordata1, $colordata1, $colordata1,
+            //       $colordata1, $colordata1, $colordata1, $colordata1,
+            //       $colordata1, $colordata1, $colordata1, $colordata1
+            //      ],
+            //      'borderColor' => '#000',
+            //      'lineTension' => 0,
+            //      'data' => $pendingMonthly
+            //  ],
              [
                  "label" => "Paid",
                  'backgroundColor' => [
@@ -223,7 +238,10 @@ class MiscController extends Controller
                    'display' => true,
                    'ticks' => [
                      'suggestedMin' => 0,
-                     'beginAtZero' => 0
+                     'beginAtZero' => 0,
+                     'min' => 0,
+                     'max' => $setScalesMax,
+                     'stepSize' => $setStepSize
                    ],
                    'scaleLabel' => [
                      'display' => true,
@@ -237,6 +255,7 @@ class MiscController extends Controller
     $isVerifier = 0;
     $checkVerifier = Overtime::where('verifier_id','=',$req->user()->id)
     ->get();
+
     if($checkVerifier->count() > 0)
     {
       $isVerifier = 1;
@@ -430,8 +449,6 @@ class MiscController extends Controller
     $currentp = StaffPunch::where("user_id", $req->user()->id)->where("punch_in_time", $req->time)->delete();
   }
 
-
-//================================================================================================
   public function doClockIn(Request $req){
 
     $time = new DateTime('NOW');
