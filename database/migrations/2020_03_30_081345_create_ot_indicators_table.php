@@ -21,7 +21,7 @@ class CreateOtIndicatorsTable extends Migration
             $table->dateTime('end_date')->nullable();
             $table->string('ot_salary_exception', 1)->nullable();
             $table->string('ot_hour_exception', 1)->nullable();
-            $table->decimal('allowance', 10, 3)->default(0.0);
+            $table->decimal('allowance', 10, 3)->default(0.0)->nullable();
             $table->dateTime('upd_dm')->nullable();
 
 

@@ -14,7 +14,7 @@ class OtIndicatorController extends Controller
   public function insert(Request $req)
   {
 
-    $exOtInd = OtIndicator::where('persno', $req->pers_no)
+    $exOtInd = OtIndicator::where('user_id', $req->pers_no)
     ->where('start_date',$req->start_date_ot_ind)->delete();
 
     $oti = new OtIndicator;
