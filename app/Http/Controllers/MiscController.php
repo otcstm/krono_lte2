@@ -147,8 +147,8 @@ class MiscController extends Controller
     // chart dataset 2 paid
       $dataPaidMonth = Overtime::select(
       DB::raw("sum(amount) as sum_amount"), 
-      DB::raw("DATE_FORMAT(date, '%Y') year_label"),  
-      DB::raw("DATE_FORMAT(date, '%m') month_label")
+      DB::raw("DATE_FORMAT(date, '%Y') as year_label"),  
+      DB::raw("DATE_FORMAT(date, '%c') as month_label")
       )
       ->where('user_id','=',$req->user()->id)
       ->where('status','=','PAID')
@@ -157,24 +157,31 @@ class MiscController extends Controller
       ->get();
     //->toSql();
      //dd($dataPaidMonth->sum('sum_amount'));
+    // dd($dataPaidMonth->count());
 
       $paidMonthly = [];
-      for ($m=1; $m<=12; $m++) {
-       if($dataPaidMonth->count() > 0)
-       {
-         if($dataPaidMonth->month_label == $m){
-           array_push($paidMonthly, $dataPaidMonth->sum_amount);
-         }
-         else
-         {
-           array_push($paidMonthly, 0);
-         }
-       }
-       else
-       {
-         array_push($paidMonthly, 0);
-       }
-     }
+      
+        for ($m=1; $m<=12; $m++) {
+          if($dataPaidMonth->count() > 0)
+          {          
+            
+          foreach($dataPaidMonth as $dataPaidMonthRow){
+            if($dataPaidMonthRow->month_label == $m){
+              array_push($paidMonthly, $dataPaidMonthRow->sum_amount);
+            }
+            else
+            {
+              array_push($paidMonthly, 0);
+            }
+          }
+
+          }
+          else
+          {
+            array_push($paidMonthly, 0);
+          }
+        }          
+      
     
     //dd($paidMonthly);
 
@@ -442,8 +449,6 @@ class MiscController extends Controller
     $currentp = StaffPunch::where("user_id", $req->user()->id)->where("punch_in_time", $req->time)->delete();
   }
 
-
-//================================================================================================
   public function doClockIn(Request $req){
 
     $time = new DateTime('NOW');
