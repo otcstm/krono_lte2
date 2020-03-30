@@ -56,6 +56,78 @@
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">    
+
+        <!-- Tasks: style can be found in dropdown.less -->
+        <li class="dropdown tasks-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+              <i class="glyphicon glyphicon-ok-sign"></i>
+            @if(session('to_do_list')!=null)     
+            @php $to_do_list = session('to_do_list'); @endphp
+              @if($to_do_list->count() > 0)
+              <span class="label label-danger">{{ $to_do_list->count() }}</span>
+              @endif
+              @endif
+            </a>
+            <ul class="dropdown-menu">
+              <!-- <li class="header">You have {{ $to_do_list->count() }} tasks</li> -->
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">      
+            @if(session('to_do_list')!=null)     
+            @php $to_do_list = session('to_do_list'); @endphp
+              @if($to_do_list->count() > 0)
+                  @foreach($to_do_list as $to_do_list_row)
+                  <li><!-- Task item -->
+                    <a href="#">
+                      {{ $to_do_list_row->item3 }}
+                        <small class="label label-default pull-right">{{ $to_do_list->count() }}</small>
+                    </a>
+                  </li>
+                  <!-- end task item -->
+                  @endforeach
+              @else
+                  <li><!-- Task item -->
+                    <a href="#">
+                        Pending Approval 
+                        <small class="label label-default pull-right">{{ $to_do_list->count() }}</small>
+                    </a>
+                  </li>
+                  {{-- <li><!-- Task item -->
+                    <a href="#">
+                        Manpower Request <small class="label label-default pull-right">{{ $to_do_list->count() }}</small>
+                    </a>
+                  </li> --}}
+
+              @endif
+              @endif
+                </ul>
+              </li>
+            </ul>
+         </li>
+
+         <!-- Notifications: style can be found in dropdown.less -->
+         <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <i class="glyphicon glyphicon-bell"></i>
+              <!-- <span class="label label-warning">10</span> -->
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You dont have new notifications</li>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-users text-aqua"></i> Update on covid-19
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+         </li>
+         
+
+
           <!-- User Account: style can be found in dropdown.less -->
           <li class="user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">

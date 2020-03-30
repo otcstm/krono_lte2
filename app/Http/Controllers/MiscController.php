@@ -8,16 +8,285 @@ use App\Shared\URHelper;
 use App\StaffPunch;
 use App\OvertimePunch;
 use App\User;
+use App\Overtime;
 use App\UserLog;
+use App\PaymentSchedule;
 use \Carbon\Carbon;
+use Session;
 use DateTime;
+use DB;
 //use DateTimeZone;
 
 class MiscController extends Controller
 {
   public function home(Request $req){
+
+    $last_month = Carbon::now()->addMonths(-1); 
+    $first_last_month = date('01-m-Y',strtotime($last_month));
+
+    $curr_date = now(); 
+
+    $next_month = Carbon::now()->addMonths(1); 
+    $first_next_month = date('01-m-Y',strtotime($next_month));
+
+    //user
+    //actual payment for current month        
+    $act_payment_curr_month = 
+    Overtime::where('user_id','=',$req->user()->id)
+    ->where('status','=','PAID')
+    ->whereYear('date','=', $curr_date)
+    ->whereMonth('date','=', $curr_date)
+    ->sum('amount');
+    //->with(['detail' => function($query){
+    //  $query->sum('amount');
+    //}])
+    //dd($act_payment_curr_month);
+
+    //Pending payment last month      
+    $pending_payment_last_month = 
+    Overtime::where('user_id','=',$req->user()->id)
+    ->where('status','=','PAID')
+    ->whereYear('date','=', $last_month)
+    ->whereMonth('date','=', $last_month)
+    ->sum('amount');
+
+    //total hour OT from current month 
+    $total_hour_ot_curr_month = 
+    Overtime::where('user_id','=',$req->user()->id)
+    ->where('status','=','PAID')
+    ->whereYear('date','=', $curr_date)
+    ->whereMonth('date','=', $curr_date)
+    ->sum('total_hour');
+
+    //next payment schedule
+    $next_payment_sch = 
+    PaymentSchedule::whereYear('payment_date','=', $next_month)
+    ->whereMonth('payment_date','=', $next_month)
+    ->max('payment_date');
+    //dd($next_payment_sch);  
+    
+    if(is_null($next_payment_sch)){
+      $next_payment_sch = 0;
+    };
+
+    //verifier
+    //Last approval date
+    $last_approval_date = 
+    PaymentSchedule::whereYear('payment_date','=', $curr_date)
+    ->whereMonth('payment_date','=', $curr_date)
+    ->max('last_approval_date');
+    
+    //approver
+    //Last approval date
+    $last_approval_date = 
+    PaymentSchedule::whereYear('payment_date','=', $curr_date)
+    ->whereMonth('payment_date','=', $curr_date)
+    ->max('last_approval_date');
+    
+    //pending approval count()
+    $pending_approval_count = 
+    Overtime::where('approver_id','=',$req->user()->id)
+    ->orWhere('verifier_id','=',$req->user()->id)
+    ->whereIn('status',array('PA','PV'))
+    ->count();
+
+    //link set default verifier
+
+    //link overtime plan
+
+    //mainpower request count()
+
+    //claim approval report
+
+    //notification top
+
+    //to do notification
+    $to_do_list = Overtime::join('setup_codes', 'overtimes.status', '=', 'setup_codes.item2')
+    ->select('overtimes.*', 'setup_codes.item3')
+    ->where('overtimes.user_id','=',$req->user()->id)
+    ->whereIn('overtimes.status',array('PA', 'A'))
+    ->groupBy('overtimes.refno')
+    ->groupBy('overtimes.status')
+    ->get();
+    Session::put(['to_do_list' => $to_do_list]);
+
+    //chart yearly bar
+    //usage view: {!! $chart->render() !!}
+
+    // //chart dataset 1 pending
+    // $dataPendingMonth = 
+    // Overtime::select(
+    // DB::raw("sum(amount) as sum_amount"), 
+    // DB::raw("DATE_FORMAT(date, '%Y') year_label"),  
+    // DB::raw("DATE_FORMAT(date, '%m') month_label")
+    // )
+    // ->where('user_id','=',$req->user()->id)
+    // ->whereIn('status',array('PA', 'A'))
+    // ->whereYear('date','=', $curr_date)
+    // ->groupby('year_label','month_label')
+    // ->get();
+    
+    // $pendingMonthly = [];
+    // for ($m=1; $m<=12; $m++) {
+    //   if($dataPendingMonth->count() > 0)
+    //   {
+    //     if($dataPendingMonth->month_label == $m){
+    //       array_push($pendingMonthly, $dataPendingMonth->sum_amount);
+    //     }
+    //     else
+    //     {
+    //       array_push($pendingMonthly, 0);
+    //     }
+    //   }
+    //   else
+    //   {
+    //     array_push($pendingMonthly, 0);
+    //   }
+    // }
+
+    // chart dataset 2 paid
+      $dataPaidMonth = Overtime::select(
+      DB::raw("sum(amount) as sum_amount"), 
+      DB::raw("DATE_FORMAT(date, '%Y') as year_label"),  
+      DB::raw("DATE_FORMAT(date, '%c') as month_label")
+      )
+      ->where('user_id','=',$req->user()->id)
+      ->where('status','=','PAID')
+      ->whereYear('date','=', $curr_date)
+      ->groupby('year_label','month_label')
+      ->get();
+    //->toSql();
+     //dd($dataPaidMonth->sum('sum_amount'));
+    // dd($dataPaidMonth->count());
+
+      $paidMonthly = [];
+      
+        for ($m=1; $m<=12; $m++) {
+          if($dataPaidMonth->count() > 0)
+          {          
+            
+          foreach($dataPaidMonth as $dataPaidMonthRow){
+            if($dataPaidMonthRow->month_label == $m){
+              array_push($paidMonthly, $dataPaidMonthRow->sum_amount);
+            }
+            else
+            {
+              array_push($paidMonthly, 0);
+            }
+          }
+
+          }
+          else
+          {
+            array_push($paidMonthly, 0);
+          }
+        }          
+      
+    
+    //dd($paidMonthly);
+
+    $monthYearLabel = [];
+    for ($m=1; $m<=12; $m++) {
+      //$month = date('F', mktime(0,0,0,$m, 1, date('Y')));
+      array_push($monthYearLabel, date('F', mktime(0,0,0,$m, 1, date('Y'))));;
+    }
+
+  //$colordata1 = "rgba(193, 66, 66, 0.5)";
+  $colordata2 = "rgba(0,83,132,1)";
+
+  if($dataPaidMonth->sum('sum_amount') > 0){
+    $setScalesMax = $dataPaidMonth->sum('sum_amount')+10;
+    $setStepSize = $dataPaidMonth->sum('sum_amount')+10;
+  }
+  else{
+    $setScalesMax = 100;
+    $setStepSize = 10;
+  }
+
+    $otYearChart = app()->chartjs
+         ->name('barChartTest')
+         ->type('bar')
+         //->size(['width' => 400, 'height' => 200])
+         ->labels($monthYearLabel)
+         ->datasets([
+            //  [
+            //      "label" => "Pending",
+            //      'backgroundColor' => [
+            //       $colordata1, $colordata1, $colordata1, $colordata1,
+            //       $colordata1, $colordata1, $colordata1, $colordata1,
+            //       $colordata1, $colordata1, $colordata1, $colordata1
+            //      ],
+            //      'borderColor' => '#000',
+            //      'lineTension' => 0,
+            //      'data' => $pendingMonthly
+            //  ],
+             [
+                 "label" => "Paid",
+                 'backgroundColor' => [
+                  $colordata2, $colordata2, $colordata2, $colordata2,
+                  $colordata2, $colordata2, $colordata2, $colordata2,
+                  $colordata2, $colordata2, $colordata2, $colordata2
+                 ],
+                 'borderColor' => '#000',
+                 'lineTension' => 0,
+                 'data' => $paidMonthly
+             ]
+         ])
+         ->options([
+          'scales' => [
+                 'yAxes' => [[
+                   'display' => true,
+                   'ticks' => [
+                     'suggestedMin' => 0,
+                     'beginAtZero' => 0,
+                     'min' => 0,
+                     'max' => $setScalesMax,
+                     'stepSize' => $setStepSize
+                   ],
+                   'scaleLabel' => [
+                     'display' => true,
+                     'labelString' => 'RM'
+                    ]
+                 ]]
+               ]
+         ]);
+   
+    //verifier
+    $isVerifier = 0;
+    $checkVerifier = Overtime::where('verifier_id','=',$req->user()->id)
+    ->get();
+
+    if($checkVerifier->count() > 0)
+    {
+      $isVerifier = 1;
+    }
+
+    //approver
+    $isApprover = 0;
+    $checkApprover = Overtime::where('approver_id','=',$req->user()->id)
+    ->get();
+    if($checkApprover->count() > 0)
+    {
+      $isApprover = 1;
+    }
+
     // dd($req->user()->name);
-    return view('home', ['uname' => $req->user()->name]);
+
+    return view('home', [
+      'uname' => $req->user()->name,
+      'first_last_month' => $first_last_month,
+      'first_next_month' => $first_next_month,
+      'act_payment_curr_month' => $act_payment_curr_month,
+      'pending_payment_last_month' => $pending_payment_last_month,
+      'total_hour_ot_curr_month' => $total_hour_ot_curr_month,
+      'next_payment_sch' => $next_payment_sch,
+      'last_approval_date' => $last_approval_date,
+      'pending_approval_count' => $pending_approval_count,
+      'to_do_list' => $to_do_list,
+      'isVerifier' => $isVerifier,
+      'isApprover' => $isApprover,
+      'otYearChart' => $otYearChart      
+      ]);
   }
 
   public function index(){
@@ -180,8 +449,6 @@ class MiscController extends Controller
     $currentp = StaffPunch::where("user_id", $req->user()->id)->where("punch_in_time", $req->time)->delete();
   }
 
-
-//================================================================================================
   public function doClockIn(Request $req){
 
     $time = new DateTime('NOW');
