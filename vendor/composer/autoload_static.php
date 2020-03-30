@@ -649,6 +649,7 @@ class ComposerStaticInit70b8d08227d7c3b552893f13c0169706
         'App\\MaddHatter\\LaravelFullcalendar\\SimpleEvent' => __DIR__ . '/../..' . '/app/MaddHatter/LaravelFullcalendar/SimpleEvent.php',
         'App\\Mail\\SendMailable' => __DIR__ . '/../..' . '/app/Mail/SendMailable.php',
         'App\\MaintenanceOrder' => __DIR__ . '/../..' . '/app/MaintenanceOrder.php',
+        'App\\OtIndicator' => __DIR__ . '/../..' . '/app/OtIndicator.php',
         'App\\Overtime' => __DIR__ . '/../..' . '/app/Overtime.php',
         'App\\OvertimeDetail' => __DIR__ . '/../..' . '/app/OvertimeDetail.php',
         'App\\OvertimeEligibility' => __DIR__ . '/../..' . '/app/OvertimeEligibility.php',

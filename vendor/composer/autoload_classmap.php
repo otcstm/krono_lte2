@@ -79,6 +79,7 @@ return array(
     'App\\MaddHatter\\LaravelFullcalendar\\SimpleEvent' => $baseDir . '/app/MaddHatter/LaravelFullcalendar/SimpleEvent.php',
     'App\\Mail\\SendMailable' => $baseDir . '/app/Mail/SendMailable.php',
     'App\\MaintenanceOrder' => $baseDir . '/app/MaintenanceOrder.php',
+    'App\\OtIndicator' => $baseDir . '/app/OtIndicator.php',
     'App\\Overtime' => $baseDir . '/app/Overtime.php',
     'App\\OvertimeDetail' => $baseDir . '/app/OvertimeDetail.php',
     'App\\OvertimeEligibility' => $baseDir . '/app/OvertimeEligibility.php',
