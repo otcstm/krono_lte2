@@ -428,6 +428,10 @@ body{
     /* color: #707070; */
 }
 
+.initial{
+    text-align: initial !important;
+    align-items: initial !important;
+}
 
 .swal2-confirm{
     padding: 6px 30px !important;
@@ -1218,4 +1222,8 @@ select[disabled] { background-color: #EBEBE4; }
     background: #143A8C;
     color: #FFF;
     font-weight: bold;
+}
+
+.default > tbody > tr > td.default{
+    text-align: initial;
 }

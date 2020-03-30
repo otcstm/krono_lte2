@@ -66,6 +66,18 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get( '/admin/state/show'     ,'Admin\StateController@show'   )->name('state.show');
   Route::post( '/admin/state/update'  ,'Admin\StateController@update'   )->name('state.update');
   //end state admin
+
+
+  //Announcement management
+  Route::get('/admin/announcement', 'Admin\AnnouncementController@show')->name('announcement.show');
+  Route::get('/admin/announcement/form', 'Admin\AnnouncementController@form')->name('announcement.form');
+  Route::get('/admin/announcement/add', 'Admin\AnnouncementController@add')->name('announcement.add');
+  Route::post('/admin/announcement/edit', 'Admin\AnnouncementController@edit')->name('announcement.edit');
+  Route::post('/admin/announcement/save', 'Admin\AnnouncementController@save')->name('announcement.save');
+  Route::post('/admin/announcement/create', 'Admin\AnnouncementController@create')->name('announcement.create');
+  Route::post('/admin/announcement/delete', 'Admin\AnnouncementController@delete')->name('announcement.delete');
+
+
   //User management
   Route::get('/admin/staff', 'Admin\StaffController@showMgmt')->name('staff.list.mgmt');
   Route::post('/admin/staff/edit', 'Admin\StaffController@updateMgmt')->name('staff.edit.mgmt');

@@ -119,6 +119,7 @@
     </div>
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12">
+  <a href="{{route('punch.list')}}">
     <div class="box box-solid">
                         <div class="box-body">
   <div class="media">
@@ -126,10 +127,12 @@
     <img src="vendor/ot-assets/stopwatch.jpg" class="media-object" style="width:50px">
   </div>
   <div class="media-body">
-    <h4 class="media-heading">List OT</h4>
-    <p>Start/End Date</p>
+    <h4 class="media-heading">Overtime List</h4>
+    <p>Display all clocking time</p>
   </div>
 </div>
+
+</a>
     </div><!-- /.box-body -->
     <div class="box-header text-center bg-yellow-active color-palette">
     <h3 class="box-title">RM 158.00</h3>
@@ -137,6 +140,8 @@
     </div>
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12">
+  
+  <a href="{{route('ot.list')}}">
     <div class="box box-solid">
     <div class="box-body">
     <div class="media">
@@ -144,7 +149,7 @@
     <img src="vendor/ot-assets/claim.jpg" class="media-object" style="width:50px; height:50px;">
   </div>
   <div class="media-body">
-    <h4 class="media-heading">List Claim</h4>
+    <h4 class="media-heading">Claim List</h4>
     <p>All Claim</p>
   </div>
 </div>
@@ -153,6 +158,7 @@
     <h3 class="box-title">Display all claims</h3>
     </div><!-- /.box-header -->
     </div>
+  </a>
   </div>
 
 </div><!-- /.row -->
