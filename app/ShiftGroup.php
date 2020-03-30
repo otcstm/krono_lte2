@@ -21,4 +21,10 @@ class ShiftGroup extends Model
   public function ShiftPlans(){
     return $this->hasMany(ShiftPlan::class, 'department');
   }
+
+  public function ShiftPatterns()
+  {
+      return $this->belongsToMany(ShiftPattern::class);
+  }
+
 }
