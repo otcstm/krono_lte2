@@ -11,6 +11,10 @@ use App\Http\Controllers\Controller;
 
 class AnnouncementController extends Controller
 {
+    public function close(){
+        Session::put(['announcementx' => false]);
+    }
+
     public function show(){
         $an = Announcement::all();
         // $role = Role::where('deleted_at', null)->orderBy('title', 'ASC')->get();

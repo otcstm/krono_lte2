@@ -69,6 +69,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 
   //Announcement management
+  Route::get('/announcement/close', 'Admin\AnnouncementController@close')->name('announce.close');
   Route::get('/admin/announcement', 'Admin\AnnouncementController@show')->name('announcement.show');
   Route::get('/admin/announcement/form', 'Admin\AnnouncementController@form')->name('announcement.form');
   Route::get('/admin/announcement/add', 'Admin\AnnouncementController@add')->name('announcement.add');

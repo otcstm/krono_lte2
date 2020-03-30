@@ -129,14 +129,41 @@
             <div class="container">
             @endif
 
+
+
+
+
+
+
+
+        @if(Session::get('announcementx'))
+            @if(Session::get('announcement')!=null)
+                <div class="announcement text-center">
+                    <p>{{Session::get('announcement')->title}}</p>
+                    <button id="announcement" class="btn btn-announcement" data-title="{{Session::get('announcement')->title}}" data-announcement="{{nl2br(Session::get('announcement')->announcement)}}" onclick="return openannouncement();">Click Here</button>
+                    <button id="x" class="btn btn-announcement-x" onclick="return closeannouncement();"><i class="fas fa-times"></i></button>
+                </div>
+            @endif
+        @endif
+
+
+
+
+
+
+
+
+
+
+
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 @yield('content_header')
+                
             </section>
 
             <!-- Main content -->
             <section class="content">
-
                 @yield('content')
 
             </section>
@@ -182,8 +209,37 @@
 @stop
 
 @section('adminlte_js')
+
     <script src="{{ secure_asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
     <script src="{{ secure_asset('vendor/bootstrap-timepicker/js/bootstrap-timepicker.js') }}"></script>
     @stack('js')
     @yield('js')
+    
+
+    <script type="text/javascript">
+        function openannouncement(){
+            var title = $("#announcement").data('title');
+            var announcement = $("#announcement").data('announcement');
+            Swal.fire({
+                title: 'Announcement',
+                html: '<div style="max-height: 60vh; overflow-y: scroll;  overflow-x: hidden;">'+announcement+'</div>',
+                customClass: 'initial',
+                showCancelButton: false,
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'CLOSE',
+            })
+        }
+
+        function closeannouncement(){
+            $.ajax({
+            type: "GET",
+            url: '{{ route("announce.close", [], false)}}',
+                success: function(resp) {
+                    $(".announcement").addClass("announcement-close");
+                    $("#x").css("display","none");
+                
+                }  
+            });
+        }
+    </script>
 @stop

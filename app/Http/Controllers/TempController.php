@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Session;
 use Illuminate\Http\Request;
 use App\Shared\LdapHelper;
 use App\User;
@@ -22,6 +23,8 @@ class TempController extends Controller
     ]);
     $cuser = User::where('staff_no', $req->staff_no)->first();
     if($cuser){
+      
+      Session::put(['announcementx' => true]);
       Auth::loginUsingId($cuser->id, true);
       return redirect(route('misc.home', [], false));
     } else {

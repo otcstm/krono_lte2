@@ -157,7 +157,7 @@
   box-sizing: border-box;
   /* font-family: monaco; */
   font-size: 16px;
-  line-height: 1.6;
+  /* line-height: 1.6; */
   border: none;
   padding: 22px 15px 40px;
   min-height: 300px;
@@ -173,7 +173,7 @@
   padding: 22px 15px;
   font-size: 10pt;
   /* font-family: arial, sans-serif; */
-  line-height: 1.5;
+  /* line-height: 1.5; */
   color: #999999;
   background: transparent;
 }
@@ -202,6 +202,8 @@
 .simditor .simditor-body {
   padding: 22px 15px 40px;
   min-height: 300px;
+  max-height: 500px;
+  overflow-y: scroll;
   outline: none;
   cursor: text;
   position: relative;
@@ -381,7 +383,7 @@
 .simditor .simditor-toolbar .toolbar-menu ul > li .menu-item {
   display: block;
   font-size: 16px;
-  line-height: 2em;
+  /* line-height: 2em; */
   padding: 0 10px;
   text-decoration: none;
   color: #666666;
@@ -529,7 +531,7 @@
   margin: 0 0 5px 0;
   font-size: 12px;
   height: 25px;
-  line-height: 25px;
+  /* line-height: 25px; */
 }
 .simditor .simditor-popover .settings-field label {
   display: inline-block;
@@ -587,7 +589,7 @@
 .simditor .simditor-body, .editor-style {
   font-size: 10pt;
   /* font-family: arial, sans-serif; */
-  line-height: 1.6;
+  /* line-height: 1.6; */
   color: #333;
   outline: none;
   word-wrap: break-word;
@@ -657,7 +659,7 @@
   list-style: disc outside none;
   margin: 15px 0;
   padding: 0 0 0 40px;
-  line-height: 1.6;
+  /* line-height: 1.6; */
 }
 .simditor .simditor-body ul li, .simditor .simditor-body ol li, .editor-style ul li, .editor-style ol li {
   list-style-type: inherit;
@@ -697,7 +699,7 @@
   padding: 10px 5px 10px 10px;
   margin: 15px 0;
   display: block;
-  line-height: 18px;
+  /* line-height: 18px; */
   background: #F0F0F0;
   border-radius: 3px;
   font-size: 13px;

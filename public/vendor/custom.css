@@ -428,10 +428,6 @@ body{
     /* color: #707070; */
 }
 
-.initial{
-    text-align: initial !important;
-    align-items: initial !important;
-}
 
 .swal2-confirm{
     padding: 6px 30px !important;
@@ -482,6 +478,17 @@ body{
     margin: 0 auto 30px;
 }
 
+
+.swal2-popup.initial{
+    padding: 25px 75px !important;
+    width: 45vw !important;
+    
+}
+
+.swal2-popup.initial > .swal2-content {
+    text-align: initial !important;
+}
+
 .swal2-header{
     font-size: 1.25rem !important;
 }
@@ -494,9 +501,9 @@ body{
     font-size: 1.25rem !important;
 }
 @media(max-width: 992px){
-    .swal2-popup.test2, .swal2-popup.test3,  .swal2-popup.test4{
+    .swal2-popup.test2, .swal2-popup.test3,  .swal2-popup.test4, .swal2-popup.initial{
 
-        padding: 5 !important;
+        padding: 5px !important;
         border-radius: 25px !important;
         width: 36em !important;
     }
@@ -1226,4 +1233,50 @@ select[disabled] { background-color: #EBEBE4; }
 
 .default > tbody > tr > td.default{
     text-align: initial;
+}
+
+.announcement{
+    /* width: 100%;
+    position: fixed !important; */
+    height: 45px;
+    /* padding-top: 10px; */
+    align-items: center;
+    font-size: 12pt;
+    color: #fff;
+    background: #EF7202 !important;
+    display: flex; 
+    justify-content: center;
+    transition: 0.25s ease-in-out;
+} 
+
+.announcement p{
+    margin-top: 8px;
+}
+
+.announcement-close{
+    height: 0 !important;
+    overflow: hidden !important;
+}
+
+.btn-announcement{
+    padding: 0 10px !important;
+    margin-left: 15px !important;
+    height: 25px !important;
+    border: 2px solid #fff !important;
+    background: transparent !important;
+}
+
+.btn-announcement:hover,.btn-announcement:focus{
+    color: #EF7202 !important;
+    background: #fff !important;
+}
+
+.btn-announcement-x{
+    color: #fff !important;
+    position: absolute;
+    right: 25px;    
+    background: transparent !important;
+    padding: 0 !important;
+    height: 25px !important;
+
 }

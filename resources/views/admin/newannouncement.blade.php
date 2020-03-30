@@ -59,7 +59,7 @@
                     <div class="col-md-1"><p style="font-weight: bold">Announcement</p></div>
                     <div class="col-md-6">
                         <textarea onkeydown="this.onchange();"  onkeyup="this.onchange();" onchange='return checkstringx();'type="text" rows="10" placeholder="Enter announcement "maxlength="1000" style="width: 100%; resize: vertical" id="announce" name="announce" > @if($edit) {{nl2br($an->announcement)}} @endif</textarea required>
-                        <div class="text-right"><p style="float: right" class="small">Text remaining: <span id="textremain">1000</span></p></div>
+                        <!-- <div class="text-right"><p style="float: right" class="small">Text remaining: <span id="textremain">1000</span></p></div> -->
                     </div>
                 </div>
                 
@@ -91,9 +91,16 @@ $(document).ready(function() {
     });
 });
 
-function checkstringx(){
-    $("#textremain").text(1000-$("#announce").val().length);
-}
+//  checkstringv();
+
+// function checkstringv(){
+//     $("#textremain").text(1000-$("#announce").val().length);
+// }
+// function checkstringx(){
+//     return function(){
+//     $("#textremain").text(1000-$("#announce").val().length);
+// }
+// }
 
 @if(session()->has('feedback'))
     Swal.fire({
@@ -122,6 +129,18 @@ var editor = new Simditor({
 ]
   //optional options
 });
+
+// var editor = new Simditor
+//   textarea: $('#announce')
+// editor.on ('change', (e, src) )->
+//   alert('simditor valuechanged');
+
+//   editor.on 'valuechanged', (e, src) ->
+//   alert('simditor valuechanged')
+
+//   editor.on ('valuechanged', checkstringx()); 
+//   editor.onkeyup = checkstringx();
+//   editor.onkeydown = checkstringx();
 
 </script>
 
