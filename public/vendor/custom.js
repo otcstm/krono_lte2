@@ -284,9 +284,6 @@ function puncho(){
 var future
 function starttime(now, startclock){
     startclockt = startclock;
-    future = new Date(); 
-    endclock = Date.parse(future).toString("yyyy-MM-dd HH:mm");
-    endclock = endclock+":00";
     Swal.fire({
         title: 'Overtime',
         customClass: 'test',
@@ -300,6 +297,9 @@ function starttime(now, startclock){
         allowOutsideClick: false
         }).then((result) => {
         if (result.value) {
+            future = new Date(); 
+            endclock = Date.parse(future).toString("yyyy-MM-dd HH:mm");
+            endclock = endclock+":00";
             Swal.fire({
                 title: 'End Overtime',
                 html: "Are you sure you want to <b style='color:#143A8C'>end</b> your overtime at <b style='color:#143A8C'>"+Date.parse(future).toString("HHmm")+"</b> on <b style='color:#143A8C'>"+Date.parse(future).toString("dd.MM.yyyy")+"</b>?",
@@ -361,6 +361,8 @@ function starttime(now, startclock){
 function endpunch(){
     sstime = Date.parse(startclockt).toString("mm");
     eetime = Date.parse(future).toString("mm");
+    // alert(parseInt(eetime));
+    // alert(parseInt(sstime));
     // alert(parseInt(eetime)-parseInt(sstime));
     if(parseInt(eetime)-parseInt(sstime)>0){
         $.ajax({
