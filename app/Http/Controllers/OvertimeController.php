@@ -106,14 +106,22 @@ class OvertimeController extends Controller{
                 if(count($orderno)==0){
                     $orderno = null;
                 }
-                if(($req->session()->get('claim')->other_costcenter=="No Cost Center")&&($cost!=null)&&($type!=null)&&($orderno!=null)){
-                    // $orderno= InternalOrder::where('company_code', $req->user()->company_id)->where('cost_center', '')->where('order_type', $req->session()->get('claim')->project_type)->get();
-                }else{
+                // dd($orderno);
+                // $appr = null;
+                // if(($req->session()->get('claim')->other_costcenter=="No Cost Center")&&($costc!=null)&&($type!=null)&&($orderno!=null)){
+                //     // $appr= InternalOrder::where('company_code', $req->user()->company_id)->where('cost_center', '')->where('order_type', $req->session()->get('claim')->project_type)->get();
+                // }else if(($costc!=null)&&($type!=null)&&($orderno!=null)){
+                if($req->session()->get('claim')->order_no!=null){
                     $appr = UserRecord::where('upd_sap','<=',date('Y-m-d'))->where('company_id', $req->session()->get('claim')->company_id)->where('costcentr', $req->session()->get('claim')->other_costcenter)->where('user_id', '!=', $req->user()->id)->get();
-                
+                    // $appr= InternalOrder::where('company_code', $req->user()->company_id)->where('cost_center', $req->session()->get('claim')->other_costcenter)->where('order_type', $req->session()->get('claim')->project_type)->where('id', $req->session()->get('claim')->order_no)->get();
+                    // $appr = null;
                 }
-                if(count($appr)==0){
-                    $appr = null;
+                // dd($appr);
+                if($req->session()->get('claim')->order_no!=null){
+                // if(($costc!=null)&&($type!=null)&&($orderno!=null)){
+                    if(count($appr)==0){
+                        $appr = null;
+                    }
                 }
             }else if($req->session()->get('claim')->charge_type=="Maintenance Order"){
                 $compn = MaintenanceOrder::groupBy('company_code')->get();
@@ -689,9 +697,11 @@ class OvertimeController extends Controller{
                 if($ordern!=null){
                     if($ordern->pers_responsible!=""){
                         if($gm){
-                            $updateclaim->verifier_id = $ordern->pers_responsible;
+                            $updateclaim->verifier_id = $req->approvern;
+                            // $updateclaim->verifier_id = $ordern->pers_responsible;
                         }else{
-                            $updateclaim->approver_id = $ordern->pers_responsible;
+                            $updateclaim->approver_id = $req->approvern;
+                            // $updateclaim->approver_id = $ordern->pers_responsible;
                         }
                     }
                 }
