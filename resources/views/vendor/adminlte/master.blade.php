@@ -23,6 +23,10 @@
     <link rel="stylesheet" href="{{ secure_asset('vendor/jqueryui/jquery-ui.theme.css') }}">
     <link rel="stylesheet" href="{{ secure_asset('vendor/custom.css') }}">
 
+    <link rel="stylesheet" href="{{ secure_asset('vendor/simditor/simditor.css') }}">
+
+    
+
     @yield('adminlte_css')
 
     <!--[if lt IE 9]>
@@ -58,6 +62,12 @@
 <script src="{{ secure_asset('vendor/jqueryui/jquery-ui.min.js') }}"></script>
 <script src="{{ secure_asset('vendor/jquery/dist/jquery.slimscroll.min.js') }}"></script>
 <script src="{{ secure_asset('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+
+
+<script src="{{ secure_asset('vendor/simditor/module.js') }}"></script>
+<script src="{{ secure_asset('vendor/simditor/hotkeys.js') }}"></script>
+<script src="{{ secure_asset('vendor/simditor/simditor.js') }}"></script>
+
 
 @include('adminlte::plugins', ['type' => 'js'])
 

@@ -8,7 +8,7 @@
 
 <div class="panel panel-default panel-main">
     <div class="panel panel-default">
-		<div class="panel-heading"><strong>Role Management</strong></div>
+		<div class="panel-heading"><strong>List of Role</strong></div>
         <div class="panel-body">
             <div class="table-responsive">
                 <table id="tRoleList" class="table table-bordered">
@@ -52,11 +52,11 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="row" style="margin-top: 15px;">
-							<div class="col-md-3">
+							<div class="col-md-1">
 								<label for="inputname">Role Name:</label>
 							</div>
 							<div class="col-md-3">
-                <input type="text" id="inputname" name="inputname" placeholder="{{ __('adminlte::adminlte.input_role_name') }}" value="{{ old('inputname') }}" required autofocus>
+                <input type="text" style=" width: 100%" id="inputname" name="inputname" placeholder="{{ __('adminlte::adminlte.input_role_name') }}" value="{{ old('inputname') }}" required autofocus>
 							</div>
 						</div>
 						<div class="row">
