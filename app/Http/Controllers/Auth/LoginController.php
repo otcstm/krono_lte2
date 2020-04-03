@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Shared\LdapHelper;
 use App\User;
+use Session;
 class LoginController extends Controller
 {
     /*
@@ -39,12 +40,17 @@ class LoginController extends Controller
       $this->validate($req, [
             'username' => 'required', 'password' => 'required',
       ]);
+      
       $udata = LdapHelper::DoLogin($req->username, $req->password);
       if($udata['code'] == 200){
         // session(['staffdata' => $logresp['user']]);
         // $cuser = User::find($udata['data']);
+        
+        // dd(session()->all());
         $cuser = User::where('staff_no', $req->username)->first();
         if($cuser){
+          
+        Session::put(['announcementx' => true]);
         } else {
           return redirect()->back()->withErrors(['username' => 'User not in OT system']);
         }

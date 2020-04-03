@@ -139,9 +139,11 @@
   </div>
   <div class="media-body">
     <h4 class="media-heading">Overtime List</h4>
-    <p>Start/End Date</p>
+    <p>Display all clocking time</p>
   </div>
 </div>
+
+</a>
     </div><!-- /.box-body -->
     <div class="box-header bg-yellow-active color-palette">
     <h3 class="box-title text-left">Display all clocking time</h3>
