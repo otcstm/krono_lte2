@@ -1,6 +1,6 @@
 
 <div class="row-eq-height"> 
-  <div class="col-md-3 col-sm-6 col-xs-12">
+  <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
     <div class="box box-solid">
     <div class="box-body">
     <div class="media">
@@ -19,7 +19,8 @@
     </div>
   </div>
 
-  <div class="col-md-3 col-sm-6 col-xs-12">
+  <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
+    <a href="{{ route('ot.approval', [], false) }}">
     <div class="box box-solid">
 <div class="box-body">    
 <div class="media">
@@ -36,8 +37,9 @@
     <h3 class="box-title text-left">Pending OT for Verification</h3>
     </div><!-- /.box-header -->
     </div>
+    </a>
   </div>  
-  <div class="col-md-3 col-sm-6 col-xs-12">
+  <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
     
   <a href="{{ route('verifier.listGroup', [], false) }}">
 
@@ -60,7 +62,7 @@
 </a>
 
   </div>
-  <div class="col-md-3 col-sm-6 col-xs-12">
+  {{-- <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
     <div class="box box-solid">
     <div class="box-body">
     <div class="media">
@@ -77,10 +79,10 @@
     <h3 class="box-title text-left">List & Create OT Plan</h3>
     </div><!-- /.box-header -->
     </div>
-  </div>
+  </div> --}}
 
   
-  <div class="col-md-3 col-sm-6 col-xs-12">
+  {{-- <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
     <div class="box box-solid">
                         <div class="box-body">
     <div class="media">
@@ -97,8 +99,8 @@
     <h3 class="box-title text-left">Manpower Request for Planned OT</h3>
     </div><!-- /.box-header -->
     </div>
-  </div>
-  <div class="col-md-3 col-sm-6 col-xs-12">
+  </div> --}}
+  <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
     <a href="{{ route('ot.approvalrept', [], false) }}">
     <div class="box box-solid">
         <div class="box-body">

@@ -59,11 +59,11 @@ return [
 
     'info_menu'       => 'INFORMATION',
     'user_guide'      => 'GUIDELINE',
-    'calendar_menu'   => 'Calendar',
+    'calendar_menu'   => 'Holiday Calendar',
     'user_guideline'  => 'User',
     'admin_guideline' => 'Admin',
 
-    'guideline_calendar' => 'Calendar',
+    'guideline_calendar' => 'Holiday Calendar',
     'guideline_system' => 'System Guideline',
     'guideline_payment' => 'Payment Calendar',
 

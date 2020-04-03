@@ -264,9 +264,6 @@
   </div>
 </div>
 
-
-<a href="#" class="btn btn-np" onclick="testSubmit()">
-      <i class="glyphicon glyphicon-search"></i> Test Sweet Alert2 input</a>
 @stop
 
 @section('js')
