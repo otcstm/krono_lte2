@@ -83,12 +83,20 @@ class MiscController extends Controller
     ->whereMonth('payment_date','=', $curr_date)
     ->max('last_approval_date');
     
-    //pending approval count()
+    //pending verification count()
     $pending_approval_count = 
     Overtime::where('approver_id','=',$req->user()->id)
     ->orWhere('verifier_id','=',$req->user()->id)
-    ->whereIn('status',array('PA','PV'))
+    ->whereIn('status',array('PV'))
     ->count();
+
+    //pending approval count()
+    $pending_verification_count = 
+    Overtime::where('approver_id','=',$req->user()->id)
+    ->orWhere('verifier_id','=',$req->user()->id)
+    ->whereIn('status',array('PA'))
+    ->count();
+    
 
     //link set default verifier
 

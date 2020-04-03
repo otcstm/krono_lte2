@@ -1,5 +1,5 @@
 <div class="row-eq-height"> 
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
       <div class="box box-solid">
       <div class="box-body">
       <div class="media">
@@ -17,7 +17,7 @@
       </div><!-- /.box-header -->
       </div>
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
       <div class="box box-solid">
       <div class="box-body">
       <div class="media">
@@ -35,7 +35,7 @@
       </div><!-- /.box-header -->
       </div>
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
       <div class="box box-solid">
       <div class="box-body">
       <div class="media">
@@ -53,7 +53,7 @@
       </div><!-- /.box-header -->
       </div>
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
       <div class="box box-solid">
       <div class="box-body">
       <div class="media">
@@ -75,7 +75,7 @@
 
 <!-- /row2 -->
 <div class="row-eq-height"> 
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
       <div class="box box-solid">
       <div class="box-body">
       <div class="media">
@@ -93,7 +93,7 @@
       </div><!-- /.box-header -->
       </div>
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
       <div class="box box-solid">
       <div class="box-body">
       <div class="media">
@@ -111,7 +111,7 @@
       </div><!-- /.box-header -->
       </div>
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
       <div class="box box-solid">
       <div class="box-body">
       <div class="media">
@@ -129,7 +129,7 @@
       </div><!-- /.box-header -->
       </div>
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
       <div class="box box-solid">
       <div class="box-body">
       <div class="media">
@@ -151,7 +151,7 @@
 
 <!-- /row3 -->
 <div class="row-eq-height"> 
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
       <div class="box box-solid">
       <div class="box-body">
       <div class="media">
@@ -169,7 +169,7 @@
       </div><!-- /.box-header -->
       </div>
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
       <div class="box box-solid">
       <div class="box-body">
       <div class="media">
@@ -187,7 +187,7 @@
       </div><!-- /.box-header -->
       </div>
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
       <div class="box box-solid">
       <div class="box-body">
       <div class="media">
@@ -205,7 +205,7 @@
       </div><!-- /.box-header -->
       </div>
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
       <div class="box box-solid">
       <div class="box-body">
       <div class="media">
@@ -227,7 +227,7 @@
 
 <!-- /row4 -->
 <div class="row-eq-height"> 
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
       <div class="box box-solid">
       <div class="box-body">
       <div class="media">
@@ -245,7 +245,7 @@
       </div><!-- /.box-header -->
       </div>
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
       <div class="box box-solid">
       <div class="box-body">
       <div class="media">
@@ -263,7 +263,7 @@
       </div><!-- /.box-header -->
       </div>
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
       <div class="box box-solid">
       <div class="box-body">
       <div class="media">
@@ -281,7 +281,7 @@
       </div><!-- /.box-header -->
       </div>
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
       <div class="box box-solid">
       <div class="box-body">
       <div class="media">
