@@ -9,6 +9,7 @@ return [
     'manage_state'    => 'State Management',
     'manage_psubarea' => 'Psubarea Management',
     'manage_overtime' => 'Overtime Management',
+    'manage_announcement' => 'Announcement Management',
     'manage_eligibility' => 'System Eligibility',
     'manual_overtime' => 'Claim Manual Approval',
     'manage_overtimeex' => 'Manage Overtime Expiry',
