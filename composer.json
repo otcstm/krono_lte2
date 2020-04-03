@@ -9,10 +9,12 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "consoletvs/charts": "6.*",
         "davejamesmiller/laravel-breadcrumbs": "5.x",
         "dingo/api": "^2.4",
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.0",
+        "fx3costa/laravelchartjs": "^2.6",
         "guzzlehttp/guzzle": "^6.5",
         "jeroennoten/laravel-adminlte": "^2.0",
         "laravel/framework": "^6.0",

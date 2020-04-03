@@ -27,6 +27,7 @@ class CreateProjectsTable extends Migration
           $table->string('network_act_descr',100)->nullable();
           $table->string('approver_id',20)->nullable();
           $table->decimal('budget',10,2)->default(0.00);
+          $table->dateTime('upd_dm')->nullable();
           $table->timestamps();
       });
     }

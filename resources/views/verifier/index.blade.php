@@ -21,7 +21,7 @@
           <strong><i class="{{ session()->get('sysmsg_icon') }} "></i> {{ session()->get('sysmsg_text') }}</strong>
         </div>
 @endif
-<!-- <div class="table-responsive"> -->
+<div class="table-responsive">
 <table id="verifierList" class="table">
   <thead>
     <tr>
@@ -57,7 +57,7 @@
 
   </tbody>
 </table>
-<!-- </div> -->
+</div>
             </div><!-- /.panel-body -->
           </div><!-- /.panel panel-info -->
 </div><!-- /.col-md-12 -->
@@ -92,12 +92,12 @@
   <div class="form-group">
     <label class="control-label col-sm-2" for="verifierid">Verifier Name:</label>
     <div class="col-sm-4">
-      <select id="selectVerifierId" class="verifierListId form-control" name="verifierId" required ></select>
+      <select id="selectVerifierId" class="verifierListId form-control" name="verifierId" required></select>
       
   <div class="checkbox">
-      <!-- Trigger the modal with a href -->
-      <a href="#" data-toggle="modal" data-target="#modalAdvSearch" 
-      data-backdrop="static" data-keyboard="false" class="btn btn-primary btn-xs">
+      <!-- Trigger the modal with a href  : todisable outside close click-> data-backdrop="static" -->
+      <a href="#" id="btnModalAdvSearch" data-toggle="modal" data-target="#modalAdvSearch" 
+      data-keyboard="false" class="btn btn-primary btn-xs">
       <i class="glyphicon glyphicon-search"></i> Advance Search</a>
   </div>
 
@@ -124,15 +124,15 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Advance Search</h4>
+        <!-- <h4 class="modal-title">Advance Search</h4> -->
       </div>
       <div id="modal-body" class="modal-body">
       <div id="advSearchAlertMsg"></div>
 
-<div id="resultAdvSearch" class="table-responsive"></div>      
-<fieldset>
+<div id="resultAdvSearch" class="table-responsive"></div>    
+<fieldset id="formAdvSearch">
 <legend>Search Creteria</legend>
-<form class="form-horizontal" id="formAdvSearch" method="post" action="{{ route('verifier.advSearchSubord',[],false) }}">      
+<form class="form-horizontal" method="post" action="{{ route('verifier.advSearchSubord',[],false) }}">      
 
 <!-- Text input-->
 <div class="form-group">
@@ -278,6 +278,10 @@ $('#verifierList').DataTable({
 $('#verifierList2').DataTable({
 });
 
+$("#btnModalAdvSearch").click(function(){
+    $("#resultAdvSearch").empty();
+});
+
 $('.verifierListId').select2({
     placeholder: 'Type a name',
     minimumInputLength: 3,
@@ -300,6 +304,7 @@ $('.verifierListId').select2({
   });
 
 } );
+
 
 
 //when click delete group
@@ -352,19 +357,20 @@ function advSearchSubmit(){
       console.log(data);   
       var imgProfile = '<img class="profile-user-img img-responsive img-circle" src="/vendor/images/useravatar.png" alt="User profile picture">';
       var html = '';
-          html += '<fieldset><legend>Result Search</legend>';
+          html += '<fieldset><legend>Result Search';
+          html += '<button class="btn btn-primary btn-outline pull-right" onclick="goToSearchForm()">Modify search</button></legend>';
       //create table
-          html += '<table id="resultAdvSearchTbl" class="table"><thead>';
-          html += '<th>Name</th>';
-          html += '<th>Persno</th>';
-          html += '<th>Staffno</th>';
-          html += '<th>Sub Group</th>';
-          html += '<th>Company Code</th>';
-          html += '<th>Personal Area</th>';
-          html += '<th>Personal Subrea</th>';
-          html += '<th>Email</th>';
-          html += '<th>Action</th>';
-          html += '</thead><tbody>';  
+      html += '<table id="resultAdvSearchTbl" class="table"><thead>';
+      html += '<th>Name</th>';
+      html += '<th>Persno</th>';
+      html += '<th>Staffno</th>';
+      html += '<th>Sub Group</th>';
+      html += '<th>Company Code</th>';
+      html += '<th>Personal Area</th>';
+      html += '<th>Personal Subrea</th>';
+      html += '<th>Email</th>';
+      html += '<th>Action</th>';
+      html += '</thead><tbody>'; 
 
         if(data.length > 0)
         {
@@ -380,24 +386,30 @@ function advSearchSubmit(){
           html += '<td>'+data[count].perssubarea+'</td>';
           html += '<td>'+data[count].email+'</td>';
           html += '<td><a class="btn btn-np" onclick="slctVerifier('+data[count].id+',\''+data[count].name+'\')"><i class="fas fa-user-plus"></i></a></td></tr>';
+
         }
       }
         else
         {
-        html += '<tr><td colspan="9">No Data Found</td></tr>';
+        //html += '<tr><td colspan="9">No Data Found</td></tr>';
         };
         html += '</tbody></table>';  
         html += '</fieldset>';
 
       $("#resultAdvSearch").html(html);
       $("#advSearchAlertMsg").html("<div class='alert alert-success'>Success fetch "+data.length+" records</div>");
+      $('#advSearchAlertMsg').fadeIn('slow'); 
       if(data){
       $('#resultAdvSearchTbl').DataTable({
         "ordering": false
       });
       }      
+      $("#resultAdvSearch").css("margin-bottom", "10px");
       $('html').scrollTop(0);
-      $('#modalAdvSearch').animate({ scrollTop: -10 }, 1000);      
+      $('#modalAdvSearch').animate({ scrollTop: -10 }, 1000);     
+      setTimeout(function() { 
+                    $('#advSearchAlertMsg').fadeOut('slow'); 
+                }, 1000);  
 
     })//.get
   }; //if checkInput
@@ -426,6 +438,16 @@ function slctVerifier(vid,vname){
   // $("#selectVerifierId").append(o);
 
   $('#modalAdvSearch').modal('toggle');
+}
+
+
+function goToSearchForm(){  
+  //$('#formAdvSearch').animate({ scrollTop: -10 }, 1000);  
+  $('#modalAdvSearch').animate({
+        scrollTop: $('#formAdvSearch').offset().top -10
+    }, 'slow');
+  $('#empl_name').focus();
+    
 }
 
 function testSubmit(){
