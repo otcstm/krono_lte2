@@ -92,11 +92,11 @@
                         <small class="label label-default pull-right">{{ $to_do_list->count() }}</small>
                     </a>
                   </li>
-                  <li><!-- Task item -->
+                  {{-- <li><!-- Task item -->
                     <a href="#">
                         Manpower Request <small class="label label-default pull-right">{{ $to_do_list->count() }}</small>
                     </a>
-                  </li>
+                  </li> --}}
 
               @endif
               @endif
