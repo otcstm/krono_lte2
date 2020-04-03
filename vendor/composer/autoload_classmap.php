@@ -6,7 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AnnouncementTableSeeder' => $baseDir . '/database/seeds/AnnouncementTableSeeder.php',
     'App\\AlertHistory' => $baseDir . '/app/AlertHistory.php',
+    'App\\Announcement' => $baseDir . '/app/Announcement.php',
     'App\\Api\\Datamart\\UserShiftPatternController' => $baseDir . '/app/Api/Datamart/UserShiftPatternController.php',
     'App\\Company' => $baseDir . '/app/Company.php',
     'App\\CompanyPayrollgroup' => $baseDir . '/app/CompanyPayrollgroup.php',
@@ -20,6 +22,7 @@ return array(
     'App\\Holiday' => $baseDir . '/app/Holiday.php',
     'App\\HolidayCalendar' => $baseDir . '/app/HolidayCalendar.php',
     'App\\HolidayLog' => $baseDir . '/app/HolidayLog.php',
+    'App\\Http\\Controllers\\Admin\\AnnouncementController' => $baseDir . '/app/Http/Controllers/Admin/AnnouncementController.php',
     'App\\Http\\Controllers\\Admin\\CompanyController' => $baseDir . '/app/Http/Controllers/Admin/CompanyController.php',
     'App\\Http\\Controllers\\Admin\\CompanyPayrollgroupController' => $baseDir . '/app/Http/Controllers/Admin/CompanyPayrollgroupController.php',
     'App\\Http\\Controllers\\Admin\\DayTypeController' => $baseDir . '/app/Http/Controllers/Admin/DayTypeController.php',
@@ -3030,6 +3033,7 @@ return array(
     'PHPUnit\\Util\\TestDox\\XmlResultPrinter' => $vendorDir . '/phpunit/phpunit/src/Util/TestDox/XmlResultPrinter.php',
     'PHPUnit\\Util\\TextTestListRenderer' => $vendorDir . '/phpunit/phpunit/src/Util/TextTestListRenderer.php',
     'PHPUnit\\Util\\Type' => $vendorDir . '/phpunit/phpunit/src/Util/Type.php',
+    'PHPUnit\\Util\\VersionComparisonOperator' => $vendorDir . '/phpunit/phpunit/src/Util/VersionComparisonOperator.php',
     'PHPUnit\\Util\\XdebugFilterScriptGenerator' => $vendorDir . '/phpunit/phpunit/src/Util/XdebugFilterScriptGenerator.php',
     'PHPUnit\\Util\\Xml' => $vendorDir . '/phpunit/phpunit/src/Util/Xml.php',
     'PHPUnit\\Util\\XmlTestListRenderer' => $vendorDir . '/phpunit/phpunit/src/Util/XmlTestListRenderer.php',
@@ -4163,6 +4167,7 @@ return array(
     'Symfony\\Component\\Console\\Exception\\InvalidArgumentException' => $vendorDir . '/symfony/console/Exception/InvalidArgumentException.php',
     'Symfony\\Component\\Console\\Exception\\InvalidOptionException' => $vendorDir . '/symfony/console/Exception/InvalidOptionException.php',
     'Symfony\\Component\\Console\\Exception\\LogicException' => $vendorDir . '/symfony/console/Exception/LogicException.php',
+    'Symfony\\Component\\Console\\Exception\\MissingInputException' => $vendorDir . '/symfony/console/Exception/MissingInputException.php',
     'Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException' => $vendorDir . '/symfony/console/Exception/NamespaceNotFoundException.php',
     'Symfony\\Component\\Console\\Exception\\RuntimeException' => $vendorDir . '/symfony/console/Exception/RuntimeException.php',
     'Symfony\\Component\\Console\\Formatter\\OutputFormatter' => $vendorDir . '/symfony/console/Formatter/OutputFormatter.php',

@@ -576,7 +576,9 @@ class ComposerStaticInit70b8d08227d7c3b552893f13c0169706
     );
 
     public static $classMap = array (
+        'AnnouncementTableSeeder' => __DIR__ . '/../..' . '/database/seeds/AnnouncementTableSeeder.php',
         'App\\AlertHistory' => __DIR__ . '/../..' . '/app/AlertHistory.php',
+        'App\\Announcement' => __DIR__ . '/../..' . '/app/Announcement.php',
         'App\\Api\\Datamart\\UserShiftPatternController' => __DIR__ . '/../..' . '/app/Api/Datamart/UserShiftPatternController.php',
         'App\\Company' => __DIR__ . '/../..' . '/app/Company.php',
         'App\\CompanyPayrollgroup' => __DIR__ . '/../..' . '/app/CompanyPayrollgroup.php',
@@ -590,6 +592,7 @@ class ComposerStaticInit70b8d08227d7c3b552893f13c0169706
         'App\\Holiday' => __DIR__ . '/../..' . '/app/Holiday.php',
         'App\\HolidayCalendar' => __DIR__ . '/../..' . '/app/HolidayCalendar.php',
         'App\\HolidayLog' => __DIR__ . '/../..' . '/app/HolidayLog.php',
+        'App\\Http\\Controllers\\Admin\\AnnouncementController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/AnnouncementController.php',
         'App\\Http\\Controllers\\Admin\\CompanyController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/CompanyController.php',
         'App\\Http\\Controllers\\Admin\\CompanyPayrollgroupController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/CompanyPayrollgroupController.php',
         'App\\Http\\Controllers\\Admin\\DayTypeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/DayTypeController.php',
@@ -3600,6 +3603,7 @@ class ComposerStaticInit70b8d08227d7c3b552893f13c0169706
         'PHPUnit\\Util\\TestDox\\XmlResultPrinter' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/TestDox/XmlResultPrinter.php',
         'PHPUnit\\Util\\TextTestListRenderer' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/TextTestListRenderer.php',
         'PHPUnit\\Util\\Type' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/Type.php',
+        'PHPUnit\\Util\\VersionComparisonOperator' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/VersionComparisonOperator.php',
         'PHPUnit\\Util\\XdebugFilterScriptGenerator' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/XdebugFilterScriptGenerator.php',
         'PHPUnit\\Util\\Xml' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/Xml.php',
         'PHPUnit\\Util\\XmlTestListRenderer' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/XmlTestListRenderer.php',
@@ -4733,6 +4737,7 @@ class ComposerStaticInit70b8d08227d7c3b552893f13c0169706
         'Symfony\\Component\\Console\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/symfony/console/Exception/InvalidArgumentException.php',
         'Symfony\\Component\\Console\\Exception\\InvalidOptionException' => __DIR__ . '/..' . '/symfony/console/Exception/InvalidOptionException.php',
         'Symfony\\Component\\Console\\Exception\\LogicException' => __DIR__ . '/..' . '/symfony/console/Exception/LogicException.php',
+        'Symfony\\Component\\Console\\Exception\\MissingInputException' => __DIR__ . '/..' . '/symfony/console/Exception/MissingInputException.php',
         'Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException' => __DIR__ . '/..' . '/symfony/console/Exception/NamespaceNotFoundException.php',
         'Symfony\\Component\\Console\\Exception\\RuntimeException' => __DIR__ . '/..' . '/symfony/console/Exception/RuntimeException.php',
         'Symfony\\Component\\Console\\Formatter\\OutputFormatter' => __DIR__ . '/..' . '/symfony/console/Formatter/OutputFormatter.php',
