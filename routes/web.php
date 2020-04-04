@@ -236,6 +236,8 @@ Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth
   // shift groups
   Route::get('/group', 'ShiftGroupController@index')->name('group');
   Route::post('/group/add', 'ShiftGroupController@addGroup')->name('group.add');
+  Route::post('/group/addsp', 'ShiftGroupController@addSpToGroup')->name('group.add.sp');
+  Route::post('/group/delsp', 'ShiftGroupController@delSpFromGroup')->name('group.del.sp');
   Route::get('/group/view', 'ShiftGroupController@viewGroup')->name('group.view');
   Route::post('/group/delete', 'ShiftGroupController@delGroup')->name('group.del');
   Route::post('/group/edit', 'ShiftGroupController@editGroup')->name('group.edit');
