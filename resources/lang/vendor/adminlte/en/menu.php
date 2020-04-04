@@ -9,6 +9,7 @@ return [
     'manage_state'    => 'State Management',
     'manage_psubarea' => 'Psubarea Management',
     'manage_overtime' => 'Overtime Management',
+    'manage_announcement' => 'Announcement Management',
     'manage_eligibility' => 'System Eligibility',
     'manual_overtime' => 'Claim Manual Approval',
     'manage_overtimeex' => 'Manage Overtime Expiry',
@@ -58,11 +59,11 @@ return [
 
     'info_menu'       => 'INFORMATION',
     'user_guide'      => 'GUIDELINE',
-    'calendar_menu'   => 'Calendar',
+    'calendar_menu'   => 'Holiday Calendar',
     'user_guideline'  => 'User',
     'admin_guideline' => 'Admin',
 
-    'guideline_calendar' => 'Calendar',
+    'guideline_calendar' => 'Holiday Calendar',
     'guideline_system' => 'System Guideline',
     'guideline_payment' => 'Payment Calendar',
 
