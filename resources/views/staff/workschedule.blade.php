@@ -9,7 +9,7 @@
 @section('content')
 <h1>My Work Schedule</h1>
 
-<div class="panel panel-default">
+<div class="panel">
   <div class="panel-heading">dd</div>
   <div class="panel-body">
     {!! $cal->calendar() !!}
