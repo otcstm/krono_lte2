@@ -22,7 +22,8 @@ class CreateWsrChangeReqsTable extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->bigInteger('superior_id');
-            $table->string('status', 10)->default('New');
+            $table->timestamp('action_date')->nullable();
+            $table->string('status', 30)->default('Pending Approval');
             $table->string('remark')->nullable();
         });
     }

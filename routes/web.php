@@ -25,13 +25,12 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/role', 'Admin\RoleController@index')->name('role.index');
 
   // work schedule rule
-  Route::get('/workschedule', 'WorkSchedRuleController@wsrMainPage')->name('staff.worksched');
+  Route::get('/workschedule', 'WorkSchedRuleController@wsrPage')->name('staff.worksched');
   Route::post('/workschedule/edit', 'WorkSchedRuleController@doEditWsr')->name('staff.worksched.edit');
   Route::get('/workschedule/mycal', 'WorkSchedRuleController@myCalendar')->name('staff.worksched.myc');
   Route::get('/workschedule/teamcal', 'WorkSchedRuleController@teamCalendar')->name('staff.worksched.teamc');
   Route::get('/workschedule/listreq', 'WorkSchedRuleController@listChangeWsr')->name('staff.worksched.reqlist');
   Route::post('/workschedule/approve', 'WorkSchedRuleController@doApproveWsr')->name('staff.worksched.approve');
-  Route::post('/workschedule/reject', 'WorkSchedRuleController@doRejectWsr')->name('staff.worksched.reject');
   Route::get('/workschedule/getdays', 'WorkSchedRuleController@ApiGetWsrDays')->name('staff.worksched.api.days');
 
   //guide

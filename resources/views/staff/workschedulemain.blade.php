@@ -7,7 +7,7 @@
 
 <div class="row-eq-height">
   <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
-  <a href="{{route('ot.formnew')}}">
+  <a href="{{route('staff.worksched', ['page' => 'myc'])}}">
     <div class="box box-solid">
     <div class="box-body">
     <div class="media">
@@ -23,7 +23,7 @@
   </a>
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
-  <a href="{{route('ot.formnew')}}">
+  <a href="{{route('staff.worksched', ['page' => 'teamc'])}}">
     <div class="box box-solid">
     <div class="box-body">
     <div class="media">
@@ -39,7 +39,7 @@
   </a>
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
-  <a href="{{route('ot.formnew')}}">
+  <a href="{{route('staff.worksched', ['page' => 'reqs'])}}">
     <div class="box box-solid">
     <div class="box-body">
     <div class="media">
@@ -61,24 +61,35 @@
   <div class="panel-body p-3">
     <div class="row">
       <div class="col-lg-8">
-        <form>
+        <form method="post" action="{{ route('staff.worksched.edit')}}">
+          @csrf
           <div class="row">
             <div class="col-md-12">
               <div class="row">
                 <div class="col-md-4">Work Schedule Rule</div>
-                <div class="col-md-7">OFF1</div>
+                <div class="col-md-7">
+                  <select name="spid" id="sspid" onchange="loadTimeTable()" disabled>
+                    @foreach($planlist as $aplan)
+                    <option value="{{ $aplan->id }}" @if($aplan->id == $cspid) selected @endif>{{ $aplan->code }} : {{ $aplan->description }}</option>
+                    @endforeach
+                  </select>
+                </div>
               </div>
             </div>
             <div class="col-md-12">
               <div class="row">
                 <div class="col-md-4">Start Date</div>
-                <div class="col-md-7">OFF1</div>
+                <div class="col-md-7">
+                  <input type="date" name="start_date" value="{{ $sdate->toDateString() }}" id="ssdate" readonly />
+                </div>
               </div>
             </div>
             <div class="col-md-12">
               <div class="row">
                 <div class="col-md-4">End Date</div>
-                <div class="col-md-7">OFF1</div>
+                <div class="col-md-7">
+                  <input type="date" name="end_date" value="{{ $edate->toDateString() }}" id="esdate" readonly />
+                </div>
               </div>
             </div>
             <div class="col-md-12">
@@ -118,14 +129,6 @@
                     </tr>
                 </thead>
                 <tbody id="daylistt">
-                    <tr>
-                        <td>Senin</td>
-                        <td>8-5</td>
-                    </tr>
-                    <tr>
-                        <td>Slasa</td>
-                        <td>8-5</td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -141,19 +144,25 @@
 
 $(document).ready(function() {
   document.getElementById("baten_form").className = "hidden";
-  loadTimeTable(2);
+  loadTimeTable();
 } );
 
 function showEditForm(){
   document.getElementById("baten_form").className = "";
   document.getElementById("baten_edit").className = "hidden";
+  document.getElementById("sspid").disabled = false;
+  document.getElementById("ssdate").readOnly = false;
+  document.getElementById("esdate").readOnly = false;
 }
 
 function cancelEdit(){
   location.reload(true);
 }
 
-function loadTimeTable(sp_id){
+function loadTimeTable(){
+
+  var e = document.getElementById("sspid");
+  var sp_id = e.options[e.selectedIndex].value;
   var search_url = "{{ route('staff.worksched.api.days', ['id' => '']) }}" + sp_id;
 
   $.ajax({
@@ -171,6 +180,14 @@ function loadTimeTable(sp_id){
   });
 
 }
+
+@if(session()->has('feedback'))
+    Swal.fire({
+        title: "{{session()->get('feedback_title')}}",
+        html: "{{session()->get('feedback_text')}}",
+        confirmButtonText: 'DONE'
+    })
+@endif
 
 </script>
 @stop

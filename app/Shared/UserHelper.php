@@ -468,7 +468,7 @@ class UserHelper {
         // not a shift staff. get based on the wsr
         $currwsr = UserHelper::GetWorkSchedRule($req->user()->id, $cbdate);
         // then get that day
-        $wd = $currwsr->ListDays->where('day_seq', $day)->first()
+        $wd = $currwsr->ListDays->where('day_seq', $day)->first();
       }
 
       // get the day info
@@ -490,7 +490,7 @@ class UserHelper {
 
       return [$start, $end, $day_type, $day];
 
-      // below is the original temp 
+      // below is the original temp
 
       // $day = 6;
       // dd($day);
@@ -563,6 +563,7 @@ class UserHelper {
       ->where('status', 'Approved')
       ->whereDate('start_date', '<=', $idate)
       ->whereDate('end_date', '>=', $idate)
+      ->orderBy('action_date', 'desc')
       ->first();
 
     if($currwsr){
