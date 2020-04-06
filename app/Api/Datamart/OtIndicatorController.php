@@ -27,7 +27,6 @@ class OtIndicatorController extends Controller
     $oti->ot_hour_exception   = $req->ot_hour_exception;
     $oti->ot_salary_exception = $req->ot_salary_exception;
     $oti->allowance           = $req->allowance_amount;
-    $oti->allowance           = $req->allowance_amount;
     $oti->upd_dm              = $req->last_upd_dt;
     $oti->save();
 
