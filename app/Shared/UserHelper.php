@@ -8,6 +8,9 @@ use App\Overtime;
 use App\OvertimeLog;
 use App\OvertimePunch;
 use App\StaffPunch;
+use App\WsrChangeReq;
+use App\UserShiftPattern;
+use App\ShiftPattern;
 use App\DayType;
 use App\SapPersdata;
 use \Carbon\Carbon;
@@ -215,7 +218,7 @@ class UserHelper {
   //Add punch data to overtime punch
   public static function AddOTPunch($staff_id, $date, $timein, $out_time, $id, $in_lat, $in_long, $out_lat, $out_long)
   {
-    
+
     $parentp = StaffPunch::whereDate('punch_in_time', $date)->first();
     // $start = $timein->format('Y-m-d H:i:s');
     // $end = $out_time->format('Y-m-d H:i:s');
@@ -312,7 +315,7 @@ class UserHelper {
 
   // public static function AddOTPunch($staff_id, $date, $timein, $out_time, $id, $in_lat, $in_long, $out_lat, $out_long)
   // {
-    
+
   //   $parentp = StaffPunch::whereDate('punch_in_time', $date)->first();
   //   $start = $timein->format('Y-m-d H:i:s');
   //   $end = $out_time->format('Y-m-d H:i:s');
@@ -454,11 +457,46 @@ class UserHelper {
     public static function CheckDay($user, $date)
     {
       $day = date('N', strtotime($date));
+
+      // first, check if there's any shift planned for this person
+      $wd = ShiftPlanStaffDay::where('user_id', $user)
+        ->whereDate('work_date', $date)->first();
+
+      if($wd){
+
+      } else {
+        // not a shift staff. get based on the wsr
+        $currwsr = UserHelper::GetWorkSchedRule($req->user()->id, $cbdate);
+        // then get that day
+        $wd = $currwsr->ListDays->where('day_seq', $day)->first()
+      }
+
+      // get the day info
+      $theday = $wd->Day;
+
+      if($theday->is_work_day == true){
+        $day_type = 'Normal Day';
+        $stime = new Carbon($theday->start_time);
+        $etime = new Carbon($theday->start_time);
+        $etime->addMinutes($theday->total_minute);
+
+        $start = $stime->format('H:i');
+        $end =  $etime->format('H:i');
+      } else {
+        $start = "00:00";
+        $end =  "00:00";
+        $day_type = $theday->description;
+      }
+
+      return [$start, $end, $day_type, $day];
+
+      // below is the original temp 
+
       // $day = 6;
       // dd($day);
       $start = "00:00";
       $end =  "00:00";
-      
+
       // $day_type = 'Off Day'; //temp
       if($day==6){
         $day_type = 'Off Day';
@@ -505,7 +543,7 @@ class UserHelper {
         if($difdatem<0){
             $difdatem=$difdatem+12;
         }
-        
+
         // dd($otdate);
         $gm = true;
         if(($difdatem<4)){
@@ -517,6 +555,37 @@ class UserHelper {
             }
         }
         return $gm;
+  }
+
+  public static function GetWorkSchedRule($staffid, $idate){
+    // first, check if there's any approved change req
+    $currwsr = WsrChangeReq::where('user_id', $staffid)
+      ->where('status', 'Approved')
+      ->whereDate('start_date', '<=', $idate)
+      ->whereDate('end_date', '>=', $idate)
+      ->first();
+
+    if($currwsr){
+
+    } else {
+      // no approved change req for that date
+      // find the data from SAP
+      $currwsr = UserShiftPattern::where('user_id', $staffid)
+        ->whereDate('start_date', '<=', $idate)
+        ->whereDate('end_date', '>=', $idate)
+        ->orderBy('start_date', 'desc')
+        ->first();
+
+        if($currwsr){
+
+        } else {
+          // also not found. just return OFF1 as default
+          $sptr = ShiftPattern::where('code', 'OFF1')->first();
+          return $sptr;
+        }
+    }
+
+    return $currwsr->shiftpattern;
   }
 
 }
