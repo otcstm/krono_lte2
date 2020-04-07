@@ -226,6 +226,10 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/admin/verifier/ajaxAdvSearchSubord', 'UserVerifierController@ajaxAdvSearchSubord')->name('verifier.ajaxAdvSearchSubord');
   Route::post('/admin/verifier/advSearch', 'UserVerifierController@advSearchSubord')->name('verifier.advSearchSubord');
 
+ //ProfilePics
+ Route::get( '/user/image/{staffno}','ProfilePicController@getStaffImage')->name('user.image');
+
+
 });
 
 Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
@@ -262,6 +266,8 @@ Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth
   Route::get('/staff', 'ShiftPlanController@staffInfo')->name('staff');
   Route::post('/staff/push', 'ShiftPlanController@staffPushTemplate')->name('staff.push');
   Route::post('/staff/pop', 'ShiftPlanController@staffPopTemplate')->name('staff.pop');
+
+ 
 
 });
 
