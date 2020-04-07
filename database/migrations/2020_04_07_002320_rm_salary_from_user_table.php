@@ -16,7 +16,7 @@ class RmSalaryFromUserTable extends Migration
         Schema::table('users', function (Blueprint $table) {
           $table->dropColumn('ot_salary_exception');
           $table->dropColumn('ot_hour_exception');
-          $table->dropColumn('salary'); 
+          $table->dropColumn('salary');
 
         });
     }
