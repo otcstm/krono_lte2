@@ -168,6 +168,7 @@ class ComposerStaticInit70b8d08227d7c3b552893f13c0169706
             'League\\Flysystem\\' => 17,
             'League\\CommonMark\\' => 18,
             'Laravel\\Tinker\\' => 15,
+            'Laracasts\\Generators\\' => 21,
         ),
         'J' => 
         array (
@@ -417,6 +418,10 @@ class ComposerStaticInit70b8d08227d7c3b552893f13c0169706
         array (
             0 => __DIR__ . '/..' . '/laravel/tinker/src',
         ),
+        'Laracasts\\Generators\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laracasts/generators/src',
+        ),
         'JeroenNoten\\LaravelAdminLte\\' => 
         array (
             0 => __DIR__ . '/..' . '/jeroennoten/laravel-adminlte/src',
@@ -624,6 +629,7 @@ class ComposerStaticInit70b8d08227d7c3b552893f13c0169706
         'App\\Http\\Controllers\\MiscController' => __DIR__ . '/../..' . '/app/Http/Controllers/MiscController.php',
         'App\\Http\\Controllers\\OvertimeController' => __DIR__ . '/../..' . '/app/Http/Controllers/OvertimeController.php',
         'App\\Http\\Controllers\\OvertimeFormulaController' => __DIR__ . '/../..' . '/app/Http/Controllers/OvertimeFormulaController.php',
+        'App\\Http\\Controllers\\ProfilePicController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfilePicController.php',
         'App\\Http\\Controllers\\SetupCodeController' => __DIR__ . '/../..' . '/app/Http/Controllers/SetupCodeController.php',
         'App\\Http\\Controllers\\ShiftGroupController' => __DIR__ . '/../..' . '/app/Http/Controllers/ShiftGroupController.php',
         'App\\Http\\Controllers\\ShiftPlanController' => __DIR__ . '/../..' . '/app/Http/Controllers/ShiftPlanController.php',
@@ -633,6 +639,7 @@ class ComposerStaticInit70b8d08227d7c3b552893f13c0169706
         'App\\Http\\Controllers\\UserVerifierController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserVerifierController.php',
         'App\\Http\\Controllers\\VerifierGroupController' => __DIR__ . '/../..' . '/app/Http/Controllers/VerifierGroupController.php',
         'App\\Http\\Controllers\\VerifierGroupMemberController' => __DIR__ . '/../..' . '/app/Http/Controllers/VerifierGroupMemberController.php',
+        'App\\Http\\Controllers\\WorkSchedRuleController' => __DIR__ . '/../..' . '/app/Http/Controllers/WorkSchedRuleController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\AuthGates' => __DIR__ . '/../..' . '/app/Http/Middleware/AuthGates.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
@@ -651,6 +658,7 @@ class ComposerStaticInit70b8d08227d7c3b552893f13c0169706
         'App\\MaddHatter\\LaravelFullcalendar\\ServiceProvider' => __DIR__ . '/../..' . '/app/MaddHatter/LaravelFullcalendar/ServiceProvider.php',
         'App\\MaddHatter\\LaravelFullcalendar\\SimpleEvent' => __DIR__ . '/../..' . '/app/MaddHatter/LaravelFullcalendar/SimpleEvent.php',
         'App\\Mail\\SendMailable' => __DIR__ . '/../..' . '/app/Mail/SendMailable.php',
+        'App\\Mail\\WsrApplyMail' => __DIR__ . '/../..' . '/app/Mail/WsrApplyMail.php',
         'App\\MaintenanceOrder' => __DIR__ . '/../..' . '/app/MaintenanceOrder.php',
         'App\\OtIndicator' => __DIR__ . '/../..' . '/app/OtIndicator.php',
         'App\\Overtime' => __DIR__ . '/../..' . '/app/Overtime.php',
@@ -665,6 +673,7 @@ class ComposerStaticInit70b8d08227d7c3b552893f13c0169706
         'App\\PaymentSchedule' => __DIR__ . '/../..' . '/app/PaymentSchedule.php',
         'App\\Payrollgroup' => __DIR__ . '/../..' . '/app/Payrollgroup.php',
         'App\\Permission' => __DIR__ . '/../..' . '/app/Permission.php',
+        'App\\ProfilePic' => __DIR__ . '/../..' . '/app/ProfilePic.php',
         'App\\Project' => __DIR__ . '/../..' . '/app/Project.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
@@ -702,6 +711,7 @@ class ComposerStaticInit70b8d08227d7c3b552893f13c0169706
         'App\\UserVerifier' => __DIR__ . '/../..' . '/app/UserVerifier.php',
         'App\\VerifierGroup' => __DIR__ . '/../..' . '/app/VerifierGroup.php',
         'App\\VerifierGroupMember' => __DIR__ . '/../..' . '/app/VerifierGroupMember.php',
+        'App\\WsrChangeReq' => __DIR__ . '/../..' . '/app/WsrChangeReq.php',
         'Balping\\JsonRaw\\Encoder' => __DIR__ . '/..' . '/balping/json-raw-encoder/src/Encoder.php',
         'Balping\\JsonRaw\\Raw' => __DIR__ . '/..' . '/balping/json-raw-encoder/src/Raw.php',
         'Balping\\JsonRaw\\Replacer' => __DIR__ . '/..' . '/balping/json-raw-encoder/src/Replacer.php',
@@ -2913,6 +2923,14 @@ class ComposerStaticInit70b8d08227d7c3b552893f13c0169706
         'JeroenNoten\\LaravelAdminLte\\Menu\\Filters\\SearchFilter' => __DIR__ . '/..' . '/jeroennoten/laravel-adminlte/src/Menu/Filters/SearchFilter.php',
         'JeroenNoten\\LaravelAdminLte\\Menu\\Filters\\SubmenuFilter' => __DIR__ . '/..' . '/jeroennoten/laravel-adminlte/src/Menu/Filters/SubmenuFilter.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
+        'Laracasts\\Generators\\Commands\\MigrationMakeCommand' => __DIR__ . '/..' . '/laracasts/generators/src/Commands/MigrationMakeCommand.php',
+        'Laracasts\\Generators\\Commands\\PivotMigrationMakeCommand' => __DIR__ . '/..' . '/laracasts/generators/src/Commands/PivotMigrationMakeCommand.php',
+        'Laracasts\\Generators\\Commands\\SeedMakeCommand' => __DIR__ . '/..' . '/laracasts/generators/src/Commands/SeedMakeCommand.php',
+        'Laracasts\\Generators\\GeneratorException' => __DIR__ . '/..' . '/laracasts/generators/src/GeneratorException.php',
+        'Laracasts\\Generators\\GeneratorsServiceProvider' => __DIR__ . '/..' . '/laracasts/generators/src/GeneratorsServiceProvider.php',
+        'Laracasts\\Generators\\Migrations\\NameParser' => __DIR__ . '/..' . '/laracasts/generators/src/Migrations/NameParser.php',
+        'Laracasts\\Generators\\Migrations\\SchemaParser' => __DIR__ . '/..' . '/laracasts/generators/src/Migrations/SchemaParser.php',
+        'Laracasts\\Generators\\Migrations\\SyntaxBuilder' => __DIR__ . '/..' . '/laracasts/generators/src/Migrations/SyntaxBuilder.php',
         'Laravel\\Tinker\\ClassAliasAutoloader' => __DIR__ . '/..' . '/laravel/tinker/src/ClassAliasAutoloader.php',
         'Laravel\\Tinker\\Console\\TinkerCommand' => __DIR__ . '/..' . '/laravel/tinker/src/Console/TinkerCommand.php',
         'Laravel\\Tinker\\TinkerCaster' => __DIR__ . '/..' . '/laravel/tinker/src/TinkerCaster.php',
