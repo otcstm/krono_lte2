@@ -25,7 +25,7 @@ class PMController extends Controller
       $pm->status             = $req->order_stat;
 
       $pm->cost_center        = $req->order_cost_center;
-      $pm->company_code       = $req->project_company_code;
+      $pm->company_code       = $req->order_company_code;
       $pm->approver_id        = $req->otcs_approver;
       $pm->budget             = $req->order_budget;
       $pm->upd_dm             = $req->last_upd_dt;
