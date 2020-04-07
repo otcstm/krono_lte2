@@ -23,8 +23,15 @@ Route::get('/ur/show/{persno}/{dt}', 'URController@gUR')->name('ur.listAll');
 Route::group(['middleware' => ['auth']], function () {
   Route::get('/home', 'MiscController@home')->name('misc.home');
   Route::get('/role', 'Admin\RoleController@index')->name('role.index');
-  Route::get('/workschedule', 'StaffController@showCalendar')->name('staff.worksched');
 
+  // work schedule rule
+  Route::get('/workschedule', 'WorkSchedRuleController@wsrPage')->name('staff.worksched');
+  Route::post('/workschedule/edit', 'WorkSchedRuleController@doEditWsr')->name('staff.worksched.edit');
+  Route::get('/workschedule/mycal', 'WorkSchedRuleController@myCalendar')->name('staff.worksched.myc');
+  Route::get('/workschedule/teamcal', 'WorkSchedRuleController@teamCalendar')->name('staff.worksched.teamc');
+  Route::get('/workschedule/listreq', 'WorkSchedRuleController@listChangeWsr')->name('staff.worksched.reqlist');
+  Route::post('/workschedule/approve', 'WorkSchedRuleController@doApproveWsr')->name('staff.worksched.approve');
+  Route::get('/workschedule/getdays', 'WorkSchedRuleController@ApiGetWsrDays')->name('staff.worksched.api.days');
 
   //guide
   Route::get('/guide/calendar', 'GuideController@viewCalendar')->name('guide.calendar');
@@ -226,6 +233,10 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/admin/verifier/ajaxAdvSearchSubord', 'UserVerifierController@ajaxAdvSearchSubord')->name('verifier.ajaxAdvSearchSubord');
   Route::post('/admin/verifier/advSearch', 'UserVerifierController@advSearchSubord')->name('verifier.advSearchSubord');
 
+ //ProfilePics
+ Route::get( '/user/image/{staffno}','ProfilePicController@getStaffImage')->name('user.image');
+
+
 });
 
 Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
@@ -249,6 +260,8 @@ Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth
   // shift groups
   Route::get('/group', 'ShiftGroupController@index')->name('group');
   Route::post('/group/add', 'ShiftGroupController@addGroup')->name('group.add');
+  Route::post('/group/addsp', 'ShiftGroupController@addSpToGroup')->name('group.add.sp');
+  Route::post('/group/delsp', 'ShiftGroupController@delSpFromGroup')->name('group.del.sp');
   Route::get('/group/view', 'ShiftGroupController@viewGroup')->name('group.view');
   Route::post('/group/delete', 'ShiftGroupController@delGroup')->name('group.del');
   Route::post('/group/edit', 'ShiftGroupController@editGroup')->name('group.edit');
@@ -262,6 +275,8 @@ Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth
   Route::get('/staff', 'ShiftPlanController@staffInfo')->name('staff');
   Route::post('/staff/push', 'ShiftPlanController@staffPushTemplate')->name('staff.push');
   Route::post('/staff/pop', 'ShiftPlanController@staffPopTemplate')->name('staff.pop');
+
+ 
 
 });
 
