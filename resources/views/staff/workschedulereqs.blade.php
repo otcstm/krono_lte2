@@ -12,7 +12,7 @@
     <div class="box-body">
     <div class="media">
       <div class="media-left">
-        <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px">
+        <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px;height:50px">
       </div>
       <div class="media-body">
         <p>View My Monthly Work Schedule</p>
@@ -28,7 +28,7 @@
     <div class="box-body">
     <div class="media">
       <div class="media-left">
-        <img src="vendor/ot-assets/ot-clock-icon.png" class="media-object" style="width:50px">
+        <img src="vendor/ot-assets/wsr-team-sched.png" class="media-object" style="width:50px;height:50px">
       </div>
       <div class="media-body">
         <p>View Team Work Schedule</p>
@@ -44,7 +44,7 @@
     <div class="box-body">
     <div class="media">
       <div class="media-left">
-        <img src="vendor/ot-assets/ot-clock-icon.png" class="media-object" style="width:50px">
+        <img src="vendor/ot-assets/wsr-cr-status.png" class="media-object" style="width:50px;height:50px">
       </div>
       <div class="media-body">
         <p>View Status of Change Request</p>
@@ -75,10 +75,10 @@
             <tbody>
               @foreach($requests as $areq)
               <tr>
-                <td>{{ $areq->created_at->format('d.m.Y') }}</td>
+                <td>{{ $areq->created_at->format('Y-m-d') }}</td>
                 <td>{{ $areq->shiftpattern->code }} : {{ $areq->shiftpattern->description }}</td>
-                <td>{{ $areq->created_at->format('d.m.Y') }}</td>
-                <td>{{ $areq->created_at->format('d.m.Y') }}</td>
+                <td>{{ $areq->start_date }}</td>
+                <td>{{ $areq->end_date }}</td>
                 <td>{{ $areq->requestor->name }}</td>
                 <td>
                   <button type="button" class="btn btn-np" title="Approve"
@@ -86,13 +86,13 @@
                      data-target="#sreqhandler"
                      data-id="{{ $areq->id }}"
                      data-code="Approve"
-                  ><i class="fas fa-tick"></i></button>
+                  ><i class="fas fa-check"></i></button>
                   <button type="button" class="btn btn-np" title="Reject"
                      data-toggle="modal"
                      data-target="#sreqhandler"
                      data-id="{{ $areq->id }}"
                      data-code="Reject"
-                  ><i class="fas fa-tick"></i></button>
+                  ><i class="fas fa-times"></i></button>
                 </td>
               </tr>
               @endforeach
@@ -123,13 +123,13 @@
             <tbody>
               @foreach($mine as $areq)
               <tr>
-                <td>{{ $areq->created_at->format('d.m.Y') }}</td>
+                <td>{{ $areq->created_at->format('Y-m-d') }}</td>
                 <td>{{ $areq->shiftpattern->code }} : {{ $areq->shiftpattern->description }}</td>
-                <td>{{ $areq->created_at->format('d.m.Y') }}</td>
-                <td>{{ $areq->created_at->format('d.m.Y') }}</td>
+                <td>{{ $areq->start_date }}</td>
+                <td>{{ $areq->end_date }}</td>
                 <td>{{ $areq->approver->name }}</td>
                 <td>{{ $areq->status }}</td>
-                <td>{{ $areq->action_date->format('d.m.Y') }}</td>
+                <td>{{ $areq->action_date }}</td>
                 <td>{{ $areq->remark }}</td>
               </tr>
               @endforeach
@@ -145,6 +145,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <form action="{{ route('staff.worksched.approve') }}" method="POST">
+        @csrf
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Change Request Action</h4>

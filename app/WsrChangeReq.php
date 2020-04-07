@@ -10,11 +10,11 @@ class WsrChangeReq extends Model
   use SoftDeletes;
 
   public function shiftpattern(){
-    return $this->belongsTo(ShiftPattern::class);
+    return $this->belongsTo(ShiftPattern::class, 'shift_pattern_id');
   }
 
   public function requestor(){
-    return $this->belongsTo(User::class);
+    return $this->belongsTo(User::class, 'user_id');
   }
 
   public function approver(){

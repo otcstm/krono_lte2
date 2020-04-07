@@ -12,7 +12,7 @@
     <div class="box-body">
     <div class="media">
       <div class="media-left">
-        <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px">
+        <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px;height:50px">
       </div>
       <div class="media-body">
         <p>View My Monthly Work Schedule</p>
@@ -28,7 +28,7 @@
     <div class="box-body">
     <div class="media">
       <div class="media-left">
-        <img src="vendor/ot-assets/ot-clock-icon.png" class="media-object" style="width:50px">
+        <img src="vendor/ot-assets/wsr-team-sched.png" class="media-object" style="width:50px;height:50px">
       </div>
       <div class="media-body">
         <p>View Team Work Schedule</p>
@@ -44,7 +44,7 @@
     <div class="box-body">
     <div class="media">
       <div class="media-left">
-        <img src="vendor/ot-assets/ot-clock-icon.png" class="media-object" style="width:50px">
+        <img src="vendor/ot-assets/wsr-cr-status.png" class="media-object" style="width:50px;height:50px">
       </div>
       <div class="media-body">
         <p>View Status of Change Request</p>

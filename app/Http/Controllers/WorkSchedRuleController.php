@@ -100,7 +100,7 @@ class WorkSchedRuleController extends Controller
     $wsreq->start_date = $req->start_date;
     $wsreq->end_date = $req->end_date;
     $wsreq->superior_id = $req->user()->reptto;
-    $wsreq->status = 'New';
+    $wsreq->status = 'Pending Approval';
     $wsreq->save();
 
     return redirect(route('staff.worksched', [], false))->with([
@@ -111,11 +111,11 @@ class WorkSchedRuleController extends Controller
   }
 
   public function myCalendar(Request $req){
-
+    dd('under construction');
   }
 
   public function teamCalendar(Request $req){
-
+    dd('under construction');
   }
 
   public function listChangeWsr(Request $req){
@@ -131,10 +131,55 @@ class WorkSchedRuleController extends Controller
   }
 
   public function doApproveWsr(Request $req){
+    $wcr = WsrChangeReq::find($req->id);
+    // check if the req exists
+    if($wcr){
+      // check if current user is the superior
+      if($wcr->superior_id != $req->user()->id){
+        return redirect(route('staff.worksched', ['page' => 'reqs'], false))->with([
+          'feedback' => true,
+          'feedback_title' => 'Not Allowed',
+          'feedback_text' => 'You are not allowed to take action on this request'
+        ]);
+      }
 
-  }
+      // check current status
+      if($wcr->status != 'Pending Approval'){
+        return redirect(route('staff.worksched', ['page' => 'reqs'], false))->with([
+          'feedback' => true,
+          'feedback_title' => 'Not Allowed',
+          'feedback_text' => 'Selected request no longer require approval'
+        ]);
+      }
 
-  public function doRejectWsr(Request $req){
+      // do the approval process
+      $cbdate = new Carbon;
+      if($req->action == 'Approve'){
+        $wcr->status = 'Approved';
+        $wcr->action_date = $cbdate;
+        $wcr->remark = $req->remark;
+        $wcr->save();
+      } else {
+        $wcr->status = 'Rejected';
+        $wcr->action_date = $cbdate;
+        $wcr->remark = $req->remark;
+        $wcr->save();
+        $wcr->delete();
+      }
+
+      return redirect(route('staff.worksched', ['page' => 'reqs'], false))->with([
+        'feedback' => true,
+        'feedback_title' => 'Request '. $wcr->status,
+        'feedback_text' => 'The selected change request has been processed'
+      ]);
+
+    } else {
+      return redirect(route('staff.worksched', ['page' => 'reqs'], false))->with([
+        'feedback' => true,
+        'feedback_title' => 'Request Not Found',
+        'feedback_text' => 'The selected change request does not exist'
+      ]);
+    }
 
   }
 
