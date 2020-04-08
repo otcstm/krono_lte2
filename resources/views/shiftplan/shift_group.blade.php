@@ -7,6 +7,12 @@
 <div class="panel panel-default">
   <div class="panel-heading">Created Shift Groups</div>
   <div class="panel-body">
+    @if (session()->has('alert'))
+    <div class="alert alert-{{ session()->get('a_type') }} alert-dismissible">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>{{ session()->get('alert') }}</strong>
+    </div>
+    @endif
     <div class="table-responsive">
       <table id="grplist" class="table table-hover table-bordered">
        <thead>
@@ -23,13 +29,13 @@
          <tr>
            <td>{{ $ap->group_code }}</td>
            <td>{{ $ap->group_name }}</td>
-           <td>{{ $ap->Manager }}</td>
+           <td>{{ $ap->Manager->name }}</td>
            <td>{{ $ap->Members->count() }}</td>
            <td>
              <form method="post" action="{{ route('shift.group.del', [], false) }}" onsubmit='return confirm("Confirm delete?")'>
                @csrf
-               <a href="{{ route('shift.group.view', ['id' => $ap->id], false) }}"><button type="button" class="btn btn-xs btn-warning" title="Edit"><i class="fas fa-pencil-alt"></i></button></a>
-               <button type="submit" class="btn btn-xs btn-danger" title="Delete"><i class="fas fa-trash-alt"></i></button>
+               <a href="{{ route('shift.group.view', ['id' => $ap->id], false) }}"><button type="button" class="btn btn-np" title="Edit"><i class="fas fa-pencil-alt"></i></button></a>
+               <button type="submit" class="btn btn-np" title="Delete"><i class="fas fa-trash-alt"></i></button>
                <input type="hidden" name="id" value="{{ $ap->id }}" />
              </form>
            </td>
@@ -43,12 +49,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">Create Shift Grouping</div>
   <div class="panel-body">
-    @if (session()->has('alert'))
-    <div class="alert alert-{{ session()->get('a_type') }} alert-dismissible">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      <strong>{{ session()->get('alert') }}</strong>
-    </div>
-    @endif
+
     <form action="{{ route('shift.group.add', [], false) }}" method="post">
       @csrf
       <div class="row">
@@ -151,6 +152,7 @@
 
   </div>
 </div>
+
 @stop
 
 @section('js')
@@ -174,6 +176,7 @@ $(document).ready(function() {
       }
     ]
   });
+
 
 } );
 
@@ -209,14 +212,6 @@ $('#sfresult').on('show.bs.modal', function(e) {
       alert("An error occured: " + xhr.status + " " + xhr.statusText);
     }
   });
-
-  // sresdt.rows.add([
-  //   ['satu', 'dua', 'tiga'],
-  //   ['empay', 'lima', 'enam']
-  // ]);
-  // sresdt.draw();
-
-
 });
 
 </script>

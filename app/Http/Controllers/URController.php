@@ -107,7 +107,7 @@ echo("error <br/>");
     }
 
     public function gUR($persno,$dt){
-      echo("here");
+    //  echo("here");
     $ur = URHelper::getUserRecordByDate($persno,$dt);
     $u = URHelper::getUser($persno);
 

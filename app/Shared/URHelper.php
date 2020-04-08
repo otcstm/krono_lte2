@@ -7,6 +7,9 @@ use App\OvertimeEligibility;
 use App\StaffPunch;
 use App\SetupCode;
 use App\OvertimeLog;
+use App\OtIndicator;
+use App\Salary;
+
 
 class URHelper
 {
@@ -98,14 +101,60 @@ class URHelper
 // Return the latest user reord for given persno and date
       public static function getUserRecordByDate( $persno,$dt)
       {
+        $otiMaxDate = OtIndicator::where('user_id',$persno)->where('start_date','<=',$dt)->max('start_date');
+        $oti = OtIndicator::where('user_id',$persno)->where('start_date','=',$otiMaxDate)->get()->first();
+        if(!$oti){
+        $oti = new OtIndicator();
+
+        }
+
+        $salMaxDate = Salary::where('user_id',$persno)->where('start_date','<=',$dt)->max('start_date');
+        $sal = Salary::where('user_id',$persno)->where('start_date','=',$salMaxDate)->get()->first();
+        if(!$sal){
+        $sal = new Salary();
+
+        }
+
+
         $urMaxDate = UserRecord::where('user_id',$persno)->where('upd_sap','<=',$dt)->max('upd_sap');
         $ur = UserRecord::where('user_id',$persno)->where('upd_sap','=',$urMaxDate)->get()->first();
+        $ur->ot_hour_exception    = $oti->ot_hour_exception;
+        //$ur->ot_salary_exception  = '0';
+        $ur->ot_salary_exception  = $oti->ot_salary_exception;
+        $ur->allowance            = $oti->allowance;
+        $ur->salary               = $sal->salary;
+      //$urA = $ur->toArray();
+      //  $urA->mergeRecursive(['test'=>'testval']);
+      //dd($ur);
         return $ur;
       }
 // Return the user reord for given persno
       public static function getUser( $persno)
       {
-        $u = User::where('id','=',$persno)->get();
+
+        $u = User::where('id','=',$persno)->first();
+
+        $otiMaxDate = OtIndicator::where('user_id',$persno)->max('start_date');
+        $otiu = OtIndicator::where('user_id',$persno)->where('start_date','=',$otiMaxDate)->get()->first();
+        if(!$otiu){
+        $otiu = new OtIndicator();
+        }
+
+        $salMaxDate = Salary::where('user_id',$persno)->max('start_date');
+        $salu = Salary::where('user_id',$persno)->where('start_date','=',$salMaxDate)->get()->first();
+        if(!$salu){
+        $salu = new Salary();
+
+        }
+
+
+
+        $u->ot_hour_exception    = $otiu->ot_hour_exception;
+        $u->ot_salary_exception  = $otiu->ot_salary_exception;
+        $u->allowance            = $otiu->allowance;
+        $u->salary               = $salu->salary;
+
+
         return $u;
       }
 
