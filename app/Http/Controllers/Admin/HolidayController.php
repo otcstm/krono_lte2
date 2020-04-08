@@ -11,6 +11,9 @@ use App\HolidayLog;
 use Illuminate\Http\Request;
 use DB;
 
+use function GuzzleHttp\json_decode;
+use function GuzzleHttp\json_encode;
+
 class HolidayController extends Controller
 {
     /**

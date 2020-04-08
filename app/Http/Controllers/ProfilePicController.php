@@ -35,8 +35,6 @@ return "success";
     $response = "";
     try{
     $reclient = new Client(["base_uri" => $this->baseuri . 'profile/image/']);
-    
-
     $request = $reclient->request('GET', $staff_no, $this->options)->getBody()->getContents();
     $response = response()->make($request, 200);
     $response->header('Content-Type', 'image/jpeg'); // change this to the download content type.
@@ -46,15 +44,11 @@ return "success";
       //dd($e);
       $blankPicUrl = 'http://ssl.gstatic.com/accounts/ui/avatar_2x.png';
       $reclient = new Client(["base_uri" => $blankPicUrl]);
-    
-
       $request = $reclient->request('GET')->getBody()->getContents();
       $response = response()->make($request, 200);
       $response->header('Content-Type', 'image/jpeg'); // change this to the download content type.
-
-      
-
     }
+    
     return $response;
 
   }
