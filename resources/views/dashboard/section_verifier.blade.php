@@ -1,6 +1,6 @@
 
 <div class="row-eq-height"> 
-  <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
+  {{-- <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
     <div class="box box-solid">
     <div class="box-body">
     <div class="media">
@@ -17,8 +17,8 @@
     <h3 class="box-title text-left">Planned OT Request</h3>
     </div><!-- /.box-header -->
     </div>
-  </div> 
-
+  </div>  --}}
+  
   <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
     <a href="{{ route('ot.verify', [], false) }}">
     <div class="box box-solid">
@@ -28,7 +28,13 @@
     <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px">
   </div>
   <div class="media-body">
-    <h4 class="media-heading">{{ $pending_verification_count }} PENDING</h4>
+    <h4 class="media-heading">
+      @if(isset($pending_verification_count))
+      {{ $pending_verification_count }}                
+      @else
+      0        
+      @endif
+      PENDING</h4>
     <p>VERIFICATION</p>
   </div>
 </div>

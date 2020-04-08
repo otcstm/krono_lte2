@@ -57,11 +57,16 @@
                         </p>
                         <form id="formdate" action="{{route('ot.formdate')}}" method="POST">
                         @csrf
-                        <p>OT Date: <input type="date" id="inputdate" name="inputdate" value=@if($claim ?? '')
-                                "{{$claim->date}}"
+                        <p>OT Date: <input type="text" class='datepicker-here' data-language='en' data-date-format="yyyy-mm-dd" id="inputdate" name="inputdate" 
+                            
+                            {{--@if($claim ?? '')
+                                value="{{$claim->date}}"
                             @elseif($draft ?? '')
-                                "{{date('Y-m-d', strtotime($draft[4]))}}"
-                            @endif required  onkeydown="return false">
+                                value="{{date('Y-m-d', strtotime($draft[4]))}}"
+                            @else
+                                value=""
+                            @endif --}}
+                            required  onkeydown="return false">
                             <!-- <button type="button" id="btn-date" class="btn btn-primary" style="padding: 2px 3px; margin: 0; margin-top: -3px;"><i class="fas fa-share-square"></i></button> -->
                         </p>
                     </form>    
@@ -741,6 +746,38 @@
     }
     // $("#inputdate").attr("min", miny+"-"+minm+"-01");
     $("#inputdate").attr("max", y+"-"+m+"-"+d);
+
+    var noloop = false;
+
+    $('#inputdate').datepicker({
+        language: 'en',
+        maxDate: new Date(y+"-"+m+"-"+d),
+        onSelect: function onSelect(){
+            if(noloop){
+                $("#formdate").submit();
+            }
+        },
+        selectDate: new Date(y+"-"+m+"-"+d),
+            {{--@if($claim ?? '')
+            selectDate : new Date("{{$claim->date}}"),
+            @elseif($draft ?? '')
+            selectDate : new Date("{{date('Y-m-d', strtotime($draft[4]))}}"),
+            @endif--}}
+        // maxDate:  y+"-"+m+"-"+d // Now can select only dates, which goes after today
+    })
+
+    // var defaultd =  $('#inputdate').datepicker().data('datepicker');
+
+    if(!(noloop)){
+    @if($claim ?? '')
+    $('#inputdate').data('datepicker').selectDate(new Date("{{$claim->date}}"));
+    
+    @elseif($draft ?? '')
+
+    $('#inputdate').data('datepicker').selectDate(new Date("{{date('Y-m-d', strtotime($draft[4]))}}"));
+    @endif
+        noloop = true;
+    }
 
     // //when date input is changed
     $("#inputdate").change(function(){
