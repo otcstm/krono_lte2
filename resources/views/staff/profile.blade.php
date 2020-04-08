@@ -15,7 +15,11 @@
         <div class="box-body">
 
         <div class="col-sm-6 col-md-4">
-                        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" class="img-rounded img-responsive" />
+        <img src="{{route('user.image', ['staffno' => $staff_basic->staff_no])}}" alt="" class="img-rounded img-responsive" />
+{{--
+        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" class="img-rounded img-responsive" />
+                    
+                    --}}
                     </div>
                     <div class="col-sm-6 col-md-8">
                         <h4>{{ $staff_basic->name }}</h4>
@@ -61,7 +65,8 @@
             <!-- /.box-header -->
         <div class="box-body">
         <div class="col-sm-6 col-md-4">
-                        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" class="img-rounded img-responsive" />
+        <img src="{{route('user.image', ['staffno' => $direct_report->staff_no])}}" alt="" class="img-rounded img-responsive" />
+
         </div>
                     <div class="col-sm-6 col-md-8">
                         <h4>{{ $direct_report->name }}</h4>
