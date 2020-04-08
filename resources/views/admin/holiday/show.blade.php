@@ -58,7 +58,9 @@
                   <a href="{{ route('holiday.edit',['id'=>$cmain[0]],false) }}" class="btn  btn-np">
                     <i class="fas fa-edit"></i>
                   </a>
-                  <a href="#" class="btn  btn-np" onClick="submitDeleteForm('{{$cmain[0]}}','{{$cmain[2]}}')" holid="{{$cmain[0]}}" holname="{{$cmain[1]}}">
+                  @php( $holname = addcslashes($cmain[2],"'") )
+                
+                  <a href="#" class="btn  btn-np" onClick="submitDeleteForm('{{ $cmain[0] }}','{{ $holname }}')" holid="{{$cmain[0]}}" holname="{{$cmain[1]}}">
                     <i class="fas fa-trash-alt"></i>
                   </a>
                   <span style="color:transparent">
@@ -95,11 +97,13 @@
 
 @endsection
 @section('js')
+
 <script type="text/javascript">
   $("#s_year_id").val('{{$s_year}}');
 
 
 function submitDeleteForm(holid, holname){
+  //alert(holname);
 	var txt;
 	// var r = confirm("Are you sure ? "+holid+" would be destroyed");
 	// if (r == true) {
@@ -110,6 +114,7 @@ function submitDeleteForm(holid, holname){
   // }
   Swal.fire({
       title: 'Are you sure?',
+      
       text: "Delete holiday "+holname+"?",
       icon: 'warning',
       showCancelButton: true,
