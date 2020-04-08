@@ -10,6 +10,7 @@ use App\OvertimePunch;
 use App\StaffPunch;
 use App\WsrChangeReq;
 use App\UserShiftPattern;
+use App\ShiftPlanStaffDay;
 use App\ShiftPattern;
 use App\DayType;
 use App\SapPersdata;

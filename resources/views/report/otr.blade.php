@@ -4,13 +4,15 @@
 @section('title', 'Report')
 @section('content')
 
+
 <h1>Summary of Overtime Report</h1>
 <div class="panel panel-default panel-main">
   <div class="panel panel-default" id="psearch">
     <div class="panel-heading"><strong>Report : Summary of Overtime</strong></div>
     <div class="panel-body">
-      <form action="{{ route('otr.viewOT', [], false) }}" method="post">
+      <form action="{{ route('rep.viewOT', [], false) }}" method="post">
       @csrf
+
 
       <div class="col-lg-6">
         <div class="form-group">
@@ -360,7 +362,7 @@ function clicked(i, t){
       $("#reportn-"+n).removeClass("click");
       $("#reporty-"+n).removeClass("click");
     }
-    
+
     if(t=="n"){
       $("#reportn-"+i).addClass("click");
     }else{
