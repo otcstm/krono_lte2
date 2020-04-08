@@ -24,6 +24,24 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/home', 'MiscController@home')->name('misc.home');
   Route::get('/role', 'Admin\RoleController@index')->name('role.index');
 
+  // work schedule rule
+  Route::get('/workschedule', 'WorkSchedRuleController@wsrPage')->name('staff.worksched');
+  Route::post('/workschedule/edit', 'WorkSchedRuleController@doEditWsr')->name('staff.worksched.edit');
+  Route::get('/workschedule/mycal', 'WorkSchedRuleController@myCalendar')->name('staff.worksched.myc');
+  Route::get('/workschedule/teamcal', 'WorkSchedRuleController@teamCalendar')->name('staff.worksched.teamc');
+  Route::get('/workschedule/listreq', 'WorkSchedRuleController@listChangeWsr')->name('staff.worksched.reqlist');
+  Route::post('/workschedule/approve', 'WorkSchedRuleController@doApproveWsr')->name('staff.worksched.approve');
+  Route::get('/workschedule/getdays', 'WorkSchedRuleController@ApiGetWsrDays')->name('staff.worksched.api.days');
+
+  //guide
+  Route::get('/guide/calendar', 'GuideController@viewCalendar')->name('guide.calendar');
+  Route::get('/guide/calendar/empty', 'GuideController@viewCalendarEmpty')->name('guide.calendar.empty');
+  Route::post('/guide/calendar/empty', 'GuideController@viewCalendarEmpty')->name('guide.calendar.empty');
+  Route::get('/guide/date/calendar', 'GuideController@dateCalendar')->name('guide.datecalendar');
+  Route::post('/guide/date/calendar', 'GuideController@dateCalendar')->name('guide.datecalendar');
+  Route::get('/guide/system', 'GuideController@viewSystem')->name('guide.system');
+  Route::get('/guide/calendar/payment', 'GuideController@viewPaymentCalendar')->name('guide.paymentcalendar');
+
   // // clock-in related OLD
   // Route::get('/punch',      'MiscController@showPunchView')->name('punch.list');
   // Route::post('/punch/in',  'MiscController@doClockIn')->name('punch.in');
@@ -55,10 +73,24 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get( '/admin/state/show'     ,'Admin\StateController@show'   )->name('state.show');
   Route::post( '/admin/state/update'  ,'Admin\StateController@update'   )->name('state.update');
   //end state admin
+
+
+  //Announcement management
+  Route::get('/announcement/close', 'Admin\AnnouncementController@close')->name('announce.close');
+  Route::get('/admin/announcement', 'Admin\AnnouncementController@show')->name('announcement.show');
+  Route::get('/admin/announcement/form', 'Admin\AnnouncementController@form')->name('announcement.form');
+  Route::get('/admin/announcement/add', 'Admin\AnnouncementController@add')->name('announcement.add');
+  Route::post('/admin/announcement/edit', 'Admin\AnnouncementController@edit')->name('announcement.edit');
+  Route::post('/admin/announcement/save', 'Admin\AnnouncementController@save')->name('announcement.save');
+  Route::post('/admin/announcement/create', 'Admin\AnnouncementController@create')->name('announcement.create');
+  Route::post('/admin/announcement/delete', 'Admin\AnnouncementController@delete')->name('announcement.delete');
+
+
   //User management
   Route::get('/admin/staff', 'Admin\StaffController@showMgmt')->name('staff.list.mgmt');
   Route::post('/admin/staff/edit', 'Admin\StaffController@updateMgmt')->name('staff.edit.mgmt');
   //User authorization
+  Route::get('/admin/staff/auth/empty', 'Admin\StaffController@emptystaffauth')->name('staff.list.auth.empty');
   Route::get('/admin/staff/auth', 'Admin\StaffController@showRole')->name('staff.list.auth');
   Route::post('/admin/staff/auth/edit', 'Admin\StaffController@updateRole')->name('staff.edit.auth');
   //Role management
@@ -106,6 +138,12 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/admin/overtime/expiry/active', 'Admin\OvertimeMgmtController@active')->name('oe.active');
   Route::get('/admin/overtime/expiry/getexpiry', 'Admin\OvertimeMgmtController@getExpiry')->name('oe.getexpiry');
   Route::get('/admin/overtime/expiry/getlast', 'Admin\OvertimeMgmtController@getLast2')->name('oe.expirygetlast');
+
+  Route::get('/admin/overtime/eligibility', 'Admin\OvertimeMgmtController@eligibilityshow')->name('oe.eligibility.show');
+  Route::post('/admin/overtime/eligibility/add', 'Admin\OvertimeMgmtController@eligibilityadd')->name('oe.eligibility.add');
+  Route::post('/admin/overtime/eligibility/remove', 'Admin\OvertimeMgmtController@eligibilityremove')->name('oe.eligibility.remove');
+  Route::post('/admin/overtime/eligibility/update', 'Admin\OvertimeMgmtController@eligibilityupdate')->name('oe.eligibility.update');
+
   //Payroll Group
   Route::get( '/admin/pygroup','Admin\PayrollgroupController@index')->name('pygroup.index');
   Route::get('/admin/pygroup/create', 'Admin\PayrollgroupController@create')->name('pygroup.create');
@@ -195,7 +233,12 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/admin/verifier/ajaxAdvSearchSubord', 'UserVerifierController@ajaxAdvSearchSubord')->name('verifier.ajaxAdvSearchSubord');
   Route::post('/admin/verifier/advSearch', 'UserVerifierController@advSearchSubord')->name('verifier.advSearchSubord');
 
+ //ProfilePics
+ Route::get( '/user/image/{staffno}','ProfilePicController@getStaffImage')->name('user.image');
+
+
 });
+
 Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
   Route::get('/', 'ShiftPatternController@index')->name('index');
   Route::post('/add', 'ShiftPatternController@addShiftPattern')->name('add');
@@ -205,6 +248,7 @@ Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => '
   Route::post('/day/push', 'ShiftPatternController@pushDay')->name('day.add');
   Route::post('/day/pop', 'ShiftPatternController@popDay')->name('day.del');
 });
+
 Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth']], function () {
   Route::get('/', 'ShiftPlanController@index')->name('index');
   // ShiftPlan crud
@@ -216,15 +260,23 @@ Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth
   // shift groups
   Route::get('/group', 'ShiftGroupController@index')->name('group');
   Route::post('/group/add', 'ShiftGroupController@addGroup')->name('group.add');
+  Route::post('/group/addsp', 'ShiftGroupController@addSpToGroup')->name('group.add.sp');
+  Route::post('/group/delsp', 'ShiftGroupController@delSpFromGroup')->name('group.del.sp');
   Route::get('/group/view', 'ShiftGroupController@viewGroup')->name('group.view');
   Route::post('/group/delete', 'ShiftGroupController@delGroup')->name('group.del');
   Route::post('/group/edit', 'ShiftGroupController@editGroup')->name('group.edit');
   Route::post('/staff/add', 'ShiftGroupController@addStaff')->name('staff.add');
   Route::post('/staff/del', 'ShiftGroupController@removeStaff')->name('staff.del');
+  Route::get('/group/api/sstaff', 'ShiftGroupController@ApiSearchStaff')->name('group.api.searchstaff');
+  Route::get('/group/api/gname', 'ShiftGroupController@ApiGetStaffName')->name('group.api.getname');
+
+
   // ShiftPlanStaff
   Route::get('/staff', 'ShiftPlanController@staffInfo')->name('staff');
   Route::post('/staff/push', 'ShiftPlanController@staffPushTemplate')->name('staff.push');
   Route::post('/staff/pop', 'ShiftPlanController@staffPopTemplate')->name('staff.pop');
+
+ 
 
 });
 

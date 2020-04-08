@@ -16,24 +16,24 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="row">
-                                <div class="col-md-4">State</div><div class="col-md-6">: <b>{{$claim->state->state_descr}}</b></div>
-                                <div class="col-md-4">Salary Exception</div><div class="col-md-6">: <b>
+                                <div class="col-md-4">State</div><div class="col-md-8">: <b>{{str_replace(')', '', str_replace('Malaysia (', '', $claim->state->state_descr))}}</b></div>
+                                <div class="col-md-4">Salary Exception</div><div class="col-md-8">: <b>
                                     @if($claim->URecord->ot_salary_exception=="X")
                                         Yes
                                     @else
                                         No
                                     @endif
                                 </b></div>
-                                <div class="col-md-4">OT Date</div><div class="col-md-6">: <b>{{date('d.m.Y', strtotime($claim->date))}}</b></div>
-                                <div class="col-md-4">Total Hours/Minute</div><div class="col-md-6">: <b>{{$claim->total_hour}}h/{{$claim->total_minute}}m</b></div>
+                                <div class="col-md-4">OT Date</div><div class="col-md-8">: <b>{{date('d.m.Y', strtotime($claim->date))}}</b></div>
+                                <div class="col-md-4">Total Hours/Minute</div><div class="col-md-8">: <b>{{$claim->total_hour}}h {{$claim->total_minute}}m</b></div>
                                 </div>
                         </div>
                         <div class="col-md-6">
                             <div class="row">
-                                <div class="col-md-4">Charge Type</div><div class="col-md-6">: <b>{{$claim->charge_type}}</b></div>
-                                <div class="col-md-4">Verifier</div><div class="col-md-6">: <b>{{$claim->verifier->name}}</b></div>
-                                <div class="col-md-4">Approver</div><div class="col-md-6">: <b>{{$claim->approver->name}}</b></div>
-                                <div class="col-md-4">Estimated Amount</div><div class="col-md-6">: <b>RM{{$claim->amount}}</b></div>
+                                <div class="col-md-4">Charge Type</div><div class="col-md-8">: <b>{{$claim->charge_type}}</b></div>
+                                <div class="col-md-4">Verifier</div><div class="col-md-8">: <b>{{$claim->verifier->name}}</b></div>
+                                <div class="col-md-4">Approver</div><div class="col-md-8">: <b>{{$claim->approver->name}}</b></div>
+                                <div class="col-md-4">Estimated Amount</div><div class="col-md-8">: <b>RM {{$claim->amount}}</b></div>
                             </div>
                         </div>
                     </div>
@@ -60,23 +60,40 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($claim->detail as $no => $details)
-                                <tr>
-                                    <td>{{++$no}}</td>
-                                    <td>{{ date('Hi', strtotime($details->start_time)) }}</td>
-                                    <td>{{ date('Hi', strtotime($details->end_time)) }}</td>
-                                    <td>{{ $details->hour }}h/{{$details->minute}}</td>
-                                    <td>
-                                        @if($details->clock_in!="")
-                                            System Input
-                                        @else 
-                                            Manual Input
+                                @if(count($claim->detail))
+                                    @php($nox = 0)
+                                    @foreach($claim->detail as $no => $details)
+                                        @php(++$nox)
+                                        @if($details->checked=="Y")
+                                        <tr>
+                                            <td>{{++$no}}</td>
+                                            <td>{{ date('Hi', strtotime($details->start_time)) }}</td>
+                                            <td>{{ date('Hi', strtotime($details->end_time)) }}</td>
+                                            <td>{{ $details->hour }}h {{$details->minute}}m</td>
+                                            <td>
+                                                @if($details->clock_in!="")
+                                                    System Input
+                                                @else 
+                                                    Manual Input
+                                                @endif
+                                            </td>
+                                            <td><a href = "https://www.google.com/maps/search/?api=1&query={{$details->in_latitude}},{{$details->in_longitude}}" target="_blank" style="font-weight: bold; color: #143A8C">{{ $details->in_latitude }} {{ $details->in_longitude }}</a></td>
+                                            <td>{{$details->justification}}</td>
+                                        </tr>
+                                        @else
+                                        @php(--$nox)
                                         @endif
-                                    </td>
-                                    <td>{{ $details->in_latitude }} {{ $details->out_longitude }}</td>
-                                    <td>{{$details->justification}}</td>
-                                </tr>
-                                @endforeach
+                                    @endforeach
+                                    @if($nox==0)
+                                    <tr>
+                                        <td colspan="7"><i>Not Available</i></td> 
+                                    </tr>
+                                    @endif
+                                @else
+                                    <tr>
+                                        <td colspan="7"><i>Not Available</i></td> 
+                                    </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -93,7 +110,8 @@
         @if(count($claim->file)!=0)
                     @foreach($claim->file as $f=>$singlefile)
                         @php(++$f)
-                        <a href="{{route('ot.file', ['tid'=>$singlefile->id], false)}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9; margin-bottom: 10px;"></a>
+                        <a href="{{ asset('storage/'.$singlefile->filename)}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9; margin-bottom: 10px;"></a>
+                        <!-- <a href="{{--route('ot.file', ['tid'=>$singlefile->id], false)--}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9; margin-bottom: 10px;"></a> -->
                     @endforeach
         @else <p>No attachment</p>            
         @endif
@@ -113,14 +131,14 @@
                                 <tr>
                                     <th width="10%">Date</th>
                                     <th width="10%">Time</th>
-                                    <th width="25%">Action By</th>
+                                    <th width="25%">Action by</th>
                                     <th>Message</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($claim->log as $singleuser)
                                 <tr>
-                                    <td>{{date("m.d.Y", strtotime($singleuser->created_at))}}</td>
+                                    <td>{{date("d.m.Y", strtotime($singleuser->created_at))}}</td>
                                     <td>{{date("Hi", strtotime($singleuser->created_at))}}</td>
                                     <td>{{$singleuser->name->name}}</td>
                                     <td>{{$singleuser->message}}</td>
@@ -144,6 +162,8 @@
             <a href="{{route('ot.verifyrept')}}"><button type="button" class="btn btn-p btn-primary" style="display: inline">BACK</button></a>
             @elseif(session()->get('back')=="approver")
             <a href="{{route('ot.approval')}}"><button type="button" class="btn btn-p btn-primary" style="display: inline">BACK</button></a>
+            @elseif(session()->get('back')=="admin")
+            <a href="{{route('ot.admin')}}"><button type="button" class="btn btn-p btn-primary" style="display: inline">BACK</button></a>
             @elseif(session()->get('back')=="approverrept")
             <a href="{{route('ot.approvalrept')}}"><button type="button" class="btn btn-p btn-primary" style="display: inline">BACK</button></a>
             @endif

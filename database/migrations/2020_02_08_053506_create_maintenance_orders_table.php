@@ -22,6 +22,7 @@ class CreateMaintenanceOrdersTable extends Migration
             $table->string('company_code', 10)->nullable();
             $table->string('approver_id', 20)->nullable();
             $table->decimal('budget',10,2)->default(0.00);
+            $table->dateTime('upd_dm')->nullable();
             $table->timestamps();
         });
     }

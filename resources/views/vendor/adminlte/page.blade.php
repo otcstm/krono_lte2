@@ -56,6 +56,78 @@
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">    
+
+        <!-- Tasks: style can be found in dropdown.less -->
+        <li class="dropdown tasks-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+              <i class="glyphicon glyphicon-ok-sign"></i>
+            @if(session('to_do_list')!=null)     
+            @php $to_do_list = session('to_do_list'); @endphp
+              @if($to_do_list->count() > 0)
+              <span class="label label-danger">{{ $to_do_list->count() }}</span>
+              @endif
+              @endif
+            </a>
+            <ul class="dropdown-menu">
+              <!-- <li class="header">You have {{ $to_do_list->count() }} tasks</li> -->
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">      
+            @if(session('to_do_list')!=null)     
+            @php $to_do_list = session('to_do_list'); @endphp
+              @if($to_do_list->count() > 0)
+                  @foreach($to_do_list as $to_do_list_row)
+                  <li><!-- Task item -->
+                    <a href="#">
+                      {{ $to_do_list_row->item3 }}
+                        <small class="label label-default pull-right">{{ $to_do_list->count() }}</small>
+                    </a>
+                  </li>
+                  <!-- end task item -->
+                  @endforeach
+              @else
+                  <li><!-- Task item -->
+                    <a href="#">
+                        Pending Approval 
+                        <small class="label label-default pull-right">{{ $to_do_list->count() }}</small>
+                    </a>
+                  </li>
+                  {{-- <li><!-- Task item -->
+                    <a href="#">
+                        Manpower Request <small class="label label-default pull-right">{{ $to_do_list->count() }}</small>
+                    </a>
+                  </li> --}}
+
+              @endif
+              @endif
+                </ul>
+              </li>
+            </ul>
+         </li>
+
+         <!-- Notifications: style can be found in dropdown.less -->
+         <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <i class="glyphicon glyphicon-bell"></i>
+              <!-- <span class="label label-warning">10</span> -->
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You dont have new notifications</li>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-users text-aqua"></i> Update on covid-19
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+         </li>
+         
+
+
           <!-- User Account: style can be found in dropdown.less -->
           <li class="user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -96,16 +168,17 @@
         <div class="pull-left image">
           <img src="/vendor/images/useravatar.png" class="img-circle" alt="User Image">
         </div>
-        <div class="pull-left info">
+        <div class=" info">
           <p class="wraptext">{{ Auth::user()->name }}</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          <p class="profile"><a class="btn-user" href="{{ route('staff.profile',[],false) }}">Profile</a></p>
         </div>
       </div>
     
-      <div class="user-panel">
-      <a href="{{ route('staff.profile',[],false) }}" class="btn btn-xs btn-p btn-primary btn-outline">
+      <!-- <div class="user-panel">
+        <a href="{{ route('staff.profile',[],false) }}" class="image btn btn-xs btn-p btn-primary btn-outline">
         Profile</a>     
-      </div>     
+      </div>      -->   
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu" data-widget="tree">
                     @each('adminlte::partials.menu-item', $adminlte->menu(), 'item')
@@ -121,21 +194,48 @@
         <!-- <div class="content-wrapper" style="background: transparent"> -->
         <div class="content-wrapper">
         
-            <div class="bckg">
+            <!-- <div class="bckg">
                 <img src="/vendor/ot-assets/main-bg.png" class="bckg-img">
-            </div>
+            </div> -->
             @if(config('adminlte.layout') == 'top-nav')
             <div class="container">
             @endif
 
+
+
+
+
+
+
+
+        @if(Session::get('announcementx'))
+            @if(Session::get('announcement')!=null)
+                <div class="announcement text-center">
+                    <p>{{Session::get('announcement')->title}}</p>
+                    <button id="announcement" class="btn btn-announcement" data-title="{{Session::get('announcement')->title}}" data-announcement="{{nl2br(Session::get('announcement')->announcement)}}" onclick="return openannouncement();">Click Here</button>
+                    <button id="x" class="btn btn-announcement-x" onclick="return closeannouncement();"><i class="fas fa-times"></i></button>
+                </div>
+            @endif
+        @endif
+
+
+
+
+
+
+
+
+
+
+
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 @yield('content_header')
+                
             </section>
 
             <!-- Main content -->
             <section class="content">
-
                 @yield('content')
 
             </section>
@@ -181,8 +281,37 @@
 @stop
 
 @section('adminlte_js')
+
     <script src="{{ secure_asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
     <script src="{{ secure_asset('vendor/bootstrap-timepicker/js/bootstrap-timepicker.js') }}"></script>
     @stack('js')
     @yield('js')
+    
+
+    <script type="text/javascript">
+        function openannouncement(){
+            var title = $("#announcement").data('title');
+            var announcement = $("#announcement").data('announcement');
+            Swal.fire({
+                title: 'Announcement',
+                html: '<div style="max-height: 60vh; overflow-y: scroll;  overflow-x: hidden;">'+announcement+'</div>',
+                customClass: 'initial',
+                showCancelButton: false,
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'CLOSE',
+            })
+        }
+
+        function closeannouncement(){
+            $.ajax({
+            type: "GET",
+            url: '{{ route("announce.close", [], false)}}',
+                success: function(resp) {
+                    $(".announcement").addClass("announcement-close");
+                    $("#x").css("display","none");
+                
+                }  
+            });
+        }
+    </script>
 @stop

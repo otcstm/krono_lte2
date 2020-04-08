@@ -23,6 +23,10 @@
     <link rel="stylesheet" href="{{ secure_asset('vendor/jqueryui/jquery-ui.theme.css') }}">
     <link rel="stylesheet" href="{{ secure_asset('vendor/custom.css') }}">
 
+    <link rel="stylesheet" href="{{ secure_asset('vendor/simditor/simditor.css') }}">
+
+    
+
     @yield('adminlte_css')
 
     <!--[if lt IE 9]>
@@ -31,9 +35,14 @@
     <![endif]-->
 
     <!-- Google Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"> -->
+
     
-    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Cousine&display=swap" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=B612+Mono&display=swap" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet"> -->
 </head>
 <body class="hold-transition @yield('body_class')">
     
@@ -53,6 +62,12 @@
 <script src="{{ secure_asset('vendor/jqueryui/jquery-ui.min.js') }}"></script>
 <script src="{{ secure_asset('vendor/jquery/dist/jquery.slimscroll.min.js') }}"></script>
 <script src="{{ secure_asset('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+
+
+<script src="{{ secure_asset('vendor/simditor/module.js') }}"></script>
+<script src="{{ secure_asset('vendor/simditor/hotkeys.js') }}"></script>
+<script src="{{ secure_asset('vendor/simditor/simditor.js') }}"></script>
+
 
 @include('adminlte::plugins', ['type' => 'js'])
 

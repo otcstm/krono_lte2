@@ -125,8 +125,11 @@ class UserVerifierController extends Controller
         }
         
         $data = $data->orderBy('name', 'asc');        
-        $data = $data->get();
+        $data = $data->get();       
+        //$data = $data->first();
         //$data = $data->toSql();
+        //$data = $data->companyid->company_descr;
+        //dd($data->companyid->company_descr);
 
         return response()->json($data);
     }

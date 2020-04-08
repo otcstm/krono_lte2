@@ -25,6 +25,26 @@
                 {{ $item['text'] }}
             </span></a>
     </li> -->
+@elseif (isset($item['estaffauth']))
+    <li class="{{ $item['class'] }}">
+        <a href="{{ route('staff.list.auth.empty') }}"
+           @if (isset($item['target'])) target="{{ $item['target'] }}" @endif
+        >
+        <i class="{{ $item['icon'] ?? 'far fa-fw fa-circle' }} {{ isset($item['icon_color']) ? 'text-' . $item['icon_color'] : '' }}"></i>
+            <span>
+                {{ $item['text'] }}
+            </span></a>
+    </li>
+@elseif (isset($item['guide']))
+    <li class="{{ $item['class'] }}">
+        <a href="{{ route('guide.calendar.empty') }}"
+           @if (isset($item['target'])) target="{{ $item['target'] }}" @endif
+        >
+        <i class="{{ $item['icon'] ?? 'far fa-fw fa-circle' }} {{ isset($item['icon_color']) ? 'text-' . $item['icon_color'] : '' }}"></i>
+            <span>
+                {{ $item['text'] }}
+            </span></a>
+    </li>
 @elseif (isset($item['otnew']))
     <li class="{{ $item['class'] }}">
         <a href="{{ route('ot.formnew') }}"
@@ -36,7 +56,7 @@
             </span></a>
     </li>
 @elseif (isset($item['otm']))
-    <li class="{{ $item['class'] }}">
+    <!-- <li class="{{ $item['class'] }}">
         <a href="{{ route('oe.otm') }}"
            @if (isset($item['target'])) target="{{ $item['target'] }}" @endif
         >
@@ -44,7 +64,7 @@
             <span>
                 {{ $item['text'] }}
             </span></a>
-    </li>
+    </li> -->
 @elseif (isset($item['otv']))
     <li class="{{ $item['class'] }}">
         <a href="{{ route('ot.adminview') }}"

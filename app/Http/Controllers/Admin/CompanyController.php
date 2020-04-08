@@ -48,7 +48,7 @@ class CompanyController extends Controller
 
   public function update(Request $req)
     {
-    //  dd($req->all());
+    //  dd($req->eid);
       $company_var = Company::find($req->eid);
       $old = $company_var->company_descr;
             $company_var->company_descr = $req->editdescr;
@@ -59,7 +59,7 @@ class CompanyController extends Controller
             return redirect(route('company.index', [], false))->with([
               'feedback' => true,
               'feedback_text' => "Company " .$old. " has successfully been updated to ".$company_var->company_descr.".",
-              'feedback_title' => "Successfully Deleted"
+              'feedback_title' => "Successfully Updated"
             ]);
 
     }
@@ -75,7 +75,7 @@ class CompanyController extends Controller
       return redirect(route('company.index', [], false))->with([
         'feedback' => true,
         'feedback_text' => "Company ".$cm->company_descr." has successfully been deleted.",
-        'feedback_title' => "Successfully Updated"
+        'feedback_title' => "Successfully Deleted"
     ]);
   }
   }

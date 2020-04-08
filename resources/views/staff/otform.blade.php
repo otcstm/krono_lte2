@@ -48,11 +48,11 @@
                         </p>
                         <p>State Calendar: 
                             @if($claim ?? '') 
-                                {{$claim->state->state_descr}}
+                                {{str_replace(')', '', str_replace('Malaysia (', '', $claim->state->state_descr))}}
                             @elseif($draft ?? '') 
-                                {{$draft[7]}} 
+                                {{str_replace(')', '', str_replace('Malaysia (', '', $draft[7]))}}
                             @else 
-                                {{Auth::user()->stateid->state_descr}}
+                                {{str_replace(')', '', str_replace('Malaysia (', '', Auth::user()->stateid->state_descr))}} {{--draft{{Auth::user()->stateid->state_descr}}--}}
                             @endif
                         </p>
                         <form id="formdate" action="{{route('ot.formdate')}}" method="POST">
@@ -73,7 +73,7 @@
                             @else 
                                 N/A
                             @endif</p>   
-                        @if(($c ?? '')||($d ?? ''))
+                        @if(($c ?? '')||($d ?? '')||($q ?? ''))
                             @php($expiry = true)
                             @if(($claim ?? ''))
                                 @if($claim->date_expiry==null)
@@ -87,14 +87,6 @@
                             @if(!(($claim ?? '')||($draft ?? '')))
                                 <p>Charging type: {{$claim->charge_type}}</p>
                             @endif
-                        @elseif($q ?? '')
-                            <p>Query Message: 
-                                @foreach($claim->log as $logs) 
-                                    @if(strpos($logs->message,"Queried")!==false) 
-                                        @php($query = $logs->message) 
-                                    @endif 
-                                @endforeach 
-                                {{str_replace('"', '', str_replace('Queried with message: "', '', $query))}}</p>
                         @endif
                     </div>
                 </div>
@@ -138,6 +130,15 @@
                             N/A
                         @endif
                     </p>
+                    @if($q ?? '')
+                        <p>Query Message: 
+                            @foreach($claim->log as $logs) 
+                                @if(strpos($logs->message,"Queried")!==false) 
+                                    @php($query = $logs->message) 
+                                @endif 
+                            @endforeach 
+                            {{str_replace('"', '', str_replace('Queried with message: "', '', $query))}}</p>
+                    @endif
                     {{--<!-- <p>Estimated Amount: RM
                         @if($claim ?? '') 
                             {{$claim->amount}} 
@@ -146,8 +147,8 @@
                         @endif</p> -->--}}
                 </div>
                 <div class="col-md-12">
-                 @if(($c ?? '')||($d ?? ''))
-                    @if(($claim ?? '')||($draft ?? ''))
+                 @if(($c ?? '')||($d ?? '')||($q ?? ''))
+                    {{--@if(($claim ?? '')||($draft ?? ''))--}}
                         @if($expiry)
                         <span style="color: red">
                             <p>Submission Due Date: 
@@ -158,9 +159,9 @@
                                 @endif Unsubmitted claims will be deleted after the due date</p>
                         </span>
                         @endif
-                    @else
-                        <p>Charging type: {{$claim->charge_type}}</p>
-                    @endif
+                    {{--@else--}}
+                        <!-- <p>Charging type: {{--$claim->charge_type--}}</p> -->
+                    {{--@endif--}}
                 @endif
                 </div>
             </div>
@@ -244,7 +245,7 @@
                                             @endif
                                             @if($s)
                                                 @if(($c ?? '')||($d ?? '')||($q ?? ''))
-                                                    <td><input type="checkbox" id="inputcheck-{{++$no}}"
+                                                    <td><input type="checkbox" id="inputcheck-{{++$no}}" class="check-{{$no}}-0"
                                                         @if($singleuser->checked=="Y")
                                                             checked
                                                         @endif >
@@ -264,7 +265,7 @@
                                                 <td>
                                                     @if(($c ?? '')||($d ?? '')||($q ?? ''))
                                                         <span id="oldds-{{$no}}" class="hidden">{{date('H:i', strtotime($singleuser->start_time))}}</span>
-                                                        <input style="width: 40px" id="inputstart-{{$no}}" name="inputstart[]" type="text" class="timepicker check-{{$no}} check-{{$no}}-0 @if($singleuser->checked=="N") hidden @endif" 
+                                                        <input style="width: 40px" id="inputstart-{{$no}}" name="inputstart[]" type="text" class="timepicker check-{{$no}} check-{{$no}}-1 @if($singleuser->checked=="N") hidden @endif" 
                                                             data-clock_in="{{ date('H:i', strtotime($singleuser->clock_in))}}"
                                                             data-start_time="{{ date('H:i', strtotime($singleuser->start_time))}}"
                                                             @if($singleuser->clock_in!="")
@@ -281,7 +282,7 @@
                                                 <td>
                                                     @if(($c ?? '')||($d ?? '')||($q ?? ''))
                                                         <span id="oldde-{{$no}}" class="hidden">{{date('H:i', strtotime($singleuser->end_time))}}</span>
-                                                        <input style="width: 40px" id="inputend-{{$no}}" name="inputend[]" type="text" class="timepicker check-{{$no}} check-{{$no}}-1 @if($singleuser->checked=="N") hidden @endif" 
+                                                        <input style="width: 40px" id="inputend-{{$no}}" name="inputend[]" type="text" class="timepicker check-{{$no}} check-{{$no}}-2 @if($singleuser->checked=="N") hidden @endif" 
                                                             data-clock_out="{{ date('H:i', strtotime($singleuser->clock_out))}}"
                                                             data-end_time="{{ date('H:i', strtotime($singleuser->end_time))}}"
                                                             value="{{ date('H:i', strtotime($singleuser->end_time))}}" required>
@@ -297,7 +298,7 @@
                                                     <span id="fixdm-{{$no}}" class="hidden">{{$singleuser->minute}}</span>
                                                     <span id="olddh-{{$no}}" class="hidden">{{$singleuser->hour}}</span>
                                                     <span id="olddm-{{$no}}" class="hidden">{{$singleuser->minute}}</span>
-                                                    <span id="inputduration-{{$no}}">{{ $singleuser->hour }}h/{{$singleuser->minute}}</span>
+                                                    <span id="inputduration-{{$no}}">{{ $singleuser->hour }}h {{$singleuser->minute}}m</span>
                                                 </td>
                                                 <td>
                                                     @if($singleuser->clock_in!="")
@@ -306,10 +307,10 @@
                                                         Manual
                                                     @endif
                                                 </td>
-                                                <td>@if($singleuser->clock_in=="") Not Applicable @else {{ $singleuser->in_latitude }} {{ $singleuser->out_longitude }} @endif</td>
+                                                <td>@if($singleuser->clock_in=="") - @else <a href = "https://www.google.com/maps/search/?api=1&query={{$singleuser->in_latitude}},{{$singleuser->in_longitude}}" target="_blank" style="font-weight: bold; color: #143A8C">{{ $singleuser->in_latitude }} {{ $singleuser->in_longitude }}</a> @endif</td>
                                                 <td>
                                                     @if(($c ?? '')||($d ?? '')||($q ?? ''))
-                                                        <textarea rows = "1" cols = "60" type="text" id="inputremark-{{$no}}" name="inputremark[]" placeholder="Input remark" class="check-{{$no}} check-{{$no}}-2 @if($singleuser->checked=="N") hidden @endif" style="resize: none" @if($singleuser->checked=="Y") required  @endif>{{$singleuser->justification}}</textarea>
+                                                        <textarea rows = "1" cols = "60" type="text" id="inputremark-{{$no}}" name="inputremark[]" placeholder="Input remark" class="check-{{$no}} check-{{$no}}-3 @if($singleuser->checked=="N") hidden @endif" style="resize: none" @if($singleuser->checked=="Y") required  @endif>{{$singleuser->justification}}</textarea>
                                                         @if($singleuser->checked=="N")
                                                             {{$singleuser->justification}}
                                                         @endif
@@ -351,11 +352,11 @@
                                     <span id="inputduration-0"></span>
                                 </td>
                                 <td>Manual</td>
-                                <td>Not Applicable</td>
+                                <td>-</td>
                                 <td><textarea rows = "1" cols = "60" type="text"  id="inputremark-0" name="inputremarknew" placeholder="Input remark" style="resize: none" class="check-0 check-0-2"></textarea></td>
                                 <td>
                                     <!-- <button type="button" class="btn btn-primary" id="btn-add"><i class="fas fa-save"></i></button> -->
-                                    <button type="button" class="btn btn-np" id="cancel" style="display: inline"><i class="fas fa-trash"></i></button>
+                                    <button type="button" class="btn btn-np" id="cancel" style="display: inline"><i class="fas fa-trash-alt"></i></button>
                                 </td>
                             </tr>
                         </tbody>  
@@ -368,7 +369,7 @@
                         <br>* Make sure your PDF document is <u>not password protected</u> and <u>not corrupted</u> </p>
                     </small></div> -->
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-10">
                             <div class="form-group">
                                 
                                 <div class="row" style="margin-bottom: 5px;">
@@ -380,20 +381,13 @@
                                             @if($claim ?? '')
                                                 {{$claim->charge_type}}
                                             @endif" required>
-                                            <option hidden disabled value="" 
-                                                @if($claim ?? '') 
-                                                    @if($claim->charge_type=="") 
-                                                        selected 
-                                                    @endif 
-                                                @else 
-                                                    selected
-                                                @endif>Select Charge Type
-                                            </option>
                                             <option value="Own Cost Center" 
                                                 @if($claim ?? '') 
                                                     @if($claim->charge_type=="Own Cost Center")
                                                         selected
                                                     @endif 
+                                                @else 
+                                                    selected
                                                 @endif>OWN COST CENTER</option>
                                             <option value="Project" 
                                                 @if($claim ?? '') 
@@ -430,91 +424,219 @@
                                         </select> 
                                     </div>
                                 </div>
-                                @if($claim ?? '')
-                                    <div id="owncostcenter" 
-                                        @if(!(in_array($claim->charge_type, $array = array("Own Cost Center", "Internal Order", "Maintenance Order", "Other Cost Center"))))
+
+                                <!-- company code-->
+                                <div
+                                    @if($claim ?? '')
+                                        @if(in_array($claim->charge_type, $array = array("Own Cost Center")))
                                             style="display: none" 
-                                        @endif>
-                                        <div class="row" style="margin-bottom: 5px;">
-                                            <div class="col-md-3">
-                                                <label>Type:</label>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <select class="form-select" name="charging" id="charging" 
-                                                    @if($claim->charge_type!="Project") 
-                                                        required 
-                                                    @endif>
-                                                    <option value="ATAC07">ATAC07</option>
-                                                </select> 
-                                            </div>
+                                        @endif
+                                    @elseif($draft ?? '')
+                                        style="display: none" 
+                                    @endif >
+                                    <div class="row" style="margin-bottom: 5px;">
+                                        <div class="col-md-3">
+                                            <label>Company Code:</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <select class="form-select" name="compn" id="compn" @if($claim ?? '') @if($claim->charge_type!="Own Cost Center") required @endif @endif>
+                                                @if($claim ?? '')
+                                                    <option value="" @if($claim->company_code==NULL) selected @endif hidden>Select company code</option>
+                                                    @if($compn!=null)
+                                                        @foreach($compn as $singlecompn)
+                                                            @if($claim->charge_type=="Other Cost Center") 
+                                                                <option value="{{$singlecompn->company_id}}" @if($claim->company_id==$singlecompn->company_id) selected @endif>{{$singlecompn->company_id}}</option>
+                                                            @else
+                                                                <option value="{{$singlecompn->company_code}}" @if($claim->company_id==$singlecompn->company_code) selected @endif>{{$singlecompn->company_code}}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+                                                @endif
+                                            </select> 
                                         </div>
                                     </div>
-                                    <div id="project" 
-                                        @if($claim->charge_type!="Project")
-                                            style="display: none" 
-                                        @endif>
-                                        <div class="row" style="margin-bottom: 5px;">
-                                            <div class="col-md-3">
-                                                <label>Type:</label>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <select class="form-select" name="type" id="type" 
-                                                    @if($claim->charge_type=="Project") 
-                                                        required 
-                                                    @endif>
-                                                    <option value="TMAC/190001">TMAC/190001</option>
-                                                </select> 
-                                            </div>
-                                        </div>
-                                        <div class="row" style="margin-bottom: 5px;">
-                                            <div class="col-md-3">
-                                                <label>Project:</label>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <select class="form-select" name="header" id="header" 
-                                                    @if($claim->charge_type=="Project")
-                                                        required
-                                                    @endif>
-                                                    <option value="CNTW">CNTW</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row" style="margin-bottom: 5px;">
-                                            <div class="col-md-3">
-                                                <label>Code:</label>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <select class="form-select" name="code" id="code" 
-                                                    @if($claim->charge_type=="Project")
-                                                        required
-                                                    @endif>
-                                                    <option value="4000047">4000047</option>
-                                                </select> 
-                                            </div>
-                                        </div>
-                                        <div class="row" style="margin-bottom: 5px;">
-                                            <div class="col-md-3">
-                                                <label>Network Header:</label>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <select class="form-select" name="activity" id="activity" 
-                                                    @if($claim->charge_type=="Project") 
-                                                        required
-                                                    @endif>
-                                                    <option value="PRJ123124">PRJ123124</option>
-                                                </select> 
-                                            </div>
-                                        </div>
+                                </div>
                                 
+                                <!-- cost center -->
+                                <div
+                                    {{--@if($claim ?? '')
+                                        @if(!(in_array($claim->charge_type, $array = array("Own Cost Center", "Other Cost Center"))))
+                                            style="display: none" 
+                                        @endif
+                                    @endif--}} >
+                                    <div class="row" style="margin-bottom: 5px;">
+                                        <div class="col-md-3">
+                                            <label>Cost Center:</label>
                                         </div>
+                                        <div class="col-md-9">
+                                            <select class="form-select" name="costc" id="costc" 
+                                                @if($claim ?? '')
+                                                    @if(($claim->charge_type=="Other Cost Center")&&($costc!=null)))
+                                                        required 
+                                                    @endif
+                                                    @if(($claim->charge_type=="Own Cost Center")||($costc==null))
+                                                        disabled 
+                                                    @endif
+                                                @elseif($draft ?? '')
+                                                disabled
+                                                @endif>
+                                                @if($claim ?? '')
+                                                    @if($claim->charge_type=="Own Cost Center") 
+                                                        <option value="{{$claim->costcenter}}">{{$claim->costcenter}}</option>
+                                                    @else
+                                                        <option value="" @if($claim->other_costcenter==NULL) selected @endif hidden>Select cost center</option>
+                                                        @if($costc!=null)
+                                                            @foreach($costc as $singlecostc)
+                                                                @if($claim->charge_type=="Other Cost Center") 
+                                                                    <option value="{{$singlecostc->id}}" @if($claim->other_costcenter==$singlecostc->id) selected @endif>{{$singlecostc->id}}</option>
+                                                                @else
+                                                                    <option value="@if($singlecostc->cost_center!=NULL) {{$singlecostc->cost_center}} @else No Cost Center @endif"
+                                                                    @php($nocost=false)
+                                                                    @if($singlecostc->cost_center=="")
+                                                                        @php($nocost=true)
+                                                                    @endif
+                                                                    @if(($claim->other_costcenter==$singlecostc->cost_center)||($nocost))selected @endif>@if($singlecostc->cost_center=="") No cost center @else {{$singlecostc->cost_center}} @endif</option>
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    @endif
+                                                @elseif($draft ?? '')
+                                                    <option value="{{$draft[11]}}">{{$draft[11]}}</option>
+                                                @endif
+                                            </select> 
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+
+                                @if($claim ?? '')
+                                <!-- type-->
+                                <div
+                                    @if(!(in_array($claim->charge_type, $array = array("Project", "Internal Order", "Maintenance Order"))))
+                                        style="display: none"
+                                    @endif
+                                >
+                                    <div class="row" style="margin-bottom: 5px;">
+                                        <div class="col-md-3">
+                                            <label>Type:</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                                <select class="form-select" name="type" id="type" required @if($type==null) disabled @endif>
+                                                    <option value="" @if($claim->project_type==NULL) selected @endif hidden>Select type</option>
+                                                @if($type!=null)
+                                                    @foreach($type as $singletype)
+                                                    
+                                                        @if(($claim->charge_type=="Project")||($claim->charge_type=="Maintenance Order")) 
+                                                            <option value="{{$singletype->type}}" @if($claim->project_type==$singletype->type) selected @endif>{{$singletype->type}}</option>
+                                                        @else
+                                                        <option value="{{$singletype->order_type}}" @if($claim->project_type==$singletype->order_type) selected @endif>{{$singletype->order_type}}</option>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            </select> 
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- order no-->
+                                <div
+                                    @if(!(in_array($claim->charge_type, $array = array("Project", "Internal Order", "Maintenance Order"))))
+                                        style="display: none"
+                                    @endif
+                                >
+                                    <div class="row" style="margin-bottom: 5px;">
+                                        <div class="col-md-3">
+                                            <label>No:</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                                <select class="form-select" name="orderno" id="orderno" required @if($orderno==null) disabled @endif>
+                                                    <option value="" @if($claim->project_type==NULL) selected @endif hidden>Select @if($claim->charge_type=="Project") project @else order @endif no</option>
+                                                @if($orderno!=null)
+                                                    @foreach($orderno as $singleorder)
+                                                        @if($claim->charge_type=="Project") 
+                                                            <option value="{{$singleorder->project_no}}" @if($claim->project_no==$singleorder->project_no) selected @endif>{{$singleorder->project_no}}</option>
+                                                        @else
+                                                            <option value="{{$singleorder->id}}" @if($claim->order_no==$singleorder->id) selected @endif>{{$singleorder->id}}</option>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            </select> 
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- approver id-->
+                                <div
+                                    @if(!(in_array($claim->charge_type, $array = array("Internal Order", "Other Cost Center"))))
+                                        style="display: none"
+                                    @endif
+                                >
+                                    <div class="row" style="margin-bottom: 5px;">
+                                        <div class="col-md-3">
+                                            <label>Approver:</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                                <select class="form-select" name="approvern" id="approvern" required @if($appr==null) disabled @endif>
+                                                    <option value="" @if($claim->approver_id==NULL) selected @endif hidden>Select approver</option>
+                                                @if($appr!=null)
+                                                    @foreach($appr as $singleappr)
+                                                        <option value="{{$singleappr->user_id}}" @if($claim->approver_id==$singleappr->user_id) selected @endif>{{$singleappr->user_id}} {{$singleappr->name}}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select> 
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- network header-->
+                                <div
+                                    @if(!($claim->charge_type=="Project"))
+                                        style="display: none"
+                                    @endif
+                                >
+                                    <div class="row" style="margin-bottom: 5px;">
+                                        <div class="col-md-3">
+                                            <label>Network Header:</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                                <select class="form-select" name="networkh" id="networkh" required @if($networkh==null) disabled @endif>
+                                                    <option value="" @if($claim->project_type==NULL) selected @endif hidden>Select network header</option>
+                                                @if($networkh!=null)
+                                                    @foreach($networkh as $singlenet)
+                                                        <option value="{{$singlenet->network_header}}" @if($claim->network_header==$singlenet->network_header) selected @endif>{{$singlenet->network_header}}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select> 
+                                        </div>
+                                    </div>
+
+                                <!-- network activity no-->
+                                    <div class="row" style="margin-bottom: 5px;">
+                                        <div class="col-md-3">
+                                            <label>Network Activity No:</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                                <select class="form-select" name="networkn" id="networkn" required @if($networkn==null) disabled @endif>
+                                                    <option value="" @if($claim->project_type==NULL) selected @endif hidden>Select network activity no</option>
+                                                @if($networkn!=null)
+                                                    @foreach($networkn as $singlenet)
+                                                        <option value="{{$singlenet->network_act_no}}" @if($claim->network_act_no==$singlenet->network_act_no) selected @endif>{{$singlenet->network_act_no}}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select> 
+                                        </div>
+                                    </div>
+                                </div>
                                 @endif
+
                                 <div class="row" style="margin-bottom: 5px;">
                                     <div class="col-md-3">
                                         <label>Document:</label>
                                     </div>
                                     <div class="col-md-9 maxfilef">
                                         <input type="file" name="inputfile" id="inputfile" accept="image/*, .pdf, .jpeg, .jpg, .bmp, .png, .tiff" style="position:absolute; right:-100vw;">
-                                        <span id="inputfiletext">File: .bmp, .pdf, .png, .tiff</span>
+                                        <span id="inputfiletext" style="height: 25px; border-radius: 3px; border: 1px solid #707070;">File: .bmp, .pdf, .png, .jpg, .jpeg, .tiff</span>
                                         <a href="#" id="btn-file-2"><i class="fas fa-times-circle"></i></a>
                                         <button type="button" class="btn-up" id="btn-file-1" style="min-width: 80px">BROWSE</button>
                                         <button type="button" class="btn-up" id="btn-file-3" style="min-width: 80px; display: none;">UPLOAD</button>
@@ -528,8 +650,9 @@
                                         @if($claim ?? '')
                                             @foreach($claim->file as $f=>$singlefile)
                                                 @php(++$f)
-                                                <a href="{{route('ot.file', ['tid'=>$singlefile->id], false)}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9; margin-bottom: 10px;"></a>
-                                                <a href="#" id="btn-file-del-{{$f}}" style="position: absolute; margin-left: -22px; top: 3px; color: red;" data-id="{{$singlefile->id}}" data-img="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" data-name="{{substr($singlefile->filename, 22)}}"><i class="fas fa-times-circle"></i></a>
+                                                <!-- <a href="{{-- asset('storage/'.$singlefile->filename)--}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9; margin-bottom: 10px;"></a> -->
+                                                <a href="{{route('ot.file', ['tid'=>$singlefile->id], false)}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9; margin-right: 10px; margin-bottom: 10px;"></a>
+                                                <a href="#" id="btn-file-del-{{$f}}" style="position: absolute; margin-left: -35px; top: 3px; color: red;" data-id="{{$singlefile->id}}" data-img="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" data-name="{{substr($singlefile->filename, 22)}}"><i class="fas fa-times-circle"></i></a>
 
                                             @endforeach
                                         @endif
@@ -539,11 +662,9 @@
                         </div>
                     </div>
                     <br>
-
-               
-        </div>   
-            @if((($c ?? '')||($d ?? '')||($q ?? '')))
-            <div class="panel-footer">
+                </div>   
+                    @if((($c ?? '')||($d ?? '')||($q ?? '')))
+                    <div class="panel-footer">
                         <div class="text-right">
                         <a href="{{route('ot.list')}}"><button type="button" class="btn btn-p btn-primary btn-outline" style="display: inline">BACK</button></a>
                             <!-- <button type="button" id="btn-save" class="btn btn-primary" style="display: inline"><i class="fas fa-save"></i> SAVE</button> -->
@@ -556,9 +677,8 @@
                     <input type="text" id="delid" name="delid" value="">
                 </form>
             </div>
-            @endif
-        @empty($claim ?? '')
-            @if(!($d ?? ''))
+                @endif
+            @if(!(($c ?? '')||($d ?? '')||($q ?? '')))
             </div> 
             <div class="panel-footer">
                     <div class="text-right">
@@ -566,8 +686,6 @@
                     </div>
             </div>
             @endif
-       
-        @endempty
     </div>
 </div>
 @stop
@@ -621,42 +739,42 @@
     while(d.length<2){
         d = "0"+d;
     }
-    $("#inputdate").attr("min", miny+"-"+minm+"-01");
+    // $("#inputdate").attr("min", miny+"-"+minm+"-01");
     $("#inputdate").attr("max", y+"-"+m+"-"+d);
 
     // //when date input is changed
     $("#inputdate").change(function(){
     // $("#btn-date").on('click', function(){
         
-        if(
-            ((Date.parse($("#inputdate").val()))<=Date.parse(monthNames[m-1]+" "+d+", "+y+" 23:59:59"))&&
-            ((Date.parse($("#inputdate").val()))>=Date.parse(monthNames[minm-1]+" 01, "+miny+" 00:00:00"))
-            ){
+        // if(
+        //     ((Date.parse($("#inputdate").val()))<=Date.parse(monthNames[m-1]+" "+d+", "+y+" 23:59:59"))&&
+        //     ((Date.parse($("#inputdate").val()))>=Date.parse(monthNames[minm-1]+" 01, "+miny+" 00:00:00"))
+        //     ){
             $("#formdate").submit();
-        }
+        // }
     });
         
-    $("#inputdate").change(function(){
-        if(
-            !(((Date.parse($("#inputdate").val()))<=Date.parse(monthNames[m-1]+" "+d+", "+y+" 23:59:59"))&&
-            ((Date.parse($("#inputdate").val()))>=Date.parse(monthNames[minm-1]+" 01, "+miny+" 00:00:00")))
-            ){
-                Swal.fire(
-                    'Invalid date input!',
-                    "Claim date must be between 01-"+minm+"-"+miny+" and "+d+"-"+m+"-"+y+"!",
-                    'error'
-                )
-                // alert("Claim date must be between "+miny+"-"+minm+"-01 and "+y+"-"+m+"-"+d+"!");
+    // $("#inputdate").change(function(){
+    //     if(
+    //         !(((Date.parse($("#inputdate").val()))<=Date.parse(monthNames[m-1]+" "+d+", "+y+" 23:59:59"))&&
+    //         ((Date.parse($("#inputdate").val()))>=Date.parse(monthNames[minm-1]+" 01, "+miny+" 00:00:00")))
+    //         ){
+    //             Swal.fire(
+    //                 'Invalid date input!',
+    //                 "Claim date must be between 01-"+minm+"-"+miny+" and "+d+"-"+m+"-"+y+"!",
+    //                 'error'
+    //             )
+    //             // alert("Claim date must be between "+miny+"-"+minm+"-01 and "+y+"-"+m+"-"+d+"!");
                 
-                @if($claim ?? '')
-                    $("#inputdate").val("{{$claim->date}}");
-                @elseif($draft ?? '')
-                    $("#inputdate").val("{{$draft[4]}}");
-                @else
-                    $("#inputdate").val("");
-                @endif
-            }
-        });
+    //             @if($claim ?? '')
+    //                 $("#inputdate").val("{{$claim->date}}");
+    //             @elseif($draft ?? '')
+    //                 $("#inputdate").val("{{$draft[4]}}");
+    //             @else
+    //                 $("#inputdate").val("");
+    //             @endif
+    //         }
+    //     });
 
     //apply timepicker plugin to all time input
     $('.timepicker').timepicker({
@@ -1001,35 +1119,59 @@
         };
         
         //when click add time
+        var canadd = true
+
         $("#add").on('click', function(){
-            // if(add){
-                // $('#oldds-0').text($("#inputstart-0").val());
-                // $('#oldde-0').text($("#inputend-0").val());
-                $('#addform').css("display", "table-row");
-                $("#inputstart-0").prop('required',true);
-                $("#inputend-0").prop('required',true);
-                $("#inputremark-0").prop('required',true);
-                // calshowtime(0, (parseInt($("#olddh-0").text()*60)+parseInt($("#olddm-0").text())), 0, 0, $("#    oldth").text(), $("#oldtm").text());
-                $('#nodata').css("display","none");
-                $('#add').prop("disabled",true);
-                // add=false;  
-            // }else{
-            //     for(j=0; j<3;j++){
-            //         if($('.check-0-'+j).get(0).checkValidity()==false){
-            //             $('.check-0-'+j).get(0).reportValidity();
-            //         }
-            //     }
-            //     // Swal.fire({
-            //     //     icon: 'error',
-            //     //     title: 'Unable to add time',
-            //     //     text: 'Please complete current time input before adding a new one!'
-            //     // })
-            // }
+            @if($claim ?? '')
+            for(j=1; j<{{count($claim->detail)}}+1;j++){
+                if($(".check-"+j+"-0").prop("checked") == true){
+                    // alert(yes);
+                    for(m=1; m<4;m++){
+                        if($('.check-'+j+"-"+m).get(0).checkValidity()==false){
+                            $('.check-'+j+"-"+m).get(0).reportValidity();
+                            canadd = false;
+                        }
+                    }
+                }
+            }
+            @endif
+            // alert(canadd);
+            if(canadd){
+                if(add){
+                    // $('#oldds-0').text($("#inputstart-0").val());
+                    // $('#oldde-0').text($("#inputend-0").val());
+                    $('#addform').css("display", "table-row");
+                    $("#inputstart-0").prop('required',true);
+                    $("#inputend-0").prop('required',true);
+                    $("#inputremark-0").prop('required',true);
+                    // calshowtime(0, (parseInt($("#olddh-0").text()*60)+parseInt($("#olddm-0").text())), 0, 0, $("#    oldth").text(), $("#oldtm").text());
+                    $('#nodata').css("display","none");
+                    // $('#add').prop("disabled",true);
+                    add=false;  
+                }else{
+                //     for(j=0; j<3;j++){
+                //         if($('.check-0-'+j).get(0).checkValidity()==false){
+                //             $('.check-0-'+j).get(0).reportValidity();
+                //         }
+                //     }
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Incomplete',
+                        text: 'Please complete current input fields before adding a new one!'
+                    })
+                }
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Incomplete',
+                    text: 'Please complete current input fields before adding a new one!'
+                }) 
+            }
         });
         
         //when cancel add time
         $("#cancel").on('click', function(){
-            // if(!(add)){
+            if(!(add)){
                 $('#oldds-0').text("0");
                 $('#oldde-0').text("0");
                 $('#addform').css("display", "none");
@@ -1044,9 +1186,9 @@
                 $("#oldtm").text(nhm[1]);
                 $("#showtime").text(nhm[0]+"h "+nhm[1]+"m");
                 $('#nodata').css("display","table-row");
-                $('#add').prop("disabled",false);
-                // add=true;  
-            // }
+                // $('#add').prop("disabled",false);
+                add=true;  
+            }
         });
 
         $("#btn-file-1").on('click', function(){
@@ -1081,7 +1223,7 @@
             if (filesize > 1000000) { 
                 Swal.fire({
                     icon: 'error',
-                    title: 'Unable to choose file',
+                    title: 'Error',
                     text: 'File size has exceeded 1MB!'
                 })
                 $("#inputfile").val("");
@@ -1271,7 +1413,7 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Unable to submit form',
-                    text: 'Please add some claim time before submitting the form!'
+                    text: 'Please add time to your claim'
                 })
                 $("#inputstart-0").prop('required',true);
                 $("#inputend-0").prop('required',true);
@@ -1282,16 +1424,39 @@
     }
 
     $("#chargetype").change(function(){
-        // alert()
         $("#formtype").val("save");
         $("#form").submit();
-        // if($("#chargetype").val()=="Cost Center"){
-        //     $("#costcenter").css("display", "block");
-        //     $("#project").css("display", "none");
-        // }else if($("#chargetype").val()=="Project"){
-        //     $("#project").css("display", "block");
-        //     $("#costcenter").css("display", "none");
-        // }
+    });   
+
+    $("#costc").change(function(){
+        $("#formtype").val("save");
+        $("#form").submit();
+    });    
+    
+    $("#compn").change(function(){
+        $("#formtype").val("save");
+        $("#form").submit();
+    });    
+
+    $("#type").change(function(){
+        $("#formtype").val("save");
+        $("#form").submit();
+    });    
+    $("#orderno").change(function(){
+        $("#formtype").val("save");
+        $("#form").submit();
+    });    
+    $("#networkh").change(function(){
+        $("#formtype").val("save");
+        $("#form").submit();
+    });    
+    $("#networkn").change(function(){
+        $("#formtype").val("save");
+        $("#form").submit();
+    });    
+    $("#approvern").change(function(){
+        $("#formtype").val("save");
+        $("#form").submit();
     });    
 
     @if(session()->has('feedback'))

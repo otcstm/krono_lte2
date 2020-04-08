@@ -7,6 +7,7 @@ use App\Shared\UserHelper;
 use App\User;
 use App\ShiftGroupMember;
 use App\ShiftGroup;
+use App\ShiftPattern;
 
 class ShiftGroupController extends Controller
 {
@@ -31,16 +32,14 @@ class ShiftGroupController extends Controller
       ->orWhere('planner_id', $req->user()->id)->get();
 
     return view('shiftplan.shift_group', [
-      'p_list' => $glist,
-      'stafflist' => $all_subord,
-      's_list' => $freesubord,
-      'in_grp' => $ingroup
+      'p_list' => $glist
     ]);
   }
 
   public function addGroup(Request $req){
+    // dd($req->all());
     // check for duplicate code
-    $dups = ShiftGroup::where('manager_id', $req->user()->id)
+    $dups = ShiftGroup::where('manager_id', $req->group_owner_id)
       ->where('group_code', $req->group_code)->first();
 
     if($dups){
@@ -49,8 +48,7 @@ class ShiftGroupController extends Controller
 
     // no duplicate. proceed create new group
     $nugrup = new ShiftGroup;
-    $nugrup->manager_id = $req->user()->id;
-    $nugrup->planner_id = $req->planner_id;
+    $nugrup->manager_id = $req->group_owner_id;
     $nugrup->group_name = $req->group_name;
     $nugrup->group_code = $req->group_code;
     $nugrup->save();
@@ -63,39 +61,46 @@ class ShiftGroupController extends Controller
     $grup = ShiftGroup::find($req->id);
     if($grup){
 
-      $all_subord = UserHelper::GetMySubords($req->user()->id, true);
-
-      // return $all_subord;
-
-      $freesubord = [];
-
-      foreach($all_subord as $key => $os){
-        // check if this staff already in a group
-
-        if($os['id'] == $grup->planner_id){
-          $all_subord[$key]['selected'] = 'selected';
-        } else {
-          $all_subord[$key]['selected'] = '';
-        }
-
-        $sgrp = ShiftGroupMember::where('user_id', $os['id'])->first();
-        if($sgrp){
-        } else {
-          array_push($freesubord, $os);
-        }
-      }
-
-      // dd($all_subord);
+      $therestofthepattern = ShiftPattern::whereNotIn('id', $grup->ShiftPatterns->pluck('id'))->get();
 
       return view('shiftplan.shift_group_detail', [
         'groupd' => $grup,
-        'free_member' => $freesubord,
-        'stafflist' => $all_subord
+        'spattern' => $therestofthepattern
       ]);
     } else {
       return redirect(route('shift.group', [], false))->with(['alert' => 'Group not found', 'a_type' => 'warning']);
     }
 
+  }
+
+  public function addSpToGroup(Request $req){
+
+    $grup = ShiftGroup::find($req->group_id);
+    if($grup){
+      $grup->shiftpatterns()->attach($req->sp_id);
+      return redirect(route('shift.group.view', ['id' => $grup->id], false));
+        -with([
+          'alert' => 'Shift template added to group', 'a_type' => 'info'
+        ]);
+    } else {
+      return redirect(route('shift.group', [], false))->with(['alert' => 'Group not found', 'a_type' => 'warning']);
+    }
+  }
+
+  public function delSpFromGroup(Request $req){
+
+    $grup = ShiftGroup::find($req->group_id);
+    if($grup){
+
+      $grup->shiftpatterns()->detach($req->sp_id);
+
+      return redirect(route('shift.group.view', ['id' => $grup->id], false));
+        -with([
+          'alert' => 'Shift template removed from group', 'a_type' => 'info'
+        ]);
+    } else {
+      return redirect(route('shift.group', [], false))->with(['alert' => 'Group not found', 'a_type' => 'warning']);
+    }
   }
 
   public function addStaff(Request $req){
@@ -132,13 +137,9 @@ class ShiftGroupController extends Controller
   public function editGroup(Request $req){
     $cgroup = ShiftGroup::find($req->id);
 
-    if($cgroup->manager_id != $req->user()->id){
-      return redirect()->back()->withInput()->with(['alert' => 'Only owner is allowed to edit the group', 'a_type' => 'danger']);
-    }
-
     if($cgroup){
       $cgroup->group_name = $req->group_name;
-      $cgroup->planner_id = $req->planner_id;
+      $cgroup->manager_id = $req->group_owner_id;
       $cgroup->save();
       return redirect(route('shift.group.view', ['id' => $req->id], false))->with(['alert' => 'Shift Group updated', 'a_type' => 'success']);
     } else {
@@ -148,13 +149,9 @@ class ShiftGroupController extends Controller
 
   public function delGroup(Request $req){
     $cgroup = ShiftGroup::find($req->id);
-    $gname = $cgroup->group_code;
-
-    if($cgroup->manager_id != $req->user()->id){
-      return redirect()->back()->withInput()->with(['alert' => 'Only owner is allowed to edit the group', 'a_type' => 'danger']);
-    }
-
+    
     if($cgroup){
+      $gname = $cgroup->group_code;
       // remove all member of this group first
       ShiftGroupMember::where('shift_group_id', $cgroup->id)->delete();
 
@@ -165,6 +162,61 @@ class ShiftGroupController extends Controller
     } else {
       return redirect(route('shift.group', [], false))->with(['alert' => 'Group not found', 'a_type' => 'warning']);
     }
+  }
+
+  public function ApiSearchStaff(Request $req){
+    $retarr = [];
+
+    if($req->filled('input')){
+      // first, try to search by exact persno
+      if(is_int($req->input)){
+        $yser = User::find($req->input);
+        if($yser){
+          // found exact persno. return it
+          array_push($retarr, [
+            'staff_no' => $yser->staff_no,
+            'name' => $yser->name,
+            'id' => $yser->id
+          ]);
+          return $retarr;
+        }
+      }
+
+      // then try search by staff_no
+      $yser = User::where('staff_no', $req->input)->first();
+      if($yser){
+        // found exact staff. return it
+        array_push($retarr, [
+          'staff_no' => $yser->staff_no,
+          'name' => $yser->name,
+          'id' => $yser->id
+        ]);
+        return $retarr;
+      }
+
+      // if it reaches here, try to search by name
+      $user = User::where('name', 'like', '%' . $req->input . '%')->get();
+      foreach ($user as $key => $value) {
+        array_push($retarr, [
+          'staff_no' => $value->staff_no,
+          'name' => $value->name,
+          'id' => $value->id
+        ]);
+      }
+    }
+
+    return $retarr;
+  }
+
+  public function ApiGetStaffName(Request $req){
+    if($req->filled('uid')){
+      $user = User::find($req->uid);
+      if($user){
+        return $user->name;
+      }
+    }
+
+    return "404";
   }
 
 }
