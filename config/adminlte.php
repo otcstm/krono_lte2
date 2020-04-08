@@ -363,7 +363,6 @@ return [
                 'can' => '4-ot-claim-approve-report',
             ],
 
-
             [
                 'text' => 'ot_def_ver',
                 'url'  => '/verifier',
@@ -430,26 +429,46 @@ return [
             'submenu' => [
               [
                 'text' => 'otr_details',
-                'url'  => '/admreport/otd',
+                'url'  => '/report/otd',
                 'icon' => 'fas fa-user-ninja',
                 'can' => '6-rpt-ot-details',
               ],
               [
                 'text' => 'otr_startend',
-                'url'  => '/admreport/StEdOt',
+                'url'  => '/report/StEdOt',
                 'icon' => 'fas fa-user-ninja',
                 'can' => '6-rpt-ot-se',
               ],
               [
                 'text' => 'otr',
-                'url'  => '/admreport/ot',
+                'url'  => '/report/ot',
                 'icon' => 'fas fa-user-ninja',
                 'can' => '6-rpt-ot-claim-summary',
               ],
 
               [
                 'text' => 'otr_log',
-                'url'  => '/admreport/otlog',
+                'url'  => '/report/otlog',
+                'icon' => 'fas fa-user-ninja',
+              ],
+              [
+                'text' => 'sysadmot',
+                'url'  => '/syadmrep/ot',
+                'icon' => 'fas fa-user-ninja',
+              ],
+              [
+                'text' => 'sysadmotd',
+                'url'  => '/syadmrep/otd',
+                'icon' => 'fas fa-user-ninja',
+              ],
+              [
+                'text' => 'sysadmotStEd',
+                'url'  => '/syadmrep/StEd',
+                'icon' => 'fas fa-user-ninja',
+              ],
+              [
+                'text' => 'sysadmotlog',
+                'url'  => '/syadmrep/otlog',
                 'icon' => 'fas fa-user-ninja',
                 'can' => '6-rpt-ot-log-changes',
               ],
