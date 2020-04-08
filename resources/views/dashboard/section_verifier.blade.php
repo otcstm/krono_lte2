@@ -30,9 +30,9 @@
   <div class="media-body">
     <h4 class="media-heading">
       @if(isset($pending_verification_count))
-      0    
+      {{ $pending_verification_count }}                
       @else
-      {{ $pending_verification_count }}          
+      0        
       @endif
       PENDING</h4>
     <p>VERIFICATION</p>
