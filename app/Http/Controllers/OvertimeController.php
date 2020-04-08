@@ -254,6 +254,7 @@ class OvertimeController extends Controller{
     }
 
     public function formdate(Request $req){
+        // dd($req->inputdate);
         $gm = UserHelper::CheckGM(date("Y-m-d"), $req->inputdate);
         $staffr = UserRecord::where('user_id', $req->user()->id)->where('upd_sap','<=',date('Y-m-d'))->first();
          // temp=====================================================
