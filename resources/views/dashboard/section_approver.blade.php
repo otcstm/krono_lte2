@@ -28,7 +28,12 @@
     <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px">
   </div>
   <div class="media-body">
-    <h4 class="media-heading">{{ $pending_approval_count }} PENDING</h4>
+    <h4 class="media-heading">      
+      @if(isset($pending_approval_count))
+      0    
+      @else
+      {{ $pending_approval_count }}          
+      @endif PENDING</h4>
     <p>APPROVAL</p>
   </div>
 </div>
