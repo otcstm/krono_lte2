@@ -4,7 +4,7 @@
 <div class="panel panel-default">
 <div class="panel-heading"><strong>Report : Overtime Log Changes</strong></div>
 <div class="panel-body">
-  <form action="{{ route('otr.viewOTLog', [], false) }}" method="post">
+  <form action="{{ route('rep.viewOTLog', [], false) }}" method="post">
   @csrf
   <div class="col-sm-6">
   <div class="form-group">

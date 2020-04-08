@@ -5,7 +5,7 @@
 <div class="panel panel-default">
 <div class="panel-heading"><strong>Report : Overtime Details</strong></div>
 <div class="panel-body">
-  <form action="{{ route('otr.viewOTd', [], false) }}" method="post">
+  <form action="{{ route('rep.viewOTd', [], false) }}" method="post">
   @csrf
   <div class="col-lg-6">
   <div class="form-group">

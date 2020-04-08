@@ -114,23 +114,23 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post( '/admin/pygroup/update','Admin\PayrollgroupController@update')->name('pygroup.update');
   Route::post('/admin/pygroup/delete','Admin\PayrollgroupController@destroy')->name('pygroup.delete');
   //Report
-  // Route::get('/admreport/otd', 'Admin\OtReportController@viewOTd')->name('otr.viewOTd'); //rep1
-  // Route::post('/admreport/otd', 'Admin\OtReportController@viewOTd')->name('otr.viewOTd');
-  // Route::get('/admreport/ot', 'Admin\OtReportController@viewOT')->name('otr.viewOT'); //rep2
-  // Route::post('/admreport/ot', 'Admin\OtReportController@viewOT')->name('otr.viewOT');
-  // Route::get('/admreport/otlog', 'Admin\OtReportController@viewLC')->name('otr.viewOTLog'); //rep3
-  // Route::post('/admreport/otlog', 'Admin\OtReportController@viewLC')->name('otr.viewOTLog');
-  // Route::get('/admreport/StEdOt', 'Admin\OtReportController@viewStEd')->name('otr.viewStEd'); //rep4
-  // Route::post('/admreport/StEdOt', 'Admin\OtReportController@viewStEd')->name('otr.viewStEd');
+  Route::get('/report/ot', 'Admin\OtReport2Controller@viewOT')->name('rep.viewOT'); //dowload rep1
+  Route::post('/report/ot', 'Admin\OtReport2Controller@viewOT')->name('rep.viewOT');
+  Route::get('/report/otd', 'Admin\OtReport2Controller@viewOTd')->name('rep.viewOTd'); //dowload rep2
+  Route::post('/report/otd', 'Admin\OtReport2Controller@viewOTd')->name('rep.viewOTd');
+  Route::get('/report/StEdOt', 'Admin\OtReport2Controller@viewStEd')->name('rep.viewStEd'); //dowload rep4
+  Route::post('/report/StEdOt', 'Admin\OtReport2Controller@viewStEd')->name('rep.viewStEd');
+  Route::get('/report/otlog', 'Admin\OtReport2Controller@viewLC')->name('rep.viewOTLog'); //dowload rep3
+  Route::post('/report/otlog', 'Admin\OtReport2Controller@viewLC')->name('rep.viewOTLog');
+  //Report batch job
+  Route::get('/syadmrep/ot', 'Admin\OtSaRepController@viewOT')->name('rep.sa.OT');
+  Route::post('/syadmrep/dot', 'Admin\OtSaRepController@joblist')->name('rep.sa.dOT');
+  Route::get('/syadmrep/otd', 'Admin\OtSaRepController@viewOTd')->name('rep.sa.OTd');
+  Route::get('/syadmrep/StEd', 'Admin\OtSaRepController@viewStEd')->name('rep.sa.StEd');
+  Route::get('/syadmrep/otlog', 'Admin\OtSaRepController@viewLC')->name('rep.sa.OTLog');
 
-  Route::get('/admreport/ot', 'Admin\OtReport2Controller@viewOT')->name('otr.viewOT'); //dowload rep1
-  Route::post('/admreport/ot', 'Admin\OtReport2Controller@viewOT')->name('otr.viewOT');
-  Route::get('/admreport/otd', 'Admin\OtReport2Controller@viewOTd')->name('otr.viewOTd'); //dowload rep2
-  Route::post('/admreport/otd', 'Admin\OtReport2Controller@viewOTd')->name('otr.viewOTd');
-  Route::get('/admreport/StEdOt', 'Admin\OtReport2Controller@viewStEd')->name('otr.viewStEd'); //dowload rep4
-  Route::post('/admreport/StEdOt', 'Admin\OtReport2Controller@viewStEd')->name('otr.viewStEd');
-  Route::get('/admreport/otlog', 'Admin\OtReport2Controller@viewLC')->name('otr.viewOTLog'); //dowload rep3
-  Route::post('/admreport/otlog', 'Admin\OtReport2Controller@viewLC')->name('otr.viewOTLog');
+
+
 
   // /admins ------------------------------------
   //Log activity

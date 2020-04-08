@@ -7,7 +7,7 @@
 <div class="panel panel-default" id="psearch">
 <div class="panel-heading"><strong>Report : Summary of Overtime</strong></div>
 <div class="panel-body">
-  <form action="{{ route('otr.viewOT', [], false) }}" method="post">
+  <form action="{{ route('rep.viewOT', [], false) }}" method="post">
   @csrf
 
   <div class="col-lg-6">
