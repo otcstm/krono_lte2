@@ -46,13 +46,19 @@ class RoleController extends Controller{
 
     public function update(Request $req){
 
-        $permission = explode(',', $req->permission);
-
         $update_role = Role::find($req->inputid);
         $update_role->title = $req->inputname;
         $update_role->updated_by = $req->user()->id;
         $update_role->save();
-        $update_role->permissions()->sync($permission);
+
+        if($req->filled('permission')){
+          $permission = explode(',', $req->permission);
+          $update_role->permissions()->sync($permission);
+        } else {
+          // no permissi included
+          $update_role->permissions()->detach();
+        }
+
         $execute = UserHelper::LogUserAct($req, "Role Management", "Update Role " .$req->inputname);
         $feedback = true;
         $feedback_text = "Successfully updated role " .$req->inputname. ".";
