@@ -87,8 +87,12 @@
                                         @else 
                                             {{$singleday->descr}} 
                                         @endif
+
+                                        
                 </div>
             @endforeach
+
+            
             </div>
         </div>
     </div>
