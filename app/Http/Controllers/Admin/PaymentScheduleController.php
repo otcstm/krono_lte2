@@ -46,6 +46,7 @@ class PaymentScheduleController extends Controller
       $paydate = Carbon::parse($pd);
       $pyear = $paydate->format('Y');
       $pmonth = $paydate->format('m');
+      $fmonth = $paydate->format('F');
       $group = $req->pyg;
       $check = PaymentSchedule::whereYear('payment_date',"=", $pyear)
             ->whereMonth('payment_date',"=", $pmonth)
@@ -63,10 +64,12 @@ class PaymentScheduleController extends Controller
         $new_ps-> created_by= $req->user()->id;
         $new_ps-> save();
         $execute = UserHelper::LogUserAct($req, "Payment Schedule", "Create Payment Schedule $pmonth/$pyear");
-        $a_text = "Payment Schedule $pmonth/$pyear successfully created.";
+        $a_text = "Payment Schedule $fmonth $pyear successfully created.";
         $a_type = "success";
       }else{
-        $a_text = "Payment Schedule $pmonth/$pyear already exist.";
+        // dd([$check]);
+
+        $a_text = "Payment Schedule $fmonth $pyear already exist.";
         $a_type = "warning";
       }
       return redirect(route('paymentsc.index', [], false))->with(['a_text'=>$a_text,'a_type'=>$a_type]);
@@ -78,15 +81,16 @@ class PaymentScheduleController extends Controller
      $paydate = Carbon::parse($pd);
      $pyear = $paydate->format('Y');
      $pmonth = $paydate->format('m');
+     $fmonth = $paydate->format('F');
      $inpyg = $req->inpyg;
      $check = PaymentSchedule::whereYear('payment_date',"=", $pyear)
            ->whereMonth('payment_date',"=", $pmonth)
            ->where('payrollgroup_id',$inpyg)
            ->where('id','!=',$req->inputid)
            ->get();
-           // dd([$check]);
+
      if(count($check)!=0){
-       $a_text = "Payment Schedule $pmonth/$pyear already exist.";
+       $a_text = "Payment Schedule $fmonth $pyear already exist.";
        $a_type = "warning";
      }else{
        $ps = PaymentSchedule::find($req->inputid);
@@ -100,7 +104,7 @@ class PaymentScheduleController extends Controller
          $ps-> updated_by = $req->user()->id;
          $ps->save();
          $execute = UserHelper::LogUserAct($req, "Payment Schedule", "Update Payment Schedule $pmonth/$pyear " );
-         $a_text = "Payment Schedule $pmonth/$pyear updated!";
+         $a_text = "Payment Schedule $fmonth $pyear updated!";
          $a_type = "success";
        }else{
          $a_text = "Payment Schedule not found.";
