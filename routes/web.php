@@ -285,7 +285,7 @@ Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth
 
 
 //Holiday
-  Route::group(['prefix' => '', 'as' => 'shift.', 'middleware' => ['auth', 'can:2-cfg-holiday' ]], function () {
+  Route::group(['prefix' => '/', 'as' => '', 'middleware' => ['auth', 'can:2-cfg-holiday' ]], function () {
   Route::get('/admin/holiday/create', 'Admin\HolidayController@create')->name('holiday.create');
   Route::post('/admin/holiday/insert', 'Admin\HolidayController@insert')->name('holiday.insert');
   Route::get('/admin/holiday/show', 'Admin\HolidayController@show')->name('holiday.show');
