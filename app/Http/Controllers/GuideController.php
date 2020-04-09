@@ -18,7 +18,7 @@ class GuideController extends Controller
             $ownstate = $req->user()->state_id;
         }
         $state = State::all();
-        $holiday = Holiday::whereYear("dt", date("Y"))->orderBy('dt', 'asc')->get();
+        $holiday = Holiday::whereYear("dt", date("Y"))->orderBy('dt', 'asc')->toSql();
 
         dd($holiday);
 
