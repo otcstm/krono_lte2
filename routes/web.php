@@ -285,13 +285,13 @@ Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth
 
 
 //Holiday
-  Route::group(['prefix' => '/', 'as' => '', 'middleware' => ['auth', 'can:2-cfg-holiday' ]], function () {
-  Route::get('/admin/holiday/create', 'Admin\HolidayController@create')->name('holiday.create');
-  Route::post('/admin/holiday/insert', 'Admin\HolidayController@insert')->name('holiday.insert');
-  Route::get('/admin/holiday/show', 'Admin\HolidayController@show')->name('holiday.show');
-  Route::post('/admin/holiday/show', 'Admin\HolidayController@show')->name('holiday.show');
-  Route::get('/admin/holiday/edit/{id}', 'Admin\HolidayController@edit')->name('holiday.edit');
-  Route::post('/admin/holiday/update', 'Admin\HolidayController@update')->name('holiday.update');
-  Route::post('/admin/holiday/destroy', 'Admin\HolidayController@destroy')->name('holiday.destroy');
+  Route::group(['prefix' => 'admin/holiday', 'as' => '', 'middleware' => ['auth', 'can:2-cfg-holiday' ]], function () {
+  Route::get('/create', 'Admin\HolidayController@create')->name('holiday.create');
+  Route::post('/insert', 'Admin\HolidayController@insert')->name('holiday.insert');
+  Route::get('/show', 'Admin\HolidayController@show')->name('holiday.show');
+  Route::post('/show', 'Admin\HolidayController@show')->name('holiday.show');
+  Route::get('/edit/{id}', 'Admin\HolidayController@edit')->name('holiday.edit');
+  Route::post('/update', 'Admin\HolidayController@update')->name('holiday.update');
+  Route::post('/destroy', 'Admin\HolidayController@destroy')->name('holiday.destroy');
 
 });
