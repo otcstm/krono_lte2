@@ -467,7 +467,7 @@ class UserHelper {
 
       } else {
         // not a shift staff. get based on the wsr
-        $currwsr = UserHelper::GetWorkSchedRule($req->user()->id, $cbdate);
+        $currwsr = UserHelper::GetWorkSchedRule($user, $date);
         // then get that day
         $wd = $currwsr->ListDays->where('day_seq', $day)->first();
       }
