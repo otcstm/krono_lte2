@@ -136,14 +136,14 @@ return [
       [
         'text' => 'admin_menu',
         'icon' => 'fas f fa-user-clock',
-        // 'can' => '1-nav-menu-admin',
+        'can' => '1-nav-menu-admin',
         'submenu' => [
           [
               'text' => 'manage_role',
               'url'  => '/admin/role',
               'icon' => '',
             //   'icon' => 'fas fa-lock-open',
-              // 'can' => '2-cfg-role',
+              'can' => '2-cfg-role',
           ],
           [
               'text' => 'manage_company',
@@ -222,7 +222,7 @@ return [
               'url' => '/admin/announcement',
               'icon' => '',
             //   'icon' => 'fas fa-calendar-alt',
-              // 'can' => '2-cfg-pay-sched',
+              'can' => '2-cfg-pay-sched',
           ],
         ],
       ],
