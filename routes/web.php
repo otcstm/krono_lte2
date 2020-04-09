@@ -128,10 +128,12 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/admin/overtime', 'Admin\OvertimeMgmtController@show')->name('oe.show');
   Route::get('/admin/overtime/m', 'Admin\OvertimeMgmtController@otm')->name('oe.otm');
   Route::get('/admin/overtime/getcompany', 'Admin\OvertimeMgmtController@getCompany')->name('oe.getcompany');
-  Route::get('/admin/overtime/eligible/getlast', 'Admin\OvertimeMgmtController@getLast')->name('oe.eligiblegetlast');
-  Route::post('/admin/overtime/eligible/store', 'Admin\OvertimeMgmtController@eligiblestore')->name('oe.eligiblestore');
-  Route::post('/admin/overtime/eligible/update', 'Admin\OvertimeMgmtController@eligibleupdate')->name('oe.eligibleupdate');
-  Route::post('/admin/overtime/eligible/delete', 'Admin\OvertimeMgmtController@eligibledelete')->name('oe.eligibledelete');
+  
+  // Route::get('/admin/overtime/eligible/getlast', 'Admin\OvertimeMgmtController@getLast')->name('oe.eligiblegetlast');
+  // Route::post('/admin/overtime/eligible/store', 'Admin\OvertimeMgmtController@eligiblestore')->name('oe.eligiblestore');
+  // Route::post('/admin/overtime/eligible/update', 'Admin\OvertimeMgmtController@eligibleupdate')->name('oe.eligibleupdate');
+  // Route::post('/admin/overtime/eligible/delete', 'Admin\OvertimeMgmtController@eligibledelete')->name('oe.eligibledelete');
+
   Route::post('/admin/overtime/expiry/store', 'Admin\OvertimeMgmtController@expirystore')->name('oe.expirystore');
   Route::post('/admin/overtime/expiry/update', 'Admin\OvertimeMgmtController@expiryupdate')->name('oe.expiryupdate');
   Route::post('/admin/overtime/expiry/delete', 'Admin\OvertimeMgmtController@expirydelete')->name('oe.expirydelete');

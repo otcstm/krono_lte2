@@ -3,41 +3,48 @@
 @section('title', 'Overtime Management')
 
 @section('content')
-<div class="panel panel-default">
-    <div class="panel-heading panel-primary">Overtime Management</div>
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-lg-6">
-                <form id="form" action="{{route('oe.show')}}" method="POST">
-                    @csrf
-                    <input class="hidden" id="formtype" type="text" name="formtype" value="">
-                    <div class="form-group">
-                        <label for="inputregion">Region:</label>
-                        <select name="inputregion" id="inputregion" required>
-                            <option hidden disabled selected value="">Select Region</option>
-                            <option value="SEM">Semenanjung</option>
-                            <option value="SWK">Sarawak</option>
-                            <option value="SBH">Sabah</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputcompany">Company:</label>
-                        <select name="inputcompany" id="inputcompany" required>
-                            <option hidden disabled selected value="">Select Company</option>
-                        </select>
-                    </div>
-                    
-                </form>
+
+<h1>Overtime Claim Expiry Date</h1>
+
+<div class="panel panel-default panel-main">
+    <div class="panel panel-default">
+        <div class="panel-heading panel-primary">Overtime Management</div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-6">
+                    <form id="form" action="{{route('oe.show')}}" method="POST">
+                        @csrf
+                        <input class="hidden" id="formtype" type="text" name="formtype" value="">
+                        <div class="form-group">
+                            <label for="inputregion">Region:</label>
+                            <select name="inputregion" id="inputregion" required>
+                                <option hidden disabled selected value="">Select Region</option>
+                                <option value="SEM">Semenanjung</option>
+                                <option value="SWK">Sarawak</option>
+                                <option value="SBH">Sabah</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputcompany">Company:</label>
+                            <select name="inputcompany" id="inputcompany" required>
+                                <option hidden disabled selected value="">Select Company</option>
+                            </select>
+                        </div>
+                        
+                    </form>
+                </div>
             </div>
-        </div>
-        
-        <div class="text-center">
-            <button type="button" class="btn btn-primary" id="btn-eligibility">
-                CONFIGURE ELIGIBILITY
-            </button>
-            <button type="button" class="btn btn-success" id="btn-expiry">
-                CONFIGURE EXPIRY
-            </button>
+            </div>
+         
+				<div class="panel-footer">   
+            <div class="text-right">
+                <!-- <button type="button" class="btn btn-primary" id="btn-eligibility">
+                    CONFIGURE ELIGIBILITY
+                </button> -->
+                <button type="button" class="btn btn-primary" id="btn-expiry">
+                    CONFIGURE EXPIRY
+                </button>
+            </div>
         </div>
     </div>
 </div>
