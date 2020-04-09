@@ -20,6 +20,10 @@ class GuideController extends Controller
         $state = State::all();
         $holiday = Holiday::whereYear("dt", date("Y"))->orderBy('dt', 'asc')->get();
 
+        dd($holiday);
+
+       
+
         return view('guide.calendar',['state' => $state,'holiday' => $holiday, 'ownstate' => $ownstate]);
     }
 
