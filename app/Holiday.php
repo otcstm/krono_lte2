@@ -9,4 +9,10 @@ class Holiday extends Model
   public function StatesThatCelebrateThis(){
     return $this->hasMany(HolidayCalendar::class, 'holiday_id');
   }
+
+  public function holCal()
+  {
+
+    return $this->hasMany('App\HolidayCalendar');
+  }
 }
