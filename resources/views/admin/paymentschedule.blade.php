@@ -12,7 +12,14 @@
 <div class="panel panel-default panel-main">
 	<div class="panel panel-default">
 		<div class="panel-heading"><strong>Payment Schedule Management</strong></div>
-
+		<div class="panel-body">
+				@if (session()->has('a_text'))
+				<div class="alert alert-{{ session()->get('a_type') }} alert-dismissible">
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					<strong>{{ session()->get('a_text') }}</strong>
+				</div>
+				@endif
+			</div>
 		<!-- <div class="panel-body">
 			<div>
 				<input type="hidden" name="slctyr" id="slctyr_hidden" value="{{$slctyr}}" />
@@ -156,15 +163,12 @@
 
 <script type="text/javascript">
 $("#slctyr_id").val('{{$slctyr}}');
-
 $(document).ready(function() {
     $('#tpayment_sche').DataTable({
         "responsive": "true",
         "order" : [[0, "asc"]]
-
 	});
 });
-
 // function populate(e){
 // 		var ps_id = $(e.relatedTarget).data('id');
 // 		var ps_payrollgroup_id = $(e.relatedTarget).data('payrollgroup_id');
@@ -180,25 +184,20 @@ $(document).ready(function() {
 // 		$('input[name=inputint]').val(ps_int);
 // 		$('input[name=inputpay]').val(ps_pay);
 //     }
-
 // $('#editfPsc').on('show.bs.modal', function(e) {
 //     populate(e);
 // });
-
 </script>
 <script type="text/javascript">
-
   $(document).ready(function(){
     $('#slctyr_id').change(function(){
       	$('#fselectyear').submit();
       });
    });
-
    for(i = 0; i<{{count($ps_list)}}+1; i++){
 		$("#edit-"+i).on("click", edit(i));
 		$("#btn-dell-"+i).on("click", deleteid(i));
 	}
-
 	function edit(i){
 		return function(){
 			var id = $("#edit-"+i).data('id');
@@ -212,11 +211,15 @@ $(document).ready(function() {
 								"<p>Payroll Group: </p>"+
 							"</div>"+
 							"<div class='col-md-8'>"+
-								"<select id='payrollgroup_ids' class='check-0' value='"+payrollgroup_id+"' style='width: 100%' disabled>"+
+								"<select id='payrollgroup_ids' class='check-0' value='"+payrollgroup_id+"' style='width: 100%' disabled>";
 									@foreach($pygroups as $pygroup)
-										"<option value='{{$pygroup->id}}'>{{$pygroup->pygroup}}</option>"+
+										if(payrollgroup_id=={{$pygroup->id}}){
+											html = html + "<option value='{{$pygroup->id}}' selected>{{$pygroup->pygroup}}</option>";
+										}else{
+											html = html + "<option value='{{$pygroup->id}}'>{{$pygroup->pygroup}}</option>";
+										}
 									@endforeach
-								"</select>"+
+							html = html + "</select>"+
 							"</div>"+
 							"<div class='col-md-4'>"+
 								"<p>Last Submission Date: </p>"+
@@ -282,9 +285,7 @@ $(document).ready(function() {
 			})
 		}
 	};
-
 function deleteid(i){
-
 	return function(){
 		var ls = $("#btn-dell-"+i).data('ls');
 		var ad = $("#btn-dell-"+i).data('ad');
@@ -310,7 +311,6 @@ function deleteid(i){
 		})
 	}
 }
-
    @if(session()->has('feedback'))
     Swal.fire({
         title: "{{session()->get('feedback_title')}}",
