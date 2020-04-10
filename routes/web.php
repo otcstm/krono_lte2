@@ -53,6 +53,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/punch/start',  'MiscController@startPunch')->name('punch.start');
   Route::get('/punch/check',  'MiscController@checkPunch')->name('punch.check');
   Route::get('/punch/checkday',  'MiscController@checkDay')->name('punch.checkday');
+  Route::get('/punch/checkworktime',  'MiscController@checkWorkTime')->name('punch.checkworktime');
   Route::get('/punch/end',  'MiscController@endPunch')->name('punch.end');
   Route::get('/punch/cancel',  'MiscController@cancelPunch')->name('punch.cancel');
   Route::post('/punch/delete', 'MiscController@delete')->name('punch.delete');
