@@ -416,7 +416,7 @@ class ShiftPlanController extends Controller
           $datelock = '';
         }
 
-        $spattern = ShiftPattern::all();
+        // $spattern = ShiftPattern::all();
 
         // populate the calendar
         $lastmon = new Carbon($sps->plan_month);
@@ -462,7 +462,7 @@ class ShiftPlanController extends Controller
         // dd($blankc->getOptionsJson());
         return view('shiftplan.staff_detail', [
           'sps' => $sps,
-          'patterns' => $spattern,
+          // 'patterns' => $spattern,
           'cal' => $blankc,
           'sdate' => $lastplan->format('Y-m-d'),
           'mindate' => $mindate->format('Y-m-d'),

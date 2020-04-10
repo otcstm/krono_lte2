@@ -19,7 +19,9 @@
     @endif
     <p>
       Approver: {{ $sp->Group->Manager->name }} <br />
+      @if($sp->Group->Planner && $sp->Group->planner_id != 0)
       Planner: {{ $sp->Group->Planner->name }}
+      @endif
     </p>
     <div class="table-responsive">
       <table id="tPunchHIstory" class="table table-hover table-bordered">

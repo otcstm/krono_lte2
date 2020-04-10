@@ -389,6 +389,12 @@ return [
                 'can' => '5-shift-plan',
             ],
             [
+                'text' => 'my_shift_grp',
+                'route'  => 'shift.mygroup',
+                'icon' => '',
+                'can' => '5-shift-plan',
+            ],
+            [
                 'text' => 'shift_group',
                 'url'  => '/shift_plan/group',
                 'icon' => '',
@@ -431,25 +437,29 @@ return [
                 'text' => 'otr_details',
                 'url'  => '/report/otd',
                 'icon' => 'fas fa-user-ninja',
-                'can' => '6-rpt-ot-details',
+                'can' => '6-rpt-ot',
+               // 'can' => '6-rpt-ot-details',
               ],
               [
                 'text' => 'otr_startend',
                 'url'  => '/report/StEdOt',
                 'icon' => 'fas fa-user-ninja',
-                'can' => '6-rpt-ot-se',
+                'can' => '6-rpt-ot',
+                //'can' => '6-rpt-ot-se',
               ],
               [
                 'text' => 'otr',
                 'url'  => '/report/ot',
                 'icon' => 'fas fa-user-ninja',
-                'can' => '6-rpt-ot-claim-summary',
+                'can' => '6-rpt-ot',
+                //'can' => '6-rpt-ot-claim-summary',
               ],
 
               [
                 'text' => 'otr_log',
                 'url'  => '/report/otlog',
                 'icon' => 'fas fa-user-ninja',
+                'can' => '6-rpt-ot',
               ],
               [
                 'text' => 'sysadmot',

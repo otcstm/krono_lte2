@@ -35,7 +35,7 @@
       <div class="form-group has-feedback {{ $errors->has('spattern_id') ? 'has-error' : '' }}">
         <label for="spattern">{{ __('shift.f_shift_pattern') }}</label>
         <select class="form-control" id="spattern" name="spattern_id" required>
-          @foreach($patterns as $pt)
+          @foreach($sps->ShiftPlan->Group->shiftpatterns as $pt)
           <option value="{{ $pt->id }}">{{ $pt->code }} : {{ $pt->description }} ({{ $pt->days_count }} days / {{ $pt->total_hours }} hours)</option>
           @endforeach
         </select>
