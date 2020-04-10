@@ -50,6 +50,8 @@ return [
     'shift_plan'      => 'Plan Shifts',
     'shift_group'      => 'Shift Groups',
     'shift_template'  => 'Shift Template',
+    'my_shift_grp'    => 'My Shift Group',
+
 
     'rpt_menu'        => 'REPORT',
     'otr_details'       => 'Overtime Details',

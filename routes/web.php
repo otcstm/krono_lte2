@@ -260,14 +260,6 @@ Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => '
 });
 
 Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth', 'can:5-shift-group']], function () {
-  Route::get('/', 'ShiftPlanController@index')->name('index');
-  // ShiftPlan crud
-  Route::post('/add', 'ShiftPlanController@addPlan')->name('add');
-  Route::get('/detail', 'ShiftPlanController@viewDetail')->name('view');
-  Route::post('/edit', 'ShiftPlanController@editPlan')->name('edit');
-  Route::post('/del', 'ShiftPlanController@delPlan')->name('delete');
-  Route::post('/takeaction', 'ShiftPlanController@takeActionPlan')->name('takeaction');
-  // shift groups
   Route::get('/group', 'ShiftGroupController@index')->name('group');
   Route::post('/group/add', 'ShiftGroupController@addGroup')->name('group.add');
   Route::post('/group/addsp', 'ShiftGroupController@addSpToGroup')->name('group.add.sp');
@@ -275,6 +267,22 @@ Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth
   Route::get('/group/view', 'ShiftGroupController@viewGroup')->name('group.view');
   Route::post('/group/delete', 'ShiftGroupController@delGroup')->name('group.del');
   Route::post('/group/edit', 'ShiftGroupController@editGroup')->name('group.edit');
+});
+
+Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth']], function () {
+  Route::get('/', 'ShiftPlanController@index')->name('index');
+  // ShiftPlan crud
+  Route::post('/add', 'ShiftPlanController@addPlan')->name('add');
+  Route::get('/detail', 'ShiftPlanController@viewDetail')->name('view');
+  Route::post('/edit', 'ShiftPlanController@editPlan')->name('edit');
+  Route::post('/del', 'ShiftPlanController@delPlan')->name('delete');
+  Route::post('/takeaction', 'ShiftPlanController@takeActionPlan')->name('takeaction');
+
+  // shift groups
+  Route::get('/mygroup', 'ShiftGroupController@mygroup')->name('mygroup');
+  Route::get('/mygroup/detail', 'ShiftGroupController@mygroupdetail')->name('mygroup.view');
+  Route::post('/mygroup/setplanner', 'ShiftGroupController@mygroupsetplanner')->name('mygroup.setplanner');
+  Route::post('/mygroup/delplanner', 'ShiftGroupController@mygroupdelplanner')->name('mygroup.delplanner');
   Route::post('/staff/add', 'ShiftGroupController@addStaff')->name('staff.add');
   Route::post('/staff/del', 'ShiftGroupController@removeStaff')->name('staff.del');
   Route::get('/group/api/sstaff', 'ShiftGroupController@ApiSearchStaff')->name('group.api.searchstaff');

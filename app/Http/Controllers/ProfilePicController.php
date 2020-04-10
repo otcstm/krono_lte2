@@ -24,8 +24,10 @@ return "success";
 
   public function getStaffImage($staffno){  
     $user = User::where('staff_no',$staffno)->first();
+    $uid = 0;
+    if($user){$uid = $user->id;}
 
-    return $this->getEraImage($staffno, $user->id);
+    return $this->getEraImage($staffno, $uid);
   }
 
 
