@@ -52,6 +52,7 @@ return "success";
     }
     catch (Exception $e)
     {
+      dd($e);
       
       $blankPicUrl = 'http://ssl.gstatic.com/accounts/ui/avatar_2x.png';
       $contents = file_get_contents($blankPicUrl);
