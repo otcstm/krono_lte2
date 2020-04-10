@@ -249,7 +249,7 @@ Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => '
   Route::post('/day/pop', 'ShiftPatternController@popDay')->name('day.del');
 });
 
-Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth','can:5-shift-group']], function () {
+Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth']], function () {
   Route::get('/', 'ShiftPlanController@index')->name('index');
   // ShiftPlan crud
   Route::post('/add', 'ShiftPlanController@addPlan')->name('add');
