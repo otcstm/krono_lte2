@@ -12,14 +12,7 @@
 <div class="panel panel-default panel-main">
 	<div class="panel panel-default">
 		<div class="panel-heading"><strong>Payment Schedule Management</strong></div>
-		<div class="panel-body">
-				@if (session()->has('a_text'))
-				<div class="alert alert-{{ session()->get('a_type') }} alert-dismissible">
-					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-					<strong>{{ session()->get('a_text') }}</strong>
-				</div>
-				@endif
-			</div>
+
 		<!-- <div class="panel-body">
 			<div>
 				<input type="hidden" name="slctyr" id="slctyr_hidden" value="{{$slctyr}}" />
