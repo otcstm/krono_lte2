@@ -350,6 +350,15 @@ class PermissionsTableSeeder extends Seeder
                 'updated_at' => '2020-03-16 11:19:15',
                 'deleted_at' => NULL,
             ),
+            37 => 
+            array (
+                'id' => 38,
+                'title' => '6-rpt-ot',
+                'descr' => 'Report - OT',
+                'created_at' => '2020-04-10 11:36:49',
+                'updated_at' => '2020-04-10 11:36:49',
+                'deleted_at' => NULL,
+            ),
         ));
         
         

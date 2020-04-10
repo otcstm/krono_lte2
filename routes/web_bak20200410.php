@@ -12,7 +12,7 @@
 Route::redirect('/', '/login');
 Auth::routes(['register' => false]);
 //Temporary offline login (url /login/offline)
-Route::view('/login/offline', 'loginoffline', []);
+Route::view('/login/offline', 'loginoffline',[]);
 Route::post('/login/offline', 'TempController@login')->name('login.offline');
 //User record controller
 Route::get('/ur/popbyid/{id}', 'URController@popById')->name('ur.popbyid');
@@ -67,11 +67,11 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/admin/workday/delete', 'Admin\DayTypeController@delete')->name('wd.delete');
   Route::get('/admin/cda', 'TempController@loadDummyUser')->name('temp.cda');
   //start state admin
-  Route::post('/admin/state/store', 'Admin\StateController@store')->name('state.store');
-  Route::get('/admin/restState', 'Admin\StateController@list')->name('state.list');
-  Route::post('/admin/state/destroy', 'Admin\StateController@destroy')->name('state.destroy');
-  Route::get('/admin/state/show', 'Admin\StateController@show')->name('state.show');
-  Route::post('/admin/state/update', 'Admin\StateController@update')->name('state.update');
+  Route::post('/admin/state/store'    ,'Admin\StateController@store'    )->name('state.store');
+  Route::get( '/admin/restState'      ,'Admin\StateController@list'     )->name('state.list');
+  Route::post('/admin/state/destroy'  ,'Admin\StateController@destroy'  )->name('state.destroy');
+  Route::get( '/admin/state/show'     ,'Admin\StateController@show'   )->name('state.show');
+  Route::post( '/admin/state/update'  ,'Admin\StateController@update'   )->name('state.update');
   //end state admin
 
 
@@ -99,15 +99,15 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('admin/role/edit', 'Admin\RoleController@update')->name('role.edit');
   Route::post('admin/role/delete', 'Admin\RoleController@destroy')->name('role.delete');
   //Company
-  Route::get('/admin/company', 'Admin\CompanyController@index')->name('company.index');
-  Route::post('/admin/company/add', 'Admin\CompanyController@store')->name('company.store');
-  Route::post('/admin/company/delete', 'Admin\CompanyController@destroy')->name('company.delete');
-  Route::post('/admin/company/update', 'Admin\CompanyController@update')->name('company.update');
+  Route::get( '/admin/company','Admin\CompanyController@index')->name('company.index');
+  Route::post('/admin/company/add','Admin\CompanyController@store')->name('company.store');
+  Route::post('/admin/company/delete','Admin\CompanyController@destroy')->name('company.delete');
+  Route::post( '/admin/company/update','Admin\CompanyController@update')->name('company.update');
   //Personnel subarea
-  Route::get('/admin/psubarea', 'Admin\PsubareaController@index')->name('psubarea.index');
-  Route::post('/admin/psubarea/add', 'Admin\PsubareaController@store')->name('psubarea.store');
-  Route::post('/admin/psubarea/update', 'Admin\PsubareaController@update')->name('psubarea.edit');
-  Route::post('/admin/psubarea/delete', 'Admin\PsubareaController@destroy')->name('psubarea.delete');
+  Route::get( '/admin/psubarea','Admin\PsubareaController@index')->name('psubarea.index');
+  Route::post('/admin/psubarea/add','Admin\PsubareaController@store')->name('psubarea.store');
+  Route::post( '/admin/psubarea/update','Admin\PsubareaController@update')->name('psubarea.edit');
+  Route::post('/admin/psubarea/delete','Admin\PsubareaController@destroy')->name('psubarea.delete');
   //Holiday
   //Route::get('/admin/holiday/create', 'Admin\HolidayController@create')->name('holiday.create');
   //Route::post('/admin/holiday/insert', 'Admin\HolidayController@insert')->name('holiday.insert');
@@ -117,11 +117,11 @@ Route::group(['middleware' => ['auth']], function () {
   //Route::post('/admin/holiday/update', 'Admin\HolidayController@update')->name('holiday.update');
   //Route::post('/admin/holiday/destroy', 'Admin\HolidayController@destroy')->name('holiday.destroy');
   //Payment Schedule
-  Route::get('/admin/paymentsc', 'Admin\PaymentScheduleController@index')->name('paymentsc.index');
-  Route::post('/admin/paymentsc', 'Admin\PaymentScheduleController@index')->name('paymentsc.index');
-  Route::post('/admin/paymentsc/add', 'Admin\PaymentScheduleController@store')->name('paymentsc.store');
-  Route::post('/admin/paymentsc/update', 'Admin\PaymentScheduleController@update')->name('paymentsc.edit');
-  Route::post('/admin/paymentsc/delete', 'Admin\PaymentScheduleController@destroy')->name('paymentsc.delete');
+  Route::get( '/admin/paymentsc','Admin\PaymentScheduleController@index')->name('paymentsc.index');
+  Route::post( '/admin/paymentsc','Admin\PaymentScheduleController@index')->name('paymentsc.index');
+  Route::post('/admin/paymentsc/add','Admin\PaymentScheduleController@store')->name('paymentsc.store');
+  Route::post( '/admin/paymentsc/update','Admin\PaymentScheduleController@update')->name('paymentsc.edit');
+  Route::post('/admin/paymentsc/delete','Admin\PaymentScheduleController@destroy')->name('paymentsc.delete');
 
   //OT Config
   Route::get('/admin/overtime', 'Admin\OvertimeMgmtController@show')->name('oe.show');
@@ -144,8 +144,22 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/admin/overtime/eligibility/remove', 'Admin\OvertimeMgmtController@eligibilityremove')->name('oe.eligibility.remove');
   Route::post('/admin/overtime/eligibility/update', 'Admin\OvertimeMgmtController@eligibilityupdate')->name('oe.eligibility.update');
 
-
-
+  //Payroll Group
+  Route::get( '/admin/pygroup','Admin\PayrollgroupController@index')->name('pygroup.index');
+  Route::get('/admin/pygroup/create', 'Admin\PayrollgroupController@create')->name('pygroup.create');
+  Route::post('/admin/pygroup/add','Admin\PayrollgroupController@store')->name('pygroup.store');
+  Route::get( '/admin/pygroup/edit/{id}','Admin\PayrollgroupController@edit')->name('pygroup.editnew');
+  Route::post( '/admin/pygroup/update','Admin\PayrollgroupController@update')->name('pygroup.update');
+  Route::post('/admin/pygroup/delete','Admin\PayrollgroupController@destroy')->name('pygroup.delete');
+  //Report
+  Route::get('/report/ot', 'Admin\OtReport2Controller@viewOT')->name('rep.viewOT'); //dowload rep1
+  Route::post('/report/ot', 'Admin\OtReport2Controller@viewOT')->name('rep.viewOT');
+  Route::get('/report/otd', 'Admin\OtReport2Controller@viewOTd')->name('rep.viewOTd'); //dowload rep2
+  Route::post('/report/otd', 'Admin\OtReport2Controller@viewOTd')->name('rep.viewOTd');
+  Route::get('/report/StEdOt', 'Admin\OtReport2Controller@viewStEd')->name('rep.viewStEd'); //dowload rep4
+  Route::post('/report/StEdOt', 'Admin\OtReport2Controller@viewStEd')->name('rep.viewStEd');
+  Route::get('/report/otlog', 'Admin\OtReport2Controller@viewLC')->name('rep.viewOTLog'); //dowload rep3
+  Route::post('/report/otlog', 'Admin\OtReport2Controller@viewLC')->name('rep.viewOTLog');
   //Report batch job
   Route::get('/syadmrep/ot', 'Admin\OtSaRepController@viewOT')->name('rep.sa.OT');
   Route::post('/syadmrep/dot', 'Admin\OtSaRepController@joblist')->name('rep.sa.dOT');
@@ -219,37 +233,13 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/admin/verifier/ajaxAdvSearchSubord', 'UserVerifierController@ajaxAdvSearchSubord')->name('verifier.ajaxAdvSearchSubord');
   Route::post('/admin/verifier/advSearch', 'UserVerifierController@advSearchSubord')->name('verifier.advSearchSubord');
 
-  //ProfilePics
-  Route::get('/user/image/{staffno}', 'ProfilePicController@getStaffImage')->name('user.image');
+ //ProfilePics
+ Route::get( '/user/image/{staffno}','ProfilePicController@getStaffImage')->name('user.image');
+
+
 });
 
-
-//Payroll Group
-Route::group(['middleware' => ['auth', 'can:2-cfg-payroll-grp']], function () {
-  Route::get('/admin/pygroup', 'Admin\PayrollgroupController@index')->name('pygroup.index');
-  Route::get('/admin/pygroup/create', 'Admin\PayrollgroupController@create')->name('pygroup.create');
-  Route::post('/admin/pygroup/add', 'Admin\PayrollgroupController@store')->name('pygroup.store');
-  Route::get('/admin/pygroup/edit/{id}', 'Admin\PayrollgroupController@edit')->name('pygroup.editnew');
-  Route::post('/admin/pygroup/update', 'Admin\PayrollgroupController@update')->name('pygroup.update');
-  Route::post('/admin/pygroup/delete', 'Admin\PayrollgroupController@destroy')->name('pygroup.delete');
-});
-
-
-
-//Report
-Route::group(['middleware' => ['auth', 'can:6-rpt-ot']], function () {
-  Route::get('/report/ot', 'Admin\OtReport2Controller@viewOT')->name('rep.viewOT'); //dowload rep1
-  Route::post('/report/ot', 'Admin\OtReport2Controller@viewOT')->name('rep.viewOT');
-  Route::get('/report/otd', 'Admin\OtReport2Controller@viewOTd')->name('rep.viewOTd'); //dowload rep2
-  Route::post('/report/otd', 'Admin\OtReport2Controller@viewOTd')->name('rep.viewOTd');
-  Route::get('/report/StEdOt', 'Admin\OtReport2Controller@viewStEd')->name('rep.viewStEd'); //dowload rep4
-  Route::post('/report/StEdOt', 'Admin\OtReport2Controller@viewStEd')->name('rep.viewStEd');
-  Route::get('/report/otlog', 'Admin\OtReport2Controller@viewLC')->name('rep.viewOTLog'); //dowload rep3
-  Route::post('/report/otlog', 'Admin\OtReport2Controller@viewLC')->name('rep.viewOTLog');
-});
-
-
-Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => 'Admin', 'middleware' => ['auth', 'can:2-cfg-shifttemplate']], function () {
+Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
   Route::get('/', 'ShiftPatternController@index')->name('index');
   Route::post('/add', 'ShiftPatternController@addShiftPattern')->name('add');
   Route::get('/detail', 'ShiftPatternController@viewSPDetail')->name('view');
@@ -259,7 +249,7 @@ Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => '
   Route::post('/day/pop', 'ShiftPatternController@popDay')->name('day.del');
 });
 
-Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth', 'can:5-shift-group']], function () {
+Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth']], function () {
   Route::get('/', 'ShiftPlanController@index')->name('index');
   // ShiftPlan crud
   Route::post('/add', 'ShiftPlanController@addPlan')->name('add');
@@ -285,14 +275,17 @@ Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth
   Route::get('/staff', 'ShiftPlanController@staffInfo')->name('staff');
   Route::post('/staff/push', 'ShiftPlanController@staffPushTemplate')->name('staff.push');
   Route::post('/staff/pop', 'ShiftPlanController@staffPopTemplate')->name('staff.pop');
+
+ 
+
 });
 
-Route::get('/email/dummy', 'EmailController@dummyEmail')->name('email.dummy');
-Route::post('/email/dummy', 'EmailController@sendDummyEmail')->name('email.senddummy');
+  Route::get('/email/dummy', 'EmailController@dummyEmail')->name('email.dummy');
+  Route::post('/email/dummy', 'EmailController@sendDummyEmail')->name('email.senddummy');
 
 
 //Holiday
-Route::group(['prefix' => 'admin/holiday', 'as' => '', 'middleware' => ['auth', 'can:2-cfg-holiday']], function () {
+  Route::group(['prefix' => 'admin/holiday', 'as' => '', 'middleware' => ['auth', 'can:2-cfg-holiday' ]], function () {
   Route::get('/create', 'Admin\HolidayController@create')->name('holiday.create');
   Route::post('/insert', 'Admin\HolidayController@insert')->name('holiday.insert');
   Route::get('/show', 'Admin\HolidayController@show')->name('holiday.show');
@@ -300,4 +293,5 @@ Route::group(['prefix' => 'admin/holiday', 'as' => '', 'middleware' => ['auth', 
   Route::get('/edit/{id}', 'Admin\HolidayController@edit')->name('holiday.edit');
   Route::post('/update', 'Admin\HolidayController@update')->name('holiday.update');
   Route::post('/destroy', 'Admin\HolidayController@destroy')->name('holiday.destroy');
+
 });
