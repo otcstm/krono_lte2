@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{ secure_asset('vendor/custom.css') }}">
 
     <link rel="stylesheet" href="{{ secure_asset('vendor/simditor/simditor.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('vendor/air-datepicker/css/datepicker.min.css') }}">
 
     
 
@@ -67,6 +68,8 @@
 <script src="{{ secure_asset('vendor/simditor/module.js') }}"></script>
 <script src="{{ secure_asset('vendor/simditor/hotkeys.js') }}"></script>
 <script src="{{ secure_asset('vendor/simditor/simditor.js') }}"></script>
+<script src="{{ secure_asset('vendor/air-datepicker/js/datepicker.js') }}"></script>
+<script src="{{ secure_asset('vendor/air-datepicker/js/i18n/datepicker.en.js') }}"></script>
 
 
 @include('adminlte::plugins', ['type' => 'js'])

@@ -58,6 +58,10 @@ return [
     'otr_startend'      => 'List of Start/End OT Time',
     'otr'               => 'Summary of OT Claim',
     'otr_log'           => 'OT Log Changes',
+    'sysadmot'          => 'Summary of OT Claim(SA)',
+    'sysadmotd'         => 'Overtime Details(SA)',
+    'sysadmotStEd'       => 'List of Start/End OT Time(SA)',
+    'sysadmotlog'       => 'OT Log Changes(SA)',
 
     'info_menu'       => 'INFORMATION',
     'user_guide'      => 'GUIDELINE',

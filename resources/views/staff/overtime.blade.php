@@ -54,7 +54,19 @@
                                     N/A
                                 @endif
                             </td> 
-                            <td>@if(count($singleuser->detail)) @foreach($singleuser->detail as $details) @if($details->checked=="Y")<a href = "https://www.google.com/maps/search/?api=1&query={{$details->in_latitude}},{{$details->in_longitude}}" target="_blank" style="font-weight: bold; color: #143A8C"> {{$details->in_latitude}} {{$details->in_longitude}}</a><br> @endif @endforeach @else - @endif</td> 
+                            <td>@if(count($singleuser->detail)) 
+                                    @foreach($singleuser->detail as $details) 
+                                        @if($details->clock_in=="")
+                                         - 
+                                        @else 
+                                            @if($details->checked=="Y")
+                                                <a href = "https://www.google.com/maps/search/?api=1&query={{$details->in_latitude}},{{$details->in_longitude}}" target="_blank" style="font-weight: bold; color: #143A8C"> {{$details->in_latitude}} {{$details->in_longitude}}</a><br> 
+                                            @endif 
+                                        @endif 
+                                    @endforeach 
+                                @else 
+                                    - 
+                                @endif</td> 
                             <td 
                                 @foreach($singleuser->log as $logs) 
                                     @if(strpos($logs->message,"Queried")!==false) 

@@ -136,14 +136,14 @@ return [
       [
         'text' => 'admin_menu',
         'icon' => 'fas f fa-user-clock',
-        // 'can' => '1-nav-menu-admin',
+        'can' => '1-nav-menu-admin',
         'submenu' => [
           [
               'text' => 'manage_role',
               'url'  => '/admin/role',
               'icon' => '',
             //   'icon' => 'fas fa-lock-open',
-              // 'can' => '2-cfg-role',
+              'can' => '2-cfg-role',
           ],
           [
               'text' => 'manage_company',
@@ -222,7 +222,7 @@ return [
               'url' => '/admin/announcement',
               'icon' => '',
             //   'icon' => 'fas fa-calendar-alt',
-              // 'can' => '2-cfg-pay-sched',
+              'can' => '2-cfg-pay-sched',
           ],
         ],
       ],
@@ -363,7 +363,6 @@ return [
                 'can' => '4-ot-claim-approve-report',
             ],
 
-
             [
                 'text' => 'ot_def_ver',
                 'url'  => '/verifier',
@@ -436,26 +435,50 @@ return [
             'submenu' => [
               [
                 'text' => 'otr_details',
-                'url'  => '/admreport/otd',
+                'url'  => '/report/otd',
                 'icon' => 'fas fa-user-ninja',
-                'can' => '6-rpt-ot-details',
+                'can' => '6-rpt-ot',
+               // 'can' => '6-rpt-ot-details',
               ],
               [
                 'text' => 'otr_startend',
-                'url'  => '/admreport/StEdOt',
+                'url'  => '/report/StEdOt',
                 'icon' => 'fas fa-user-ninja',
-                'can' => '6-rpt-ot-se',
+                'can' => '6-rpt-ot',
+                //'can' => '6-rpt-ot-se',
               ],
               [
                 'text' => 'otr',
-                'url'  => '/admreport/ot',
+                'url'  => '/report/ot',
                 'icon' => 'fas fa-user-ninja',
-                'can' => '6-rpt-ot-claim-summary',
+                'can' => '6-rpt-ot',
+                //'can' => '6-rpt-ot-claim-summary',
               ],
 
               [
                 'text' => 'otr_log',
-                'url'  => '/admreport/otlog',
+                'url'  => '/report/otlog',
+                'icon' => 'fas fa-user-ninja',
+                'can' => '6-rpt-ot',
+              ],
+              [
+                'text' => 'sysadmot',
+                'url'  => '/syadmrep/ot',
+                'icon' => 'fas fa-user-ninja',
+              ],
+              [
+                'text' => 'sysadmotd',
+                'url'  => '/syadmrep/otd',
+                'icon' => 'fas fa-user-ninja',
+              ],
+              [
+                'text' => 'sysadmotStEd',
+                'url'  => '/syadmrep/StEd',
+                'icon' => 'fas fa-user-ninja',
+              ],
+              [
+                'text' => 'sysadmotlog',
+                'url'  => '/syadmrep/otlog',
                 'icon' => 'fas fa-user-ninja',
                 'can' => '6-rpt-ot-log-changes',
               ],

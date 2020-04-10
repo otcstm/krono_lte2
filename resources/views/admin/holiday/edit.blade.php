@@ -64,6 +64,10 @@ function checkState(id){
 checkState('{{$var->stateid->id}}');
   @endforeach
 </script>
+
+
+
+
 <script type="text/javascript">
 $(function () {
 	 $('#check').on('click', function () {
@@ -79,6 +83,7 @@ $(function () {
 
 $(function () {
 	 $('#reset').on('click', function () {
+		$('.questionCheckBox').prop('checked',false);
 		 @foreach ($holiday->StatesThatCelebrateThis as $var)
 		 checkState('{{$var->stateid->id}}');
 			 @endforeach
