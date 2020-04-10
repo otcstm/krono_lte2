@@ -12,7 +12,14 @@
 <div class="panel panel-default panel-main">
 	<div class="panel panel-default">
 		<div class="panel-heading"><strong>Payment Schedule Management</strong></div>
-
+		<div class="panel-body">
+				@if (session()->has('a_text'))
+				<div class="alert alert-{{ session()->get('a_type') }} alert-dismissible">
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					<strong>{{ session()->get('a_text') }}</strong>
+				</div>
+				@endif
+			</div>
 		<!-- <div class="panel-body">
 			<div>
 				<input type="hidden" name="slctyr" id="slctyr_hidden" value="{{$slctyr}}" />
@@ -123,7 +130,7 @@
 			</div>
 			<div class="panel-footer">
 				<div class="text-right">
-					<button type="submit" class="btn btn-p btn-primary">SUBMIT</button>		
+					<button type="submit" class="btn btn-p btn-primary">SUBMIT</button>
 				</div>
 			</div>
 		</form>
@@ -161,7 +168,7 @@ $(document).ready(function() {
     $('#tpayment_sche').DataTable({
         "responsive": "true",
         "order" : [[0, "asc"]]
-			
+
 	});
 });
 
@@ -193,10 +200,10 @@ $(document).ready(function() {
       	$('#fselectyear').submit();
       });
    });
-   
+
    for(i = 0; i<{{count($ps_list)}}+1; i++){
 		$("#edit-"+i).on("click", edit(i));
-		$("#btn-dell-"+i).on("click", deleteid(i));	
+		$("#btn-dell-"+i).on("click", deleteid(i));
 	}
 
 	function edit(i){
@@ -206,13 +213,13 @@ $(document).ready(function() {
 			var ls = $("#edit-"+i).data('ls');
 			var ad = $("#edit-"+i).data('ad')
 			var intd = $("#edit-"+i).data('intd')
-			var pd = $("#edit-"+i).data('pd') 
+			var pd = $("#edit-"+i).data('pd')
 			var html = "<div class='row'>"+
 							"<div class='col-md-4'>"+
 								"<p>Payroll Group: </p>"+
 							"</div>"+
 							"<div class='col-md-8'>"+
-								"<select id='payrollgroup_ids' class='check-0' value='"+payrollgroup_id+"' style='width: 100%' >"+
+								"<select id='payrollgroup_ids' class='check-0' value='"+payrollgroup_id+"' style='width: 100%' disabled>"+
 									@foreach($pygroups as $pygroup)
 										"<option value='{{$pygroup->id}}'>{{$pygroup->pygroup}}</option>"+
 									@endforeach
@@ -222,25 +229,25 @@ $(document).ready(function() {
 								"<p>Last Submission Date: </p>"+
 							"</div>"+
 							"<div class='col-md-8'>"+
-								"<input type='date' id='lss' class='check-0' value='"+ls+"' style='width: 100%' >"+
+								"<input type='date' id='lss' class='check-1' value='"+ls+"' style='width: 100%' >"+
 							"</div>"+
 							"<div class='col-md-4'>"+
 								"<p>Approval Date: </p>"+
 							"</div>"+
 							"<div class='col-md-8'>"+
-								"<input type='date' id='ads' class='check-0' value='"+ad+"' style='width: 100%' >"+
+								"<input type='date' id='ads' class='check-2' value='"+ad+"' style='width: 100%' >"+
 							"</div>"+
 							"<div class='col-md-4'>"+
 								"<p>Interface Date: </p>"+
 							"</div>"+
 							"<div class='col-md-8'>"+
-								"<input type='date' id='intd' class='check-0' value='"+intd+"' style='width: 100%' >"+
+								"<input type='date' id='intd' class='check-3' value='"+intd+"' style='width: 100%' >"+
 							"</div>"+
 							"<div class='col-md-4'>"+
 								"<p>Payment Date: </p>"+
 							"</div>"+
 							"<div class='col-md-8'>"+
-								"<input type='date' id='pds' class='check-0' value='"+pd+"' style='width: 100%' >"+
+								"<input type='date' id='pds' class='check-4' value='"+pd+"' style='width: 100%' >"+
 							"</div>"+
 						"</div>";
 			var submit = true;
@@ -256,21 +263,19 @@ $(document).ready(function() {
 				cancelButtonText: 'CANCEL'
 				}).then((result) => {
 				if (result.value) {
-					for(i = 0; i<7; i++){
+					for(i = 0; i<5; i++){
 						if($('.check-'+i).get(0).checkValidity()==false){
 							submit = false;
 						}
 					}
 					if(submit){
-						$('#editid').val(ps_id);
-						$('#editcomp').val($("#ps_comp").val());
-						$('#editparea').val($("#ps_area").val());
-						$('#editparead').val($("#ps_aread").val());
-						$('#editpsubarea').val($("#ps_sub").val());
-						$('#editpsubaread').val($("#ps_subd").val());
-						$('#editstate').val($("#ps_state_id").val());
-						$('#editregion').val($("#ps_reg").val());
-						$('#edit').submit();
+						$('#editid').val(id);
+						$('#editpyg').val($("#payrollgroup_ids").val());
+						$('#editsub').val($("#lss").val());
+						$('#editapp').val($("#ads").val());
+						$('#editint').val($("#intd").val());
+						$('#editpay').val($("#pds").val());
+						$('#editn').submit();
 					}else{
 						Swal.fire({
 							title: "Incomplete Form",
@@ -286,7 +291,7 @@ $(document).ready(function() {
 	};
 
 function deleteid(i){
-	
+
 	return function(){
 		var ls = $("#btn-dell-"+i).data('ls');
 		var ad = $("#btn-dell-"+i).data('ad');
