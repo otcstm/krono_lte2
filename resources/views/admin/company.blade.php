@@ -133,7 +133,10 @@
 $(document).ready(function() {
     $('#tCompanyList').DataTable({
         "responsive": "true",
-        "order" : [[0, "asc"]]
+        "order" : [[0, "asc"]],
+				"columnDefs": [
+			     { "width": "4%", "targets": 3 }
+			   ]
     });
 });
 

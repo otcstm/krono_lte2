@@ -12,14 +12,6 @@
 <div class="panel panel-default panel-main">
 	<div class="panel panel-default">
 		<div class="panel-heading"><strong>Payment Schedule Management</strong></div>
-		<div class="panel-body">
-				@if (session()->has('a_text'))
-				<div class="alert alert-{{ session()->get('a_type') }} alert-dismissible">
-					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-					<strong>{{ session()->get('a_text') }}</strong>
-				</div>
-				@endif
-			</div>
 		<!-- <div class="panel-body">
 			<div>
 				<input type="hidden" name="slctyr" id="slctyr_hidden" value="{{$slctyr}}" />
@@ -163,10 +155,14 @@
 
 <script type="text/javascript">
 $("#slctyr_id").val('{{$slctyr}}');
+
 $(document).ready(function() {
     $('#tpayment_sche').DataTable({
         "responsive": "true",
-        "order" : [[0, "asc"]]
+        "order" : [[5, "desc"]],
+				"columnDefs": [
+			     { "width": "4%", "targets": 6 }
+			   ]
 	});
 });
 // function populate(e){
@@ -313,9 +309,9 @@ function deleteid(i){
 }
    @if(session()->has('feedback'))
     Swal.fire({
-        title: "{{session()->get('feedback_title')}}",
-        html: "{{session()->get('feedback_text')}}",
-        confirmButtonText: 'DONE'
+			icon: "{{session()->get('a_icon')}}",
+			html: "{{session()->get('a_text')}}",
+			confirmButtonText: 'OK'
     })
 @endif
 </script>
