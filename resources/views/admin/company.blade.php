@@ -26,7 +26,7 @@
 								<td>{{ $company->company_descr }}</td>
 								<td>@if($company->createdby ?? ''){{ $company->createdby->name }}@endif</td>
 								<td>
-									<form method="post" action="{{ route('company.delete', [], false) }}" id="formdelete">
+									<form method="post" action="{{ route('company.delete', [], false) }}" id="formdelete-{{$no}}">
 										@csrf
 										<button type="button" class="btn btn-np" title="Edit"
 											id="edit-{{$no}}"
@@ -35,7 +35,10 @@
 											>
 											<i class="fas fa-edit"></i>
 										</button>
-										<button type="button" class="btn btn-np" title="Delete" data-compdescr="{{$company->company_descr}}" onclick="return deleteid()" id="buttond">
+										<button type="button" class="btn btn-np" title="Delete"
+										data-compdescr="{{$company->company_descr}}"
+										onclick="return deleteid()"
+										id="buttond-{{$no}}">
 												<i class="fas fa-trash-alt"></i>
 										</button>
 										<input type="hidden" name="inputid" value="{{$company->id}}">
@@ -68,15 +71,15 @@
 								<input type="text" id="inputcomp" name="inputcomp"  value="{{ old('inputcomp') }}" required autofocus>
 							</div>
 						</div>
-						
+
 					</div>
 				</div>
 		</div>
 		<div class="panel-footer">
-		
+
 		<div class="text-right">
 							<button type="submit" class="btn btn-p btn-primary">CREATE NEW COMPANY</button>
-							
+
 		</div>
 			</form>
 		</div>
@@ -121,7 +124,7 @@
 	<input type="text" class="form-control" id="eid" name="eid" value="">
 	<input type="text" class="form-control" id="editdescr" name="editdescr" value="">
 </form>
-		
+
 @stop
 
 @section('js')
@@ -130,24 +133,27 @@
 $(document).ready(function() {
     $('#tCompanyList').DataTable({
         "responsive": "true",
-        "order" : [[0, "asc"]]
+        "order" : [[0, "asc"]],
+				"columnDefs": [
+			     { "width": "4%", "targets": 3 }
+			   ]
     });
 });
 
-function populate(e){
-		var ps_id = $(e.relatedTarget).data('id');
-    var ps_comp = $(e.relatedTarget).data('compdescr');
-    $('input[name=eid]').val(ps_id);
-    $('input[name=editdescr]').val(ps_comp);
-    }
-
-$('#editCompany').on('show.bs.modal', function(e) {
-    populate(e);
-});
+// function populate(e){
+// 		var ps_id = $(e.relatedTarget).data('id');
+//     var ps_comp = $(e.relatedTarget).data('compdescr');
+//     $('input[name=eid]').val(ps_id);
+//     $('input[name=editdescr]').val(ps_comp);
+//     }
+//
+// $('#editCompany').on('show.bs.modal', function(e) {
+//     populate(e);
+// });
 
 for(i = 0; i<{{count($companies)}}; i++){
 	$("#edit-"+i).on("click", edit(i));
-	
+		$("#buttond-"+i).on("click", deleteid(i));
 }
 
 function edit(i){
@@ -156,7 +162,7 @@ function edit(i){
 		var ps_comp = $("#edit-"+i).data('compdescr');
 		Swal.fire({
 			title: 'Edit Company',
-			html: 
+			html:
 				"<div class='row'>"+
 					"<div class='col-md-4'>"+
 						"<p>Company ID</p>"+
@@ -177,7 +183,7 @@ function edit(i){
 			customClass:'test4',
 			confirmButtonColor: '#d33',
 			cancelButtonColor: '#3085d6',
-			confirmButtonText: 'SELECT',
+			confirmButtonText: 'SUBMIT',
 			cancelButtonText: 'CANCEL'
 			}).then((result) => {
 			if (result.value) {
@@ -199,9 +205,9 @@ function edit(i){
 	}
 }
 
-function deleteid(){
-	
-    var ps_comp = $("#buttond").data('compdescr');
+function deleteid(i){
+	return function(){
+    var ps_comp = $("#buttond-"+i).data('compdescr');
 	Swal.fire({
                     title: 'Are you sure?',
                     text: "Delete company "+ps_comp+"?",
@@ -213,9 +219,10 @@ function deleteid(){
                     cancelButtonText: 'CANCEL'
                     }).then((result) => {
                     if (result.value) {
-                        $("#formdelete").submit();
+                        $("#formdelete-"+i).submit();
                     }
                 })
+	}
 }
 
 @if(session()->has('feedback'))
