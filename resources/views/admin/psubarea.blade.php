@@ -14,15 +14,10 @@
 					<thead>
 						<tr>
 								<th>Company</th>
-								<!-- <th>Comp Desc</th> -->
 								<th>Persarea</th>
-								<!-- <th>Persarea Desc</th> -->
 								<th>Perssubarea</th>
-								<!-- <th>Perssubarea Desc</th> -->
 								<th>State</th>
-								<!-- <th>State Desc</th> -->
 								<th>Region</th>
-								<th>Created by</th>
 								<th>Action</th>
 						</tr>
 					</thead>
@@ -31,17 +26,14 @@
 						<tr>
 								<td>@if($psubarea->companyid ?? '') {{ $psubarea->companyid->id }} - {{ $psubarea->companyid->company_descr}} @else N/A @endif</td>
 								<td>{{ $psubarea->persarea }} - {{ $psubarea->persareadesc }}</td>
-								<!-- <td>{{ $psubarea->persareadesc }}</td> -->
 								<td>{{ $psubarea->perssubarea }} - {{ $psubarea->perssubareades }}</td>
-								<!-- <td>{{ $psubarea->perssubareades }}</td> -->
 								<td>@if($psubarea->stateid ?? '') {{ $psubarea->stateid->id }} - {{ $psubarea->stateid->state_descr}}@endif </td>
 								<td>{{ $psubarea->region }}</td>
-								<td>{{ $psubarea->createdby->id }}</td>
 								<td>
 									<form method="post" action="{{ route('psubarea.delete', [], false) }}" data-compdescr="{{ $psubarea->perssubarea }} - {{$psubarea['perssubareades']}}" id="formdelete-{{$no}}">
 										@csrf
 										<button type="button" class="btn btn-np" title="Edit"
-												id="edit-{{$no}}" 
+												id="edit-{{$no}}"
 												data-id="{{$psubarea->id}}"
 												data-comp="{{$psubarea->company_id}}"
 												data-area="{{$psubarea->persarea}}"
@@ -87,7 +79,7 @@
 						<div class="row" style="margin-top: 15px;">
 							<div class="col-md-3">
 								<label for="inputparea">Personnel Area</label>
-							</div>	
+							</div>
 							<div class="col-md-9">
 								<input type="text" id="inputparea" name="inputparea"  value="{{ old('inputparea') }}"  style="width: 100%" required autofocus>
 							</div>
@@ -95,7 +87,7 @@
 						<div class="row" style="margin-top: 15px;">
 							<div class="col-md-3">
 								<label for="inputparea">Personnel Area Desc</label>
-							</div>	
+							</div>
 							<div class="col-md-9">
 								<input type="text" id="inputparead" name="inputparead" value="{{ old('inputparead') }}" style="width: 100%" required autofocus>
 							</div>
@@ -103,7 +95,7 @@
 						<div class="row" style="margin-top: 15px;">
 							<div class="col-md-3">
 								<label for="inputparea">Personnel Subarea</label>
-							</div>	
+							</div>
 							<div class="col-md-9">
 							<input type="text" id="inputpsubarea" name="inputpsubarea"  value="{{ old('inputpsubarea') }}" style="width: 100%" required autofocus>
 							</div>
@@ -111,14 +103,14 @@
 						<div class="row" style="margin-top: 15px;">
 							<div class="col-md-3">
 								<label for="inputparea">Personnel  Subarea Desc</label>
-							</div>	
+							</div>
 							<div class="col-md-9">
 							<input type="text" id="inputpsubaread" name="inputpsubaread"  value="{{ old('inputpsubaread') }}" style="width: 100%" required autofocus>
 							</div>
 						</div>
 						<div class="row" style="margin-top: 15px;">
 							<div class="col-md-3">
-								<label for="inputcomp">Company</label><br>
+								<label for="inputcomp">State</label><br>
 							</div>
 							<div class="col-md-9">
 								<select name="inputstate" id="inputstate" required style="width: 100%">
@@ -132,15 +124,15 @@
 						<div class="row" style="margin-top: 15px;">
 							<div class="col-md-3">
 								<label for="inputparea">Region</label>
-							</div>	
+							</div>
 							<div class="col-md-9">
 								<select type="text" id="inputregion" name="inputregion" style="width: 100%" required autofocus>
-										
+
 										<option value="" hidden disabled selected>Please Select</option>
 										<option value="SEM">SEM</option>
 										<option value="SWK">SWK</option>
 										<option value="SBH">SBH</option>
-										
+
 								</select>
 							</div>
 						</div>
@@ -149,7 +141,7 @@
 			</div>
 				<div class="panel-footer">
 					<div class="text-right">
-							<button type="submit" class="btn btn-p btn-primary">SUBMIT</button>		
+							<button type="submit" class="btn btn-p btn-primary">SUBMIT</button>
 					</div>
 				</div>
 			</form>
@@ -181,41 +173,41 @@ $(document).ready(function() {
     });
 });
 
-function populate(e){
-		var ps_id = $(e.relatedTarget).data('id');
-    var ps_comp = $(e.relatedTarget).data('comp');
-    var ps_area = $(e.relatedTarget).data('area');
-		var ps_aread = $(e.relatedTarget).data('aread');
-		var ps_sub = $(e.relatedTarget).data('sub');
-		var ps_subd = $(e.relatedTarget).data('subd');
-    //var ps_state = $(e.relatedTarget).data('state');
-		var ps_state_id = $(e.relatedTarget).data('state_id');
-		var ps_reg = $(e.relatedTarget).data('reg');
-    $('input[name=inputid]').val(ps_id);
-    $('input[name=inputcomp]').val(ps_comp);
-		$('input[name=inputparea]').val(ps_area);
-		$('input[name=inputparead]').val(ps_aread);
-		$('input[name=inputpsubarea]').val(ps_sub);
-		$('input[name=inputpsubaread]').val(ps_subd);
-		// $('input[name=inputstate]').val(ps_state_id);
-		// $("#inputstate").val(ps_state);
-		$("#editstate").val(ps_state_id);
-		$('input[name=inputregion]').val(ps_reg);
-    //$('#showname').text(ps_state);
-    }
+// function populate(e){
+// 		var ps_id = $(e.relatedTarget).data('id');
+//     var ps_comp = $(e.relatedTarget).data('comp');
+//     var ps_area = $(e.relatedTarget).data('area');
+// 		var ps_aread = $(e.relatedTarget).data('aread');
+// 		var ps_sub = $(e.relatedTarget).data('sub');
+// 		var ps_subd = $(e.relatedTarget).data('subd');
+//     //var ps_state = $(e.relatedTarget).data('state');
+// 		var ps_state_id = $(e.relatedTarget).data('state_id');
+// 		var ps_reg = $(e.relatedTarget).data('reg');
+//     $('input[name=inputid]').val(ps_id);
+//     $('input[name=inputcomp]').val(ps_comp);
+// 		$('input[name=inputparea]').val(ps_area);
+// 		$('input[name=inputparead]').val(ps_aread);
+// 		$('input[name=inputpsubarea]').val(ps_sub);
+// 		$('input[name=inputpsubaread]').val(ps_subd);
+// 		// $('input[name=inputstate]').val(ps_state_id);
+// 		// $("#inputstate").val(ps_state);
+// 		$("#editstate").val(ps_state_id);
+// 		$('input[name=inputregion]').val(ps_reg);
+//     //$('#showname').text(ps_state);
+//     }
 
-
-$('#editfPsubarea').on('show.bs.modal', function(e) {
-    populate(e);
-});
+//
+// $('#editfPsubarea').on('show.bs.modal', function(e) {
+//     populate(e);
+// });
 
 for(i = 0; i<{{count($psubareas)}}+1; i++){
 	$("#edit-"+i).on("click", edit(i));
-	$("#del-"+i).on("click", deleteid(i));	
+	$("#del-"+i).on("click", deleteid(i));
 }
 
 function deleteid(i){
-	
+
 	return function(){
 		var ps_comp = $("#formdelete-"+i).data('compdescr');
 		Swal.fire({
@@ -291,12 +283,16 @@ function edit(i){
 							"<p>State</p>"+
 						"</div>"+
 						"<div class='col-md-8'>"+
-							"<select id='ps_state_id' class='check-5' value='"+ps_state_id+"' style='width: 100%' required>"+
-							@foreach($states as $singlestate)
-								"<option value='{{$singlestate->id}}'>{{$singlestate->id}} - {{$singlestate->state_descr}}</option>"+
-							@endforeach
-							"</select>"+
-						"</div>"+
+						"<select id='ps_state_id' class='check-5' value='"+ps_state_id+"' style='width: 100%'>";
+						@foreach($states as $singlestate)
+							if(ps_state_id=='{{$singlestate->id}}'){
+								html = html + "<option value='{{$singlestate->id}}' selected>{{$singlestate->id}}-{{$singlestate->state_descr}}</option>";
+							}else{
+								html = html + "<option value='{{$singlestate->id}}'>{{$singlestate->state_descr}}</option>";
+							}
+						@endforeach
+						html = html + "</select>"+
+					"</div>"+
 					"</div>"+
         			"<div class='row'>"+
 						"<div class='col-md-4'>"+

@@ -55,13 +55,13 @@
             @endif
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">    
+        <ul class="nav navbar-nav">
 
         <!-- Tasks: style can be found in dropdown.less -->
         <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
               <i class="glyphicon glyphicon-ok-sign"></i>
-            @if(session('to_do_list')!=null)     
+            @if(session('to_do_list')!=null)
             @php $to_do_list = session('to_do_list'); @endphp
               @if($to_do_list->count() > 0)
               <span class="label label-danger">{{ $to_do_list->count() }}</span>
@@ -69,11 +69,10 @@
               @endif
             </a>
             <ul class="dropdown-menu">
-              <!-- <li class="header">You have {{ $to_do_list->count() }} tasks</li> -->
-              <li>
+              {{-- <li class="header">You have {{ $to_do_list->count() }} tasks</li> --}}
                 <!-- inner menu: contains the actual data -->
-                <ul class="menu">      
-            @if(session('to_do_list')!=null)     
+                <ul class="menu">
+            @if(session('to_do_list')!=null)
             @php $to_do_list = session('to_do_list'); @endphp
               @if($to_do_list->count() > 0)
                   @foreach($to_do_list as $to_do_list_row)
@@ -88,7 +87,7 @@
               @else
                   <li><!-- Task item -->
                     <a href="#">
-                        Pending Approval 
+                        Pending Approval
                         <small class="label label-default pull-right">{{ $to_do_list->count() }}</small>
                     </a>
                   </li>
@@ -125,7 +124,7 @@
               </li>
             </ul>
          </li>
-         
+
 
 
           <!-- User Account: style can be found in dropdown.less -->
@@ -133,7 +132,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="/vendor/images/useravatar.png" class="user-image" alt="User Image">
               <span class="hidden-xs">{{ Auth::user()->name }}</span>
-            </a>            
+            </a>
           </li>
           <li>
           <a href="#"onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -148,9 +147,9 @@
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
           </li> -->
         </ul>
-      
+
       </div>
-         
+
                 @if(config('adminlte.layout') == 'top-nav')
                 </div>
                 @endif
@@ -174,11 +173,11 @@
           <p class="profile"><a class="btn-user" href="{{ route('staff.profile',[],false) }}">Profile</a></p>
         </div>
       </div>
-    
+
       <!-- <div class="user-panel">
         <a href="{{ route('staff.profile',[],false) }}" class="image btn btn-xs btn-p btn-primary btn-outline">
-        Profile</a>     
-      </div>      -->   
+        Profile</a>
+      </div>      -->
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu" data-widget="tree">
                     @each('adminlte::partials.menu-item', $adminlte->menu(), 'item')
@@ -190,10 +189,10 @@
         @endif
 
         <!-- Content Wrapper. Contains page content -->
-        
+
         <!-- <div class="content-wrapper" style="background: transparent"> -->
         <div class="content-wrapper">
-        
+
             <!-- <div class="bckg">
                 <img src="/vendor/ot-assets/main-bg.png" class="bckg-img">
             </div> -->
@@ -231,7 +230,7 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 @yield('content_header')
-                
+
             </section>
 
             <!-- Main content -->
@@ -286,7 +285,7 @@
     <script src="{{ secure_asset('vendor/bootstrap-timepicker/js/bootstrap-timepicker.js') }}"></script>
     @stack('js')
     @yield('js')
-    
+
 
     <script type="text/javascript">
         function openannouncement(){
@@ -309,8 +308,8 @@
                 success: function(resp) {
                     $(".announcement").addClass("announcement-close");
                     $("#x").css("display","none");
-                
-                }  
+
+                }
             });
         }
     </script>
