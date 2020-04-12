@@ -1,5 +1,5 @@
-<div class="row-eq-height">
-    <div class="col-md-6 col-sm-6 col-xs-12 noPaddingLeft">
+<div class="row row-eq-height">
+    <div class="col-md-6 col-sm-6 col-xs-12 ">
     
       <div class="box box-solid">
         <div class="box-header bg-blue-active color-palette">

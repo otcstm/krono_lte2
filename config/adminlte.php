@@ -377,10 +377,16 @@ return [
           'can' => '1-nav-menu-shiftp',
           'submenu' => [
             [
-                'text' => 'user_shift_sc',
-                'route'  => 'staff.worksched',
+                'text' => 'shift_group',
+                'url'  => '/shift_plan/group',
                 'icon' => '',
-                'can' => '5-shift-calendar',
+                'can' => '5-shift-group',
+            ],
+            [
+                'text' => 'shift_planner',
+                'url'  => '/shift_plan/planner',
+                'icon' => '',
+                'can' => '5-shift-planner',
             ],
             [
                 'text' => 'shift_plan',
@@ -389,16 +395,16 @@ return [
                 'can' => '5-shift-plan',
             ],
             [
+                'text' => 'user_shift_sc',
+                'route'  => 'staff.worksched',
+                'icon' => '',
+                'can' => '5-shift-calendar',
+            ],
+            [
                 'text' => 'my_shift_grp',
                 'route'  => 'shift.mygroup',
                 'icon' => '',
                 'can' => '5-shift-plan',
-            ],
-            [
-                'text' => 'shift_group',
-                'url'  => '/shift_plan/group',
-                'icon' => '',
-                'can' => '5-shift-group',
             ],
           ]
         ],
@@ -483,6 +489,12 @@ return [
                 'can' => '6-rpt-ot-log-changes',
               ],
             ],
+        ],
+        [
+          'text' => 'user_faqs',
+          'url'  => '/vendor/docs/FAQs.pdf',
+          'icon' => 'fas fa-question-circle',
+          //'can' => '1-user-faqs',
         ],
     ],
 

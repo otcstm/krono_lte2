@@ -1,6 +1,6 @@
 
-<div class="row-eq-height"> 
-  <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
+<div class="row row-eq-height"> 
+  <div class="col-md-3 col-sm-6 col-xs-12 ">
     <div class="box box-solid">
     <div class="box-body">
     <div class="media">
@@ -19,7 +19,7 @@
     </div>
   </div>
 
-  <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
+  <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('ot.approval', [], false) }}">
     <div class="box box-solid">
 <div class="box-body">    
@@ -44,7 +44,7 @@
     </div>
     </a>
   </div>  
-  <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
+  <div class="col-md-3 col-sm-6 col-xs-12 ">
     
   <a href="{{ route('verifier.listGroup', [], false) }}">
 
@@ -67,7 +67,7 @@
 </a>
 
   </div>
-  {{-- <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
+  {{-- <div class="col-md-3 col-sm-6 col-xs-12 ">
     <div class="box box-solid">
     <div class="box-body">
     <div class="media">
@@ -87,7 +87,7 @@
   </div> --}}
 
   
-  {{-- <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
+  {{-- <div class="col-md-3 col-sm-6 col-xs-12 ">
     <div class="box box-solid">
                         <div class="box-body">
     <div class="media">
@@ -105,7 +105,7 @@
     </div><!-- /.box-header -->
     </div>
   </div> --}}
-  <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
+  <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('ot.approvalrept', [], false) }}">
     <div class="box box-solid">
         <div class="box-body">

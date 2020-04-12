@@ -47,11 +47,26 @@ return [
     'ot_def_ver'       => 'Set Default Verifier',
 
     'shift_menu'      => 'SHIFT MANAGEMENT',
-    'shift_plan'      => 'Plan Shifts',
-    'shift_group'      => 'Shift Groups',
-    'shift_template'  => 'Shift Template',
-    'my_shift_grp'    => 'My Shift Group',
+    //originally
+    // 'shift_plan'      => 'Plan Shifts',
+    // 'shift_group'      => 'Shift Groups',
+    // 'shift_template'  => 'Shift Template',
+    // 'my_shift_grp'    => 'My Shift Group',
 
+    //new added
+    'shift_group'      => 'Create Group Owner',
+    'shift_planner'      => 'Shift Planner/Members Assignment',
+    'shift_plan'      => 'Shift Planning',
+    'shift_approval'      => 'Shift Approval',
+    'shift_template'  => 'Shift Template',
+    'my_shift_grp'    => 'My Shift Group',    
+    
+    //new added base on XD
+    // 'shift_create_group_owner'      => 'Create Group Owner',
+    // 'shift_planner'      => 'Shift Planner/Members Assignment',
+    // 'shift_planning'      => 'Shift Planning',
+    // 'shift_approval'      => 'Shift Approval',
+    // 'shift_group'      => 'Work Team Schedule',    
 
     'rpt_menu'        => 'REPORT',
     'otr_details'       => 'Overtime Details',
@@ -65,6 +80,7 @@ return [
 
     'info_menu'       => 'INFORMATION',
     'user_guide'      => 'GUIDELINE',
+    'user_faqs'   => 'FAQs',
     'calendar_menu'   => 'Holiday Calendar',
     'user_guideline'  => 'User',
     'admin_guideline' => 'Admin',
