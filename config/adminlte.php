@@ -396,6 +396,12 @@ return [
                 'can' => '5-shift-plan',
             ],
             [
+                'text' => 'my_shift_grp',
+                'route'  => 'shift.mygroup',
+                'icon' => '',
+                'can' => '5-shift-plan',
+            ],
+            [
                 'text' => 'shift_group',
                 'url'  => '/shift_plan/group',
                 'icon' => '',

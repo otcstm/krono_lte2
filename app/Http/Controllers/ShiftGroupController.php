@@ -13,23 +13,7 @@ class ShiftGroupController extends Controller
 {
   public function index(Request $req){
 
-    $all_subord = UserHelper::GetMySubords($req->user()->id, true);
-    $freesubord = [];
-    $ingroup = [];
-
-    foreach($all_subord as $os){
-      // check if this staff already in a group
-      $sgrp = ShiftGroupMember::where('user_id', $os['id'])->first();
-      if($sgrp){
-        // already in group
-        array_push($ingroup, $sgrp);
-      } else {
-        array_push($freesubord, $os);
-      }
-    }
-
-    $glist = ShiftGroup::where('manager_id', $req->user()->id)
-      ->orWhere('planner_id', $req->user()->id)->get();
+    $glist = ShiftGroup::all();
 
     return view('shiftplan.shift_group', [
       'p_list' => $glist
@@ -116,21 +100,20 @@ class ShiftGroupController extends Controller
     $nugrpmbr->shift_group_id = $req->group_id;
     $nugrpmbr->save();
 
-    return redirect(route('shift.group.view', ['id' => $req->group_id], false))->with(['alert' => 'Staff added to group', 'a_type' => 'success']);
+    return redirect(route('shift.mygroup.view', ['sgid' => $req->group_id], false))->with(['alert' => 'Staff added to group', 'a_type' => 'success']);
 
   }
 
   public function removeStaff(Request $req){
-    $ingrp = ShiftGroupMember::where('user_id', $req->user_id)
-            ->where('shift_group_id', $req->group_id)
-            ->first();
+    $ingrp = ShiftGroupMember::find($req->id);
 
     if($ingrp){
+      $grpid = $ingrp->shift_group_id;
       $ingrp->delete();
 
-      return redirect(route('shift.group.view', ['id' => $req->group_id], false))->with(['alert' => 'Staff removed from group', 'a_type' => 'success']);
+      return redirect(route('shift.mygroup.view', ['sgid' => $grpid], false))->with(['alert' => 'Staff removed from group', 'a_type' => 'secondary']);
     } else {
-      return redirect(route('shift.group.view', ['id' => $req->group_id], false))->with(['alert' => 'Selected staff is not in this group', 'a_type' => 'warning']);
+      return redirect()->back()->with(['alert' => 'Selected staff is not in this group', 'a_type' => 'warning']);
     }
   }
 
@@ -149,7 +132,7 @@ class ShiftGroupController extends Controller
 
   public function delGroup(Request $req){
     $cgroup = ShiftGroup::find($req->id);
-    
+
     if($cgroup){
       $gname = $cgroup->group_code;
       // remove all member of this group first
@@ -217,6 +200,136 @@ class ShiftGroupController extends Controller
     }
 
     return "404";
+  }
+
+  public function mygroup(Request $req){
+    $dups = ShiftGroup::where('manager_id', $req->user()->id)->get();
+
+    return view('shiftplan.mygroup', [
+      'p_list' => $dups
+    ]);
+  }
+
+  public function mygroupdetail(Request $req){
+
+    // skip if no shift group id
+    if($req->filled('sgid')){
+    } else {
+      return redirect(route('shift.mygroup'));
+    }
+
+
+    $tsg = ShiftGroup::find($req->sgid);
+
+    if($tsg){
+
+      if($tsg->manager_id != $req->user()->id){
+        return redirect(route('shift.mygroup'))->with([
+          'alert' => 'You are not the owner of that group',
+          'a_type' => 'warning'
+        ]);
+      }
+
+      $plannername = '';
+      if(isset($tsg->planner_id) && $tsg->planner_id != 0){
+        $plannername = $tsg->Planner->name;
+      }
+
+
+
+      return view('shiftplan.mygrpdetail', [
+        'grp' => $tsg,
+        'planner' => $plannername
+      ]);
+
+
+    } else {
+      // group 404
+      return redirect(route('shift.mygroup'))->with([
+        'alert' => 'Shift group not found',
+        'a_type' => 'warning'
+      ]);
+    }
+
+
+  }
+
+  public function mygroupsetplanner(Request $req){
+    // malas way to skip if not enough param
+    if($req->filled('sgid')){
+    } else {
+      return redirect(route('shift.mygroup'));
+    }
+
+    if($req->filled('planner_id')){
+    } else {
+      return redirect(route('shift.mygroup'));
+    }
+
+    $tsg = ShiftGroup::find($req->sgid);
+
+    if($tsg){
+
+      if($tsg->manager_id != $req->user()->id){
+        return redirect(route('shift.mygroup'))->with([
+          'alert' => 'You are not the owner of that group',
+          'a_type' => 'warning'
+        ]);
+      }
+
+      $tsg->planner_id = $req->planner_id;
+      $tsg->save();
+
+      return redirect(route('shift.mygroup.view', ['sgid' => $tsg->id]))
+        ->with([
+          'alert' => 'Planner assigned',
+          'a_type' => 'success'
+        ]);
+
+    } else {
+      // group 404
+      return redirect(route('shift.mygroup'))->with([
+        'alert' => 'Shift group not found',
+        'a_type' => 'warning'
+      ]);
+    }
+  }
+
+  public function mygroupdelplanner(Request $req){
+    // dd($req->all());
+    // malas way to skip if not enough param
+    if($req->filled('sgid')){
+    } else {
+      return redirect(route('shift.mygroup'));
+    }
+
+    $tsg = ShiftGroup::find($req->sgid);
+
+    if($tsg){
+
+      if($tsg->manager_id != $req->user()->id){
+        return redirect(route('shift.mygroup'))->with([
+          'alert' => 'You are not the owner of that group',
+          'a_type' => 'warning'
+        ]);
+      }
+
+      $tsg->planner_id = null;
+      $tsg->save();
+
+      return redirect(route('shift.mygroup.view', ['sgid' => $tsg->id]))
+        ->with([
+          'alert' => 'Planner removed',
+          'a_type' => 'info'
+        ]);
+
+    } else {
+      // group 404
+      return redirect(route('shift.mygroup'))->with([
+        'alert' => 'Shift group not found',
+        'a_type' => 'warning'
+      ]);
+    }
   }
 
 }
