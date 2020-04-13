@@ -219,8 +219,10 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/admin/verifier/ajaxAdvSearchSubord', 'UserVerifierController@ajaxAdvSearchSubord')->name('verifier.ajaxAdvSearchSubord');
   Route::post('/admin/verifier/advSearch', 'UserVerifierController@advSearchSubord')->name('verifier.advSearchSubord');
 
-  //ProfilePics
-  Route::get('/user/image/{staffno}', 'ProfilePicController@getStaffImage')->name('user.image');
+  //demo
+Route::get('/user/image/{staffno}', 'ProfilePicController@getStaffImage')->name('user.image');  
+Route::get('/demo/location', 'DemoController@location')->name('demo.location');
+Route::post('/demo/location', 'DemoController@location')->name('demo.location');
 });
 
 
