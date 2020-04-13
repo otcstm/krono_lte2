@@ -233,6 +233,9 @@ class HolidayController extends Controller
         echo json_encode($arr);
         echo('<br/>');
         //loop through DB data
+if(!$arr){$arr = [];}
+
+
         foreach ($currentStates as $cs) {
             echo('echoing cs');
             echo($cs->state_id);
