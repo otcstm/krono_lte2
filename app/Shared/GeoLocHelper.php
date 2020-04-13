@@ -21,10 +21,10 @@ class GeoLocHelper
   {
     $uri = self::$baseuri . "search/reversegeocode";
 
-    $reclient = new Client(["base_uri" => $this->baseuri . 'profile/image/']);
-    $request = $reclient->request('GET', $staff_no, $this->options)->getBody()->getContents();
-    $response = response()->make($request, 200);
-    $response->header('Content-Type', 'image/jpeg'); // change this to the download content type.
+    $reclient = new Client(["base_uri" => $uri]);
+    //$request = $reclient->request('GET', self::$options)->getBody()->getContents();
+    //$response = response()->make($request, 200);
+    //$response->header('Content-Type', 'image/jpeg'); // change this to the download content type.
 
     return $uri;
   }
