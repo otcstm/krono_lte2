@@ -462,7 +462,7 @@ class UserHelper {
       // first, check if there's any shift planned for this person
       $wd = ShiftPlanStaffDay::where('user_id', $user)
         ->whereDate('work_date', $date)->first();
-
+// dd($wd);
       if($wd){
 
       } else {
@@ -474,7 +474,7 @@ class UserHelper {
 
       // get the day info
       $theday = $wd->Day;
-
+      // dd($wd->Day);
       if($theday->is_work_day == true){
         $day_type = 'Normal Day';
         $stime = new Carbon($theday->start_time);
@@ -488,33 +488,33 @@ class UserHelper {
         $end =  "00:00";
         $day_type = $theday->description;
       }
-
-      return [$start, $end, $day_type, $day];
+      $day_type_id = "";
+      return [$start, $end, $day_type, $day, $wd->day_type_id];
 
       // below is the original temp
 
       // $day = 6;
       // dd($day);
-      $start = "00:00";
-      $end =  "00:00";
+      // $start = "00:00";
+      // $end =  "00:00";
 
-      // $day_type = 'Off Day'; //temp
-      if($day==6){
-        $day_type = 'Off Day';
-      }elseif($day>6){
-        $day_type = 'Rest Day';
-      }else{
-        $start = "08:30";
-        $end = "17:30";
-        // $end = "22:30";
-        $day_type = 'Normal Day';
-      }
+      // // $day_type = 'Off Day'; //temp
+      // if($day==6){
+      //   $day_type = 'Off Day';
+      // }elseif($day>6){
+      //   $day_type = 'Rest Day';
+      // }else{
+      //   $start = "08:30";
+      //   $end = "17:30";
+      //   // $end = "22:30";
+      //   $day_type = 'Normal Day';
+      // }
 
       // $daytpe = DayType::where()->first();
 
 
 
-      return [$start, $end, $day_type, $day];
+      // return [$start, $end, $day_type, $day];
     }
      // temp=====================================================
 

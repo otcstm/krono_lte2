@@ -40,9 +40,10 @@ class OvertimeController extends Controller{
         $type = null;
         $compn = null;
         $orderno = null;
-        $networkh = null;
-        $networkn = null;
+        // $networkh = null;
+        // $networkn = null;
         $appr = null;
+        $data = null;
         // dd($cc);
         // $total = 
         // dd($reg->region);
@@ -63,86 +64,58 @@ class OvertimeController extends Controller{
                     $appr = null;
                 }
             }else if($req->session()->get('claim')->charge_type=="Project"){
-                $compn = Project::groupBy('company_code')->get();
-                $costc = Project::where('company_code', $req->session()->get('claim')->company_id)->groupBy('cost_center')->get();
-                if(count($costc)==0){
-                    $costc = null;
-                }
-                $type= Project::where('company_code', $req->user()->company_id)->where('cost_center', $req->session()->get('claim')->other_costcenter)->groupBy('type')->get();
-                if(count($type)==0){
-                    $type = null;
-                }
-                $orderno= Project::where('company_code', $req->user()->company_id)->where('cost_center', $req->session()->get('claim')->other_costcenter)->where('type', $req->session()->get('claim')->project_type)->get();
-                if(count($orderno)==0){
-                    $orderno = null;
-                }
-                $networkh= Project::where('company_code', $req->user()->company_id)->where('cost_center', $req->session()->get('claim')->other_costcenter)->where('type', $req->session()->get('claim')->project_type)->where('project_no', $req->session()->get('claim')->project_no)->get();
-                if(count($networkh)==0){
-                    $networkh = null;
-                }
-                $networkn= Project::where('company_code', $req->user()->company_id)->where('cost_center', $req->session()->get('claim')->other_costcenter)->where('type', $req->session()->get('claim')->project_type)->where('project_no', $req->session()->get('claim')->project_no)->where('network_header', $req->session()->get('claim')->network_header)->get();
-                if(count($networkn)==0){
-                    $networkn = null;
-                }
+                // $compn = Project::groupBy('company_code')->get();
+                // $costc = Project::where('company_code', $req->session()->get('claim')->company_id)->groupBy('cost_center')->get();
+                // if(count($costc)==0){
+                //     $costc = null;
+                // }
+                // $type= Project::where('company_code', $req->user()->company_id)->where('cost_center', $req->session()->get('claim')->other_costcenter)->groupBy('type')->get();
+                // if(count($type)==0){
+                //     $type = null;
+                // }
+                // $orderno= Project::where('company_code', $req->user()->company_id)->where('cost_center', $req->session()->get('claim')->other_costcenter)->where('type', $req->session()->get('claim')->project_type)->get();
+                // if(count($orderno)==0){
+                //     $orderno = null;
+                // }
+                // $networkh= Project::where('company_code', $req->user()->company_id)->where('cost_center', $req->session()->get('claim')->other_costcenter)->where('type', $req->session()->get('claim')->project_type)->where('project_no', $req->session()->get('claim')->project_no)->get();
+                // if(count($networkh)==0){
+                //     $networkh = null;
+                // }
+                // $networkn= Project::where('company_code', $req->user()->company_id)->where('cost_center', $req->session()->get('claim')->other_costcenter)->where('type', $req->session()->get('claim')->project_type)->where('project_no', $req->session()->get('claim')->project_no)->where('network_header', $req->session()->get('claim')->network_header)->get();
+                // if(count($networkn)==0){
+                //     $networkn = null;
+                // }
             }else if($req->session()->get('claim')->charge_type=="Internal Order"){
-                $compn = InternalOrder::groupBy('company_code')->get();
-                $costc = InternalOrder::where('company_code', $req->session()->get('claim')->company_id)->groupBy('cost_center')->get();
-                if(count($costc)==0){
-                    $costc = null;
-                }
-                if($req->session()->get('claim')->other_costcenter=="No Cost Center"){
-                    $type= InternalOrder::where('company_code', $req->user()->company_id)->where('cost_center', '')->groupBy('order_type')->get();
-                }else{
-                    $type= InternalOrder::where('company_code', $req->user()->company_id)->where('cost_center', $req->session()->get('claim')->other_costcenter)->groupBy('order_type')->get();
-                }
-                if(count($type)==0){
-                    $type = null;
-                }
-                if($req->session()->get('claim')->other_costcenter=="No Cost Center"){
-                    $orderno= InternalOrder::where('company_code', $req->user()->company_id)->where('cost_center', '')->where('order_type', $req->session()->get('claim')->project_type)->get();
-                }else{
-                    $orderno= InternalOrder::where('company_code', $req->user()->company_id)->where('cost_center', $req->session()->get('claim')->other_costcenter)->where('order_type', $req->session()->get('claim')->project_type)->get();
-                }
-                if(count($orderno)==0){
-                    $orderno = null;
-                }
-                // dd($orderno);
-                // $appr = null;
-                // if(($req->session()->get('claim')->other_costcenter=="No Cost Center")&&($costc!=null)&&($type!=null)&&($orderno!=null)){
-                //     // $appr= InternalOrder::where('company_code', $req->user()->company_id)->where('cost_center', '')->where('order_type', $req->session()->get('claim')->project_type)->get();
-                // }else if(($costc!=null)&&($type!=null)&&($orderno!=null)){
+                $orderno= InternalOrder::all();
                 if($req->session()->get('claim')->order_no!=null){
-                    $appr = UserRecord::where('upd_sap','<=',date('Y-m-d'))->where('company_id', $req->session()->get('claim')->company_id)->where('costcentr', $req->session()->get('claim')->other_costcenter)->where('user_id', '!=', $req->user()->id)->get();
-                    // $appr= InternalOrder::where('company_code', $req->user()->company_id)->where('cost_center', $req->session()->get('claim')->other_costcenter)->where('order_type', $req->session()->get('claim')->project_type)->where('id', $req->session()->get('claim')->order_no)->get();
-                    // $appr = null;
-                }
-                // dd($appr);
-                if($req->session()->get('claim')->order_no!=null){
-                // if(($costc!=null)&&($type!=null)&&($orderno!=null)){
+                    $data=InternalOrder::where('id',$req->session()->get('claim')->order_no)->first();
+                    $appr = UserRecord::where('upd_sap','<=',date('Y-m-d'))->where('company_id', $req->session()->get('claim')->company_id)->where('costcentr', $data->cost_center)->where('user_id', '!=', $req->user()->id)->get();
+                    // dd($appr);
                     if(count($appr)==0){
                         $appr = null;
                     }
                 }
             }else if($req->session()->get('claim')->charge_type=="Maintenance Order"){
-                $compn = MaintenanceOrder::groupBy('company_code')->get();
-                $costc = MaintenanceOrder::where('company_code', $req->session()->get('claim')->company_id)->groupBy('cost_center')->get();
-                if(count($costc)==0){
-                    $costc = null;
-                }
-                // if($req->session()->get('claim')->project_type!=null){
-                    $type= MaintenanceOrder::where('company_code', $req->user()->company_id)->where('cost_center', $req->session()->get('claim')->other_costcenter)->groupBy('type')->get();
-                // }
-                if(count($type)==0){
-                    $type = null;
-                }
-                $orderno= MaintenanceOrder::where('company_code', $req->user()->company_id)->where('cost_center', $req->session()->get('claim')->other_costcenter)->where('type', $req->session()->get('claim')->project_type)->get();
-                if(count($orderno)==0){
-                    $orderno = null;
+                $orderno= MaintenanceOrder::all();
+                if($req->session()->get('claim')->order_no!=null){
+                    $data = MaintenanceOrder::where('id',$req->session()->get('claim')->order_no)->first();
+                    // dd($data);
                 }
             }
 
 
-            return view('staff.otform', ['draft' =>[], 'claim' => $req->session()->get('claim'), 'day' => $day, 'eligiblehour' => $eligiblehour->hourpermonth, 'costc' => $costc, 'compn' => $compn, 'type' => $type, 'orderno' => $orderno, 'networkh' => $networkh, 'networkn' => $networkn, 'appr' => $appr]);
+            return view('staff.otform', ['draft' =>[], 
+                                         'claim' => $req->session()->get('claim'), 
+                                         'day' => $day, 
+                                         'eligiblehour' => $eligiblehour->hourpermonth, 
+                                         'costc' => $costc, 
+                                         'compn' => $compn, 
+                                        //  'type' => $type, 
+                                         'orderno' => $orderno, 
+                                         'data' => $data, 
+                                        //  'networkh' => $networkh, 
+                                        //  'networkn' => $networkn, 
+                                         'appr' => $appr]);
         }else if($req->session()->get('draft')!=null){
             $draft = $req->session()->get('draft');
             $day = UserHelper::CheckDay($req->user()->id, date('Y-m-d', strtotime($draft[4])));
@@ -258,14 +231,17 @@ class OvertimeController extends Controller{
         $gm = UserHelper::CheckGM(date("Y-m-d"), $req->inputdate);
         $staffr = UserRecord::where('user_id', $req->user()->id)->where('upd_sap','<=',date('Y-m-d'))->first();
          // temp=====================================================
-        $day = date('N', strtotime($req->inputdate));
-        if($day==5){
-            $day_type = 4;
-        }elseif($day>6){
-            $day_type = 5;
-        }else{
-            $day_type = 2;
-        }
+        // $day = date('N', strtotime($req->inputdate));
+        // if($day==5){
+        //     $day_type = 4;
+        // }elseif($day>6){
+        //     $day_type = 5;
+        // }else{
+        //     $day_type = 2;
+        // }
+        $day= UserHelper::CheckDay($req->user()->id, $req->inputdate);
+        $day_type=$day[2];
+        // dd($day);
         // temp=====================================================
         Session::put(['draft' => []]);
         $claim = Overtime::where('user_id', $req->user()->id)->where('date', $req->inputdate)->first();
@@ -314,7 +290,7 @@ class OvertimeController extends Controller{
                     $draftclaim->date_expiry = date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d', strtotime("+3 months", strtotime($req->inputdate))))));
                 }
                 $draftclaim->state_id =  $req->user()->state_id;
-                $draftclaim->daytype_id =  $day_type;
+                $draftclaim->daytype_id =  $day[4];
                 $draftclaim->profile_id =  $staffr->id;
                 $draftclaim->company_id =  $req->user()->company_id;
                 $draftclaim->persarea =  $req->user()->persarea;
@@ -377,6 +353,7 @@ class OvertimeController extends Controller{
                 $reg = Psubarea::where('state_id', $req->user()->state_id)->first();
                 $expiry = OvertimeExpiry::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $claimdate)->where('end_date','>', $claimdate)->first();
                 $dt = DayType::where('id', $day_type)->first();
+                // dd($day_type);
                 $date_expiry = null;
                 // if(($expiry->based_date = "Request Date")&&($expiry->status = "ACTIVE")){
                 //     $date_expiry = date('Y-m-d', strtotime("+90 days"));
@@ -406,8 +383,8 @@ class OvertimeController extends Controller{
                 }else{
                     $verifyn = "N/A";
                 }
-                $state = UserRecord::where('upd_sap','<=',$claimdate)->first();
-                $draft = array("OT".date("Ymd", strtotime($claimdate))."-".sprintf("%08d", $req->user()->id), $date_expiry, date("Y-m-d H:i:s"), $claimtime, $req->inputdate, $req->user()->name, $state->state_id, $state->statet->state_descr, $dt->description, $verifyn, $approve->name, $staffr->costcentr);
+                $state = UserRecord::where('user_id',$req->user()->persno)->where('upd_sap','<=',$claimdate)->first();
+                $draft = array("OT".date("Ymd", strtotime($claimdate))."-".sprintf("%08d", $req->user()->id), $date_expiry, date("Y-m-d H:i:s"), $claimtime, $req->inputdate, $req->user()->name, $state->state_id, $state->statet->state_descr, $day_type, $verifyn, $approve->name, $staffr->costcentr);
                 //[0] - refno, [1] - expiry, [2] - datetime created, [3] - month, [4] - date, [5] - user name, [6] - stateid, [7] - statedescr, [8] - day type, [9] - verifier name, [10] - approver name, [11] - cost center
                 Session::put(['draft' => $draft]);
                 // dd($req->session());
@@ -457,15 +434,18 @@ class OvertimeController extends Controller{
             $draftclaim->total_hour = 0;
             $draftclaim->total_minute = 0;
             $draftclaim->amount = 0; 
+
+            $day= UserHelper::CheckDay($req->user()->id, $req->session()->get('draft')[4]);
+        // dd($day);
             // temp=====================================================
-            $day = date('N', strtotime(($req->session()->get('draft'))[4]));
-            if($day==5){
-                $day_type = 4;
-            }elseif($day>6){
-                $day_type = 5;
-            }else{
-                $day_type = 2;
-            }
+            // $day = date('N', strtotime(($req->session()->get('draft'))[4]));
+            // if($day==5){
+            //     $day_type = 4;
+            // }elseif($day>6){
+            //     $day_type = 5;
+            // }else{
+            //     $day_type = 2;
+            // }
             // $draftclaim->verifier_id =  $req->user()->id; //temp 
             // $draftclaim->verifier_id =  55323; //temp 
             // temp=====================================================
@@ -475,7 +455,7 @@ class OvertimeController extends Controller{
             }else{
                 $draftclaim->approver_id = $req->user()->reptto;
             }
-            $draftclaim->daytype_id =  $day_type;
+            $draftclaim->daytype_id =  $day[4];
             $draftclaim->state_id =  ($req->session()->get('draft'))[6];
             $draftclaim->company_id =  $req->user()->company_id;
             $draftclaim->persarea =  $req->user()->persarea;
@@ -628,7 +608,8 @@ class OvertimeController extends Controller{
         }
 
         //change charge type
-        $changecompany = true;
+        // $changecompany = true;
+        $resetapprove = false;
         if(($updateclaim->charge_type!=$req->chargetype)){
             $updateclaim->other_costcenter = null;
             if(in_array($req->chargetype, $array = array("Project", "Internal Order", "Maintenance Order", "Other Cost Center"))){
@@ -642,14 +623,15 @@ class OvertimeController extends Controller{
             $updateclaim->project_type = null;
             $updateclaim->network_header = null;
             $updateclaim->network_act_no = null;
-            $changecompany = false;
+            // $changecompany = false;
+            $resetapprove = true;
             // if(!(($updateclaim->status=="Q1")||($updateclaim->status=="Q2"))){
-                if($gm){
-                    $updateclaim->verifier_id =  null;
-                }else{
-                    $updateclaim->verifier_id =  null;
-                    $updateclaim->approver_id = null;
-                }
+                // if($gm){
+                //     $updateclaim->verifier_id =  null;
+                // }else{
+                //     $updateclaim->verifier_id =  null;
+                //     $updateclaim->approver_id = null;
+                // }
                 // if($gm){
                 //     $updateclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($updateclaim->date)));
                 //     $updateclaim->verifier_id =  $req->user()->reptto;
@@ -658,83 +640,166 @@ class OvertimeController extends Controller{
                 // }
             // }
         }
+        
+
+        if(($updateclaim->company_id!=$req->compn)){
+            $resetapprove = true;
+        }
+// dd($req);
+        if($updateclaim->other_costcenter!=$req->costc){
+            $resetapprove = true;
+            // dd($resetapprove);
+        }
         // dd($req->compn);
         $updateclaim->charge_type = $req->chargetype;
-        if(in_array($claim->charge_type, $array = array("Project", "Internal Order", "Maintenance Order", "Other Cost Center"))){
-            if($changecompany){
-                $updateclaim->company_id = $req->compn;
-            }
-            $updateclaim->other_costcenter = $req->costc;
-            if(in_array($claim->charge_type, $array = array("Project", "Internal Order", "Maintenance Order"))){
-                $updateclaim->project_type = $req->type;
-            }
-            if(in_array($claim->charge_type, $array = array("Internal Order", "Maintenance Order"))){
+        if(in_array($req->chargetype, $array = array("Project", "Internal Order", "Maintenance Order", "Other Cost Center"))){
+            
+            // dd($req->chargetype);
+            // if($changecompany){
+            //     $updateclaim->company_id = $req->compn;
+            // }
+            // $updateclaim->other_costcenter = $req->costc;
+            // if(in_array($claim->charge_type, $array = array("Project", "Internal Order", "Maintenance Order"))){
+            //     $updateclaim->project_type = $req->type;
+            // }
+            if(in_array($req->chargetype, $array = array("Internal Order", "Maintenance Order"))){
                 $updateclaim->order_no = $req->orderno;
-            }else if(in_array($claim->charge_type, $array = array("Project"))){
+                if($req->orderno!=null){
+                    if($req->chargetype == "Internal Order"){
+                        $data=InternalOrder::where('id', $req->orderno)->first();
+                        // if($data!=null){
+                        //     if($data->pers_responsible!=""){
+                        //         if($gm){
+                        //             $updateclaim->verifier_id = $data->pers_responsible;
+                        //         }else{
+                        //             $updateclaim->approver_id = $data->pers_responsible;
+                        //         }
+                        //     }
+                        // }
+                        if($req->approvern!=null){
+                            if($gm){
+                                $updateclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($updateclaim->date)));
+                                $updateclaim->verifier_id =  $req->approvern;
+                            }else{
+                                $updateclaim->approver_id = $req->approvern;
+                            }
+                        }
+                    }else{
+                        $data=MaintenanceOrder::where('id', $req->orderno)->first();
+                        if($data!=null){
+                            if($data->approver_id!=""){
+                                if($gm){
+                                    $updateclaim->verifier_id = $data->approver_id;
+                                }else{
+                                    $updateclaim->approver_id = $data->approver_id;
+                                }
+                            }
+                        }
+                    }
+                    
+                    $updateclaim->other_costcenter = $data->cost_center;
+                    $updateclaim->company_id = $data->company_code;
+                }
+            }else if($req->chargetype=="Project"){
                 $updateclaim->project_no = $req->orderno;
                 $updateclaim->network_header = $req->networkh;
                 $updateclaim->network_act_no = $req->networkn;
+            }else if($req->chargetype=="Other Cost Center"){
+                $updateclaim->company_id = $req->compn;
+                if($req->costc!=null){
+                    $updateclaim->other_costcenter = $req->costc;
+                }
+                if($req->approvern!=null){
+                    if($gm){
+                        $updateclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($updateclaim->date)));
+                        $updateclaim->verifier_id =  $req->approvern;
+                    }else{
+                        $updateclaim->approver_id = $req->approvern;
+                    }
+                }
             }
         }
+        
+        // dd($updateclaim->other_costcenter);
+        // dd($resetapprove);
+        if($resetapprove){
+            if($gm){
+                $updateclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($updateclaim->date)));
+                $updateclaim->verifier_id =  $req->user()->reptto;
+            }else{
+                $updateclaim->approver_id = $req->user()->reptto;
+            }
+        }
+        // else{
+        //     if($gm){
+        //         $updateclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($updateclaim->date)));
+        //         $updateclaim->verifier_id =  $req->user()->reptto;
+        //     }else{
+        //         $updateclaim->approver_id = $req->user()->reptto;
+        //     }
+        // }
 
 
         //change approver
-        if(in_array($req->chargetype, $array = array("Project", "Internal Order", "Maintenance Order", "Other Cost Center"))){
-            if($req->chargetype=="Project"){
-                // $updateclaim->approver_id = 16926;
-                // if(!(($updateclaim->status=="Q1")||($updateclaim->status=="Q2"))){
-                // $updateclaim->verifier_id =  null;
-                // }
-                $projecta= Project::where('company_code', $req->user()->company_id)->where('cost_center', $updateclaim->other_costcenter)->where('type', $updateclaim->project_type)->where('project_no', $updateclaim->project_no)->where('network_header', $updateclaim->network_header)->where('network_act_no',$updateclaim->network_act_no )->first();
-                if($projecta!=null){
-                    if($gm){
-                        $updateclaim->verifier_id = $projecta->approver_id;
-                    }else{
-                        $updateclaim->approver_id = $projecta->approver_id;
-                    }
-                }
-            }else if($req->chargetype=="Internal Order"){
-                $ordern= InternalOrder::where('company_code', $req->user()->company_id)->where('cost_center', $updateclaim->other_costcenter)->where('order_type', $updateclaim->project_type)->where('id', $updateclaim->order_no)->first();
-                if($ordern!=null){
-                    if($ordern->pers_responsible!=""){
-                        if($gm){
-                            $updateclaim->verifier_id = $req->approvern;
-                            // $updateclaim->verifier_id = $ordern->pers_responsible;
-                        }else{
-                            $updateclaim->approver_id = $req->approvern;
-                            // $updateclaim->approver_id = $ordern->pers_responsible;
-                        }
-                    }
-                }
-            }else if($req->chargetype=="Maintenance Order"){
-                $ordern= MaintenanceOrder::where('company_code', $req->user()->company_id)->where('cost_center', $updateclaim->other_costcenter)->where('type', $updateclaim->project_type)->where('id', $updateclaim->order_no)->first();
-                if($ordern!=null){
-                    if($gm){
-                        $updateclaim->verifier_id = $ordern->approver_id;
-                    }else{
-                        $updateclaim->approver_id = $ordern->approver_id;
-                    }
-                }
-            }else if($req->chargetype=="Other Cost Center"){
-            // if(!(($updateclaim->status=="Q1")||($updateclaim->status=="Q2"))){
-                if($gm){
-                    $updateclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($updateclaim->date)));
-                    $updateclaim->verifier_id =  $req->approvern;
-                }else{
-                    $updateclaim->approver_id = $req->approvern;
-                }
-            }
-            // dd($req->approvern);
-        }else{
-            // if(!(($updateclaim->status=="Q1")||($updateclaim->status=="Q2"))){
-                if($gm){
-                    $updateclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($updateclaim->date)));
-                    $updateclaim->verifier_id =  $req->user()->reptto;
-                }else{
-                    $updateclaim->approver_id = $req->user()->reptto;
-                }
-            // }
-        }
+        // if(in_array($req->chargetype, $array = array("Project", "Internal Order", "Maintenance Order", "Other Cost Center"))){
+        //     if($req->chargetype=="Project"){
+        //         // $updateclaim->approver_id = 16926;
+        //         // if(!(($updateclaim->status=="Q1")||($updateclaim->status=="Q2"))){
+        //         // $updateclaim->verifier_id =  null;
+        //         // }
+        //         $projecta= Project::where('company_code', $req->user()->company_id)->where('cost_center', $updateclaim->other_costcenter)->where('type', $updateclaim->project_type)->where('project_no', $updateclaim->project_no)->where('network_header', $updateclaim->network_header)->where('network_act_no',$updateclaim->network_act_no )->first();
+        //         if($projecta!=null){
+        //             if($gm){
+        //                 $updateclaim->verifier_id = $projecta->approver_id;
+        //             }else{
+        //                 $updateclaim->approver_id = $projecta->approver_id;
+        //             }
+        //         }
+        //     }
+        //     // else if($req->chargetype=="Internal Order"){
+        //     //     $ordern= InternalOrder::where('company_code', $req->user()->company_id)->where('cost_center', $updateclaim->other_costcenter)->where('order_type', $updateclaim->project_type)->where('id', $updateclaim->order_no)->first();
+        //     //     if($ordern!=null){
+        //     //         if($ordern->pers_responsible!=""){
+        //     //             if($gm){
+        //     //                 $updateclaim->verifier_id = $req->approvern;
+        //     //                 // $updateclaim->verifier_id = $ordern->pers_responsible;
+        //     //             }else{
+        //     //                 $updateclaim->approver_id = $req->approvern;
+        //     //                 // $updateclaim->approver_id = $ordern->pers_responsible;
+        //     //             }
+        //     //         }
+        //     //     }
+        //     // }
+        //     // else if($req->chargetype=="Maintenance Order"){
+        //     //     $ordern= MaintenanceOrder::where('company_code', $req->user()->company_id)->where('cost_center', $updateclaim->other_costcenter)->where('type', $updateclaim->project_type)->where('id', $updateclaim->order_no)->first();
+        //     //     if($ordern!=null){
+        //     //         if($gm){
+        //     //             $updateclaim->verifier_id = $ordern->approver_id;
+        //     //         }else{
+        //     //             $updateclaim->approver_id = $ordern->approver_id;
+        //     //         }
+        //     //     }
+        //     // }
+        //     else if($req->chargetype=="Other Cost Center"){
+        //     // if(!(($updateclaim->status=="Q1")||($updateclaim->status=="Q2"))){
+        //         if($gm){
+        //             $updateclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($updateclaim->date)));
+        //             $updateclaim->verifier_id =  $req->approvern;
+        //         }else{
+        //             $updateclaim->approver_id = $req->approvern;
+        //         }
+        //     }
+        //     // dd($req->approvern);
+        // }else{
+        //     // if(!(($updateclaim->status=="Q1")||($updateclaim->status=="Q2"))){
+        //         if($gm){
+        //             $updateclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($updateclaim->date)));
+        //             $updateclaim->verifier_id =  $req->user()->reptto;
+        //         }else{
+        //             $updateclaim->approver_id = $req->user()->reptto;
+        //         }
+        //     // }
+        // }
 
         $updateclaim->save();
 
