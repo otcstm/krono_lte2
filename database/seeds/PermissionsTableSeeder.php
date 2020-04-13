@@ -318,7 +318,7 @@ class PermissionsTableSeeder extends Seeder
             array (
                 'id' => 34,
                 'title' => '6-rpt-ot-claim-summary',
-                'descr' => 'Report - OT claim summary',
+                'descr' => 'Report - OT Claim Summary',
                 'created_at' => '2020-03-16 04:37:11',
                 'updated_at' => '2020-03-16 04:37:11',
                 'deleted_at' => NULL,
@@ -326,8 +326,8 @@ class PermissionsTableSeeder extends Seeder
             34 => 
             array (
                 'id' => 35,
-                'title' => '6-rpt-ot-log-changes',
-                'descr' => 'Report - OT log changes',
+                'title' => '6-rpt-ot-log',
+                'descr' => 'Report - OT Log Changes',
                 'created_at' => '2020-03-16 04:37:30',
                 'updated_at' => '2020-03-16 04:37:30',
                 'deleted_at' => NULL,
@@ -353,10 +353,46 @@ class PermissionsTableSeeder extends Seeder
             37 => 
             array (
                 'id' => 38,
-                'title' => '6-rpt-ot',
-                'descr' => 'Report - OT',
+                'title' => '6-rpt-ot-sa-claim-summary',
+            'descr' => 'Report - OT Claim Summary (SA)',
                 'created_at' => '2020-04-10 11:36:49',
                 'updated_at' => '2020-04-10 11:36:49',
+                'deleted_at' => NULL,
+            ),
+            38 => 
+            array (
+                'id' => 39,
+                'title' => '6-rpt-ot-sa-details',
+            'descr' => 'Report - OT Details (SA)',
+                'created_at' => '2020-04-13 15:11:10',
+                'updated_at' => '2020-04-13 15:11:13',
+                'deleted_at' => NULL,
+            ),
+            39 => 
+            array (
+                'id' => 40,
+                'title' => '6-rpt-ot-sa-se',
+            'descr' => 'Report - OT Start/End (SA)',
+                'created_at' => '2020-04-13 15:11:11',
+                'updated_at' => '2020-04-13 15:11:14',
+                'deleted_at' => NULL,
+            ),
+            40 => 
+            array (
+                'id' => 41,
+                'title' => '6-rpt-ot-sa-log',
+            'descr' => 'Report - OT Log Changes (SA)',
+                'created_at' => '2020-04-13 15:11:12',
+                'updated_at' => '2020-04-13 15:11:15',
+                'deleted_at' => NULL,
+            ),
+            41 => 
+            array (
+                'id' => 42,
+                'title' => '6-rpt-ot',
+                'descr' => 'Report - OT',
+                'created_at' => '2020-04-13 15:14:44',
+                'updated_at' => '2020-04-13 15:14:46',
                 'deleted_at' => NULL,
             ),
         ));

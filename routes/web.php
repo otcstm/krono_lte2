@@ -220,7 +220,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/admin/verifier/advSearch', 'UserVerifierController@advSearchSubord')->name('verifier.advSearchSubord');
 
   //demo
-Route::get('/user/image/{staffno}', 'ProfilePicController@getStaffImage')->name('user.image');  
+Route::get('/user/image/{staffno}', 'ProfilePicController@getStaffImage')->name('user.image');
 Route::get('/demo/location', 'DemoController@location')->name('demo.location');
 Route::post('/demo/location', 'DemoController@location')->name('demo.location');
 });
@@ -239,7 +239,8 @@ Route::group(['middleware' => ['auth', 'can:2-cfg-payroll-grp']], function () {
 
 
 //Report
-Route::group(['middleware' => ['auth', 'can:6-rpt-ot']], function () {
+// Route::group(['middleware' => ['auth', 'can:6-rpt-ot']], function () {
+Route::group(['middleware' => ['auth']], function () {
   Route::get('/report/ot', 'Admin\OtReport2Controller@viewOT')->name('rep.viewOT'); //dowload rep1
   Route::post('/report/ot', 'Admin\OtReport2Controller@viewOT')->name('rep.viewOT');
   Route::get('/report/otd', 'Admin\OtReport2Controller@viewOTd')->name('rep.viewOTd'); //dowload rep2
