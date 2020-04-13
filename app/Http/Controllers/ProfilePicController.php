@@ -14,7 +14,7 @@ class ProfilePicController extends Controller
   protected $baseuri = "https://tmoip.tm.com.my/api/t/tm.com.my/era/1.0.0/";
   protected $options = [
     
-    'headers' => ['Authorization' => 'Bearer 234cf8e6-2887-3ab3-9d71-a1005c254465']
+    'headers' => ['Authorization' => 'Bearer fab8822f-00b5-38e3-8c58-22ec93d9adae']
   ];
 
   public function create(Request $req)

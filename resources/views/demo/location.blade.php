@@ -14,18 +14,27 @@
   <div class="form-group row">
     <label for="lon" class="col-md-4 col-form-label text-md-right">Longitude</label>
     <div class="col-md-6">
-      <input type="text" class="form-control" name="long" id="lon" placeholder="not enabled" maxlength="300" readonly />
+      <input type="text" class="form-control" name="lon" id="lon" placeholder="not enabled" maxlength="300" readonly />
     </div>
   </div>
   <div id="batens" class="form-group row mb-0">
     <div class="col text-center">
-      
+      <input type="hidden" class="form-control" name="submitForm" id="submitForm" value="1"  />
       <button type="submit" class="btn btn-primary" name="action" value="checklocation" title="Masuk">Check-in Location</button>
      
     </div>
   </div>
 
 </form>
+<hr/>
+Loc Address:
+<p>
+{{$loc}}
+</>
+
+
+
+
 @stop
 
 @section('js')
