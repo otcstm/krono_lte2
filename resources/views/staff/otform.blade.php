@@ -442,16 +442,25 @@
                                                 <label>No:</label>
                                             </div>
                                             <div class="col-md-9">
-                                                <select class="form-select" name="orderno" id="orderno" required @if($orderno==null) disabled @endif>
+                                                <select class="form-select" name="orderno" id="orderno" required 
+                                                @if($claim->charge_type=="Project") 
+                                                    @if($orderlist==null) disabled @endif
+                                                @else
+                                                    @if($orderno==null) disabled @endif
+                                                @endif>
                                                     <option value="" @if($claim->project_type==NULL) selected @endif hidden>Select @if($claim->charge_type=="Project") project @else order @endif no</option>
-                                                    @if($orderno!=null)
-                                                        @foreach($orderno as $singleorder)
-                                                            @if($claim->charge_type=="Project") 
+                                                    @if($claim->charge_type=="Project") 
+                                                        @if($orderlist!=null)
+                                                            @foreach($orderlist as $singleorder)
                                                                 <option value="{{$singleorder->project_no}}" @if($claim->project_no==$singleorder->project_no) selected @endif>{{$singleorder->project_no}}</option>
-                                                            @else
+                                                            @endforeach
+                                                        @endif
+                                                    @else
+                                                        @if($orderno!=null)
+                                                            @foreach($orderno as $singleorder)
                                                                 <option value="{{$singleorder->id}}" @if($claim->order_no==$singleorder->id) selected @endif>{{$singleorder->id}}</option>
-                                                            @endif
-                                                        @endforeach
+                                                            @endforeach
+                                                        @endif
                                                     @endif
                                                 </select> 
                                             </div>
@@ -474,6 +483,77 @@
                                         </div>
                                     </div>
 
+                                    <!-- network header-->
+                                    <div
+                                    @if(!($claim->charge_type=="Project"))
+                                        style="display: none"
+                                    @endif
+                                    >
+                                        <div class="row" style="margin-bottom: 5px;">
+                                            <div class="col-md-3">
+                                                <label>Network Header:</label>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-select" @if($data!=null) value="{{$data->network_header}}"  @endif disabled>
+                                                <input type="text" class="hidden" name="networkh" @if($data!=null) value="{{$data->network_header}}"  @endif readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- network header desc-->
+                                    <div
+                                    @if(!($claim->charge_type=="Project"))
+                                        style="display: none"
+                                    @endif
+                                    >
+                                        <div class="row" style="margin-bottom: 5px;">
+                                            <div class="col-md-3">
+                                                <label>Network Header Description:</label>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-select" @if($data!=null) value="{{$data->network_headerdescr}}"  @endif disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- network activity no-->
+                                    <div
+                                    @if(!($claim->charge_type=="Project"))
+                                        style="display: none"
+                                    @endif
+                                    >
+                                        <div class="row" style="margin-bottom: 5px;">
+                                            <div class="col-md-3">
+                                                <label>Network Activity No:</label>
+                                            </div>
+                                            <div class="col-md-9">
+                                                    <select class="form-select" name="networkn" id="networkn" required @if($networkn==null) disabled @endif>
+                                                        <option value="" @if($claim->project_type==NULL) selected @endif hidden>Select network activity no</option>
+                                                    @if($networkn!=null)
+                                                        @foreach($networkn as $singlenet)
+                                                            <option value="{{$singlenet->network_act_no}}" @if($claim->network_act_no==$singlenet->network_act_no) selected @endif>{{$singlenet->network_act_no}}</option>
+                                                        @endforeach
+                                                    @endif
+                                                </select> 
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- network activity descr-->
+                                    <div
+                                    @if(!($claim->charge_type=="Project"))
+                                        style="display: none"
+                                    @endif
+                                    >
+                                        <div class="row" style="margin-bottom: 5px;">
+                                            <div class="col-md-3">
+                                                <label>Network Activity Description:</label>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-select" @if($claim->network_act_no!=NULL) value="{{$data->network_act_descr}}"  @endif disabled>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <!-- type-->
                                     <div
                                         @if(!(in_array($claim->charge_type, $array = array("Project", "Internal Order", "Maintenance Order"))))
@@ -541,16 +621,17 @@
                                                 @if($claim->charge_type=="Own Cost Center") 
                                                     <input type="text" class="form-select"  value="{{$claim->costcenter}}">
                                                 @elseif(in_array($claim->charge_type, $array = array("Internal Order","Other Cost Center")))
-                                                    <select class="form-select" name="costc" id="costc" required @if($costc==null) disabled @endif>
-                                                        @if($costc!=null)
+                                                    @if($costc!=null)
+                                                        <select class="form-select" name="costc" id="costc" required @if($costc==null) disabled @endif>
                                                             <option value="" @if($claim->other_costcenter==NULL) selected @endif hidden>Select cost center</option>
                                                             @foreach($costc as $singlecostc)
                                                                 <option value="{{$singlecostc->id}}" @if($claim->other_costcenter==$singlecostc->id) selected @endif>{{$singlecostc->id}}</option>
                                                             @endforeach
-                                                        @else
-                                                            <option name="costc"  @if($data!=null) value="{{$data->cost_center}}" @endif hidden>{{$data->cost_center}}</option>
-                                                        @endif
-                                                    </select> 
+                                                        </select> 
+                                                    @else
+                                                        <input type="text" class="form-select"  @if($data!=null) value="{{$data->cost_center}}" @endif disabled>
+                                                        <input type="text" class="hidden" name="costc"  @if($data!=null) value="{{$data->cost_center}}" @endif readonly >
+                                                    @endif
                                                 @else
                                                     <input type="text" class="form-select" @if($data!=null)  value="{{$data->cost_center}}" @endif disabled>
                                                     <input type="text" class="hidden" name="costc" @if($data!=null)  value="{{$data->cost_center}}" @endif readonly>
@@ -563,76 +644,33 @@
                                 </div>
 
                                 @if($claim ?? '')   
-                                    <!-- approver id-->
-                                    <div
-                                        @if($claim->charge_type=="Own Cost Center")
-                                            style="display: none"
-                                        @endif
-                                    >
-                                        <div class="row" style="margin-bottom: 5px;">
-                                            <div class="col-md-3">
-                                                <label>Approver:</label>
-                                            </div>
-                                            <div class="col-md-9">
-                                                @if(in_array($claim->charge_type, $array = array("Internal Order","Other Cost Center")))
-                                                    <select class="form-select" name="approvern" id="approvern" required @if($appr==null) disabled @endif>
-                                                        <option value="" @if($claim->approver_id==NULL) selected @endif hidden>Select approver</option>
-                                                        @if($appr!=null)
-                                                            @foreach($appr as $singleappr)
-                                                                <option value="{{$singleappr->user_id}}" @if($claim->approver_id==$singleappr->user_id) selected @endif>{{$singleappr->name}}</option>
-                                                            @endforeach
-                                                        @endif
-                                                    </select> 
-                                                @else
-                                                    <input type="text" class="form-select" @if($data!=NULL) value="{{--$data->name->name--}}" @endif disabled>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-
-                                {{--@if($claim ?? '')
-                                <!-- network header-->
+                                <!-- approver id-->
                                 <div
-                                    @if(!($claim->charge_type=="Project"))
+                                    @if($claim->charge_type=="Own Cost Center")
                                         style="display: none"
                                     @endif
                                 >
                                     <div class="row" style="margin-bottom: 5px;">
                                         <div class="col-md-3">
-                                            <label>Network Header:</label>
+                                            <label>Approver:</label>
                                         </div>
                                         <div class="col-md-9">
-                                                <select class="form-select" name="networkh" id="networkh" required @if($networkh==null) disabled @endif>
-                                                    <option value="" @if($claim->project_type==NULL) selected @endif hidden>Select network header</option>
-                                                @if($networkh!=null)
-                                                    @foreach($networkh as $singlenet)
-                                                        <option value="{{$singlenet->network_header}}" @if($claim->network_header==$singlenet->network_header) selected @endif>{{$singlenet->network_header}}</option>
-                                                    @endforeach
-                                                @endif
-                                            </select> 
-                                        </div>
-                                    </div>
-
-                                <!-- network activity no-->
-                                    <div class="row" style="margin-bottom: 5px;">
-                                        <div class="col-md-3">
-                                            <label>Network Activity No:</label>
-                                        </div>
-                                        <div class="col-md-9">
-                                                <select class="form-select" name="networkn" id="networkn" required @if($networkn==null) disabled @endif>
-                                                    <option value="" @if($claim->project_type==NULL) selected @endif hidden>Select network activity no</option>
-                                                @if($networkn!=null)
-                                                    @foreach($networkn as $singlenet)
-                                                        <option value="{{$singlenet->network_act_no}}" @if($claim->network_act_no==$singlenet->network_act_no) selected @endif>{{$singlenet->network_act_no}}</option>
-                                                    @endforeach
-                                                @endif
-                                            </select> 
+                                            @if(in_array($claim->charge_type, $array = array("Internal Order","Other Cost Center")))
+                                                <select class="form-select" name="approvern" id="approvern" required @if($appr==null) disabled @endif>
+                                                    <option value="" @if($claim->approver_id==NULL) selected @endif hidden>Select approver</option>
+                                                    @if($appr!=null)
+                                                        @foreach($appr as $singleappr)
+                                                            <option value="{{$singleappr->user_id}}" @if($claim->approver_id==$singleappr->user_id) selected @endif>{{$singleappr->name}}</option>
+                                                        @endforeach
+                                                    @endif
+                                                </select> 
+                                            @else
+                                                <input type="text" name="approvern" class="form-select" @if($data!=NULL) value="{{$data->name->name}}" @endif disabled>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
-                                @endif--}}
-
+                            @endif
                                 <div class="row" style="margin-bottom: 5px;">
                                     <div class="col-md-3">
                                         <label>Document:</label>
