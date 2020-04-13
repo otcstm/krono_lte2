@@ -278,6 +278,28 @@ class MiscController extends Controller
       $isApprover = 1;
     }
 
+    //UserAdmin
+    $isUserAdmin = 0;
+    $checkUserAdmin = DB::table('role_user')
+    ->where('role_id','=',3)
+    ->where('user_id','=',$req->user()->id)
+    ->get();
+    if($checkUserAdmin->count() > 0)
+    {
+      $isUserAdmin = 1;
+    }
+
+    //SysAdmin
+    $isSysAdmin = 0;
+    $checkSysAdmin = DB::table('role_user')
+    ->where('role_id','=',2)
+    ->where('user_id','=',$req->user()->id)
+    ->get();
+    if($checkSysAdmin->count() > 0)
+    {
+      $isSysAdmin = 1;
+    }
+
     // dd($req->user()->name);
 
     return view('home', [
@@ -293,6 +315,8 @@ class MiscController extends Controller
       'to_do_list' => $to_do_list,
       'isVerifier' => $isVerifier,
       'isApprover' => $isApprover,
+      'isUserAdmin' => $isUserAdmin,
+      'isSysAdmin' => $isSysAdmin,
       'otYearChart' => $otYearChart      
       ]);
   }

@@ -6,7 +6,7 @@
 
 <div class="row">
   <div class="col-md-12">
-<h1>Assigned Work Schedule Rule</h1>
+<h1>Shift Grouping</h1>
   </div>
 <div class="col-md-12">
 <div class="panel panel-default">
@@ -47,7 +47,7 @@
             @endif 
             </td>
            <td>
-             <form action="{{ route('shift.group.del.sp', [], false) }}" method="post"  class="text-center">
+             <form action="{{ route('shift.planner.del.sp', [], false) }}" method="post"  class="text-center">
                @csrf
                <input type="hidden" name="sp_id" value="{{ $ap->id }}" />
                <input type="hidden" name="group_id" value="{{ $groupd->id }}" />
@@ -89,7 +89,7 @@
             @endif 
             </td>
            <td>
-             <form action="{{ route('shift.group.add.sp', [], false) }}" method="post" class="text-center">
+             <form action="{{ route('shift.planner.add.sp', [], false) }}" method="post" class="text-center">
                @csrf
                <input type="hidden" name="sp_id" value="{{ $ap->id }}" />
                <input type="hidden" name="group_id" value="{{ $groupd->id }}" />
@@ -120,7 +120,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">Shift Group Details</div>
   <div class="panel-body">
-    <form action="{{ route('shift.group.edit', [], false) }}" method="post">
+    <form action="{{ route('shift.planner.edit', [], false) }}" method="post">
       @csrf
       <input type="hidden" name="id" value="{{ $groupd->id }}" />
 
@@ -254,7 +254,7 @@ $(document).ready(function() {
 function selectOneStaff(persno){
   document.getElementById('group_owner_id').value = persno;
 
-  var search_url = "{{ route('shift.group.api.getname', ['uid' => '']) }}" + persno;
+  var search_url = "{{ route('shift.planner.api.getname', ['uid' => '']) }}" + persno;
 
   $.ajax({
     url: search_url,
@@ -272,7 +272,7 @@ function selectOneStaff(persno){
 
 $('#sfresult').on('show.bs.modal', function(e) {
   sresdt.clear();
-  var search_url = "{{ route('shift.group.api.searchstaff', ['input' => '']) }}" + document.getElementById('owner_name').value;
+  var search_url = "{{ route('shift.planner.api.searchstaff', ['input' => '']) }}" + document.getElementById('owner_name').value;
 
   $.ajax({
     url: search_url,

@@ -1,57 +1,41 @@
 @extends('adminlte::page')
 
-@section('title', 'Group Details')
+@section('title', 'Shift Groups')
 
 @section('content')
-
-<div class="row">
-  <div class="col-md-12">
-<h1>Assigned Work Schedule Rule</h1>
-  </div>
-<div class="col-md-12">
+<h1>Shift Planner/Members Assignment</h1>
 <div class="panel panel-default">
-  <div class="panel-body">    
+  <div class="panel-body">
     @if (session()->has('alert'))
     <div class="alert alert-{{ session()->get('a_type') }} alert-dismissible">
       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
       <strong>{{ session()->get('alert') }}</strong>
     </div>
     @endif
-
     <div class="table-responsive">
-      
-      {{-- <h4>List assigned Work Schedule Rule</h4> --}}
-      <table id="staffingrp" class="table table-hover table-bordered">
+      <table id="grplist" class="table table-hover table-bordered">
        <thead>
          <tr>
            <th>Code</th>
-           <th>Description</th>
-           <th>Total Days</th>
-           <th>Total Hours</th>
-           <th>Is Weekly</th>
-           <th>Remove?</th>
+           <th>Name</th>
+           <th>Owner</th>
+           <th>Staff Count</th>
+           <th>Action</th>
          </tr>
        </thead>
        <tbody>
-         @foreach($groupd->shiftpatterns as $ap)
+         @foreach($p_list as $ap)
          <tr>
-           <td class="text-left">{{ $ap->code }}</td>
-           <td class="text-left">{{ $ap->description }}</td>
-           <td class="text-left">{{ $ap->days_count }}</td>
-           <td class="text-left">{{ $ap->total_hours }}</td>
-           <td class="text-left">
-            @if($ap->is_weekly == 1)
-            <i class="glyphicon glyphicon-ok"></i>
-            @else
-            <i class="glyphicon glyphicon-remove"></i>
-            @endif 
-            </td>
+           <td>{{ $ap->group_code }}</td>
+           <td>{{ $ap->group_name }}</td>
+           <td>{{ $ap->Manager->name }}</td>
+           <td>{{ $ap->Members->count() }}</td>
            <td>
-             <form action="{{ route('shift.group.del.sp', [], false) }}" method="post"  class="text-center">
+             <form method="post" action="{{ route('shift.planner.del', [], false) }}" onsubmit='return confirm("Confirm delete?")'  class="text-center">
                @csrf
-               <input type="hidden" name="sp_id" value="{{ $ap->id }}" />
-               <input type="hidden" name="group_id" value="{{ $groupd->id }}" />
-               <button type="submit" class="btn btn-np"><i class="glyphicon glyphicon-minus-sign"></i></button>
+               <a href="{{ route('shift.planner.view', ['id' => $ap->id], false) }}"><button type="button" class="btn btn-np" title="Edit"><i class="fas fa-pencil-alt"></i></button></a>
+               <button type="submit" class="btn btn-np" title="Delete"><i class="fas fa-trash-alt"></i></button>
+               <input type="hidden" name="id" value="{{ $ap->id }}" />
              </form>
            </td>
          </tr>
@@ -60,82 +44,27 @@
      </table>
     </div>
 
-
-    <div class="table-responsive">
-      <h4>Available Work Schedule Rule </h4>
-      <table id="staffnogrp" class="table table-hover table-bordered">
-       <thead>
-         <tr>
-           <th>Code</th>
-           <th>Description</th>
-           <th>Total Days</th>
-           <th>Total Hours</th>
-           <th>Is Weekly</th>
-           <th>Add?</th>
-         </tr>
-       </thead>
-       <tbody>
-         @foreach($spattern as $ap)
-         <tr>
-           <td class="text-left">{{ $ap->code }}</td>
-           <td class="text-left">{{ $ap->description }}</td>
-           <td class="text-left">{{ $ap->days_count }}</td>
-           <td class="text-left">{{ $ap->total_hours }}</td>
-           <td class="text-left">
-            @if($ap->is_weekly == 1)
-            <i class="glyphicon glyphicon-ok"></i>
-            @else
-            <i class="glyphicon glyphicon-remove"></i>
-            @endif 
-            </td>
-           <td>
-             <form action="{{ route('shift.group.add.sp', [], false) }}" method="post" class="text-center">
-               @csrf
-               <input type="hidden" name="sp_id" value="{{ $ap->id }}" />
-               <input type="hidden" name="group_id" value="{{ $groupd->id }}" />
-               <button type="submit" class="btn btn-np "><i class="glyphicon glyphicon-plus-sign"></i></button>
-             </form>
-           </td>
-         </tr>
-         @endforeach
-       </tbody>
-     </table>
-    </div>
-    <hr />
-    <div class="pull-right">
-    <a href="{{ URL::previous() }}" class="btn btn-p btn-primary btn-outline">Cancel</a>
-    <a href="{{ route('shift.group', [], false) }}" class="btn btn-p btn-primary">Create</a>
-    </div>
-  </div>
-</div>
-</div>
-</div>
-
-<div class="row">
-  <div class="col-md-12">
-<h1>Shift Group Information</h1>
-  </div>
-
-  <div class="col-md-12">
-<div class="panel panel-default">
-  <div class="panel-heading">Shift Group Details</div>
-  <div class="panel-body">
-    <form action="{{ route('shift.group.edit', [], false) }}" method="post">
+    <h4>Create Shift Planner</h4>
+    <form action="{{ route('shift.planner.add', [], false) }}" method="post">
       @csrf
-      <input type="hidden" name="id" value="{{ $groupd->id }}" />
-
-      <row>
-        <div class="col-sm-6">
+      <div class="row">
+        <div class="col-sm-12">
           <div class="form-group has-feedback {{ $errors->has('group_code') ? 'has-error' : '' }}">
             <label for="group_code">Group Code</label>
-            <input id="group_code" type="text" name="group_code" class="form-control" value="{{ $groupd->group_code }}" disabled>
+            <input id="group_code" type="text" name="group_code" class="form-control" value="{{ old('group_code') }}"
+                   placeholder="Short name for this group" required maxlength="10">
+            @if ($errors->has('group_code'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('group_code') }}</strong>
+                </span>
+            @endif
           </div>
         </div>
 
-        <div class="col-sm-6">
+        <div class="col-sm-12">
           <div class="form-group has-feedback {{ $errors->has('group_name') ? 'has-error' : '' }}">
             <label for="group_name">Group Name</label>
-            <input id="group_name" type="text" name="group_name" class="form-control" value="{{ old('group_name', $groupd->group_name) }}"
+            <input id="group_name" type="text" name="group_name" class="form-control" value="{{ old('group_name') }}"
                    placeholder="Some info about this group" required maxlength="200">
             @if ($errors->has('group_name'))
                 <span class="help-block">
@@ -144,12 +73,13 @@
             @endif
           </div>
         </div>
-        <div class="col-sm-6">
+
+        <div class="col-sm-12">
           <div class="form-group has-feedback {{ $errors->has('owner_name') ? 'has-error' : '' }}">
             <label for="owner_name">Group Owner Name</label>
             <div class="row">
               <div class="col-xs-10">
-                <input type="text" id="owner_name" name="owner_name" class="form-control" placeholder="Staff finder" value="{{ $groupd->Manager->name }}" />
+                <input type="text" id="owner_name" name="owner_name" class="form-control" placeholder="Staff finder">
               </div>
               <div class="col-xs-2">
                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#sfresult"><i class="fas fa-search"></i></button>
@@ -159,10 +89,10 @@
           </div>
         </div>
 
-        <div class="col-sm-6">
+        <div class="col-sm-12">
           <div class="form-group has-feedback {{ $errors->has('group_name') ? 'has-error' : '' }}">
             <label for="group_owner_id">Group Owner ID</label>
-            <input id="group_owner_id" type="text" name="group_owner_id" class="form-control" value="{{ old('group_owner_id', $groupd->manager_id) }}"
+            <input id="group_owner_id" type="text" name="group_owner_id" class="form-control" value="{{ old('group_owner_id') }}"
                    placeholder="Search group owner name to populate" required readonly>
             @if ($errors->has('group_owner_id'))
                 <span class="help-block">
@@ -171,20 +101,15 @@
             @endif
           </div>
         </div>
-
         <div class="col-sm-12">
-          <div class="form-group text-center">
-            <button type="submit" class="btn btn-primary">Update</button>
+          <div class="form-group text-center pull-right">
+            <button type="submit" class="btn btn-primary">Create</button>
           </div>
         </div>
-      </row>
+      </div>
     </form>
   </div>
 </div>
-</div>
-</div>
-
-
 
 <div id="sfresult" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -223,8 +148,6 @@
   </div>
 </div>
 
-
-
 @stop
 
 @section('js')
@@ -232,9 +155,9 @@
 
 $(document).ready(function() {
 
-  $('#staffnogrp').DataTable();
-
-  $('#staffingrp').DataTable();
+  $('#grplist').DataTable({
+    "responsive": "true"
+  });
 
   sresdt = $('#stes').DataTable({
     columns : [
@@ -248,6 +171,7 @@ $(document).ready(function() {
       }
     ]
   });
+
 
 } );
 
@@ -284,5 +208,6 @@ $('#sfresult').on('show.bs.modal', function(e) {
     }
   });
 });
+
 </script>
 @stop

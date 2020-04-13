@@ -4,6 +4,7 @@ namespace App\Shared;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Salary;
 
 class DataMart extends Controller
 {

@@ -1,6 +1,6 @@
 
-<div class="row-eq-height"> 
-  {{-- <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
+<div class="row row-eq-height"> 
+  {{-- <div class="col-md-3 col-sm-6 col-xs-12 ">
     <div class="box box-solid">
     <div class="box-body">
     <div class="media">
@@ -19,7 +19,7 @@
     </div>
   </div>  --}}
   
-  <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
+  <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('ot.verify', [], false) }}">
     <div class="box box-solid">
 <div class="box-body">    
@@ -46,7 +46,7 @@
     </a>
   </div>  
 
-  <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
+  <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('ot.verifyrept', [], false) }}">
     <div class="box box-solid">
         <div class="box-body">
