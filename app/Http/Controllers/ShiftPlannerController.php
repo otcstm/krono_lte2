@@ -9,13 +9,13 @@ use App\ShiftGroupMember;
 use App\ShiftGroup;
 use App\ShiftPattern;
 
-class ShiftGroupController extends Controller
+class ShiftPlannerController extends Controller
 {
   public function index(Request $req){
 
     $glist = ShiftGroup::all();
 
-    return view('shiftplan.shift_group', [
+    return view('shiftplan.shift_planner', [
       'p_list' => $glist
     ]);
   }

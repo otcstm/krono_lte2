@@ -3,9 +3,8 @@
 @section('title', 'Shift Groups')
 
 @section('content')
-
+<h1>Create Group Owner</h1>
 <div class="panel panel-default">
-  <div class="panel-heading">Created Shift Groups</div>
   <div class="panel-body">
     @if (session()->has('alert'))
     <div class="alert alert-{{ session()->get('a_type') }} alert-dismissible">
@@ -32,7 +31,7 @@
            <td>{{ $ap->Manager->name }}</td>
            <td>{{ $ap->Members->count() }}</td>
            <td>
-             <form method="post" action="{{ route('shift.group.del', [], false) }}" onsubmit='return confirm("Confirm delete?")'>
+             <form method="post" action="{{ route('shift.group.del', [], false) }}" onsubmit='return confirm("Confirm delete?")'  class="text-center">
                @csrf
                <a href="{{ route('shift.group.view', ['id' => $ap->id], false) }}"><button type="button" class="btn btn-np" title="Edit"><i class="fas fa-pencil-alt"></i></button></a>
                <button type="submit" class="btn btn-np" title="Delete"><i class="fas fa-trash-alt"></i></button>
@@ -44,16 +43,12 @@
        </tbody>
      </table>
     </div>
-  </div>
-</div>
-<div class="panel panel-default">
-  <div class="panel-heading">Create Shift Grouping</div>
-  <div class="panel-body">
 
+    <h4>Create Group Owner</h4>
     <form action="{{ route('shift.group.add', [], false) }}" method="post">
       @csrf
       <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-12">
           <div class="form-group has-feedback {{ $errors->has('group_code') ? 'has-error' : '' }}">
             <label for="group_code">Group Code</label>
             <input id="group_code" type="text" name="group_code" class="form-control" value="{{ old('group_code') }}"
@@ -66,7 +61,7 @@
           </div>
         </div>
 
-        <div class="col-sm-6">
+        <div class="col-sm-12">
           <div class="form-group has-feedback {{ $errors->has('group_name') ? 'has-error' : '' }}">
             <label for="group_name">Group Name</label>
             <input id="group_name" type="text" name="group_name" class="form-control" value="{{ old('group_name') }}"
@@ -79,7 +74,7 @@
           </div>
         </div>
 
-        <div class="col-sm-6">
+        <div class="col-sm-12">
           <div class="form-group has-feedback {{ $errors->has('owner_name') ? 'has-error' : '' }}">
             <label for="owner_name">Group Owner Name</label>
             <div class="row">
@@ -94,7 +89,7 @@
           </div>
         </div>
 
-        <div class="col-sm-6">
+        <div class="col-sm-12">
           <div class="form-group has-feedback {{ $errors->has('group_name') ? 'has-error' : '' }}">
             <label for="group_owner_id">Group Owner ID</label>
             <input id="group_owner_id" type="text" name="group_owner_id" class="form-control" value="{{ old('group_owner_id') }}"
@@ -107,8 +102,8 @@
           </div>
         </div>
         <div class="col-sm-12">
-          <div class="form-group text-center">
-            <button type="submit" class="btn btn-primary">Add</button>
+          <div class="form-group text-center pull-right">
+            <button type="submit" class="btn btn-primary">Create</button>
           </div>
         </div>
       </div>
