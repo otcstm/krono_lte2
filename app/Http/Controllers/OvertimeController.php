@@ -89,7 +89,15 @@ class OvertimeController extends Controller{
                 $orderno= InternalOrder::all();
                 if($req->session()->get('claim')->order_no!=null){
                     $data=InternalOrder::where('id',$req->session()->get('claim')->order_no)->first();
-                    $appr = UserRecord::where('upd_sap','<=',date('Y-m-d'))->where('company_id', $req->session()->get('claim')->company_id)->where('costcentr', $data->cost_center)->where('user_id', '!=', $req->user()->id)->get();
+                    if($data->cost_center==""){
+                        $costc = Costcenter::where('company_id', $data->company_code)->get();
+                        // dd($data->company_code);
+                        if(count($costc)==0){
+                            $costc = null;
+                        } 
+                    }
+                    
+                    $appr = UserRecord::where('upd_sap','<=',date('Y-m-d'))->where('company_id', $req->session()->get('claim')->company_id)->where('costcentr', $req->session()->get('claim')->other_costcenter)->where('user_id', '!=', $req->user()->id)->get();
                     // dd($appr);
                     if(count($appr)==0){
                         $appr = null;
@@ -684,6 +692,11 @@ class OvertimeController extends Controller{
                                 $updateclaim->approver_id = $req->approvern;
                             }
                         }
+                        if($req->costc!=null){
+                            $updateclaim->other_costcenter = $req->costc;
+                        }else{
+                            $updateclaim->other_costcenter = $data->cost_center;
+                        }
                     }else{
                         $data=MaintenanceOrder::where('id', $req->orderno)->first();
                         if($data!=null){
@@ -695,9 +708,9 @@ class OvertimeController extends Controller{
                                 }
                             }
                         }
+                        $updateclaim->other_costcenter = $data->cost_center;
                     }
                     
-                    $updateclaim->other_costcenter = $data->cost_center;
                     $updateclaim->company_id = $data->company_code;
                 }
             }else if($req->chargetype=="Project"){

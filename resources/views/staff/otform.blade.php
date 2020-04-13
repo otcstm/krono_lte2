@@ -512,7 +512,7 @@
                                             @if($claim ?? '')
                                                 @if($claim->charge_type=="Other Cost Center")
                                                     <select class="form-select" name="compn" id="compn"required>
-                                                        <option value="" @if($claim->company_code==NULL) selected @endif hidden>Select company code</option>
+                                                        <option value="" @if($claim->company_id==NULL) selected @endif hidden>Select company code</option>
                                                         @if($compn!=null)
                                                             @foreach($compn as $singlecompn)
                                                                 <option value="{{$singlecompn->company_id}}" @if($claim->company_id==$singlecompn->company_id) selected @endif>{{$singlecompn->company_id}}</option>
@@ -540,7 +540,7 @@
                                             @if($claim ?? '')
                                                 @if($claim->charge_type=="Own Cost Center") 
                                                     <input type="text" class="form-select"  value="{{$claim->costcenter}}">
-                                                @elseif($claim->charge_type=="Other Cost Center")
+                                                @elseif(in_array($claim->charge_type, $array = array("Internal Order","Other Cost Center")))
                                                     <select class="form-select" name="costc" id="costc" required @if($costc==null) disabled @endif>
                                                         @if($costc!=null)
                                                             <option value="" @if($claim->other_costcenter==NULL) selected @endif hidden>Select cost center</option>
@@ -548,7 +548,7 @@
                                                                 <option value="{{$singlecostc->id}}" @if($claim->other_costcenter==$singlecostc->id) selected @endif>{{$singlecostc->id}}</option>
                                                             @endforeach
                                                         @else
-                                                            <option value="" @if($costc==null) selected @endif hidden>Select cost center</option>
+                                                            <option name="costc"  @if($data!=null) value="{{$data->cost_center}}" @endif hidden>{{$data->cost_center}}</option>
                                                         @endif
                                                     </select> 
                                                 @else
