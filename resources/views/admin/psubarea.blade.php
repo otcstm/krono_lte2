@@ -173,33 +173,6 @@ $(document).ready(function() {
     });
 });
 
-// function populate(e){
-// 		var ps_id = $(e.relatedTarget).data('id');
-//     var ps_comp = $(e.relatedTarget).data('comp');
-//     var ps_area = $(e.relatedTarget).data('area');
-// 		var ps_aread = $(e.relatedTarget).data('aread');
-// 		var ps_sub = $(e.relatedTarget).data('sub');
-// 		var ps_subd = $(e.relatedTarget).data('subd');
-//     //var ps_state = $(e.relatedTarget).data('state');
-// 		var ps_state_id = $(e.relatedTarget).data('state_id');
-// 		var ps_reg = $(e.relatedTarget).data('reg');
-//     $('input[name=inputid]').val(ps_id);
-//     $('input[name=inputcomp]').val(ps_comp);
-// 		$('input[name=inputparea]').val(ps_area);
-// 		$('input[name=inputparead]').val(ps_aread);
-// 		$('input[name=inputpsubarea]').val(ps_sub);
-// 		$('input[name=inputpsubaread]').val(ps_subd);
-// 		// $('input[name=inputstate]').val(ps_state_id);
-// 		// $("#inputstate").val(ps_state);
-// 		$("#editstate").val(ps_state_id);
-// 		$('input[name=inputregion]').val(ps_reg);
-//     //$('#showname').text(ps_state);
-//     }
-
-//
-// $('#editfPsubarea').on('show.bs.modal', function(e) {
-//     populate(e);
-// });
 
 for(i = 0; i<{{count($psubareas)}}+1; i++){
 	$("#edit-"+i).on("click", edit(i));
@@ -299,11 +272,15 @@ function edit(i){
 							"<p>Region</p>"+
 						"</div>"+
 						"<div class='col-md-8'>"+
-							"<select id='ps_reg' class='check-6' value='"+ps_reg+"' style='width: 100%' required>"+
-								"<option value='SEM'>SEM</option>"+
-								"<option value='SWK'>SWK</option>"+
-								"<option value='SBH'>SBH</option>"+
-							"</select>"+
+							"<select id='ps_reg' class='check-6' value='"+ps_reg+"' style='width: 100%' required>";
+							@foreach($regs as $reg)
+								if(ps_reg=='{{$reg->item2}}'){
+									html = html + "<option value='{{$reg->item2}}' selected>{{$reg->item2}}</option>";
+								}else{
+									html = html + "<option value='{{$reg->item2}}'>{{$reg->item2}}</option>";
+								}
+							@endforeach
+							html = html + "</select>"+
 						"</div>"+
 					"</div>";
         var submit = true;
