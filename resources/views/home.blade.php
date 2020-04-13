@@ -12,7 +12,12 @@
 @include('dashboard/section_otChart')
 @if($isApprover==1)
     @include('dashboard/section_approver')
-@endif
-{{-- @include('dashboard/section_admin') --}}
+@endif 
+@if($isUserAdmin==1)
+    @include('dashboard/section_admin')
+@endif 
+@if($isSysAdmin==1)
+    @include('dashboard/section_sysadmin')
+@endif 
 
 @stop

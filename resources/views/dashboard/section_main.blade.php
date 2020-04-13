@@ -1,9 +1,9 @@
 <h1>Dashboard</h1>
 
-<div class="row-eq-height"> 
+<div class="row row-eq-height"> 
 
-  <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
-  <a href="{{route('ot.formnew')}}">
+  <div class="col-md-3 col-sm-6 col-xs-12 ">
+    <a href="{{ route('ot.formnew', [], false) }}">
     <div class="box box-solid">
     <div class="box-body">
     <div class="media">
@@ -22,8 +22,8 @@
     </div>
   </a>
   </div>
-  <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
-    <a href="{{route('staff.worksched')}}">
+  <div class="col-md-3 col-sm-6 col-xs-12 ">      
+    <a href="{{ route('staff.worksched', [], false) }}">
       <div class="box box-solid">
         <div class="box-body">
           <div class="media">
@@ -43,7 +43,7 @@
     </a>
   </div>
   @if(isset($act_payment_curr_month))
-  <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
+  <div class="col-md-3 col-sm-6 col-xs-12 ">
     <div class="box box-solid">
 <div class="box-body">
   <div class="media">
@@ -64,7 +64,7 @@
   @endif
 
   @if(isset($act_payment_curr_month))
-  <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
+  <div class="col-md-3 col-sm-6 col-xs-12 ">
     <div class="box box-solid">
     <div class="box-body">
     <div class="media">
@@ -84,9 +84,12 @@
   </div>  
   @endif
 
+</div><!-- /.row -->
+
+  <div class="row row-eq-height"> 
 
 @if(isset($total_hour_ot_curr_month))
-  <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
+  <div class="col-md-3 col-sm-6 col-xs-12 ">
     <div class="box box-solid">
   <div class="box-body">
     <div class="media">
@@ -106,7 +109,7 @@
   </div>
   @endif  
   @if(isset($next_payment_sch))
-  <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
+  <div class="col-md-3 col-sm-6 col-xs-12 ">
     <div class="box box-solid">
 <div class="box-body">
     
@@ -128,7 +131,7 @@
   @endif  
 
   
-  <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
+  <div class="col-md-3 col-sm-6 col-xs-12 ">
     
   <a href="{{ route('punch.list', [], false) }}">
     <div class="box box-solid">
@@ -151,7 +154,7 @@
     </div>
 </a>
   </div>
-  <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
+  <div class="col-md-3 col-sm-6 col-xs-12 ">
   <a href="{{ route('ot.list', [], false) }}">  
     <div class="box box-solid">
     <div class="box-body">
@@ -175,7 +178,7 @@
 </div><!-- /.row -->
 
 {{-- <div class="row">
-  <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
+  <div class="col-md-3 col-sm-6 col-xs-12 ">
     <!-- <div class="box box-solid">
   <div class="box-body">
     <div class="media">
