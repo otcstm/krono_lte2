@@ -129,7 +129,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/admin/overtime', 'Admin\OvertimeMgmtController@show')->name('oe.show');
   Route::get('/admin/overtime/m', 'Admin\OvertimeMgmtController@otm')->name('oe.otm');
   Route::get('/admin/overtime/getcompany', 'Admin\OvertimeMgmtController@getCompany')->name('oe.getcompany');
-  
+
   // Route::get('/admin/overtime/eligible/getlast', 'Admin\OvertimeMgmtController@getLast')->name('oe.eligiblegetlast');
   // Route::post('/admin/overtime/eligible/store', 'Admin\OvertimeMgmtController@eligiblestore')->name('oe.eligiblestore');
   // Route::post('/admin/overtime/eligible/update', 'Admin\OvertimeMgmtController@eligibleupdate')->name('oe.eligibleupdate');
@@ -146,16 +146,6 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/admin/overtime/eligibility/add', 'Admin\OvertimeMgmtController@eligibilityadd')->name('oe.eligibility.add');
   Route::post('/admin/overtime/eligibility/remove', 'Admin\OvertimeMgmtController@eligibilityremove')->name('oe.eligibility.remove');
   Route::post('/admin/overtime/eligibility/update', 'Admin\OvertimeMgmtController@eligibilityupdate')->name('oe.eligibility.update');
-
-
-
-  //Report batch job
-  Route::get('/syadmrep/ot', 'Admin\OtSaRepController@viewOT')->name('rep.sa.OT');
-  Route::post('/syadmrep/dot', 'Admin\OtSaRepController@joblist')->name('rep.sa.dOT');
-  Route::get('/syadmrep/otd', 'Admin\OtSaRepController@viewOTd')->name('rep.sa.OTd');
-  Route::get('/syadmrep/StEd', 'Admin\OtSaRepController@viewStEd')->name('rep.sa.StEd');
-  Route::get('/syadmrep/otlog', 'Admin\OtSaRepController@viewLC')->name('rep.sa.OTLog');
-
 
 
 
@@ -242,17 +232,8 @@ Route::group(['middleware' => ['auth', 'can:2-cfg-payroll-grp']], function () {
 
 
 //Report
-// Route::group(['middleware' => ['auth', 'can:6-rpt-ot']], function () {
-Route::group(['middleware' => ['auth']], function () {
-  Route::get('/report/ot', 'Admin\OtReport2Controller@viewOT')->name('rep.viewOT'); //dowload rep1
-  Route::post('/report/ot', 'Admin\OtReport2Controller@viewOT')->name('rep.viewOT');
-  Route::get('/report/otd', 'Admin\OtReport2Controller@viewOTd')->name('rep.viewOTd'); //dowload rep2
-  Route::post('/report/otd', 'Admin\OtReport2Controller@viewOTd')->name('rep.viewOTd');
-  Route::get('/report/StEdOt', 'Admin\OtReport2Controller@viewStEd')->name('rep.viewStEd'); //dowload rep4
-  Route::post('/report/StEdOt', 'Admin\OtReport2Controller@viewStEd')->name('rep.viewStEd');
-  Route::get('/report/otlog', 'Admin\OtReport2Controller@viewLC')->name('rep.viewOTLog'); //dowload rep3
-  Route::post('/report/otlog', 'Admin\OtReport2Controller@viewLC')->name('rep.viewOTLog');
-});
+// Route::group(['middleware' => ['auth']], function () {
+
 
 
 Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => 'Admin', 'middleware' => ['auth', 'can:2-cfg-shifttemplate']], function () {
@@ -324,4 +305,23 @@ Route::group(['prefix' => 'admin/holiday', 'as' => '', 'middleware' => ['auth', 
   Route::get('/edit/{id}', 'Admin\HolidayController@edit')->name('holiday.edit');
   Route::post('/update', 'Admin\HolidayController@update')->name('holiday.update');
   Route::post('/destroy', 'Admin\HolidayController@destroy')->name('holiday.destroy');
+});
+
+Route::group(['middleware' => ['auth', 'can:6-rpt-ot']], function () {
+  Route::get('/report/ot', 'Admin\OtReport2Controller@viewOT')->name('rep.viewOT'); //dowload rep1
+  Route::post('/report/ot', 'Admin\OtReport2Controller@viewOT')->name('rep.viewOT');
+  Route::get('/report/otd', 'Admin\OtReport2Controller@viewOTd')->name('rep.viewOTd'); //dowload rep2
+  Route::post('/report/otd', 'Admin\OtReport2Controller@viewOTd')->name('rep.viewOTd');
+  Route::get('/report/StEdOt', 'Admin\OtReport2Controller@viewStEd')->name('rep.viewStEd'); //dowload rep4
+  Route::post('/report/StEdOt', 'Admin\OtReport2Controller@viewStEd')->name('rep.viewStEd');
+  Route::get('/report/otlog', 'Admin\OtReport2Controller@viewLC')->name('rep.viewOTLog'); //dowload rep3
+  Route::post('/report/otlog', 'Admin\OtReport2Controller@viewLC')->name('rep.viewOTLog');
+});
+
+Route::group(['middleware' => ['auth','can:7-rpt-ot-sa']], function () {
+Route::get('/syadmrep/ot', 'Admin\OtSaRepController@viewOT')->name('rep.sa.OT');
+Route::post('/syadmrep/dot', 'Admin\OtSaRepController@joblist')->name('rep.sa.dOT');
+Route::get('/syadmrep/otd', 'Admin\OtSaRepController@viewOTd')->name('rep.sa.OTd');
+Route::get('/syadmrep/StEd', 'Admin\OtSaRepController@viewStEd')->name('rep.sa.StEd');
+Route::get('/syadmrep/otlog', 'Admin\OtSaRepController@viewLC')->name('rep.sa.OTLog');
 });
