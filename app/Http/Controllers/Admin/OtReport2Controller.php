@@ -520,7 +520,7 @@ class OtReport2Controller extends Controller
     $company = $req->fcompany;
     $state = $req->fstate;
     $region = $req->fregion;
-    Log::info('sebelum query');
+    // Log::info('sebelum query');
 
     $otr = Overtime::query();
     if(isset($req->fdate)){
@@ -552,8 +552,8 @@ class OtReport2Controller extends Controller
       }
       $otr = $otr->where('status','not like',"%D%")->get();
 
-      dd($otr);
-      Log::info('get otr');
+      // dd($otr);
+      // Log::info('get otr');
 
       if($req->searching == 'exceld'){
           $list_of_id = $otr->pluck('id');
@@ -564,7 +564,7 @@ class OtReport2Controller extends Controller
           $fn ='OTSummary';
         }
 
-      Log::info('lepas OTD/S');
+      // Log::info('lepas OTD/S');
 
       $fdt = new Carbon($req->fdate);
       $tdt = new Carbon($req->tdate);
@@ -725,10 +725,10 @@ class OtReport2Controller extends Controller
           }
       }
       // dd($headers);
-      Log::info('siap buat header');
+      // Log::info('siap buat header');
       $otdata = [];
       $eksel = new ExcelHandler($fname);
-      Log::info('init file excel');
+      // Log::info('init file excel');
 
     if($req->searching == 'excelm'){
       foreach($otr as $value){
@@ -906,7 +906,7 @@ class OtReport2Controller extends Controller
       }
       // dd($otdata);
 
-Log::info('siap prepare data');
+// Log::info('siap prepare data');
       $sh = 'OvertimeSummary';
 
     }//ot detail
@@ -1082,7 +1082,7 @@ Log::info('siap prepare data');
     }
     // dd($otdata,$headers);
       $eksel->addSheet($sh, $otdata, $headers);
-      Log::info('excel loaded');
+      // Log::info('excel loaded');
       return $eksel->download();
   }
 
