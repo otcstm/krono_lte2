@@ -215,14 +215,14 @@ return [
               'url' => '/admin/pygroup',
               'icon' => '',
             //   'icon' => 'fas fa-calendar-alt',
-              // 'can' => '2-cfg-payroll-grp',
+              'can' => '2-cfg-payroll-grp',
           ],
           [
               'text' => 'paymentsch',
               'url' => '/admin/paymentsc',
               'icon' => '',
             //   'icon' => 'fas fa-calendar-alt',
-              // 'can' => '2-cfg-pay-sched',
+              'can' => '2-cfg-pay-sched',
           ],
           [
               'text' => 'manage_announcement',

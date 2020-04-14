@@ -99,30 +99,6 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('admin/role/create', 'Admin\RoleController@store')->name('role.store');
   Route::post('admin/role/edit', 'Admin\RoleController@update')->name('role.edit');
   Route::post('admin/role/delete', 'Admin\RoleController@destroy')->name('role.delete');
-  //Company
-  Route::get('/admin/company', 'Admin\CompanyController@index')->name('company.index');
-  Route::post('/admin/company/add', 'Admin\CompanyController@store')->name('company.store');
-  Route::post('/admin/company/delete', 'Admin\CompanyController@destroy')->name('company.delete');
-  Route::post('/admin/company/update', 'Admin\CompanyController@update')->name('company.update');
-  //Personnel subarea
-  Route::get('/admin/psubarea', 'Admin\PsubareaController@index')->name('psubarea.index');
-  Route::post('/admin/psubarea/add', 'Admin\PsubareaController@store')->name('psubarea.store');
-  Route::post('/admin/psubarea/update', 'Admin\PsubareaController@update')->name('psubarea.edit');
-  Route::post('/admin/psubarea/delete', 'Admin\PsubareaController@destroy')->name('psubarea.delete');
-  //Holiday
-  //Route::get('/admin/holiday/create', 'Admin\HolidayController@create')->name('holiday.create');
-  //Route::post('/admin/holiday/insert', 'Admin\HolidayController@insert')->name('holiday.insert');
-  //Route::get('/admin/holiday/show', 'Admin\HolidayController@show')->name('holiday.show');
-  //Route::post('/admin/holiday/show', 'Admin\HolidayController@show')->name('holiday.show');
-  //Route::get('/admin/holiday/edit/{id}', 'Admin\HolidayController@edit')->name('holiday.edit');
-  //Route::post('/admin/holiday/update', 'Admin\HolidayController@update')->name('holiday.update');
-  //Route::post('/admin/holiday/destroy', 'Admin\HolidayController@destroy')->name('holiday.destroy');
-  //Payment Schedule
-  Route::get('/admin/paymentsc', 'Admin\PaymentScheduleController@index')->name('paymentsc.index');
-  Route::post('/admin/paymentsc', 'Admin\PaymentScheduleController@index')->name('paymentsc.index');
-  Route::post('/admin/paymentsc/add', 'Admin\PaymentScheduleController@store')->name('paymentsc.store');
-  Route::post('/admin/paymentsc/update', 'Admin\PaymentScheduleController@update')->name('paymentsc.edit');
-  Route::post('/admin/paymentsc/delete', 'Admin\PaymentScheduleController@destroy')->name('paymentsc.delete');
 
   //OT Config
   Route::get('/admin/overtime', 'Admin\OvertimeMgmtController@show')->name('oe.show');
@@ -324,4 +300,26 @@ Route::post('/syadmrep/dot', 'Admin\OtSaRepController@joblist')->name('rep.sa.dO
 Route::get('/syadmrep/otd', 'Admin\OtSaRepController@viewOTd')->name('rep.sa.OTd');
 Route::get('/syadmrep/StEd', 'Admin\OtSaRepController@viewStEd')->name('rep.sa.StEd');
 Route::get('/syadmrep/otlog', 'Admin\OtSaRepController@viewLC')->name('rep.sa.OTLog');
+});
+
+Route::group(['middleware' => ['auth','can:2-cfg-company']], function () {
+Route::get('/admin/company', 'Admin\CompanyController@index')->name('company.index');
+Route::post('/admin/company/add', 'Admin\CompanyController@store')->name('company.store');
+Route::post('/admin/company/delete', 'Admin\CompanyController@destroy')->name('company.delete');
+Route::post('/admin/company/update', 'Admin\CompanyController@update')->name('company.update');
+});
+
+Route::group(['middleware' => ['auth','can:2-cfg-psubarea']], function () {
+Route::get('/admin/psubarea', 'Admin\PsubareaController@index')->name('psubarea.index');
+Route::post('/admin/psubarea/add', 'Admin\PsubareaController@store')->name('psubarea.store');
+Route::post('/admin/psubarea/update', 'Admin\PsubareaController@update')->name('psubarea.edit');
+Route::post('/admin/psubarea/delete', 'Admin\PsubareaController@destroy')->name('psubarea.delete');
+});
+
+Route::group(['middleware' => ['auth','can:2-cfg-pay-sched']], function () {
+Route::get('/admin/paymentsc', 'Admin\PaymentScheduleController@index')->name('paymentsc.index');
+Route::post('/admin/paymentsc', 'Admin\PaymentScheduleController@index')->name('paymentsc.index');
+Route::post('/admin/paymentsc/add', 'Admin\PaymentScheduleController@store')->name('paymentsc.store');
+Route::post('/admin/paymentsc/update', 'Admin\PaymentScheduleController@update')->name('paymentsc.edit');
+Route::post('/admin/paymentsc/delete', 'Admin\PaymentScheduleController@destroy')->name('paymentsc.delete');
 });
