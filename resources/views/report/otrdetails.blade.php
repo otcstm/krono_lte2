@@ -6,95 +6,106 @@
 <h1>Overtime Details Report</h1>
 <div class="panel panel-default panel-main">
   <div class="panel panel-default">
-    <div class="panel-heading"><strong>Report : Overtime Details</strong></div>
+    <div class="panel-heading"><strong>Select Report Parameter</strong></div>
       <div class="panel-body">
         <form action="{{ route('rep.viewOTd', [], false) }}" method="post">
         @csrf
-        <div class="col-lg-6">
-          <div class="form-group">
-              <label for="fdate">From</label>
-            <input type="date" class="form-control" id="fdate" name="fdate" required autofocus>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row" style="margin-top: 15px;">
+            <div class="col-md-3">
+              <label for="fpersno">Refno</label>
+            </div>
+            <div class="col-md-9">
+              <input type="text" class="form-control" id="frefno" name="frefno">
+            </div>
           </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="form-group">
-            <label for="tdate">To</label>
-            <input type="date" class="form-control" id="tdate" name="tdate"  required autofocus>
+            <div class="row" style="margin-top: 15px;">
+            <div class="col-md-3">
+              <label for="fcompany">Company Code</label>
+            </div>
+            <div class="col-md-9">
+              <select class="selectReport form-control" name="fcompany[]" multiple="multiple">
+                @if($companies ?? '')
+                    @foreach($companies as $no=>$company)
+              <option value="{{$company->id}}">{{$company->id}}-{{$company->company_descr}}</option>
+                    @endforeach
+                @endif
+              </select>
+            </div>
           </div>
-        </div>
+            <div class="row" style="margin-top: 15px;">
+            <div class="col-md-3">
+              <label for="fstate">State</label>
+            </div>
+            <div class="col-md-9">
+              <select class="selectReport form-control" name="fstate[]" multiple="multiple">
+                @if($states ?? '')
+                    @foreach($states as $no=>$state)
+              <option value="{{$state->id}}">{{$state->id}}-{{$state->state_descr}}</option>
+                    @endforeach
+                @endif
+              </select>
+            </div>
+          </div>
+            <div class="row" style="margin-top: 15px;">
+            <div class="col-md-3">
+               <label for="fdate">Overtime Date</label>
+            </div>
+            <div class="col-md-4">
+              <input type="date" class="form-control" id="fdate" name="fdate" required autofocus>
+            </div>
+            <div class="col-md-1">
+               <label for="fdate">To</label>
+            </div>
+            <div class="col-md-4">
+              <input type="date" class="form-control"  id="tdate" name="tdate"  required autofocus>
+            </div>
+          </div>
 
-        <div class="col-lg-6">
-          <div class="form-group">
-            <label for="frefno">Refno</label>
-            <input type="text" class="form-control" id="frefno" name="frefno">
           </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="form-group">
-            <label for="fapprover_id">Approver ID</label>
-            <input type="text" class="form-control" id="fapprover_id" name="fapprover_id">
+          <div class="col-md-6">
+            <div class="row" style="margin-top: 15px;">
+            <div class="col-md-3">
+              <label for="fpersno">Persno</label>
+            </div>
+            <div class="col-md-9">
+              <input type="text" class="form-control" id="fpersno" name="fpersno" placeholder="Use commas to search multiple persno, e.g. 30013,45450,38884">
+            </div>
           </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="form-group">
-            <label for="fverifier_id">Verifier ID</label>
-            <input type="text" class="form-control" id="fverifier_id" name="fverifier_id">
+            <div class="row" style="margin-top: 15px;">
+            <div class="col-md-3">
+              <label for="fapprover_id">Approver ID</label>
+            </div>
+            <div class="col-md-9">
+              <input type="text" class="form-control" id="fapprover_id" name="fapprover_id">
+            </div>
           </div>
-        </div>
+            <div class="row" style="margin-top: 15px;">
+            <div class="col-md-3">
+              <label for="fverifier_id">Verifier ID</label>
+            </div>
+            <div class="col-md-9">
+              <input type="text" class="form-control" id="fverifier_id" name="fverifier_id">
+            </div>
+          </div>
+            <div class="row" style="margin-top: 15px;">
+            <div class="col-md-3">
+              <label for="fregion">Region</label>
+            </div>
+            <div class="col-md-9">
+              <select class="selectReport form-control" name="fregion[]" multiple="multiple">
+                @if($regions ?? '')
+                    @foreach($regions as $no=>$region)
+              <option value="{{$region->item2}}">{{$region->item3}}</option>
+                    @endforeach
+                @endif
+              </select>
+            </div>
+          </div>
 
-        <div class="col-lg-6">
-          <div class="form-group">
-            <label for="fpersno">Persno </label>
-            <input type="text" class="form-control" id="fpersno" name="fpersno" placeholder="Use commas to search multiple persno, e.g. 30013,45450,38884">
           </div>
         </div>
-        <div class="col-lg-12">
-          <div class="form-group">
-            <label for="fcompany">Company Code</label>
-            <br>
-            <select class="selectReport form-control" name="fcompany[]" multiple="multiple">
-              @if($companies ?? '')
-                  @foreach($companies as $no=>$company)
-            <option value="{{$company->id}}">{{$company->id}}-{{$company->company_descr}}</option>
-                  @endforeach
-              @endif
-            </select>
-          </div>
-        </div>
-        <div class="col-lg-12">
-          <div class="form-group">
-            <label for="fstate">State</label>
-            <br>
-            <select class="selectReport form-control" name="fstate[]" multiple="multiple">
-              @if($states ?? '')
-                  @foreach($states as $no=>$state)
-            <option value="{{$state->id}}">{{$state->id}}-{{$state->state_descr}}</option>
-                  @endforeach
-              @endif
-            </select>
-          </div>
-        </div>
-        <div class="col-lg-12">
-          <div class="form-group">
-            <label for="fregion">Region</label>
-            <br>
-            <select class="selectReport form-control" name="fregion[]" multiple="multiple">
-              @if($regions ?? '')
-                  @foreach($regions as $no=>$region)
-            <option value="{{$region->item2}}">{{$region->item3}}</option>
-                  @endforeach
-              @endif
-            </select>
-          </div>
-        </div>
-
-        <!-- <div class="col-lg-12">
-          <div class="form-check" >
-          <label for="cball">Select Column :</label>
-          <input type="checkbox" id="cball" onclick="for(c in document.getElementsByName('cbcol[]')) document.getElementsByName('cbcol[]').item(c).checked = this.checked">
-          <label class="form-check-label" for="cball" >  All
-          </label>
-        </div> -->
 
         <div class="hidden">
           <div class="col-sm-3">
@@ -216,7 +227,7 @@
 
         </div>
       </div>
-
+<br>
     <div class="flexd">
       <div class="col-mx-5">
         <div>
