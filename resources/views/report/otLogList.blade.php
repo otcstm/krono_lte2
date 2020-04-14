@@ -58,8 +58,9 @@
     </tbody>
   </table>
   </div>
-  <div class="form-group text-center"><br>
-    <button onclick="goBack()" class="btn btn-primary">Go Back</button>
+  <div class="form-group text-center">
+    <br>
+    <button onclick="goBack()" class="btn btn-primary">RETURN</button>
   </div>
 </div>
 </div>

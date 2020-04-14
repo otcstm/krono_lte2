@@ -142,16 +142,6 @@
 @stop
 
 @section('js')
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
 
 <script type="text/javascript">
 $("#slctyr_id").val('{{$slctyr}}');
@@ -159,30 +149,15 @@ $("#slctyr_id").val('{{$slctyr}}');
 $(document).ready(function() {
     $('#tpayment_sche').DataTable({
         "responsive": "true",
-        "order" : [[5, "desc"]],
+				"order" : [[5, "desc"]],
 				"columnDefs": [
-			     { "width": "4%", "targets": 6 }
-			   ]
+					 { "width": "4%", "targets": 6 }
+				 ]
 	});
 });
-// function populate(e){
-// 		var ps_id = $(e.relatedTarget).data('id');
-// 		var ps_payrollgroup_id = $(e.relatedTarget).data('payrollgroup_id');
-//     var ps_lastsub = $(e.relatedTarget).data('ls');
-//     var ps_app = $(e.relatedTarget).data('ad');
-// 		var ps_int = $(e.relatedTarget).data('intd');
-// 		var ps_pay = $(e.relatedTarget).data('pd');
-// 		$('input[name=inputid]').val(ps_id);
-// 		$("#editpyg").val(ps_payrollgroup_id);
-// 		// $('.showyear').text(ps_year);
-// 		$('input[name=inputsub]').val(ps_lastsub);
-// 		$('input[name=inputapp]').val(ps_app);
-// 		$('input[name=inputint]').val(ps_int);
-// 		$('input[name=inputpay]').val(ps_pay);
-//     }
-// $('#editfPsc').on('show.bs.modal', function(e) {
-//     populate(e);
-// });
+
+
+
 </script>
 <script type="text/javascript">
   $(document).ready(function(){
