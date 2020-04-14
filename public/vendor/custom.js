@@ -10,6 +10,8 @@ var lat2 = 0;
 var long2 = 0;
 var startclockt;
 var now;
+var swtime;
+var enddate;
 var canstart = false;
 var check = new Date(); 
 $.ajax({
@@ -40,10 +42,19 @@ $.ajax({
                 csd = cs;
             }
             timere=chd+":"+cmd+":"+csd;
-            
-            starttime(resp.stime, resp.stime);
-            timestart = setInterval(timer(cs, cm, ch, parseInt(Date.parse(check).toString("ss")), parseInt(Date.parse(check).toString("mm")), parseInt(Date.parse(check).toString("H")), check), 1000);
-                        
+            var stime = resp.stime;
+            $.ajax({
+                url: '/punch/checkworktime?time='+check,
+                type: "GET",
+                success: function(resp) {
+                    enddate = (Date.parse(check).addDays(resp.addday).toString("dd.MM.yyyy"));
+                    starttime(stime, stime);
+                    timestart = setInterval(timer(cs, cm, ch, parseInt(Date.parse(check).toString("ss")), parseInt(Date.parse(check).toString("mm")), parseInt(Date.parse(check).toString("H")), check, resp.swtime), 1000);
+                },
+                error: function(err) {
+                    puncho();
+                }  
+            });    
         }
     },
     error: function(err) {
@@ -222,13 +233,37 @@ function showError2(error) {
     }
 }
 
+// function punchman(){
+//     $.ajax({
+//         url: '/punch/start?time='+startclock+'&lat='+lat+'=&long='+long,
+//         type: "GET",
+//         success: function(resp) {
+//             starttime(now, startclock);
+//             timestart = setInterval(timer(0, 0, 0, parseInt(Date.parse(now).toString("ss")), parseInt(Date.parse(now).toString("mm")), parseInt(Date.parse(now).toString("H")), now), 1000);
+//         },
+//         error: function(err) {
+//             puncho();
+//         }
+//     });
+// }
+
 function punchman(){
     $.ajax({
         url: '/punch/start?time='+startclock+'&lat='+lat+'=&long='+long,
         type: "GET",
         success: function(resp) {
-            starttime(now, startclock);
-            timestart = setInterval(timer(0, 0, 0, parseInt(Date.parse(now).toString("ss")), parseInt(Date.parse(now).toString("mm")), parseInt(Date.parse(now).toString("H")), now), 1000);
+            $.ajax({
+                url: '/punch/checkworktime?time='+check,
+                type: "GET",
+                success: function(resp) {
+                    enddate = (Date.parse(now).addDays(resp.addday).toString("dd.MM.yyyy"));
+                    starttime(now, startclock);
+                    timestart = setInterval(timer(0, 0, 0, parseInt(Date.parse(now).toString("ss")), parseInt(Date.parse(now).toString("mm")), parseInt(Date.parse(now).toString("H")), now, resp.swtime), 1000);
+                },
+                error: function(err) {
+                    puncho();
+                }  
+            });    
         },
         error: function(err) {
             puncho();
@@ -363,8 +398,8 @@ function endpunch(){
     eetime = Date.parse(future).toString("mm");
     // alert(parseInt(eetime));
     // alert(parseInt(sstime));
-    // alert(parseInt(eetime)-parseInt(sstime));
-    if(parseInt(eetime)-parseInt(sstime)>0){
+    // alert(eetime+"-"+sstime+"="+(parseInt(eetime)-parseInt(sstime)));
+    if((parseInt(eetime)-parseInt(sstime))>0){
         $.ajax({
             url: '/punch/end?stime='+startclockt+'&etime='+endclock+'&lat='+lat+'&long='+long+'&lat2='+lat2+'&long2='+long2,
             type: "GET", 
@@ -405,7 +440,7 @@ function endpunch(){
     }
 }
 
-function timer(psecond, pminute, phour, dsecond, dminute, dhour, now){
+function timer(psecond, pminute, phour, dsecond, dminute, dhour, now, swtime){
     return function(){
         psecond++;
         if(psecond==60){
@@ -434,6 +469,18 @@ function timer(psecond, pminute, phour, dsecond, dminute, dhour, now){
         // if minutes
         $("#timerh").text(phours+":"+pminutes+":"+pseconds);
         timere = phours+":"+pminutes+":"+pseconds;
+        var cnow = new Date();
+        swtimes = swtime.split(":");
+        ctime = Date.parse(cnow).toString("HH:mm");
+        ctimes = ctime.split(":");
+        // Date.parse(now).addDays(1)
+        if(Date.parse(cnow).toString("dd.MM.yyyy")==enddate){
+            if(parseInt(ctimes[0]*60)+parseInt(ctimes[1])>=(parseInt(swtimes[0]*60)+parseInt(swtimes[1]))){
+                endclock = ctime;
+                navigator.geolocation.getCurrentPosition(getPosition,showError2);
+                // alert("gojok");
+            }
+        }
     }
 }
 
