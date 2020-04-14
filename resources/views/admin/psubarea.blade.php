@@ -148,13 +148,13 @@
 
         <form action="{{ route('psubarea.edit') }}" method="POST" id="edit" class="hidden">
             @csrf
-			<input type="text" class="form-control hidden" id="editid" name="inputid" value="">
-			<input type="text" class="form-control" id="editcomp" name="inputcomp" value="" disabled>
-			<input type="text" class="form-control" id="editparea" name="inputparea" value="" required autofocus>
-			<input type="text" class="form-control" id="editparead" name="inputparead" value="" required autofocus>
-			<input type="text" class="form-control" id="editpsubarea" name="inputpsubarea" value="" required autofocus>
-			<input type="text" class="form-control" id="editpsubaread" name="inputpsubaread" value="" required autofocus>
-			<input type="text" name="inputstate" id="editstate" required style="width: 250px">
+						<input type="text" class="form-control hidden" id="editid" name="inputid" value="">
+						<input type="text" class="form-control" id="editcomp" name="inputcomp" value="" disabled>
+						<input type="text" class="form-control" id="editparea" name="inputparea" value="" required autofocus>
+						<input type="text" class="form-control" id="editparead" name="inputparead" value="" required autofocus>
+						<input type="text" class="form-control" id="editpsubarea" name="inputpsubarea" value="" required autofocus>
+						<input type="text" class="form-control" id="editpsubaread" name="inputpsubaread" value="" required autofocus>
+						<input type="text" name="inputstate" id="editstate" required style="width: 250px">
             <input type="text" class="form-control" id="editregion" name="inputregion" value="" required autofocus>
         </form>
         </div>
