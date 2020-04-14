@@ -31,10 +31,11 @@ class GeoLocHelper
   
 
     $reclient = new Client(["base_uri" => $uri]);
-    $request = $reclient->request('GET', '',$options)->getBody()->getContents();
+    $request = $reclient->request('GET', '',$options)->getBody();
     $response = response()->make($request, 200);
-    //$response->header('Content-Type', 'image/jpeg'); // change this to the download content type.
-    
-    return $response ;
+    $response->header('Content-Type', 'application/json'); 
+    $ret = json_decode($response->content());
+    $collection = collect($ret[0]);
+    return  $collection;
   }
 }
