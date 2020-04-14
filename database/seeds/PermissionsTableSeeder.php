@@ -298,42 +298,6 @@ class PermissionsTableSeeder extends Seeder
             ),
             31 => 
             array (
-                'id' => 32,
-                'title' => '6-rpt-ot-details',
-                'descr' => 'Report - OT Details',
-                'created_at' => '2020-03-16 04:34:21',
-                'updated_at' => '2020-03-16 04:34:21',
-                'deleted_at' => NULL,
-            ),
-            32 => 
-            array (
-                'id' => 33,
-                'title' => '6-rpt-ot-se',
-                'descr' => 'Report - OT Start/End',
-                'created_at' => '2020-03-16 04:36:39',
-                'updated_at' => '2020-03-16 04:36:39',
-                'deleted_at' => NULL,
-            ),
-            33 => 
-            array (
-                'id' => 34,
-                'title' => '6-rpt-ot-claim-summary',
-                'descr' => 'Report - OT Claim Summary',
-                'created_at' => '2020-03-16 04:37:11',
-                'updated_at' => '2020-03-16 04:37:11',
-                'deleted_at' => NULL,
-            ),
-            34 => 
-            array (
-                'id' => 35,
-                'title' => '6-rpt-ot-log',
-                'descr' => 'Report - OT Log Changes',
-                'created_at' => '2020-03-16 04:37:30',
-                'updated_at' => '2020-03-16 04:37:30',
-                'deleted_at' => NULL,
-            ),
-            35 => 
-            array (
                 'id' => 36,
                 'title' => '5-shift-calendar',
                 'descr' => 'Shift schedule',
@@ -341,7 +305,7 @@ class PermissionsTableSeeder extends Seeder
                 'updated_at' => '2020-03-16 11:18:56',
                 'deleted_at' => NULL,
             ),
-            36 => 
+            32 => 
             array (
                 'id' => 37,
                 'title' => '5-shift-plan',
@@ -350,47 +314,20 @@ class PermissionsTableSeeder extends Seeder
                 'updated_at' => '2020-03-16 11:19:15',
                 'deleted_at' => NULL,
             ),
-            37 => 
+            33 => 
             array (
                 'id' => 38,
-                'title' => '6-rpt-ot-sa-claim-summary',
-            'descr' => 'Report - OT Claim Summary (SA)',
-                'created_at' => '2020-04-10 11:36:49',
-                'updated_at' => '2020-04-10 11:36:49',
-                'deleted_at' => NULL,
-            ),
-            38 => 
-            array (
-                'id' => 39,
-                'title' => '6-rpt-ot-sa-details',
-            'descr' => 'Report - OT Details (SA)',
-                'created_at' => '2020-04-13 15:11:10',
-                'updated_at' => '2020-04-13 15:11:13',
-                'deleted_at' => NULL,
-            ),
-            39 => 
-            array (
-                'id' => 40,
-                'title' => '6-rpt-ot-sa-se',
-            'descr' => 'Report - OT Start/End (SA)',
-                'created_at' => '2020-04-13 15:11:11',
-                'updated_at' => '2020-04-13 15:11:14',
-                'deleted_at' => NULL,
-            ),
-            40 => 
-            array (
-                'id' => 41,
-                'title' => '6-rpt-ot-sa-log',
-            'descr' => 'Report - OT Log Changes (SA)',
-                'created_at' => '2020-04-13 15:11:12',
-                'updated_at' => '2020-04-13 15:11:15',
-                'deleted_at' => NULL,
-            ),
-            41 => 
-            array (
-                'id' => 42,
                 'title' => '6-rpt-ot',
                 'descr' => 'Report - OT',
+                'created_at' => '2020-03-16 04:36:39',
+                'updated_at' => '2020-03-16 04:36:39',
+                'deleted_at' => NULL,
+            ),
+            34 => 
+            array (
+                'id' => 39,
+                'title' => '7-rpt-ot-sa',
+            'descr' => 'Report - OT (Sys Adm)',
                 'created_at' => '2020-04-13 15:14:44',
                 'updated_at' => '2020-04-13 15:14:46',
                 'deleted_at' => NULL,
