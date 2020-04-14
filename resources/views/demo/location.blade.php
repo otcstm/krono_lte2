@@ -31,28 +31,28 @@ Loc Address:
 
 @if($loc)
 
-  <div class="row-eq-height">
-    <div class="col-md-6 col-sm-6 col-xs-12 ">
-      <div class="box box-solid">
-        <div class="box-body">
-          <h3>Address:</h3>
-          
+<div class="row-eq-height">
+  <div class="col-md-6 col-sm-6 col-xs-12 ">
+    <div class="box box-solid">
+      <div class="box-body">
+        <h3>Address:</h3>
+
         {{$loc['formatted_address']}}
-        </div><!-- /.box-body -->
-      </div>
-    </div>
-    <div class="col-md-6 col-sm-6 col-xs-12 ">
-      <div class="box box-solid">
-        <div class="box-body">
-        {{var_dump($loc)}}
-        </div><!-- /.box-body -->
-      </div>
+      </div><!-- /.box-body -->
     </div>
   </div>
+  <div class="col-md-6 col-sm-6 col-xs-12 ">
+    <div class="box box-solid">
+      <div class="box-body">
+        {{var_dump($loc)}}`
+      </div><!-- /.box-body -->
+    </div>
+  </div>
+</div>
 
-  @else
+@else
 No Address
-  @endif 
+@endif
 
 
 
@@ -63,54 +63,54 @@ No Address
 
 
 
-  @stop
+@stop
 
-  @section('js')
+@section('js')
 
-  <script type="text/javascript">
-    function getLoc() {
+<script type="text/javascript">
+  function getLoc() {
 
-      if (navigator.geolocation) {
+    if (navigator.geolocation) {
 
-        navigator.geolocation.getCurrentPosition(showPos, showError);
-      } else {
+      navigator.geolocation.getCurrentPosition(showPos, showError);
+    } else {
 
-        alert('Location not supported');
-        document.getElementById('lat').value = "";
-        document.getElementById('lon').value = "";
-        document.getElementById('batens').classList.add('d-none');
-      }
-    }
-
-    function showError(error) {
-      switch (error.code) {
-        case error.PERMISSION_DENIED:
-          document.getElementById('lon').placeholder = "denied";
-          break;
-        case error.POSITION_UNAVAILABLE:
-          document.getElementById('lon').placeholder = "unavailable. Try using chrome?";
-          break;
-        case error.TIMEOUT:
-          document.getElementById('lon').placeholder = "not available - timed out";
-          break;
-        case error.UNKNOWN_ERROR:
-          document.getElementById('lon').placeholder = ".. error?";
-          break;
-      }
+      alert('Location not supported');
       document.getElementById('lat').value = "";
       document.getElementById('lon').value = "";
       document.getElementById('batens').classList.add('d-none');
     }
+  }
 
-    function showPos(position) {
-      document.getElementById('lat').value = position.coords.latitude;
-      document.getElementById('lon').value = position.coords.longitude;
+  function showError(error) {
+    switch (error.code) {
+      case error.PERMISSION_DENIED:
+        document.getElementById('lon').placeholder = "denied";
+        break;
+      case error.POSITION_UNAVAILABLE:
+        document.getElementById('lon').placeholder = "unavailable. Try using chrome?";
+        break;
+      case error.TIMEOUT:
+        document.getElementById('lon').placeholder = "not available - timed out";
+        break;
+      case error.UNKNOWN_ERROR:
+        document.getElementById('lon').placeholder = ".. error?";
+        break;
     }
+    document.getElementById('lat').value = "";
+    document.getElementById('lon').value = "";
+    document.getElementById('batens').classList.add('d-none');
+  }
 
-    $(document).ready(function() {
+  function showPos(position) {
+    document.getElementById('lat').value = position.coords.latitude;
+    document.getElementById('lon').value = position.coords.longitude;
+  }
 
-      getLoc();
-    });
-  </script>
+  $(document).ready(function() {
 
-  @stop
+    getLoc();
+  });
+</script>
+
+@stop
