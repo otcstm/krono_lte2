@@ -810,20 +810,7 @@ class OvertimeController extends Controller{
             ]);
         }
         if($req->formtype=="submit"){ //if submit
-            // $reg = Psubarea::where('state_id', $req->user()->state_id)->first();
-            // $month = OvertimeMonth::where('id', $claim->month_id)->first();
-            // $totalsubmit = (($claim->total_hour*60)+$claim->total_minute)+(($month->total_hour*60)+$month->total_minute);
-            // if($req->user()->ot_hour_exception!="X"){
-            //     $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $claim->date)->where('end_date','>', $claim->date)->first();
-            //     if($totalsubmit>($eligiblehour->hourpermonth*60)){
-            //         return redirect(route('ot.form',[],false))->with([
-            //             'feedback' => true,
-            //         'feedback_text' => "Your submitted claim time has exceeded eligible claim time.",
-            //         'feedback_title' => "Failed to submit!"
-            //         ]);
-            //     }
-            // }
-            // else{
+            
             $month = OvertimeMonth::where('id', $claim->month_id)->first(); 
             $totalsubmit = (($claim->total_hour*60)+$claim->total_minute)+(($month->total_hour*60)+$month->total_minute);
             // if($req->user()->ot_hour_exception!="X"){

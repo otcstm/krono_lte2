@@ -14,6 +14,9 @@ use App\ShiftPlanStaffDay;
 use App\ShiftPattern;
 use App\DayType;
 use App\SapPersdata;
+use App\UserRecord;
+use App\Holiday;
+use App\HolidayCalendar;
 use \Carbon\Carbon;
 use DateTime;
 use App\StaffAdditionalInfo;
@@ -470,23 +473,34 @@ class UserHelper {
         $currwsr = UserHelper::GetWorkSchedRule($user, $date);
         // then get that day
         $wd = $currwsr->ListDays->where('day_seq', $day)->first();
-      }
-
+      };
       // get the day info
       $theday = $wd->Day;
-      // dd($wd->Day);
-      if($theday->is_work_day == true){
-        $day_type = 'Normal Day';
-        $stime = new Carbon($theday->start_time);
-        $etime = new Carbon($theday->start_time);
-        $etime->addMinutes($theday->total_minute);
-
-        $start = $stime->format('H:i');
-        $end =  $etime->format('H:i');
-      } else {
+      $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->first();
+      $hc = null;
+      if($ph){
+        $userstate = UserRecord::where('user_id', $user)->where('upd_sap','<=',$date)->first();
+        // dd($userstate);
+        $hc = HolidayCalendar::where('holiday_id', $ph->id)->where('state_id', $userstate->state_id)->first();
+      }
+      if($hc){
         $start = "00:00";
         $end =  "00:00";
-        $day_type = $theday->description;
+        $day_type = 'Public Holiday';
+      }else{
+        if($theday->is_work_day == true){
+          $day_type = 'Normal Day';
+          $stime = new Carbon($theday->start_time);
+          $etime = new Carbon($theday->start_time);
+          $etime->addMinutes($theday->total_minute);
+
+          $start = $stime->format('H:i');
+          $end =  $etime->format('H:i');
+        } else {
+          $start = "00:00";
+          $end =  "00:00";
+          $day_type = $theday->description;
+        }
       }
       $day_type_id = "";
       return [$start, $end, $day_type, $day, $wd->day_type_id];
