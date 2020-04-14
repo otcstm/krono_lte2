@@ -12,13 +12,11 @@ use Illuminate\Http\Request;
 class DemoController extends Controller
 {
     public function location(Request $req){
-        $loc = '';
+        $loc = null; 
 if($req->submitForm){
         
-    $loc = GeoLocHelper::getLocDescr($req->lat,$req->lon);
-        
-}
-   
+    $loc = GeoLocHelper::getLocDescr($req->lat,$req->lon);        
+}  
         return view('demo.location', ['loc'=>$loc]);
     }
 }
