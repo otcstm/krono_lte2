@@ -22,7 +22,7 @@ class CreateLeavesTable extends Migration
             $table->string('leave_descr',30);
             $table->string('leave_status',25);
             $table->string('version_no',20);
-            $table->string('doc_id',40);
+            $table->string('doc_id',40)->nullable();
 
             $table->timestamps();
         });
