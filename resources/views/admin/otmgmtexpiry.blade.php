@@ -5,147 +5,147 @@
 @section('content')
 
 @php($n = count($oe)-1)
-<div class="panel panel-default">
-    <div class="panel-heading panel-primary">Overtime Management (Expiry) - {{$oe->get(0)->companyid->company_descr}} ({{$oe->get(0)->region}})</div>
-    <div class="panel-body">
-        @if(session()->has('feedback'))
-        <div class="alert alert-{{session()->get('feedback_type')}} alert-dismissible" id="alert">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            {{session()->get('feedback_text')}}
-        </div>
-        @endif
-        <div class="table-responsive">
-            <table id="tRoleList" class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>OT Status</th>
-                        <th>No of Month</th>
-                        <th>Base Date</th>
-                        <th>Action After</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Status</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($oe as $i => $singleuser)
-                    <tr>
-                        <td></td>
-                        <td>
-                            @if($singleuser->otstatus=="D")
-                                Draft
-                            @elseif($singleuser->otstatus=="Q")
-                                Query
-                            @elseif($singleuser->otstatus=="PA")
-                                Pending Approval
-                            @elseif($singleuser->otstatus=="PV")
-                                Pending Verification
-                            @endif
-                        </td>
-                        <td>{{ $singleuser->noofmonth }}</td>
-                        <td>{{ $singleuser->based_date }}</td>
-                        <td>{{ $singleuser->action_after }}</td>
-                        <td>{{ $singleuser->start_date }}</td>
-                        <td>{{ $singleuser->end_date }}</td>
-                        <td>{{ $singleuser->status }}</td>
-                        <td>
-                            @if(strtotime($singleuser->start_date)>strtotime(date("Y-m-d")))
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit" data-id="{{$singleuser['id']}}" data-noofmonth="{{$singleuser['noofmonth']}}" data-action_after="{{$singleuser['action_after']}}"data-based_date="{{$singleuser['based_date']}}" data-otstatus="{{$singleuser['otstatus']}}" data-start_date="{{$singleuser['start_date']}}"><i class="fas fa-pencil-alt"></i></button>
-                                @if($singleuser->end_date == '9999-12-31')
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete" data-id="{{$singleuser['id']}}" data-noofmonth="{{$singleuser['noofmonth']}}" data-action_after="{{$singleuser['action_after']}}"data-based_date="{{$singleuser['based_date']}}" data-otstatus="{{$singleuser['otstatus']}}" data-start_date="{{$singleuser['start_date']}}"><i class="fas fa-trash"></i></button>
+
+<h1>Overtime Claim Expiry Date</h1>
+
+<div class="panel panel-default panel-main">
+    <div class="panel panel-default">
+        <div class="panel-heading panel-primary">Overtime Management (Expiry) - {{$oe->get(0)->companyid->company_descr}} ({{$oe->get(0)->region}})</div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table id="tRoleList" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>OT Status</th>
+                            <th>No of Month</th>
+                            <th>Base Date</th>
+                            <th>Action After</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($oe as $i => $singleuser)
+                        <tr>
+                            <td></td>
+                            <td>
+                                @if($singleuser->otstatus=="D")
+                                    Draft
+                                @elseif($singleuser->otstatus=="Q")
+                                    Query
+                                @elseif($singleuser->otstatus=="PA")
+                                    Pending Approval
+                                @elseif($singleuser->otstatus=="PV")
+                                    Pending Verification
                                 @endif
-                            @endif
-                            @if(strtotime($singleuser->end_date)>strtotime(date("Y-m-d")))
-                                <form action="{{ route('oe.active') }}" method="POST">
-                                    @csrf
-                                    <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$singleuser->id}}" required>
-                                    <input type="text" class="hidden" id="formtype" name="formtype" value="expiry" required>
-                                    <input type="text" class="hidden" id="inputcompany" name="inputcompany" value="{{$oe->get($n)->company_id}}" required>
-                                    <input type="text" class="hidden" id="inputregion" name="inputregion" value="{{$oe->get($n)->region}}" required>
-                                    <button type="submit" class="btn 
-                                        @if($singleuser->status=='ACTIVE')
-                                            btn-warning" style="padding: 0 5px">
-                                            DEACTIVATE
-                                        @else
-                                            btn-primary" style="padding: 0 5px">
-                                            ACTIVATE
-                                        @endif
-                                    </button>
-                                </form>
-                            @endif
-                        </td>
-                    </tr>
-                    @php(++$i)
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-        <h4><b>ADD NEW</b></h4>
-        <div class="row">
-            <form action="{{route('oe.expirystore')}}" method="POST" onsubmit="return update()">
-                @csrf
-                <div class="col-lg-6">
-                    <input type="text" class="hidden" id="formtype" name="formtype" value="expiry" required>
-                    <input type="text" class="hidden" id="inputcompany" name="inputcompany" value="{{$oe->get($n)->company_id}}" required>
-                    <input type="text" class="hidden" id="inputregion" name="inputregion" value="{{$oe->get($n)->region}}" required>
-                    <div class="row">
-                        <div class="col-lg-3" style="margin-top: 5px">
-                            <label for="inputstatus">Overtime Status:</label>
+                            </td>
+                            <td>{{ $singleuser->noofmonth }}</td>
+                            <td>{{ $singleuser->based_date }}</td>
+                            <td>{{ $singleuser->action_after }}</td>
+                            <td>{{ $singleuser->start_date }}</td>
+                            <td>{{ $singleuser->end_date }}</td>
+                            <td>{{ $singleuser->status }}</td>
+                            <td>
+                                {{--@if(strtotime($singleuser->start_date)>strtotime(date("Y-m-d")))
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit" data-id="{{$singleuser['id']}}" data-noofmonth="{{$singleuser['noofmonth']}}" data-action_after="{{$singleuser['action_after']}}"data-based_date="{{$singleuser['based_date']}}" data-otstatus="{{$singleuser['otstatus']}}" data-start_date="{{$singleuser['start_date']}}"><i class="fas fa-pencil-alt"></i></button>
+                                    @if($singleuser->end_date == '9999-12-31')
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete" data-id="{{$singleuser['id']}}" data-noofmonth="{{$singleuser['noofmonth']}}" data-action_after="{{$singleuser['action_after']}}"data-based_date="{{$singleuser['based_date']}}" data-otstatus="{{$singleuser['otstatus']}}" data-start_date="{{$singleuser['start_date']}}"><i class="fas fa-trash"></i></button>
+                                    @endif
+                                @endif--}}
+                                @if(strtotime($singleuser->end_date)>strtotime(date("Y-m-d")))
+                                    <form action="{{ route('oe.active') }}" method="POST">
+                                        @csrf
+                                        <input type="text" class="form-control hidden" id="inputid" name="inputid" value="{{$singleuser->id}}" required>
+                                        <input type="text" class="hidden" id="formtype" name="formtype" value="expiry" required>
+                                        <input type="text" class="hidden" id="inputcompany" name="inputcompany" value="{{$oe->get($n)->company_id}}" required>
+                                        <input type="text" class="hidden" id="inputregion" name="inputregion" value="{{$oe->get($n)->region}}" required>
+                                        <button type="submit" class="btn btn-no" style="padding: 0 5px">
+                                            @if($singleuser->status=='ACTIVE')
+                                                <i class="fas fa-power-off" style="color: red"></i>
+                                            @else
+                                                <i class="fas fa-power-off" style="color: green"></i>
+                                            @endif
+                                        </button>
+                                    </form>
+                                @endif
+                            </td>
+                        </tr>
+                        @php(++$i)
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <h4><b>ADD NEW</b></h4>
+            <div class="row">
+                <form action="{{route('oe.expirystore')}}" method="POST" onsubmit="return update()">
+                    @csrf
+                    <div class="col-lg-6">
+                        <input type="text" class="hidden" id="formtype" name="formtype" value="expiry" required>
+                        <input type="text" class="hidden" id="inputcompany" name="inputcompany" value="{{$oe->get($n)->company_id}}" required>
+                        <input type="text" class="hidden" id="inputregion" name="inputregion" value="{{$oe->get($n)->region}}" required>
+                        <div class="row">
+                            <div class="col-lg-3" style="margin-top: 5px">
+                                <label for="inputstatus">Overtime Status:</label>
+                            </div>
+                            <div class="col-lg-9" style="margin-top: 5px">
+                                <select id="inputstatus" name="inputstatus" class="form-control onchange" required>
+                                    <option hidden disabled value="" selected>Select Status</option>
+                                    <option value="D">Draft</option>
+                                    <option value="Q">Query</option>
+                                    <option value="PA">Pending Approval</option>
+                                    <option value="PV">Pending Verification</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3" style="margin-top: 5px">
+                                <label for="inputmonth">No. per Month:</label>
+                            </div>
+                            <div class="col-lg-9" style="margin-top: 5px">
+                                <input class="form-control onchange" type="number" id="inputmonth" name="inputmonth" max="744" min="0" value="" required disabled>
+                            </div>
+                            <div class="col-lg-3" style="margin-top: 5px">
+                                <label for="inputbasedate">Based Date:</label>
+                            </div>
+                            <div class="col-lg-9" style="margin-top: 5px">
+                                <select id="inputbasedate" name="inputbasedate" class="form-control onchange" required disabled>
+                                    <option hidden disabled value="" selected>Select Based Date</option>
+                                    <option value="Request Date">Request Date</option>
+                                    <option value="Overtime Date">Overtime Date</option>
+                                    <option value="Submit to Approver Date">Submit to Approver Date</option>
+                                    <option value="Submit to Verifier Date">Submit to Verifier Date</option>
+                                    <option value="Query Date">Query Date</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3" style="margin-top: 5px">
+                                <label for="inputaction">Action After:</label>
+                            </div>
+                            <div class="col-lg-9" style="margin-top: 5px">
+                            <select id="inputaction" name="inputaction" class="form-control onchange" required disabled>
+                                    <option hidden disabled value="" selected>Select Action After</option>
+                                    <option value="Delete">Delete from Database</option>
+                                    <option value="Archive">Archive with Expired Date</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3" style="margin-top: 5px">
+                                <label for="inputdate">Effective Date:</label>
+                            </div>
+                            <div class="col-lg-9" style="margin-top: 5px">
+                                <input type="date" class="form-control" id="inputdate" name="inputdate" min="" value="" required disabled>
+                            </div>                
                         </div>
-                        <div class="col-lg-9" style="margin-top: 5px">
-                            <select id="inputstatus" name="inputstatus" class="form-control onchange" required>
-                                <option hidden disabled value="" selected>Select Status</option>
-                                <option value="D">Draft</option>
-                                <option value="Q">Query</option>
-                                <option value="PA">Pending Approval</option>
-                                <option value="PV">Pending Verification</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-3" style="margin-top: 5px">
-                            <label for="inputmonth">No. per Month:</label>
-                        </div>
-                        <div class="col-lg-9" style="margin-top: 5px">
-                            <input class="form-control onchange" type="number" id="inputmonth" name="inputmonth" max="744" min="0" value="" required disabled>
-                        </div>
-                        <div class="col-lg-3" style="margin-top: 5px">
-                            <label for="inputbasedate">Based Date:</label>
-                        </div>
-                        <div class="col-lg-9" style="margin-top: 5px">
-                            <select id="inputbasedate" name="inputbasedate" class="form-control onchange" required disabled>
-                                <option hidden disabled value="" selected>Select Based Date</option>
-                                <option value="Request Date">Request Date</option>
-                                <option value="Overtime Date">Overtime Date</option>
-                                <option value="Submit to Approver Date">Submit to Approver Date</option>
-                                <option value="Submit to Verifier Date">Submit to Verifier Date</option>
-                                <option value="Query Date">Query Date</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-3" style="margin-top: 5px">
-                            <label for="inputaction">Action After:</label>
-                        </div>
-                        <div class="col-lg-9" style="margin-top: 5px">
-                        <select id="inputaction" name="inputaction" class="form-control onchange" required disabled>
-                                <option hidden disabled value="" selected>Select Action After</option>
-                                <option value="Delete">Delete from Database</option>
-                                <option value="Archive">Archive with Expired Date</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-3" style="margin-top: 5px">
-                            <label for="inputdate">Effective Date:</label>
-                        </div>
-                        <div class="col-lg-9" style="margin-top: 5px">
-                            <input type="date" class="form-control" id="inputdate" name="inputdate" min="" value="" required disabled>
-                        </div>                
                     </div>
                 </div>
-            </div>
-            <div class="text-center" style="margin-top: 25px">
-                <a href="{{ route('oe.otm') }}"><button type="button" class="btn btn-warning">RETURN</button></a>
-                <button type="submit" class="btn btn-primary">ADD NEW</button>
-            </div>
-        </form>
+                </div>
+                <div class="panel-footer">
+                <div class="text-right">
+                    <a href="{{ route('oe.otm') }}"><button type="button" class="btn btn-outline">CANCEL</button></a>
+                    <button type="submit" class="btn btn-primary">ADD NEW</button>
+                </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
@@ -157,7 +157,7 @@
                 <h4 class="modal-title">Edit Configuration</h4>
             </div>
             <div class="modal-body">
-                <form action="{{route('oe.eligibleupdate')}}" method="POST">
+                <form action="{{route('oe.expiryupdate')}}" method="POST">
                     @csrf
                     <input type="text" class="hidden" id="formtype" name="formtype" value="expiry" required>
                     <input type="text" class="hidden" id="inputcompany" name="inputcompany" value="{{$oe->get($n)->company_id}}" required>
@@ -395,5 +395,13 @@ $('#delete').on('show.bs.modal', function(e) {
     $('#otstatus').text(otstatus);
     $('#start_date').text(start_date);
 });
+
+@if(session()->has('feedback'))
+    Swal.fire({
+        title: "{{session()->get('feedback_title')}}",
+        html: "{{session()->get('feedback_text')}}",
+        confirmButtonText: 'DONE'
+    })
+@endif
 </script>
 @stop

@@ -24,11 +24,13 @@ class OvertimeMgmtController extends Controller
         if($req->formtype==""){
             $oe = OvertimeEligibility::all();     
             return view('admin.otmgmt', ['oe' => $oe]);
-        }else if($req->formtype=="eligibility"){
-            $oe = OvertimeEligibility::where('company_id', $req->inputcompany)->where('region', $req->inputregion)->get();  
-            // dd($oe);
-            return view('admin.otmgmteligibility', ['oe' => $oe]);
-        }else if($req->formtype=="expiry"){
+        }
+        // else if($req->formtype=="eligibility"){
+        //     $oe = OvertimeEligibility::where('company_id', $req->inputcompany)->where('region', $req->inputregion)->get();  
+        //     // dd($oe);
+        //     return view('admin.otmgmteligibility', ['oe' => $oe]);
+        // }
+        else if($req->formtype=="expiry"){
             // dd($req->inputcompany);
             $oe = OvertimeExpiry::where('company_id', $req->inputcompany)->where('region', $req->inputregion)->get();  
             // dd($oe);
@@ -114,6 +116,8 @@ class OvertimeMgmtController extends Controller
         ]);
     }
 
+
+// Olddd
     public function otm(){  
             Session::put(['type'=>[], 'region'=>[], 'company'=>[]]);
              
@@ -122,7 +126,7 @@ class OvertimeMgmtController extends Controller
         }
 
     public function getCompany(Request $req){   
-        $comp = OvertimeEligibility::where('region', $req->region)->get();  
+        $comp = OvertimeExpiry::where('region', $req->region)->get();  
         $arr = [];
         foreach($comp as $c){
             array_push($arr, ['id'=>$c->company_id, 'name'=>$c->companyid->company_descr]);
@@ -130,70 +134,70 @@ class OvertimeMgmtController extends Controller
         return $arr;
     }
 
-    public function getLast(Request $req){   
-        $end = OvertimeEligibility::where('company_id', $req->company)->where('region', $req->region)->where('end_date', $req->sd)->first();  
-        $start = OvertimeEligibility::where('company_id', $req->company)->where('region', $req->region)->where('start_date', $req->sd)->first();  
-        // dd($comp->start_date);
-        return ['min' => date('Y-m-d', strtotime($end->start_date . '+1 days')), 'max' => date('Y-m-d', strtotime($start->end_date . '-1 days'))];
-    }
+    // public function getLast(Request $req){   
+    //     $end = OvertimeEligibility::where('company_id', $req->company)->where('region', $req->region)->where('end_date', $req->sd)->first();  
+    //     $start = OvertimeEligibility::where('company_id', $req->company)->where('region', $req->region)->where('start_date', $req->sd)->first();  
+    //     // dd($comp->start_date);
+    //     return ['min' => date('Y-m-d', strtotime($end->start_date . '+1 days')), 'max' => date('Y-m-d', strtotime($start->end_date . '-1 days'))];
+    // }
 
-    public function eligiblestore(Request $req){
-        $latest = OvertimeEligibility::where('company_id', $req->inputcompany)->where('region', $req->inputregion)->latest('created_at')->first();
-        $update = new OvertimeEligibility;
-        $old = OvertimeEligibility::find($latest->id);
-        $old->end_date = $req->inputdate;
-        $update->company_id = $req->inputcompany;
-        $update->region = $req->inputregion;
-        $update->salary_cap = $req->inputsalary;
-        $update->hourpermonth = $req->inputhourpm;
-        $update->hourperday = $req->inputhourpd;
-        $update->daypermonth = $req->inputdaypm;
-        $update->start_date = $req->inputdate;
-        $update->end_date = '9999-12-31';
-        $update->created_by = $req->user()->id;
-        $update->save();
-        $old->save();
-        Session::put(['region'=>$req->inputregion, 'company'=>$req->inputcompany, 'type'=>$req->formtype]);
-        return redirect(route('oe.show',[],false))->with([
-            'feedback' => true,
-            'feedback_text' => "Successfully created a new configuration!",
-            'feedback_type' => "success"
-        ]);
-    }
+    // public function eligiblestore(Request $req){
+    //     $latest = OvertimeEligibility::where('company_id', $req->inputcompany)->where('region', $req->inputregion)->latest('created_at')->first();
+    //     $update = new OvertimeEligibility;
+    //     $old = OvertimeEligibility::find($latest->id);
+    //     $old->end_date = $req->inputdate;
+    //     $update->company_id = $req->inputcompany;
+    //     $update->region = $req->inputregion;
+    //     $update->salary_cap = $req->inputsalary;
+    //     $update->hourpermonth = $req->inputhourpm;
+    //     $update->hourperday = $req->inputhourpd;
+    //     $update->daypermonth = $req->inputdaypm;
+    //     $update->start_date = $req->inputdate;
+    //     $update->end_date = '9999-12-31';
+    //     $update->created_by = $req->user()->id;
+    //     $update->save();
+    //     $old->save();
+    //     Session::put(['region'=>$req->inputregion, 'company'=>$req->inputcompany, 'type'=>$req->formtype]);
+    //     return redirect(route('oe.show',[],false))->with([
+    //         'feedback' => true,
+    //         'feedback_text' => "Successfully created a new configuration!",
+    //         'feedback_type' => "success"
+    //     ]);
+    // }
 
-    public function eligibleupdate(Request $req){
-        $date = OvertimeEligibility::where('id',$req->inputid)->first();
-        $update = OvertimeEligibility::find($req->inputid);
-        $update->salary_cap = $req->inputesalary;
-        $update->hourpermonth = $req->inputehourpm;
-        $update->hourperday = $req->inputehourpd;
-        $update->daypermonth = $req->inputedaypm;
-        $update->start_date = $req->inputedate;
-        $old = OvertimeEligibility::where('end_date', $date->start_date)->first();
-        $old->end_date = $req->inputedate;
-        $update->save();
-        $old->save();
-        Session::put(['region'=>$req->inputregion, 'company'=>$req->inputcompany, 'type'=>$req->formtype]);
-        return redirect(route('oe.show',[],false))->with([
-            'feedback' => true,
-            'feedback_text' => "Successfully updated configuration!",
-            'feedback_type' => "success"
-        ]);
-    }
+    // public function eligibleupdate(Request $req){
+    //     $date = OvertimeEligibility::where('id',$req->inputid)->first();
+    //     $update = OvertimeEligibility::find($req->inputid);
+    //     $update->salary_cap = $req->inputesalary;
+    //     $update->hourpermonth = $req->inputehourpm;
+    //     $update->hourperday = $req->inputehourpd;
+    //     $update->daypermonth = $req->inputedaypm;
+    //     $update->start_date = $req->inputedate;
+    //     $old = OvertimeEligibility::where('end_date', $date->start_date)->first();
+    //     $old->end_date = $req->inputedate;
+    //     $update->save();
+    //     $old->save();
+    //     Session::put(['region'=>$req->inputregion, 'company'=>$req->inputcompany, 'type'=>$req->formtype]);
+    //     return redirect(route('oe.show',[],false))->with([
+    //         'feedback' => true,
+    //         'feedback_text' => "Successfully updated configuration!",
+    //         'feedback_type' => "success"
+    //     ]);
+    // }
 
-    public function eligibledelete(Request $req){
-        $date = OvertimeEligibility::where('id',$req->inputid)->first();
-        $delete = OvertimeEligibility::find($req->inputid)->delete();
-        $old = OvertimeEligibility::where('end_date', $date->start_date)->first();
-        $old->end_date = '9999-12-31';
-        $old->save();
-        Session::put(['region'=>$req->inputregion, 'company'=>$req->inputcompany, 'type'=>$req->formtype]);
-        return redirect(route('oe.show',[],false))->with([
-            'feedback' => true,
-            'feedback_text' => "Successfully deleted configuration!",
-            'feedback_type' => "warning"
-        ]);
-    }
+    // public function eligibledelete(Request $req){
+    //     $date = OvertimeEligibility::where('id',$req->inputid)->first();
+    //     $delete = OvertimeEligibility::find($req->inputid)->delete();
+    //     $old = OvertimeEligibility::where('end_date', $date->start_date)->first();
+    //     $old->end_date = '9999-12-31';
+    //     $old->save();
+    //     Session::put(['region'=>$req->inputregion, 'company'=>$req->inputcompany, 'type'=>$req->formtype]);
+    //     return redirect(route('oe.show',[],false))->with([
+    //         'feedback' => true,
+    //         'feedback_text' => "Successfully deleted configuration!",
+    //         'feedback_type' => "warning"
+    //     ]);
+    // }
 
     public function expirystore(Request $req){
         $latest = OvertimeExpiry::where('company_id', $req->inputcompany)->where('region', $req->inputregion)->where('otstatus', $req->inputstatus)->latest('created_at')->first();
@@ -218,7 +222,7 @@ class OvertimeMgmtController extends Controller
         return redirect(route('oe.show',[],false))->with([
             'feedback' => true,
             'feedback_text' => "Successfully created a new configuration!",
-            'feedback_type' => "success"
+            'feedback_title' => "Success"
         ]);
     }
 
@@ -239,7 +243,8 @@ class OvertimeMgmtController extends Controller
         return redirect(route('oe.show',[],false))->with([
             'feedback' => true,
             'feedback_text' => "Successfully ".$status." configuration!",
-            'feedback_type' => $feedback
+            'feedback_title' => "Success"
+            
         ]);
     }
 
@@ -269,7 +274,7 @@ class OvertimeMgmtController extends Controller
         return redirect(route('oe.show',[],false))->with([
             'feedback' => true,
             'feedback_text' => "Successfully deleted configuration!",
-            'feedback_type' => "warning"
+            'feedback_title' => "Success"
         ]);
     }
 

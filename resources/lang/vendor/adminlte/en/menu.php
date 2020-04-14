@@ -12,7 +12,7 @@ return [
     'manage_announcement' => 'Announcement Management',
     'manage_eligibility' => 'System Eligibility',
     'manual_overtime' => 'Claim Manual Approval',
-    'manage_overtimeex' => 'Manage Overtime Expiry',
+    'manage_overtimeex' => 'OT Claim Expiry Date',
     'manage_wdays'    => 'Work Day Type',
     'admin_user_menu'   => 'USER MANAGMENT',
     'manage_holiday'    => 'Holiday Management',

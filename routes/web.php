@@ -53,6 +53,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/punch/start',  'MiscController@startPunch')->name('punch.start');
   Route::get('/punch/check',  'MiscController@checkPunch')->name('punch.check');
   Route::get('/punch/checkday',  'MiscController@checkDay')->name('punch.checkday');
+  Route::get('/punch/checkworktime',  'MiscController@checkWorkTime')->name('punch.checkworktime');
   Route::get('/punch/end',  'MiscController@endPunch')->name('punch.end');
   Route::get('/punch/cancel',  'MiscController@cancelPunch')->name('punch.cancel');
   Route::post('/punch/delete', 'MiscController@delete')->name('punch.delete');
@@ -128,10 +129,12 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/admin/overtime', 'Admin\OvertimeMgmtController@show')->name('oe.show');
   Route::get('/admin/overtime/m', 'Admin\OvertimeMgmtController@otm')->name('oe.otm');
   Route::get('/admin/overtime/getcompany', 'Admin\OvertimeMgmtController@getCompany')->name('oe.getcompany');
-  Route::get('/admin/overtime/eligible/getlast', 'Admin\OvertimeMgmtController@getLast')->name('oe.eligiblegetlast');
-  Route::post('/admin/overtime/eligible/store', 'Admin\OvertimeMgmtController@eligiblestore')->name('oe.eligiblestore');
-  Route::post('/admin/overtime/eligible/update', 'Admin\OvertimeMgmtController@eligibleupdate')->name('oe.eligibleupdate');
-  Route::post('/admin/overtime/eligible/delete', 'Admin\OvertimeMgmtController@eligibledelete')->name('oe.eligibledelete');
+  
+  // Route::get('/admin/overtime/eligible/getlast', 'Admin\OvertimeMgmtController@getLast')->name('oe.eligiblegetlast');
+  // Route::post('/admin/overtime/eligible/store', 'Admin\OvertimeMgmtController@eligiblestore')->name('oe.eligiblestore');
+  // Route::post('/admin/overtime/eligible/update', 'Admin\OvertimeMgmtController@eligibleupdate')->name('oe.eligibleupdate');
+  // Route::post('/admin/overtime/eligible/delete', 'Admin\OvertimeMgmtController@eligibledelete')->name('oe.eligibledelete');
+
   Route::post('/admin/overtime/expiry/store', 'Admin\OvertimeMgmtController@expirystore')->name('oe.expirystore');
   Route::post('/admin/overtime/expiry/update', 'Admin\OvertimeMgmtController@expiryupdate')->name('oe.expiryupdate');
   Route::post('/admin/overtime/expiry/delete', 'Admin\OvertimeMgmtController@expirydelete')->name('oe.expirydelete');
