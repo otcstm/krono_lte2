@@ -403,21 +403,6 @@ class OvertimeController extends Controller{
         $reg = Psubarea::where('state_id', $req->user()->state_id)->first();
         
         if($req->inputid==""){
-            // $difdatem = date('m') - date('m',strtotime($req->inputdate));
-            // $difdated = date('d') - date('d',strtotime($req->inputdate));
-            // if($difdatem<0){
-            //     $difdatem=$difdatem+12;
-            // }
-            // $gm = true;
-            // if(($difdatem<4)){
-            //     $gm = false;
-            //     if($difdatem==3){
-            //         if($difdated>=0){
-            //         $gm = true;
-            //         }
-            //     }
-            // }
-            // dd(date("Y-m-d", strtotime(($req->session()->get('draft'))[2])));
             $gm = UserHelper::CheckGM(date("Y-m-d"), date("Y-m-d", strtotime(($req->session()->get('draft'))[4])));
             $staffr = UserRecord::where('user_id', $req->user()->id)->where('upd_sap','<=',date('Y-m-d'))->first();
             // $wage = OvertimeFormula::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', ($req->session()->get('draft'))[4])->where('end_date','>', ($req->session()->get('draft'))[4])->first();   //temp
@@ -468,11 +453,13 @@ class OvertimeController extends Controller{
             $draftclaim->status = 'D1';
             $draftclaim->save();
             $claim = Overtime::where('user_id', $req->user()->id)->where('date', ($req->session()->get('draft'))[4])->first();
+            $id = $claim->id;
             $execute = UserHelper::LogOT($claim->id, $req->user()->id, "Created draft", "Created draft for ".$claim->refno);    
             Session::put(['draft' => []]);
         }else{
 
             $claim = Overtime::where('id', $req->inputid)->first();
+            $id = $claim->id;
             // $difdatem = date('m',strtotime($claim->date_created)) - date('m',strtotime($claim->date));
             // $difdated = date('m',strtotime($claim->date_created)) - date('d',strtotime($claim->date));
             // if($difdatem<0){
@@ -770,7 +757,7 @@ class OvertimeController extends Controller{
             OvertimeFile::find($req->filedel)->delete();
         }
         
-        $claim = Overtime::where('id', $req->inputid)->first();
+        $claim = Overtime::where('id', $id)->first();
         $total_hour = OvertimeDetail::where('ot_id', $claim->id)->get();
         $total_hours = 0;
         $total_minutes = 0;
