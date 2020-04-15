@@ -402,8 +402,14 @@ return [
                 'can' => '5-shift-plan',
             ],
             [
-                'text' => 'user_shift_sc',
-                'route'  => 'staff.worksched',
+                'text' => 'shift_approval',
+                'url'  => '/workschedule?page=reqs',
+                'icon' => '',
+                'can' => '5-shift-calendar',
+            ],
+            [
+                'text' => 'shift_workteam',
+                'url'  => '/workschedule?page=teamc',
                 'icon' => '',
                 'can' => '5-shift-calendar',
             ],

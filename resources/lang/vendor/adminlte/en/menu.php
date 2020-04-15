@@ -58,15 +58,10 @@ return [
     'my_shift_grp'    => 'Shift Planner/Members Assignment',   //My Shift Group 
     //'shift_planner'    => 'Shift Planner/Members Assignment', 
     'shift_plan'      => 'Shift Planning',
-    'shift_approval'      => 'Shift Approval',
+    'shift_approval'  => 'Shift Approval',
     'shift_template'  => 'Shift Template',
-    
-    //new added base on XD
-    // 'shift_create_group_owner'      => 'Create Group Owner',
-    // 'shift_planner'      => 'Shift Planner/Members Assignment',
-    // 'shift_planning'      => 'Shift Planning',
-    // 'shift_approval'      => 'Shift Approval',
-    // 'shift_group'      => 'Work Team Schedule',    
+    'shift_workteam'      => 'Work Team Schedule',    
+     
 
     'rpt_menu'        => 'REPORT',
     'otr_details'       => 'Overtime Details',
