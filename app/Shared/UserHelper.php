@@ -515,6 +515,7 @@ class UserHelper {
         }
       }
       $day_type_id = "";
+      // return ["09:43", "00:00", $day_type, $day, $wd->day_type_id];
       return [$start, $end, $day_type, $day, $wd->day_type_id];
 
       // below is the original temp
