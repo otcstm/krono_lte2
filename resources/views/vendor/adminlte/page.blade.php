@@ -58,50 +58,27 @@
         <ul class="nav navbar-nav">
 
         <!-- Tasks: style can be found in dropdown.less -->
-        <li class="dropdown tasks-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-              <i class="glyphicon glyphicon-ok-sign"></i>
-            @if(session('to_do_list')!=null)
-            @php $to_do_list = session('to_do_list'); @endphp
-              @if($to_do_list->count() > 0)
-              <span class="label label-danger">{{ $to_do_list->count() }}</span>
-              @endif
-              @endif
+        <li class="dropdown notifications-menu">
+
+            @if(session()->has('notifycount') && session('notifycount') != 0)
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Require Your Attention">
+              <i class="glyphicon glyphicon-exclamation-sign text-green"></i>
+              <span class="label label-danger">{{ session('notifycount') }}</span>
             </a>
             <ul class="dropdown-menu">
-              {{-- <li class="header">You have {{ $to_do_list->count() }} tasks</li> --}}
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-            @if(session('to_do_list')!=null)
-            @php $to_do_list = session('to_do_list'); @endphp
-              @if($to_do_list->count() > 0)
-                  @foreach($to_do_list as $to_do_list_row)
-                  <li><!-- Task item -->
-                    <a href="#">
-                      {{ $to_do_list_row->item3 }}
-                        <small class="label label-default pull-right">{{ $to_do_list->count() }}</small>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                  @endforeach
-              @else
-                  <li><!-- Task item -->
-                    <a href="#">
-                        Pending Approval
-                        <small class="label label-default pull-right">{{ $to_do_list->count() }}</small>
-                    </a>
-                  </li>
-                  {{-- <li><!-- Task item -->
-                    <a href="#">
-                        Manpower Request <small class="label label-default pull-right">{{ $to_do_list->count() }}</small>
-                    </a>
-                  </li> --}}
-
-              @endif
-              @endif
-                </ul>
+              @foreach(session('notifylist') as $nitem)
+              <li>
+                <a  style="word-break: break-all;" href="{{ route('notify.read', ['nid' => $nitem->id]) }}">
+                  <i class="{{ $nitem->data['icon'] }}"></i> {{ $nitem->data['text'] }}
+                </a>
               </li>
+              @endforeach
             </ul>
+            @else
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="No Notification">
+              <i class="glyphicon glyphicon-ok-sign text-gray"></i>
+            </a>
+            @endif
          </li>
 
          <!-- Notifications: style can be found in dropdown.less -->
@@ -117,7 +94,7 @@
                 <ul class="menu">
                   <li>
                     <a href="#">
-                      <i class="fa fa-users text-aqua"></i> Update on covid-19
+                      <i class="fa fa-users text-aqua"></i> Update on covid-19 sfsdf ldf ie skdmfl eks fsdf
                     </a>
                   </li>
                 </ul>
