@@ -39,7 +39,7 @@ class OtSaRepController extends Controller
       ->limit(100)
       ->get();
 
-    return view('report.sysadmot',[
+    return view('report.sysadmOt',[
       'companies'=>$company,
       'states'=>$state,
       'regions'=>$region,
