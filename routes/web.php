@@ -19,10 +19,16 @@ Route::get('/ur/popbyid/{id}', 'URController@popById')->name('ur.popbyid');
 Route::get('/ur/show/{persno}', 'URController@show')->name('ur.show');
 Route::get('/ur/listAll', 'URController@listAll')->name('ur.listAll');
 Route::get('/ur/show/{persno}/{dt}', 'URController@gUR')->name('ur.listAll');
+
+// temp playground
+Route::get('/pg/sendnotify', 'DemoController@sendnotify')->name('demo.sendnotify');
+
+
 // Route::get('/', 'MiscController@index')->name('misc.index');
 Route::group(['middleware' => ['auth']], function () {
   Route::get('/home', 'MiscController@home')->name('misc.home');
   Route::get('/role', 'Admin\RoleController@index')->name('role.index');
+  Route::get('/readnotify', 'NotiMenuController@read')->name('notify.read');
 
   // work schedule rule
   Route::get('/workschedule', 'WorkSchedRuleController@wsrPage')->name('staff.worksched');
@@ -220,7 +226,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/admin/verifier/advSearch', 'UserVerifierController@advSearchSubord')->name('verifier.advSearchSubord');
 
   //demo
-Route::get('/user/image/{staffno}', 'ProfilePicController@getStaffImage')->name('user.image');  
+Route::get('/user/image/{staffno}', 'ProfilePicController@getStaffImage')->name('user.image');
 Route::get('/demo/location', 'DemoController@location')->name('demo.location');
 Route::post('/demo/location', 'DemoController@location')->name('demo.location');
 });
