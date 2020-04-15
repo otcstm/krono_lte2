@@ -1,14 +1,12 @@
 @extends('adminlte::page')
 @section('css')
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"/>
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css"/>
 @stop
 @section('title', 'Report')
 @section('content')
 
 <h1>Report Details</h1>
 <div class="panel panel-default">
-<div class="panel-heading panel-primary">List of Start/End OT Time</div>
+<!-- <div class="panel-heading panel-primary">List of Start/End OT Time</div> -->
 <div class="panel-body">
   <div class="table-responsive">
   <table id="tOtlist" class="table table-bordered">
@@ -88,29 +86,18 @@
     </tbody>
   </table>
   </div>
-  <div class="form-group text-center"><br>
-    <button onclick="goBack()" class="btn btn-primary">RETURN</button>
+  <div class="form-group text-center">
+    <br>
+    <form action="{{ route('rep.viewStEd', [], false) }}" method="post">
+        @csrf
+        <button type="submit" name="return" value="rtn" class="btn btn-primary">RETURN</button>
+    </form>
   </div>
 </div>
 </div>
 
 @stop
 @section('js')
-<script>
-function goBack() {
-  window.history.back();
-}
-</script>
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
 
 <script type="text/javascript">
 
@@ -122,11 +109,6 @@ $(document).ready(function() {
     buttons: [
         'csv', 'excel', 'pdf'
     ]
-    // dom: 'Bfrtip',
-		// buttons: [
-    // {extend: 'excelHtml5', exportOptions: {columns: ':visible'}, filename: 'OT Details Report', sheetName: 'OT Details', title: 'OT Details Report'},
-    // {extend: 'pdfHtml5', exportOptions: {columns: ':visible'}, filename: 'OT Details Report', sheetName: 'OT Details', title: 'OT Details Report'},
-		// {extend: 'colvis', collectionLayout: 'fixed three-column'}]
   });
 });
 </script>

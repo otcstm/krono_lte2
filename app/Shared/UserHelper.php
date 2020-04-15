@@ -62,35 +62,7 @@ class UserHelper {
     return 5;
   }
 
-  public static function LoadNotifyList(){
-    // dd(Auth::user());
-    if(Auth::check()){
-      $curruserid = Auth::user()->id;
-      $nitofylist = [];
 
-      // get the items that require attention, then add it to the list
-      array_push($nitofylist, [
-        'text' => 'Req action 01',
-        'href' => route('shift.index', [], false),
-        'icon' => 'fab fa-bitcoin'
-      ]);
-
-      array_push($nitofylist, [
-        'text' => 'tengok je',
-        'href' => route('punch.list', [], false),
-        'icon' => 'fab fa-cc-visa'
-      ]);
-
-      session([
-        'notifylist' => $nitofylist,
-        'notifycount' => sizeof($nitofylist)
-      ]);
-
-      // dd(session()->all());
-    } else {
-      // dd('no login');
-    }
-  }
 
   public static function GetCurrentPunch($staff_id){
     return StaffPunch::where('user_id', $staff_id)->where('status', 'in')->first();
