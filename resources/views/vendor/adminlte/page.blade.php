@@ -130,8 +130,9 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="/vendor/images/useravatar.png" class="user-image" alt="User Image">
+              <img src="/user/image/{{Auth::user()->staff_no}}" class="user-image" alt="User Image">
               <span class="hidden-xs">{{ Auth::user()->name }}</span>
+              
             </a>
           </li>
           <li>
@@ -165,7 +166,7 @@
 
     <div class="user-panel">
         <div class="pull-left image">
-          <img src="/vendor/images/useravatar.png" class="img-circle" alt="User Image">
+          <img src="/user/image/{{ Auth::user()->staff_no }}" class="img-circle" alt="User Image">
         </div>
         <div class=" info">
           <p class="wraptext">{{ Auth::user()->name }}</p>
