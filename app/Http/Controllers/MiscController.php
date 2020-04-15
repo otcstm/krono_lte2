@@ -410,6 +410,21 @@ class MiscController extends Controller
     }
   }
 
+  public function checkWorkTime(Request $req){
+    $i = 1;
+    $check[0]="00:00";
+    do{
+      $check = UserHelper::CheckDay($req->user()->id, date("Y-m-d", strtotime($req->time . ' +'.$i.' day')));
+      $i++;
+    }while($check[0]=="00:00");
+    $i--;
+    $stime = explode(":", $check[0]);
+    if((date("H", strtotime($req->time))*60+date("i", strtotime($req->time)))<($stime[0]*60+$stime[1])){
+      $i= 0;
+    }
+    return ["swtime" => $check[0], "addday" => $i, "test1" => date("H", strtotime($req->time))*60+date("i", strtotime($req->time)), "test2" => ($stime[0]*60+$stime[1])];
+  }
+
   public function endPunch(Request $req){
 
     // $req->stime = "2020-03-04 07:30:00"; //testing

@@ -42,6 +42,9 @@ $api->version('v1', function ($api) {
   $api->get('oti/getLastUpd', 'App\Api\Datamart\OtIndicatorController@returnMaxDate');
   $api->post('oti/insert', 'App\Api\Datamart\OtIndicatorController@insert');
 
+  $api->get('leave/getLastUpd', 'App\Api\Datamart\LeaveController@returnMaxDate');
+  $api->post('leave/insert', 'App\Api\Datamart\LeaveController@insert');
+
 
 
 });

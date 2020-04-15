@@ -14,9 +14,12 @@ use App\Notifications\ShiftGroupCreated;
 class DemoController extends Controller
 {
     public function location(Request $req){
-        echo(GeoLocHelper::getTotalMinutes());
+        $loc = null;
+        if($req->submitForm){
 
-        return view('demo.location', []);
+            $loc = GeoLocHelper::getLocDescr($req->lat,$req->lon);
+        }
+        return view('demo.location', ['loc'=>$loc]);
     }
 
 
