@@ -477,6 +477,7 @@ class UserHelper {
       };
       // get the day info
       $theday = $wd->Day;
+      $idday = $wd->day_type_id;
       $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->first();
       $hc = null;
       if($ph){
@@ -488,6 +489,8 @@ class UserHelper {
         $start = "00:00";
         $end =  "00:00";
         $day_type = 'Public Holiday';
+        $dy = DayType::where('description', 'Public Holiday')->first();
+        $idday = $dy->id;
       }else{
         $leave = null;
         $leaveposted = Leave::where('user_id', $user)->whereDate('start_date','<=',$date)->whereDate('end_date','>=',$date)->where('leave_status', 'POSTED')->first();
@@ -498,6 +501,8 @@ class UserHelper {
             $start = "00:00";
             $end =  "00:00";
             $day_type = "Rest Day";
+            $dy = DayType::where('description', 'Rest Day')->first();
+            $idday = $dy->id;
         }else{
           if($theday->is_work_day == true){
             $day_type = 'Normal Day';
@@ -516,7 +521,7 @@ class UserHelper {
       }
       $day_type_id = "";
       // return ["09:43", "00:00", $day_type, $day, $wd->day_type_id];
-      return [$start, $end, $day_type, $day, $wd->day_type_id];
+      return [$start, $end, $day_type, $day, $idday];
 
       // below is the original temp
 
