@@ -14,6 +14,10 @@ use App\ShiftPlanStaffDay;
 use App\ShiftPattern;
 use App\DayType;
 use App\SapPersdata;
+use App\UserRecord;
+use App\Holiday;
+use App\HolidayCalendar;
+use App\Leave;
 use \Carbon\Carbon;
 use DateTime;
 use App\StaffAdditionalInfo;
@@ -58,35 +62,7 @@ class UserHelper {
     return 5;
   }
 
-  public static function LoadNotifyList(){
-    // dd(Auth::user());
-    if(Auth::check()){
-      $curruserid = Auth::user()->id;
-      $nitofylist = [];
 
-      // get the items that require attention, then add it to the list
-      array_push($nitofylist, [
-        'text' => 'Req action 01',
-        'href' => route('shift.index', [], false),
-        'icon' => 'fab fa-bitcoin'
-      ]);
-
-      array_push($nitofylist, [
-        'text' => 'tengok je',
-        'href' => route('punch.list', [], false),
-        'icon' => 'fab fa-cc-visa'
-      ]);
-
-      session([
-        'notifylist' => $nitofylist,
-        'notifycount' => sizeof($nitofylist)
-      ]);
-
-      // dd(session()->all());
-    } else {
-      // dd('no login');
-    }
-  }
 
   public static function GetCurrentPunch($staff_id){
     return StaffPunch::where('user_id', $staff_id)->where('status', 'in')->first();
@@ -470,25 +446,48 @@ class UserHelper {
         $currwsr = UserHelper::GetWorkSchedRule($user, $date);
         // then get that day
         $wd = $currwsr->ListDays->where('day_seq', $day)->first();
-      }
-
+      };
       // get the day info
       $theday = $wd->Day;
-      // dd($wd->Day);
-      if($theday->is_work_day == true){
-        $day_type = 'Normal Day';
-        $stime = new Carbon($theday->start_time);
-        $etime = new Carbon($theday->start_time);
-        $etime->addMinutes($theday->total_minute);
-
-        $start = $stime->format('H:i');
-        $end =  $etime->format('H:i');
-      } else {
+      $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->first();
+      $hc = null;
+      if($ph){
+        // dd($userstate);
+        $userstate = UserRecord::where('user_id', $user)->where('upd_sap','<=',$date)->first();
+        $hc = HolidayCalendar::where('holiday_id', $ph->id)->where('state_id', $userstate->state_id)->first();
+      }
+      if($hc){
         $start = "00:00";
         $end =  "00:00";
-        $day_type = $theday->description;
+        $day_type = 'Public Holiday';
+      }else{
+        $leave = null;
+        $leaveposted = Leave::where('user_id', $user)->whereDate('start_date','<=',$date)->whereDate('end_date','>=',$date)->where('leave_status', 'POSTED')->first();
+        if($leaveposted){
+          $leave = Leave::where('user_id', $user)->whereDate('start_date','<=',$date)->whereDate('end_date','>=',$date)->where('leave_status', 'APPROVED')->first();
+        }
+        if($leave){
+            $start = "00:00";
+            $end =  "00:00";
+            $day_type = "Rest Day";
+        }else{
+          if($theday->is_work_day == true){
+            $day_type = 'Normal Day';
+            $stime = new Carbon($theday->start_time);
+            $etime = new Carbon($theday->start_time);
+            $etime->addMinutes($theday->total_minute);
+
+            $start = $stime->format('H:i');
+            $end =  $etime->format('H:i');
+          } else {
+            $start = "00:00";
+            $end =  "00:00";
+            $day_type = $theday->description;
+          }
+        }
       }
       $day_type_id = "";
+      // return ["09:43", "00:00", $day_type, $day, $wd->day_type_id];
       return [$start, $end, $day_type, $day, $wd->day_type_id];
 
       // below is the original temp
