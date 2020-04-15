@@ -21,17 +21,17 @@ class MiscController extends Controller
 {
   public function home(Request $req){
 
-    $last_month = Carbon::now()->addMonths(-1); 
+    $last_month = Carbon::now()->addMonths(-1);
     $first_last_month = date('01-m-Y',strtotime($last_month));
 
-    $curr_date = now(); 
+    $curr_date = now();
 
-    $next_month = Carbon::now()->addMonths(1); 
+    $next_month = Carbon::now()->addMonths(1);
     $first_next_month = date('01-m-Y',strtotime($next_month));
 
     //user
-    //actual payment for current month        
-    $act_payment_curr_month = 
+    //actual payment for current month
+    $act_payment_curr_month =
     Overtime::where('user_id','=',$req->user()->id)
     ->where('status','=','PAID')
     ->whereYear('date','=', $curr_date)
@@ -42,16 +42,16 @@ class MiscController extends Controller
     //}])
     //dd($act_payment_curr_month);
 
-    //Pending payment last month      
-    $pending_payment_last_month = 
+    //Pending payment last month
+    $pending_payment_last_month =
     Overtime::where('user_id','=',$req->user()->id)
     ->where('status','=','PAID')
     ->whereYear('date','=', $last_month)
     ->whereMonth('date','=', $last_month)
     ->sum('amount');
 
-    //total hour OT from current month 
-    $total_hour_ot_curr_month = 
+    //total hour OT from current month
+    $total_hour_ot_curr_month =
     Overtime::where('user_id','=',$req->user()->id)
     ->where('status','=','PAID')
     ->whereYear('date','=', $curr_date)
@@ -59,44 +59,44 @@ class MiscController extends Controller
     ->sum('total_hour');
 
     //next payment schedule
-    $next_payment_sch = 
+    $next_payment_sch =
     PaymentSchedule::whereYear('payment_date','=', $next_month)
     ->whereMonth('payment_date','=', $next_month)
     ->max('payment_date');
-    //dd($next_payment_sch);  
-    
+    //dd($next_payment_sch);
+
     if(is_null($next_payment_sch)){
       $next_payment_sch = 0;
     };
 
     //verifier
     //Last approval date
-    $last_approval_date = 
+    $last_approval_date =
     PaymentSchedule::whereYear('payment_date','=', $curr_date)
     ->whereMonth('payment_date','=', $curr_date)
     ->max('last_approval_date');
-    
+
     //approver
     //Last approval date
-    $last_approval_date = 
+    $last_approval_date =
     PaymentSchedule::whereYear('payment_date','=', $curr_date)
     ->whereMonth('payment_date','=', $curr_date)
     ->max('last_approval_date');
-    
+
     //pending verification count()
-    $pending_approval_count = 
+    $pending_approval_count =
     Overtime::where('approver_id','=',$req->user()->id)
     ->orWhere('verifier_id','=',$req->user()->id)
     ->whereIn('status',array('PV'))
     ->count();
 
     //pending approval count()
-    $pending_verification_count = 
+    $pending_verification_count =
     Overtime::where('approver_id','=',$req->user()->id)
     ->orWhere('verifier_id','=',$req->user()->id)
     ->whereIn('status',array('PA'))
     ->count();
-    
+
 
     //link set default verifier
 
@@ -108,24 +108,15 @@ class MiscController extends Controller
 
     //notification top
 
-    //to do notification
-    $to_do_list = Overtime::join('setup_codes', 'overtimes.status', '=', 'setup_codes.item2')
-    ->select('overtimes.*', 'setup_codes.item3')
-    ->where('overtimes.user_id','=',$req->user()->id)
-    ->whereIn('overtimes.status',array('PA', 'A'))
-    ->groupBy('overtimes.refno')
-    ->groupBy('overtimes.status')
-    ->get();
-    Session::put(['to_do_list' => $to_do_list]);
 
     //chart yearly bar
     //usage view: {!! $chart->render() !!}
 
     // //chart dataset 1 pending
-    // $dataPendingMonth = 
+    // $dataPendingMonth =
     // Overtime::select(
-    // DB::raw("sum(amount) as sum_amount"), 
-    // DB::raw("DATE_FORMAT(date, '%Y') year_label"),  
+    // DB::raw("sum(amount) as sum_amount"),
+    // DB::raw("DATE_FORMAT(date, '%Y') year_label"),
     // DB::raw("DATE_FORMAT(date, '%m') month_label")
     // )
     // ->where('user_id','=',$req->user()->id)
@@ -133,7 +124,7 @@ class MiscController extends Controller
     // ->whereYear('date','=', $curr_date)
     // ->groupby('year_label','month_label')
     // ->get();
-    
+
     // $pendingMonthly = [];
     // for ($m=1; $m<=12; $m++) {
     //   if($dataPendingMonth->count() > 0)
@@ -154,8 +145,8 @@ class MiscController extends Controller
 
     // chart dataset 2 paid
       $dataPaidMonth = Overtime::select(
-      DB::raw("sum(amount) as sum_amount"), 
-      DB::raw("DATE_FORMAT(date, '%Y') as year_label"),  
+      DB::raw("sum(amount) as sum_amount"),
+      DB::raw("DATE_FORMAT(date, '%Y') as year_label"),
       DB::raw("DATE_FORMAT(date, '%c') as month_label")
       )
       ->where('user_id','=',$req->user()->id)
@@ -168,11 +159,11 @@ class MiscController extends Controller
     // dd($dataPaidMonth->count());
 
       $paidMonthly = [];
-      
+
         for ($m=1; $m<=12; $m++) {
           if($dataPaidMonth->count() > 0)
-          {          
-            
+          {
+
           foreach($dataPaidMonth as $dataPaidMonthRow){
             if($dataPaidMonthRow->month_label == $m){
               array_push($paidMonthly, $dataPaidMonthRow->sum_amount);
@@ -188,9 +179,9 @@ class MiscController extends Controller
           {
             array_push($paidMonthly, 0);
           }
-        }          
-      
-    
+        }
+
+
     //dd($paidMonthly);
 
     $monthYearLabel = [];
@@ -258,7 +249,7 @@ class MiscController extends Controller
                  ]]
                ]
          ]);
-   
+
     //verifier
     $isVerifier = 0;
     $checkVerifier = Overtime::where('verifier_id','=',$req->user()->id)
@@ -312,12 +303,11 @@ class MiscController extends Controller
       'next_payment_sch' => $next_payment_sch,
       'last_approval_date' => $last_approval_date,
       'pending_approval_count' => $pending_approval_count,
-      'to_do_list' => $to_do_list,
       'isVerifier' => $isVerifier,
       'isApprover' => $isApprover,
       'isUserAdmin' => $isUserAdmin,
       'isSysAdmin' => $isSysAdmin,
-      'otYearChart' => $otYearChart      
+      'otYearChart' => $otYearChart
       ]);
   }
 
@@ -375,7 +365,7 @@ class MiscController extends Controller
 
     // $req->time = "2020-03-04 07:30:00"; //testing
     // $req->time = "2020-02-05 19:24:09"; //testing
-    
+
     $date = date("Y-m-d", strtotime($req->time));
     $day = UserHelper::CheckDay($req->user()->id, $date);
     $userrecordid = URHelper::getUserRecordByDate($req->user()->id, $date);
@@ -388,7 +378,7 @@ class MiscController extends Controller
     // $currentp->in_longitude = 0.0; //temp
     $currentp->in_latitude = $req->lat; //temp
     $currentp->in_longitude = $req->long; //temp
-   
+
     $currentp->save();
   }
 
@@ -436,7 +426,7 @@ class MiscController extends Controller
   }
 
   public function endPunch(Request $req){
-    
+
     // $req->stime = "2020-03-04 07:30:00"; //testing
     // $req->etime = "2020-03-04 08:30:00"; //testing
     // $req->stime = "2020-02-05 19:24:09"; //testing
@@ -449,7 +439,7 @@ class MiscController extends Controller
     $currentp = StaffPunch::where("user_id", $req->user()->id)->where("punch_in_time", $req->stime)->first();
     if(((date("j", strtotime($req->etime)))- (date("j", strtotime($req->stime)))) > 0){
       $currentp->punch_out_time = $edate." 00:00:00";
-      
+
       $currentp->out_latitude = $req->lat2; //temp
       $currentp->out_longitude = $req->long2; //temp
       // $currentp->out_latitude = 0.0; //temp
@@ -461,11 +451,11 @@ class MiscController extends Controller
       $currentp->user_id = $req->user()->id;
       $currentp->day_type = $eday[2];
       $currentp->punch_in_time = $edate." 00:00:00";
-      $currentp->in_latitude = $req->lat; 
-      $currentp->in_longitude = $req->long; 
+      $currentp->in_latitude = $req->lat;
+      $currentp->in_longitude = $req->long;
       $currentp->punch_out_time = $req->etime;
-      $currentp->out_latitude = $req->lat2; 
-      $currentp->out_longitude = $req->long2; 
+      $currentp->out_latitude = $req->lat2;
+      $currentp->out_longitude = $req->long2;
       $currentp->status = 'out';
       $currentp->user_records_id = $userrecordid->id;
       $currentp->save();
@@ -477,8 +467,8 @@ class MiscController extends Controller
       return ['result'=> 'tea'];
     }else{
       $currentp->punch_out_time = $req->etime;
-      $currentp->out_latitude = $req->lat2; 
-      $currentp->out_longitude = $req->long2; 
+      $currentp->out_latitude = $req->lat2;
+      $currentp->out_longitude = $req->long2;
       $currentp->status = 'out';
       $currentp->save();
       // return ['result'=> $currentp->in_latitude];
