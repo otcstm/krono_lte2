@@ -271,16 +271,6 @@ Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth
   Route::post('/group/edit', 'ShiftGroupController@editGroup')->name('group.edit');
 });
 
-Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth', 'can:5-shift-planner']], function () {
-  Route::get('/planner', 'ShiftPlannerController@index')->name('planner');
-  Route::post('/planner/add', 'ShiftPlannerController@addGroup')->name('planner.add');
-  Route::post('/planner/addsp', 'ShiftPlannerController@addSpToGroup')->name('planner.add.sp');
-  Route::post('/planner/delsp', 'ShiftPlannerController@delSpFromGroup')->name('planner.del.sp');
-  Route::get('/planner/view', 'ShiftPlannerController@viewGroup')->name('planner.view');
-  Route::post('/planner/delete', 'ShiftPlannerController@delGroup')->name('planner.del');
-  Route::post('/planner/edit', 'ShiftPlannerController@editGroup')->name('planner.edit');
-});
-
 Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth']], function () {
   Route::get('/', 'ShiftPlanController@index')->name('index');
   // ShiftPlan crud
