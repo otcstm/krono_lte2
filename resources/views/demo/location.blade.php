@@ -27,21 +27,49 @@
 
 </form>
 <hr />
-Loc Address:
+
 
 @if($loc)
+Shared Function: <b> GeoLocHelper::getLocDescr(latitude,longitude)</b>
+  <br/>
+To access the variable: <b>$loc['< variable_name >']</b>
+
+<p/>
 
 <div class="row-eq-height">
-  <div class="col-md-6 col-sm-6 col-xs-12 ">
+  <div class="col-md-5 col-sm-5 col-xs-12 " >
     <div class="box box-solid">
       <div class="box-body">
-        <h3>Address:</h3>
+        <h4>Address:</h4>
 
         {{$loc['formatted_address']}}
       </div><!-- /.box-body -->
     </div>
+
+
+
+
+    <div class="box box-solid">
+      <div class="box-body">
+        @php
+        $lat = $loc['location']->lat;
+        $lon = $loc['location']->lon;
+        @endphp
+
+      
+          <a href="https://www.google.com/maps/search/?api=1&query={{$lat.','.$lon}}" target="_blank">See In Map</a>
+          <br/>https://www.google.com/maps/search/?api=1&query=$latitude,$longitude
+      </div><!-- /.box-body -->
+
+    </div> <!-- /,box -->
+
+
+
+
+
+   
   </div>
-  <div class="col-md-6 col-sm-6 col-xs-12 ">
+  <div class="col-md-7 col-sm-7 col-xs-12 ">
     <div class="box box-solid">
       <div class="box-body">
         {{var_dump($loc)}}`
