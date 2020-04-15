@@ -81,7 +81,7 @@
            @if (isset($item['target'])) target="{{ $item['target'] }}" @endif
         >
             <i class="{{ $item['icon'] ?? 'far fa-fw fa-circle' }} {{ isset($item['icon_color']) ? 'text-' . $item['icon_color'] : '' }}"></i>
-            <span>
+            <span class="text-master">
                 {{ $item['text'] }}
             </span>
 

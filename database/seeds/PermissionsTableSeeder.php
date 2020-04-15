@@ -298,42 +298,6 @@ class PermissionsTableSeeder extends Seeder
             ),
             31 => 
             array (
-                'id' => 32,
-                'title' => '6-rpt-ot-details',
-                'descr' => 'Report - OT Details',
-                'created_at' => '2020-03-16 04:34:21',
-                'updated_at' => '2020-03-16 04:34:21',
-                'deleted_at' => NULL,
-            ),
-            32 => 
-            array (
-                'id' => 33,
-                'title' => '6-rpt-ot-se',
-                'descr' => 'Report - OT Start/End',
-                'created_at' => '2020-03-16 04:36:39',
-                'updated_at' => '2020-03-16 04:36:39',
-                'deleted_at' => NULL,
-            ),
-            33 => 
-            array (
-                'id' => 34,
-                'title' => '6-rpt-ot-claim-summary',
-                'descr' => 'Report - OT claim summary',
-                'created_at' => '2020-03-16 04:37:11',
-                'updated_at' => '2020-03-16 04:37:11',
-                'deleted_at' => NULL,
-            ),
-            34 => 
-            array (
-                'id' => 35,
-                'title' => '6-rpt-ot-log-changes',
-                'descr' => 'Report - OT log changes',
-                'created_at' => '2020-03-16 04:37:30',
-                'updated_at' => '2020-03-16 04:37:30',
-                'deleted_at' => NULL,
-            ),
-            35 => 
-            array (
                 'id' => 36,
                 'title' => '5-shift-calendar',
                 'descr' => 'Shift schedule',
@@ -341,7 +305,7 @@ class PermissionsTableSeeder extends Seeder
                 'updated_at' => '2020-03-16 11:18:56',
                 'deleted_at' => NULL,
             ),
-            36 => 
+            32 => 
             array (
                 'id' => 37,
                 'title' => '5-shift-plan',
@@ -350,13 +314,22 @@ class PermissionsTableSeeder extends Seeder
                 'updated_at' => '2020-03-16 11:19:15',
                 'deleted_at' => NULL,
             ),
-            37 => 
+            33 => 
             array (
                 'id' => 38,
                 'title' => '6-rpt-ot',
                 'descr' => 'Report - OT',
-                'created_at' => '2020-04-10 11:36:49',
-                'updated_at' => '2020-04-10 11:36:49',
+                'created_at' => '2020-03-16 04:36:39',
+                'updated_at' => '2020-03-16 04:36:39',
+                'deleted_at' => NULL,
+            ),
+            34 => 
+            array (
+                'id' => 39,
+                'title' => '7-rpt-ot-sa',
+            'descr' => 'Report - OT (Sys Adm)',
+                'created_at' => '2020-04-13 15:14:44',
+                'updated_at' => '2020-04-13 15:14:46',
                 'deleted_at' => NULL,
             ),
         ));

@@ -14,18 +14,28 @@ class GeoLocHelper
   public static $baseuri = "https://tmoip.tm.com.my/api/t/tm.com.my/geosmartmap/1.0.0";
   public static $options = [
 
-    'headers' => ['Authorization' => 'Bearer 234cf8e6-2887-3ab3-9d71-a1005c254465']
+    'headers' => ['Custom' => 'Bearer fab8822f-00b5-38e3-8c58-22ec93d9adae']
   ];
 
-  public static function getTotalMinutes()
+  public static function getLocDescr($lat,$lon)
   {
-    $uri = self::$baseuri . "search/reversegeocode";
+    $uri = self::$baseuri . "/search/reversegeocode";
+
+    $options = [
+
+      'headers' => ['Custom' => 'Bearer fab8822f-00b5-38e3-8c58-22ec93d9adae'],
+      'query' => ['lat' => $lat, 'lon' => $lon]
+    ];
+  
+
+  
 
     $reclient = new Client(["base_uri" => $uri]);
-    //$request = $reclient->request('GET', self::$options)->getBody()->getContents();
-    //$response = response()->make($request, 200);
-    //$response->header('Content-Type', 'image/jpeg'); // change this to the download content type.
-
-    return $uri;
+    $request = $reclient->request('GET', '',$options)->getBody();
+    $response = response()->make($request, 200);
+    $response->header('Content-Type', 'application/json'); 
+    $ret = json_decode($response->content());
+    $collection = collect($ret[0]);
+    return  $collection;
   }
 }
