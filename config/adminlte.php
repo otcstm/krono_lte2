@@ -390,10 +390,10 @@ return [
                 'can' => '5-shift-group',
             ],
             [
-                'text' => 'shift_planner',
-                'url'  => '/shift_plan/planner',
+                'text' => 'my_shift_grp',
+                'route'  => 'shift.mygroup',
                 'icon' => '',
-                'can' => '5-shift-planner',
+                'can' => '5-shift-plan',
             ],
             [
                 'text' => 'shift_plan',
@@ -406,12 +406,6 @@ return [
                 'route'  => 'staff.worksched',
                 'icon' => '',
                 'can' => '5-shift-calendar',
-            ],
-            [
-                'text' => 'my_shift_grp',
-                'route'  => 'shift.mygroup',
-                'icon' => '',
-                'can' => '5-shift-plan',
             ],
           ]
         ],

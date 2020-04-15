@@ -55,11 +55,11 @@ return [
 
     //new added
     'shift_group'      => 'Create Group Owner',
-    'shift_planner'      => 'Shift Planner/Members Assignment',
+    'my_shift_grp'    => 'Shift Planner/Members Assignment',   //My Shift Group 
+    //'shift_planner'    => 'Shift Planner/Members Assignment', 
     'shift_plan'      => 'Shift Planning',
     'shift_approval'      => 'Shift Approval',
     'shift_template'  => 'Shift Template',
-    'my_shift_grp'    => 'My Shift Group',    
     
     //new added base on XD
     // 'shift_create_group_owner'      => 'Create Group Owner',
