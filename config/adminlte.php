@@ -157,7 +157,7 @@ return [
               'url' => '/admin/state/show',
               'icon' => '',
             //   'icon' => 'fas fa-map-marked-alt',
-              'can' => '2-cfg-state',
+              // 'can' => '2-cfg-state',
           ],
           [
               'text' => 'manage_holiday',
