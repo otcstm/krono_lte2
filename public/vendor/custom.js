@@ -94,6 +94,7 @@ function getLocation() {
 function showPosition(position) {
     lat =position.coords.latitude;
     long =position.coords.longitude;
+    // alert(now);
     punchman();
 }
 
@@ -246,17 +247,25 @@ function showError2(error) {
 //         }
 //     });
 // }
-
 function punchman(){
+    // alert(now);
     $.ajax({
         url: '/punch/start?time='+startclock+'&lat='+lat+'=&long='+long,
         type: "GET",
         success: function(resp) {
             $.ajax({
-                url: '/punch/checkworktime?time='+check,
+                url: '/punch/checkworktime?time='+now,
                 type: "GET",
                 success: function(resp) {
-                    enddate = (Date.parse(now).addDays(resp.addday).toString("dd.MM.yyyy"));
+                    // alert(resp.addday);
+                    // alert(resp.test1);
+                    // alert(resp.test2);
+                    dayadd = now;
+                    // alert(now);
+                    enddate = (Date.parse(dayadd).addDays(resp.addday).toString("dd.MM.yyyy"));
+                    now = (Date.parse(dayadd).addDays(-resp.addday).toString("dd.MM.yyyy"));
+                    // alert(now);
+                    // alert(enddate);
                     starttime(now, startclock);
                     timestart = setInterval(timer(0, 0, 0, parseInt(Date.parse(now).toString("ss")), parseInt(Date.parse(now).toString("mm")), parseInt(Date.parse(now).toString("H")), now, resp.swtime), 1000);
                 },
@@ -319,6 +328,7 @@ function puncho(){
 var future
 function starttime(now, startclock){
     startclockt = startclock;
+    // alert(now);
     Swal.fire({
         title: 'Overtime',
         customClass: 'test',
@@ -392,53 +402,69 @@ function starttime(now, startclock){
         }            
     })
 }
-
+var displayonce = true;
 function endpunch(){
     sstime = Date.parse(startclockt).toString("mm");
     eetime = Date.parse(future).toString("mm");
     // alert(parseInt(eetime));
     // alert(parseInt(sstime));
     // alert(eetime+"-"+sstime+"="+(parseInt(eetime)-parseInt(sstime)));
-    if((parseInt(eetime)-parseInt(sstime))>0){
-        $.ajax({
-            url: '/punch/end?stime='+startclockt+'&etime='+endclock+'&lat='+lat+'&long='+long+'&lat2='+lat2+'&long2='+long2,
-            type: "GET", 
-            success: function(resp) {
-                clearInterval(timestart); 
-                var path = window.location.pathname;
-                if(path=="/punch"){
-                    location.reload();
-                }
-            },
-                error: function(err) {
-                    starttime(now, startclockt);
-                }
-            }
-        );
-    }else{
-        clearInterval(timestart); 
-        $.ajax({
-            url: '/punch/cancel?time='+startclockt,
-            type: "GET",
-            
-            success: function(resp) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Overtime Cancelled',
-                    text: "Your overtime duration is less than a minute!",
-                    showCancelButton: false,
-                    confirmButtonText: 'OK',
-                }).then((result) => {
-                    if (result.value) {
-                        location.reload();
+    
+    if(displayonce){
+        if((parseInt(eetime)-parseInt(sstime))>0){
+            $.ajax({
+                url: '/punch/end?stime='+startclockt+'&etime='+endclock+'&lat='+lat+'&long='+long+'&lat2='+lat2+'&long2='+long2,
+                type: "GET", 
+                success: function(resp) {
+                    clearInterval(timestart); 
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Overtime Ended',
+                        text: "New working hour has stated",
+                        showCancelButton: false,
+                        confirmButtonText: 'OK',
+                    }).then((result) => {
+                        if (result.value) {
+                            var path = window.location.pathname;
+                            if(path=="/punch"){
+                                location.reload();
+                            }
+                        }
+                    })
+                },
+                    error: function(err) {
+                        starttime(now, startclockt);
                     }
-                })
-            },
-            error: function(err) {
-            }
-        });
+                }
+            );
+        }else{
+            clearInterval(timestart); 
+            $.ajax({
+                url: '/punch/cancel?time='+startclockt,
+                type: "GET",
+                
+                success: function(resp) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Overtime Cancelled',
+                        text: "Your overtime duration is less than a minute!",
+                        showCancelButton: false,
+                        confirmButtonText: 'OK',
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    })
+                },
+                error: function(err) {
+                }
+            });
+        }
+
+        displayonce = false;
     }
 }
+    
 
 function timer(psecond, pminute, phour, dsecond, dminute, dhour, now, swtime){
     return function(){
@@ -474,9 +500,13 @@ function timer(psecond, pminute, phour, dsecond, dminute, dhour, now, swtime){
         ctime = Date.parse(cnow).toString("HH:mm");
         ctimes = ctime.split(":");
         // Date.parse(now).addDays(1)
+        // alert(enddate);
+        
+        console.log(parseInt(ctimes[0]*60)+parseInt(ctimes[1])+" >= "+(parseInt(swtimes[0]*60)+parseInt(swtimes[1])));
         if(Date.parse(cnow).toString("dd.MM.yyyy")==enddate){
             if(parseInt(ctimes[0]*60)+parseInt(ctimes[1])>=(parseInt(swtimes[0]*60)+parseInt(swtimes[1]))){
-                endclock = ctime;
+                endclock = Date.parse(cnow).toString("yyyy-MM-dd")+" "+swtime+":00";
+                future = Date.parse(cnow).toString("yyyy-MM-dd")+" "+swtime+":00";
                 navigator.geolocation.getCurrentPosition(getPosition,showError2);
                 // alert("gojok");
             }
