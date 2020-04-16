@@ -127,6 +127,7 @@ class OtReport2Controller extends Controller
       $region = $req->fregion;
 
       $otr = Overtime::query();
+      $otr = $otr->whereNotNull('company_id')->where('company_id','!=','');
     if(isset($req->fdate)){
         $otr = $otr->whereBetween('date', array($fdate, $tdate));
       }
