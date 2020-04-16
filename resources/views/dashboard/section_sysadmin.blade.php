@@ -1,4 +1,4 @@
-<div class="row row-eq-height"> 
+<div class="row row-eq-height">
   <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('role.list', [], false) }}">
     <div class="box box-solid">
@@ -79,10 +79,10 @@
     </div>
     </a>
   </div>
-</div>   
+</div>
 
 <!-- /row2 -->
-<div class="row row-eq-height"> 
+<div class="row row-eq-height">
   <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('holiday.show', [], false) }}">
     <div class="box box-solid">
@@ -163,10 +163,10 @@
     </div>
     </a>
   </div>
-</div>   
+</div>
 
 <!-- /row3 -->
-<div class="row row-eq-height"> 
+<div class="row row-eq-height">
   <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('misc.home', [], false) }}">
     <div class="box box-solid">
@@ -228,7 +228,7 @@
     </a>
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12 ">
-    <a href="{{ route('rep.viewOT', [], false) }}">
+    <a href="{{ route('rep.sa.main', [], false) }}">
     <div class="box box-solid">
     <div class="box-body">
     <div class="media">
@@ -247,10 +247,10 @@
     </div>
     </a>
   </div>
-</div>  
+</div>
 
 <!-- /row4 -->
-<div class="row row-eq-height"> 
+<div class="row row-eq-height">
   <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('email.dummy', [], false) }}">
     <div class="box box-solid">
@@ -311,5 +311,5 @@
     </div>
     </a>
   </div>
- 
-</div>  
+
+</div>
