@@ -216,16 +216,16 @@ class ShiftGroupController extends Controller
           ]);
         }
 
-        $planner = '';
+        $plannername = '';
         if(isset($tsg->planner_id) && $tsg->planner_id != 0){
-          $planner = $tsg->Planner;
+          $plannername = $tsg->Planner->name;
         }
 
         return view('shiftplan.mygroup', [
           'p_list' => $dups,
           'sgid' => $req->sgid,        
           'grp' => $tsg,
-          'planner' => $planner
+          'planner_name' => $plannername
         ]);
 
       }

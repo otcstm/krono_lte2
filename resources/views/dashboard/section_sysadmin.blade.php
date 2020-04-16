@@ -104,7 +104,7 @@
     </a>
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12 ">
-    <a href="{{ route('misc.home', [], false) }}">
+    <a href="{{ route('wd.index', [], false) }}">
     <div class="box box-solid">
     <div class="box-body">
     <div class="media">
