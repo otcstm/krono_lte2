@@ -745,7 +745,7 @@ class OtReport2Controller extends Controller
       foreach($otr as $value){
 
         $urekod = $value->URecord;
-          if($urekod->ot_salary_exception=='X'){
+          if($value->sal_exception=='X'){
             // $value->ot_hour_exception='Yes';
             $sal_exception='Yes';
             $salarycap='';
@@ -926,7 +926,7 @@ class OtReport2Controller extends Controller
 
         $urekod = $value->mainOT->URecord;
         $mainOT = $value->mainOT;
-        if($urekod->ot_salary_exception=='X'){
+        if($mainOT->sal_exception=='X'){
             // $mainOT->ot_hour_exception='Yes';
             $sal_exception='Yes';
             $salarycap='';
