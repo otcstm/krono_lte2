@@ -14,7 +14,7 @@ class AddOprToLeave extends Migration
     public function up()
     {
         Schema::table('leaves', function (Blueprint $table) {
-            $table->string('opr',20)->nullable();
+            $table->string('opr',20)->nullable()->after('doc_id');
 
             $table->index('upd_sap');
             $table->unique(['user_id', 'start_date', 'end_date','leave_type', 'doc_id'], 
