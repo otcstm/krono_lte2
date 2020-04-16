@@ -5,15 +5,15 @@
 @section('content')
 
 <h1>System Admin Report Mainpage</h1>
-div class="row row-eq-height"> 
+<div class="row row-eq-height"> 
 
     <div class="col-md-3 col-sm-6 col-xs-12 ">
       <a href="{{ route('rep.viewOTd', [], false) }}">
-      <div class="box box-solid">
+      <div class="box box-warning box-solid">
       <div class="box-body">
       <div class="media">
         <div class="media-left">
-          <img src="vendor/ot-assets/usradm_reports.png" class="media-object" style="width:50px">
+          <img src="vendor/ot-assets/sysadm_reports.png" class="media-object" style="width:50px">
         </div>
         <div class="media-body">
           <h4 class="media-heading">Overtime Details</h4>
@@ -30,11 +30,11 @@ div class="row row-eq-height">
 
     <div class="col-md-3 col-sm-6 col-xs-12 ">
         <a href="{{ route('rep.viewStEd', [], false) }}">
-        <div class="box box-solid">
+        <div class="box box-warning box-solid">
         <div class="box-body">
         <div class="media">
           <div class="media-left">
-            <img src="vendor/ot-assets/usradm_reports.png" class="media-object" style="width:50px">
+            <img src="vendor/ot-assets/sysadm_reports.png" class="media-object" style="width:50px">
           </div>
           <div class="media-body">
             <h4 class="media-heading">Start/End OT Time</h4>
@@ -51,11 +51,11 @@ div class="row row-eq-height">
 
       <div class="col-md-3 col-sm-6 col-xs-12 ">
         <a href="{{ route('rep.viewOT', [], false) }}">
-        <div class="box box-solid">
+        <div class="box box-warning box-solid">
         <div class="box-body">
         <div class="media">
           <div class="media-left">
-            <img src="vendor/ot-assets/usradm_reports.png" class="media-object" style="width:50px">
+            <img src="vendor/ot-assets/sysadm_reports.png" class="media-object" style="width:50px">
           </div>
           <div class="media-body">
             <h4 class="media-heading">Summary Overtime</h4>
@@ -72,11 +72,11 @@ div class="row row-eq-height">
 
       <div class="col-md-3 col-sm-6 col-xs-12 ">
         <a href="{{ route('rep.viewOTLog', [], false) }}">
-        <div class="box box-solid">
+        <div class="box box-warning box-solid">
         <div class="box-body">
         <div class="media">
           <div class="media-left">
-            <img src="vendor/ot-assets/usradm_reports.png" class="media-object" style="width:50px">
+            <img src="vendor/ot-assets/sysadm_reports.png" class="media-object" style="width:50px">
           </div>
           <div class="media-body">
             <h4 class="media-heading">OT Log Changes</h4>
