@@ -205,15 +205,56 @@ class ShiftGroupController extends Controller
   public function mygroup(Request $req){
     $dups = ShiftGroup::where('manager_id', $req->user()->id)->get();
 
-    return view('shiftplan.mygroup', [
-      'p_list' => $dups
-    ]);
+    if($req->filled('sgid')){
+      $tsg = ShiftGroup::find($req->sgid);
+
+      if($tsg){
+        if($tsg->manager_id != $req->user()->id){
+          return redirect(route('shift.mygroup'))->with([
+            'alert' => 'You are not the owner of that group',
+            'a_type' => 'warning'
+          ]);
+        }
+
+        $planner = '';
+        if(isset($tsg->planner_id) && $tsg->planner_id != 0){
+          $planner = $tsg->Planner;
+        }
+
+        return view('shiftplan.mygroup', [
+          'p_list' => $dups,
+          'sgid' => $req->sgid,        
+          'grp' => $tsg,
+          'planner' => $planner
+        ]);
+
+      }
+      else {
+        // group 404
+        return redirect(route('shift.mygroup'))->with([
+          'alert' => 'Shift group not found',
+          'a_type' => 'warning'
+        ]);
+        }
+
+
+    }
+    else{
+      return view('shiftplan.mygroup', [
+        'p_list' => $dups
+      ]);
+    }    
+
   }
 
   public function mygroupdetail(Request $req){
 
     // skip if no shift group id
     if($req->filled('sgid')){
+      // return redirect(route('shift.mygroup'))
+      // ->with([
+      //   'sgid' => $req->sgid
+      // ]);
     } else {
       return redirect(route('shift.mygroup'));
     }
@@ -236,12 +277,24 @@ class ShiftGroupController extends Controller
       }
 
 
+      $ingrp = ShiftGroupMember::all();
+      $ingrp_list = [];
+      foreach ($ingrp as $row) {
+        array_push($ingrp_list, $row->User->id);
+      }
+      $outgrp = User::where('reptto', $req->user()->id)
+      ->whereNotIn('persno',$ingrp_list)
+      ->get();
 
       return view('shiftplan.mygrpdetail', [
+        //'p_list' => $dups,
+        'sgid' => $req->sgid,        
         'grp' => $tsg,
-        'planner' => $plannername
-      ]);
+        'planner' => $plannername,
+        'ingrp' => $ingrp,
+        'outgrp' => $outgrp,
 
+      ]);
 
     } else {
       // group 404
@@ -263,7 +316,12 @@ class ShiftGroupController extends Controller
 
     if($req->filled('planner_id')){
     } else {
-      return redirect(route('shift.mygroup'));
+      return redirect(route('shift.mygroup', ['sgid' => $req->sgid], false))
+      ->with([        
+        'alert' => 'Please select planner to proceed',
+        'a_type' => 'warning'  
+      ]
+      );
     }
 
     $tsg = ShiftGroup::find($req->sgid);
@@ -279,6 +337,11 @@ class ShiftGroupController extends Controller
 
       $tsg->planner_id = $req->planner_id;
       $tsg->save();
+
+      $plannername = '';
+      if(isset($tsg->planner_id) && $tsg->planner_id != 0){
+        $plannername = $tsg->Planner->name;
+      }
 
       return redirect(route('shift.mygroup.view', ['sgid' => $tsg->id]))
         ->with([
@@ -317,7 +380,7 @@ class ShiftGroupController extends Controller
       $tsg->planner_id = null;
       $tsg->save();
 
-      return redirect(route('shift.mygroup.view', ['sgid' => $tsg->id]))
+      return redirect(route('shift.mygroup', ['sgid' => $tsg->id]))
         ->with([
           'alert' => 'Planner removed',
           'a_type' => 'info'
