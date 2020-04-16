@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\Controller;
 use App\Leave;
 use DateTime;
+use \Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
@@ -20,14 +21,17 @@ class LeaveController extends Controller
 
     public function insert(Request $req)
     {
-        $startDate = DateTime::createFromFormat('Ymd H:i:s', $req->start_date .' 00:00:00');
-        $endDate = DateTime::createFromFormat('Ymd H:i:s', $req->end_date .' 00:00:00');
-        $upd_sap = DateTime::createFromFormat('Ymd H:i:s', $req->change_on .' 00:00:00');
-        $exPrList = Leave::where('user_id', $req->persno)
+        $startDate = DateTime::createFromFormat('Ymd H:i:s', $req->start_date . ' 00:00:00');
+        $endDate = DateTime::createFromFormat('Ymd H:i:s', $req->end_date . ' 00:00:00');
+        $upd_sap = DateTime::createFromFormat('Ymd H:i:s', $req->change_on . ' 00:00:00');
+        $exLeaveList = Leave::where('user_id', $req->pers_no)
             ->where('start_date', $startDate)
-            ->where('leave_type',$req->leave_type)
-            ->where('doc_id',$req->doc_id)
-            ->delete();
+            ->where('end_date', $endDate)
+            ->where('leave_type', $req->leave_type)
+            ->where('doc_id', $req->doc_id)->delete();
+
+
+       
 
         $l = new Leave;
         $l->user_id       = $req->pers_no;
@@ -35,10 +39,11 @@ class LeaveController extends Controller
         $l->start_date    = $startDate;
         $l->end_date      = $endDate;
         $l->leave_type = $req->leave_type;
-        $l->leave_descr = $req->leave_descr;
+        $l->leave_descr     = $req->leave_descr;
         $l->leave_status = $req->leave_status;
-        $l->version_no = $req->version_no;
-        $l->doc_id = $req->doc_id;
+        $l->version_no  = $req->version_no;
+        $l->doc_id      = $req->doc_id;
+        $l->opr         = $req->operation;
         $l->save();
         $collection = ["user_id" => $l->user_id, "start_date" => $l->start_date];
         return $collection;
