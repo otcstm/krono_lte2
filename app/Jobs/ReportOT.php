@@ -354,7 +354,7 @@ class ReportOT implements ShouldQueue
                 }
                 if(in_array( 'salexp',$sltcol))
                 {
-                  if($urekod->ot_salary_exception=='X'){
+                  if($value->sal_exception=='X'){
                     // $value->ot_hour_exception='Yes';
                     $sal_exception='Yes';
                     // $salarycap='';
@@ -367,7 +367,7 @@ class ReportOT implements ShouldQueue
                 }
                 if(in_array( 'capsal',$sltcol))
                 {
-                  if($urekod->ot_salary_exception=='X'){
+                  if($value->sal_exception=='X'){
                     // $value->ot_hour_exception='Yes';
                     // $sal_exception='Yes';
                     $salarycap='';
@@ -543,7 +543,7 @@ class ReportOT implements ShouldQueue
                   }
                   if(in_array( 'salexp',$sltcol))
                   {
-                    if($urekod->ot_salary_exception=='X'){
+                    if($mainOT->sal_exception=='X'){
                       // $mainOT->ot_hour_exception='Yes';
                       $sal_exception='Yes';
                       // $salarycap='';
@@ -556,7 +556,7 @@ class ReportOT implements ShouldQueue
                   }
                   if(in_array( 'capsal',$sltcol))
                   {
-                    if($urekod->ot_salary_exception=='X'){
+                    if($mainOT->sal_exception=='X'){
                       // $mainOT->ot_hour_exception='Yes';
                       // $sal_exception='Yes';
                       $salarycap='';
