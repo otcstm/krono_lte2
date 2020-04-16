@@ -23,6 +23,18 @@ use App\Jobs\ReportOTLC;
 
 class OtSaRepController extends Controller
 {
+
+  public function main(Request $req)//OT Summary
+  {
+    return view('report.sysadmMain');
+
+    // this if want user alias route name
+    // return redirect(route('rep.sa.main', [], false))->with([
+    //   'alert' => 'Welcome to System Admin Report Mainpage',
+    //   'a_type' => 'info'
+    // ]);
+  }
+
   public function viewOT(Request $req)//OT Summary
   {
     // dd($req->searching);

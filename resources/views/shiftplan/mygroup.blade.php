@@ -69,7 +69,7 @@
             <label for="planner_name">Shift Planner Name</label>
             <div class="row">
               <div class="col-xs-10">
-                <input type="text" id="planner_name" name="planner_name" class="form-control" placeholder="Find staff here to assign" value="{{ $planner->name }}">
+                <input type="text" id="planner_name" name="planner_name" class="form-control" placeholder="Find staff here to assign" value="{{ $planner_name }}">
               </div>
               <div class="col-xs-2">
                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#sfresult" title="Assign planner"><i class="fas fa-search"></i></button>
@@ -85,7 +85,7 @@
         <div class="col-sm-12">
           <div class="form-group has-feedback {{ $errors->has('planner_name') ? 'has-error' : '' }}">
             <label for="fPlannerId">Shift Planner ID</label>
-            <input id="fPlannerId" type="text" name="planner_id" class="form-control" value="{{ $planner->id }}"
+            <input id="fPlannerId" type="text" name="planner_id" class="form-control" value="{{ $grp->planner_id }}"
                    placeholder="Search planner name to populate" required readonly>
             @if ($errors->has('planner_id'))
                 <span class="help-block">
