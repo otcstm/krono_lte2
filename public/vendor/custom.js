@@ -14,6 +14,9 @@ var swtime;
 var enddate;
 var canstart = false;
 var check = new Date(); 
+var wtm;
+var wtms;
+
 $.ajax({
     url: '/punch/check',
     type: "GET",
@@ -43,8 +46,10 @@ $.ajax({
             }
             timere=chd+":"+cmd+":"+csd;
             var stime = resp.stime;
+            
+            wtms = Date.parse(check).toString("yyyy-MM-dd HH:mm");
             $.ajax({
-                url: '/punch/checkworktime?time='+check,
+                url: '/punch/checkworktime?time='+wtms,
                 type: "GET",
                 success: function(resp) {
                     enddate = (Date.parse(check).addDays(resp.addday).toString("dd.MM.yyyy"));
@@ -249,17 +254,19 @@ function showError2(error) {
 // }
 function punchman(){
     // alert(now);
+    wtm = Date.parse(now).toString("yyyy-MM-dd HH:mm");
     $.ajax({
         url: '/punch/start?time='+startclock+'&lat='+lat+'=&long='+long,
         type: "GET",
         success: function(resp) {
             $.ajax({
-                url: '/punch/checkworktime?time='+now,
+                url: '/punch/checkworktime?time='+wtm,
                 type: "GET",
                 success: function(resp) {
                     // alert(resp.addday);
                     // alert(resp.test1);
                     // alert(resp.test2);
+                    // alert(resp.test3);
                     dayadd = now;
                     // alert(now);
                     enddate = (Date.parse(dayadd).addDays(resp.addday).toString("dd.MM.yyyy"));
@@ -501,8 +508,7 @@ function timer(psecond, pminute, phour, dsecond, dminute, dhour, now, swtime){
         ctimes = ctime.split(":");
         // Date.parse(now).addDays(1)
         // alert(enddate);
-        
-        console.log(parseInt(ctimes[0]*60)+parseInt(ctimes[1])+" >= "+(parseInt(swtimes[0]*60)+parseInt(swtimes[1])));
+        // console.log(cnow+" "+enddate+" "+parseInt(ctimes[0]*60)+parseInt(ctimes[1])+" >= "+(parseInt(swtimes[0]*60)+parseInt(swtimes[1])));
         if(Date.parse(cnow).toString("dd.MM.yyyy")==enddate){
             if(parseInt(ctimes[0]*60)+parseInt(ctimes[1])>=(parseInt(swtimes[0]*60)+parseInt(swtimes[1]))){
                 endclock = Date.parse(cnow).toString("yyyy-MM-dd")+" "+swtime+":00";
