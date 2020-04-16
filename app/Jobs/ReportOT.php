@@ -273,6 +273,7 @@ class ReportOT implements ShouldQueue
          set_time_limit(0);
 
          $otr = Overtime::query();
+         $otr = $otr->whereNotNull('company_id')->where('company_id','!=','');
          if(isset($this->start_date)){
            // dd('here',$this->start_date);
              $otr = $otr->whereBetween('date', array($this->start_date, $this->end_date));
