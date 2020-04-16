@@ -115,7 +115,7 @@
         <td>{{ $otr->URecord->empsgroup }}</td>
         @elseif( $col == 'salexp')
         <td>
-          @if( $otr->URecord->ot_salary_exception == 'X')
+          @if( $otr->sal_exception == 'X')
           Yes
           @else
           No
@@ -123,7 +123,7 @@
         </td>
         @elseif( $col == 'capsal')
         <td>
-        @if( $otr->URecord->ot_salary_exception == 'X')
+          @if( $otr->sal_exception == 'X')
         @else
         {{ $otr->SalCap()->salary_cap }}
         @endif
