@@ -375,6 +375,7 @@ class OvertimeController extends Controller{
                 //     }
                 // }
                 // $verify = User::where('id', $req->user()->id)->first();
+                $verify = null;
                 if($gm){
                     $gmid = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($claimdate)));
                     $approve = User::where('id', $gmid)->first();
@@ -393,10 +394,11 @@ class OvertimeController extends Controller{
                     }
                     $date_expiry = date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d', strtotime("+3 months", strtotime($req->inputdate))))));
                 }
-                if($verify!=""){
-                    $verifyn = $vg->name->name;
-                }else{
-                    $verifyn = "N/A";
+                $verifyn = "N/A";
+                if($verify){
+                    if($verify!=""){
+                        $verifyn = $vg->name->name;
+                    }
                 }
                 $state = UserRecord::where('user_id',$req->user()->persno)->where('upd_sap','<=',$claimdate)->first();
                 $draft = array("OT".date("Ymd", strtotime($claimdate))."-".sprintf("%08d", $req->user()->id), $date_expiry, date("Y-m-d H:i:s"), $claimtime, $req->inputdate, $req->user()->name, $state->state_id, $state->statet->state_descr, $day_type, $verifyn, $approve->name, $staffr->costcentr);
@@ -689,6 +691,7 @@ class OvertimeController extends Controller{
         if(in_array($req->chargetype, $array = array("Project", "Internal Order", "Maintenance Order", "Other Cost Center"))){
             if(in_array($req->chargetype, $array = array("Internal Order", "Maintenance Order"))){
                 $updateclaim->order_no = $req->orderno;
+                $updateclaim->company_id = null;
                 if($req->orderno!=null){
                     if($req->chargetype == "Internal Order"){
                         $data=InternalOrder::where('id', $req->orderno)->first();
@@ -762,6 +765,7 @@ class OvertimeController extends Controller{
                                     $updateclaim->verifier_id =  $vg->verifier_id;
                                 }
                             }
+                            $updateclaim->company_id = $data->company_code;
                         }
                     }
                 }
