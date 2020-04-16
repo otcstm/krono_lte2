@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\Controller;
 use App\Leave;
 use DateTime;
+use \Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
@@ -23,11 +24,14 @@ class LeaveController extends Controller
         $startDate = DateTime::createFromFormat('Ymd H:i:s', $req->start_date . ' 00:00:00');
         $endDate = DateTime::createFromFormat('Ymd H:i:s', $req->end_date . ' 00:00:00');
         $upd_sap = DateTime::createFromFormat('Ymd H:i:s', $req->change_on . ' 00:00:00');
-        $exPrList = Leave::where('user_id', $req->persno)
+        $exLeaveList = Leave::where('user_id', $req->pers_no)
             ->where('start_date', $startDate)
+            ->where('end_date', $endDate)
             ->where('leave_type', $req->leave_type)
-            ->where('doc_id', $req->doc_id)
-            ->delete();
+            ->where('doc_id', $req->doc_id)->delete();
+
+
+       
 
         $l = new Leave;
         $l->user_id       = $req->pers_no;

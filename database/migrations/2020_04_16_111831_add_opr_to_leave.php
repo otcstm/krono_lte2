@@ -17,7 +17,7 @@ class AddOprToLeave extends Migration
             $table->string('opr',20)->nullable();
 
             $table->index('upd_sap');
-            $table->unique(['user_id', 'start_date', 'end_date', 'doc_id'], 
+            $table->unique(['user_id', 'start_date', 'end_date','leave_type', 'doc_id'], 
   'leaves_idx_1');
             //
         });
