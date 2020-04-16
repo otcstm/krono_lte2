@@ -308,7 +308,8 @@ class OvertimeController extends Controller{
                 $draftclaim->region =  $reg->region;
                 $draftclaim->charge_type =  "Own Cost Center";
                 $draftclaim->costcenter =  $staffr->costcentr;
-                $draftclaim->wage_type =  $wage->legacy_codes; //temp
+                $draftclaim->wage_type =  null; //temp
+                // $draftclaim->wage_type =  $wage->legacy_codes; //temp
                 $userrecid = URHelper::getUserRecordByDate($req->user()->persno, date('Y-m-d', strtotime($claimdate)));
                 $draftclaim->user_records_id =  $userrecid->id;
                 $draftclaim->save();
