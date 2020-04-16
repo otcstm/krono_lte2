@@ -19,6 +19,17 @@ use App\ExcelHandler;
 
 class OtReport2Controller extends Controller
 {
+  public function main(Request $req)//OT Summary
+  {
+    return view('report.otMain');
+
+    // this if want user alias route name
+    // return redirect(route('rep.main', [], false))->with([
+    //   'alert' => 'Welcome to User Report Mainpage',
+    //   'a_type' => 'info'
+    // ]);
+  }
+
   public function viewOT(Request $req)//OT Summary
   {
     set_time_limit(0);

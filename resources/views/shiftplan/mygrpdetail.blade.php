@@ -81,7 +81,7 @@
            <td>
              <form method="post" action="{{ route('shift.staff.add', [], false) }}" onsubmit='return confirm("Confirm add?")'>
                @csrf
-               <button type="submit" class="btn btn-np" title="Delete"><i class="fas fa-trash-alt"></i></button>
+               <button type="submit" class="btn btn-np" title="Add"><i class="fas fa-plus"></i></button>
                <input type="hidden" name="id" value="{{ $ap->id }}" />
              </form>
            </td>
