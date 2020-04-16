@@ -21,7 +21,7 @@
     </a>
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12 ">
-    <a href="{{ route('shift.planner', [], false) }}">
+    <a href="{{ route('shift.mygroup', [], false) }}">
     <div class="box box-solid">
     <div class="box-body">
     <div class="media">

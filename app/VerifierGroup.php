@@ -18,4 +18,9 @@ class VerifierGroup extends Model
     public function Verifier(){
       return $this->belongsTo(User::class, 'verifier_id');
     }
+
+    public function name()
+    {
+        return $this->belongsTo(User::class, 'verifier_id');
+    }
 }

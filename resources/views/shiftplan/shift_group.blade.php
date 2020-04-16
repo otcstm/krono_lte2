@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Shift Groups')
+@section('title', 'Create Group Owner')
 
 @section('content')
 <h1>Create Group Owner</h1>

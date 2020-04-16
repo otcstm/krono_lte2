@@ -3,15 +3,107 @@
 @section('title', 'Shift Groups')
 
 @section('content')
-<div class="panel panel-default">
-  <div class="panel-heading">Shift Group {{ $grp->group_name }}</div>
+<h1>Shift Grouping</h1>
+<div class="panel panel-default"> 
   <div class="panel-body">
+    
     @if (session()->has('alert'))
     <div class="alert alert-{{ session()->get('a_type') }} alert-dismissible">
       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
       <strong>{{ session()->get('alert') }}</strong>
     </div>
     @endif
+<h4>Group Members</h4>
+    <div class="table-responsive">
+      <table id="memlist" class="table table-hover table-bordered">
+       <thead>
+         <tr>
+           <th>Staff No</th>
+           <th>Name</th>
+           <th>Action</th>
+         </tr>
+       </thead>
+       <tbody>
+         @foreach($ingrp as $ap)
+         <tr>
+           <td>{{ $ap->User->staff_no }}</td>
+           <td>{{ $ap->User->name }}</td>
+           <td>
+             <form method="post" action="{{ route('shift.staff.del', [], false) }}" onsubmit='return confirm("Confirm remove?")'>
+               @csrf
+               <button type="submit" class="btn btn-np" title="Delete"><i class="fas fa-trash-alt"></i></button>
+               <input type="hidden" name="id" value="{{ $ap->id }}" />
+             </form>
+           </td>
+         </tr>
+         @endforeach
+       </tbody>
+     </table>
+    </div>
+
+{{-- <div class="panel panel-default">
+  <div class="panel-heading">Add member to group {{ $grp->group_name }}</div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group has-feedback {{ $errors->has('owner_name') ? 'has-error' : '' }}">
+          <label for="gmember_name">Find staff to add</label>
+          <div class="row">
+            <div class="col-xs-10">
+              <input type="text" id="gmember_name" name="gmember_name" class="form-control" placeholder="Find staff here to add to group">
+            </div>
+            <div class="col-xs-2">
+              <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#sgresult"><i class="fas fa-search"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> --}}
+<Br />
+<h4>Shift Subordinate Without Group</h4>
+
+    <div class="table-responsive">
+      <table id="nonmemlist" class="table table-hover table-bordered">
+       <thead>
+         <tr>
+           <th>Staff No</th>
+           <th>Name</th>
+           <th>Action</th>
+         </tr>
+       </thead>
+       <tbody>
+         @foreach($outgrp as $ap)
+         <tr>
+           <td>{{ $ap->staff_no }}</td>
+           <td>{{ $ap->name }}</td>
+           <td>
+             <form method="post" action="{{ route('shift.staff.add', [], false) }}" onsubmit='return confirm("Confirm add?")'>
+               @csrf
+               <button type="submit" class="btn btn-np" title="Delete"><i class="fas fa-trash-alt"></i></button>
+               <input type="hidden" name="id" value="{{ $ap->id }}" />
+             </form>
+           </td>
+         </tr>
+         @endforeach
+       </tbody>
+     </table>
+    </div>
+
+    
+<hr />
+<div class="pull-right">
+<a href="{{ URL::previous() }}" class="btn btn-p btn-primary btn-outline">Cancel</a>
+<a href="{{ route('shift.mygroup', [], false) }}" class="btn btn-p btn-primary">Create</a>
+</div>
+  </div>
+</div>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">Shift Group {{ $grp->group_name }}</div>
+  <div class="panel-body">
     <form action="{{ route('shift.mygroup.delplanner', [], false) }}" method="post">
       @csrf
       <input type="hidden" name="sgid" value="{{ $grp->id }}" />
@@ -35,76 +127,25 @@
             <label for="planner_name">Assigned Planner</label>
             <div class="row">
               <div class="col-xs-10">
-                <input type="text" id="planner_name" name="planner_name" class="form-control" placeholder="Find staff here to assign" value="{{ $planner }}">
+                <input type="text" id="planner_name" name="planner_name" class="form-control" readonly value="{{ $planner }}">
               </div>
-              <div class="col-xs-2">
+              {{-- <div class="col-xs-2">
                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#sfresult" title="Assign planner"><i class="fas fa-search"></i></button>
                 @if($planner != '')
                 <button class="btn btn-warning" type="submit" title="Remove planner" ><i class="fas fa-trash"></i></button>
                 @endif
-              </div>
+              </div> --}}
             </div>
 
           </div>
         </div>
       </div>
-    </form>
+    </form>   
+    
   </div>
 </div>
 
-<div class="panel panel-default">
-  <div class="panel-heading">Add member to group {{ $grp->group_name }}</div>
-  <div class="panel-body">
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="form-group has-feedback {{ $errors->has('owner_name') ? 'has-error' : '' }}">
-          <label for="gmember_name">Find staff to add</label>
-          <div class="row">
-            <div class="col-xs-10">
-              <input type="text" id="gmember_name" name="gmember_name" class="form-control" placeholder="Find staff here to add to group">
-            </div>
-            <div class="col-xs-2">
-              <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#sgresult"><i class="fas fa-search"></i></button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div class="panel panel-default">
-  <div class="panel-heading">Shift Group Members</div>
-  <div class="panel-body">
-
-    <div class="table-responsive">
-      <table id="grplist" class="table table-hover table-bordered">
-       <thead>
-         <tr>
-           <th>Staff No</th>
-           <th>Name</th>
-           <th>Action</th>
-         </tr>
-       </thead>
-       <tbody>
-         @foreach($grp->Members as $ap)
-         <tr>
-           <td>{{ $ap->User->staff_no }}</td>
-           <td>{{ $ap->User->name }}</td>
-           <td>
-             <form method="post" action="{{ route('shift.staff.del', [], false) }}" onsubmit='return confirm("Confirm remove?")'>
-               @csrf
-               <button type="submit" class="btn btn-np" title="Delete"><i class="fas fa-trash-alt"></i></button>
-               <input type="hidden" name="id" value="{{ $ap->id }}" />
-             </form>
-           </td>
-         </tr>
-         @endforeach
-       </tbody>
-     </table>
-    </div>
-  </div>
-</div>
 
 <!-- modal untuk shift planner -->
 <div id="sfresult" class="modal fade" role="dialog">
@@ -198,7 +239,10 @@
 
 $(document).ready(function() {
 
-  $('#grplist').DataTable({
+  $('#memlist').DataTable({
+    "responsive": "true"
+  }); 
+  $('#nonmemlist').DataTable({
     "responsive": "true"
   });
 

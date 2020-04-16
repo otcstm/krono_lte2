@@ -157,7 +157,7 @@ return [
               'url' => '/admin/state/show',
               'icon' => '',
             //   'icon' => 'fas fa-map-marked-alt',
-              'can' => '2-cfg-state',
+              // 'can' => '2-cfg-state',
           ],
           [
               'text' => 'manage_holiday',
@@ -390,10 +390,10 @@ return [
                 'can' => '5-shift-group',
             ],
             [
-                'text' => 'shift_planner',
-                'url'  => '/shift_plan/planner',
+                'text' => 'my_shift_grp',
+                'route'  => 'shift.mygroup',
                 'icon' => '',
-                'can' => '5-shift-planner',
+                'can' => '5-shift-plan',
             ],
             [
                 'text' => 'shift_plan',
@@ -402,16 +402,16 @@ return [
                 'can' => '5-shift-plan',
             ],
             [
-                'text' => 'user_shift_sc',
-                'route'  => 'staff.worksched',
+                'text' => 'shift_approval',
+                'url'  => '/workschedule?page=reqs',
                 'icon' => '',
                 'can' => '5-shift-calendar',
             ],
             [
-                'text' => 'my_shift_grp',
-                'route'  => 'shift.mygroup',
+                'text' => 'shift_workteam',
+                'url'  => '/workschedule?page=teamc',
                 'icon' => '',
-                'can' => '5-shift-plan',
+                'can' => '5-shift-calendar',
             ],
           ]
         ],
