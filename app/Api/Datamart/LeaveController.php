@@ -20,13 +20,13 @@ class LeaveController extends Controller
 
     public function insert(Request $req)
     {
-        $startDate = DateTime::createFromFormat('Ymd H:i:s', $req->start_date .' 00:00:00');
-        $endDate = DateTime::createFromFormat('Ymd H:i:s', $req->end_date .' 00:00:00');
-        $upd_sap = DateTime::createFromFormat('Ymd H:i:s', $req->change_on .' 00:00:00');
+        $startDate = DateTime::createFromFormat('Ymd H:i:s', $req->start_date . ' 00:00:00');
+        $endDate = DateTime::createFromFormat('Ymd H:i:s', $req->end_date . ' 00:00:00');
+        $upd_sap = DateTime::createFromFormat('Ymd H:i:s', $req->change_on . ' 00:00:00');
         $exPrList = Leave::where('user_id', $req->persno)
             ->where('start_date', $startDate)
-            ->where('leave_type',$req->leave_type)
-            ->where('doc_id',$req->doc_id)
+            ->where('leave_type', $req->leave_type)
+            ->where('doc_id', $req->doc_id)
             ->delete();
 
         $l = new Leave;
@@ -35,10 +35,11 @@ class LeaveController extends Controller
         $l->start_date    = $startDate;
         $l->end_date      = $endDate;
         $l->leave_type = $req->leave_type;
-        $l->leave_descr = $req->leave_descr;
+        $l->leave_descr     = $req->leave_descr;
         $l->leave_status = $req->leave_status;
-        $l->version_no = $req->version_no;
-        $l->doc_id = $req->doc_id;
+        $l->version_no  = $req->version_no;
+        $l->doc_id      = $req->doc_id;
+        $l->opr         = $req->operation;
         $l->save();
         $collection = ["user_id" => $l->user_id, "start_date" => $l->start_date];
         return $collection;
