@@ -11,8 +11,13 @@ class NotiMenuController extends Controller
     if($req->filled('nid')){
 
       $nitody = $req->user()->notifications->where('id', $req->nid)->first();
-      $nitody->markAsRead();
-      return redirect(AlertHelper::getUrl($nitody));
+      if($nitody){
+        $nitody->markAsRead();
+        return redirect(AlertHelper::getUrl($nitody));
+      }
+
+      // not found. maybe belong to other user / not currently logged in user
+      return redirect(route('home'));
 
     } else {
       // no type. just redirect to home page

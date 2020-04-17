@@ -14,6 +14,9 @@ var swtime;
 var enddate;
 var canstart = false;
 var check = new Date(); 
+var wtm;
+var wtms;
+
 $.ajax({
     url: '/punch/check',
     type: "GET",
@@ -43,8 +46,10 @@ $.ajax({
             }
             timere=chd+":"+cmd+":"+csd;
             var stime = resp.stime;
+            
+            wtms = Date.parse(check).toString("yyyy-MM-dd HH:mm");
             $.ajax({
-                url: '/punch/checkworktime?time='+check,
+                url: '/punch/checkworktime?time='+wtms,
                 type: "GET",
                 success: function(resp) {
                     enddate = (Date.parse(check).addDays(resp.addday).toString("dd.MM.yyyy"));
@@ -249,17 +254,19 @@ function showError2(error) {
 // }
 function punchman(){
     // alert(now);
+    wtm = Date.parse(now).toString("yyyy-MM-dd HH:mm");
     $.ajax({
         url: '/punch/start?time='+startclock+'&lat='+lat+'=&long='+long,
         type: "GET",
         success: function(resp) {
             $.ajax({
-                url: '/punch/checkworktime?time='+now,
+                url: '/punch/checkworktime?time='+wtm,
                 type: "GET",
                 success: function(resp) {
                     // alert(resp.addday);
                     // alert(resp.test1);
                     // alert(resp.test2);
+                    // alert(resp.test3);
                     dayadd = now;
                     // alert(now);
                     enddate = (Date.parse(dayadd).addDays(resp.addday).toString("dd.MM.yyyy"));
@@ -411,7 +418,7 @@ function endpunch(){
     // alert(eetime+"-"+sstime+"="+(parseInt(eetime)-parseInt(sstime)));
     
     if(displayonce){
-        if((parseInt(eetime)-parseInt(sstime))>0){
+        if(((parseInt(eetime)-parseInt(sstime))>0)||(parseInt(eetime)-parseInt(sstime))<0){
             $.ajax({
                 url: '/punch/end?stime='+startclockt+'&etime='+endclock+'&lat='+lat+'&long='+long+'&lat2='+lat2+'&long2='+long2,
                 type: "GET", 
@@ -489,20 +496,20 @@ function timer(psecond, pminute, phour, dsecond, dminute, dhour, now, swtime){
         if(psecond < 10){
             pseconds = "0"+pseconds;
         }
-        if((((dhour*60*60)+(dminute*60)+dsecond)+((phour*60*60)+(pminute*60)+psecond))==86400){
-            $("#timerd").text(Date.parse(now).addDays(1).toString("dd.MM.yyyy"));
-        }
+        // if((((dhour*60*60)+(dminute*60)+dsecond)+((phour*60*60)+(pminute*60)+psecond))==86400){
+        //     $("#timerd").text(Date.parse(now).addDays(1).toString("dd.MM.yyyy"));
+        // }
         // if minutes
         $("#timerh").text(phours+":"+pminutes+":"+pseconds);
         timere = phours+":"+pminutes+":"+pseconds;
         var cnow = new Date();
+        $("#timerd").text(Date.parse(cnow).toString("dd.MM.yyyy"));
         swtimes = swtime.split(":");
         ctime = Date.parse(cnow).toString("HH:mm");
         ctimes = ctime.split(":");
         // Date.parse(now).addDays(1)
         // alert(enddate);
-        
-        console.log(parseInt(ctimes[0]*60)+parseInt(ctimes[1])+" >= "+(parseInt(swtimes[0]*60)+parseInt(swtimes[1])));
+        // console.log(cnow+" "+enddate+" "+parseInt(ctimes[0]*60)+parseInt(ctimes[1])+" >= "+(parseInt(swtimes[0]*60)+parseInt(swtimes[1])));
         if(Date.parse(cnow).toString("dd.MM.yyyy")==enddate){
             if(parseInt(ctimes[0]*60)+parseInt(ctimes[1])>=(parseInt(swtimes[0]*60)+parseInt(swtimes[1]))){
                 endclock = Date.parse(cnow).toString("yyyy-MM-dd")+" "+swtime+":00";
