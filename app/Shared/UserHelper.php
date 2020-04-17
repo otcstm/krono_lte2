@@ -430,6 +430,18 @@ class UserHelper {
       return $pay;
     }
 
+    public static function CheckLeave($user, $date)
+    {
+      $leave = Leave::where('user_id', $user)->whereDate('start_date','<=',$date)->whereDate('end_date','>=',$date)->where('leave_status', 'POSTED')->get();
+      if($leave){
+        foreach($leave as $leaves){
+          $opr =  $leaves->opr;
+        }
+        return $opr;
+      }
+      return null;
+    }
+
     // temp=====================================================
     public static function CheckDay($user, $date)
     {
@@ -464,31 +476,18 @@ class UserHelper {
         $dy = DayType::where('description', 'Public Holiday')->first();
         $idday = $dy->id;
       }else{
-        $leave = null;
-        $leaveposted = Leave::where('user_id', $user)->whereDate('start_date','<=',$date)->whereDate('end_date','>=',$date)->where('leave_status', 'POSTED')->first();
-        if($leaveposted){
-          $leave = Leave::where('user_id', $user)->whereDate('start_date','<=',$date)->whereDate('end_date','>=',$date)->where('leave_status', 'APPROVED')->first();
-        }
-        if($leave){
-            $start = "00:00";
-            $end =  "00:00";
-            $day_type = "Rest Day";
-            $dy = DayType::where('description', 'Rest Day')->first();
-            $idday = $dy->id;
-        }else{
-          if($theday->is_work_day == true){
-            $day_type = 'Normal Day';
-            $stime = new Carbon($theday->start_time);
-            $etime = new Carbon($theday->start_time);
-            $etime->addMinutes($theday->total_minute);
+        if($theday->is_work_day == true){
+          $day_type = 'Normal Day';
+          $stime = new Carbon($theday->start_time);
+          $etime = new Carbon($theday->start_time);
+          $etime->addMinutes($theday->total_minute);
 
-            $start = $stime->format('H:i');
-            $end =  $etime->format('H:i');
-          } else {
-            $start = "00:00";
-            $end =  "00:00";
-            $day_type = $theday->description;
-          }
+          $start = $stime->format('H:i');
+          $end =  $etime->format('H:i');
+        } else {
+          $start = "00:00";
+          $end =  "00:00";
+          $day_type = $theday->description;
         }
       }
       $day_type_id = "";
