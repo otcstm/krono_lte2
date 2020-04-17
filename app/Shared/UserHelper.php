@@ -432,9 +432,12 @@ class UserHelper {
 
     public static function CheckLeave($user, $date)
     {
-      $leave = Leave::where('user_id', $user)->whereDate('start_date','<=',$date)->whereDate('end_date','>=',$date)->where('leave_status', 'POSTED')->first();
+      $leave = Leave::where('user_id', $user)->whereDate('start_date','<=',$date)->whereDate('end_date','>=',$date)->where('leave_status', 'POSTED')->get();
       if($leave){
-        return $leave->opr;
+        foreach($leave as $leaves){
+          $opr =  $leaves->opr;
+        }
+        return $opr;
       }
       return null;
     }

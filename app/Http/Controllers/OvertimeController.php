@@ -872,54 +872,68 @@ class OvertimeController extends Controller{
             ]);
         }
         if($req->formtype=="submit"){ //if submit
-
-            $month = OvertimeMonth::where('id', $claim->month_id)->first();
-            $totalsubmit = (($claim->total_hour*60)+$claim->total_minute)+(($month->total_hour*60)+$month->total_minute);
-            // if($req->user()->ot_hour_exception!="X"){
-            //     $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $claim->date)->where('end_date','>', $claim->date)->first();
-            $updatemonth = OvertimeMonth::find($month->id);
-            $updatemonth->total_hour = (int)($totalsubmit/60);
-            $updatemonth->total_minute = $totalsubmit%60;
-            $updatemonth->save();
-            $updateclaim = Overtime::find($claim->id);
-
-
-
-
-
-            // $updateclaim->approver_id = $req->user()->reptto;
-            $updateclaim->submitted_date = date("Y-m-d H:i:s");
-            // $updateclaim->verifier_id =  $req->user()->id; //temp
-            // $updateclaim->verifier_id =  "55323"; //temp
-            $execute = UserHelper::LogOT($claim->id, $req->user()->id, "Submitted", "Submitted ".$updateclaim->refno);
-            $expiry = OvertimeExpiry::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $claim->date)->where('end_date','>', $claim->date)->first();
-            if($updateclaim->verifier_id==null){
-                $updateclaim->status = 'PA';
-            }else{
-                $updateclaim->status = 'PV';
+            $cansubmit = true;
+            $leave = UserHelper::CheckLeave($req->user()->id, $claim->date);
+            if($leave){
+                if($leave == "INS"){
+                    $cansubmit = false;
+                }
             }
-            // if($expiry->status == "ACTIVE"){
-            //     if((($expiry->based_date == "Submit to Approver Date")&&($updateclaim->status == 'PA'))||(($expiry->based_date == "Submit to Verifier Date")&&($updateclaim->status == 'PV'))){
-            //         $draftclaim->date_expiry = date('Y-m-d', strtotime("+".$expiry->noofmonth." months"));
-            //     }
-            // }
+            if($cansubmit){
+                $month = OvertimeMonth::where('id', $claim->month_id)->first();
+                $totalsubmit = (($claim->total_hour*60)+$claim->total_minute)+(($month->total_hour*60)+$month->total_minute);
+                // if($req->user()->ot_hour_exception!="X"){
+                //     $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $claim->date)->where('end_date','>', $claim->date)->first();
+                $updatemonth = OvertimeMonth::find($month->id);
+                $updatemonth->total_hour = (int)($totalsubmit/60);
+                $updatemonth->total_minute = $totalsubmit%60;
+                $updatemonth->save();
+                $updateclaim = Overtime::find($claim->id);
 
-            $updateclaim->save();
-            $eligibility = OtIndicator::where('user_id', $req->user()->id)->where('upd_sap','<=',date('Y-m-d',strtotime($claim->date)))->first();
 
-            if($eligibility){
-                if($eligibility->ot_hour_exception=="Y"){
-                    $reg = Psubarea::where('state_id', $req->user()->state_id)->first();
-                    $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $claim->date)->where('end_date','>', $claim->date)->first();
-                    $month = OvertimeMonth::where('id', $claim->month_id)->first();
-                    $totalsubmit = (($claim->total_hour*60)+$claim->total_minute)+(($month->total_hour*60)+$month->total_minute);
-                    // if($req->user()->ot_hour_exception!="X"){
-                        if($totalsubmit>($eligiblehour->hourpermonth*60)){
-                        return redirect(route('ot.list',[],false))->with([
-                            'feedback' => true,
-                            'feedback_text' => "Warning! Your overtime claim has exceeded eligible claim hours of ".$eligiblehour->hourpermonth." hours.",
-                            'feedback_title' => "Successfully Submitted"
-                        ]);
+
+
+
+                // $updateclaim->approver_id = $req->user()->reptto;
+                $updateclaim->submitted_date = date("Y-m-d H:i:s");
+                // $updateclaim->verifier_id =  $req->user()->id; //temp
+                // $updateclaim->verifier_id =  "55323"; //temp
+                $execute = UserHelper::LogOT($claim->id, $req->user()->id, "Submitted", "Submitted ".$updateclaim->refno);
+                $expiry = OvertimeExpiry::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $claim->date)->where('end_date','>', $claim->date)->first();
+                if($updateclaim->verifier_id==null){
+                    $updateclaim->status = 'PA';
+                }else{
+                    $updateclaim->status = 'PV';
+                }
+                // if($expiry->status == "ACTIVE"){
+                //     if((($expiry->based_date == "Submit to Approver Date")&&($updateclaim->status == 'PA'))||(($expiry->based_date == "Submit to Verifier Date")&&($updateclaim->status == 'PV'))){
+                //         $draftclaim->date_expiry = date('Y-m-d', strtotime("+".$expiry->noofmonth." months"));
+                //     }
+                // }
+
+                $updateclaim->save();
+                $eligibility = OtIndicator::where('user_id', $req->user()->id)->where('upd_sap','<=',date('Y-m-d',strtotime($claim->date)))->first();
+
+                if($eligibility){
+                    if($eligibility->ot_hour_exception=="Y"){
+                        $reg = Psubarea::where('state_id', $req->user()->state_id)->first();
+                        $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $claim->date)->where('end_date','>', $claim->date)->first();
+                        $month = OvertimeMonth::where('id', $claim->month_id)->first();
+                        $totalsubmit = (($claim->total_hour*60)+$claim->total_minute)+(($month->total_hour*60)+$month->total_minute);
+                        // if($req->user()->ot_hour_exception!="X"){
+                            if($totalsubmit>($eligiblehour->hourpermonth*60)){
+                            return redirect(route('ot.list',[],false))->with([
+                                'feedback' => true,
+                                'feedback_text' => "Warning! Your overtime claim has exceeded eligible claim hours of ".$eligiblehour->hourpermonth." hours.",
+                                'feedback_title' => "Successfully Submitted"
+                            ]);
+                        }else{
+                            return redirect(route('ot.list',[],false))->with([
+                                'feedback' => true,
+                                'feedback_text' => "Your overtime claim has successfully submitted.",
+                                'feedback_title' => "Successfully Submitted"
+                            ]);
+                        }
                     }else{
                         return redirect(route('ot.list',[],false))->with([
                             'feedback' => true,
@@ -935,13 +949,12 @@ class OvertimeController extends Controller{
                     ]);
                 }
             }else{
-                return redirect(route('ot.list',[],false))->with([
+                return redirect(route('ot.form',[],false))->with([
                     'feedback' => true,
-                    'feedback_text' => "Your overtime claim has successfully submitted.",
-                    'feedback_title' => "Successfully Submitted"
+                    'feedback_text' => "You are on leave for this date.",
+                    'feedback_title' => "Submission Failed!"
                 ]);
             }
-            // }
         }
     }
 
