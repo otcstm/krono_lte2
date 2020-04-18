@@ -40,27 +40,6 @@
        </tbody>
      </table>
     </div>
-
-{{-- <div class="panel panel-default">
-  <div class="panel-heading">Add member to group {{ $grp->group_name }}</div>
-  <div class="panel-body">
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="form-group has-feedback {{ $errors->has('owner_name') ? 'has-error' : '' }}">
-          <label for="gmember_name">Find staff to add</label>
-          <div class="row">
-            <div class="col-xs-10">
-              <input type="text" id="gmember_name" name="gmember_name" class="form-control" placeholder="Find staff here to add to group">
-            </div>
-            <div class="col-xs-2">
-              <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#sgresult"><i class="fas fa-search"></i></button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> --}}
 <Br />
 <h4>Shift Subordinate Without Group</h4>
 
@@ -90,9 +69,27 @@
        </tbody>
      </table>
     </div>
+    <Br />
+    <h4>Search member to group {{ $grp->group_name }}</h4>
+    <div class="table-responsive">
+    <div class="panel panel-default">
+      <div class="panel-body">
+            <div class="form-group has-feedback {{ $errors->has('owner_name') ? 'has-error' : '' }}">
+              <label for="gmember_name">Find staff to add</label>
+              <div class="row">
+                <div class="col-xs-10">
+                  <input type="text" id="gmember_name" name="gmember_name" class="form-control" placeholder="Find staff here to add to group">
+                </div>
+                <div class="col-xs-2">
+                  <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#sgresult"><i class="fas fa-search"></i></button>
+                </div>
+              </div>
+        </div>
+      </div>
+    </div>    
+  </div>    
 
-    
-<hr />
+  <Br />
 <div class="pull-right">
 <a href="{{ URL::previous() }}" class="btn btn-p btn-primary btn-outline">Cancel</a>
 <a href="{{ route('shift.mygroup', [], false) }}" class="btn btn-p btn-primary">Create</a>
@@ -129,12 +126,12 @@
               <div class="col-xs-10">
                 <input type="text" id="planner_name" name="planner_name" class="form-control" readonly value="{{ $planner }}">
               </div>
-              {{-- <div class="col-xs-2">
+              <div class="col-xs-2">
                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#sfresult" title="Assign planner"><i class="fas fa-search"></i></button>
                 @if($planner != '')
                 <button class="btn btn-warning" type="submit" title="Remove planner" ><i class="fas fa-trash"></i></button>
                 @endif
-              </div> --}}
+              </div>
             </div>
 
           </div>

@@ -5,7 +5,7 @@
 @section('content')
 <h1>My Work Schedule</h1>
 
-{{-- <div class="row-eq-height">
+<div class="row-eq-height">
   <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
   <a href="{{route('staff.worksched', ['page' => 'myc'])}}">
     <div class="box box-solid">
@@ -54,7 +54,7 @@
     </div>
   </a>
   </div>
-</div> --}}
+</div>
 
 <div class="panel panel-primary">
   <div class="panel-heading">My Current Work Schedule Rule</div>
