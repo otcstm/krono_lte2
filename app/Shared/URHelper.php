@@ -9,6 +9,7 @@ use App\SetupCode;
 use App\OvertimeLog;
 use App\OtIndicator;
 use App\Salary;
+use App\Psubarea;
 
 
 class URHelper
@@ -171,9 +172,9 @@ class URHelper
       }
 
 
-      public static function getUserCapping( $comp,$reg)
+      public static function getUserCapping( $comp, $region, $date)
       {
-        $salcapping = OvertimeEligibility::where('company_id',$comp)->where('region',$reg)->first();
+        $salcapping = OvertimeEligibility::where('company_id',$comp)->where('region',$region)->where('start_date','<=', $date)->where('end_date','>', $date)->first();
         return $salcapping;
       }
 
