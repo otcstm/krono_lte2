@@ -29,6 +29,7 @@ class StaffController extends Controller
           ]);
         }else{
           $staff = [];
+          $role = [];
           return view('admin.staff',['staffs' => $staff, 'roles' => $role]);
         }
     }

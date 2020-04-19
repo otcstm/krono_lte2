@@ -60,14 +60,16 @@ return [
     'shift_plan'      => 'Shift Planning',
     'shift_approval'  => 'Shift Approval',
     'shift_template'  => 'Shift Template',
-    'shift_workteam'      => 'Work Team Schedule',    
+    'shift_workteam'      => 'My Work Team Schedule',    
      
 
     'rpt_menu'        => 'REPORT',
+    'otr_main'       => 'Report',
     'otr_details'       => 'Overtime Details',
     'otr_startend'      => 'List of Start/End OT Time',
     'otr'               => 'Summary of OT Claim',
     'otr_log'           => 'OT Log Changes',
+    'sysadm_rpt_main'   => 'Report (SA)',
     'sysadmot'          => 'Summary of OT Claim(SA)',
     'sysadmotd'         => 'Overtime Details(SA)',
     'sysadmotStEd'       => 'List of Start/End OT Time(SA)',
