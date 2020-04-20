@@ -73,9 +73,9 @@
               </div>
               <div class="col-xs-2">
                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#sfresult" title="Assign planner"><i class="fas fa-search"></i></button>
-                @if($planner != '')
+                {{-- @if($planner_name != '')
                 <button class="btn btn-warning" type="submit" title="Remove planner" ><i class="fas fa-trash"></i></button>
-                @endif
+                @endif --}}
               </div>
             </div>
 
