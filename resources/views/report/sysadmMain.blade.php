@@ -4,7 +4,9 @@
 @section('title', 'User Report Mainpage')
 @section('content')
 
-<h1>System Admin Report Mainpage</h1>
+<h1>System Admin Report</h1>
+
+<div class="panel panel-default panel-main"> 
 <div class="row row-eq-height"> 
 
     <div class="col-md-3 col-sm-6 col-xs-12 ">
@@ -92,6 +94,6 @@
       </div>
 
 </div><!-- /.row row-eq-height -->    
-
+</div>
 
 @stop
