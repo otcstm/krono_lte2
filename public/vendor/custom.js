@@ -427,7 +427,7 @@ function endpunch(){
                     Swal.fire({
                         icon: 'warning',
                         title: 'Overtime Ended',
-                        text: "New working hour has stated",
+                        text: "New working hour has staterd",
                         showCancelButton: false,
                         confirmButtonText: 'OK',
                     }).then((result) => {
