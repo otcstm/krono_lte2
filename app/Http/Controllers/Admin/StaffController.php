@@ -164,8 +164,13 @@ class StaffController extends Controller
     // $user_logs->session_id = $req->session()->getId();
     // $user_logs->ip_address = $req->ip();
     // $user_logs->user_agent = $req->userAgent();
-    
+    if(isset($req->getProfile)){
+      $staff = User::find($req->getProfile);
+    }
+    else {
       $staff = User::find($req->user()->id);
+    }
+    
       $staff_detail = UserRecord::where('user_id', '=', $staff->id)
       ->orderBy('updated_at', 'desc')
       ->first();
@@ -175,7 +180,7 @@ class StaffController extends Controller
       ->orderBy('updated_at', 'desc')
       ->first();
 
-      $verifierGroupMember = VerifierGroupMember::where('user_id', '=', $req->user()->id)
+      $verifierGroupMember = VerifierGroupMember::where('user_id', '=', $staff->id)
       ->where('start_date', '>=' ,NOW())  
       ->where('end_date', '<' ,NOW())     
       ->get();
@@ -194,7 +199,7 @@ class StaffController extends Controller
         $verifier_detail = [];
       };    
 
-      $listsubord = User::where('reptto','=',$req->user()->id)
+      $listsubord = User::where('reptto','=',$staff->id)
       ->orderBy('name', 'asc')
       ->get();
       
