@@ -458,7 +458,8 @@ class OvertimeController extends Controller{
     public function formsubmit(Request $req){
         $status = true; //claim status
         $region = URHelper::getRegion($req->user()->perssubarea);
-        $staffr = URHelper::getUserRecordByDate($req->user()->id, $req->inputdate);
+        dd($req->inputdates);
+        $staffr = URHelper::getUserRecordByDate($req->user()->id, $req->inputdates);
 
         //check for existing claim
         if($req->inputid==""){  //if not

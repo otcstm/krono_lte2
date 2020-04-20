@@ -103,11 +103,11 @@ class URHelper
 // Return the latest user reord for given persno and date
       public static function getUserRecordByDate( $persno,$dt)
       {
-        
-        // $otiMaxDate = OtIndicator::where('user_id',$persno)->where('start_date','<=',date('Y-m-d', strtotime($dt)))->max('start_date')->first();
-        $otiMaxDate = OtIndicator::where('user_id',$persno)->where('start_date','<=',date('Y-m-d', strtotime($dt)))->first();
-        dd("test");
-        $oti = OtIndicator::where('user_id',$persno)->where('start_date','=',date('Y-m-d', strtotime($otiMaxDate))))->get()->first();
+        dd($dt);
+        $otiMaxDate = OtIndicator::where('user_id',$persno)->where('start_date','<=',$dt)->max('start_date');
+        // $otiMaxDate = OtIndicator::where('user_id',$persno)->where('start_date','<=',date('Y-m-d', strtotime($dt)))->first();
+        // dd("test");
+        $oti = OtIndicator::where('user_id',$persno)->where('start_date','=',$otiMaxDate)->get()->first();
         if(!$oti){
         $oti = new OtIndicator();
 
