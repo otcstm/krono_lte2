@@ -253,32 +253,6 @@
   </div>
   
 <!-- /t4 --> 
-  <div class="col-md-3 col-sm-6 col-xs-12 ">
-    <a href="{{ route('misc.home', [], false) }}">
-    <div class="box box-solid">
-    <div class="box-body">
-    <div class="media">
-      <div class="media-left">
-        <img src="vendor/ot-assets/sysadm_user_activity_log.png" class="media-object" style="width:50px">
-      </div>
-      <div class="media-body">
-        <h4 class="media-heading text-left">OUTBOUND</h4>
-        <p>INTERFACE</p>
-      </div>
-    </div>
-    </div><!-- /.box-body -->
-    <div class="box-header text-center bg-yellow-active color-palette">
-    <h3 class="box-title text-left">Outbound Interface OT Payment</h3>
-    </div><!-- /.box-header -->
-    </div>
-    </a>
-  </div>
-
-</div>
-
-<!-- /row4 -->
-<div class="row row-eq-height">
- <!-- /t1 -->
    <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('staff.list.auth.empty', [], false) }}">
     <div class="box box-solid">
@@ -299,7 +273,13 @@
     </div>
     </a>
   </div>
- <!-- /t2 --> 
+
+
+</div>
+
+<!-- /row4 -->
+<div class="row row-eq-height">
+ <!-- /t1 -->
   <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('misc.home', [], false) }}">
     <div class="box box-solid">
@@ -320,8 +300,8 @@
     </div>
     </a>
   </div>
+  <!-- /t2 --> 
   
- <!-- /t3 -->
   <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('misc.home', [], false) }}">
     <div class="box box-solid">
@@ -342,7 +322,7 @@
     </div>
     </a>
   </div>
- <!-- /t4 -->
+  <!-- /t3 -->
  <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('log.listUserLogs', [], false) }}">
     <div class="box box-solid">
@@ -364,13 +344,9 @@
     </a>
   </div>
 
-</div>
-
-
-<!-- /row5 -->
-<div class="row row-eq-height">
- <!-- /t1 -->
-    <div class="col-md-3 col-sm-6 col-xs-12 ">
+ <!-- /t4 -->
+  
+  <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('rep.sa.main', [], false) }}">
     <div class="box box-solid">
     <div class="box-body">
@@ -390,13 +366,27 @@
     </div>
     </a>
   </div>
-  
-  <!-- /t2 -->  
 
-  <!-- /t3 -->
+</div>
 
-  <!-- /t4 -->
   
-</div>  
-  
- 
+   {{-- <div class="col-md-3 col-sm-6 col-xs-12 ">
+    <a href="{{ route('misc.home', [], false) }}">
+    <div class="box box-solid">
+    <div class="box-body">
+    <div class="media">
+      <div class="media-left">
+        <img src="vendor/ot-assets/sysadm_user_activity_log.png" class="media-object" style="width:50px">
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading text-left">OUTBOUND</h4>
+        <p>INTERFACE</p>
+      </div>
+    </div>
+    </div><!-- /.box-body -->
+    <div class="box-header text-center bg-yellow-active color-palette">
+    <h3 class="box-title text-left">Outbound Interface OT Payment</h3>
+    </div><!-- /.box-header -->
+    </div>
+    </a>
+  </div> --}}

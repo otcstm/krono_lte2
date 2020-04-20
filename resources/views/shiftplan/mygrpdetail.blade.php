@@ -91,7 +91,7 @@
 
   <Br />
 <div class="pull-right">
-<a href="{{ URL::previous() }}" class="btn btn-p btn-primary btn-outline">Cancel</a>
+<a href="{{ route('shift.mygroup', [], false) }}" class="btn btn-p btn-primary btn-outline">Cancel</a>
 <a href="{{ route('shift.mygroup', [], false) }}" class="btn btn-p btn-primary">Create</a>
 </div>
   </div>
@@ -124,7 +124,7 @@
             <label for="planner_name">Assigned Planner</label>
             <div class="row">
               <div class="col-xs-10">
-                <input type="text" id="planner_name" name="planner_name" class="form-control" readonly value="{{ $planner }}">
+                <input type="text" id="planner_name" name="planner_name" class="form-control" value="{{ $planner }}">
               </div>
               <div class="col-xs-2">
                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#sfresult" title="Assign planner"><i class="fas fa-search"></i></button>
@@ -165,8 +165,8 @@
            </thead>
            <tbody id="srbody">
              <tr>
-               <td>s53877</td>
-               <td>amer bin ahmad</td>
+               <td>S53877</td>
+               <td>Amer bin ahmad</td>
                <td><button type="button" class="btn btn-xs btn-success" title="Select"><i class="fas fa-plus"></i></button></td>
              </tr>
            </tbody>
