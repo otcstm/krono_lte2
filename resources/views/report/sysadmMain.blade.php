@@ -13,7 +13,7 @@
       <div class="box-body">
       <div class="media">
         <div class="media-left">
-          <img src="vendor/ot-assets/sysadm_reports.png" class="media-object" style="width:50px">
+          <img src="{{ URL::asset('vendor/ot-assets/clock-1.jpg') }}" class="media-object" style="width:50px">
         </div>
         <div class="media-body">
           <h4 class="media-heading">Overtime Details</h4>
@@ -21,9 +21,9 @@
         </div>
       </div>
       </div><!-- /.box-body -->
-      <div class="box-header bg-yellow-active color-palette">
+      {{-- <div class="box-header bg-yellow-active color-palette">
       <h3 class="box-title text-left">Overtime Report</h3>
-      </div><!-- /.box-header -->
+      </div><!-- /.box-header --> --}}
       </div>
     </a>
     </div>
@@ -34,7 +34,7 @@
         <div class="box-body">
         <div class="media">
           <div class="media-left">
-            <img src="vendor/ot-assets/sysadm_reports.png" class="media-object" style="width:50px">
+            <img src="{{ URL::asset('vendor/ot-assets/stopwatch.jpg') }}" class="media-object" style="width:50px">
           </div>
           <div class="media-body">
             <h4 class="media-heading">Start/End OT Time</h4>
@@ -42,9 +42,9 @@
           </div>
         </div>
         </div><!-- /.box-body -->
-        <div class="box-header bg-yellow-active color-palette">
+        {{-- <div class="box-header bg-yellow-active color-palette">
         <h3 class="box-title text-left">List of Start/End OT Time Report</h3>
-        </div><!-- /.box-header -->
+        </div><!-- /.box-header --> --}}
         </div>
       </a>
       </div>
@@ -55,7 +55,7 @@
         <div class="box-body">
         <div class="media">
           <div class="media-left">
-            <img src="vendor/ot-assets/sysadm_reports.png" class="media-object" style="width:50px">
+            <img src="{{ URL::asset('vendor/ot-assets/sysadm_reports.png') }}" class="media-object" style="width:50px">
           </div>
           <div class="media-body">
             <h4 class="media-heading">Summary Overtime</h4>
@@ -63,9 +63,9 @@
           </div>
         </div>
         </div><!-- /.box-body -->
-        <div class="box-header bg-yellow-active color-palette">
+        {{-- <div class="box-header bg-yellow-active color-palette">
         <h3 class="box-title text-left">Summary of OT Claim</h3>
-        </div><!-- /.box-header -->
+        </div><!-- /.box-header --> --}}
         </div>
       </a>
       </div>
@@ -76,7 +76,7 @@
         <div class="box-body">
         <div class="media">
           <div class="media-left">
-            <img src="vendor/ot-assets/sysadm_reports.png" class="media-object" style="width:50px">
+          <img src="{{ URL::asset('vendor/ot-assets/claim.jpg') }}" class="media-object" style="width:50px">
           </div>
           <div class="media-body">
             <h4 class="media-heading">OT Log Changes</h4>
@@ -84,9 +84,9 @@
           </div>
         </div>
         </div><!-- /.box-body -->
-        <div class="box-header bg-yellow-active color-palette">
+        {{-- <div class="box-header bg-yellow-active color-palette">
         <h3 class="box-title text-left">OT Log Report</h3>
-        </div><!-- /.box-header -->
+        </div><!-- /.box-header --> --}}
         </div>
       </a>
       </div>

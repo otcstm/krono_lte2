@@ -9,7 +9,6 @@
 @if($isVerifier==1)
     @include('dashboard/section_verifier')
 @endif
-@include('dashboard/section_otChart')
 @if($isApprover==1)
     @include('dashboard/section_approver')
 @endif 
@@ -19,5 +18,7 @@
 @if($isSysAdmin==1)
     @include('dashboard/section_sysadmin')
 @endif 
+
+@include('dashboard/section_otChart')
 
 @stop

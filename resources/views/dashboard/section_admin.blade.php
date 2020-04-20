@@ -1,6 +1,7 @@
-<div class="row row-eq-height"> 
+<h1>User Admin</h1>
+<div class="row row-eq-height">
   <div class="col-md-3 col-sm-6 col-xs-12 ">
-    
+
     <a href="{{ route('shift.group', [], false) }}">
     <div class="box box-solid">
     <div class="box-body">
@@ -61,6 +62,7 @@
     </a>
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12 ">
+    <a href="{{ route('shift.index', [], false) }}">
     <div class="box box-solid">
     <div class="box-body">
     <div class="media">
@@ -77,11 +79,12 @@
     <h3 class="box-title text-left">Shift Planning Approval</h3>
     </div><!-- /.box-header -->
     </div>
+    </a>
   </div>
-</div>   
+</div>
 
 <!-- /row2 -->
-<div class="row row-eq-height"> 
+<div class="row row-eq-height">
   <div class="col-md-3 col-sm-6 col-xs-12 ">
     <div class="box box-solid">
     <div class="box-body">
@@ -101,6 +104,7 @@
     </div>
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12 ">
+    <a href="{{ route('rep.main', [], false) }}">
     <div class="box box-solid">
     <div class="box-body">
     <div class="media">
@@ -117,5 +121,6 @@
     <h3 class="box-title text-left">Report</h3>
     </div><!-- /.box-header -->
     </div>
+  </a>
   </div>
-</div>   
+</div>
