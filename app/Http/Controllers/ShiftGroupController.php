@@ -380,7 +380,7 @@ class ShiftGroupController extends Controller
       $tsg->planner_id = null;
       $tsg->save();
 
-      return redirect(route('shift.mygroup', ['sgid' => $tsg->id]))
+      return redirect(route('shift.mygroup.view', ['sgid' => $tsg->id]))
         ->with([
           'alert' => 'Planner removed',
           'a_type' => 'info'
