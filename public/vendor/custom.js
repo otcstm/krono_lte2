@@ -16,6 +16,7 @@ var canstart = false;
 var check = new Date(); 
 var wtm;
 var wtms;
+var nework = false;
 
 $.ajax({
     url: '/punch/check',
@@ -418,55 +419,62 @@ function endpunch(){
     // alert(eetime+"-"+sstime+"="+(parseInt(eetime)-parseInt(sstime)));
     
     if(displayonce){
-        if(((parseInt(eetime)-parseInt(sstime))>0)||(parseInt(eetime)-parseInt(sstime))<0){
-            $.ajax({
-                url: '/punch/end?stime='+startclockt+'&etime='+endclock+'&lat='+lat+'&long='+long+'&lat2='+lat2+'&long2='+long2,
-                type: "GET", 
-                success: function(resp) {
-                    clearInterval(timestart); 
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Overtime Ended',
-                        text: "New working hour has staterd",
-                        showCancelButton: false,
-                        confirmButtonText: 'OK',
-                    }).then((result) => {
-                        if (result.value) {
-                            var path = window.location.pathname;
-                            if(path=="/punch"){
-                                location.reload();
-                            }
-                        }
-                    })
-                },
-                    error: function(err) {
-                        starttime(now, startclockt);
-                    }
-                }
-            );
-        }else{
-            clearInterval(timestart); 
-            $.ajax({
-                url: '/punch/cancel?time='+startclockt,
-                type: "GET",
+        alert(((parseInt(eetime)-parseInt(sstime)))+" "+(parseInt(eetime)-parseInt(sstime))+" "+startclockt+" "+endclock+" "+lat+" "+long+" "+lat2+" "+long2);
+        // if(((parseInt(eetime)-parseInt(sstime))>0)||(parseInt(eetime)-parseInt(sstime))<0){
+        //     $.ajax({
+        //         url: '/punch/end?stime='+startclockt+'&etime='+endclock+'&lat='+lat+'&long='+long+'&lat2='+lat2+'&long2='+long2,
+        //         type: "GET", 
+        //         success: function(resp) {
+        //             clearInterval(timestart); 
+        //             if(nework){
+        //                 Swal.fire({
+        //                     icon: 'warning',
+        //                     title: 'Overtime Ended',
+        //                     text: "New working hour has started",
+        //                     showCancelButton: false,
+        //                     confirmButtonText: 'OK',
+        //                 }).then((result) => {
+        //                     if (result.value) {
+        //                         var path = window.location.pathname;
+        //                         if(path=="/punch"){
+        //                             location.reload();
+        //                         }
+        //                     }
+        //                 })
+        //             }else{
+        //                 var path = window.location.pathname;
+        //                 if(path=="/punch"){
+        //                     location.reload();
+        //                 }
+        //             }
+        //         },
+        //         error: function(err) {
+        //             starttime(now, startclockt);
+        //         }
+        //     });
+        // }else{
+        //     clearInterval(timestart); 
+        //     $.ajax({
+        //         url: '/punch/cancel?time='+startclockt,
+        //         type: "GET",
                 
-                success: function(resp) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Overtime Cancelled',
-                        text: "Your overtime duration is less than a minute!",
-                        showCancelButton: false,
-                        confirmButtonText: 'OK',
-                    }).then((result) => {
-                        if (result.value) {
-                            location.reload();
-                        }
-                    })
-                },
-                error: function(err) {
-                }
-            });
-        }
+        //         success: function(resp) {
+        //             Swal.fire({
+        //                 icon: 'error',
+        //                 title: 'Overtime Cancelled',
+        //                 text: "Your overtime duration is less than a minute!",
+        //                 showCancelButton: false,
+        //                 confirmButtonText: 'OK',
+        //             }).then((result) => {
+        //                 if (result.value) {
+        //                     location.reload();
+        //                 }
+        //             })
+        //         },
+        //         error: function(err) {
+        //         }
+        //     });
+        // }
 
         displayonce = false;
     }
@@ -514,6 +522,7 @@ function timer(psecond, pminute, phour, dsecond, dminute, dhour, now, swtime){
             if(parseInt(ctimes[0]*60)+parseInt(ctimes[1])>=(parseInt(swtimes[0]*60)+parseInt(swtimes[1]))){
                 endclock = Date.parse(cnow).toString("yyyy-MM-dd")+" "+swtime+":00";
                 future = Date.parse(cnow).toString("yyyy-MM-dd")+" "+swtime+":00";
+                nework = true;
                 navigator.geolocation.getCurrentPosition(getPosition,showError2);
                 // alert("gojok");
             }
