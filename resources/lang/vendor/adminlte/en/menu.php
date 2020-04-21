@@ -13,7 +13,8 @@ return [
     'manage_eligibility' => 'System Eligibility',
     'manual_overtime' => 'Claim Manual Approval',
     'manage_overtimeex' => 'OT Claim Expiry Date',
-    'manage_wdays'    => 'Work Day Type',
+    //'manage_wdays'    => 'Work Day Type',
+    'manage_wdays'    => 'Period Work Schedule',    
     'admin_user_menu'   => 'USER MANAGMENT',
     'manage_holiday'    => 'Holiday Management',
     'paymentsch' => 'Payment Schedule',
@@ -41,7 +42,7 @@ return [
     'ot_approve_report'      => 'Claim Approval Report',
     // 'ot_verify'       => 'Verify OT',
     'ot_list'         => 'List of Overtime Claim',
-    'staff_list'      => 'LIST OF STAFF',
+    'staff_list'      => 'Display User Profile',
     'reassign_app'    => 'Reassign Approver',
     'reassign_ver'    => 'Reassign Verifier',
     'ot_def_ver'       => 'Set Default Verifier',
@@ -59,7 +60,8 @@ return [
     //'shift_planner'    => 'Shift Planner/Members Assignment', 
     'shift_plan'      => 'Shift Planning',
     'shift_approval'  => 'Shift Approval',
-    'shift_template'  => 'Shift Template',
+    //'shift_template'  => 'Shift Template',
+    'shift_template'  => 'My Work Schedule',    
     'shift_workteam'      => 'My Work Team Schedule',    
      
 
