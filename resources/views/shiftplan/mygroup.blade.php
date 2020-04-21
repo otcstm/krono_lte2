@@ -96,7 +96,7 @@
         </div>
         <div class="col-sm-12">
           <div class="form-group text-center pull-right">
-            <button type="submit" class="btn btn-primary">Create</button>
+            <button id="btnSubmitAddPlanner" type="submit" class="btn btn-primary">Create</button>
           </div>
         </div>
 
@@ -187,6 +187,8 @@ $(document).ready(function() {
 
 function assignPlanner(persno){
   document.getElementById('fPlannerId').value = persno;
+  $("input[name=planner_id]").val(persno);
+  
   //document.getElementById('fAssignPlanner').submit();
 
   var search_url = "{{ route('shift.group.api.getname', ['uid' => '']) }}" + persno;
@@ -195,6 +197,7 @@ function assignPlanner(persno){
     url: search_url,
     success: function(result) {
       document.getElementById('planner_name').value = result;
+      $("input[name=planner_name]").val(result);
     },
     error: function(xhr){
       alert("An error occured: " + xhr.status + " " + xhr.statusText);
@@ -233,6 +236,18 @@ $('#sgresult').on('show.bs.modal', function(e) {
     }
   });
 });
+
+
+$('#btnSubmitAddPlanner').click(function() {
+      checked_field = $("input[name=planner_id]").val();
+      //alert(checked_field);
+      if(!checked_field || checked_field == 0) {
+        alert("You must assign planner. Kindly search shift planner");        
+        $("#planner_name").focus();
+        return false;
+      }	;
+});
+
 
 
 </script>
