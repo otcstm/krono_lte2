@@ -6,6 +6,7 @@ use Session;
 use Illuminate\Http\Request;
 use App\Shared\LdapHelper;
 use App\User;
+use DB;
 use Illuminate\Support\Facades\Auth;
 
 class TempController extends Controller
@@ -21,7 +22,8 @@ class TempController extends Controller
     $this->validate($req, [
           'staff_no' => 'required', 'password' => 'required',
     ]);
-    $cuser = User::where('staff_no', $req->staff_no)->first();
+    $staff_no = strtoupper(trim($req->staff_no));
+    $cuser = User::where(DB::raw('UPPER(staff_no)'), $staff_no)->first();
     if($cuser){
       
       Session::put(['announcementx' => true]);
