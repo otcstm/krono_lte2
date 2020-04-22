@@ -128,8 +128,9 @@ class OvertimeController extends Controller{
             $draft = $req->session()->get('draft');
             $day = UserHelper::CheckDay($req->user()->id, date('Y-m-d', strtotime($draft[4])));
             $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $region->region)->where('start_date','<=', $draft[4])->where('end_date','>', $draft[4])->first();
+            // dd($req->session()->get('draft'));
             return view('staff.otform', ['draft' => $req->session()->get('draft'), 'day' => $day, 'eligiblehour' => $eligiblehour->hourpermonth, 'costc' => $costc]);
-        
+            
         //if apply new claim
         }else{  
             return view('staff.otform', []);
@@ -458,7 +459,7 @@ class OvertimeController extends Controller{
     public function formsubmit(Request $req){
         $status = true; //claim status
         $region = URHelper::getRegion($req->user()->perssubarea);
-        dd($req->inputdates);
+        // dd($req->inputdates);
         $staffr = URHelper::getUserRecordByDate($req->user()->id, $req->inputdates);
 
         //check for existing claim
@@ -511,6 +512,7 @@ class OvertimeController extends Controller{
             Session::put(['draft' => []]);
         }else{
             $claim = Overtime::where('id', $req->inputid)->first();
+            $id = $claim->id;
             $gm = UserHelper::CheckGM($claim->date_created, $claim->date);
         }
 

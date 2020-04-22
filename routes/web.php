@@ -57,6 +57,7 @@ Route::group(['middleware' => ['auth']], function () {
   // clock-in related NEW
   Route::get('/punch',      'MiscController@showPunchView')->name('punch.list');
   Route::get('/punch/start',  'MiscController@startPunch')->name('punch.start');
+  Route::post('/punch/start',  'MiscController@startPunch')->name('punch.start');
   Route::get('/punch/check',  'MiscController@checkPunch')->name('punch.check');
   Route::get('/punch/checkday',  'MiscController@checkDay')->name('punch.checkday');
   Route::get('/punch/checkworktime',  'MiscController@checkWorkTime')->name('punch.checkworktime');

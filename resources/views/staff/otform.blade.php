@@ -208,7 +208,7 @@
             <form id="form" action="{{route('ot.formsubmit')}}" method="POST" onsubmit="return submission()" enctype="multipart/form-data">
                 @csrf
                 <input type="text" class="form-control hidden" id="inputid" name="inputid" value="@if($claim ?? '') {{$claim->id}} @endif">
-                <input type="text" clsss="" id="inputdates" name="inputdates">
+                <input type="text" class="hidden" id="inputdates" name="inputdates">
                 <input class="hidden" id="formtype" type="text" name="formtype" value="submit">
                 <input class="hidden" id="filedel" type="text" name="filedel" value="">
                 <!-- <input class="hidden" id="formadd" type="text" name="formadd" value="no">
@@ -735,8 +735,9 @@
 @section('js')
 <script type="text/javascript">
 // alert($("#inputdates").val());
-    @if($claim ?? "")||($draft ?? "")
+    @if(($claim ?? '')||($draft ?? ''))
         $("#inputdates").val($("#inputdate").val());
+        // alert("test");
     @endif
 
     @if(session()->has('feedback'))
