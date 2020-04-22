@@ -58,11 +58,17 @@
            <td>{{ $ap->staff_no }}</td>
            <td>{{ $ap->name }}</td>
            <td>
-             <form method="post" action="{{ route('shift.staff.add', [], false) }}" onsubmit='return confirm("Confirm add?")'>
+             {{-- <form method="post" action="{{ route('shift.staff.add', [], false) }}" onsubmit='return confirm("Confirm add?")'>
                @csrf
                <button type="submit" class="btn btn-np" title="Add"><i class="fas fa-plus"></i></button>
-               <input type="hidden" name="id" value="{{ $ap->id }}" />
-             </form>
+               <input type="hidden" name="user_id" value="{{ $ap->id }}" />
+             </form> --}}
+             <form action="{{ route('shift.staff.add', [], false) }}" method="post" onsubmit='return confirm("Confirm add?")'>
+              @csrf 
+              <button type="submit" class="btn btn-np" title="Add"><i class="fas fa-plus"></i></button>
+              <input type="hidden" name="group_id" value="{{ $grp->id }}" />
+              <input type="hidden" id="fUserId" name="user_id" value="{{ $ap->id }}" />
+            </form>
            </td>
          </tr>
          @endforeach
@@ -226,7 +232,7 @@
 <form id="fAddMember" action="{{ route('shift.staff.add', [], false) }}" method="post">
   @csrf
   <input type="hidden" name="group_id" value="{{ $grp->id }}" />
-  <input type="hidden" id="fUserId" name="user_id" value="" />
+  <input type="hidden" id="fUserId2" name="user_id" value="" />
 </form>
 
 @stop
@@ -284,7 +290,7 @@ function assignPlanner(persno){
 }
 
 function addMember(persno){
-  document.getElementById('fUserId').value = persno;
+  document.getElementById('fUserId2').value = persno;
   document.getElementById('fAddMember').submit();
 }
 
@@ -317,6 +323,7 @@ $('#sgresult').on('show.bs.modal', function(e) {
     }
   });
 });
+
 
 </script>
 @stop
