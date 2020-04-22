@@ -17,11 +17,11 @@ class NotiMenuController extends Controller
       }
 
       // not found. maybe belong to other user / not currently logged in user
-      return redirect(route('home'));
+      return redirect(route('misc.home'));
 
     } else {
       // no type. just redirect to home page
-      return redirect(route('home'));
+      return redirect(route('misc.home'));
     }
   }
 }
