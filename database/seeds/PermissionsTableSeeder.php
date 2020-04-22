@@ -129,7 +129,7 @@ class PermissionsTableSeeder extends Seeder
             array (
                 'id' => 13,
                 'title' => '2-cfg-wdt',
-                'descr' => 'Config work day type',
+                'descr' => 'Config Period Work Schedule',
                 'created_at' => '2020-03-16 04:15:50',
                 'updated_at' => '2020-03-16 04:15:50',
                 'deleted_at' => NULL,
@@ -138,7 +138,7 @@ class PermissionsTableSeeder extends Seeder
             array (
                 'id' => 14,
                 'title' => '2-cfg-shifttemplate',
-                'descr' => 'Config shift template',
+                'descr' => 'Config My Work Schedule',
                 'created_at' => '2020-03-16 04:16:15',
                 'updated_at' => '2020-03-16 04:16:15',
                 'deleted_at' => NULL,

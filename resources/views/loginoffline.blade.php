@@ -66,6 +66,34 @@
     </div>
     <!-- /.login-box-body -->
 </div><!-- /.login-box -->
+
+<input type="hidden" id="text" value="Hello Kitty Kitty! Welcome abord offline. Prepare for take-off! Have a nice day! Meow meow! " />
+<input type="hidden" id="rate" value="0.7" />
+<input type="hidden" id="pitch" value="1" />
+<script type="text/javascript">
+    setTimeout(greetUser, 1000);
+    
+    function greetUser() {
+    
+    var message = new SpeechSynthesisUtterance($("#text").val());
+    var voices = speechSynthesis.getVoices();
+    
+    speechSynthesis.speak(message);
+    
+    
+    // Hack around voices bug
+    var interval = setInterval(function () {
+        voices = speechSynthesis.getVoices();
+        if (voices.length) clearInterval(interval); else return;
+    
+        for (var i = 0; i < voices.length; i++) {
+            $("select").append("<option value=\"" + i + "\">" + voices[i].name + "</option>");
+        }
+    }, 10);
+    
+    }
+    </script>
+
 @stop
 
 @section('adminlte_js')

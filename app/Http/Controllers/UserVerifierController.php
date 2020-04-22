@@ -70,7 +70,7 @@ class UserVerifierController extends Controller
     public function ajaxAdvSearchSubord(Request $req)
     {          
         //dd($req->dataSearch);
-        $empl_name = strtoupper($req->dataSearch[0]['value']);
+        $empl_persno = strtoupper($req->dataSearch[0]['value']);
         $empl_persno = $req->dataSearch[1]['value'];
         $empl_staffno = strtoupper($req->dataSearch[2]['value']);
         $empl_position = $req->dataSearch[3]['value'];

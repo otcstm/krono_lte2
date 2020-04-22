@@ -1,5 +1,4 @@
 @extends('adminlte::page')
-
 @section('title', 'User Profile')
 
 @section('content')
@@ -15,13 +14,15 @@
         <div class="box-body">
       
         <div class="col-sm-6 col-md-4">
-        <img src="{{route('user.image', ['staffno' => str_replace(' ','',$staff_basic->staff_no)              ])}}" alt="" class="img-rounded img-responsive" />
+        <img src="{{route('user.image', ['staffno' => str_replace(' ','',$staff_basic->staff_no) ])}}" 
+        alt="" class="profile-user-img img-rounded img-responsive img-zoom" />
 {{--
         <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" class="img-rounded img-responsive" />
                     
                     --}}
                     </div>
                     <div class="col-sm-6 col-md-8">
+                        <div id="msgtoread">
                         <h4>{{ $staff_basic->name }}</h4>
                         <small>
                         <cite title="{{ $staff_detail->empsgroup }}">{{ $staff_detail->empsgroup }} ({{ $staff_detail->empgroup }})</cite></small>
@@ -50,7 +51,8 @@
                             <br />
                             <b>Email:</b> {{ $staff_basic->email }} 
                             <br />
-                        </p>                     
+                        </p>                      
+                        </div>              
                     </div>
             
         </div>
@@ -65,7 +67,8 @@
             <!-- /.box-header -->
         <div class="box-body">
         <div class="col-sm-6 col-md-4">
-        <img src="{{route('user.image', ['staffno' => str_replace(' ','',$direct_report->staff_no)   ])}}" alt="" class="img-rounded img-responsive" />
+        <img src="{{route('user.image', ['staffno' => str_replace(' ','',$direct_report->staff_no)   ])}}" 
+        alt="" class="profile-user-img img-rounded img-responsive img-zoom" />
 
         </div>
                     <div class="col-sm-6 col-md-8">
@@ -153,7 +156,9 @@
         <div class="box-body">
         
         <div class="col-sm-6 col-md-4">
-                        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"  alt="" class="img-rounded img-responsive" />
+            <img src="{{route('user.image', ['staffno' => str_replace(' ','',$verifier_detail->staff_no) ])}}" 
+            alt="" class="profile-user-img img-rounded img-responsive img-zoom" />
+                        {{-- <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"  alt="" class="img-rounded img-responsive" /> --}}
         </div>
                     <div class="col-sm-6 col-md-8">
                         <h4>{{ $verifier_detail->name}}</h4>
@@ -222,7 +227,10 @@
             Subordinate {{ $countrow }}
             </div>
             <div class="panel-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" src="/vendor/images/useravatar.png" alt="User profile picture">
+{{-- <img src="{{route('user.image', ['staffno' => str_replace(' ','',$verifier_detail->staff_no) ])}}" alt="" class="img-rounded img-responsive" /> --}}
+<img class="profile-user-img img-responsive img-circle img-zoom" 
+src="{{route('user.image', ['staffno' => str_replace(' ','',$row_subord->staff_no) ])}}" 
+alt="User profile picture">
 
               <h3 class="profile-username text-center">{{ $row_subord->name }} </h3>
 
@@ -265,3 +273,5 @@
 @endif
 
 @stop
+
+
