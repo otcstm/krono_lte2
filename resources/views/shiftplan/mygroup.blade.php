@@ -35,8 +35,11 @@
            </td>
            <td>{{ $ap->Members->count() }}</td>
            <td>
-             <a href="{{ route('shift.mygroup', ['sgid' => $ap->id], false) }}"><button type="button" class="btn btn-np" title="Edit"><i class="fas fa-pencil-alt"></i></button></a>
-           </td>
+             <a href="{{ route('shift.mygroup', ['sgid' => $ap->id], false) }}"><button type="button" class="btn btn-np" title="Assign Planner"> <i class="glyphicon glyphicon-repeat"></i></button></a>
+             
+             <a href="{{ route('shift.mygroup.view', ['sgid' => $ap->id], false) }}"><button type="button" class="btn btn-np" title="Edit"> <i class="fas fa-pencil-alt"></i></button></a>
+                    
+            </td>
          </tr>
          @endforeach
        </tbody>
@@ -45,7 +48,7 @@
 
 @if(request()->get('sgid'))
 <br />
-<h4>Create Shift Planner</h4> {{-- {{ $grp->group_name }} --}}
+<h4>Assign Shift Planner</h4> {{-- {{ $grp->group_name }} --}}
 <form id="fAssignPlanner" action="{{ route('shift.mygroup.setplanner', [], false) }}" method="post">
   @csrf
       <input type="hidden" name="sgid" value="{{ $grp->id }}" />
@@ -69,13 +72,13 @@
             <label for="planner_name">Shift Planner Name</label>
             <div class="row">
               <div class="col-xs-10">
-                <input type="text" id="planner_name" name="planner_name" class="form-control" placeholder="Find staff here to assign" value="{{ $planner_name }}">
+                <input type="text" data-toggle="tooltip" title="Fill your staff name here" id="planner_name" name="planner_name" class="form-control" placeholder="Search staff here to assign" value="{{ $planner_name }}">
               </div>
               <div class="col-xs-2">
                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#sfresult" title="Assign planner"><i class="fas fa-search"></i></button>
-                {{-- @if($planner_name != '')
-                <button class="btn btn-warning" type="submit" title="Remove planner" ><i class="fas fa-trash"></i></button>
-                @endif --}}
+                @if($planner_name != '')
+                <button class="btn btn-warning" type="button" title="Remove planner" onclick="removePlanner({{ $grp->id }})"><i class="fas fa-trash"></i></button>
+                @endif 
               </div>
             </div>
 
@@ -96,7 +99,7 @@
         </div>
         <div class="col-sm-12">
           <div class="form-group text-center pull-right">
-            <button id="btnSubmitAddPlanner" type="submit" class="btn btn-primary">Create</button>
+            <button id="btnSubmitAddPlanner" onclick='return confirm("Confirm assign this planner?")' type="submit" class="btn btn-primary">Assign</button>
           </div>
         </div>
 
@@ -144,12 +147,11 @@
   </div>
 </div>
 
-<!-- placeholder forms for submissions -->
-{{-- <form id="fAssignPlanner" action="{{ route('shift.mygroup.setplanner', [], false) }}" method="post">
+<!-- remove planner -->
+<form id="fRemovePlanner" action="{{ route('shift.mygroup.delplanner', [], false) }}" method="post">
   @csrf
-  <input type="hidden" name="sgid" value="{{ $grp->id }}" />
-  <input type="hidden" id="fPlannerId" name="planner_id" value="" />
-</form> --}}
+  <input type="hidden" name="sgid" value="{{ request()->get('sgid') }}" />
+</form>
 
 @endif
 
@@ -181,6 +183,17 @@ $(document).ready(function() {
       }
     ]
   });
+
+@if(request()->get('sgid'))
+$('html, body').animate({
+scrollTop: $("#planner_name").offset().top
+}, 2000);
+
+$('#planner_name').tooltip().mouseover();
+   setTimeout(function(){ $('[data-toggle="tooltip"]').tooltip('hide'); }, 3000);
+
+$("#planner_name").focus();
+@endif
 
 } );
 
@@ -237,7 +250,6 @@ $('#sgresult').on('show.bs.modal', function(e) {
   });
 });
 
-
 $('#btnSubmitAddPlanner').click(function() {
       checked_field = $("input[name=planner_id]").val();
       //alert(checked_field);
@@ -248,7 +260,9 @@ $('#btnSubmitAddPlanner').click(function() {
       }	;
 });
 
-
+function removePlanner(){
+  document.getElementById('fRemovePlanner').submit();
+}
 
 </script>
 @stop

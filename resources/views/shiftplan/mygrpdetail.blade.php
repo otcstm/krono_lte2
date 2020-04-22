@@ -96,15 +96,20 @@
   </div>    
 
   <Br />
+  {{-- @if(!$planner)
+  <div class="alert alert-warning">
+    Theres no assigned <b>Planner</b> for thsi group yet.
+  </div>
+  @endif --}}
 <div class="pull-right">
-<a href="{{ route('shift.mygroup', [], false) }}" class="btn btn-p btn-primary btn-outline">Cancel</a>
-<a href="{{ route('shift.mygroup', [], false) }}" class="btn btn-p btn-primary">Create</a>
+<a id="btnCancelGrpAssign"  href="{{ route('shift.mygroup', [], false) }}" class="btn btn-p btn-primary btn-outline">Cancel</a>
+<a id="btnCreateGrpAssign" href="{{ route('shift.mygroup', [], false) }}" class="btn btn-p btn-primary">Create</a>
 </div>
   </div>
 </div>
 
 
-<div class="panel panel-default">
+{{-- <div class="panel panel-default">
   <div class="panel-heading">Shift Group {{ $grp->group_name }}</div>
   <div class="panel-body">
     <form action="{{ route('shift.mygroup.delplanner', [], false) }}" method="post">
@@ -146,7 +151,7 @@
     </form>   
     
   </div>
-</div>
+</div> --}}
 
 
 
@@ -324,6 +329,29 @@ $('#sgresult').on('show.bs.modal', function(e) {
   });
 });
 
+// $('#btnCancelGrpAssign').click(function() {
+//       checked_field = $("input[name=planner_name]").val();
+//       //alert(checked_field);
+//       var r = confirm("Are you sure want to leave this page without assign a Planner?");
+//       if (r == true) {
+//         return true;
+//       } else {  
+//         $("#planner_name").focus();
+//         return false;
+//       } 
+// });
+
+// $('#btnCreateGrpAssign').click(function() {
+//       checked_field = $("input[name=planner_name]").val();
+//       //alert(checked_field);
+//       var r = confirm("Are you sure want to proceed without assign a Planner?");
+//       if (r == true) {
+//         return true;
+//       } else {  
+//         $("#planner_name").focus();
+//         return false;
+//       } 
+// });
 
 </script>
 @stop
