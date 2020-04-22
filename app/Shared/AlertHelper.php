@@ -31,6 +31,21 @@ sgc - App\Notifications\ShiftGroupCreated - my list of shift group
     }
   }
 
+  public static function LoadTodoList(){
+    // dd(Auth::user());
+    if(Auth::check()){
+      $nitofylist = Auth::user()->unreadNotifications;
+      session([
+        'todolist' => $nitofylist,
+        'todocount' => $nitofylist->count()
+      ]);
+
+      // dd(session()->all());
+    } else {
+      // dd('no login');
+    }
+  }
+
   public static function getUrl($notifyobject){
 
     $data = $notifyobject->data;

@@ -36,6 +36,7 @@ class Controller extends BaseController
       // fetch session and use it in entire class with constructor
       // dd($request->session()->all());
       \App\Shared\AlertHelper::LoadNotifyList();
+      \App\Shared\AlertHelper::LoadTodoList();
 
       $an = Announcement::where('start_date','<=',date('Y-m-d'))->where('end_date','>=',date('Y-m-d'))->first();
       if($an!=null){

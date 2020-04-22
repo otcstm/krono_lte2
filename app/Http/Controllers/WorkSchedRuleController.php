@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\WsrChangeReq;
 use App\UserShiftPattern;
+use App\ShiftPlanStaffDay;
 use App\ShiftPattern;
+use App\ShiftGroupMember;
 use App\DayType;
 use \Carbon\Carbon;
 use App\Shared\UserHelper;
@@ -111,11 +113,106 @@ class WorkSchedRuleController extends Controller
   }
 
   public function myCalendar(Request $req){
-    dd('under construction');
+    if($req->filled('mon')){
+      $indate = new Carbon($req->mon);
+    } else {
+      $indate = new Carbon();
+    }
+
+    $monlabel = $indate->format('F');
+
+    $startdate = new Carbon($indate->firstOfMonth());
+    $endate = $indate->lastOfMonth();
+    $endate->addSecond();
+
+    $daterange = new \DatePeriod(
+      $startdate,
+      \DateInterval::createFromDateString('1 day'),
+      $endate
+    );
+
+    $head = [];
+    foreach($daterange as $ad){
+      array_push($head, $ad->format('d-D'));
+    }
+
+    $my = $this->getShiftCal($req->user()->id, $daterange);
+
+    return view('staff.workcalendar', [
+      'mon' => $monlabel,
+      'header' => $head,
+      'data' => $my
+    ]);
+
   }
 
   public function teamCalendar(Request $req){
-    dd('under construction');
+    if($req->filled('mon')){
+      $indate = new Carbon($req->mon);
+    } else {
+      $indate = new Carbon();
+    }
+
+    $monlabel = $indate->format('F');
+
+    $startdate = new Carbon($indate->firstOfMonth());
+    $endate = $indate->lastOfMonth();
+    $endate->addSecond();
+
+    $daterange = new \DatePeriod(
+      $startdate,
+      \DateInterval::createFromDateString('1 day'),
+      $endate
+    );
+
+    $head = ['Personnel No', 'Name'];
+    foreach($daterange as $ad){
+      array_push($head, $ad->format('d-D'));
+    }
+
+    $caldata = [];
+
+    // find team member
+    $mysg = ShiftGroupMember::where('user_id', $req->user()->id)->first();
+    if($mysg){
+      foreach($mysg->Group->Members as $amember){
+        $my = $this->getShiftCal($amember->User->id, $daterange);
+        array_push($caldata, [
+          'id' => $amember->User->id,
+          'name' => $amember->User->name,
+          'data' => $my
+        ]);
+      }
+    }
+
+    return view('staff.workteamcalendar', [
+      'mon' => $monlabel,
+      'header' => $head,
+      'staffs' => $caldata
+    ]);
+  }
+
+  private function getShiftCal($staff_id, $daterange){
+    $rv = [];
+    foreach ($daterange as $key => $value) {
+      $sd = ShiftPlanStaffDay::where('user_id', $staff_id)
+        ->whereDate('work_date', $value)
+        ->first();
+
+      if($sd){
+        array_push($rv, [
+          'type' => $sd->Day->code,
+          'time' => $sd->Day->getTimeRange()
+        ]);
+      } else {
+        array_push($rv, [
+          'type' => 'N/A',
+          'time' => ''
+        ]);
+      }
+    }
+
+    return $rv;
   }
 
   public function listChangeWsr(Request $req){
@@ -190,20 +287,11 @@ class WorkSchedRuleController extends Controller
       $retv = [];
       foreach($datsp->ListDays as $oneday){
         $dayindex = $oneday->day_seq % 7;
-        if($oneday->Day->is_work_day == true){
-          $stime = new Carbon($oneday->Day->start_time);
-          $etime = new Carbon($oneday->Day->start_time);
-          $etime->addMinutes($oneday->Day->total_minute);
-          array_push($retv, [
-            'day' => $dowMap[$dayindex],
-            'time' => $stime->format('H:i') . ' - ' . $etime->format('H:i')
-          ]);
-        } else {
-          array_push($retv, [
-            'day' => $dowMap[$oneday->day_seq],
-            'time' => $oneday->Day->description
-          ]);
-        }
+
+        array_push($retv, [
+          'day' => $dowMap[$dayindex],
+          'time' => $oneday->Day->getTimeRange()
+        ]);
 
       }
       return $retv;
