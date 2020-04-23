@@ -28,7 +28,7 @@ return [
     'user_punch'      => 'Start/End OT',
     'user_punch_list' => 'List of Start/End OT',
     'user_setting'    => 'My Settings',
-    'user_shift_sc'   => 'My Shift Schedule',
+    'user_shift_sc'   => 'My Work Schedule',
     'user_management' => 'User Management',
     'user_logs'  => 'User Logs',
     'user_profile'  => 'PROFILE',
@@ -61,7 +61,7 @@ return [
     'shift_plan'      => 'Shift Planning',
     'shift_approval'  => 'Shift Approval',
     //'shift_template'  => 'Shift Template',
-    'shift_template'  => 'My Work Schedule',    
+    'shift_template'  => 'Work Schedule Rule',    
     'shift_workteam'      => 'My Work Team Schedule',    
      
 

@@ -3,7 +3,7 @@
 
 @section('content')
 <h3 class="box-title">Profile</h3>
-<div class="row-eq-height">
+<div class="row row-eq-height">
 
 <div class="col-md-6 col-xs-12">
 <div class="panel panel-default boxfullheight">
@@ -110,7 +110,7 @@
 </div><!-- /.row -->
 
 
-<div class="row-eq-height">
+<div class="row row-eq-height">
 
 <div class="col-md-6 col-xs-12">
 
@@ -199,7 +199,7 @@
 
 <h3 class="box-title">Subordinates @if($list_subord->count() > 0) ({{ $list_subord->count() }}) @endif</h3>
 @if($list_subord->count() == 0)
-<div class="row">
+<div class="row row-eq-height">
 <div class="col-md-12">
 <div class="panel panel-default">
             <!-- /.box-header -->
@@ -217,7 +217,7 @@
 @foreach ($list_subord as $row_subord)
 
 @if($countrow % 4 === 0)
-<div class="row-eq-height">
+<div class="row row-eq-height">
 @endif
 
 @php $countrow++ @endphp
