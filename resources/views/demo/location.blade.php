@@ -34,7 +34,7 @@ Shared Function: <b> GeoLocHelper::getLocDescr(latitude,longitude)</b>
   <br/>
 To access the variable: <b>$loc['< variable_name >']</b>
 
-<p/>
+<p></p>
 
 <div class="row-eq-height">
   <div class="col-md-5 col-sm-5 col-xs-12 " >
