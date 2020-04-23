@@ -70,32 +70,6 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/staff', 'Admin\StaffController@showStaff')->name('staff.list');
   Route::post('/staff/search', 'Admin\StaffController@searchStaff')->name('staff.search');
 
-  // admins ------------------------------------
-  Route::get('/admin/workday', 'Admin\DayTypeController@index')->name('wd.index');
-  Route::post('/admin/workday/add', 'Admin\DayTypeController@add')->name('wd.add');
-  Route::post('/admin/workday/edit', 'Admin\DayTypeController@edit')->name('wd.edit');
-  Route::post('/admin/workday/delete', 'Admin\DayTypeController@delete')->name('wd.delete');
-  Route::get('/admin/cda', 'TempController@loadDummyUser')->name('temp.cda');
-  //start state admin
-  Route::post('/admin/state/store', 'Admin\StateController@store')->name('state.store');
-  Route::get('/admin/restState', 'Admin\StateController@list')->name('state.list');
-  Route::post('/admin/state/destroy', 'Admin\StateController@destroy')->name('state.destroy');
-  Route::get('/admin/state/show', 'Admin\StateController@show')->name('state.show');
-  Route::post('/admin/state/update', 'Admin\StateController@update')->name('state.update');
-  //end state admin
-
-
-  //Announcement management
-  Route::get('/announcement/close', 'Admin\AnnouncementController@close')->name('announce.close');
-  Route::get('/admin/announcement', 'Admin\AnnouncementController@show')->name('announcement.show');
-  Route::get('/admin/announcement/form', 'Admin\AnnouncementController@form')->name('announcement.form');
-  Route::get('/admin/announcement/add', 'Admin\AnnouncementController@add')->name('announcement.add');
-  Route::post('/admin/announcement/edit', 'Admin\AnnouncementController@edit')->name('announcement.edit');
-  Route::post('/admin/announcement/save', 'Admin\AnnouncementController@save')->name('announcement.save');
-  Route::post('/admin/announcement/create', 'Admin\AnnouncementController@create')->name('announcement.create');
-  Route::post('/admin/announcement/delete', 'Admin\AnnouncementController@delete')->name('announcement.delete');
-
-
   //User management
   Route::get('/admin/staff', 'Admin\StaffController@showMgmt')->name('staff.list.mgmt');
   Route::post('/admin/staff/edit', 'Admin\StaffController@updateMgmt')->name('staff.edit.mgmt');
@@ -119,20 +93,6 @@ Route::group(['middleware' => ['auth']], function () {
   // Route::post('/admin/overtime/eligible/store', 'Admin\OvertimeMgmtController@eligiblestore')->name('oe.eligiblestore');
   // Route::post('/admin/overtime/eligible/update', 'Admin\OvertimeMgmtController@eligibleupdate')->name('oe.eligibleupdate');
   // Route::post('/admin/overtime/eligible/delete', 'Admin\OvertimeMgmtController@eligibledelete')->name('oe.eligibledelete');
-
-  Route::post('/admin/overtime/expiry/store', 'Admin\OvertimeMgmtController@expirystore')->name('oe.expirystore');
-  Route::post('/admin/overtime/expiry/update', 'Admin\OvertimeMgmtController@expiryupdate')->name('oe.expiryupdate');
-  Route::post('/admin/overtime/expiry/delete', 'Admin\OvertimeMgmtController@expirydelete')->name('oe.expirydelete');
-  Route::post('/admin/overtime/expiry/active', 'Admin\OvertimeMgmtController@active')->name('oe.active');
-  Route::get('/admin/overtime/expiry/getexpiry', 'Admin\OvertimeMgmtController@getExpiry')->name('oe.getexpiry');
-  Route::get('/admin/overtime/expiry/getlast', 'Admin\OvertimeMgmtController@getLast2')->name('oe.expirygetlast');
-
-  Route::get('/admin/overtime/eligibility', 'Admin\OvertimeMgmtController@eligibilityshow')->name('oe.eligibility.show');
-  Route::post('/admin/overtime/eligibility/add', 'Admin\OvertimeMgmtController@eligibilityadd')->name('oe.eligibility.add');
-  Route::post('/admin/overtime/eligibility/remove', 'Admin\OvertimeMgmtController@eligibilityremove')->name('oe.eligibility.remove');
-  Route::post('/admin/overtime/eligibility/update', 'Admin\OvertimeMgmtController@eligibilityupdate')->name('oe.eligibility.update');
-
-
 
   // /admins ------------------------------------
   //Log activity
@@ -204,34 +164,6 @@ Route::get('/demo/location', 'DemoController@location')->name('demo.location');
 Route::post('/demo/location', 'DemoController@location')->name('demo.location');
 });
 
-
-//Payroll Group
-Route::group(['middleware' => ['auth', 'can:2-cfg-payroll-grp']], function () {
-  Route::get('/admin/pygroup', 'Admin\PayrollgroupController@index')->name('pygroup.index');
-  Route::get('/admin/pygroup/create', 'Admin\PayrollgroupController@create')->name('pygroup.create');
-  Route::post('/admin/pygroup/add', 'Admin\PayrollgroupController@store')->name('pygroup.store');
-  Route::get('/admin/pygroup/edit/{id}', 'Admin\PayrollgroupController@edit')->name('pygroup.editnew');
-  Route::post('/admin/pygroup/update', 'Admin\PayrollgroupController@update')->name('pygroup.update');
-  Route::post('/admin/pygroup/delete', 'Admin\PayrollgroupController@destroy')->name('pygroup.delete');
-});
-
-
-
-//Report
-// Route::group(['middleware' => ['auth']], function () {
-
-
-
-Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => 'Admin', 'middleware' => ['auth', 'can:2-cfg-shifttemplate']], function () {
-  Route::get('/', 'ShiftPatternController@index')->name('index');
-  Route::post('/add', 'ShiftPatternController@addShiftPattern')->name('add');
-  Route::get('/detail', 'ShiftPatternController@viewSPDetail')->name('view');
-  Route::post('/edit', 'ShiftPatternController@editShiftPattern')->name('edit');
-  Route::post('/del', 'ShiftPatternController@delShiftPattern')->name('delete');
-  Route::post('/day/push', 'ShiftPatternController@pushDay')->name('day.add');
-  Route::post('/day/pop', 'ShiftPatternController@popDay')->name('day.del');
-});
-
 Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth']], function () {
   Route::get('/group', 'ShiftGroupController@index')->name('group');
   Route::post('/group/add', 'ShiftGroupController@addGroup')->name('group.add');
@@ -261,7 +193,6 @@ Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth
   Route::get('/group/api/sstaff', 'ShiftGroupController@ApiSearchStaff')->name('group.api.searchstaff');
   Route::get('/group/api/gname', 'ShiftGroupController@ApiGetStaffName')->name('group.api.getname');
 
-
   // ShiftPlanStaff
   Route::get('/staff', 'ShiftPlanController@staffInfo')->name('staff');
   Route::post('/staff/push', 'ShiftPlanController@staffPushTemplate')->name('staff.push');
@@ -273,7 +204,80 @@ Route::post('/email/dummy', 'EmailController@sendDummyEmail')->name('email.sendd
 
 
 //Holiday
-Route::group(['prefix' => 'admin/holiday', 'as' => '', 'middleware' => ['auth', 'can:2-cfg-holiday']], function () {
+
+
+
+//--------------------ADMIN--------------------------------------------------------------------------------------------------------------
+Route::group(['middleware' => ['auth','can:1-nav-admin']], function () {
+  //Company Management
+  Route::get('/admin/company', 'Admin\CompanyController@index')->name('company.index');
+  Route::post('/admin/company/add', 'Admin\CompanyController@store')->name('company.store');
+  Route::post('/admin/company/delete', 'Admin\CompanyController@destroy')->name('company.delete');
+  Route::post('/admin/company/update', 'Admin\CompanyController@update')->name('company.update');
+  //State Management
+  Route::post('/admin/state/store', 'Admin\StateController@store')->name('state.store');
+  Route::get('/admin/restState', 'Admin\StateController@list')->name('state.list');
+  Route::post('/admin/state/destroy', 'Admin\StateController@destroy')->name('state.destroy');
+  Route::get('/admin/state/show', 'Admin\StateController@show')->name('state.show');
+  Route::post('/admin/state/update', 'Admin\StateController@update')->name('state.update');
+  //Subarea Management
+  Route::get('/admin/psubarea', 'Admin\PsubareaController@index')->name('psubarea.index');
+  Route::post('/admin/psubarea/add', 'Admin\PsubareaController@store')->name('psubarea.store');
+  Route::post('/admin/psubarea/update', 'Admin\PsubareaController@update')->name('psubarea.edit');
+  Route::post('/admin/psubarea/delete', 'Admin\PsubareaController@destroy')->name('psubarea.delete');
+  //System Eligibility
+  Route::get('/admin/overtime/eligibility', 'Admin\OvertimeMgmtController@eligibilityshow')->name('oe.eligibility.show');
+  Route::post('/admin/overtime/eligibility/add', 'Admin\OvertimeMgmtController@eligibilityadd')->name('oe.eligibility.add');
+  Route::post('/admin/overtime/eligibility/remove', 'Admin\OvertimeMgmtController@eligibilityremove')->name('oe.eligibility.remove');
+  Route::post('/admin/overtime/eligibility/update', 'Admin\OvertimeMgmtController@eligibilityupdate')->name('oe.eligibility.update');
+  //Period Work Schedule Rule
+  Route::get('/admin/workday', 'Admin\DayTypeController@index')->name('wd.index');
+  Route::post('/admin/workday/add', 'Admin\DayTypeController@add')->name('wd.add');
+  Route::post('/admin/workday/edit', 'Admin\DayTypeController@edit')->name('wd.edit');
+  Route::post('/admin/workday/delete', 'Admin\DayTypeController@delete')->name('wd.delete');
+  Route::get('/admin/cda', 'TempController@loadDummyUser')->name('temp.cda');
+  //Payment Schedule Management
+  Route::get('/admin/paymentsc', 'Admin\PaymentScheduleController@index')->name('paymentsc.index');
+  Route::post('/admin/paymentsc', 'Admin\PaymentScheduleController@index')->name('paymentsc.index');
+  Route::post('/admin/paymentsc/add', 'Admin\PaymentScheduleController@store')->name('paymentsc.store');
+  Route::post('/admin/paymentsc/update', 'Admin\PaymentScheduleController@update')->name('paymentsc.edit');
+  Route::post('/admin/paymentsc/delete', 'Admin\PaymentScheduleController@destroy')->name('paymentsc.delete');
+  //Payroll Grouping
+  Route::get('/admin/pygroup', 'Admin\PayrollgroupController@index')->name('pygroup.index');
+  Route::get('/admin/pygroup/create', 'Admin\PayrollgroupController@create')->name('pygroup.create');
+  Route::post('/admin/pygroup/add', 'Admin\PayrollgroupController@store')->name('pygroup.store');
+  Route::get('/admin/pygroup/edit/{id}', 'Admin\PayrollgroupController@edit')->name('pygroup.editnew');
+  Route::post('/admin/pygroup/update', 'Admin\PayrollgroupController@update')->name('pygroup.update');
+  Route::post('/admin/pygroup/delete', 'Admin\PayrollgroupController@destroy')->name('pygroup.delete');
+  //Overtime Claim Expiry Date
+  Route::post('/admin/overtime/expiry/store', 'Admin\OvertimeMgmtController@expirystore')->name('oe.expirystore');
+  Route::post('/admin/overtime/expiry/update', 'Admin\OvertimeMgmtController@expiryupdate')->name('oe.expiryupdate');
+  Route::post('/admin/overtime/expiry/delete', 'Admin\OvertimeMgmtController@expirydelete')->name('oe.expirydelete');
+  Route::post('/admin/overtime/expiry/active', 'Admin\OvertimeMgmtController@active')->name('oe.active');
+  Route::get('/admin/overtime/expiry/getexpiry', 'Admin\OvertimeMgmtController@getExpiry')->name('oe.getexpiry');
+  Route::get('/admin/overtime/expiry/getlast', 'Admin\OvertimeMgmtController@getLast2')->name('oe.expirygetlast');
+  //Announcement management
+  Route::get('/announcement/close', 'Admin\AnnouncementController@close')->name('announce.close');
+  Route::get('/admin/announcement', 'Admin\AnnouncementController@show')->name('announcement.show');
+  Route::get('/admin/announcement/form', 'Admin\AnnouncementController@form')->name('announcement.form');
+  Route::get('/admin/announcement/add', 'Admin\AnnouncementController@add')->name('announcement.add');
+  Route::post('/admin/announcement/edit', 'Admin\AnnouncementController@edit')->name('announcement.edit');
+  Route::post('/admin/announcement/save', 'Admin\AnnouncementController@save')->name('announcement.save');
+  Route::post('/admin/announcement/create', 'Admin\AnnouncementController@create')->name('announcement.create');
+  Route::post('/admin/announcement/delete', 'Admin\AnnouncementController@delete')->name('announcement.delete');
+});
+
+Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => 'Admin', 'middleware' => ['auth', 'can:1-nav-admin']], function () {
+  Route::get('/', 'ShiftPatternController@index')->name('index');
+  Route::post('/add', 'ShiftPatternController@addShiftPattern')->name('add');
+  Route::get('/detail', 'ShiftPatternController@viewSPDetail')->name('view');
+  Route::post('/edit', 'ShiftPatternController@editShiftPattern')->name('edit');
+  Route::post('/del', 'ShiftPatternController@delShiftPattern')->name('delete');
+  Route::post('/day/push', 'ShiftPatternController@pushDay')->name('day.add');
+  Route::post('/day/pop', 'ShiftPatternController@popDay')->name('day.del');
+});
+//Holiday Management
+Route::group(['prefix' => 'admin/holiday', 'as' => '', 'middleware' => ['auth', 'can:1-nav-admin']], function () {
   Route::get('/create', 'Admin\HolidayController@create')->name('holiday.create');
   Route::post('/insert', 'Admin\HolidayController@insert')->name('holiday.insert');
   Route::get('/show', 'Admin\HolidayController@show')->name('holiday.show');
@@ -304,24 +308,4 @@ Route::group(['middleware' => ['auth','can:7-rpt-ot-sa']], function () {
   Route::get('/syadmrep/otlog', 'Admin\OtSaRepController@viewLC')->name('rep.sa.OTLog');
 });
 
-Route::group(['middleware' => ['auth','can:2-cfg-company']], function () {
-Route::get('/admin/company', 'Admin\CompanyController@index')->name('company.index');
-Route::post('/admin/company/add', 'Admin\CompanyController@store')->name('company.store');
-Route::post('/admin/company/delete', 'Admin\CompanyController@destroy')->name('company.delete');
-Route::post('/admin/company/update', 'Admin\CompanyController@update')->name('company.update');
-});
-
-Route::group(['middleware' => ['auth','can:2-cfg-psubarea']], function () {
-Route::get('/admin/psubarea', 'Admin\PsubareaController@index')->name('psubarea.index');
-Route::post('/admin/psubarea/add', 'Admin\PsubareaController@store')->name('psubarea.store');
-Route::post('/admin/psubarea/update', 'Admin\PsubareaController@update')->name('psubarea.edit');
-Route::post('/admin/psubarea/delete', 'Admin\PsubareaController@destroy')->name('psubarea.delete');
-});
-
-Route::group(['middleware' => ['auth','can:2-cfg-pay-sched']], function () {
-Route::get('/admin/paymentsc', 'Admin\PaymentScheduleController@index')->name('paymentsc.index');
-Route::post('/admin/paymentsc', 'Admin\PaymentScheduleController@index')->name('paymentsc.index');
-Route::post('/admin/paymentsc/add', 'Admin\PaymentScheduleController@store')->name('paymentsc.store');
-Route::post('/admin/paymentsc/update', 'Admin\PaymentScheduleController@update')->name('paymentsc.edit');
-Route::post('/admin/paymentsc/delete', 'Admin\PaymentScheduleController@destroy')->name('paymentsc.delete');
-});
+//-----------------------------------------------------------------------------------------------------------------------------------
