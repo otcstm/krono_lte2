@@ -19,8 +19,8 @@ class PermissionRoleTableSeeder extends Seeder
         \DB::table('permission_role')->insert(array (
             0 => 
             array (
-                'role_id' => 1,
-                'permission_id' => 5,
+                'role_id' => 2,
+                'permission_id' => 2,
             ),
             1 => 
             array (
@@ -30,42 +30,47 @@ class PermissionRoleTableSeeder extends Seeder
             2 => 
             array (
                 'role_id' => 2,
-                'permission_id' => 7,
+                'permission_id' => 3,
             ),
             3 => 
             array (
                 'role_id' => 2,
-                'permission_id' => 17,
+                'permission_id' => 4,
             ),
             4 => 
             array (
-                'role_id' => 1,
-                'permission_id' => 3,
+                'role_id' => 2,
+                'permission_id' => 5,
             ),
             5 => 
             array (
-                'role_id' => 1,
-                'permission_id' => 2,
+                'role_id' => 2,
+                'permission_id' => 6,
             ),
             6 => 
             array (
-                'role_id' => 1,
-                'permission_id' => 20,
+                'role_id' => 2,
+                'permission_id' => 7,
             ),
             7 => 
             array (
-                'role_id' => 1,
-                'permission_id' => 23,
+                'role_id' => 2,
+                'permission_id' => 8,
             ),
             8 => 
             array (
-                'role_id' => 1,
-                'permission_id' => 24,
+                'role_id' => 2,
+                'permission_id' => 9,
             ),
             9 => 
             array (
-                'role_id' => 1,
-                'permission_id' => 36,
+                'role_id' => 2,
+                'permission_id' => 10,
+            ),
+            10 => 
+            array (
+                'role_id' => 3,
+                'permission_id' => 10,
             ),
         ));
         

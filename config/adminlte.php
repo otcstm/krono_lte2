@@ -132,142 +132,137 @@ return [
     'menu' => [
 
       //   //UNCOMMENT THIS LATER
+      //System Configuration
       ['header' => 'admin_menu', 'can' => '1-nav-menu-admin'],
-      [
+      [//System Configuration
         'text' => 'admin_menu',
         'icon' => 'fas f fa-user-clock',
-        // 'can' => '1-nav-menu-admin',
+        'can' => '1-nav-menu-admin',
         'submenu' => [
           [
               'text' => 'manage_role',
               'url'  => '/admin/role',
               'icon' => '',
             //   'icon' => 'fas fa-lock-open',
-              'can' => '2-cfg-role',
+              'can' => '1-nav-admin',
           ],
           [
               'text' => 'manage_company',
               'url'  => '/admin/company',
               'icon' => '',
             //   'icon' => 'fas fa-briefcase',
-              'can' => '2-cfg-company',
+              'can' => '1-nav-admin',
           ],
           [
               'text' => 'manage_state',
               'url' => '/admin/state/show',
               'icon' => '',
             //   'icon' => 'fas fa-map-marked-alt',
-              // 'can' => '2-cfg-state',
+              'can' => '1-nav-admin',
           ],
           [
-              'text' => 'manage_holiday',
-              'url' => '/admin/holiday/show',
-              'icon' => '',
-            //   'icon' => 'fas fa-umbrella-beach',
-              //'icon' => 'fas fa-hiking',
-              'can' => '2-cfg-holiday',
-          ],
-          [
-              'text' => 'manage_psubarea',
-              'url' => '/admin/psubarea',
-              'icon' => '',
+            'text' => 'manage_psubarea',
+            'url' => '/admin/psubarea',
+            'icon' => '',
             //   'icon' => 'fas fa-map-marked-alt',
-              'can' => '2-cfg-psubarea',
+            'can' => '1-nav-admin',
           ],
-          [
-              'text' => 'manage_overtime',
-              'url' => '/admin/overtime',
-              'otm' => '',
-              'icon' => '',
-            //   'icon' => 'fas fas fa-clock',
-              'can' => '2-cfg-psubarea',
-          ],
+          // [
+          //     'text' => 'manage_overtime',
+          //     'url' => '/admin/overtime',
+          //      'otm' => '',
+          //     'icon' => '',
+          //   //   'icon' => 'fas fas fa-clock',
+          //     // 'can' => '2-cfg-psubarea',
+          // ],
           [
               'text' => 'manage_eligibility',
               'url' => '/admin/overtime/eligibility',
               'icon' => '',
             //   'icon' => 'fas fas fa-clock',
-              // 'can' => '2-cfg-eligibility',
-          ],
-          [
-              'text' => 'manage_overtimeex',
-              'url' => '/admin/overtime',
-              'icon' => '',
-            //   'icon' => 'fas fas fa-clock',
-              // 'can' => '2-cfg-eligibility',
+              'can' => '1-nav-admin',
           ],
           [
               'text' => 'manage_wdays',
               'url'  => '/admin/workday',
               'icon' => '',
             //   'icon' => 'far fa-calendar-alt',
-              'can' => '2-cfg-wdt',
+              'can' => '1-nav-admin',
           ],
           [
               'text' => 'shift_template',
               'url'  => '/admin/shift_pattern',
               'icon' => '',
             //   'icon' => 'far fa-calendar-alt',
-              'can' => '2-cfg-shifttemplate',
+              'can' => '1-nav-admin',
           ],
           [
               'text' => 'payrollgroup',
               'url' => '/admin/pygroup',
               'icon' => '',
             //   'icon' => 'fas fa-calendar-alt',
-              'can' => '2-cfg-payroll-grp',
+              'can' => '1-nav-admin',
           ],
           [
               'text' => 'paymentsch',
               'url' => '/admin/paymentsc',
               'icon' => '',
             //   'icon' => 'fas fa-calendar-alt',
-              'can' => '2-cfg-pay-sched',
+              'can' => '1-nav-admin',
+          ],
+          [
+            'text' => 'manage_holiday',
+            'url' => '/admin/holiday/show',
+            'icon' => '',
+            //   'icon' => 'fas fa-umbrella-beach',
+            'can' => '1-nav-admin',
+          ],
+          [
+            'text' => 'manage_overtimeex',
+            'url' => '/admin/overtime',
+            'icon' => '',
+            //   'icon' => 'fas fas fa-clock',
+            'can' => '1-nav-admin',
           ],
           [
               'text' => 'manage_announcement',
               'url' => '/admin/announcement',
               'icon' => '',
             //   'icon' => 'fas fa-calendar-alt',
-              'can' => '2-cfg-pay-sched',
+              'can' => '1-nav-admin',
           ],
         ],
       ],
-      [
+      [ //USER MANAGMENT
         'text' => 'admin_user_menu',
         'icon' => 'fas fa-clock',
-        'can' => '1-nav-menu-admin',
+        'can' => '5-user-mngmt-menu',
         'submenu' => [
           [
               'text' => 'user_autho',
-              'url'  => '/admin/staff/auth',
+              'url'  => '/admin/staff/auth/empty',
               'icon' => '',
               'estaffauth' => '',
-            //   'icon' => 'fas fa-key',
-              'can' => '2-cfg-user-auth',
+              'can' => '5-user-mngmt',
           ],
-          // [
-          //     'text' => 'user_management',
-          //     'url'  => '/admin/staff',
-          //     'icon' => '',
-          //   //   'icon' => 'far fa-folder-open',
-          //     // 'can' => 'admin-nav-menu',
-          // ],
+          [
+              'text' => 'staff_list',
+              'url'  => '/staff',
+              'icon' => '',
+              'can' => '5-user-mngmt',
+          ],
           [
               'text' => 'manual_overtime',
               'url' => '/admin/overtime/approval',
               'otv' => '',
               'icon' => '',
-            //   'icon' => 'fas fas fa-clock',
-              'can' => '3-user-manual-claim-appr',
+              'can' => '5-user-mngmt',
           ],
           [
               'text' => 'user_logs',
-              //'url'  => route('state.show', [], false),
               'url' => '/log/listUserLogs',
               'icon' => '',
-            //   'icon' => 'fas fa-user-secret',
-              'can' => '3-user-logs',
+              'can' => '5-user-mngmt',
           ],
         ]
       ],
@@ -289,248 +284,216 @@ return [
 
 
 
-      [ 'header' => 'user_menu',
+      [ //USER
+        'header' => 'user_menu',
       ],
       [
           'text' => 'user_home',
           'url'  => '/home',
           'icon' => 'fas fa-home',
-          // 'can' => 'user-nav-menu',
       ],
-
       [
         'text' => 'user_profile',
         'url'  => '/staff/profile',
         'icon' => 'fas fa-user',
-        'can' => '3-user-profile',
-    ],
-
-      [
-          'text' => 'staff_list',
-          'url'  => '/staff',
-          'icon' => 'fas fa-tasks',
-          'can' => '3-user-staff-list',
       ],
 
-        [
-          'text' => 'ot_menu',
-        //   'main' => '',
-          'icon' => 'fas fa-user-clock',
-          'can' => '1-nav-menu-ot',
-          'submenu' => [
-            [
-                'text' => 'user_punch_list',
-                'url'  => '/punch',
-                'icon' => '',
-                'can' => '4-ot-list-clockins',
-            ],
-            [
-                'text' => 'ot_apply',
-                'url'  => '/overtime/form',
-                'otnew' => '',
-                'icon' => '',
-                'can' => '4-ot-apply',
-            ],
-            [
-                'text' => 'ot_list',
-                'url'  => '/overtime',
-                'icon' => '',
-                'can' => '4-ot-claim-list',
-            ],
-            [
-                'text' => 'ot_verify',
-                'url'  => '/overtime/verify',
-                    // 'label'       => UserHelper::GetRequireAttCount(),
-                // 'label' => OvertimeController::getQueryAmount(),
-                'label_color' => 'warning',
-                'icon' => '',
-                'can' => '4-ot-claim-pending-verify',
-            ],
-            [
-                'text' => 'ot_verify_report',
-                'url'  => '/overtime/verify/report',
-                'label_color' => 'warning',
-                'icon' => '',
-                'can' => '4-ot-claim-verify-report',
-            ],
-            [
-                'text' => 'ot_approve',
-                'url'  => '/overtime/approval',
-                    // 'label'       => UserHelper::GetRequireAttCount(),
-                // 'label' => OvertimeController::getQueryAmount(),
-                'label_color' => 'warning',
-                'icon' => '',
-                'can' => '4-ot-claim-pending-approve',
-            ],
-            [
-                'text' => 'ot_approve_report',
-                'url'  => '/overtime/approval/report',
-                'label_color' => 'warning',
-                'icon' => '',
-                'can' => '4-ot-claim-approve-report',
-            ],
+      // [
+      //     'text' => 'staff_list',
+      //     'url'  => '/staff',
+      //     'icon' => 'fas fa-tasks',
+      //     // 'can' => '3-user-staff-list',
+      // ],
 
-            [
-                'text' => 'ot_def_ver',
-                'url'  => '/verifier',
-                'icon' => '',
-                'can' => '4-ot-set-default-verifier',
-            ],
-          ]
-        ],
-        [
-          'text' => 'shift_menu',
-          'icon' => 'fas fa-clock',
-          'can' => '1-nav-menu-shiftp',
-          'submenu' => [
-            [
-                'text' => 'shift_group',
-                'url'  => '/shift_plan/group',
-                'icon' => '',
-                'can' => '5-shift-group',
-            ],
-            [
-                'text' => 'my_shift_grp',
-                'route'  => 'shift.mygroup',
-                'icon' => '',
-                'can' => '5-shift-plan',
-            ],
-            [
-                'text' => 'shift_plan',
-                'url'  => '/shift_plan',
-                'icon' => '',
-                'can' => '5-shift-plan',
-            ],
-            [
-                'text' => 'shift_approval',
-                'url'  => '/shift_plan',
-                'icon' => '',
-                'can' => '5-shift-plan',
-            ],
-            [
-                'text' => 'user_shift_sc',
-                'route'  => 'staff.worksched',
-                'icon' => '',
-                'can' => '5-shift-calendar',
-            ],
-            [
-                'text' => 'shift_workteam',
-                'url'  => '/workschedule?page=teamc',
-                'icon' => '',
-                'can' => '5-shift-calendar',
-            ],
-          ]
-        ],
-        [
-          'header' => 'INFO',
-          // 'can' => 'rpt-nav-menu',
-        ],
-        [
-            'text' => 'user_guide',
-            'icon' => 'fas fa-info-circle',
-            'submenu' => [
-              [
-                'text' => 'guideline_calendar',
-                'url'  => 'guide/calendar',
-                'icon' => '',
-                'guide' => '',
-              ],
-              [
-                'text' => 'guideline_system',
-                'url'  => 'guide/system',
-                'icon' => '',
-              ],
-              [
-                'text' => 'guideline_payment',
-                'url'  => 'guide/calendar/payment',
-                'icon' => '',
-              ],
-            ],
-        ],
-        [
-          'text' => 'rpt_menu',
-          'icon' => 'fas fa-print',
-          'can' => '1-nav-menu-rpt',
-          'submenu' => [
-            [
-              'text' => 'otr_main',
-              'route'  => 'rep.main',
+      [ //OVERTIME
+        'text' => 'ot_menu',
+        'icon' => 'fas fa-user-clock',
+        // 'can' => '2-ot-menu',
+        'submenu' => [
+          [
+            'text' => 'ot_apply',
+            'url'  => '/overtime/form',
+            'otnew' => '',
+            'icon' => '',
+            // 'can' => '2-ot-all',
+          ],
+          [
+              'text' => 'user_punch_list',
+              'url'  => '/punch',
               'icon' => '',
-              'can' => '6-rpt-ot',
-            ],
-            [
-              'text' => 'sysadm_rpt_main',
-              'route'  => 'rep.sa.main',
+              // 'can' => '2-ot-all',
+          ],
+          [
+              'text' => 'claim_list',
+              'url'  => '/overtime',
               'icon' => '',
-              'can' => '7-rpt-ot-sa',
-            ],
+              // 'can' => '2-ot-all',
+          ],
+          [
+              'text' => 'ot_verify',
+              'url'  => '/overtime/verify',
+              // 'label'       => UserHelper::GetRequireAttCount(),
+              // 'label' => OvertimeController::getQueryAmount(),
+              'label_color' => 'warning',
+              'icon' => '',
+              // 'can' => '2-ot-all',
+          ],
+          [
+              'text' => 'ot_verify_report',
+              'url'  => '/overtime/verify/report',
+              'label_color' => 'warning',
+              'icon' => '',
+              // 'can' => '2-ot-all',
+          ],
+          [
+              'text' => 'ot_approve',
+              'url'  => '/overtime/approval',
+                  // 'label'       => UserHelper::GetRequireAttCount(),
+              // 'label' => OvertimeController::getQueryAmount(),
+              'label_color' => 'warning',
+              'icon' => '',
+              // 'can' => '2-ot-all',
+          ],
+          [
+              'text' => 'ot_approve_report',
+              'url'  => '/overtime/approval/report',
+              'label_color' => 'warning',
+              'icon' => '',
+              // 'can' => '2-ot-all',
+          ],
+
+          [
+              'text' => 'ot_def_ver',
+              'url'  => '/verifier',
+              'icon' => '',
+              // 'can' => '2-ot-all',
+          ],
+        ]
+      ],
+      [ //SHIFT MANAGEMENT
+        'text' => 'shift_menu',
+        'icon' => 'fas fa-clock',
+        // 'can' => '1-nav-menu-shiftp',
+        'submenu' => [
+          [
+              'text' => 'shift_group',
+              'url'  => '/shift_plan/group',
+              'icon' => '',
+              'can' => '3-shift-grp',
+          ],
+          [
+              'text' => 'my_shift_grp',
+              'url'  => '/shift_plan/mygroup',
+              'icon' => '',
+              'can' => '4-shift-plan',
+          ],
+          [
+              'text' => 'shift_plan',
+              'url'  => '/shift_plan',
+              'icon' => '',
+              'can' => '4-shift-plan',
+          ],
+          [
+              'text' => 'shift_approval',
+              'url'  => '/shift_plan',
+              'icon' => '',
+              'can' => '4-shift-plan',
+          ],
+          [
+              'text' => 'user_shift_sc',
+              'url'  => '/workschedule',
+              'icon' => '',
+              // 'can' => '4-shift-plan-all',
+          ],
+          [
+              'text' => 'shift_workteam',
+              'url'  => '/workschedule?page=teamc',
+              'icon' => '',
+              'can' => '4-shift-plan',
+          ],
+        ]
+      ],
+      [ //REPORT USER ADMIN
+        'text' => 'rpt_menu',
+        'icon' => 'fas fa-print',
+        'can' => '6-rpt-ot-menu',
+        'submenu' => [
+          [
+            'text' => 'otr_details',
+            'url'  => '/report/otd',
+            'icon' => '',
+            'can' => '6-rpt-ot',
+          ],
+          [
+            'text' => 'otr',
+            'url'  => '/report/ot',
+            'icon' => '',
+            'can' => '6-rpt-ot',
           ],
         ],
-        // [
-        //     'text' => 'rpt_menu',
-        //     'icon' => 'fas fa-print',
-        //     'can' => '1-nav-menu-rpt',
-        //     'submenu' => [
-        //       [
-        //         'text' => 'otr_details',
-        //         'url'  => '/report/otd',
-        //         'icon' => '',
-        //         'can' => '6-rpt-ot',
-        //        // 'can' => '6-rpt-ot-details',
-        //       ],
-        //       [
-        //         'text' => 'otr_startend',
-        //         'url'  => '/report/StEdOt',
-        //         'icon' => '',
-        //         'can' => '6-rpt-ot',
-        //         // 'can' => '6-rpt-ot-se',
-        //       ],
-        //       [
-        //         'text' => 'otr',
-        //         'url'  => '/report/ot',
-        //         'icon' => '',
-        //         'can' => '6-rpt-ot',
-        //         // 'can' => '6-rpt-ot-claim-summary',
-        //       ],
-
-        //       [
-        //         'text' => 'otr_log',
-        //         'url'  => '/report/otlog',
-        //         'icon' => '',
-        //         'can' => '6-rpt-ot',
-        //       ],
-        //       [
-        //         'text' => 'sysadmot',
-        //         'url'  => '/syadmrep/ot',
-        //         'icon' => '',
-        //         'can' => '7-rpt-ot-sa',
-        //       ],
-        //       [
-        //         'text' => 'sysadmotd',
-        //         'url'  => '/syadmrep/otd',
-        //         'icon' => '',
-        //         'can' => '7-rpt-ot-sa',
-        //       ],
-        //       [
-        //         'text' => 'sysadmotStEd',
-        //         'url'  => '/syadmrep/StEd',
-        //         'icon' => '',
-        //         'can' => '7-rpt-ot-sa',
-        //       ],
-        //       [
-        //         'text' => 'sysadmotlog',
-        //         'url'  => '/syadmrep/otlog',
-        //         'icon' => '',
-        //         'can' => '7-rpt-ot-sa',
-        //       ],
-        //     ],
-        // ],
-        [
-          'text' => 'user_faqs',
-          'url'  => '/vendor/docs/FAQs.pdf',
-          'icon' => 'fas fa-question-circle',
-          //'can' => '1-user-faqs',
+      ],
+      [//REPORT SYSADM
+        'text' => 'rpt_menu',
+        'icon' => 'fas fa-print',
+        'can' => '7-rpt-ot-sa-menu',
+        'submenu' => [
+          [
+            'text' => 'sysadmotd',
+            'url'  => '/syadmrep/otd',
+            'icon' => '',
+            'can' => '7-rpt-ot-sa',
+          ],
+          [
+            'text' => 'sysadmot',
+            'url'  => '/syadmrep/ot',
+            'icon' => '',
+            'can' => '7-rpt-ot-sa',
+          ],
+          [
+            'text' => 'sysadmotStEd',
+            'url'  => '/syadmrep/StEd',
+            'icon' => '',
+            'can' => '7-rpt-ot-sa',
+          ],
+          [
+            'text' => 'sysadmotlog',
+            'url'  => '/syadmrep/otlog',
+            'icon' => '',
+            'can' => '7-rpt-ot-sa',
+          ],
         ],
+      ],
+      [
+          'header' => 'INFO',
+      ],
+      [//GUIDELINE
+          'text' => 'user_guide',
+          'icon' => 'fas fa-info-circle',
+          'submenu' => [
+            [
+              'text' => 'guideline_calendar',
+              'url'  => 'guide/calendar',
+              'icon' => '',
+              'guide' => '',
+            ],
+            [
+              'text' => 'guideline_system',
+              'url'  => 'guide/system',
+              'icon' => '',
+            ],
+            [
+              'text' => 'guideline_payment',
+              'url'  => 'guide/calendar/payment',
+              'icon' => '',
+            ],
+          ],
+      ],
+      [
+        'text' => 'user_faqs',
+        'url'  => '/vendor/docs/FAQs.pdf',
+        'icon' => 'fas fa-question-circle',
+        //'can' => '1-user-faqs',
+      ],
     ],
 
     /*
