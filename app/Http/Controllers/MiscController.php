@@ -368,6 +368,7 @@ class MiscController extends Controller
 
     $date = date("Y-m-d", strtotime($req->time));
     $day = UserHelper::CheckDay($req->user()->id, $date);
+    // return ['test' => $date];
     $userrecordid = URHelper::getUserRecordByDate($req->user()->id, $date);
     $currentp = new StaffPunch;
     $currentp->user_id = $req->user()->id;

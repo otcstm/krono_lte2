@@ -58,11 +58,17 @@
            <td>{{ $ap->staff_no }}</td>
            <td>{{ $ap->name }}</td>
            <td>
-             <form method="post" action="{{ route('shift.staff.add', [], false) }}" onsubmit='return confirm("Confirm add?")'>
+             {{-- <form method="post" action="{{ route('shift.staff.add', [], false) }}" onsubmit='return confirm("Confirm add?")'>
                @csrf
                <button type="submit" class="btn btn-np" title="Add"><i class="fas fa-plus"></i></button>
-               <input type="hidden" name="id" value="{{ $ap->id }}" />
-             </form>
+               <input type="hidden" name="user_id" value="{{ $ap->id }}" />
+             </form> --}}
+             <form action="{{ route('shift.staff.add', [], false) }}" method="post" onsubmit='return confirm("Confirm add?")'>
+              @csrf 
+              <button type="submit" class="btn btn-np" title="Add"><i class="fas fa-plus"></i></button>
+              <input type="hidden" name="group_id" value="{{ $grp->id }}" />
+              <input type="hidden" id="fUserId" name="user_id" value="{{ $ap->id }}" />
+            </form>
            </td>
          </tr>
          @endforeach
@@ -90,15 +96,20 @@
   </div>    
 
   <Br />
+  {{-- @if(!$planner)
+  <div class="alert alert-warning">
+    Theres no assigned <b>Planner</b> for thsi group yet.
+  </div>
+  @endif --}}
 <div class="pull-right">
-<a href="{{ route('shift.mygroup', [], false) }}" class="btn btn-p btn-primary btn-outline">Cancel</a>
-<a href="{{ route('shift.mygroup', [], false) }}" class="btn btn-p btn-primary">Create</a>
+<a id="btnCancelGrpAssign"  href="{{ route('shift.mygroup', [], false) }}" class="btn btn-p btn-primary btn-outline">Cancel</a>
+<a id="btnCreateGrpAssign" href="{{ route('shift.mygroup', [], false) }}" class="btn btn-p btn-primary">Create</a>
 </div>
   </div>
 </div>
 
 
-<div class="panel panel-default">
+{{-- <div class="panel panel-default">
   <div class="panel-heading">Shift Group {{ $grp->group_name }}</div>
   <div class="panel-body">
     <form action="{{ route('shift.mygroup.delplanner', [], false) }}" method="post">
@@ -140,7 +151,7 @@
     </form>   
     
   </div>
-</div>
+</div> --}}
 
 
 
@@ -226,7 +237,7 @@
 <form id="fAddMember" action="{{ route('shift.staff.add', [], false) }}" method="post">
   @csrf
   <input type="hidden" name="group_id" value="{{ $grp->id }}" />
-  <input type="hidden" id="fUserId" name="user_id" value="" />
+  <input type="hidden" id="fUserId2" name="user_id" value="" />
 </form>
 
 @stop
@@ -284,7 +295,7 @@ function assignPlanner(persno){
 }
 
 function addMember(persno){
-  document.getElementById('fUserId').value = persno;
+  document.getElementById('fUserId2').value = persno;
   document.getElementById('fAddMember').submit();
 }
 
@@ -317,6 +328,30 @@ $('#sgresult').on('show.bs.modal', function(e) {
     }
   });
 });
+
+// $('#btnCancelGrpAssign').click(function() {
+//       checked_field = $("input[name=planner_name]").val();
+//       //alert(checked_field);
+//       var r = confirm("Are you sure want to leave this page without assign a Planner?");
+//       if (r == true) {
+//         return true;
+//       } else {  
+//         $("#planner_name").focus();
+//         return false;
+//       } 
+// });
+
+// $('#btnCreateGrpAssign').click(function() {
+//       checked_field = $("input[name=planner_name]").val();
+//       //alert(checked_field);
+//       var r = confirm("Are you sure want to proceed without assign a Planner?");
+//       if (r == true) {
+//         return true;
+//       } else {  
+//         $("#planner_name").focus();
+//         return false;
+//       } 
+// });
 
 </script>
 @stop
