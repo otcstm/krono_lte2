@@ -62,7 +62,7 @@
 
             @if(session()->has('notifycount') && session('notifycount') != 0)
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Require Your Attention">
-              <i class="glyphicon glyphicon-ok-sign text-green"></i>
+              <i class="glyphicon glyphicon-bell text-green"></i>
               <span class="label label-danger">{{ session('notifycount') }}</span>
             </a>
             <ul class="dropdown-menu">
@@ -91,36 +91,48 @@
          </li>
 
         
-        <!-- Tasks: style can be found in dropdown.less -->
+        <!-- Todo: style can be found in dropdown.less -->
         <li class="dropdown notifications-menu">
+          @if(session()->has('todocount'))      
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Require Your Attention">
+            @if(session('todocount') == 0)
+            <i class="glyphicon glyphicon-ok-sign text-gray"></i>
+            @else
+            <i class="glyphicon glyphicon-ok-sign text-red"></i>
+            <span class="label label-danger">{{ session('todocount') }}</span>
+            @endif
+            <!-- <span class="label label-warning">10</span> -->
+          </a>
+          <ul class="dropdown-menu">
+            <li class="header">You have {{ session('todocount') }} required action</li>
+            <li>
+              <!-- inner menu: contains the actual data -->
+              <ul class="menu">
+                {{-- @php dd(session()->all()) @endphp --}}
+                @foreach(session('todolist') as $t_item)
+                @if($t_item['stats'] == 1) 
+                <li>                  
+                  <a href="{{ route($t_item['route'] , [], false) }}">
+                    <i class="{{ $t_item['icon'] }} {{ $t_item['icon_color'] }}"></i> {{ $t_item['name'] }}
+                    <span class="pull-right-container">
+                      <span class="label label-default pull-right">{{ $t_item['list_count'] }} </span>
+                    </span>
+                  </a>
+                </li>
+                @endif
+                @endforeach
+              </ul>
+            </li>
+          </ul>
+          @else
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Require Your Attention">
             <i class="glyphicon glyphicon-flag text-gray"></i>
             <!-- <span class="label label-warning">10</span> -->
           </a>
           <ul class="dropdown-menu">
             <li class="header">You dont have any required action</li>
-            <li>
-              <!-- inner menu: contains the actual data -->
-              <ul class="menu">
-                <li>
-                  <a href="#">
-                    <i class="glyphicon glyphicon-ok-circle text-yellow"></i> Verification
-                    <span class="pull-right-container">
-                      <span class="label label-warning pull-right">0</span>
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i class="glyphicon glyphicon-ok-sign text-red"></i> Approval
-                    <span class="pull-right-container">
-                      <span class="label label-danger pull-right">0</span>
-                    </span>
-                  </a>
-                </li>
-              </ul>
-            </li>
-          </ul>
+          </ul>  
+          @endif
         </li>
          
           <!-- User Account: style can be found in dropdown.less -->
