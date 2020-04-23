@@ -56,20 +56,20 @@
                             @endif
                         </p>
                         <form id="formdate" action="{{route('ot.formdate')}}" method="POST">
-                        @csrf
-                        <p>OT Date: <input type="text" class='datepicker-here' data-language='en' data-date-format="yyyy-mm-dd" id="inputdate" name="inputdate" 
-                            
-                            {{--@if($claim ?? '')
-                                value="{{$claim->date}}"
-                            @elseif($draft ?? '')
-                                value="{{date('Y-m-d', strtotime($draft[4]))}}"
-                            @else
-                                value=""
-                            @endif --}}
-                            required  onkeydown="return false">
-                            <!-- <button type="button" id="btn-date" class="btn btn-primary" style="padding: 2px 3px; margin: 0; margin-top: -3px;"><i class="fas fa-share-square"></i></button> -->
-                        </p>
-                    </form>    
+                            @csrf
+                            <p>OT Date: <input type="text" class='datepicker-here' data-language='en' data-date-format="yyyy-mm-dd" id="inputdate" name="inputdate" 
+                                
+                                @if($claim ?? '')
+                                    value="{{$claim->date}}"
+                                @elseif($draft ?? '')
+                                    value="{{date('Y-m-d', strtotime($draft[4]))}}"
+                                @else
+                                    value=""
+                                @endif
+                                required  onkeydown="return false">
+                                <!-- <button type="button" id="btn-date" class="btn btn-primary" style="padding: 2px 3px; margin: 0; margin-top: -3px;"><i class="fas fa-share-square"></i></button> -->
+                            </p>
+                        </form>    
                         <p>Day Type:
                             @if($claim ?? '')  
                                 {{$claim->daytype->description}}
@@ -208,6 +208,7 @@
             <form id="form" action="{{route('ot.formsubmit')}}" method="POST" onsubmit="return submission()" enctype="multipart/form-data">
                 @csrf
                 <input type="text" class="form-control hidden" id="inputid" name="inputid" value="@if($claim ?? '') {{$claim->id}} @endif">
+                <input type="text" class="hidden" id="inputdates" name="inputdates">
                 <input class="hidden" id="formtype" type="text" name="formtype" value="submit">
                 <input class="hidden" id="filedel" type="text" name="filedel" value="">
                 <!-- <input class="hidden" id="formadd" type="text" name="formadd" value="no">
@@ -733,6 +734,12 @@
 
 @section('js')
 <script type="text/javascript">
+// alert($("#inputdates").val());
+    @if(($claim ?? '')||($draft ?? ''))
+        $("#inputdates").val($("#inputdate").val());
+        // alert("test");
+    @endif
+
     @if(session()->has('feedback'))
         $("#alert").css("display","block");
     @endif
@@ -806,11 +813,11 @@
 
     if(!(noloop)){
     @if($claim ?? '')
-    $('#inputdate').data('datepicker').selectDate(new Date("{{$claim->date}}"));
+        $('#inputdate').data('datepicker').selectDate(new Date("{{$claim->date}}"));
     
     @elseif($draft ?? '')
 
-    $('#inputdate').data('datepicker').selectDate(new Date("{{date('Y-m-d', strtotime($draft[4]))}}"));
+        $('#inputdate').data('datepicker').selectDate(new Date("{{date('Y-m-d', strtotime($draft[4]))}}"));
     @endif
         noloop = true;
     }
