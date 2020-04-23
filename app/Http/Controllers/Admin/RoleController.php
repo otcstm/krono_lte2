@@ -14,7 +14,7 @@ use App\Http\Controllers\Controller;
 class RoleController extends Controller{
     public function show(){
         $role = Role::all();
-        $permission = Permission::orderBy('title', 'ASC')->get();
+        $permission = Permission::orderBy('id', 'ASC')->get();
         // $role = Role::where('deleted_at', null)->orderBy('title', 'ASC')->get();
         return view('admin.rolemgmt', ['roles' => $role, 'permissions' => $permission]);
     }
