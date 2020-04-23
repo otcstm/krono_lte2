@@ -20,7 +20,7 @@ class UserShiftPatternController extends Controller
 
       $shift_pattern_code = $req->work_schedule;
       //check existing sp
-      $exsp = ShiftPattern::where('code', $req->$shift_pattern_code)->first();
+      $exsp = ShiftPattern::where('code', $shift_pattern_code)->first();
       if($exsp){      }
 
       else{
