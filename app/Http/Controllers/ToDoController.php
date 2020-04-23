@@ -40,9 +40,12 @@ class ToDoController extends Controller
         //For status Draft & Query
         $draftCount = Overtime::where('user_id', $req->user()->id)
             ->whereIn('status', array('D1', 'D2', 'Q1', 'Q2'))->get()->count();
+        $verifyCount = Overtime::where('verifier_id', $req->user()->id)
+            ->whereIn('status', array('PV'))->get()->count();
         $todoObj = [
 
-            'draftCount' => $draftCount
+            'draftCount' => $draftCount,
+            'verifyCount' => $verifyCount
         ];
 
         $user->notify(new TodoDraft($todoObj));

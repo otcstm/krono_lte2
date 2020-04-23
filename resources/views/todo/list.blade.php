@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Location Demo')
+@section('title', 'Notification List')
 @section('content')
 
 

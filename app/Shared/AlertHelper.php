@@ -2,10 +2,14 @@
 
 namespace App\Shared;
 
+use App\Overtime;
+use App\ShiftPlan;
+
 
 use Illuminate\Support\Facades\Auth;
 
-class AlertHelper {
+class AlertHelper
+{
 
   /*
 format: code - related notification class - target destination to redirect
@@ -16,9 +20,10 @@ sgc - App\Notifications\ShiftGroupCreated - my list of shift group
 
    */
 
-  public static function LoadNotifyList(){
+  public static function LoadNotifyList()
+  {
     // dd(Auth::user());
-    if(Auth::check()){
+    if (Auth::check()) {
       $nitofylist = Auth::user()->unreadNotifications;
       session([
         'notifylist' => $nitofylist,
@@ -31,30 +36,93 @@ sgc - App\Notifications\ShiftGroupCreated - my list of shift group
     }
   }
 
-  public static function LoadTodoList(){
-    // dd(Auth::user());
-    if(Auth::check()){
-      $nitofylist = Auth::user()->unreadNotifications;
-      session([
-        'todolist' => $nitofylist,
-        'todocount' => $nitofylist->count()
-      ]);
+  public static function LoadTodoList()
+  {
+    $user = Auth::user();
+    if (Auth::check()) {
+      $todocount = 0;
+      $todolist = [];
 
-      // dd(session()->all());
+      //For status Draft & Query
+      $draftCount = Overtime::where('user_id', $user->id)
+        ->whereIn('status', array('D1', 'D2', 'Q1', 'Q2'))->get()->count();
+      if ($draftCount != 0) {
+        $todocount += $draftCount;
+
+        $arrDraftCount =  [
+          'rcount' => $draftCount, // record count
+          'route_name' => 'ot.list',
+          'text' => 'Claim List  (' . $draftCount . ')',
+
+        ];
+
+        array_push($todolist, $arrDraftCount);
+      }
+
+      //For all pending item Claim Verification
+      $verifierCount = Overtime::where('verifier_id', $user->id)
+        ->whereIn('status', array('PV'))->get()->count();
+      if ($verifierCount != 0) {
+        $todocount += $verifierCount;
+
+        $arrVerifierCount =  [
+          'rcount' => $verifierCount,
+          'route_name' => 'ot.verify',
+          'text' => 'Claim Verification (' . $verifierCount . ')',
+        ];
+        array_push($todolist, $verifierCount);
+      }
+
+      //For all pending item Claim Approval (2)
+      $approvalCount = Overtime::where('approver_id', $user->id)
+        ->whereIn('status', array('PA'))
+        ->get()->count();
+      if ($approvalCount != 0) {
+        $todocount += $approvalCount;
+
+        $approvalCount =  [
+          'rcount' => $approvalCount,
+          'route_name' => 'ot.verify',
+          'text' => 'Claim Approval (' . $approvalCount . ')',
+        ];
+        array_push($todolist, $approvalCount);
+      }
+
+      //For all pending item Shift Planning Approval (1)
+
+      $shiftplanApprovalCount = ShiftPlan::where('approver_id', $user->id)
+        ->where('status', 'Submitted')->get()->count();
+
+      if ($shiftplanApprovalCount != 0) {
+        $todocount += $shiftplanApprovalCount;
+
+        $shiftplanApprovalCount =  [
+          'rcount' => $shiftplanApprovalCount,
+          'route_name' => 'shift.index',
+          'text' => 'Claim Approval (' . $shiftplanApprovalCount . ')',
+        ];
+        array_push($todolist, $shiftplanApprovalCount);
+      }
+
+
+      session([
+        'todolist' => $todolist,
+        'todocount' => $todocount
+      ]);
     } else {
-      // dd('no login');
+      //  dd('You are not authorised');
     }
   }
 
-  public static function getUrl($notifyobject){
+  public static function getUrl($notifyobject)
+  {
 
     $data = $notifyobject->data;
-    if($data['param'] == ''){
+    if ($data['param'] == '') {
       $param = [];
     } else {
       $param = [$data['param'] => $data['id']];
     }
     return route($data['route_name'], $param);
   }
-
 }
