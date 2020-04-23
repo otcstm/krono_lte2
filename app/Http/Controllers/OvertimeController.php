@@ -26,6 +26,14 @@ use App\Project;
 use App\InternalOrder;
 use App\MaintenanceOrder;
 use App\OtIndicator;
+
+
+use App\Notifications\OTSubmitted;
+use App\Notifications\OTVerified;
+use App\Notifications\OTQueryVerify;
+use App\Notifications\OTQueryApprove;
+// use App\Notifications\OTSubmitted;
+
 use Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -239,6 +247,16 @@ class OvertimeController extends Controller{
                 $updatemonth->total_minute = $totalsubmit%60;
                 $updatemonth->save();
                 $updateclaim->save();
+                //send notification to verifier/approver
+
+                $claim = Overtime::where('id', $id[$i])->first();
+                $user = $claim->verifier;
+                $myot = \App\Overtime::where('verifier_id', $user->id)->first();
+                if($claim->verifier_id==NULL){
+                    $user = $claim->approver;
+                    $myot = \App\Overtime::where('approver_id', $user->id)->first();
+                }
+                $user->notify(new OTSubmitted($myot));
             }
 
             // check if exceeds eligibility hour
@@ -934,6 +952,17 @@ class OvertimeController extends Controller{
                 
                 //check eligibity
                 $eligibility = URHelper::getUserEligibity($staffr->company_id, $region->region, $claim->date);
+
+                //send notification to verifier/approver
+                $claim = Overtime::where('id', $claim->id)->first();
+                $user = $claim->verifier;
+                $myot = \App\Overtime::where('verifier_id', $user->id)->first();
+                if($claim->verifier_id==NULL){
+                    $user = $claim->approver;
+                    $myot = \App\Overtime::where('approver_id', $user->id)->first();
+                }
+                $user->notify(new OTSubmitted($myot));
+
                 if($eligibility){
 
                     //check if eligible for ot hour exception
@@ -983,13 +1012,15 @@ class OvertimeController extends Controller{
         }
     }
 
-// =============================================================================================================
+    //--------------------------------------------------get image thumbnail--------------------------------------------------
     public function getthumbnail(Request $req){
         $file = OvertimeFile::find($req->tid);
         if($file){
             return Storage::download('public/'.$file->thumbnail);
         }
     }
+
+    //--------------------------------------------------get image file--------------------------------------------------
     public function getfile(Request $req){
         $file = OvertimeFile::find($req->tid);
         if($file){
@@ -1004,6 +1035,7 @@ class OvertimeController extends Controller{
         }
     }
 
+    //--------------------------------------------------delete ot detail time--------------------------------------------------
     public function formdelete(Request $req){
         $claimdetail = OvertimeDetail::where('id', $req->delid)->first();
         $claim =  Overtime::where('id', $claimdetail->ot_id)->first();
@@ -1037,18 +1069,21 @@ class OvertimeController extends Controller{
         ]);
     }
 
+    //--------------------------------------------------show ot verify list--------------------------------------------------
     public function verify(Request $req){
         $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', 'PV')->orderBy('date_expiry')->orderBy('date')->get();
         $view = "verifier";
         return view('staff.otquery', ['otlist' => $otlist, 'view' => $view]);
     }
 
+    //--------------------------------------------------show ot verify report list--------------------------------------------------
     public function verifyrept(Request $req){
         $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', '!=' , 'D1')->where('status', '!=' , 'D2')->orderBy('date_expiry')->orderBy('date')->get();
         $view = "verifierrept";
         return view('staff.otquery', ['otlist' => $otlist, 'view' => $view]);
     }
 
+    //--------------------------------------------------show ot approval list--------------------------------------------------
     public function approval(Request $req){
         $otlist = Overtime::where('approver_id', $req->user()->id)
         ->where(function($q) {
@@ -1059,12 +1094,14 @@ class OvertimeController extends Controller{
         return view('staff.otquery', ['otlist' => $otlist, 'view' => $view]);
     }
 
+    //--------------------------------------------------show ot approval report list--------------------------------------------------
     public function approvalrept(Request $req){
         $otlist = Overtime::where('approver_id', $req->user()->id)->where('status', '!=' , 'D1')->where('status', '!=' , 'D2')->orderBy('date_expiry')->orderBy('date')->get();
         $view = "approverrept";
         return view('staff.otquery', ['otlist' => $otlist, 'view' => $view]);
     }
 
+    //--------------------------------------------------ot admin list set session--------------------------------------------------
     public function admin(Request $req){
         if($req->session()->get('otlist')==null){
             $otlist = [];
@@ -1075,11 +1112,13 @@ class OvertimeController extends Controller{
         return view('staff.otquery', ['otlist' => $otlist, 'view' => $view]);
     }
 
+    //--------------------------------------------------show ot admin view--------------------------------------------------
     public function adminview(){
         Session::put(['otlist'=>[]]);
         return redirect(route('ot.admin',[],false));
     }
 
+    //--------------------------------------------------searc ot admin--------------------------------------------------
     public function adminsearch(Request $req){
         $otlist = Overtime::query();
         if($req->searchcomp!=""){
@@ -1147,6 +1186,7 @@ class OvertimeController extends Controller{
         return redirect(route('ot.admin',[],false));
     }
 
+    //--------------------------------------------------ot query actions--------------------------------------------------
     public function query (Request $req){
         if($req->typef=="verifier"){
             $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', 'PV')->orderBy('date_expiry')->orderBy('date')->get();
@@ -1160,18 +1200,24 @@ class OvertimeController extends Controller{
             $otlist = $req->session()->get('otlist');
         }
         $yes = false;
+        // dd($otlist);
         for($i=0; $i<count($otlist); $i++){
             if($req->inputaction[$i]!=""){
                 $reg = Psubarea::where('state_id', $otlist[$i]->name->stateid->id)->first();
                 $expiry = OvertimeExpiry::where('company_id', $otlist[$i]->name->company_id)->where('region', $reg->region)->where('start_date','<=', $otlist[$i]->date)->where('end_date','>', $otlist[$i]->date)->first();
                 $updateclaim = Overtime::find($req->inputid[$i]);
-                $updateclaim->status=$req->inputaction[$i];
-                if(($updateclaim->status=="PV")&&($updateclaim->verifier_id==null)){
+               if(($updateclaim->status=="PV")&&($updateclaim->verifier_id==null)){
                     $updateclaim->status=="PA";
+                    
                 }
                 if($req->inputaction[$i]=="PA"){
                     // $updateclaim->date_expiry = date('Y-m-d', strtotime("+90 days"));
                     $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Verified', 'Verified');
+                    //notification
+                    $claim = Overtime::where('id', $claim->inputid[$i])->first();
+                    $user = $claim->approver;
+                    $myot = \App\Overtime::where('id', $user->id)->first();
+                    $user->notify(new OTVerified($myot));
 
                     $updateclaim->verification_date = date("Y-m-d H:i:s");
                 }else if($req->inputaction[$i]=="A"){
@@ -1188,6 +1234,17 @@ class OvertimeController extends Controller{
                     // dd($updatemonth->total_hour);
                     $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Queried', 'Queried with message: "'.$req->inputremark[$i].'"');
                     // $updateclaim->date_expiry = date('Y-m-d', strtotime("+90 days"));
+                    
+                    //notification
+                    $claim = Overtime::where('id', $req->inputid[$i])->first();
+                    $user = $claim->name;
+                    $myot = \App\Overtime::where('id', $claim->id)->first();
+                    // dd($myot);
+                    $user->notify(new OTQueryVerify($myot));
+                    if($claim->status=="PA"){
+                        $user->notify(new OTQueryApprove($myot));
+                    }
+
                 }else if($req->inputaction[$i]=="Assign"){
                     $updateclaim->status="PV";
                     $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Assigned Verifier', 'Assigned Verifier with message: "'.$req->inputremark[$i].'"');
@@ -1199,7 +1256,8 @@ class OvertimeController extends Controller{
                     if((($expiry->based_date == "Submit to Approver Date")&&($updateclaim->status == 'PA'))||(($expiry->based_date == "Query Date")&&($updateclaim->status == 'Q2'))){
                         $draftclaim->date_expiry = date('Y-m-d', strtotime("+".$expiry->noofmonth." months"));
                     }
-                }
+                } 
+                $updateclaim->status=$req->inputaction[$i];
                 $updateclaim->verifier_id=$req->verifier[$i];
                 $updateclaim->save();
                 $yes = true;
@@ -1231,6 +1289,7 @@ class OvertimeController extends Controller{
         }
     }
 
+    //--------------------------------------------------search verifier--------------------------------------------------
     public function search(Request $req){
         $date = date('Y-m-d');
         if($req->type=="normal"){
@@ -1273,6 +1332,7 @@ class OvertimeController extends Controller{
         // return $date;
     }
 
+    //--------------------------------------------------get verifier detail--------------------------------------------------
   public function getverifier(Request $req){
         $date = date('Y-m-d');
         $staff = UserRecord::where('user_id', $req->id)->where('upd_sap','<=',$date)->first();

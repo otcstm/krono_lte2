@@ -295,7 +295,7 @@ function punchman(){
         url: '/punch/start?time='+startclock+'&lat='+lat+'=&long='+long,
         type: "GET",
         success: function(resp) {
-            alert(resp.test);
+            // alert(resp.test);
             $.ajax({
                 url: '/punch/checkworktime?time='+wtm,
                 type: "GET",
@@ -405,12 +405,12 @@ function endpunch(){
     
     if(displayonce){
         if(((parseInt(eetime)-parseInt(sstime))>0)||(parseInt(eetime)-parseInt(sstime))<0){
-            if(nework){
-                $.ajax({
-                    url: '/punch/end?stime='+startclockt+'&etime='+endclock+'&lat='+lat+'&long='+long+'&lat2='+lat2+'&long2='+long2,
-                    type: "GET", 
-                    success: function(resp) {
-                        clearInterval(timestart); 
+            $.ajax({
+                url: '/punch/end?stime='+startclockt+'&etime='+endclock+'&lat='+lat+'&long='+long+'&lat2='+lat2+'&long2='+long2,
+                type: "GET", 
+                success: function(resp) {
+                    clearInterval(timestart); 
+                    if(nework){
                         Swal.fire({
                             icon: 'warning',
                             title: 'Overtime Ended',
@@ -424,14 +424,14 @@ function endpunch(){
                                     location.reload();
                                 }
                             }
-                        })
-                    },
-                        error: function(err) {
-                            starttime(now, startclockt);
-                        }
+                        })      
                     }
-                );
-            }
+                },
+                    error: function(err) {
+                        starttime(now, startclockt);
+                    }
+                }
+            );
         }else{
             clearInterval(timestart); 
             $.ajax({

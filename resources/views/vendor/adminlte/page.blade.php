@@ -62,7 +62,7 @@
 
             @if(session()->has('notifycount') && session('notifycount') != 0)
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Require Your Attention">
-              <i class="glyphicon glyphicon-exclamation-sign text-green"></i>
+              <i class="glyphicon glyphicon-ok-sign text-green"></i>
               <span class="label label-danger">{{ session('notifycount') }}</span>
             </a>
             <ul class="dropdown-menu">
@@ -76,7 +76,8 @@
             </ul>
             @else
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="No Notification">
-              <i class="glyphicon glyphicon-ok-sign text-gray"></i>
+              
+              <i class="glyphicon glyphicon-exclamation-sign text-gray"></i>
             </a>
             @endif
          </li>
