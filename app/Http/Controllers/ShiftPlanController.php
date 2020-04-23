@@ -10,10 +10,16 @@ use App\ShiftPlanStaffTemplate;
 use App\ShiftPlanStaffDay;
 use App\ShiftGroup;
 use App\ShiftPattern;
+use App\User;
 use App\Shared\UserHelper;
 use App\Shared\ColorHelper;
 use \Carbon\Carbon;
 use \Calendar;
+
+use App\Notifications\ShiftPlanSubmitted;
+use App\Notifications\ShiftPlanApproved;
+use App\Notifications\ShiftPlanMembersApproved;
+use App\Notifications\ShiftPlanReverted;
 
 class ShiftPlanController extends Controller
 {
@@ -23,7 +29,7 @@ class ShiftPlanController extends Controller
       //       ->orWhere('approver_id', $req->user()->id)
       //       ->get();
       $grouplist = ShiftGroup::where('manager_id', $req->user()->id)
-            ->orWhere('planner_id', $req->user()->id)->get();
+            ->orWhere('planner_id', $req->user()->id)->orderby('id')->get();
 
       // dd($grouplist->ShiftPlans);
 
@@ -267,13 +273,33 @@ class ShiftPlanController extends Controller
       $sphist->user_id = $cuserid;
       $sphist->action = 'Approve';
       $sphist->save();
+      
+      // E_0017
+      // php artisan make:notification ShiftPlanApproved
+      // Notification to Shift Planner once Group Owner approve Shift Planning.
+      // to: Group Planner
+      // cc: Group Owner
+      
+      // user yang akan terima notification tu
+      $to_user = User::where('id',$theplan->Group->planner_id)->first();
+
+      // object yang nak dinotify / tengok bila penerima notify tekan link
+      $shift_grp = \App\ShiftGroup::where('id', $theplan->Group->id)->first();       
+      
+      // hantar notification ke planner tu, untuk action yang berkaitan
+      $to_user->notify(new ShiftPlanApproved($shift_grp, $theplan));
 
       // also updatae the status for each of the staff plan
       foreach($theplan->StaffList as $asps){
         $asps->status = 'Approved';
         $asps->save();
+
         // todo: send alert
+        $to_user_member = User::where('id',$asps->user_id)->first();
+      // hantar notification ke user tu, untuk action yang berkaitan
+        $to_user_member->notify(new ShiftPlanMembersApproved($shift_grp, $theplan, $asps));
       }
+            
 
       return redirect(route('shift.view', ['id' => $theplan->id], false))
         ->with([
@@ -310,6 +336,21 @@ class ShiftPlanController extends Controller
         // todo: send alert
       }
 
+      // E_0019
+      // php artisan make:notification ShiftPlanReverted
+      // Notification to Shift Planner once Group Owner revert Shift Planning
+      // to: Group Planner
+      // cc: Group Owner
+      
+      // user yang akan terima notification tu
+      $to_user = User::where('id',$theplan->Group->planner_id)->first();
+
+      // object yang nak dinotify / tengok bila penerima notify tekan link
+      $shift_grp = \App\ShiftGroup::where('id', $theplan->Group->id)->first();  
+
+      // hantar notification ke planner tu, untuk action yang berkaitan
+      $to_user->notify(new ShiftPlanReverted($shift_grp, $theplan, $reason));
+
       return redirect(route('shift.view', ['id' => $theplan->id], false))
         ->with([
           'alert' => 'Shift plan reverted to planning stage',
@@ -341,6 +382,22 @@ class ShiftPlanController extends Controller
         $asps->save();
         // todo: send alert
       }
+
+      // E_0016
+      // php artisan make:notification ShiftPlanSubmitted
+      // Notification to Group Owner once Shift Planner assign work schedule rule to Members (Shift Planning)
+      // to: Group Owner
+      // cc: Group Planner
+      
+      // user yang akan terima notification tu
+      $to_user = User::where('id',$theplan->Group->manager_id)->first();
+
+      // object yang nak dinotify / tengok bila penerima notify tekan link
+      $shift_grp = \App\ShiftGroup::where('id', $theplan->Group->id)->first();    
+      
+      // hantar notification ke user tu, untuk action yang berkaitan
+      $to_user->notify(new ShiftPlanSubmitted($shift_grp, $theplan));
+
 
       return redirect(route('shift.view', ['id' => $theplan->id], false))
         ->with([

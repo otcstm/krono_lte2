@@ -13,4 +13,8 @@ class ShiftPlanStaffDay extends Model
   public function StaffTemplate(){
     return $this->belongsTo(ShiftPlanStaffTemplate::class, 'shift_plan_staff_template_id');
   }
+
+  public function ShiftPlan(){
+    return $this->belongsTo(ShiftPlan::class, 'shift_plan_id');
+  }
 }

@@ -23,5 +23,16 @@ class DayType extends Model
 
   }
 
+  public function getTimeRange(){
+    if($this->is_work_day == true){
+      $stime = new Carbon($this->start_time);
+      $etime = new Carbon($this->start_time);
+      $etime->addMinutes($this->total_minute);
+      return $stime->format('Hi') . '-' . $etime->format('Hi');
+    } else {
+      return $this->description;
+    }
+  }
+
 
 }

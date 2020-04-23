@@ -17,6 +17,7 @@
        <thead>
          <tr>
            <th>Code</th>
+          <th style="display: none">Id</th>
            <th>Name</th>
            <th>Owner</th>
            <th>Staff Count</th>
@@ -27,6 +28,7 @@
          @foreach($p_list as $ap)
          <tr>
            <td>{{ $ap->group_code }}</td>
+          <td style="display: none">{{ $ap->id }}</td>
            <td>{{ $ap->group_name }}</td>
            <td>{{ $ap->Manager->name }}</td>
            <td>{{ $ap->Members->count() }}</td>
@@ -103,7 +105,7 @@
         </div>
         <div class="col-sm-12">
           <div class="form-group text-center pull-right">
-            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="submit"  id="btnSubmitAddGroupOwner" class="btn btn-primary">Create</button>
           </div>
         </div>
       </div>
@@ -156,7 +158,8 @@
 $(document).ready(function() {
 
   $('#grplist').DataTable({
-    "responsive": "true"
+    "responsive": "true",
+    "order": [[ 2, "asc" ]]
   });
 
   sresdt = $('#stes').DataTable({
@@ -207,6 +210,16 @@ $('#sfresult').on('show.bs.modal', function(e) {
       alert("An error occured: " + xhr.status + " " + xhr.statusText);
     }
   });
+});
+
+$('#btnSubmitAddGroupOwner').click(function() {
+      checked_field = $("input[name=group_owner_id]").val();
+      //alert(checked_field);
+      if(!checked_field || checked_field == 0) {
+        alert("You must assign group owner. Kindly use button search & add to add group owner");        
+        $("#planner_name").focus();
+        return false;
+      }	;
 });
 
 </script>

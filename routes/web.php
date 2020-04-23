@@ -68,6 +68,7 @@ Route::group(['middleware' => ['auth']], function () {
   //List staff & search
   Route::get('/staff', 'Admin\StaffController@showStaff')->name('staff.list');
   Route::post('/staff/search', 'Admin\StaffController@searchStaff')->name('staff.search');
+
   // admins ------------------------------------
   Route::get('/admin/workday', 'Admin\DayTypeController@index')->name('wd.index');
   Route::post('/admin/workday/add', 'Admin\DayTypeController@add')->name('wd.add');
@@ -176,6 +177,7 @@ Route::group(['middleware' => ['auth']], function () {
 
   //staff profile with subordinates reptto
   Route::get('/staff/profile', 'Admin\StaffController@showStaffProfile')->name('staff.profile');
+  Route::post('/staff/profile', 'Admin\StaffController@showStaffProfile')->name('staff.profile');
 
   //set default verifier
   Route::get('/verifier', 'VerifierGroupController@index')->name('verifier.listGroup');

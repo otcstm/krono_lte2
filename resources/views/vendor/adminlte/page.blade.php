@@ -56,8 +56,8 @@
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-
-        <!-- Tasks: style can be found in dropdown.less -->
+        
+        <!-- Notifications: style can be found in dropdown.less -->
         <li class="dropdown notifications-menu">
 
             @if(session()->has('notifycount') && session('notifycount') != 0)
@@ -66,45 +66,63 @@
               <span class="label label-danger">{{ session('notifycount') }}</span>
             </a>
             <ul class="dropdown-menu">
+              <li class="header">You have {{ session('notifycount') }} notifications</li>    
+              <li>          
+              <ul class="menu">
               @foreach(session('notifylist') as $nitem)
               <li>
-                <a  style="word-break: break-all;" href="{{ route('notify.read', ['nid' => $nitem->id]) }}">
+                <a href="{{ route('notify.read', ['nid' => $nitem->id]) }}">
                   <i class="{{ $nitem->data['icon'] }}"></i> {{ $nitem->data['text'] }}
                 </a>
               </li>
               @endforeach
+              </ul>
+              </li>
             </ul>
             @else
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="No Notification">
               
               <i class="glyphicon glyphicon-exclamation-sign text-gray"></i>
             </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have no notifications</li>
+            </ul>  
             @endif
          </li>
 
-         <!-- Notifications: style can be found in dropdown.less -->
-         <li class="dropdown notifications-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            <i class="glyphicon glyphicon-bell"></i>
-              <!-- <span class="label label-warning">10</span> -->
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You dont have new notifications</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-aqua"></i> Update on covid-19 sfsdf ldf ie skdmfl eks fsdf
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-         </li>
-
-
-
+        
+        <!-- Tasks: style can be found in dropdown.less -->
+        <li class="dropdown notifications-menu">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Require Your Attention">
+            <i class="glyphicon glyphicon-flag text-gray"></i>
+            <!-- <span class="label label-warning">10</span> -->
+          </a>
+          <ul class="dropdown-menu">
+            <li class="header">You dont have any required action</li>
+            <li>
+              <!-- inner menu: contains the actual data -->
+              <ul class="menu">
+                <li>
+                  <a href="#">
+                    <i class="glyphicon glyphicon-ok-circle text-yellow"></i> Verification
+                    <span class="pull-right-container">
+                      <span class="label label-warning pull-right">0</span>
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="glyphicon glyphicon-ok-sign text-red"></i> Approval
+                    <span class="pull-right-container">
+                      <span class="label label-danger pull-right">0</span>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+         
           <!-- User Account: style can be found in dropdown.less -->
           <li class="user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
