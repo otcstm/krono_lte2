@@ -60,9 +60,9 @@
         <!-- Notifications: style can be found in dropdown.less -->
         <li class="dropdown notifications-menu">
 
-            @if(session()->has('notifycount') && session('notifycount') != 0)            
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            <i class="glyphicon glyphicon-bell text-green"></i>
+            @if(session()->has('notifycount') && session('notifycount') != 0)
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Require Your Attention">
+              <i class="glyphicon glyphicon-ok-sign text-green"></i>
               <span class="label label-danger">{{ session('notifycount') }}</span>
             </a>
             <ul class="dropdown-menu">
@@ -81,7 +81,8 @@
             </ul>
             @else
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="No Notification">
-              <i class="glyphicon glyphicon-ok-sign text-gray"></i>
+              
+              <i class="glyphicon glyphicon-exclamation-sign text-gray"></i>
             </a>
             <ul class="dropdown-menu">
               <li class="header">You have no notifications</li>

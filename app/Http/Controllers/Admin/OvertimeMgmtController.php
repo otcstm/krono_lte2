@@ -48,7 +48,13 @@ class OvertimeMgmtController extends Controller
         $latest = OvertimeEligibility::where('company_id', $req->companycode)->where('region', $req->region)->where('empgroup', $req->empgroup)->where('empsgroup', $req->empsgroup)->where('psgroup', $req->psgroup)->latest('created_at')->first();
         $staffr = UserRecord::where('user_id', $req->user()->id)->where('upd_sap','<=',date('Y-m-d'))->first();
         $add = new OvertimeEligibility;
-        if($latest->start_date!=$req->sdate){
+        $cancreate = true;
+        if($latest){
+            if($latest->start_date!=$req->sdate){
+                $cancreate = false;
+            }
+        }
+        if($cancreate){
             $add->company_id = $req->companycode;
             $add->region = $req->region;
             $add->empgroup = $req->empgroup;

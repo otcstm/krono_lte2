@@ -4,11 +4,13 @@ namespace App\Shared;
 use App\User;
 use App\UserRecord;
 use App\OvertimeEligibility;
+use App\OvertimeExpiry;
 use App\StaffPunch;
 use App\SetupCode;
 use App\OvertimeLog;
 use App\OtIndicator;
 use App\Salary;
+use App\Psubarea;
 
 
 class URHelper
@@ -101,7 +103,10 @@ class URHelper
 // Return the latest user reord for given persno and date
       public static function getUserRecordByDate( $persno,$dt)
       {
+        // dd($dt);
         $otiMaxDate = OtIndicator::where('user_id',$persno)->where('start_date','<=',$dt)->max('start_date');
+        // $otiMaxDate = OtIndicator::where('user_id',$persno)->where('start_date','<=',date('Y-m-d', strtotime($dt)))->first();
+        // dd("test");
         $oti = OtIndicator::where('user_id',$persno)->where('start_date','=',$otiMaxDate)->get()->first();
         if(!$oti){
         $oti = new OtIndicator();
@@ -171,10 +176,16 @@ class URHelper
       }
 
 
-      public static function getUserCapping( $comp,$reg)
+      public static function getUserEligibity( $comp, $region, $date)
       {
-        $salcapping = OvertimeEligibility::where('company_id',$comp)->where('region',$reg)->first();
-        return $salcapping;
+        $eligibity = OvertimeEligibility::where('company_id',$comp)->where('region',$region)->where('start_date','<=', $date)->where('end_date','>', $date)->first();
+        return $eligibity;
+      }
+
+      public static function getUserExpiry( $comp, $region, $date)
+      {
+        $expiry = OvertimeExpiry::where('company_id', $comp)->where('region', $region)->where('start_date','<=', $date)->where('end_date','>', $date)->first();
+        return $expiry;
       }
 
       public static function getLocation( $userid,$pintime)

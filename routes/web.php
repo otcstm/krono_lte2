@@ -57,6 +57,7 @@ Route::group(['middleware' => ['auth']], function () {
   // clock-in related NEW
   Route::get('/punch',      'MiscController@showPunchView')->name('punch.list');
   Route::get('/punch/start',  'MiscController@startPunch')->name('punch.start');
+  Route::post('/punch/start',  'MiscController@startPunch')->name('punch.start');
   Route::get('/punch/check',  'MiscController@checkPunch')->name('punch.check');
   Route::get('/punch/checkday',  'MiscController@checkDay')->name('punch.checkday');
   Route::get('/punch/checkworktime',  'MiscController@checkWorkTime')->name('punch.checkworktime');
@@ -125,7 +126,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/admin/overtime/expiry/getexpiry', 'Admin\OvertimeMgmtController@getExpiry')->name('oe.getexpiry');
   Route::get('/admin/overtime/expiry/getlast', 'Admin\OvertimeMgmtController@getLast2')->name('oe.expirygetlast');
 
-  Route::get('/admin/overtime/eligibility', 'Admin\OvertimeMgmtController@eligibilityshow')->name('oe.ebility.show');
+  Route::get('/admin/overtime/eligibility', 'Admin\OvertimeMgmtController@eligibilityshow')->name('oe.eligibility.show');
   Route::post('/admin/overtime/eligibility/add', 'Admin\OvertimeMgmtController@eligibilityadd')->name('oe.eligibility.add');
   Route::post('/admin/overtime/eligibility/remove', 'Admin\OvertimeMgmtController@eligibilityremove')->name('oe.eligibility.remove');
   Route::post('/admin/overtime/eligibility/update', 'Admin\OvertimeMgmtController@eligibilityupdate')->name('oe.eligibility.update');
@@ -230,7 +231,7 @@ Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => '
   Route::post('/day/pop', 'ShiftPatternController@popDay')->name('day.del');
 });
 
-Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth', 'can:5-shift-group']], function () {
+Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth']], function () {
   Route::get('/group', 'ShiftGroupController@index')->name('group');
   Route::post('/group/add', 'ShiftGroupController@addGroup')->name('group.add');
   Route::post('/group/addsp', 'ShiftGroupController@addSpToGroup')->name('group.add.sp');
