@@ -22,7 +22,8 @@ Route::get('/ur/show/{persno}/{dt}', 'URController@gUR')->name('ur.listAll');
 
 // temp playground
 Route::get('/pg/sendnotify', 'DemoController@sendnotify')->name('demo.sendnotify');
-
+Route::get('/todo/list', 'ToDoController@show')->name('todo.list');
+Route::get('/todo/notify', 'ToDoController@notifyTodo')->name('todo.notify');
 
 // Route::get('/', 'MiscController@index')->name('misc.index');
 Route::group(['middleware' => ['auth']], function () {
