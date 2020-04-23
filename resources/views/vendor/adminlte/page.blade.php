@@ -62,7 +62,7 @@
 
             @if(session()->has('notifycount') && session('notifycount') != 0)
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Require Your Attention">
-              <i class="glyphicon glyphicon-ok-sign text-green"></i>
+              <i class="glyphicon glyphicon-bell text-green"></i>
               <span class="label label-danger">{{ session('notifycount') }}</span>
             </a>
             <ul class="dropdown-menu">
@@ -91,14 +91,15 @@
          </li>
 
         
-        <!-- Tasks: style can be found in dropdown.less -->
+        <!-- Todo: style can be found in dropdown.less -->
         <li class="dropdown notifications-menu">
           @if(session()->has('todocount'))      
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Require Your Attention">
             @if(session('todocount') == 0)
-            <i class="glyphicon glyphicon-flag text-gray"></i>
+            <i class="glyphicon glyphicon-ok-sign text-gray"></i>
             @else
-            <i class="glyphicon glyphicon-flag text-green"></i>
+            <i class="glyphicon glyphicon-ok-sign text-red"></i>
+            <span class="label label-danger">{{ session('todocount') }}</span>
             @endif
             <!-- <span class="label label-warning">10</span> -->
           </a>
