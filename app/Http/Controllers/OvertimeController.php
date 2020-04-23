@@ -423,13 +423,15 @@ class OvertimeController extends Controller{
                 //     }
                 // }
                 // $verify = User::where('id', $req->user()->id)->first();
-                $verify = null;
+                // $verify = null;
 
+                $verifyn = "N/A";
                 //check if ot is more than 3 month from system date
                 if($gm){
                     $gmid = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($claimdate)));
                     $approve = User::where('id', $gmid)->first();
                     $verify = User::where('id', $req->user()->reptto)->first();
+                    $verifyn = $verify->name;
                     $date_expiry = date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d', strtotime("+1 months", strtotime(date("Y-m-d")))))));
                 }else{
                     $approve = User::where('id', $req->user()->reptto)->first();
@@ -439,17 +441,20 @@ class OvertimeController extends Controller{
                     if($vgm){
                         $vg = VerifierGroup::where('id', $vgm->id)->first();
                         $verify =  $vg->verifier_id;
+                        if($verify){
+                            if($verify!=""){
+                                $verifyn = $vg->name->name;
+                            }
+                        }
                     }
                     $date_expiry = date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d', strtotime("+3 months", strtotime($req->inputdate))))));
                 }
-                $verifyn = "N/A";
-
                 //get verifier name
-                if($verify){
-                    if($verify!=""){
-                        $verifyn = $vg->name->name;
-                    }
-                }
+                // if($verify!=null){
+                //     if($verify!=""){
+                //         $verifyn = $vg->name->name;
+                //     }
+                // }
                 $state = UserRecord::where('user_id',$req->user()->persno)->where('upd_sap','<=',$claimdate)->first();
                 $refno = "OT".date("Ymd", strtotime($claimdate))."-".sprintf("%08d", $req->user()->id);
                 $draft = array($refno,                          //[0] - refno
