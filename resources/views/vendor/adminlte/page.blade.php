@@ -139,7 +139,8 @@
                       <li>
                    
                           <a href="{{ route($todo['route_name'] , [], false) }}">
-                            <i class="{{$todo['icon']}}"></i>{{$todo['text']}}
+                            <i class="{{$todo['icon']}}"></i>
+                            {{$todo['text']}}
                           </a>
 
                       
