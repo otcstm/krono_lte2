@@ -3,12 +3,12 @@
 @section('title', 'Shift Planning Approval')
 
 @section('content')
-<h1>Shift Planning Approval</h1>
+<h1>Status of Change Request</h1>
 
-{{-- <div class="row-eq-height">
+<div class="row-eq-height">
   <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
   <a href="{{route('staff.worksched', ['page' => 'myc'])}}">
-    <div class="box box-solid">
+    <div class="box box-solid box-primary">
     <div class="box-body">
     <div class="media">
       <div class="media-left">
@@ -24,7 +24,7 @@
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
   <a href="{{route('staff.worksched', ['page' => 'teamc'])}}">
-    <div class="box box-solid">
+    <div class="box box-solid box-primary">
     <div class="box-body">
     <div class="media">
       <div class="media-left">
@@ -40,7 +40,7 @@
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
   <a href="{{route('staff.worksched', ['page' => 'reqs'])}}">
-    <div class="box box-solid">
+    <div class="box box-solid box-primary">
     <div class="box-body">
     <div class="media">
       <div class="media-left">
@@ -54,10 +54,10 @@
     </div>
   </a>
   </div>
-</div> --}}
+</div>
 
 @if($requests->count() > 0)
-<div class="panel panel-default">
+<div class="panel panel-primary">
   <div class="panel-heading">Work Schedule Change Request That Requires My Approval</div>
   <div class="panel-body p-3">
     <div class="table-responsive">
@@ -103,8 +103,8 @@
 </div>
 @endif
 
-<div class="panel panel-default">
-  <div class="panel-heading">Shift Planning Approval List</div>
+<div class="panel panel-primary">
+  <div class="panel-heading">Status of My Work Schedule Request</div>
   <div class="panel-body p-3">
     <div class="table-responsive">
         <table id="myreqs" class="table table-bordered table-condensed cell-border">

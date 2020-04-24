@@ -8,7 +8,7 @@
 <div class="row-eq-height">
   <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
   <a href="{{route('staff.worksched', ['page' => 'myc'])}}">
-    <div class="box box-solid">
+    <div class="box box-solid box-primary">
     <div class="box-body">
     <div class="media">
       <div class="media-left">
@@ -24,7 +24,7 @@
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
   <a href="{{route('staff.worksched', ['page' => 'teamc'])}}">
-    <div class="box box-solid">
+    <div class="box box-solid box-primary">
     <div class="box-body">
     <div class="media">
       <div class="media-left">
@@ -40,7 +40,7 @@
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
   <a href="{{route('staff.worksched', ['page' => 'reqs'])}}">
-    <div class="box box-solid">
+    <div class="box box-solid box-primary">
     <div class="box-body">
     <div class="media">
       <div class="media-left">
