@@ -1210,8 +1210,10 @@ class OvertimeController extends Controller{
             if($req->inputaction[$i]!=""){
                 $reg = Psubarea::where('state_id', $otlist[$i]->name->stateid->id)->first();
                 $expiry = OvertimeExpiry::where('company_id', $otlist[$i]->name->company_id)->where('region', $reg->region)->where('start_date','<=', $otlist[$i]->date)->where('end_date','>', $otlist[$i]->date)->first();
+                
+                $claim = Overtime::where('id', $req->inputid[$i])->first();
                 $updateclaim = Overtime::find($req->inputid[$i]);
-               if(($updateclaim->status=="PV")&&($updateclaim->verifier_id==null)){
+                if(($updateclaim->status=="PV")&&($updateclaim->verifier_id==null)){
                     $updateclaim->status=="PA";
                     
                 }
@@ -1219,9 +1221,8 @@ class OvertimeController extends Controller{
                     // $updateclaim->date_expiry = date('Y-m-d', strtotime("+90 days"));
                     $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Verified', 'Verified');
                     //notification
-                    $claim = Overtime::where('id', $claim->inputid[$i])->first();
                     $user = $claim->approver;
-                    $myot = \App\Overtime::where('id', $user->id)->first();
+                    $myot = \App\Overtime::where('id', $req->inputid[$i])->first();
                     $user->notify(new OTVerified($myot));
 
                     $updateclaim->verification_date = date("Y-m-d H:i:s");
@@ -1241,13 +1242,14 @@ class OvertimeController extends Controller{
                     // $updateclaim->date_expiry = date('Y-m-d', strtotime("+90 days"));
                     
                     //notification
-                    $claim = Overtime::where('id', $req->inputid[$i])->first();
                     $user = $claim->name;
                     $myot = \App\Overtime::where('id', $claim->id)->first();
                     // dd($myot);
-                    $user->notify(new OTQueryVerify($myot));
                     if($claim->status=="PA"){
                         $user->notify(new OTQueryApprove($myot));
+                    }else{
+
+                        $user->notify(new OTQueryVerify($myot));
                     }
 
                 }else if($req->inputaction[$i]=="Assign"){

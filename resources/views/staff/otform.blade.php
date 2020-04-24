@@ -666,7 +666,7 @@
                                                     @endif
                                                 </select> 
                                             @else
-                                                <input type="text" name="approvern" class="form-select" @if($data!=NULL) value="{{$data->name->name}}" @endif disabled>
+                                                <input type="text" name="approvern" class="form-select" @if($data!=NULL) @if($data->name) value="{{$data->name->name}}" @endif @endif disabled>
                                             @endif
                                         </div>
                                     </div>
