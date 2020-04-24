@@ -603,6 +603,9 @@ class OvertimeController extends Controller{
                     if(($req->inputremark[$i]=="")||($req->inputstart[$i]=="")||($req->inputend[$i]=="")){
                         $status = false;
                     }
+                    if($req->inputend[$i]=="0:00"){
+                        $req->inputendnew="24:00";
+                    }
                     $dif = (strtotime($req->inputend[$i]) - strtotime($req->inputstart[$i]))/60;
                     $hour = (int) ($dif/60);
                     $minute = $dif%60;
@@ -1062,7 +1065,11 @@ class OvertimeController extends Controller{
         $totaltime = (($updatemonth->hour*60)+$updatemonth->minute)-((($claimdetail->hour)*60)+$claimdetail->minute);
         $updatemonth->hour = (int)($totaltime/60);
         $updatemonth->minute = ($totaltime%60);
-        $totaltime = (($updateclaim->total_hour*60)+$claimdetail->total_minute)-((($claimdetail->hour)*60)+$claim->minute);
+        $updatemonth->total_hour = (int)($totaltime/60);
+        $updatemonth->total_minute = ($totaltime%60);
+
+        $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)-((($claimdetail->hour)*60)+$claimdetail->minute);
+        
         $updateclaim->total_hour = (int)($totaltime/60);
         $updateclaim->total_minute = ($totaltime%60);
         $updateclaim->amount = $updateclaim->amount - $claimdetail->amount;

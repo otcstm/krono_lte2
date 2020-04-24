@@ -71,7 +71,9 @@
 
                 @if(session()->has('notifycount') && session('notifycount') != 0)
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Require Your Attention">
-                  <i class="glyphicon glyphicon-ok-sign text-green"></i>
+                  <!--<i class="glyphicon glyphicon-ok-sign text-green">-->
+                  <i class="fas fa-comment-dots text-green">
+                  </i>
                   <span class="label label-danger">{{ session('notifycount') }}</span>
                 </a>
                 <ul class="dropdown-menu">
@@ -90,8 +92,10 @@
                 </ul>
                 @else
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="No Notification">
-
+                  <!--
                   <i class="glyphicon glyphicon-exclamation-sign text-gray"></i>
+                  -->
+                  <i class="fas fa-comment-dots text-gray"></i>
                 </a>
                 <ul class="dropdown-menu">
                   <li class="header">You have no notifications</li>
@@ -103,13 +107,17 @@
               <!-- Tasks: style can be found in dropdown.less -->
               @if(session()->has('todocount'))
               @php
-              $todocountStyle = "text-green";
-              if(session('todocount') == 0 ){ $todocountStyle = "text-gray";}
+              $todoMsg = "Require your attention";
+               $todocountStyle = "text-green";
+               if(session('todocount') == 0 ){ 
+                 $todocountStyle = "text-gray";
+                 $todoMsg = "Congrats - no unresolved task";}
+
               @endphp
               <li class="dropdown notifications-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Require Your Attention">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="{{$todoMsg}}">
 
-                  <i class="glyphicon glyphicon-flag {{$todocountStyle }} "></i>
+                  <i class="fas fa-check-square {{$todocountStyle }} "></i>
                   @if(session('todocount')!=0)
                   <span class="label label-danger">{{ session('todocount') }}</span>
                   @endif
@@ -129,14 +137,13 @@
 
                       @foreach(session('todolist') as $todo)
                       <li>
-                        <a href="#">
-                          <!-- <a href="{{-- route($todo['route_name'] , [], false) --}}"> -->
-                          <a href="">
+                   
+                          <a href="{{ route($todo['route_name'] , [], false) }}">
                             <i class="{{$todo['icon']}}"></i>
                             {{$todo['text']}}
                           </a>
 
-                        </a>
+                      
                       </li>
                       @endforeach
                     </ul>
