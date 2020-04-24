@@ -7,11 +7,11 @@
 @yield('css')
 <style>
   .todo li {
-    /* background: ivory; */
+    /* bbackground: ivory; */
   }
 
   .todo li:nth-child(odd) {
-   /* background:lavender;*/
+    /* background:-moz-linear-gradient();*/
   }
 </style>
 @stop
@@ -103,8 +103,8 @@
               <!-- Tasks: style can be found in dropdown.less -->
               @if(session()->has('todocount'))
               @php
-                $todocountStyle = "";
-                if(session('todocount') == 0 ){ $todocountStyle = "text-gray";}
+              $todocountStyle = "text-green";
+              if(session('todocount') == 0 ){ $todocountStyle = "text-gray";}
               @endphp
               <li class="dropdown notifications-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Require Your Attention">
@@ -116,7 +116,11 @@
                   <!-- <span class="label label-warning">10</span> -->
                 </a>
                 <ul class="dropdown-menu todo">
+                  @if(session('todocount')!=0)
+                  <li class="header">You have required action(s)</li>
+                  @else
                   <li class="header">You dont have any required action</li>
+                  @endif
                   <li>
                     <!-- inner menu: contains the actual data -->
                     <ul class="menu">
@@ -126,9 +130,10 @@
                       @foreach(session('todolist') as $todo)
                       <li>
                         <a href="#">
-                          <i class="glyphicon glyphicon-ok-circle text-yellow"></i>
-
-                          {{$todo['text']}}
+                          <a href="{{ route($todo['route_name'] , [], false) }}">
+                            <i class="{{$todo['icon']}}"></i>
+                            {{$todo['text']}}
+                          </a>
 
                         </a>
                       </li>
