@@ -130,7 +130,8 @@
                       @foreach(session('todolist') as $todo)
                       <li>
                         <a href="#">
-                          <a href="{{ route($todo['route_name'] , [], false) }}">
+                          <!-- <a href="{{-- route($todo['route_name'] , [], false) --}}"> -->
+                          <a href="">
                             <i class="{{$todo['icon']}}"></i>
                             {{$todo['text']}}
                           </a>
