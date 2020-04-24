@@ -53,6 +53,7 @@ sgc - App\Notifications\ShiftGroupCreated - my list of shift group
           'rcount' => $draftCount, // record count
           'route_name' => 'ot.list',
           'text' => 'Claim List  (' . $draftCount . ')',
+          'icon' => 'fas fa-user-clock'
 
         ];
 
@@ -69,6 +70,7 @@ sgc - App\Notifications\ShiftGroupCreated - my list of shift group
           'rcount' => $verifierCount,
           'route_name' => 'ot.verify',
           'text' => 'Claim Verification (' . $verifierCount . ')',
+          'icon' => 'fas fa-user-clock'
         ];
         array_push($todolist, $verifierCount);
       }
@@ -84,6 +86,7 @@ sgc - App\Notifications\ShiftGroupCreated - my list of shift group
           'rcount' => $approvalCount,
           'route_name' => 'ot.verify',
           'text' => 'Claim Approval (' . $approvalCount . ')',
+          'icon' => 'fas fa-user-clock'
         ];
         array_push($todolist, $approvalCount);
       }
@@ -100,6 +103,7 @@ sgc - App\Notifications\ShiftGroupCreated - my list of shift group
           'rcount' => $shiftplanApprovalCount,
           'route_name' => 'shift.index',
           'text' => 'Claim Approval (' . $shiftplanApprovalCount . ')',
+          'icon' => 'fas fa-clock '
         ];
         array_push($todolist, $shiftplanApprovalCount);
       }
