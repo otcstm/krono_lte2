@@ -77,8 +77,9 @@ class Overtime extends Model
     // }
 
     public function SalCap(){//based on application date
-      return URHelper::getUserCapping($this->company_id,$this->region);
+      return URHelper::getUserEligibity($this->company_id,$this->region,$this->date_created);
     }
+
     public function OTStatus(){
       return URHelper::getOTStatus($this->status);
     }
