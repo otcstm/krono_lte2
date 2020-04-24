@@ -72,7 +72,7 @@ class OvertimeController extends Controller{
                 if(count($costc)==0){
                     $costc = null;
                 }
-                $appr = UserRecord::where('upd_sap','<=',date('Y-m-d'))->where('company_id', $req->session()->get('claim')->company_id)->where('costcentr', $req->session()->get('claim')->other_costcenter)->where('user_id', '!=', $req->user()->id)->get(); //get approcer list
+                $appr = UserRecord::where('upd_sap','<=',date('Y-m-d'))->where('company_id', $req->session()->get('claim')->company_id)->where('costcentr', $req->session()->get('claim')->other_costcenter)->where('user_id', '!=', $req->user()->id)->where('empsgroup', '!=', 'Non Executive')->get(); //get approcer list
                 if(count($appr)==0){
                     $appr = null;
                 }
@@ -556,6 +556,18 @@ class OvertimeController extends Controller{
 
         //if adding new time
         if($req->formtype=="add"){
+            //check if existion 0:00~24:00
+            $check = OvertimeDetail::where('ot_id', $claim->id)->get();
+            // dd($check);
+            foreach($check as $checkies){
+                if(date("H:i:s", strtotime($checkies->start_time))==date("H:i:s", strtotime($checkies->end_time))){
+                    return redirect(route('ot.form',[],false))->with([
+                        'feedback' => true,
+                        'feedback_text' => "Time input cannot be within inserted time range!",
+                        'feedback_title' => "Input time error"
+                    ]);
+                }
+            }
             if($req->inputendnew=="0:00"){
                 $req->inputendnew="24:00";
             }
@@ -566,7 +578,11 @@ class OvertimeController extends Controller{
             $newdetail = new OvertimeDetail;
             $newdetail->ot_id = $claim->id;
             $newdetail->start_time = $claim->date." ".$req->inputstartnew.":00";
-            $newdetail->end_time = $claim->date." ".$req->inputendnew.":00";
+            if($req->inputendnew=="24:00"){
+                $newdetail->end_time = date('Y-m-d',strtotime($claim->date . "+1 days"))." ".$req->inputendnew.":00";
+            }else{
+                $newdetail->end_time = $claim->date." ".$req->inputendnew.":00";
+            }
             $newdetail->hour = $hour;
             $newdetail->minute = $minute;
             $newdetail->checked = "Y";
@@ -603,16 +619,22 @@ class OvertimeController extends Controller{
                     if(($req->inputremark[$i]=="")||($req->inputstart[$i]=="")||($req->inputend[$i]=="")){
                         $status = false;
                     }
-                    if($req->inputend[$i]=="0:00"){
-                        $req->inputendnew="24:00";
+                    $end = $req->inputend[$i];
+                    if($end=="0:00"){
+                        // dd($req->inputend[$i]);
+                        $end="24:00";
                     }
-                    $dif = (strtotime($req->inputend[$i]) - strtotime($req->inputstart[$i]))/60;
+                    $dif = (strtotime($end) - strtotime($req->inputstart[$i]))/60;
                     $hour = (int) ($dif/60);
                     $minute = $dif%60;
                     $pay = UserHelper::CalOT($salary, $hour, $minute);
                     $updatedetail = $claimdetail[$i];
                     $updatedetail->start_time = $claim->date." ".$req->inputstart[$i].":00";
-                    $updatedetail->end_time = $claim->date." ".$req->inputend[$i].":00";
+                    if($end=="00:00"){
+                        $newdetail->end_time = date('Y-m-d',strtotime($claim->date . "+1 days"))." ".$end.":00";
+                    }else{
+                        $updatedetail->end_time = $claim->date." ".$end.":00";
+                    }
 
                     //check if checkbox changed or not
                     if($updatedetail->checked != $req->inputcheck[$i]){
