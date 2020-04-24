@@ -42,7 +42,6 @@ class OTQueryApprove extends Notification
     { 
         // standardkan semua link ke email guna yg ni supaya dia 'mark as read'
         $url = route('notify.read', ['nid' => $this->id]);
-        $query = "";
         foreach($this->claim->log as $logs){
             if(strpos($logs->message,"Queried")!==false){
                 $query = $logs->message; 
@@ -51,6 +50,8 @@ class OTQueryApprove extends Notification
         $reason = str_replace('"', '', str_replace('Queried with message: "', '', $query));
         // hantar email guna blade template yg berkaitan
         // boleh guna view / markdown
+
+        // dd($this->claim->approver->name);
         return (new MailMessage)
         ->subject('Overtime claim '.$this->claim->refno.' - Queried')
         ->markdown('email.ot.otquery', [
