@@ -1,12 +1,9 @@
 @component('mail::message')
 Dear **{{$toname}}**,
 
-Your overtime application **{{ $claim }}** has successfully been queried.<br>
-Please amend your claim request and submit by {{$date}}.
+Overtime application **{{ $claim }}** has successfully been {{$type}}. 
 
-Reason: **{{$reason}}**
-
-Please click on [Overtime System](https://otcs-test.tm.com.my/) to access Overtime System.
+Please click on [Overtime System](https://otcs-test.tm.com.my/) to access Overtime System. 
 
 This is a system generated email from [Overtime System](https://otcs-test.tm.com.my/).
 If you have any queries / complaints related to overtime, kindly channel them through [HC SSO Helpdesk](https://precise.tm.com.my/) (IDM Login & Password > Incident Catalog > HCSSO - Helpdesk).

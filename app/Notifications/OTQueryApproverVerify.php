@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class OTQueryApprove extends Notification
+class OTQueryApproverVerify extends Notification
 {
     use Queueable;
 
@@ -18,7 +18,7 @@ class OTQueryApprove extends Notification
      */
     public function __construct($myot)
     {
-        $this->claim = $myot;
+        $this->claim = $myot
     }
 
     /**
@@ -29,7 +29,7 @@ class OTQueryApprove extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail', 'database'];
+        return ['database'];
     }
 
     /**
@@ -39,28 +39,11 @@ class OTQueryApprove extends Notification
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
-    { 
-        // standardkan semua link ke email guna yg ni supaya dia 'mark as read'
-        $url = route('notify.read', ['nid' => $this->id]);
-        foreach($this->claim->log as $logs){
-            if(strpos($logs->message,"Queried")!==false){
-                $query = $logs->message; 
-            }
-        }
-        $reason = str_replace('"', '', str_replace('Queried with message: "', '', $query));
-        // hantar email guna blade template yg berkaitan
-        // boleh guna view / markdown
-
-        // dd($this->claim->approver->name);
-        return (new MailMessage)
-        ->subject('Overtime claim '.$this->claim->refno.' - Queried')
-        ->markdown('email.ot.otquery', [
-            'url' => $url,
-            'reason' => $reason,
-            'toname' => $this->claim->name->name,
-            'date' => date("d.m.Y", strtotime($this->claim->date_expiry)),
-            'claim' => $this->claim->refno
-        ]);
+    {
+        // return (new MailMessage)
+        //             ->line('The introduction to the notification.')
+        //             ->action('Notification Action', url('/'))
+        //             ->line('Thank you for using our application!');
     }
 
     /**
@@ -75,7 +58,7 @@ class OTQueryApprove extends Notification
             'id' => $this->claim->id,
             'param' => '',
             'route_name' => 'ot.list',
-            'text' => 'Your claim ' . $this->claim->refno.' has been queried.',
+            'text' => 'Claim ' . $this->claim->refno.' has been queried.',
             'icon' => 'far fa-clock'
           ];
     }
