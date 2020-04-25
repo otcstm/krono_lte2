@@ -506,7 +506,7 @@
         htmlstring = htmlstring + 
             "<button style='border: 1px solid #DDDDDD; min-height: 10vh; width: 100%; padding: 5px; text-align: left; background: transparent' onclick='addverifier(\""+item.persnoo+"\","+index+",\""+item.name+"\");' id='addv-"+index+"'>"+
                 "<div style='display: flex; align-items: center; flex-wrap: wrap; width: 95%; margin-left: 3%' padding: 15px>"+
-                    "<div class='w-10 text-center'><img src='/user/image/"+item.staffno+"' class='approval-search-img'></div>"+
+                    "<div class='w-10 text-center'><img src='/user/image/"+item.staffno.replace(' ','')+"' class='approval-search-img'></div>"+
                     "<div class='w-30 m-15'>"+
                         "<div class='approval-search-item'>"+
                             "<div class='w-30'>Name<span class='dmx'>:</span></div>"+
