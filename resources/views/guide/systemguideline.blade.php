@@ -30,12 +30,12 @@
                 </div>
                 <div class="col-md-6 col-md-offset-1">
                         <h4 style="color: #143A8C; font-weight: bold">Get Started</h4>
-                        <p style=" margin: 0">• How to submit start/end overtime</p>
-                        <p style=" margin: 0">• How to create overtime claim</p>
-                        <p style=" margin: 0">• How to accept/reject planned overtime request</p>
+                        <p style=" margin: 0">• How to start/end overtime?</p>
+                        <p style=" margin: 0">• How to apply new overtime claim and submit for approval?</p>
+                        <p style=" margin: 0">• How to change current work schedule?</p>
                 </div>
                 <div class="col-md-2 col-md-offset-1 guide-system-inside text-center flex">
-                    <img src="{{asset("/vendor/images/guide-video.png")}}">  
+                    <img src="{{asset("/vendor/images/guide-video.png")}}">
                 </div>
             </div>
         </div>
@@ -68,12 +68,12 @@
                 </div>
                 <div class="col-md-6 col-md-offset-1">
                         <h4 style="color: #143A8C; font-weight: bold">Get Started</h4>
-                        <p style=" margin: 0">• How to approve overtime claim</p>
-                        <p style=" margin: 0">• How to request planned overtime</p>
-                        <p style=" margin: 0">• How to set shift plan</p>
+                        <p style=" margin: 0">• How to set default verifier?</p>
+                        <p style=" margin: 0">• How to approve/query overtime claim?</p>
+                        <p style=" margin: 0">• How to view claim approval report?</p>
                 </div>
                 <div class="col-md-2 col-md-offset-1 guide-system-inside text-center flex">
-                    <img src="{{asset("/vendor/images/guide-video.png")}}">  
+                    <img src="{{asset("/vendor/images/guide-video.png")}}">
                 </div>
             </div>
         </div>
@@ -99,10 +99,11 @@
                 </div>
                 <div class="col-md-6 col-md-offset-1">
                         <h4 style="color: #143A8C; font-weight: bold">Get Started</h4>
-                        <p style=" margin: 0">• How to verify overtime claim</p>
+                        <p style=" margin: 0">• How to verify/query overtime claim?</p>
+                        <p style=" margin: 0">• How to view claim verification report?</p>
                 </div>
                 <div class="col-md-2 col-md-offset-1 guide-system-inside text-center flex">
-                    <img src="{{asset("/vendor/images/guide-video.png")}}">  
+                    <img src="{{asset("/vendor/images/guide-video.png")}}">
                 </div>
             </div>
         </div>
@@ -139,11 +140,11 @@
                 </div>
                 <div class="col-md-6 col-md-offset-1">
                         <h4 style="color: #143A8C; font-weight: bold">Get Started</h4>
-                        <p style=" margin: 0">• How to set shift pattern</p>
-                        <p style=" margin: 0">• How to assign shift planner</p>
+                        <p style=" margin: 0">• Shift Management</p>
+                        <p style=" margin: 0">• Generate Reports</p>
                 </div>
                 <div class="col-md-2 col-md-offset-1 guide-system-inside text-center flex">
-                    <img src="{{asset("/vendor/images/guide-video.png")}}">  
+                    <img src="{{asset("/vendor/images/guide-video.png")}}">
                 </div>
             </div>
         </div>
@@ -170,10 +171,11 @@
                 </div>
                 <div class="col-md-6 col-md-offset-1">
                         <h4 style="color: #143A8C; font-weight: bold">Get Started</h4>
-                        <p style=" margin: 0">• How to configure system</p>
+                        <p style=" margin: 0">• Maintain all configuration</p>
+                        <p style=" margin: 0">• Generate Reports</p>
                 </div>
                 <div class="col-md-2 col-md-offset-1 guide-system-inside text-center flex">
-                    <img src="{{asset("/vendor/images/guide-video.png")}}">  
+                    <img src="{{asset("/vendor/images/guide-video.png")}}">
                 </div>
             </div>
         </div>
