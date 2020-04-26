@@ -42,7 +42,6 @@ class OTQueryVerify extends Notification
     { 
         // standardkan semua link ke email guna yg ni supaya dia 'mark as read'
         $url = route('notify.read', ['nid' => $this->id]);
-        $query = "tx";
         foreach($this->claim->log as $logs){
             if(strpos($logs->message,"Queried")!==false){
                 $query = $logs->message; 
@@ -51,13 +50,14 @@ class OTQueryVerify extends Notification
         $reason = str_replace('"', '', str_replace('Queried with message: "', '', $query));
         // hantar email guna blade template yg berkaitan
         // boleh guna view / markdown
+
         return (new MailMessage)
         ->subject('Overtime claim '.$this->claim->refno.' - Queried during verification')
         ->markdown('email.ot.otquery', [
             'url' => $url,
             'reason' => $query,
             'toname' => $this->claim->name->name,
-            'doer' => $this->claim->verifier->name,
+            'date' => date("d.m.Y", strtotime($this->claim->date_expiry)),
             'claim' => $this->claim->refno
         ]);
     }
@@ -70,12 +70,32 @@ class OTQueryVerify extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
-            'id' => $this->claim->id,
-            'param' => '',
-            'route_name' => 'ot.list',
-            'text' => 'Overtime claim ' . $this->claim->refno.' - Queried during verification',
-            'icon' => 'far fa-clock'
-          ];
+        if($this->claim->status=="PA"){
+            if($this->claim->verifier_id!=null){
+                return [
+                    'id' => $this->claim->id,
+                    'param' => '',
+                    'route_name' => 'ot.list',
+                    'text' => 'Your claim ' . $this->claim->refno.' has been queried by your approver.',
+                    'icon' => 'far fa-clock'
+                ];
+            }else{
+                return [
+                    'id' => $this->claim->id,
+                    'param' => '',
+                    'route_name' => 'ot.list',
+                    'text' => 'Your claim ' . $this->claim->refno.' has been queried.',
+                    'icon' => 'far fa-clock'
+                ];
+            }
+        }else{
+            return [
+                'id' => $this->claim->id,
+                'param' => '',
+                'route_name' => 'ot.list',
+                'text' => 'Your claim ' . $this->claim->refno.' has been queried by your verifier.',
+                'icon' => 'far fa-clock'
+              ];
+        }
     }
 }

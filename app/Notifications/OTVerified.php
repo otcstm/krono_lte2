@@ -69,7 +69,7 @@ class OTVerified extends Notification
             'id' => $this->claim->id,
             'param' => '',
             'route_name' => 'ot.approval',
-            'text' => 'Overtime claim ' . $this->claim->refno.' - Pending Approval',
+            'text' => 'Claim '. $this->claim->refno.' has been verified and submitted for your approval.',
             'icon' => 'far fa-clock'
           ];
     }

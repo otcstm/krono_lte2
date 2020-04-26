@@ -30,8 +30,11 @@ use App\OtIndicator;
 
 use App\Notifications\OTSubmitted;
 use App\Notifications\OTVerified;
+use App\Notifications\OTApproved;
+use App\Notifications\OTVerifiedApplicant;
 use App\Notifications\OTQueryVerify;
 use App\Notifications\OTQueryApprove;
+use App\Notifications\OTQueryApproverVerify;
 // use App\Notifications\OTSubmitted;
 
 use Session;
@@ -69,7 +72,7 @@ class OvertimeController extends Controller{
                 if(count($costc)==0){
                     $costc = null;
                 }
-                $appr = UserRecord::where('upd_sap','<=',date('Y-m-d'))->where('company_id', $req->session()->get('claim')->company_id)->where('costcentr', $req->session()->get('claim')->other_costcenter)->where('user_id', '!=', $req->user()->id)->get(); //get approcer list
+                $appr = UserRecord::where('upd_sap','<=',date('Y-m-d'))->where('company_id', $req->session()->get('claim')->company_id)->where('costcentr', $req->session()->get('claim')->other_costcenter)->where('user_id', '!=', $req->user()->id)->where('empsgroup', '!=', 'Non Executive')->get(); //get approcer list
                 if(count($appr)==0){
                     $appr = null;
                 }
@@ -426,15 +429,20 @@ class OvertimeController extends Controller{
                 // $verify = null;
 
                 $verifyn = "N/A";
+                $approver = "N/A";
                 //check if ot is more than 3 month from system date
                 if($gm){
                     $gmid = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($claimdate)));
-                    $approve = User::where('id', $gmid)->first();
+                    if($gmid){
+                        $approve = User::where('id', $gmid)->first();
+                        $approver = $approve->name;
+                    }
                     $verify = User::where('id', $req->user()->reptto)->first();
                     $verifyn = $verify->name;
                     $date_expiry = date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d', strtotime("+1 months", strtotime(date("Y-m-d")))))));
                 }else{
                     $approve = User::where('id', $req->user()->reptto)->first();
+                    $approver = $approve->name;
 
                     //check if user have default verifier or not
                     $vgm = VerifierGroupMember::where('user_id', $req->user()->id)->first();
@@ -467,7 +475,7 @@ class OvertimeController extends Controller{
                                 $state->statet->state_descr,    //[7] - statedescr
                                 $day_type,                      //[8] - day type
                                 $verifyn,                       //[9] - verifier name
-                                $approve->name,                 //[10] - approver name
+                                $approver,                 //[10] - approver name
                                 $staffr->costcentr);            //[11] - cost center    
                 Session::put(['draft' => $draft]);
             }
@@ -548,6 +556,21 @@ class OvertimeController extends Controller{
 
         //if adding new time
         if($req->formtype=="add"){
+            //check if existion 0:00~24:00
+            $check = OvertimeDetail::where('ot_id', $claim->id)->get();
+            // dd($check);
+            foreach($check as $checkies){
+                if(date("H:i:s", strtotime($checkies->start_time))==date("H:i:s", strtotime($checkies->end_time))){
+                    return redirect(route('ot.form',[],false))->with([
+                        'feedback' => true,
+                        'feedback_text' => "Time input cannot be within inserted time range!",
+                        'feedback_title' => "Input time error"
+                    ]);
+                }
+            }
+            if($req->inputendnew=="0:00"){
+                $req->inputendnew="24:00";
+            }
             $dif = (strtotime($req->inputendnew) - strtotime($req->inputstartnew))/60;
             $hour = (int) ($dif/60);
             $minute = $dif%60;
@@ -555,7 +578,11 @@ class OvertimeController extends Controller{
             $newdetail = new OvertimeDetail;
             $newdetail->ot_id = $claim->id;
             $newdetail->start_time = $claim->date." ".$req->inputstartnew.":00";
-            $newdetail->end_time = $claim->date." ".$req->inputendnew.":00";
+            if($req->inputendnew=="24:00"){
+                $newdetail->end_time = date('Y-m-d',strtotime($claim->date . "+1 days"))." ".$req->inputendnew.":00";
+            }else{
+                $newdetail->end_time = $claim->date." ".$req->inputendnew.":00";
+            }
             $newdetail->hour = $hour;
             $newdetail->minute = $minute;
             $newdetail->checked = "Y";
@@ -592,13 +619,22 @@ class OvertimeController extends Controller{
                     if(($req->inputremark[$i]=="")||($req->inputstart[$i]=="")||($req->inputend[$i]=="")){
                         $status = false;
                     }
-                    $dif = (strtotime($req->inputend[$i]) - strtotime($req->inputstart[$i]))/60;
+                    $end = $req->inputend[$i];
+                    if($end=="0:00"){
+                        // dd($req->inputend[$i]);
+                        $end="24:00";
+                    }
+                    $dif = (strtotime($end) - strtotime($req->inputstart[$i]))/60;
                     $hour = (int) ($dif/60);
                     $minute = $dif%60;
                     $pay = UserHelper::CalOT($salary, $hour, $minute);
                     $updatedetail = $claimdetail[$i];
                     $updatedetail->start_time = $claim->date." ".$req->inputstart[$i].":00";
-                    $updatedetail->end_time = $claim->date." ".$req->inputend[$i].":00";
+                    if($end=="00:00"){
+                        $newdetail->end_time = date('Y-m-d',strtotime($claim->date . "+1 days"))." ".$end.":00";
+                    }else{
+                        $updatedetail->end_time = $claim->date." ".$end.":00";
+                    }
 
                     //check if checkbox changed or not
                     if($updatedetail->checked != $req->inputcheck[$i]){
@@ -1051,7 +1087,11 @@ class OvertimeController extends Controller{
         $totaltime = (($updatemonth->hour*60)+$updatemonth->minute)-((($claimdetail->hour)*60)+$claimdetail->minute);
         $updatemonth->hour = (int)($totaltime/60);
         $updatemonth->minute = ($totaltime%60);
-        $totaltime = (($updateclaim->total_hour*60)+$claimdetail->total_minute)-((($claimdetail->hour)*60)+$claim->minute);
+        $updatemonth->total_hour = (int)($totaltime/60);
+        $updatemonth->total_minute = ($totaltime%60);
+
+        $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)-((($claimdetail->hour)*60)+$claimdetail->minute);
+        
         $updateclaim->total_hour = (int)($totaltime/60);
         $updateclaim->total_minute = ($totaltime%60);
         $updateclaim->amount = $updateclaim->amount - $claimdetail->amount;
@@ -1210,24 +1250,37 @@ class OvertimeController extends Controller{
             if($req->inputaction[$i]!=""){
                 $reg = Psubarea::where('state_id', $otlist[$i]->name->stateid->id)->first();
                 $expiry = OvertimeExpiry::where('company_id', $otlist[$i]->name->company_id)->where('region', $reg->region)->where('start_date','<=', $otlist[$i]->date)->where('end_date','>', $otlist[$i]->date)->first();
+                
+                $claim = Overtime::where('id', $req->inputid[$i])->first();
                 $updateclaim = Overtime::find($req->inputid[$i]);
-               if(($updateclaim->status=="PV")&&($updateclaim->verifier_id==null)){
+                if(($updateclaim->status=="PV")&&($updateclaim->verifier_id==null)){
                     $updateclaim->status=="PA";
                     
                 }
+
+                //verify
                 if($req->inputaction[$i]=="PA"){
                     // $updateclaim->date_expiry = date('Y-m-d', strtotime("+90 days"));
                     $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Verified', 'Verified');
                     //notification
-                    $claim = Overtime::where('id', $claim->inputid[$i])->first();
                     $user = $claim->approver;
-                    $myot = \App\Overtime::where('id', $user->id)->first();
+                    $myot = \App\Overtime::where('id', $req->inputid[$i])->first();
                     $user->notify(new OTVerified($myot));
+                    $user = $claim->name;
+                    $user->notify(new OTVerifiedApplicant($myot));
 
                     $updateclaim->verification_date = date("Y-m-d H:i:s");
+                
+                //approved
                 }else if($req->inputaction[$i]=="A"){
                     $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Approved', 'Approved');
+                    $user = $claim->name;
+                    //notification
+                    $myot = \App\Overtime::where('id', $claim->id)->first();
+                    $user->notify(new OTApproved($myot));
                     $updateclaim->approved_date = date("Y-m-d H:i:s");
+                
+                //queried
                 }else if($req->inputaction[$i]=="Q2"){
                     $updatemonth = OvertimeMonth::find($updateclaim->month_id);
                     $totaltime = (($updatemonth->total_hour*60)+$updatemonth->total_minute) - (($updateclaim->total_hour*60)+$updateclaim->total_minute);
@@ -1241,13 +1294,16 @@ class OvertimeController extends Controller{
                     // $updateclaim->date_expiry = date('Y-m-d', strtotime("+90 days"));
                     
                     //notification
-                    $claim = Overtime::where('id', $req->inputid[$i])->first();
                     $user = $claim->name;
                     $myot = \App\Overtime::where('id', $claim->id)->first();
                     // dd($myot);
-                    $user->notify(new OTQueryVerify($myot));
                     if($claim->status=="PA"){
                         $user->notify(new OTQueryApprove($myot));
+                        if($claim->verifier_id!=null){
+                            $user->notify(new OTQueryApproverVerify($myot));
+                        }
+                    }else{
+                        $user->notify(new OTQueryVerify($myot));
                     }
 
                 }else if($req->inputaction[$i]=="Assign"){

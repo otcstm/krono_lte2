@@ -83,7 +83,7 @@ class OTSubmitted extends Notification
             'id' => $this->claim->id,
             'param' => '',
             'route_name' => $route,
-            'text' => 'Overtime claim ' . $this->claim->refno.' - Pending '.$process,
+            'text' => 'Claim ' . $this->claim->refno.' has been submitted for your '.$process,
             'icon' => 'far fa-clock'
           ];
     }

@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class OTQueryApprove extends Notification
+class OTApproved extends Notification
 {
     use Queueable;
 
@@ -39,26 +39,22 @@ class OTQueryApprove extends Notification
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
-    { 
-        // standardkan semua link ke email guna yg ni supaya dia 'mark as read'
+    {// standardkan semua link ke email guna yg ni supaya dia 'mark as read'
         $url = route('notify.read', ['nid' => $this->id]);
-        foreach($this->claim->log as $logs){
-            if(strpos($logs->message,"Queried")!==false){
-                $query = $logs->message; 
-            }
-        }
-        $reason = str_replace('"', '', str_replace('Queried with message: "', '', $query));
+
         // hantar email guna blade template yg berkaitan
         // boleh guna view / markdown
-
-        // dd($this->claim->approver->name);
+        if($this->claim->verifier_id==null){
+            $type='approved';
+        }else{
+            $type='verified and approved';
+        }
         return (new MailMessage)
-        ->subject('Overtime claim '.$this->claim->refno.' - Queried')
-        ->markdown('email.ot.otquery', [
+        ->subject('Overtime claim '.$this->claim->refno.' - Approved')
+        ->markdown('email.ot.otapproved', [
             'url' => $url,
-            'reason' => $reason,
-            'toname' => $this->claim->name->name,
-            'date' => date("d.m.Y", strtotime($this->claim->date_expiry)),
+            'type' => $type,
+            'toname' => $this->claim->approver->name,
             'claim' => $this->claim->refno
         ]);
     }
@@ -75,7 +71,7 @@ class OTQueryApprove extends Notification
             'id' => $this->claim->id,
             'param' => '',
             'route_name' => 'ot.list',
-            'text' => 'Your claim ' . $this->claim->refno.' has been queried.',
+            'text' => 'Your claim ' . $this->claim->refno.' has been approved.',
             'icon' => 'far fa-clock'
           ];
     }
