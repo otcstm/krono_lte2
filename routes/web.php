@@ -306,6 +306,9 @@ Route::group(['middleware' => ['auth','can:7-rpt-ot-sa']], function () {
   Route::get('/syadmrep/otd', 'Admin\OtSaRepController@viewOTd')->name('rep.sa.OTd');
   Route::get('/syadmrep/StEd', 'Admin\OtSaRepController@viewStEd')->name('rep.sa.StEd');
   Route::get('/syadmrep/otlog', 'Admin\OtSaRepController@viewLC')->name('rep.sa.OTLog');
+  Route::get('/report/otlog', 'Admin\OtReport2Controller@viewLC')->name('rep.viewOTLog'); //dowload rep3
+  Route::post('/report/otlog', 'Admin\OtReport2Controller@viewLC')->name('rep.viewOTLog');
+
 });
 
 //-----------------------------------------------------------------------------------------------------------------------------------
