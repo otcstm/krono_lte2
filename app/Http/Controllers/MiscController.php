@@ -307,7 +307,8 @@ class MiscController extends Controller
       'isApprover' => $isApprover,
       'isUserAdmin' => $isUserAdmin,
       'isSysAdmin' => $isSysAdmin,
-      'otYearChart' => $otYearChart
+      'otYearChart' => $otYearChart,
+      'chartSumYear' => $dataPaidMonth->sum('sum_amount')
       ]);
   }
 
