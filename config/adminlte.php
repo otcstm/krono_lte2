@@ -457,7 +457,8 @@ return [
           ],
           [
             'text' => 'sysadmotlog',
-            'url'  => '/syadmrep/otlog',
+            // 'url'  => '/syadmrep/otlog',
+            'url'  => '/report/otlog',
             'icon' => '',
             'can' => '7-rpt-ot-sa',
           ],
