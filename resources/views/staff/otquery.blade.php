@@ -124,6 +124,8 @@
                                     <p>Pending Approval</p>
                                 @elseif($singleuser->status=="PV")
                                     <p>Pending Verification</p>
+                                @elseif($singleuser->status=="A")
+                                    <p>Approved</p>
                                 @endif
                             </td>
                             
