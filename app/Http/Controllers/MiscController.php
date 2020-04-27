@@ -92,9 +92,8 @@ class MiscController extends Controller
     //pending approval count()
     $pending_verification_count =
     Overtime::where('verifier_id','=',$req->user()->id)
-    ->whereIn('status',array('PV'))
+    ->whereIn('status',array('PV','Assign'))
     ->count();
-
 
     //link set default verifier
 
