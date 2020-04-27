@@ -30,9 +30,13 @@
                 </div>
                 <div class="col-md-6 col-md-offset-1">
                         <h4 style="color: #143A8C; font-weight: bold">Get Started</h4>
-                        <p style=" margin: 0">• How to start/end overtime?</p>
-                        <p style=" margin: 0">• How to apply new overtime claim and submit for approval?</p>
-                        <p style=" margin: 0">• How to change current work schedule?</p>
+                        <!-- <p style=" margin: 0">• How to start/end overtime?</p> -->
+                        <!-- <p style=" margin: 0">• How to apply new overtime claim and submit for approval?</p>
+                        <p style=" margin: 0">• How to change current work schedule?</p> -->
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideUser_01SEndOvertime.pdf")}}" target="_blank">• How to start/end overtime?</a></p>
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideUser_02ApplyClaim.pdf")}}" target="_blank">• How to apply new overtime claim and submit for approval?</a></p>
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideUser_03ChangeWsc.pdf")}}" target="_blank">• How to change current work schedule?</a></p>
+
                 </div>
                 <div class="col-md-2 col-md-offset-1 guide-system-inside text-center flex">
                     <img src="{{asset("/vendor/images/guide-video.png")}}">
@@ -68,9 +72,13 @@
                 </div>
                 <div class="col-md-6 col-md-offset-1">
                         <h4 style="color: #143A8C; font-weight: bold">Get Started</h4>
-                        <p style=" margin: 0">• How to set default verifier?</p>
+                        <!-- <p style=" margin: 0">• How to set default verifier?</p>
                         <p style=" margin: 0">• How to approve/query overtime claim?</p>
-                        <p style=" margin: 0">• How to view claim approval report?</p>
+                        <p style=" margin: 0">• How to view claim approval report?</p> -->
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideApprver_01SetVerifier.pdf")}}" target="_blank">• How to set default verifier?</a></p>
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideApprver_02ApproveQueryClaim.pdf")}}" target="_blank">• How to approve/query overtime claim?</a></p>
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideApprver_03ClaimReport.pdf")}}" target="_blank">• How to view claim approval report?</a></p>
+
                 </div>
                 <div class="col-md-2 col-md-offset-1 guide-system-inside text-center flex">
                     <img src="{{asset("/vendor/images/guide-video.png")}}">
@@ -99,8 +107,10 @@
                 </div>
                 <div class="col-md-6 col-md-offset-1">
                         <h4 style="color: #143A8C; font-weight: bold">Get Started</h4>
-                        <p style=" margin: 0">• How to verify/query overtime claim?</p>
-                        <p style=" margin: 0">• How to view claim verification report?</p>
+                        <!-- <p style=" margin: 0">• How to verify/query overtime claim?</p>
+                        <p style=" margin: 0">• How to view claim verification report?</p> -->
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideVerifier_01VerifyQueryClaim.pdf")}}" target="_blank">• How to verify/query overtime claim?</a></p>
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideVerifier_02ClaimReport.pdf")}}" target="_blank">• How to view claim verification report?</a></p>
                 </div>
                 <div class="col-md-2 col-md-offset-1 guide-system-inside text-center flex">
                     <img src="{{asset("/vendor/images/guide-video.png")}}">
@@ -140,8 +150,10 @@
                 </div>
                 <div class="col-md-6 col-md-offset-1">
                         <h4 style="color: #143A8C; font-weight: bold">Get Started</h4>
-                        <p style=" margin: 0">• Shift Management</p>
-                        <p style=" margin: 0">• Generate Reports</p>
+                        <!-- <p style=" margin: 0">• Shift Management</p>
+                        <p style=" margin: 0">• Generate Reports</p> -->
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideUserADM_01ShiftManagement.pdf")}}" target="_blank">• Shift Management</a></p>
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideUserADM_02GenerateReports.pdf")}}" target="_blank">• Generate Reports</a></p>
                 </div>
                 <div class="col-md-2 col-md-offset-1 guide-system-inside text-center flex">
                     <img src="{{asset("/vendor/images/guide-video.png")}}">
@@ -171,9 +183,11 @@
                 </div>
                 <div class="col-md-6 col-md-offset-1">
                         <h4 style="color: #143A8C; font-weight: bold">Get Started</h4>
-                        <p style=" margin: 0">• Maintain all configuration</p>
-                        <p style=" margin: 0">• Generate Reports</p>
-                </div>
+                        <!-- <p style=" margin: 0">• Maintain all configuration</p>
+                        <p style=" margin: 0">• Generate Reports</p> -->
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideSysADM_01Configuration.pdf")}}" target="_blank">• Maintain all configuration</a></p>
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideSysADM_02GenerateReports.pdf")}}" target="_blank">• Generate Reports</a></p>
+        </div>
                 <div class="col-md-2 col-md-offset-1 guide-system-inside text-center flex">
                     <img src="{{asset("/vendor/images/guide-video.png")}}">
                 </div>

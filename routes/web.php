@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/home', 'MiscController@home')->name('misc.home');
   Route::get('/role', 'Admin\RoleController@index')->name('role.index');
   Route::get('/readnotify', 'NotiMenuController@read')->name('notify.read');
+  Route::get('/announcement/close', 'Admin\AnnouncementController@close')->name('announce.close');
 
   // work schedule rule
   Route::get('/workschedule', 'WorkSchedRuleController@wsrPage')->name('staff.worksched');
@@ -257,7 +258,6 @@ Route::group(['middleware' => ['auth','can:1-nav-admin']], function () {
   Route::get('/admin/overtime/expiry/getexpiry', 'Admin\OvertimeMgmtController@getExpiry')->name('oe.getexpiry');
   Route::get('/admin/overtime/expiry/getlast', 'Admin\OvertimeMgmtController@getLast2')->name('oe.expirygetlast');
   //Announcement management
-  Route::get('/announcement/close', 'Admin\AnnouncementController@close')->name('announce.close');
   Route::get('/admin/announcement', 'Admin\AnnouncementController@show')->name('announcement.show');
   Route::get('/admin/announcement/form', 'Admin\AnnouncementController@form')->name('announcement.form');
   Route::get('/admin/announcement/add', 'Admin\AnnouncementController@add')->name('announcement.add');
