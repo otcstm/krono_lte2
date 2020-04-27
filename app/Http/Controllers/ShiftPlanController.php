@@ -284,11 +284,12 @@ class ShiftPlanController extends Controller
       $to_user = User::where('id',$theplan->Group->planner_id)->first();
 
       // object yang nak dinotify / tengok bila penerima notify tekan link
-      $shift_grp = \App\ShiftGroup::where('id', $theplan->Group->id)->first();       
-      
-      // hantar notification ke planner tu, untuk action yang berkaitan
-      $to_user->notify(new ShiftPlanApproved($shift_grp, $theplan));
-
+      $shift_grp = \App\ShiftGroup::where('id', $theplan->Group->id)->first();   
+      try{
+        // hantar notification ke planner tu, untuk action yang berkaitan
+        $to_user->notify(new ShiftPlanApproved($shift_grp, $theplan));
+      } catch(\Exception $e){    
+      } 
       // also updatae the status for each of the staff plan
       foreach($theplan->StaffList as $asps){
         $asps->status = 'Approved';
@@ -296,8 +297,11 @@ class ShiftPlanController extends Controller
 
         // todo: send alert
         $to_user_member = User::where('id',$asps->user_id)->first();
-      // hantar notification ke user tu, untuk action yang berkaitan
-        $to_user_member->notify(new ShiftPlanMembersApproved($shift_grp, $theplan, $asps));
+        try{
+          // hantar notification ke user tu, untuk action yang berkaitan
+            $to_user_member->notify(new ShiftPlanMembersApproved($shift_grp, $theplan, $asps));
+        } catch(\Exception $e){    
+        } 
       }
             
 
@@ -348,8 +352,11 @@ class ShiftPlanController extends Controller
       // object yang nak dinotify / tengok bila penerima notify tekan link
       $shift_grp = \App\ShiftGroup::where('id', $theplan->Group->id)->first();  
 
-      // hantar notification ke planner tu, untuk action yang berkaitan
-      $to_user->notify(new ShiftPlanReverted($shift_grp, $theplan, $reason));
+      try{
+        // hantar notification ke planner tu, untuk action yang berkaitan
+        $to_user->notify(new ShiftPlanReverted($shift_grp, $theplan, $reason));
+      } catch(\Exception $e){    
+      } 
 
       return redirect(route('shift.view', ['id' => $theplan->id], false))
         ->with([
@@ -394,9 +401,12 @@ class ShiftPlanController extends Controller
 
       // object yang nak dinotify / tengok bila penerima notify tekan link
       $shift_grp = \App\ShiftGroup::where('id', $theplan->Group->id)->first();    
-      
-      // hantar notification ke user tu, untuk action yang berkaitan
-      $to_user->notify(new ShiftPlanSubmitted($shift_grp, $theplan));
+     
+  try{
+    // hantar notification ke user tu, untuk action yang berkaitan
+    $to_user->notify(new ShiftPlanSubmitted($shift_grp, $theplan));
+  } catch(\Exception $e){    
+  } 
 
 
       return redirect(route('shift.view', ['id' => $theplan->id], false))

@@ -118,13 +118,13 @@
 
 <!-- Modal -->
 <div id="modalAdvSearch" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-xl">
+  <div class="modal-dialog modal-lg">
 
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Advance Search</h4>
+        <!-- <h4 class="modal-title">Advance Search</h4> -->
       </div>
       <div id="modal-body" class="modal-body">
       <div id="advSearchAlertMsg"></div>
@@ -244,8 +244,8 @@
 <div class="form-group">
   <label class="col-md-4 control-label"></label>  
   <div class="col-md-6">
-  <button id="btnAdvSearch" name="btnAdvSearch" type="button" onclick="advSearchSubmit()"
-  class="btn btn-primary btn-outline">Search</button>
+  <input id="btnAdvSearch" name="btnAdvSearch" type="button" onclick="advSearchSubmit()"
+  class="btn btn-primary btn-outline" value="Search">
   <!-- <input id="btnAdvSearch" name="btnAdvSearch" type="button" onclick="advSearchSubmit()" 
   class="btn btn-primary" value="Search"> -->
   
@@ -357,19 +357,16 @@ function advSearchSubmit(){
           html += '<fieldset><legend>Result Search';
           html += '<button class="btn btn-primary btn-outline pull-right" onclick="goToSearchForm()">Modify search</button></legend>';
       //create table
-      html += '<input id="myInput" type="text" placeholder="Search.."><br><br>';
-      html += '<div id="divOut" style="border: 1px solid #DDDDDD; max-height: 60vh; overflow-y: scroll;  overflow-x: hidden">';
-      
       html += '<table id="resultAdvSearchTbl" class="table"><thead>';
-      html += '<th>Creteria</th>';
-      // html += '<th>Persno</th>';
-      // html += '<th>Staffno</th>';
-      // html += '<th>Sub Group</th>';
-      // html += '<th>Company Code</th>';
-      // html += '<th>Personal Area</th>';
-      // html += '<th>Personal Subrea</th>';
-      // html += '<th>Email</th>';
-      //html += '<th>Action</th>';
+      html += '<th>Name</th>';
+      html += '<th>Persno</th>';
+      html += '<th>Staffno</th>';
+      html += '<th>Sub Group</th>';
+      html += '<th>Company Code</th>';
+      html += '<th>Personal Area</th>';
+      html += '<th>Personal Subrea</th>';
+      html += '<th>Email</th>';
+      html += '<th>Action</th>';
       html += '</thead><tbody>'; 
 
         if(data.length > 0)
@@ -377,65 +374,15 @@ function advSearchSubmit(){
         for(var count = 0; count < data.length; count++)
         {          
           html += '<tr>';
-          // html += '<td>'+data[count].name+'</td>';   
-          // html += '<td>'+data[count].id+'</td>';
-          // html += '<td>'+data[count].staff_no+'</td>';
-          // html += '<td>'+data[count].empsgroup+'</td>';
-          // html += '<td>'+data[count].company_id+'</td>';
-          // html += '<td>'+data[count].persarea+'</td>';
-          // html += '<td>'+data[count].perssubarea+'</td>';
-          // html += '<td>'+data[count].email+'</td>';
-          html += 
-            "<td>"+
-                "<div style='display: flex; align-items: center; flex-wrap: wrap; width: 95%; margin-left: 3%' padding: 15px>"+
-                    "<div class='w-10 text-center'><img src='/user/image/"+data[count].staffno.replace(' ','')+"' class='approval-search-img'></div>"+
-                    "<div class='w-30 m-15'>"+
-                        "<div class='approval-search-item'>"+
-                            "<div class='w-30'>Name<span class='dmx'>:</span></div>"+
-                            "<div class='w-70'><span class='dm'>: </span><b>"+data[count].name+"</b></div>"+
-                        "</div>"+
-                        "<div class='approval-search-item'>"+
-                            "<div class='w-30'>Personnel No<span class='dmx'>:</span></div>"+
-                            "<div class='w-70'><span class='dm'><span class='dm'>: </span></span><b>"+data[count].persno+"</b></div>"+
-                        "</div>"+
-                        "<div class='approval-search-item'>"+
-                            "<div class='w-30'>Staff No<span class='dmx'>:</span></div>"+
-                            "<div class='w-70'><span class='dm'>: </span><b>"+data[count].staffno+"</b></div>"+
-                        "</div>"+
-                    "</div>"+
-                    "<div class='w-30 m-15'>"+
-                        "<div class='approval-search-item'>"+
-                            "<div class='w-30'>Company Code<span class='dmx'>:</span></div>"+
-                            "<div class='w-70'><span class='dm'>: </span><b>"+data[count].companycode+"</b></div>"+
-                        "</div>"+
-                        "<div class='approval-search-item'>"+
-                            "<div class='w-30'>Cost Center<span class='dmx'>:</span></div>"+
-                            "<div class='w-70'><span class='dm'>: </span><b>"+data[count].costcenter+"</b></div>"+
-                        "</div>"+
-                        "<div class='approval-search-item'>"+
-                            "<div class='w-30'>Personnel Area<span class='dmx'>:</span></div>"+
-                            "<div class='w-70'><span class='dm'>: </span><b>"+data[count].persarea+"</b></div>"+
-                        "</div>"+
-                    "</div>"+
-                    "<div class='w-30 m-15'>"+
-                        "<div class='approval-search-item'>"+
-                            "<div class='w-30'>Employee Subgroup<span class='dmx'>:</span></div>"+
-                            "<div class='w-70'><span class='dm'>: </span><b>"+data[count].empsubgroup+"</b></div>"+
-                        "</div>"+
-                        "<div class='approval-search-item'>"+
-                            "<div class='w-30'>Email<span class='dmx'>:</span></div>"+
-                            "<div class='w-70'><span class='dm'>: </span><b>"+data[count].email+"</b></div>"+
-                        "</div>"+
-                        "<div class='approval-search-item'>"+
-                            "<div class='w-30'>Mobile No<span class='dmx'>:</span></div>"+
-                            "<div class='w-70'><span class='dm'>: </span><b>"+data[count].mobile+"</b></div>"+
-                        "</div>"+
-                    "</div>"+
-                      '<div class="w-10 text-center"><a class="btn btn-np" onclick="slctVerifier('+data[count].persno+',\''+data[count].name+'\')"><i class="fas fa-user-plus"></i> Add</a></div>'+
-                "</div>"+
-            "</td>";
-          //html += '<td><a class="btn btn-np" onclick="slctVerifier('+data[count].persno+',\''+data[count].name+'\')"><i class="fas fa-user-plus"></i></a></td>';
-          html += '<tr>';
+          html += '<td>'+data[count].id+'</td>';
+          html += '<td>'+data[count].name+'</td>';
+          html += '<td>'+data[count].staff_no+'</td>';
+          html += '<td>'+data[count].empsgroup+'</td>';
+          html += '<td>'+data[count].company_id+'</td>';
+          html += '<td>'+data[count].persarea+'</td>';
+          html += '<td>'+data[count].perssubarea+'</td>';
+          html += '<td>'+data[count].email+'</td>';
+          html += '<td><a class="btn btn-np" onclick="slctVerifier('+data[count].id+',\''+data[count].name+'\')"><i class="fas fa-user-plus"></i></a></td></tr>';
 
         }
       }
@@ -444,30 +391,22 @@ function advSearchSubmit(){
         //html += '<tr><td colspan="9">No Data Found</td></tr>';
         };
         html += '</tbody></table>';  
-        html += '</div>';
-        html += '</fieldset><br /><br />';
+        html += '</fieldset>';
 
       $("#resultAdvSearch").html(html);
       $("#advSearchAlertMsg").html("<div class='alert alert-success'>Success fetch "+data.length+" records</div>");
       $('#advSearchAlertMsg').fadeIn('slow'); 
       if(data){
-      // $('#resultAdvSearchTbl').DataTable({
-      //   "ordering": false
-      // });
+      $('#resultAdvSearchTbl').DataTable({
+        "ordering": false
+      });
       }      
       $("#resultAdvSearch").css("margin-bottom", "10px");
       $('html').scrollTop(0);
       $('#modalAdvSearch').animate({ scrollTop: -10 }, 1000);     
       setTimeout(function() { 
                     $('#advSearchAlertMsg').fadeOut('slow'); 
-                }, 3000);  
-
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#resultAdvSearchTbl tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    }).css('color','red');
-  });
+                }, 1000);  
 
     })//.get
   }; //if checkInput
@@ -531,8 +470,154 @@ function goToSearchForm(){
 // } //testSubmit
 
 
+function search(searchn, searchpn, searchsn, searchp, searchcc, searchct, searchpa, searchpsa, searchesg, searche, searchmn, searchon, type, block, i){
+        const url='{{ route("ot.search", [], false)}}';
+        no = i;
+        htmlstring = '<div style="border: 1px solid #DDDDDD; max-height: 60vh; overflow-y: scroll;  overflow-x: hidden;">';
+        $.ajax({
+            type: "GET",
+            url: url+"?name="+searchn+"&persno="+searchpn+"&staffno="+searchsn+"&position="+searchp+"&company="+searchcc+"&cost="+searchct+"&persarea="+searchpa+"&perssarea="+searchpsa+"&empsgroup"+searchesg+"&email="+searche+"&mobile="+searchmn+"&office="+searchon+"&type="+type,
+            success: function(resp) {
+                if(resp.length>0){
+                    number = resp.length;
+                    resp.forEach(updateResp);
+                    cfm = 'SELECT VERIFIER';
+                    yes = true;
+                }
+                else{
+                    htmlstring = "<div style=' width: 100%; padding: 5px; text-align: center; vertical-align: middle'>"+
+                                    "<p>No maching records found. Try to search again.</p>"+
+                                    "</div>";
+                                    
+                    cfm = 'NEXT';
+                    yes = false;
+                }
+                Swal.fire({
+                    title: "Verifier's Name",
+                    customClass: 'test2',
+                    // width: '75%',
+                    html: "<div class='text-left swollo'>"+
+                            "<input id='namet' placeholder=\"Enter Employee's Name\" style='width: 100%; box-sizing: border-box;' onkeyup='this.onchange();' onchange='return checkstring();'>"+
+                            "<button type='button' id='namex' onclick='return cleart()' class='approval-search-x btn-no'>"+
+                                "<i class='far fa-times-circle'></i>"+
+                            "</button>"+
+                            "<button type='button' id='namex' onclick='return searcho("+i+")' class='approval-search-icon btn-no'>"+
+                                "<i class='fas fa-search'></i>"+
+                            "</button>"+
+                            "<p id='3more' style=' margin-top: 5px; color: #F00000; display: none'>Search input must be more than 3 alphabets!</p>"+
+                            "<a id='margin' href='' onclick='return advance("+i+")' style='margin-left: -20px; color: #143A8C'>"+
+                                "<b><u>Advance Search</u></b>"+
+                            "</a>"+
+                        "</div>"+
+                        "<p style=' margin-top: 5px; color: #F00000; display: "+block+"'>Please select verifier!</p>"+
+                        "<div class='text-left'>"+htmlstring+"</div>",
+                    confirmButtonText:
+                        cfm,
+                    showCancelButton: yes,
+                    cancelButtonText: 'CANCEL',
+                }).then((result) => {
+                    if(yes){
+                        if (result.value) {            
+                            $("#action-"+i).val("Assign");
+                            table();
+                            $('#remark-'+i).css("display", "table-row");
+                            // Swal.fire({
+                            //         title: 'Remarks',
+                            //         html: "<textarea id='remark' rows='4' style='width: 90%' placeholder='This is mandatory field. Please key in remarks here!' style='resize: none;'></textarea><p>Are you sure to assign new verifier to this claim application?</p>",
+                            //         confirmButtonText:
+                            //             'YES',
+                            //             cancelButtonText: 'NO',
+                            //         showCancelButton: true,
+                            //         inputValidator: (result) => {
+                            //             return !result && 'You need to agree with T&C'
+                            //         }
+                            //     }).then((result) => {
+                            //             if (result.value) {
+                                                                    
+                                            $("#inputremark-"+i).attr("placeholder", "This is mandatory field. Please key in remarks here!");
+                                            $("#inputremark-"+i).prop('disabled',false);
+                                            $("#inputremark-"+i).prop('required',true);
+                                            // $("#inputremark-"+i).val($('#remark').val());  
+                                            // $("#inputremark-"+i).val($('#remark').val());
+                                                // if(yes){
+                                                //     if($('#verifier').val()!=''){
+                                                //         $('#formverifier').submit();
+                                                //     }else{
+                                                //         search(searchn, 'block', i);
+                                                //     }
+                                                // }else{
+                                                //     return searcho(i);
+                                                // }
+                                //         }else{
+                                            
+                                            
+                                //             reset(i);
+                                //         }
+                                // })
+                        }else{
+                            reset(i);
+                        }
+                    }else{
+                        normal(i, 'none');
+                    }
+                });
+                
+            }
+        });   
+        
+    }
 
 
-
+    function updateResp(item, index){
+        htmlstring = htmlstring + 
+            "<button style='border: 1px solid #DDDDDD; min-height: 10vh; width: 100%; padding: 5px; text-align: left; background: transparent' onclick='addverifier(\""+item.persnoo+"\","+index+",\""+item.name+"\");' id='addv-"+index+"'>"+
+                "<div style='display: flex; align-items: center; flex-wrap: wrap; width: 95%; margin-left: 3%' padding: 15px>"+
+                    "<div class='w-10 text-center'><img src='/user/image/"+item.staffno.replace(' ','')+"' class='approval-search-img'></div>"+
+                    "<div class='w-30 m-15'>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Name<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.name+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Personnel No<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'><span class='dm'>: </span></span><b>"+item.persno+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Staff No<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.staffno+"</b></div>"+
+                        "</div>"+
+                    "</div>"+
+                    "<div class='w-30 m-15'>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Company Code<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.companycode+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Cost Center<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.costcenter+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Personnel Area<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.persarea+"</b></div>"+
+                        "</div>"+
+                    "</div>"+
+                    "<div class='w-30 m-15'>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Employee Subgroup<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.empsubgroup+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Email<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.email+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Mobile No<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.mobile+"</b></div>"+
+                        "</div>"+
+                    "</div>"+
+                "</div>"+
+            "</button>";
+            
+    }
 </script>
 @stop
