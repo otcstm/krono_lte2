@@ -86,15 +86,13 @@ class MiscController extends Controller
     //pending verification count()
     $pending_approval_count =
     Overtime::where('approver_id','=',$req->user()->id)
-    ->orWhere('verifier_id','=',$req->user()->id)
-    ->whereIn('status',array('PV'))
+    ->whereIn('status',array('PA'))
     ->count();
 
     //pending approval count()
     $pending_verification_count =
-    Overtime::where('approver_id','=',$req->user()->id)
-    ->orWhere('verifier_id','=',$req->user()->id)
-    ->whereIn('status',array('PA'))
+    Overtime::where('verifier_id','=',$req->user()->id)
+    ->whereIn('status',array('PV'))
     ->count();
 
 

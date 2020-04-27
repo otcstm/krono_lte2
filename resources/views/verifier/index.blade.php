@@ -447,25 +447,26 @@ function goToSearchForm(){
     
 }
 
-function testSubmit(){
-  Swal.fire({
-  title: 'Multiple inputs',
-  html:
-    '<input id="swal-input1" class="swal2-input">' +
-    '<input id="swal-input2" class="swal2-input">',
-  focusConfirm: false,
-  preConfirm: () => {
-    return [
-      document.getElementById('swal-input1').value,
-      document.getElementById('swal-input2').value
-    ]
-  }
-})
+// p;[]
+// function testSubmit(){
+//   Swal.fire({
+//   title: 'Multiple inputs',p[p[]]
+//   html:p[p[]]
+//     '<input id="swal-input1" clap[p[p;2-input">' +
+//     '<input id="swal-input2" class="swal2-input">',
+//   focusConfirm: false,
+//   preConfirm: () => {
+//     return [
+//       document.getElementById('swal-input1').value,
+//       document.getElementById('swal-input2').value
+//     ]
+//   }
+// })
 
-if (formValues) {
-  Swal.fire(JSON.stringify(formValues))
-}
+// if (formValues) {
+//   Swal.fire(JSON.stringify(formValues))
+// }
 
-} //testSubmit
+// } //testSubmit
 </script>
 @stop
