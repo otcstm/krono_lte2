@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\UserRecord;
 use App\UserVerifier;
 use DataTables;
 use DB;
@@ -70,7 +71,7 @@ class UserVerifierController extends Controller
     public function ajaxAdvSearchSubord(Request $req)
     {          
         //dd($req->dataSearch);
-        $empl_persno = strtoupper($req->dataSearch[0]['value']);
+        $empl_name = strtoupper($req->dataSearch[0]['value']);
         $empl_persno = $req->dataSearch[1]['value'];
         $empl_staffno = strtoupper($req->dataSearch[2]['value']);
         $empl_position = $req->dataSearch[3]['value'];
@@ -86,18 +87,19 @@ class UserVerifierController extends Controller
         //check if no condition
         $checkCondition = 0;
         $data = [];
-        $data = User::query();
-        $data = $data->select("id","name","staff_no","email","company_id","persarea","perssubarea","empgroup","empsgroup");
+
+        $data = UserRecord::query();
+        $data = $data->select("user_id","name","staffno","email","company_id","costcentr","persarea","perssubarea","empgroup","empsgroup");
         if(strlen(trim($empl_name)) > 0){
             $data = $data->orWhere(DB::raw('upper(name)'),'LIKE','%' .$empl_name. '%');
             $checkCondition++;
         }
         if(strlen(trim($empl_persno)) > 0){
-            $data = $data->orWhere('id','LIKE','%' .$empl_persno. '%');
+            $data = $data->orWhere('user_id','LIKE','%' .$empl_persno. '%');
             $checkCondition++;
         }
         if(strlen(trim($empl_staffno)) > 0){
-            $data = $data->orWhere(DB::raw('upper(staff_no)'),'LIKE','%' .$empl_staffno. '%');
+            $data = $data->orWhere(DB::raw('upper(staffno)'),'LIKE','%' .$empl_staffno. '%');
             $checkCondition++;
         }
         if(strlen(trim($empl_email)) > 0){
@@ -107,6 +109,11 @@ class UserVerifierController extends Controller
         if(strlen(trim($empl_compcode)) > 0){
             $data = $data->orWhere('company_id','LIKE','%' .$empl_compcode. '%');
             $checkCondition++;
+        }
+        if(strlen(trim($empl_costcenter)) > 0){
+            $data = $data->whereHas('userRecordLatest', function($q){
+                $q->where('costcentr', $empl_costcenter);
+            });
         }
         if(strlen(trim($empl_personalarea)) > 0){
             $data = $data->orWhere('persarea','LIKE','%' .$empl_personalarea. '%');
@@ -130,8 +137,24 @@ class UserVerifierController extends Controller
         //$data = $data->toSql();
         //$data = $data->companyid->company_descr;
         //dd($data->companyid->company_descr);
+        //$data = array_push($data,['costcentr'=>$data->userRecordLatest->costcentr]);
+        $arr = [];
+        foreach($data as $s){
+            array_push($arr, [
+                'id'=> $s->user_id,
+                'name'=>$s->name,
+                'persno'=>sprintf('%08d', $s->user_id),
+                'staffno'=>$s->staffno,
+                'companycode'=>$s->companyid->company_descr,
+                'costcenter'=>$s->costcentr,
+                'persarea'=>$s->persarea,
+                'empsubgroup'=>$s->empsgroup,
+                'email'=>$s->email,
+                'mobile'=>$s->name,
+            ]);
+        }
 
-        return response()->json($data);
+        return response()->json($arr);
     }
 
     public function advSearchSubord(Request $req)

@@ -54,9 +54,11 @@ class ShiftGroupController extends Controller
 
     // object yang nak dinotify / tengok bila penerima notify tekan link
     $shift_grp = \App\ShiftGroup::where('id', $nugrup->id)->first();    
-      
-    // hantar notification ke user tu, untuk action yang berkaitan
-    $to_user->notify(new GroupOwnerAssigned($shift_grp,$cc_user_list));
+    try{
+      // hantar notification ke user tu, untuk action yang berkaitan
+      $to_user->notify(new GroupOwnerAssigned($shift_grp,$cc_user_list));
+    } catch(\Exception $e){    
+    }    
 
     return redirect(route('shift.group.view', ['id' => $nugrup->id], false));
 
@@ -142,11 +144,15 @@ class ShiftGroupController extends Controller
       $cc_user_planner = $shift_grp->Planner->email;    
       array_push($cc_user_list, $cc_user_planner);
     }
-    
+
+  try{
     // hantar notification ke user tu, untuk action yang berkaitan
     $to_user->notify(new GroupMemberAssigned($shift_grp,$cc_user_list,$to_user));
+  } catch(\Exception $e){    
+  }
 
-    return redirect(route('shift.mygroup.view', ['sgid' => $req->group_id], false))->with(['alert' => 'Staff added to group', 'a_type' => 'success']);
+    return redirect(route('shift.mygroup.view', ['sgid' => $req->group_id], false))
+    ->with(['alert' => 'Staff added to group', 'a_type' => 'success']);
 
   }
 
@@ -391,10 +397,13 @@ class ShiftGroupController extends Controller
     $cc_user = $tsg->Manager->email;
 
     // object yang nak dinotify / tengok bila penerima notify tekan link
-    $shift_grp = \App\ShiftGroup::where('id', $req->sgid)->first();    
-      
+    $shift_grp = \App\ShiftGroup::where('id', $req->sgid)->first();
+    
+  try{
     // hantar notification ke user tu, untuk action yang berkaitan
     $to_user->notify(new GroupPlannerAssigned($shift_grp,$cc_user));
+  } catch(\Exception $e){    
+  }  
 
 
       $plannername = '';
