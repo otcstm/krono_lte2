@@ -1319,6 +1319,7 @@ class OvertimeController extends Controller{
                     }
                 } 
                 $updateclaim->status=$req->inputaction[$i];
+                // dd($req->inputaction[$i]);
                 $updateclaim->verifier_id=$req->verifier[$i];
                 $updateclaim->save();
                 $yes = true;
