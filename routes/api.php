@@ -45,6 +45,8 @@ $api->version('v1', function ($api) {
   $api->get('leave/getLastUpd', 'App\Api\Datamart\LeaveController@returnMaxDate');
   $api->post('leave/insert', 'App\Api\Datamart\LeaveController@insert');
 
+  $api->post('paid_ot/insert', 'App\Api\Datamart\PaidOtController@insert');
+
 
 
 });
