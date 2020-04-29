@@ -51,7 +51,7 @@
              @if($ap->status == 'Planning')
              <a href="{{ route('shift.staff', ['id' => $ap->id], false) }}"><button type="button" class="btn btn-xs btn-warning" title="Edit"><i class="fas fa-pencil-alt"></i></button></a>
              @else
-              <a href="{{ route('shift.staff', ['id' => $ap->id], false) }}"><button type="button" class="btn btn-xs btn-success" title="Edit"><i class="far fa-eye"></i></button></a>
+              <a href="{{ route('shift.staff', ['id' => $ap->id], false) }}"><button type="button" class="btn btn-xs btn-success" title="Edit"><i class="glyphicon glyphicon-info-sign"></i></button></a>
              @endif
            </td>
          </tr>

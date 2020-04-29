@@ -65,7 +65,8 @@ class ExcelHandler {
   public function saveToPerStorage(){
     // dd('sini',$this->filename);
     $writer = new Writer\Xlsx($this->spreadsheet);
-    $writer->save('storage/app/reports/' . $this->filename);
+    $writer->save('/var/www/otcs/storage/app/reports/' . $this->filename);
+    // $writer->save('storage/app/reports/' . $this->filename);
   }
 
   public function download(){

@@ -17,7 +17,16 @@ var check = new Date();
 var wtm;
 var wtms;
 var nework = false;
+<<<<<<< HEAD
+=======
+var once =true;
+var n = 0;
+var timeoutId;
+var showerror = true;
+>>>>>>> 76e6f6e7725850f0db3a3c151c189a6c90153095
 
+
+//every page load check for existing oT
 $.ajax({
     url: '/punch/check',
     type: "GET",
@@ -67,10 +76,7 @@ $.ajax({
         puncho();
     }
 });
-
-var once =true;
-var n = 0;
-var timeoutId;
+//when click start OT;
 $("#punchb").on('mousedown', function() {
     n=0;
     once=true;
@@ -84,7 +90,51 @@ $("#punchb").on('mousedown', function() {
     clearTimeout(timeoutId);
 });
 
+function puncho(){
+    once =false;
+    now = new Date(); 
+    startclock = Date.parse(now).toString("yyyy-MM-dd HH:mm");
+    startclock = startclock+":00";
+    $.ajax({
+        url: '/punch/checkday?date='+startclock,
+        type: "GET",
+        success: function(resp) {
+            if(resp.result==true){
+                timere = "00:00:00";
+                Swal.fire({
+                        title: 'Start Overtime',
+                        html: "Are you sure you want to <b style='color:#143A8C'>start</b> your overtime at <b style='color:#143A8C'>"+Date.parse(now).toString("HHmm")+"</b> on <b style='color:#143A8C'>"+Date.parse(now).toString("dd.MM.yyyy")+"</b>?",
+                        showCancelButton: true,
+                        confirmButtonText:
+                                            'YES',
+                                            cancelButtonText: 'NO',
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6'
+                        }).then((result) => {
+                            //startot ajx
+                            if (result.value) {
+                                getLocation();
+                                
+                            }
+                        })  
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Start Overtime Error',
+                    text: "You are not allowed to start overtime during working hours!",
+                    showCancelButton: false,
+                    confirmButtonText: 'OK',
+                })
+            }
+        },
+        error: function(err) {
+            // puncho();
+        }
+    });
+     
+}
 
+//start OT
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition,showError);
@@ -97,6 +147,7 @@ function getLocation() {
     }
 }   
 
+//start OT succeed
 function showPosition(position) {
     lat =position.coords.latitude;
     long =position.coords.longitude;
@@ -104,7 +155,7 @@ function showPosition(position) {
     punchman();
 }
 
-var showerror = true;
+//start OT failed
 function showError(error) {
     switch(error.code) {
         case error.PERMISSION_DENIED:
@@ -165,7 +216,7 @@ function showError(error) {
                     }
                 })
                 showerror = false;
-                    getLocation();
+                getLocation();
             }
         break;
     }
@@ -240,19 +291,6 @@ function showError2(error) {
     }
 }
 
-// function punchman(){
-//     $.ajax({
-//         url: '/punch/start?time='+startclock+'&lat='+lat+'=&long='+long,
-//         type: "GET",
-//         success: function(resp) {
-//             starttime(now, startclock);
-//             timestart = setInterval(timer(0, 0, 0, parseInt(Date.parse(now).toString("ss")), parseInt(Date.parse(now).toString("mm")), parseInt(Date.parse(now).toString("H")), now), 1000);
-//         },
-//         error: function(err) {
-//             puncho();
-//         }
-//     });
-// }
 function punchman(){
     // alert(now);
     wtm = Date.parse(now).toString("yyyy-MM-dd HH:mm");
@@ -260,22 +298,17 @@ function punchman(){
         url: '/punch/start?time='+startclock+'&lat='+lat+'=&long='+long,
         type: "GET",
         success: function(resp) {
+            // alert(resp.test);
             $.ajax({
                 url: '/punch/checkworktime?time='+wtm,
                 type: "GET",
                 success: function(resp) {
-                    // alert(resp.addday);
-                    // alert(resp.test1);
-                    // alert(resp.test2);
-                    // alert(resp.test3);
+                    // alert(resp.swtime);
                     dayadd = now;
-                    // alert(now);
                     enddate = (Date.parse(dayadd).addDays(resp.addday).toString("dd.MM.yyyy"));
                     now = (Date.parse(dayadd).addDays(-resp.addday).toString("dd.MM.yyyy"));
-                    // alert(now);
-                    // alert(enddate);
-                    starttime(now, startclock);
                     timestart = setInterval(timer(0, 0, 0, parseInt(Date.parse(now).toString("ss")), parseInt(Date.parse(now).toString("mm")), parseInt(Date.parse(now).toString("H")), now, resp.swtime), 1000);
+                    starttime(now, startclock);
                 },
                 error: function(err) {
                     puncho();
@@ -286,51 +319,6 @@ function punchman(){
             puncho();
         }
     });
-}
-
-function puncho(){
-    // var now = new Date(); 
-    once =false;
-    now = new Date(); 
-    startclock = Date.parse(now).toString("yyyy-MM-dd HH:mm");
-    startclock = startclock+":00";
-    $.ajax({
-        url: '/punch/checkday?date='+startclock,
-        type: "GET",
-        success: function(resp) {
-            if(resp.result==true){
-                timere = "00:00:00";
-                Swal.fire({
-                        title: 'Start Overtime',
-                        html: "Are you sure you want to <b style='color:#143A8C'>start</b> your overtime at <b style='color:#143A8C'>"+Date.parse(now).toString("HHmm")+"</b> on <b style='color:#143A8C'>"+Date.parse(now).toString("dd.MM.yyyy")+"</b>?",
-                        showCancelButton: true,
-                        confirmButtonText:
-                                            'YES',
-                                            cancelButtonText: 'NO',
-                        confirmButtonColor: '#d33',
-                        cancelButtonColor: '#3085d6'
-                        }).then((result) => {
-                            //startot ajx
-                            if (result.value) {
-                                getLocation();
-                                
-                            }
-                        })  
-            }else{
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Start Overtime Error',
-                    text: "You are not allowed to start overtime during working hours!",
-                    showCancelButton: false,
-                    confirmButtonText: 'OK',
-                })
-            }
-        },
-        error: function(err) {
-            // puncho();
-        }
-    });
-     
 }
     
 var future
@@ -419,6 +407,7 @@ function endpunch(){
     // alert(eetime+"-"+sstime+"="+(parseInt(eetime)-parseInt(sstime)));
     
     if(displayonce){
+<<<<<<< HEAD
         alert(((parseInt(eetime)-parseInt(sstime)))+" "+(parseInt(eetime)-parseInt(sstime))+" "+startclockt+" "+endclock+" "+lat+" "+long+" "+lat2+" "+long2);
         // if(((parseInt(eetime)-parseInt(sstime))>0)||(parseInt(eetime)-parseInt(sstime))<0){
         //     $.ajax({
@@ -457,6 +446,41 @@ function endpunch(){
         //     $.ajax({
         //         url: '/punch/cancel?time='+startclockt,
         //         type: "GET",
+=======
+        if(((parseInt(eetime)-parseInt(sstime))>0)||(parseInt(eetime)-parseInt(sstime))<0){
+            $.ajax({
+                url: '/punch/end?stime='+startclockt+'&etime='+endclock+'&lat='+lat+'&long='+long+'&lat2='+lat2+'&long2='+long2,
+                type: "GET", 
+                success: function(resp) {
+                    clearInterval(timestart); 
+                    if(nework){
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Overtime Ended',
+                            text: "New working hour has staterd",
+                            showCancelButton: false,
+                            confirmButtonText: 'OK',
+                        }).then((result) => {
+                            if (result.value) {
+                                var path = window.location.pathname;
+                                if(path=="/punch"){
+                                    location.reload();
+                                }
+                            }
+                        })      
+                    }
+                },
+                    error: function(err) {
+                        starttime(now, startclockt);
+                    }
+                }
+            );
+        }else{
+            clearInterval(timestart); 
+            $.ajax({
+                url: '/punch/cancel?time='+startclockt,
+                type: "GET",
+>>>>>>> 76e6f6e7725850f0db3a3c151c189a6c90153095
                 
         //         success: function(resp) {
         //             Swal.fire({
@@ -520,6 +544,7 @@ function timer(psecond, pminute, phour, dsecond, dminute, dhour, now, swtime){
         // console.log(cnow+" "+enddate+" "+parseInt(ctimes[0]*60)+parseInt(ctimes[1])+" >= "+(parseInt(swtimes[0]*60)+parseInt(swtimes[1])));
         if(Date.parse(cnow).toString("dd.MM.yyyy")==enddate){
             if(parseInt(ctimes[0]*60)+parseInt(ctimes[1])>=(parseInt(swtimes[0]*60)+parseInt(swtimes[1]))){
+                nework = true;
                 endclock = Date.parse(cnow).toString("yyyy-MM-dd")+" "+swtime+":00";
                 future = Date.parse(cnow).toString("yyyy-MM-dd")+" "+swtime+":00";
                 nework = true;

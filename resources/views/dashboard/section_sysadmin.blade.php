@@ -91,22 +91,22 @@
 <div class="row row-eq-height">
  
  <!-- /t1 -->
-  <div class="col-md-3 col-sm-6 col-xs-12 ">
-    <a href="{{ route('oe.ebility.show', [], false) }}">
+   <div class="col-md-3 col-sm-6 col-xs-12 ">
+    <a href="{{ route('holiday.show', [], false) }}">
     <div class="box box-solid">
     <div class="box-body">
     <div class="media">
       <div class="media-left">
-        <img src="vendor/ot-assets/sysadm_system_eligibility.png" class="media-object" style="width:50px">
+        <img src="vendor/ot-assets/sysadm_holiday_management.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
-        <h4 class="media-heading text-left">SYSTEM</h4>
-        <p>ELIGIBILITY</p>
+        <h4 class="media-heading text-left">HOLIDAY</h4>
+        <p><span class="media-heading text-left">MANAGEMENT</span></p>
       </div>
     </div>
     </div><!-- /.box-body -->
     <div class="box-header text-center bg-yellow-active color-palette">
-    <h3 class="box-title text-left">System Eligibility</h3>
+    <h3 class="box-title text-left">Manage Calendar Holiday</h3>
     </div><!-- /.box-header -->
     </div>
     </a>
@@ -157,6 +157,56 @@
   </div>
   
   <!-- /t4 --> 
+  <div class="col-md-3 col-sm-6 col-xs-12 ">
+    <a href="{{ route('oe.eligibility.show', [], false) }}">
+    <div class="box box-solid">
+    <div class="box-body">
+    <div class="media">
+      <div class="media-left">
+        <img src="vendor/ot-assets/sysadm_system_eligibility.png" class="media-object" style="width:50px">
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading text-left">SYSTEM</h4>
+        <p>ELIGIBILITY</p>
+      </div>
+    </div>
+    </div><!-- /.box-body -->
+    <div class="box-header text-center bg-yellow-active color-palette">
+    <h3 class="box-title text-left">System Eligibility</h3>
+    </div><!-- /.box-header -->
+    </div>
+    </a>
+  </div> 
+ 
+
+</div>
+
+<!-- /row3 -->
+<div class="row row-eq-height">
+ 
+ <!-- /t1 --> 
+    <div class="col-md-3 col-sm-6 col-xs-12 ">
+      <a href="{{ route('pygroup.index', [], false) }}">
+      <div class="box box-solid">
+      <div class="box-body">
+      <div class="media">
+        <div class="media-left">
+          <img src="vendor/ot-assets/sysadm_payment_schedule_management.png" class="media-object" style="width:50px">
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading text-left">PAYMENT GROUPING</h4>
+          <p>MANAGEMENT</p>
+        </div>
+      </div>
+      </div><!-- /.box-body -->
+      <div class="box-header text-center bg-yellow-active color-palette">
+      <h3 class="box-title text-left">Manage Payment Schedule</h3>
+      </div><!-- /.box-header -->
+      </div>
+      </a>
+    </div> 
+
+<!-- /t2 -->  
     <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('paymentsc.index', [], false) }}">
     <div class="box box-solid">
@@ -176,38 +226,9 @@
     </div><!-- /.box-header -->
     </div>
     </a>
-  </div>
-  
+  </div> 
  
-
-</div>
-
-<!-- /row3 -->
-<div class="row row-eq-height">
- 
- <!-- /t1 --> 
-   <div class="col-md-3 col-sm-6 col-xs-12 ">
-    <a href="{{ route('holiday.show', [], false) }}">
-    <div class="box box-solid">
-    <div class="box-body">
-    <div class="media">
-      <div class="media-left">
-        <img src="vendor/ot-assets/sysadm_holiday_management.png" class="media-object" style="width:50px">
-      </div>
-      <div class="media-body">
-        <h4 class="media-heading text-left">HOLIDAY</h4>
-        <p><span class="media-heading text-left">MANAGEMENT</span></p>
-      </div>
-    </div>
-    </div><!-- /.box-body -->
-    <div class="box-header text-center bg-yellow-active color-palette">
-    <h3 class="box-title text-left">Manage Calendar Holiday</h3>
-    </div><!-- /.box-header -->
-    </div>
-    </a>
-  </div>
-
-<!-- /t2 -->  
+ <!-- /t3 --> 
   <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('oe.show', [], false) }}">
     <div class="box box-solid">
@@ -228,9 +249,8 @@
     </div>
     </a>
   </div>
- 
- 
- <!-- /t3 --> 
+  
+<!-- /t4 --> 
   <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('announcement.show', [], false) }}">
     <div class="box box-solid">
@@ -247,28 +267,6 @@
     </div><!-- /.box-body -->
     <div class="box-header text-center bg-yellow-active color-palette">
     <h3 class="box-title text-left">Add New Annoucement</h3>
-    </div><!-- /.box-header -->
-    </div>
-    </a>
-  </div>
-  
-<!-- /t4 --> 
-  <div class="col-md-3 col-sm-6 col-xs-12 ">
-    <a href="{{ route('misc.home', [], false) }}">
-    <div class="box box-solid">
-    <div class="box-body">
-    <div class="media">
-      <div class="media-left">
-        <img src="vendor/ot-assets/sysadm_user_activity_log.png" class="media-object" style="width:50px">
-      </div>
-      <div class="media-body">
-        <h4 class="media-heading text-left">OUTBOUND</h4>
-        <p>INTERFACE</p>
-      </div>
-    </div>
-    </div><!-- /.box-body -->
-    <div class="box-header text-center bg-yellow-active color-palette">
-    <h3 class="box-title text-left">Outbound Interface OT Payment</h3>
     </div><!-- /.box-header -->
     </div>
     </a>
@@ -299,9 +297,9 @@
     </div>
     </a>
   </div>
- <!-- /t2 --> 
+  <!-- /t2 --> 
   <div class="col-md-3 col-sm-6 col-xs-12 ">
-    <a href="{{ route('misc.home', [], false) }}">
+    <a href="{{ route('staff.list', [], false) }}">
     <div class="box box-solid">
     <div class="box-body">
     <div class="media">
@@ -321,30 +319,83 @@
     </a>
   </div>
   
- <!-- /t3 -->
+  <!-- /t3 -->
   <div class="col-md-3 col-sm-6 col-xs-12 ">
-    <a href="{{ route('misc.home', [], false) }}">
-    <div class="box box-solid">
-    <div class="box-body">
-    <div class="media">
-      <div class="media-left">
-        <img src="vendor/ot-assets/sysadm_claim_manual_approval.png" class="media-object" style="width:50px">
+    <a href="{{ route('ot.admin', [], false) }}">
+      <div class="box box-solid">
+      <div class="box-body">
+      <div class="media">
+        <div class="media-left">
+          <img src="vendor/ot-assets/sysadm_claim_manual_approval.png" class="media-object" style="width:50px">
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading text-left">CLAIM MANUAL</h4>
+          <p>APPROVAL</p>
+        </div>
       </div>
-      <div class="media-body">
-        <h4 class="media-heading text-left">CLAIM MANUAL</h4>
-        <p>APPROVAL</p>
+      </div><!-- /.box-body -->
+      <div class="box-header text-center bg-yellow-active color-palette">
+      <h3 class="box-title text-left">Claim Manual Approval</h3>
+      </div><!-- /.box-header -->
       </div>
+      </a>
     </div>
-    </div><!-- /.box-body -->
-    <div class="box-header text-center bg-yellow-active color-palette">
-    <h3 class="box-title text-left">Claim Manual Approval</h3>
-    </div><!-- /.box-header -->
-    </div>
-    </a>
-  </div>
+
  <!-- /t4 -->
  <div class="col-md-3 col-sm-6 col-xs-12 ">
-    <a href="{{ route('log.listUserLogs', [], false) }}">
+  <a href="{{ route('log.listUserLogs', [], false) }}">
+  <div class="box box-solid">
+  <div class="box-body">
+  <div class="media">
+    <div class="media-left">
+      <img src="vendor/ot-assets/sysadm_user_activity_log.png" class="media-object" style="width:50px">
+    </div>
+    <div class="media-body">
+      <h4 class="media-heading text-left">USER ACTIVITY</h4>
+      <p>LOG</p>
+    </div>
+  </div>
+  </div><!-- /.box-body -->
+  <div class="box-header text-center bg-yellow-active color-palette">
+  <h3 class="box-title text-left">User Activity Log</h3>
+  </div><!-- /.box-header -->
+  </div>
+  </a>
+</div>
+
+</div>
+
+<!-- /row5 -->
+<div class="row row-eq-height">
+  <!-- /t1 -->
+
+<div class="col-md-3 col-sm-6 col-xs-12 ">
+  <a href="{{ route('rep.sa.main', [], false) }}">
+  <div class="box box-solid">
+  <div class="box-body">
+  <div class="media">
+    <div class="media-left">
+      <img src="vendor/ot-assets/sysadm_reports.png" class="media-object" style="width:50px">
+    </div>
+    <div class="media-body">
+      <h4 class="media-heading text-left">REPORTS</h4>
+      <!--<p>DESC FUNCTION</p>-->
+    </div>
+  </div>
+  </div><!-- /.box-body -->
+  <div class="box-header text-center bg-yellow-active color-palette">
+  <h3 class="box-title text-left">Generate Report</h3>
+  </div><!-- /.box-header -->
+  </div>
+  </a>
+</div>
+
+</div><!-- ./row5 -->
+
+
+  
+   {{-- <div class="col-md-3 col-sm-6 col-xs-12 ">
+    <a href="{{ route('misc.home', [], false) }}">
     <div class="box box-solid">
     <div class="box-body">
     <div class="media">
@@ -352,51 +403,14 @@
         <img src="vendor/ot-assets/sysadm_user_activity_log.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
-        <h4 class="media-heading text-left">USER ACTIVITY</h4>
-        <p>LOG</p>
+        <h4 class="media-heading text-left">OUTBOUND</h4>
+        <p>INTERFACE</p>
       </div>
     </div>
     </div><!-- /.box-body -->
     <div class="box-header text-center bg-yellow-active color-palette">
-    <h3 class="box-title text-left">User Activity Log</h3>
+    <h3 class="box-title text-left">Outbound Interface OT Payment</h3>
     </div><!-- /.box-header -->
     </div>
     </a>
-  </div>
-
-</div>
-
-
-<!-- /row5 -->
-<div class="row row-eq-height">
- <!-- /t1 -->
-    <div class="col-md-3 col-sm-6 col-xs-12 ">
-    <a href="{{ route('rep.sa.main', [], false) }}">
-    <div class="box box-solid">
-    <div class="box-body">
-    <div class="media">
-      <div class="media-left">
-        <img src="vendor/ot-assets/sysadm_reports.png" class="media-object" style="width:50px">
-      </div>
-      <div class="media-body">
-        <h4 class="media-heading text-left">REPORTS</h4>
-        <!--<p>DESC FUNCTION</p>-->
-      </div>
-    </div>
-    </div><!-- /.box-body -->
-    <div class="box-header text-center bg-yellow-active color-palette">
-    <h3 class="box-title text-left">Generate Report</h3>
-    </div><!-- /.box-header -->
-    </div>
-    </a>
-  </div>
-  
-  <!-- /t2 -->  
-
-  <!-- /t3 -->
-
-  <!-- /t4 -->
-  
-</div>  
-  
- 
+  </div> --}}

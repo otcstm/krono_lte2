@@ -107,7 +107,7 @@ $(document).ready(function() {
     "order" : [[0, "asc"]],
     dom: '<"flext"lB>rtip',
     buttons: [
-        'csv', 'excel', 'pdf'
+        'excel'
     ]
   });
 });

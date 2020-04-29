@@ -40,7 +40,7 @@
 </div>
     </div><!-- /.box-body -->
     <div class="box-header text-center bg-yellow-active color-palette">
-    <h3 class="box-title text-left">Pending OT for Verification</h3>
+    <h3 class="box-title text-left">Pending OT for Approval</h3>
     </div><!-- /.box-header -->
     </div>
     </a>

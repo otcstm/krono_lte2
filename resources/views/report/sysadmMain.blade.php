@@ -4,11 +4,13 @@
 @section('title', 'User Report Mainpage')
 @section('content')
 
-<h1>System Admin Report Mainpage</h1>
+<h1>System Admin Report</h1>
+
+<div class="panel panel-default panel-main"> 
 <div class="row row-eq-height"> 
 
     <div class="col-md-3 col-sm-6 col-xs-12 ">
-      <a href="{{ route('rep.viewOTd', [], false) }}">
+      <a href="{{ route('rep.sa.OTd', [], false) }}">
       <div class="box box-warning box-solid">
       <div class="box-body">
       <div class="media">
@@ -29,7 +31,7 @@
     </div>
 
     <div class="col-md-3 col-sm-6 col-xs-12 ">
-        <a href="{{ route('rep.viewStEd', [], false) }}">
+        <a href="{{ route('rep.sa.StEd', [], false) }}">
         <div class="box box-warning box-solid">
         <div class="box-body">
         <div class="media">
@@ -50,7 +52,7 @@
       </div>
 
       <div class="col-md-3 col-sm-6 col-xs-12 ">
-        <a href="{{ route('rep.viewOT', [], false) }}">
+        <a href="{{ route('rep.sa.OT', [], false) }}">
         <div class="box box-warning box-solid">
         <div class="box-body">
         <div class="media">
@@ -92,6 +94,6 @@
       </div>
 
 </div><!-- /.row row-eq-height -->    
-
+</div>
 
 @stop

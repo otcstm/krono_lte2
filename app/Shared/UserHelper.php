@@ -432,7 +432,7 @@ class UserHelper {
 
     public static function CheckLeave($user, $date)
     {
-      $leave = Leave::where('user_id', $user)->whereDate('start_date','<=',$date)->whereDate('end_date','>=',$date)->where('leave_status', 'POSTED')->orderby('upd_sap', "DESC")->first();
+      $leave = Leave::where('user_id', $user)->whereDate('start_date','<=',$date)->whereDate('end_date','>=',$date)->orderby('upd_sap', "DESC")->first();
       if($leave){
         return $leave->opr;
       }
@@ -454,6 +454,7 @@ class UserHelper {
         // not a shift staff. get based on the wsr
         $currwsr = UserHelper::GetWorkSchedRule($user, $date);
         // then get that day
+        // dd($currwsr);
         $wd = $currwsr->ListDays->where('day_seq', $day)->first();
       };
       // get the day info
@@ -566,7 +567,6 @@ class UserHelper {
       ->whereDate('end_date', '>=', $idate)
       ->orderBy('action_date', 'desc')
       ->first();
-
     if($currwsr){
 
     } else {
@@ -578,6 +578,7 @@ class UserHelper {
         ->orderBy('start_date', 'desc')
         ->first();
 
+        // dd($currwsr);
         if($currwsr){
 
         } else {
@@ -587,6 +588,7 @@ class UserHelper {
         }
     }
 
+        // dd($currwsr->shiftpattern);
     return $currwsr->shiftpattern;
   }
 

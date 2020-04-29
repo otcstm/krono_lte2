@@ -9,6 +9,9 @@
 @if($isVerifier==1)
     @include('dashboard/section_verifier')
 @endif
+@if($chartSumYear>0)
+    @include('dashboard/section_otChart')
+@endif
 @if($isApprover==1)
     @include('dashboard/section_approver')
 @endif 
@@ -19,6 +22,5 @@
     @include('dashboard/section_sysadmin')
 @endif 
 
-@include('dashboard/section_otChart')
-
 @stop
+

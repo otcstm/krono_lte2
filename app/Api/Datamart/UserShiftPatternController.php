@@ -20,13 +20,15 @@ class UserShiftPatternController extends Controller
 
       $shift_pattern_code = $req->work_schedule;
       //check existing sp
-      $exsp = ShiftPattern::where('code', $req->$shift_pattern_code)->first();
+      $exsp = ShiftPattern::where('code', $shift_pattern_code)->first();
       if($exsp){      }
 
       else{
+        $descr = $req->work_schedule_descr;
+        if(!$descr){$descr = "no descr given by SAP";} 
         $nsp = new ShiftPattern;
         $nsp->code = $shift_pattern_code;
-        $nsp->description = $req->work_schedule_descr;
+        $nsp->description = $descr;
         $nsp->is_weekly     = 0;
         $nsp->created_by    = 0;
         $nsp->days_count    = 0;
