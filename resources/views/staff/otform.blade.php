@@ -551,7 +551,7 @@
                                                 <label>Network Activity Description:</label>
                                             </div>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-select" @if($claim->network_act_no!=NULL) value="{{$data->network_act_descr}}"  @endif disabled>
+                                                <input type="text" class="form-select" @if($claim->network_act_no!=NULL) @if($data!=null) value="{{$data->network_act_descr}}" @endif  @endif disabled>
                                             </div>
                                         </div>
                                     </div>
