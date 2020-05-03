@@ -103,7 +103,8 @@
     </div>
     <hr />
     <div class="pull-right">
-    <a href="{{ URL::previous() }}" class="btn btn-p btn-primary btn-outline">Cancel</a>
+    {{-- <a href="{{ URL::previous() }}" class="btn btn-p btn-primary btn-outline">Cancel</a> --}}
+    <a href="{{ route('shift.group', [], false) }}" class="btn btn-p btn-primary btn-outline">Cancel</a>
     <a href="{{ route('shift.group', [], false) }}" class="btn btn-p btn-primary">Create</a>
     </div>
   </div>

@@ -55,7 +55,7 @@ class ShiftPlanMembersApproved extends Notification
 
 
         return (new MailMessage)
-                    ->subject('Shift Management- Shift Planning (Approved)')
+                    ->subject('Shift Management - Shift Planning (Approved)')
                     ->cc($cc_user)
                     ->markdown('email.shift.shiftPlanMembersApproved', [
                       'url' => $url,

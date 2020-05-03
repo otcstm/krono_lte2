@@ -91,7 +91,6 @@ sgc - App\Notifications\ShiftGroupCreated - my list of shift group
       }
 
       //For all pending item Shift Planning Approval (1)
-
       $shiftplanApprovalCount = ShiftPlan::where('approver_id', $user->id)
         ->where('status', 'Submitted')->get()->count();
 
@@ -101,7 +100,7 @@ sgc - App\Notifications\ShiftGroupCreated - my list of shift group
         array_push($todolist, [
           'rcount' => $shiftplanApprovalCount,
           'route_name' => 'shift.index',
-          'text' => 'Claim Approval (' . $shiftplanApprovalCount . ')',
+          'text' => 'Shift Planning Approval (' . $shiftplanApprovalCount . ')',
           'icon' => 'fas fa-clock '
         ]);
       }

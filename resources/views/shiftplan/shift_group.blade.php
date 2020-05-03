@@ -20,7 +20,8 @@
           <th style="display: none">Id</th>
            <th>Name</th>
            <th>Owner</th>
-           <th>Staff Count</th>
+           <th>Owner Staff No</th>
+           {{-- <th>Staff Count</th> --}}
            <th>Action</th>
          </tr>
        </thead>
@@ -31,7 +32,8 @@
           <td style="display: none">{{ $ap->id }}</td>
            <td>{{ $ap->group_name }}</td>
            <td>{{ $ap->Manager->name }}</td>
-           <td>{{ $ap->Members->count() }}</td>
+           <td>{{ $ap->Manager->staff_no }}</td>
+           {{-- <td>{{ $ap->Members->count() }}</td> --}}
            <td>
              <form method="post" action="{{ route('shift.group.del', [], false) }}" onsubmit='return confirm("Confirm delete?")'  class="text-center">
                @csrf

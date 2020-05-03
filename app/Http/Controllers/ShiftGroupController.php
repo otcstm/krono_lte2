@@ -315,7 +315,6 @@ class ShiftGroupController extends Controller
     $tsg = ShiftGroup::find($req->sgid);
 
     if($tsg){
-
       if($tsg->manager_id != $req->user()->id){
         return redirect(route('shift.mygroup'))->with([
           'alert' => 'You are not the owner of that group',
@@ -369,7 +368,7 @@ class ShiftGroupController extends Controller
 
     if($req->filled('planner_id')){
     } else {
-      return redirect(route('shift.mygroup', ['sgid' => $req->sgid], false))
+      return redirect(route('shift.mygroup.view', ['sgid' => $req->sgid], false))
       ->with([        
         'alert' => 'Please select planner to proceed',
         'a_type' => 'warning'  
@@ -411,7 +410,7 @@ class ShiftGroupController extends Controller
         $plannername = $tsg->Planner->name;
       }
 
-      return redirect(route('shift.mygroup', ['sgid' => $tsg->id]))
+      return redirect(route('shift.mygroup.view', ['sgid' => $tsg->id]))
         ->with([
           'alert' => 'Planner assigned',
           'a_type' => 'success'
@@ -448,7 +447,7 @@ class ShiftGroupController extends Controller
       $tsg->planner_id = null;
       $tsg->save();
 
-      return redirect(route('shift.mygroup', ['sgid' => $tsg->id]))
+      return redirect(route('shift.mygroup.view', ['sgid' => $tsg->id]))
         ->with([
           'alert' => 'Planner removed',
           'a_type' => 'info'

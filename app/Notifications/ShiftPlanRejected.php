@@ -7,23 +7,23 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class GroupPlannerAssigned extends Notification
+class ShiftPlanRejected extends Notification
 {
     use Queueable;
 
     protected $shift_group;
-    protected $cc_email;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($sgrp, $cc_email)
+    public function __construct($sgrp, $theplan, $reason)
     {
         //
         $this->shift_group = $sgrp;
-        $this->cc_email = $cc_email;
+        $this->theplan = $theplan;
+        $this->reason = $reason;
     }
 
     /**
@@ -49,13 +49,14 @@ class GroupPlannerAssigned extends Notification
         $url = route('notify.read', ['nid' => $this->id]);
         
         return (new MailMessage)
-                    ->subject('Shift Management - Shift Planner')
-                    ->cc($this->cc_email)
-                    ->markdown('email.shift.groupPlannerAssigned', [
+                    ->subject('Shift Management - Shift Planning (Rejected)')
+                    ->cc($this->shift_group->Manager->email)
+                    ->markdown('email.shift.shiftPlanRejected', [
                       'url' => $url,
                       'grpname' => $this->shift_group->group_name,
                       'grpplanner_name' => $this->shift_group->Planner->name,
-                      'btn_val' => 'View Shift Planner Page',
+                      'act_reason' => $this->reason,
+                      'btn_val' => 'View Shift Plan',
                     ]);
     }
 
@@ -68,12 +69,11 @@ class GroupPlannerAssigned extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
-        'id' => $this->shift_group->id,
-        'param' => 'sgid',
-        'route_name' => 'shift.index',
-        'text' => 'You has been assigned as shift planner for ' . $this->shift_group->group_code,
-        'icon' => 'fa fa-users'
+        'id' => $this->theplan->id,
+        'param' => 'id',
+        'route_name' => 'shift.view',
+        'text' => 'Shift Planning has been rejected',
+        'icon' => 'glyphicon glyphicon-repeat text-yellow'
         ];
     }
 }
