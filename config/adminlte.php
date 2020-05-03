@@ -385,19 +385,19 @@ return [
               'text' => 'my_shift_grp',
               'url'  => '/shift_plan/mygroup',
               'icon' => '',
-              'can' => '4-shift-plan',
+              // 'can' => '4-shift-plan',
           ],
           [
               'text' => 'shift_plan',
               'url'  => '/shift_plan',
               'icon' => '',
-              'can' => '4-shift-plan',
+              // 'can' => '4-shift-plan',
           ],
           [
               'text' => 'shift_approval',
               'url'  => '/shift_plan',
               'icon' => '',
-              'can' => '4-shift-plan',
+              // 'can' => '4-shift-plan',
           ],
           [
               'text' => 'user_shift_sc',
@@ -409,7 +409,7 @@ return [
               'text' => 'shift_workteam',
               'url'  => '/workschedule?page=teamc',
               'icon' => '',
-              'can' => '4-shift-plan',
+              // 'can' => '4-shift-plan',
           ],
         ]
       ],

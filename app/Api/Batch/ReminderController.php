@@ -55,6 +55,7 @@ class ReminderController extends BaseController
       $rjobdetail->user_id = $me->id;
       $rjobdetail->week = $week;
       $rjobdetail->year = $year;
+      $rjobdetail->email = $me->email;
       $rjobdetail->email_data = json_encode($data);
       $rjobdetail->reminder_job_id = $job->id;
       $rjobdetail->save();
