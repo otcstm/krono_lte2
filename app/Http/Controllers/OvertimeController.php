@@ -447,7 +447,7 @@ class OvertimeController extends Controller{
                     //check if user have default verifier or not
                     $vgm = VerifierGroupMember::where('user_id', $req->user()->id)->first();
                     if($vgm){
-                        $vg = VerifierGroup::where('id', $vgm->id)->first();
+                        $vg = VerifierGroup::where('id', $vgm->user_verifier_groups_id)->first();
                         $verify =  $vg->verifier_id;
                         if($verify){
                             if($verify!=""){
