@@ -37,8 +37,15 @@
 @foreach($verifierGroups as $row_verifierGroups)
     <tr>
       <td>{{ $row_verifierGroups->group_code }}</td>
-      <td>{{ $row_verifierGroups->Verifier->name }}</td>
-      <td>{{ $row_verifierGroups->Verifier->staff_no }}</td>
+      <td>
+      @if(isset($row_verifierGroups->Verifier))
+        {{ $row_verifierGroups->Verifier->name }}
+      @endif
+      </td>
+      <td>        
+      @if(isset($row_verifierGroups->Verifier))
+        {{ $row_verifierGroups->Verifier->staff_no }}
+        @endif</td>
       <td>{{ $row_verifierGroups->Members()->count() }}</td>
       <td>
       <form method="post" action="{{ route('verifier.delGroup', [], false) }}" id="fd{{ $row_verifierGroups->id }}">
