@@ -48,7 +48,7 @@ class ShiftPlanSubmitted extends Notification
         $url = route('notify.read', ['nid' => $this->id]);
         
         return (new MailMessage)
-                    ->subject('Shift Management- Shift Planning (Pending)')
+                    ->subject('Shift Management - Shift Planning (Pending)')
                     ->cc($this->shift_group->Planner->email)
                     ->markdown('email.shift.shiftPlanSubmitted', [
                       'url' => $url,

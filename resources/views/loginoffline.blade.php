@@ -67,7 +67,7 @@
     <!-- /.login-box-body -->
 </div><!-- /.login-box -->
 
-<input type="hidden" id="text" value="Hello Kitty Kitty! Welcome abord offline. Prepare for take-off! Have a nice day! Meow meow! " />
+<input type="hidden" id="text" value="Hello Kitty Kitty! Meow meow! " />
 <input type="hidden" id="rate" value="0.7" />
 <input type="hidden" id="pitch" value="1" />
 <script type="text/javascript">

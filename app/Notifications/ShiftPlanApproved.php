@@ -48,7 +48,7 @@ class ShiftPlanApproved extends Notification
         $url = route('notify.read', ['nid' => $this->id]);
         
         return (new MailMessage)
-                    ->subject('Shift Management- Shift Planning (Approved)')
+                    ->subject('Shift Management - Shift Planning (Approved)')
                     ->cc($this->shift_group->Manager->email)
                     ->markdown('email.shift.shiftPlanApproved', [
                       'url' => $url,

@@ -4,15 +4,74 @@
 
 @section('content')
 <h1>Shift Grouping</h1>
-<div class="panel panel-default"> 
+@if (session()->has('alert'))
+<div class="alert alert-{{ session()->get('a_type') }} alert-dismissible">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>{{ session()->get('alert') }}</strong>
+</div>
+@endif
+<div class="panel panel-default">
+  <div class="panel-heading">Shift Planner {{ $grp->group_name }}</div>
   <div class="panel-body">
     
-    @if (session()->has('alert'))
-    <div class="alert alert-{{ session()->get('a_type') }} alert-dismissible">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      <strong>{{ session()->get('alert') }}</strong>
-    </div>
-    @endif
+    <form action="{{ route('shift.mygroup.delplanner', [], false) }}" method="post">
+      @csrf
+      <input type="hidden" name="sgid" value="{{ $grp->id }}" />
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group has-feedback {{ $errors->has('group_code') ? 'has-error' : '' }}">
+            <label for="group_code">Group Code</label>
+            <input id="group_code" type="text" class="form-control" value="{{ $grp->group_code }}" readonly>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="form-group has-feedback {{ $errors->has('group_name') ? 'has-error' : '' }}">
+            <label for="group_name">Group Name</label>
+            <input id="group_name" type="text" class="form-control" value="{{ $grp->group_name }}" readonly>
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div class="form-group has-feedback {{ $errors->has('owner_name') ? 'has-error' : '' }}">
+            <label for="planner_name">Shift Planner</label>
+            <div class="row">
+              <div class="col-xs-10">
+                <input type="text" id="planner_name" name="planner_name" class="form-control" value="{{ $planner }}">
+              </div>
+              <div class="col-xs-2">
+                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#sfresult" title="Assign planner"><i class="fas fa-search"></i></button>
+                @if($planner != '')
+                <button class="btn btn-warning" type="submit" title="Remove planner" ><i class="fas fa-trash"></i></button>
+                @endif
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group has-feedback {{ $errors->has('planner_name') ? 'has-error' : '' }}">
+                  <label for="fPlannerId">Shift Planner ID</label>
+                  <input id="fPlannerId2" type="text" name="planner_id" class="form-control" value="{{ $grp->planner_id }}"
+                         placeholder="Search planner name to populate" required readonly>
+                  @if ($errors->has('planner_id'))
+                      <span class="help-block">
+                          <strong>{{ $errors->first('planner_id') }}</strong>
+                      </span>
+                  @endif
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </form>   
+    
+  </div>
+</div> 
+
+<div class="panel panel-default"> 
+  <div class="panel-heading">Shift Group {{ $grp->group_name }}</div>
+  <div class="panel-body">
+    
+
 <h4>Group Members</h4>
     <div class="table-responsive">
       <table id="memlist" class="table table-hover table-bordered">
@@ -109,49 +168,7 @@
 </div>
 
 
-{{-- <div class="panel panel-default">
-  <div class="panel-heading">Shift Group {{ $grp->group_name }}</div>
-  <div class="panel-body">
-    <form action="{{ route('shift.mygroup.delplanner', [], false) }}" method="post">
-      @csrf
-      <input type="hidden" name="sgid" value="{{ $grp->id }}" />
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="form-group has-feedback {{ $errors->has('group_code') ? 'has-error' : '' }}">
-            <label for="group_code">Group Code</label>
-            <input id="group_code" type="text" class="form-control" value="{{ $grp->group_code }}" readonly>
-          </div>
-        </div>
 
-        <div class="col-sm-6">
-          <div class="form-group has-feedback {{ $errors->has('group_name') ? 'has-error' : '' }}">
-            <label for="group_name">Group Name</label>
-            <input id="group_name" type="text" class="form-control" value="{{ $grp->group_name }}" readonly>
-          </div>
-        </div>
-
-        <div class="col-sm-12">
-          <div class="form-group has-feedback {{ $errors->has('owner_name') ? 'has-error' : '' }}">
-            <label for="planner_name">Assigned Planner</label>
-            <div class="row">
-              <div class="col-xs-10">
-                <input type="text" id="planner_name" name="planner_name" class="form-control" value="{{ $planner }}">
-              </div>
-              <div class="col-xs-2">
-                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#sfresult" title="Assign planner"><i class="fas fa-search"></i></button>
-                @if($planner != '')
-                <button class="btn btn-warning" type="submit" title="Remove planner" ><i class="fas fa-trash"></i></button>
-                @endif
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </form>   
-    
-  </div>
-</div> --}}
 
 
 

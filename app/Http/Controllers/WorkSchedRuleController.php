@@ -120,6 +120,10 @@ class WorkSchedRuleController extends Controller
     }
 
     $monlabel = $indate->format('F');
+    $ylabel = $indate->format('Y');
+
+    $monNext = date('Y-m-d', strtotime('+1 month', strtotime($indate)));
+    $monPrev = date('Y-m-d', strtotime('-1 month', strtotime($indate)));
 
     $startdate = new Carbon($indate->firstOfMonth());
     $endate = $indate->lastOfMonth();
@@ -137,11 +141,14 @@ class WorkSchedRuleController extends Controller
     }
 
     $my = $this->getShiftCal($req->user()->id, $daterange);
-
+    
     return view('staff.workcalendar', [
       'mon' => $monlabel,
+      'yr' => $ylabel,
       'header' => $head,
-      'data' => $my
+      'data' => $my,
+      'monNext' => $monNext,
+      'monPrev' => $monPrev     
     ]);
 
   }
@@ -154,6 +161,10 @@ class WorkSchedRuleController extends Controller
     }
 
     $monlabel = $indate->format('F');
+    $ylabel = $indate->format('Y');
+
+    $monNext = date('Y-m-d', strtotime('+1 month', strtotime($indate)));
+    $monPrev = date('Y-m-d', strtotime('-1 month', strtotime($indate)));
 
     $startdate = new Carbon($indate->firstOfMonth());
     $endate = $indate->lastOfMonth();
@@ -187,8 +198,11 @@ class WorkSchedRuleController extends Controller
 
     return view('staff.workteamcalendar', [
       'mon' => $monlabel,
+      'yr' => $ylabel,
       'header' => $head,
-      'staffs' => $caldata
+      'staffs' => $caldata,
+      'monNext' => $monNext,
+      'monPrev' => $monPrev      
     ]);
   }
 

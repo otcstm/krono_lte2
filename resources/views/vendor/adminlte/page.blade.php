@@ -77,7 +77,7 @@
                   <span class="label label-danger">{{ session('notifycount') }}</span>
                 </a>
                 <ul class="dropdown-menu">
-                  <li class="header">You have {{ session('notifycount') }} notifications</li>
+                  <li class="header">You have {{ session('notifycount') }} notification(s)</li>
                   <li>
                     <ul class="menu">
                       @foreach(session('notifylist') as $nitem)
@@ -98,7 +98,7 @@
                   <i class="fas fa-comment-dots text-gray"></i>
                 </a>
                 <ul class="dropdown-menu">
-                  <li class="header">You have no notifications</li>
+                  <li class="header">You have no notification(s)</li>
                 </ul>
                 @endif
               </li>
