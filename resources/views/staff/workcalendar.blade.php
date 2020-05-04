@@ -57,10 +57,30 @@
 </div>
 
 <div class="panel panel-primary">
-  <div class="panel-heading">My Monthly Work Schedule for Month of <span class="text-yellow">{{ $mon }}</span></div>
+  <div class="panel-heading">My Monthly Work Schedule for Month of <span class="text-yellow">{{ $mon }} {{ $yr }}</span>
+    <div class="pull-right">
+      <form method="GET" action="{{ route('staff.worksched',[],false) }}">
+        @csrf
+        <input type="hidden" name="page" value="myc" />
+      <input type="hidden" name="mon" value="{{ $monNext }}" />
+      {{-- <button type="submit" class="btn btn-xs btn-default">Next</button> --}}
+      <button type="submit" class="btn btn-up" style="margin-top:3px;">Next</button>
+    </form> 
+    {{-- {{route('staff.worksched', ['page' => 'teamc','mon' => $monNext])}} --}}
+    </div>
+     <div class="pull-right">
+      <form method="GET" action="{{ route('staff.worksched',[],false) }}">
+        @csrf
+        <input type="hidden" name="page" value="myc" />
+        <input type="hidden" name="mon" value="{{ $monPrev }}" />
+        {{-- <button type="submit" class="btn btn-xs btn-default">Prev</button> --}}
+        <button type="submit" class="btn btn-up" style="margin-top:3px;">Prev</button>
+      </form>
+    </div>
+  </div>
   <div class="panel-body p-3">
     <div class="table-responsive">
-      <table class="table table-bordered table-condensed" style="white-space: nowrap;">
+      <table id="tblmywsc" class="table table-bordered table-condensed" style="white-space: nowrap;">
         <thead>
           <tr>
             @foreach($header as $h)
@@ -86,7 +106,7 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-
+  $('#tblmywsc').DataTable();
 } );
 
 

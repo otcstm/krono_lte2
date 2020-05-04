@@ -49,7 +49,7 @@ class ShiftPlanReverted extends Notification
         $url = route('notify.read', ['nid' => $this->id]);
         
         return (new MailMessage)
-                    ->subject('Shift Management- Shift Planning (Reverted)')
+                    ->subject('Shift Management - Shift Planning (Reverted)')
                     ->cc($this->shift_group->Manager->email)
                     ->markdown('email.shift.shiftPlanReverted', [
                       'url' => $url,

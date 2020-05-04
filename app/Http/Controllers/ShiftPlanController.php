@@ -20,6 +20,7 @@ use App\Notifications\ShiftPlanSubmitted;
 use App\Notifications\ShiftPlanApproved;
 use App\Notifications\ShiftPlanMembersApproved;
 use App\Notifications\ShiftPlanReverted;
+use App\Notifications\ShiftPlanRejected;
 
 class ShiftPlanController extends Controller
 {
@@ -442,6 +443,24 @@ class ShiftPlanController extends Controller
         $asps->save();
         // todo: send alert
       }
+
+       // E_0020
+      // php artisan make:notification ShiftPlanRejected
+      // Notification to Shift Planner once Group Owner revert Shift Planning
+      // to: Group Planner
+      // cc: Group Owner
+      
+      // user yang akan terima notification tu
+      $to_user = User::where('id',$theplan->Group->planner_id)->first();
+
+      // object yang nak dinotify / tengok bila penerima notify tekan link
+      $shift_grp = \App\ShiftGroup::where('id', $theplan->Group->id)->first();  
+
+      try{
+        // hantar notification ke planner tu, untuk action yang berkaitan
+        $to_user->notify(new ShiftPlanRejected($shift_grp, $theplan, $reason));
+      } catch(\Exception $e){    
+      } 
 
       return redirect(route('shift.view', ['id' => $theplan->id], false))
         ->with([

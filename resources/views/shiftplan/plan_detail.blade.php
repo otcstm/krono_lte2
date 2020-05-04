@@ -51,7 +51,7 @@
              @if($ap->status == 'Planning')
              <a href="{{ route('shift.staff', ['id' => $ap->id], false) }}"><button type="button" class="btn btn-xs btn-warning" title="Edit"><i class="fas fa-pencil-alt"></i></button></a>
              @else
-              <a href="{{ route('shift.staff', ['id' => $ap->id], false) }}"><button type="button" class="btn btn-xs btn-success" title="Edit"><i class="glyphicon glyphicon-info-sign"></i></button></a>
+              <a href="{{ route('shift.staff', ['id' => $ap->id], false) }}"><i class="glyphicon glyphicon-info-sign"></i></a>
              @endif
            </td>
          </tr>
@@ -59,6 +59,7 @@
        </tbody>
      </table>
      @if($role != 'noone')
+     
      <div class="form-group text-center">
        <form action="{{ route('shift.takeaction', [], false) }}" method="post">
          @csrf
@@ -74,9 +75,11 @@
          <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#revertThisPlan">{{ __('shift.f_btn_revert') }}</button>
          @endif
          @else
+         @if($stafflist->count() > 0)
          <!-- is planner -->
          @if($sp->status == 'Planning')
          <button type="submit" class="btn btn-success" name="action" value="submit">{{ __('shift.f_btn_submit') }}</button>
+         @endif
          @endif
          @endif
        </form>

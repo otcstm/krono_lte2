@@ -49,7 +49,7 @@ class GroupOwnerAssigned extends Notification
         $url = route('notify.read', ['nid' => $this->id]);
         
         return (new MailMessage)
-                    ->subject('Shift Management- Group Owner')
+                    ->subject('Shift Management - Group Owner')
                     ->cc($this->cc_email)
                     ->markdown('email.shift.groupOwnerAssigned', [
                       'url' => $url,

@@ -19,7 +19,8 @@
            <th>Code</th>
            <th>Name</th>
            <th>Planner</th>
-           <th>Staff Count</th>
+           <th>Planner Staff No</th>
+           {{-- <th>Staff Count</th> --}}
            <th>Action</th>
          </tr>
        </thead>
@@ -33,9 +34,14 @@
            {{ $ap->Planner->name }}
            @endif
            </td>
-           <td>{{ $ap->Members->count() }}</td>
            <td>
-             <a href="{{ route('shift.mygroup', ['sgid' => $ap->id], false) }}"><button type="button" class="btn btn-np" title="Assign Planner"> <i class="glyphicon glyphicon-repeat"></i></button></a>
+           @if($ap->Planner)
+           {{ $ap->Planner->staff_no }}
+           @endif
+           </td>
+           {{-- <td>{{ $ap->Members->count() }}</td> --}}
+           <td style="text-align: center !important">
+             {{-- <a href="{{ route('shift.mygroup', ['sgid' => $ap->id], false) }}"><button type="button" class="btn btn-np" title="Assign Planner"> <i class="glyphicon glyphicon-repeat"></i></button></a> --}}
              
              <a href="{{ route('shift.mygroup.view', ['sgid' => $ap->id], false) }}"><button type="button" class="btn btn-np" title="Edit"> <i class="fas fa-pencil-alt"></i></button></a>
                     
