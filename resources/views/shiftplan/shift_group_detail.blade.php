@@ -10,7 +10,7 @@
   </div>
 <div class="col-md-12">
 <div class="panel panel-default">
-  <div class="panel-body">    
+  <div class="panel-body">
     @if (session()->has('alert'))
     <div class="alert alert-{{ session()->get('a_type') }} alert-dismissible">
       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -19,7 +19,7 @@
     @endif
 
     <div class="table-responsive">
-      
+
       {{-- <h4>List assigned Work Schedule Rule</h4> --}}
       <table id="staffingrp" class="table table-hover table-bordered">
        <thead>
@@ -44,7 +44,7 @@
             <i class="glyphicon glyphicon-ok"></i>
             @else
             <i class="glyphicon glyphicon-remove"></i>
-            @endif 
+            @endif
             </td>
            <td>
              <form action="{{ route('shift.group.del.sp', [], false) }}" method="post"  class="text-center">
@@ -86,7 +86,7 @@
             <i class="glyphicon glyphicon-ok"></i>
             @else
             <i class="glyphicon glyphicon-remove"></i>
-            @endif 
+            @endif
             </td>
            <td>
              <form action="{{ route('shift.group.add.sp', [], false) }}" method="post" class="text-center">
@@ -103,8 +103,6 @@
     </div>
     <hr />
     <div class="pull-right">
-    {{-- <a href="{{ URL::previous() }}" class="btn btn-p btn-primary btn-outline">Cancel</a> --}}
-    <a href="{{ route('shift.group', [], false) }}" class="btn btn-p btn-primary btn-outline">Cancel</a>
     <a href="{{ route('shift.group', [], false) }}" class="btn btn-p btn-primary">Create</a>
     </div>
   </div>
