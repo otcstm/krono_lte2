@@ -84,7 +84,7 @@ sgc - App\Notifications\ShiftGroupCreated - my list of shift group
 
         array_push($todolist, [
           'rcount' => $approvalCount,
-          'route_name' => 'ot.verify',
+          'route_name' => 'ot.approval',
           'text' => 'Claim Approval (' . $approvalCount . ')',
           'icon' => 'fas fa-user-clock'
         ]);
