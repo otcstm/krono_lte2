@@ -18,7 +18,7 @@ class OTQueryApproverVerify extends Notification
      */
     public function __construct($myot)
     {
-        $this->claim = $myot
+        $this->claim = $myot;
     }
 
     /**
