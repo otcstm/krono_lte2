@@ -267,6 +267,12 @@ Route::group(['middleware' => ['auth','can:1-nav-admin']], function () {
   Route::post('/admin/announcement/delete', 'Admin\AnnouncementController@delete')->name('announcement.delete');
 });
 
+// remidner thingy
+Route::group(['middleware' => ['auth','can:1-nav-admin']], function () {
+  Route::get('/reminder/resend', 'ReminderController@resend')->name('reminder.resend');
+
+});
+
 Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => 'Admin', 'middleware' => ['auth', 'can:1-nav-admin']], function () {
   Route::get('/', 'ShiftPatternController@index')->name('index');
   Route::post('/add', 'ShiftPatternController@addShiftPattern')->name('add');

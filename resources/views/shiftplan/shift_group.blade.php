@@ -20,7 +20,7 @@
           <th style="display: none">Id</th>
            <th>Name</th>
            <th>Owner</th>
-           <th>Staff Count</th>
+           <th>Owner ID</th>
            <th>Action</th>
          </tr>
        </thead>
@@ -31,7 +31,7 @@
           <td style="display: none">{{ $ap->id }}</td>
            <td>{{ $ap->group_name }}</td>
            <td>{{ $ap->Manager->name }}</td>
-           <td>{{ $ap->Members->count() }}</td>
+           <td>{{ $ap->Manager->staff_no }}</td>
            <td>
              <form method="post" action="{{ route('shift.group.del', [], false) }}" onsubmit='return confirm("Confirm delete?")'  class="text-center">
                @csrf
@@ -216,7 +216,7 @@ $('#btnSubmitAddGroupOwner').click(function() {
       checked_field = $("input[name=group_owner_id]").val();
       //alert(checked_field);
       if(!checked_field || checked_field == 0) {
-        alert("You must assign group owner. Kindly use button search & add to add group owner");        
+        alert("You must assign group owner. Kindly use button search & add to add group owner");
         $("#planner_name").focus();
         return false;
       }	;

@@ -47,7 +47,8 @@ $api->version('v1', function ($api) {
 
   $api->post('paid_ot/insert', 'App\Api\Datamart\PaidOtController@insert');
 
-
+  // for batch thingy
+  $api->get('batch/reminder', 'App\Api\Batch\ReminderController@process');
 
 });
 /**

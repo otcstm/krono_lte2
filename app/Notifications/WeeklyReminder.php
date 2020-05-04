@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class OTQueryApproverVerify extends Notification
+class WeeklyReminder extends Notification
 {
     use Queueable;
 
@@ -16,9 +16,9 @@ class OTQueryApproverVerify extends Notification
      *
      * @return void
      */
-    public function __construct($myot)
+    public function __construct($wrd)
     {
-        $this->claim = $myot;
+      $this->detail = $wrd;
     }
 
     /**
@@ -29,7 +29,7 @@ class OTQueryApproverVerify extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['mail'];
     }
 
     /**
@@ -40,10 +40,12 @@ class OTQueryApproverVerify extends Notification
      */
     public function toMail($notifiable)
     {
-        // return (new MailMessage)
-        //             ->line('The introduction to the notification.')
-        //             ->action('Notification Action', url('/'))
-        //             ->line('Thank you for using our application!');
+      return (new MailMessage)
+        ->subject('Overtime claim system - Weekly Reminder')
+        ->markdown('email.weeklyreminder', [
+          'name' => $this->detail->User->name,
+          'pendings' => json_decode($this->detail->email_data)
+        ]);
     }
 
     /**
@@ -55,11 +57,7 @@ class OTQueryApproverVerify extends Notification
     public function toArray($notifiable)
     {
         return [
-            'id' => $this->claim->id,
-            'param' => '',
-            'route_name' => 'ot.list',
-            'text' => 'Claim ' . $this->claim->refno.' has been queried.',
-            'icon' => 'far fa-clock'
-          ];
+            //
+        ];
     }
 }
