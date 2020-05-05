@@ -2,6 +2,17 @@
 
 @section('adminlte_css')
     <link rel="stylesheet" href="{{ asset('vendor/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+    <style>
+    .helloKitty {
+        background-image:url('/vendor/ot-assets/helloKitty.jpg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: 50%; 
+        background-blend-mode:color;
+        background-color:rgba(249,249,249 ,0.81 )
+        
+    }
+</style>
     @yield('css')
 @stop
 
@@ -19,7 +30,7 @@
         <div class="login-logo">
             <img src="/vendor/images/tmlogo-bw.png">
         </div>
-        <div class="login-text">
+        <div class="login-text helloKitty">
             <form action="{{ route('login.offline', [], false) }}" method="post">
                 {{ csrf_field() }}
                 <h1>Offline Login</h1>
