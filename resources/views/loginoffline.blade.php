@@ -26,18 +26,17 @@
                 <br>
                 <p>Your Staff ID</p>
                 <div class="form-group has-feedback {{ $errors->has('username') ? 'has-error' : '' }}">
-                    <input type="text" name="username" class="form-control" value="{{ old('username') }}"
+                    <input type="text" name="staff_no" class="form-control" value="{{ old('staff_no') }}"
                            placeholder="Eg: TM52025">
-                    @if ($errors->has('username'))
+                    @if ($errors->has('staff_no'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('username') }}</strong>
+                            <strong>{{ $errors->first('staff_no') }}</strong>
                         </span>
                     @endif
                 </div>
                 <p>Your Password</p>
                 <div class="form-group has-feedback {{ $errors->has('password') ? 'has-error' : '' }}">
-                    <input type="password" name="password" class="form-control"
-                           placeholder="{{ __('adminlte::adminlte.password') }}">
+                <input type="password" name="password" class="form-control" placeholder="{{ __('adminlte::adminlte.password') }}">
                     @if ($errors->has('password'))
                         <span class="help-block">
                             <strong>{{ $errors->first('password') }}</strong>
