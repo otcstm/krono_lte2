@@ -434,7 +434,7 @@
                             @elseif($view=='approver')$("#action-"+i).val("A");
                             @endif
                         @endif
-                        $("#inputremark-"+i).prop('disabled',true);
+                        $("#inputremark-"+i).prop('readonly',true);
                         $("#inputremark-"+i).val("");
                         $("#inputremark-"+i).prop('required',false);
                         @if($view=='approver')
@@ -490,7 +490,7 @@
         }).then((result) => {
             if (result.value) {
                 $("#inputremark-"+i).val($('#remark').val());
-                $("#inputremark-"+i).prop('disabled',true);
+                $("#inputremark-"+i).prop('readonly',true);
                 $("#inputremark-"+i).val("");
                 $("#inputremark-"+i).prop('required',false);
                 @if($view=='approver')
@@ -638,7 +638,7 @@
                             //             if (result.value) {
                                                                     
                                             $("#inputremark-"+i).attr("placeholder", "This is mandatory field. Please key in remarks here!");
-                                            $("#inputremark-"+i).prop('disabled',false);
+                                            $("#inputremark-"+i).prop('readonly',false);
                                             $("#inputremark-"+i).prop('required',true);
                                             // $("#inputremark-"+i).val($('#remark').val());  
                                             // $("#inputremark-"+i).val($('#remark').val());
@@ -839,7 +839,7 @@
                 }).then((result) => {
                         if (result.value) {
                             
-                            $("#inputremark-"+i).prop('disabled',false);
+                            $("#inputremark-"+i).prop('readonly',false);
                             $("#inputremark-"+i).prop('required',true);
                             $("#inputremark-"+i).val($('#remark').val());
                             if($("#action-"+i).val()=="Q2"){
