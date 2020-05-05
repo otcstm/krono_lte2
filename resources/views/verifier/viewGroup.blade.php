@@ -37,8 +37,10 @@
   <div class="form-group">
     <label class="control-label col-sm-2" for="verifierid">Verifier Name:</label>
     <div class="col-sm-4">
-      <select id="selectVerifierId" class="verifierListId form-control" name="verifierId" required>      
-      <option selected="selected" value="{{ $groupData->verifier_id }}">{{ $verifierData->name }} ({{ $groupData->verifier_id }})</option>      
+      <select id="selectVerifierId" class="verifierListId form-control" name="verifierId" required>  
+        @if(isset($verifierData->name))    
+      <option selected="selected" value="{{ $groupData->verifier_id }}">{{ $verifierData->name }} ({{ $groupData->verifier_id }})</option>  
+        @endif    
       </select>
       <div class="checkbox">
         <!-- Trigger the modal with a href  : todisable outside close click-> data-backdrop="static" -->
