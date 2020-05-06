@@ -43,6 +43,8 @@
     </a>
   </div>
   @if(isset($act_payment_curr_month))
+  @if(date('D', strtotime(now())) <= 14)
+  @if($act_payment_curr_month > 0)
   <div class="col-md-3 col-sm-6 col-xs-12 ">
     <div class="box box-solid">
 <div class="box-body">
@@ -57,13 +59,53 @@
 </div>
     </div><!-- /.box-body -->
     <div class="box-header bg-yellow-active color-palette">
-    <h3 class="box-title text-left">RM {{ $act_payment_curr_month }}</h3>
+    <h3 class="box-title text-left">RM {{ number_format((float)$act_payment_curr_month, 2, '.', '') }}</h3>
+    </div><!-- /.box-header -->
+    </div>
+  </div>
+  @elseif(isset($act_payment_prev_month))
+  <div class="col-md-3 col-sm-6 col-xs-12 ">
+    <div class="box box-solid">
+<div class="box-body">
+  <div class="media">
+  <div class="media-left">
+    <img src="vendor/ot-assets/bill.jpg" class="media-object" style="width:50px">
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">Actual Payment</h4>
+    <p>{{ date('F Y', strtotime($first_last_month)) }}</p>
+  </div>
+</div>
+    </div><!-- /.box-body -->
+    <div class="box-header bg-yellow-active color-palette">
+    <h3 class="box-title text-left">RM {{ number_format((float)$act_payment_prev_month, 2, '.', '') }}</h3>
     </div><!-- /.box-header -->
     </div>
   </div>
   @endif
+  @else
+  <div class="col-md-3 col-sm-6 col-xs-12 ">
+    <div class="box box-solid">
+<div class="box-body">
+  <div class="media">
+  <div class="media-left">
+    <img src="vendor/ot-assets/bill.jpg" class="media-object" style="width:50px">
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">Actual Payment</h4>
+    <p>{{ date('F Y', strtotime(now())) }}</p>
+  </div>
+</div>
+    </div><!-- /.box-body -->
+    <div class="box-header bg-yellow-active color-palette">
+    <h3 class="box-title text-left">RM {{ number_format((float)$act_payment_curr_month, 2, '.', '') }}</h3>
+    </div><!-- /.box-header -->
+    </div>
+  </div>
+  @endif
+  @endif
 
-  @if(isset($act_payment_curr_month))
+  @if(isset($pending_payment_last_month))
   <div class="col-md-3 col-sm-6 col-xs-12 ">
     <div class="box box-solid">
     <div class="box-body">
@@ -73,7 +115,7 @@
   </div>
   <div class="media-body">
     <h4 class="media-heading">Pending Payment</h4>
-    <p>{{ date('F Y', strtotime($first_last_month)) }}</p>
+    <p>{{ date('F Y', strtotime(now())) }}</p>
   </div>
 </div>
     </div><!-- /.box-body -->
