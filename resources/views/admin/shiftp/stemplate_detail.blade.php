@@ -120,6 +120,15 @@
      </table>
     </div>
   </div>
+  <div class="panel-footer">
+  <div class="text-center">
+    <form action="{{ route('sp.index', [], false) }}" method="post">
+      @csrf
+            <button type="submit" name="return" value="rtn" class="btn btn-p btn-primary">Return</button>
+  </form>
+  </div>
+
+  </div>
 </div>
 
 
