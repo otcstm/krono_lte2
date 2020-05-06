@@ -59,9 +59,7 @@ class ShiftPatternController extends Controller
   }
 
   public function pushDay(Request $req){
-    if($req->return == 'rtn'){
-      return redirect()->route('sp.index', [], false);
-    }
+
     $tsp = ShiftPattern::find($req->sp_id);
     $tdaytype = DayType::find($req->daytype);
 
