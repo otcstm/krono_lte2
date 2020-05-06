@@ -59,6 +59,9 @@ class ShiftPatternController extends Controller
   }
 
   public function pushDay(Request $req){
+    if($req->return == 'rtn'){
+      return redirect()->route('sp.index', [], false);
+    }
     $tsp = ShiftPattern::find($req->sp_id);
     $tdaytype = DayType::find($req->daytype);
 
@@ -140,7 +143,7 @@ class ShiftPatternController extends Controller
       return redirect(route('sp.view', ['id' => $req->id], false))->with(['alert' => $code . ' deleted', 'a_type' => 'warning']);
 
     } else {
-      return redirect(route('sp.index', [], false))->with(['alert' => 'Shift pattern not found', 'a_type' => 'warning']);
+      return redirect(route('sp.index', [], false))->with(['alert' => 'Work schedule has been deleted', 'a_type' => 'warning']);
     }
   }
 
