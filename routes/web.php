@@ -275,6 +275,7 @@ Route::group(['middleware' => ['auth','can:1-nav-admin']], function () {
 
 Route::group(['prefix' => 'admin/shift_pattern', 'as' => 'sp.', 'namespace' => 'Admin', 'middleware' => ['auth', 'can:1-nav-admin']], function () {
   Route::get('/', 'ShiftPatternController@index')->name('index');
+  Route::post('/', 'ShiftPatternController@index')->name('index');
   Route::post('/add', 'ShiftPatternController@addShiftPattern')->name('add');
   Route::get('/detail', 'ShiftPatternController@viewSPDetail')->name('view');
   Route::post('/edit', 'ShiftPatternController@editShiftPattern')->name('edit');
