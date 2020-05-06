@@ -59,6 +59,10 @@ body{
     z-index: 1;
 }
 
+.login-x{
+    background-image: url("images/login-bw.png");
+}
+
 .login-title img{
     height: 15vh;
     margin-top: 60px;
@@ -538,6 +542,22 @@ body{
 .btn-primary:disabled:hover{
     background: #E06902 !important;
     border: 2px solid #E06902 !important;
+
+}
+
+
+.btn-black{
+    background: #000;
+    border: 2px solid #000;
+
+}
+
+
+.btn-black:focus,
+.btn-black:hover,
+.btn-black:disabled:hover{
+    background: #252525 !important;
+    border: 2px solid #252525 !important;
 
 }
 
@@ -1341,5 +1361,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     word-wrap: break-word;  
     text-align: justify;
 }
+
+.modal-xl {
+    width: 90%;
+   max-width:1200px;
+  }
 
 

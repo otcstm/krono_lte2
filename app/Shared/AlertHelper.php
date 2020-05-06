@@ -72,7 +72,7 @@ sgc - App\Notifications\ShiftGroupCreated - my list of shift group
           'text' => 'Claim Verification (' . $verifierCount . ')',
           'icon' => 'fas fa-user-clock'
         ];
-        array_push($todolist, $verifierCount);
+        array_push($todolist, $arrVerifierCount);
       }
 
       //For all pending item Claim Approval (2)
@@ -82,30 +82,27 @@ sgc - App\Notifications\ShiftGroupCreated - my list of shift group
       if ($approvalCount != 0) {
         $todocount += $approvalCount;
 
-        $approvalCount =  [
+        array_push($todolist, [
           'rcount' => $approvalCount,
-          'route_name' => 'ot.verify',
+          'route_name' => 'ot.approval',
           'text' => 'Claim Approval (' . $approvalCount . ')',
           'icon' => 'fas fa-user-clock'
-        ];
-        array_push($todolist, $approvalCount);
+        ]);
       }
 
       //For all pending item Shift Planning Approval (1)
-
       $shiftplanApprovalCount = ShiftPlan::where('approver_id', $user->id)
         ->where('status', 'Submitted')->get()->count();
 
       if ($shiftplanApprovalCount != 0) {
         $todocount += $shiftplanApprovalCount;
-
-        $shiftplanApprovalCount =  [
+        
+        array_push($todolist, [
           'rcount' => $shiftplanApprovalCount,
           'route_name' => 'shift.index',
-          'text' => 'Claim Approval (' . $shiftplanApprovalCount . ')',
+          'text' => 'Shift Planning Approval (' . $shiftplanApprovalCount . ')',
           'icon' => 'fas fa-clock '
-        ];
-        array_push($todolist, $shiftplanApprovalCount);
+        ]);
       }
 
 

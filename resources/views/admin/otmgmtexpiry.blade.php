@@ -82,15 +82,15 @@
             <div class="row">
                 <form action="{{route('oe.expirystore')}}" method="POST" onsubmit="return update()">
                     @csrf
-                    <div class="col-lg-6">
+                    <div class="col-md-6">
                         <input type="text" class="hidden" id="formtype" name="formtype" value="expiry" required>
                         <input type="text" class="hidden" id="inputcompany" name="inputcompany" value="{{$oe->get($n)->company_id}}" required>
                         <input type="text" class="hidden" id="inputregion" name="inputregion" value="{{$oe->get($n)->region}}" required>
                         <div class="row">
-                            <div class="col-lg-3" style="margin-top: 5px">
+                            <div class="col-md-4" style="margin-top: 5px">
                                 <label for="inputstatus">Overtime Status:</label>
                             </div>
-                            <div class="col-lg-9" style="margin-top: 5px">
+                            <div class="col-md-8" style="margin-top: 5px">
                                 <select id="inputstatus" name="inputstatus" class="form-control onchange" required>
                                     <option hidden disabled value="" selected>Select Status</option>
                                     <option value="D">Draft</option>
@@ -99,16 +99,16 @@
                                     <option value="PV">Pending Verification</option>
                                 </select>
                             </div>
-                            <div class="col-lg-3" style="margin-top: 5px">
+                            <div class="col-md-4" style="margin-top: 5px">
                                 <label for="inputmonth">No. per Month:</label>
                             </div>
-                            <div class="col-lg-9" style="margin-top: 5px">
+                            <div class="col-md-8" style="margin-top: 5px">
                                 <input class="form-control onchange" type="number" id="inputmonth" name="inputmonth" max="744" min="0" value="" required disabled>
                             </div>
-                            <div class="col-lg-3" style="margin-top: 5px">
+                            <div class="col-md-4" style="margin-top: 5px">
                                 <label for="inputbasedate">Based Date:</label>
                             </div>
-                            <div class="col-lg-9" style="margin-top: 5px">
+                            <div class="col-md-8" style="margin-top: 5px">
                                 <select id="inputbasedate" name="inputbasedate" class="form-control onchange" required disabled>
                                     <option hidden disabled value="" selected>Select Based Date</option>
                                     <option value="Request Date">Request Date</option>
@@ -118,20 +118,20 @@
                                     <option value="Query Date">Query Date</option>
                                 </select>
                             </div>
-                            <div class="col-lg-3" style="margin-top: 5px">
+                            <div class="col-md-4" style="margin-top: 5px">
                                 <label for="inputaction">Action After:</label>
                             </div>
-                            <div class="col-lg-9" style="margin-top: 5px">
+                            <div class="col-md-8" style="margin-top: 5px">
                             <select id="inputaction" name="inputaction" class="form-control onchange" required disabled>
                                     <option hidden disabled value="" selected>Select Action After</option>
                                     <option value="Delete">Delete from Database</option>
                                     <option value="Archive">Archive with Expired Date</option>
                                 </select>
                             </div>
-                            <div class="col-lg-3" style="margin-top: 5px">
+                            <div class="col-md-4" style="margin-top: 5px">
                                 <label for="inputdate">Effective Date:</label>
                             </div>
-                            <div class="col-lg-9" style="margin-top: 5px">
+                            <div class="col-md-8" style="margin-top: 5px">
                                 <input type="date" class="form-control" id="inputdate" name="inputdate" min="" value="" required disabled>
                             </div>                
                         </div>

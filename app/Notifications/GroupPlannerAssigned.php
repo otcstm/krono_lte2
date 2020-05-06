@@ -49,7 +49,7 @@ class GroupPlannerAssigned extends Notification
         $url = route('notify.read', ['nid' => $this->id]);
         
         return (new MailMessage)
-                    ->subject('Shift Management- Shift Planner')
+                    ->subject('Shift Management - Shift Planner')
                     ->cc($this->cc_email)
                     ->markdown('email.shift.groupPlannerAssigned', [
                       'url' => $url,
@@ -71,8 +71,8 @@ class GroupPlannerAssigned extends Notification
             //
         'id' => $this->shift_group->id,
         'param' => 'sgid',
-        'route_name' => 'shift.mygroup.view',
-        'text' => 'You has been assigned as group planner for ' . $this->shift_group->group_code,
+        'route_name' => 'shift.index',
+        'text' => 'You has been assigned as shift planner for ' . $this->shift_group->group_code,
         'icon' => 'fa fa-users'
         ];
     }

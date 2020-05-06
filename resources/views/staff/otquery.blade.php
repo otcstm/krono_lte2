@@ -124,6 +124,8 @@
                                     <p>Pending Approval</p>
                                 @elseif($singleuser->status=="PV")
                                     <p>Pending Verification</p>
+                                @elseif($singleuser->status=="A")
+                                    <p>Approved</p>
                                 @endif
                             </td>
                             
@@ -155,7 +157,7 @@
                                 </select>
                             </td>
                             <td id="aremark-{{$no}}" style="display: none">
-                                <textarea rows = "4" cols="40" type="text" maxlength="300" id="inputremark-{{$no}}" name="inputremark[]" value="" placeholder="" onkeydown="this.onchange();"  onkeyup="this.onchange();" onchange='return checkstringx({{$no}});' style="max-height: 180px; resize: vertical; overflow-y: scroll; display: inline" disabled></textarea>
+                                <textarea rows = "4" cols="40" type="text" maxlength="300" id="inputremark-{{$no}}" name="inputremark[]" value="" placeholder="" onkeydown="this.onchange();"  onkeyup="this.onchange();" onchange='return checkstringx({{$no}});' style="max-height: 180px; resize: vertical; overflow-y: scroll; display: inline" readonly ></textarea>
                                 <p style="float: right" class="small">Text remaining: <span id="textremain-{{$no}}">300</span></p>
                             </td>
                             @endif
@@ -283,7 +285,7 @@
 
     function reset(i){
         $("#action-"+i).val("");
-        $("#inputremark-"+i).prop('disabled',true);
+        $("#inputremark-"+i).prop('readonly',true);
         $("#inputremark-"+i).val("");
         $("#inputremark-"+i).prop('required',false);
         $("#inputremark-"+i).attr("placeholder", "");
@@ -388,7 +390,7 @@
                             
                             
                             $("#inputremark-"+i).attr("placeholder", "This is mandatory field. Please key in remarks here!");
-                            $("#inputremark-"+i).prop('disabled',false);
+                            $("#inputremark-"+i).prop('readonly',false);
                             $("#inputremark-"+i).prop('required',true);
                             $("#inputremark-"+i).val($('#remark').val());
                             @if(($view=='approver')||($view=='admin'))
@@ -432,7 +434,7 @@
                             @elseif($view=='approver')$("#action-"+i).val("A");
                             @endif
                         @endif
-                        $("#inputremark-"+i).prop('disabled',true);
+                        $("#inputremark-"+i).prop('readonly',true);
                         $("#inputremark-"+i).val("");
                         $("#inputremark-"+i).prop('required',false);
                         @if($view=='approver')
@@ -488,7 +490,7 @@
         }).then((result) => {
             if (result.value) {
                 $("#inputremark-"+i).val($('#remark').val());
-                $("#inputremark-"+i).prop('disabled',true);
+                $("#inputremark-"+i).prop('readonly',true);
                 $("#inputremark-"+i).val("");
                 $("#inputremark-"+i).prop('required',false);
                 @if($view=='approver')
@@ -636,7 +638,7 @@
                             //             if (result.value) {
                                                                     
                                             $("#inputremark-"+i).attr("placeholder", "This is mandatory field. Please key in remarks here!");
-                                            $("#inputremark-"+i).prop('disabled',false);
+                                            $("#inputremark-"+i).prop('readonly',false);
                                             $("#inputremark-"+i).prop('required',true);
                                             // $("#inputremark-"+i).val($('#remark').val());  
                                             // $("#inputremark-"+i).val($('#remark').val());
@@ -751,7 +753,7 @@
                     // width: '75%',
                     html: "<div style='border: 1px solid #DDDDDD; min-height: 10vh; width: 100%; padding: 5px; text-align: left;'>"+
                             "<div style='display: flex; align-items: center; flex-wrap: wrap; width: 95%; margin-left: 3%' padding: 15px>"+
-                                "<div class='w-10 text-center'><img src='{{asset('vendor/ot-assets/man.jpg')}}' class='approval-search-img'></div>"+
+                                "<div class='w-10 text-center'><img src='/user/image/"+resp.staffno.replace(' ','')+"' class='approval-search-img'></div>"+
                                 "<div class='w-30 m-15'>"+
                                     "<div class='approval-search-item'>"+
                                         "<div class='w-30'>Name<span class='dmx'>:</span></div>"+
@@ -837,7 +839,7 @@
                 }).then((result) => {
                         if (result.value) {
                             
-                            $("#inputremark-"+i).prop('disabled',false);
+                            $("#inputremark-"+i).prop('readonly',false);
                             $("#inputremark-"+i).prop('required',true);
                             $("#inputremark-"+i).val($('#remark').val());
                             if($("#action-"+i).val()=="Q2"){

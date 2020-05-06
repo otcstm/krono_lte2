@@ -86,17 +86,14 @@ class MiscController extends Controller
     //pending verification count()
     $pending_approval_count =
     Overtime::where('approver_id','=',$req->user()->id)
-    ->orWhere('verifier_id','=',$req->user()->id)
-    ->whereIn('status',array('PV'))
+    ->whereIn('status',array('PA'))
     ->count();
 
     //pending approval count()
     $pending_verification_count =
-    Overtime::where('approver_id','=',$req->user()->id)
-    ->orWhere('verifier_id','=',$req->user()->id)
-    ->whereIn('status',array('PA'))
+    Overtime::where('verifier_id','=',$req->user()->id)
+    ->whereIn('status',array('PV','Assign'))
     ->count();
-
 
     //link set default verifier
 
@@ -144,19 +141,30 @@ class MiscController extends Controller
     // }
 
     // chart dataset 2 paid
-      $dataPaidMonth = Overtime::select(
-      DB::raw("sum(amount) as sum_amount"),
-      DB::raw("DATE_FORMAT(date, '%Y') as year_label"),
-      DB::raw("DATE_FORMAT(date, '%c') as month_label")
-      )
-      ->where('user_id','=',$req->user()->id)
-      ->where('status','=','PAID')
-      ->whereYear('date','=', $curr_date)
-      ->groupby('year_label','month_label')
-      ->get();
+      // $dataPaidMonth = Overtime::select(
+      // DB::raw("sum(amount) as sum_amount"),
+      // DB::raw("DATE_FORMAT(date, '%Y') as year_label"),
+      // DB::raw("DATE_FORMAT(date, '%c') as month_label")
+      // )
+      // ->where('user_id','=',$req->user()->id)
+      // ->where('status','=','PAID')
+      // ->whereYear('date','=', $curr_date)
+      // ->groupby('year_label','month_label')
+      // ->get();
     //->toSql();
-     //dd($dataPaidMonth->sum('sum_amount'));
-    // dd($dataPaidMonth->count());
+
+    
+     //chart dataset  paid from table paid_ot
+       $dataPaidMonth = DB::table('paid_ot')
+       ->select(
+       DB::raw("sum(amount) as sum_amount"),
+       DB::raw("DATE_FORMAT(period_dt, '%Y') as year_label"),
+       DB::raw("DATE_FORMAT(period_dt, '%c') as month_label")
+       )
+       ->where('user_id','=',$req->user()->id)
+       ->whereYear('period_dt','=', $curr_date)
+       ->groupby('year_label','month_label')
+       ->get();
 
       $paidMonthly = [];
 
@@ -194,12 +202,10 @@ class MiscController extends Controller
   $colordata2 = "rgba(0,83,132,1)";
 
   if($dataPaidMonth->sum('sum_amount') > 0){
-    $setScalesMax = $dataPaidMonth->sum('sum_amount')+10;
-    $setStepSize = $dataPaidMonth->sum('sum_amount')+10;
+    $setScalesMax = '';
   }
   else{
     $setScalesMax = 100;
-    $setStepSize = 10;
   }
 
     $otYearChart = app()->chartjs
@@ -239,8 +245,9 @@ class MiscController extends Controller
                      'suggestedMin' => 0,
                      'beginAtZero' => 0,
                      'min' => 0,
-                     'max' => $setScalesMax,
-                     'stepSize' => $setStepSize
+                     'suggestedMax' => 100,
+                     //'stepSize' => $setStepSize,
+                     //'scaleSteps' => $setStepSize
                    ],
                    'scaleLabel' => [
                      'display' => true,
@@ -303,11 +310,13 @@ class MiscController extends Controller
       'next_payment_sch' => $next_payment_sch,
       'last_approval_date' => $last_approval_date,
       'pending_approval_count' => $pending_approval_count,
+      'pending_verification_count' => $pending_verification_count,
       'isVerifier' => $isVerifier,
       'isApprover' => $isApprover,
       'isUserAdmin' => $isUserAdmin,
       'isSysAdmin' => $isSysAdmin,
-      'otYearChart' => $otYearChart
+      'otYearChart' => $otYearChart,
+      'chartSumYear' => $dataPaidMonth->sum('sum_amount')
       ]);
   }
 

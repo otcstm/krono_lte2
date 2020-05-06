@@ -551,7 +551,7 @@
                                                 <label>Network Activity Description:</label>
                                             </div>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-select" @if($claim->network_act_no!=NULL) value="{{$data->network_act_descr}}"  @endif disabled>
+                                                <input type="text" class="form-select" @if($claim->network_act_no!=NULL) @if($data!=null) value="{{$data->network_act_descr}}" @endif  @endif disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -620,7 +620,7 @@
                                         <div class="col-md-9">
                                             @if($claim ?? '')
                                                 @if($claim->charge_type=="Own Cost Center") 
-                                                    <input type="text" class="form-select"  value="{{$claim->costcenter}}">
+                                                    <input type="text" class="form-select"  value="{{$claim->costcenter}}" disabled>
                                                 @elseif(in_array($claim->charge_type, $array = array("Internal Order","Other Cost Center")))
                                                     @if($costc!=null)
                                                         <select class="form-select" name="costc" id="costc" required @if($costc==null) disabled @endif>

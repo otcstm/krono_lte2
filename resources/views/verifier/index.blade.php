@@ -37,8 +37,15 @@
 @foreach($verifierGroups as $row_verifierGroups)
     <tr>
       <td>{{ $row_verifierGroups->group_code }}</td>
-      <td>{{ $row_verifierGroups->Verifier->name }}</td>
-      <td>{{ $row_verifierGroups->Verifier->staff_no }}</td>
+      <td>
+      @if(isset($row_verifierGroups->Verifier))
+        {{ $row_verifierGroups->Verifier->name }}
+      @endif
+      </td>
+      <td>        
+      @if(isset($row_verifierGroups->Verifier))
+        {{ $row_verifierGroups->Verifier->staff_no }}
+        @endif</td>
       <td>{{ $row_verifierGroups->Members()->count() }}</td>
       <td>
       <form method="post" action="{{ route('verifier.delGroup', [], false) }}" id="fd{{ $row_verifierGroups->id }}">
@@ -118,13 +125,13 @@
 
 <!-- Modal -->
 <div id="modalAdvSearch" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-xl">
 
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <!-- <h4 class="modal-title">Advance Search</h4> -->
+        <h4 class="modal-title">Advance Search</h4>
       </div>
       <div id="modal-body" class="modal-body">
       <div id="advSearchAlertMsg"></div>
@@ -244,8 +251,8 @@
 <div class="form-group">
   <label class="col-md-4 control-label"></label>  
   <div class="col-md-6">
-  <input id="btnAdvSearch" name="btnAdvSearch" type="button" onclick="advSearchSubmit()"
-  class="btn btn-primary btn-outline" value="Search">
+  <button id="btnAdvSearch" name="btnAdvSearch" type="button" onclick="advSearchSubmit()"
+  class="btn btn-primary btn-outline">Search</button>
   <!-- <input id="btnAdvSearch" name="btnAdvSearch" type="button" onclick="advSearchSubmit()" 
   class="btn btn-primary" value="Search"> -->
   
@@ -357,16 +364,19 @@ function advSearchSubmit(){
           html += '<fieldset><legend>Result Search';
           html += '<button class="btn btn-primary btn-outline pull-right" onclick="goToSearchForm()">Modify search</button></legend>';
       //create table
+      html += '<input id="myInput" type="text" placeholder="Search.."><br><br>';
+      html += '<div id="divOut" style="border: 1px solid #DDDDDD; max-height: 60vh; overflow-y: scroll;  overflow-x: hidden">';
+      
       html += '<table id="resultAdvSearchTbl" class="table"><thead>';
-      html += '<th>Name</th>';
-      html += '<th>Persno</th>';
-      html += '<th>Staffno</th>';
-      html += '<th>Sub Group</th>';
-      html += '<th>Company Code</th>';
-      html += '<th>Personal Area</th>';
-      html += '<th>Personal Subrea</th>';
-      html += '<th>Email</th>';
-      html += '<th>Action</th>';
+      html += '<th>Creteria</th>';
+      // html += '<th>Persno</th>';
+      // html += '<th>Staffno</th>';
+      // html += '<th>Sub Group</th>';
+      // html += '<th>Company Code</th>';
+      // html += '<th>Personal Area</th>';
+      // html += '<th>Personal Subrea</th>';
+      // html += '<th>Email</th>';
+      //html += '<th>Action</th>';
       html += '</thead><tbody>'; 
 
         if(data.length > 0)
@@ -374,15 +384,65 @@ function advSearchSubmit(){
         for(var count = 0; count < data.length; count++)
         {          
           html += '<tr>';
-          html += '<td>'+data[count].id+'</td>';
-          html += '<td>'+data[count].name+'</td>';
-          html += '<td>'+data[count].staff_no+'</td>';
-          html += '<td>'+data[count].empsgroup+'</td>';
-          html += '<td>'+data[count].company_id+'</td>';
-          html += '<td>'+data[count].persarea+'</td>';
-          html += '<td>'+data[count].perssubarea+'</td>';
-          html += '<td>'+data[count].email+'</td>';
-          html += '<td><a class="btn btn-np" onclick="slctVerifier('+data[count].id+',\''+data[count].name+'\')"><i class="fas fa-user-plus"></i></a></td></tr>';
+          // html += '<td>'+data[count].name+'</td>';   
+          // html += '<td>'+data[count].id+'</td>';
+          // html += '<td>'+data[count].staff_no+'</td>';
+          // html += '<td>'+data[count].empsgroup+'</td>';
+          // html += '<td>'+data[count].company_id+'</td>';
+          // html += '<td>'+data[count].persarea+'</td>';
+          // html += '<td>'+data[count].perssubarea+'</td>';
+          // html += '<td>'+data[count].email+'</td>';
+          html += 
+            "<td>"+
+                "<div style='display: flex; align-items: center; flex-wrap: wrap; width: 95%; margin-left: 3%' padding: 15px>"+
+                    "<div class='w-10 text-center'><img src='/user/image/"+data[count].staffno.replace(' ','')+"' class='approval-search-img'></div>"+
+                    "<div class='w-30 m-15'>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Name<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+data[count].name+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Personnel No<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'><span class='dm'>: </span></span><b>"+data[count].persno+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Staff No<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+data[count].staffno+"</b></div>"+
+                        "</div>"+
+                    "</div>"+
+                    "<div class='w-30 m-15'>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Company Code<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+data[count].companycode+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Cost Center<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+data[count].costcenter+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Personnel Area<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+data[count].persarea+"</b></div>"+
+                        "</div>"+
+                    "</div>"+
+                    "<div class='w-30 m-15'>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Employee Subgroup<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+data[count].empsubgroup+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Email<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+data[count].email+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Mobile No<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+data[count].mobile+"</b></div>"+
+                        "</div>"+
+                    "</div>"+
+                      '<div class="w-10 text-center"><a class="btn btn-np" onclick="slctVerifier('+data[count].persno+',\''+data[count].name+'\')"><i class="fas fa-user-plus"></i> Add</a></div>'+
+                "</div>"+
+            "</td>";
+          //html += '<td><a class="btn btn-np" onclick="slctVerifier('+data[count].persno+',\''+data[count].name+'\')"><i class="fas fa-user-plus"></i></a></td>';
+          html += '<tr>';
 
         }
       }
@@ -391,22 +451,30 @@ function advSearchSubmit(){
         //html += '<tr><td colspan="9">No Data Found</td></tr>';
         };
         html += '</tbody></table>';  
-        html += '</fieldset>';
+        html += '</div>';
+        html += '</fieldset><br /><br />';
 
       $("#resultAdvSearch").html(html);
       $("#advSearchAlertMsg").html("<div class='alert alert-success'>Success fetch "+data.length+" records</div>");
       $('#advSearchAlertMsg').fadeIn('slow'); 
       if(data){
-      $('#resultAdvSearchTbl').DataTable({
-        "ordering": false
-      });
+      // $('#resultAdvSearchTbl').DataTable({
+      //   "ordering": false
+      // });
       }      
       $("#resultAdvSearch").css("margin-bottom", "10px");
       $('html').scrollTop(0);
       $('#modalAdvSearch').animate({ scrollTop: -10 }, 1000);     
       setTimeout(function() { 
                     $('#advSearchAlertMsg').fadeOut('slow'); 
-                }, 1000);  
+                }, 3000);  
+
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#resultAdvSearchTbl tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    }).css('color','red');
+  });
 
     })//.get
   }; //if checkInput
@@ -447,25 +515,31 @@ function goToSearchForm(){
     
 }
 
-function testSubmit(){
-  Swal.fire({
-  title: 'Multiple inputs',
-  html:
-    '<input id="swal-input1" class="swal2-input">' +
-    '<input id="swal-input2" class="swal2-input">',
-  focusConfirm: false,
-  preConfirm: () => {
-    return [
-      document.getElementById('swal-input1').value,
-      document.getElementById('swal-input2').value
-    ]
-  }
-})
+// p;[]
+// function testSubmit(){
+//   Swal.fire({
+//   title: 'Multiple inputs',p[p[]]
+//   html:p[p[]]
+//     '<input id="swal-input1" clap[p[p;2-input">' +
+//     '<input id="swal-input2" class="swal2-input">',
+//   focusConfirm: false,
+//   preConfirm: () => {
+//     return [
+//       document.getElementById('swal-input1').value,
+//       document.getElementById('swal-input2').value
+//     ]
+//   }
+// })
 
-if (formValues) {
-  Swal.fire(JSON.stringify(formValues))
-}
+// if (formValues) {
+//   Swal.fire(JSON.stringify(formValues))
+// }
 
-} //testSubmit
+// } //testSubmit
+
+
+
+
+
 </script>
 @stop

@@ -45,7 +45,7 @@ class ShiftGroupController extends Controller
 
     // user yang akan terima notification tu
     $to_user = User::where('id',$req->group_owner_id)->first();
-    
+
     $hcbd_role = DB::Table('role_user')->where('role_id',3);
     $hcbd_role_list = $hcbd_role->pluck('user_id')->toArray();
 
@@ -53,14 +53,16 @@ class ShiftGroupController extends Controller
     $cc_user_list = $cc_user->pluck('email')->toArray();
 
     // object yang nak dinotify / tengok bila penerima notify tekan link
-    $shift_grp = \App\ShiftGroup::where('id', $nugrup->id)->first();    
-      
-    // hantar notification ke user tu, untuk action yang berkaitan
-    $to_user->notify(new GroupOwnerAssigned($shift_grp,$cc_user_list));
+    $shift_grp = \App\ShiftGroup::where('id', $nugrup->id)->first();
+    try{
+      // hantar notification ke user tu, untuk action yang berkaitan
+      $to_user->notify(new GroupOwnerAssigned($shift_grp,$cc_user_list));
+    } catch(\Exception $e){
+    }
 
     return redirect(route('shift.group.view', ['id' => $nugrup->id], false));
 
-    
+
   }
 
   public function viewGroup(Request $req){
@@ -68,7 +70,8 @@ class ShiftGroupController extends Controller
     $grup = ShiftGroup::find($req->id);
     if($grup){
 
-      $therestofthepattern = ShiftPattern::whereNotIn('id', $grup->ShiftPatterns->pluck('id'))->get();
+      $therestofthepattern = ShiftPattern::whereNotIn('id', $grup->ShiftPatterns->pluck('id'))
+        ->where('is_weekly', false)->get();
 
       return view('shiftplan.shift_group_detail', [
         'groupd' => $grup,
@@ -121,8 +124,8 @@ class ShiftGroupController extends Controller
     $nugrpmbr = new ShiftGroupMember;
     $nugrpmbr->user_id = $req->user_id;
     $nugrpmbr->shift_group_id = $req->group_id;
-    $nugrpmbr->save();    
-    
+    $nugrpmbr->save();
+
     // E_0015
     // Notification to Team Members once Group Owner add members
     // to: Group Member
@@ -132,21 +135,25 @@ class ShiftGroupController extends Controller
     $to_user = User::where('id',$req->user_id)->first();
 
     // object yang nak dinotify / tengok bila penerima notify tekan link
-    $shift_grp = \App\ShiftGroup::where('id', $req->group_id)->first();    
+    $shift_grp = \App\ShiftGroup::where('id', $req->group_id)->first();
 
     $cc_user_list = [];
-    $cc_user_owner = $shift_grp->Manager->email;  
+    $cc_user_owner = $shift_grp->Manager->email;
     array_push($cc_user_list, $cc_user_owner);
-    
-    if($shift_grp->Planner){      
-      $cc_user_planner = $shift_grp->Planner->email;    
+
+    if($shift_grp->Planner){
+      $cc_user_planner = $shift_grp->Planner->email;
       array_push($cc_user_list, $cc_user_planner);
     }
-    
+
+  try{
     // hantar notification ke user tu, untuk action yang berkaitan
     $to_user->notify(new GroupMemberAssigned($shift_grp,$cc_user_list,$to_user));
+  } catch(\Exception $e){
+  }
 
-    return redirect(route('shift.mygroup.view', ['sgid' => $req->group_id], false))->with(['alert' => 'Staff added to group', 'a_type' => 'success']);
+    return redirect(route('shift.mygroup.view', ['sgid' => $req->group_id], false))
+    ->with(['alert' => 'Staff added to group', 'a_type' => 'success']);
 
   }
 
@@ -269,7 +276,7 @@ class ShiftGroupController extends Controller
 
         return view('shiftplan.mygroup', [
           'p_list' => $dups,
-          'sgid' => $req->sgid,        
+          'sgid' => $req->sgid,
           'grp' => $tsg,
           'planner_name' => $plannername
         ]);
@@ -289,7 +296,7 @@ class ShiftGroupController extends Controller
       return view('shiftplan.mygroup', [
         'p_list' => $dups
       ]);
-    }    
+    }
 
   }
 
@@ -309,7 +316,6 @@ class ShiftGroupController extends Controller
     $tsg = ShiftGroup::find($req->sgid);
 
     if($tsg){
-
       if($tsg->manager_id != $req->user()->id){
         return redirect(route('shift.mygroup'))->with([
           'alert' => 'You are not the owner of that group',
@@ -335,7 +341,7 @@ class ShiftGroupController extends Controller
 
       return view('shiftplan.mygrpdetail', [
         //'p_list' => $dups,
-        'sgid' => $req->sgid,        
+        'sgid' => $req->sgid,
         'grp' => $tsg,
         'planner' => $plannername,
         'ingrp' => $ingrp,
@@ -363,10 +369,10 @@ class ShiftGroupController extends Controller
 
     if($req->filled('planner_id')){
     } else {
-      return redirect(route('shift.mygroup', ['sgid' => $req->sgid], false))
-      ->with([        
+      return redirect(route('shift.mygroup.view', ['sgid' => $req->sgid], false))
+      ->with([
         'alert' => 'Please select planner to proceed',
-        'a_type' => 'warning'  
+        'a_type' => 'warning'
       ]
       );
     }
@@ -385,16 +391,19 @@ class ShiftGroupController extends Controller
       $tsg->planner_id = $req->planner_id;
       $tsg->save();
 
-      
+
     // user yang akan terima notification tu
     $to_user = User::where('id',$req->planner_id)->first();
     $cc_user = $tsg->Manager->email;
 
     // object yang nak dinotify / tengok bila penerima notify tekan link
-    $shift_grp = \App\ShiftGroup::where('id', $req->sgid)->first();    
-      
+    $shift_grp = \App\ShiftGroup::where('id', $req->sgid)->first();
+
+  try{
     // hantar notification ke user tu, untuk action yang berkaitan
     $to_user->notify(new GroupPlannerAssigned($shift_grp,$cc_user));
+  } catch(\Exception $e){
+  }
 
 
       $plannername = '';
@@ -402,7 +411,7 @@ class ShiftGroupController extends Controller
         $plannername = $tsg->Planner->name;
       }
 
-      return redirect(route('shift.mygroup', ['sgid' => $tsg->id]))
+      return redirect(route('shift.mygroup.view', ['sgid' => $tsg->id]))
         ->with([
           'alert' => 'Planner assigned',
           'a_type' => 'success'
@@ -439,7 +448,7 @@ class ShiftGroupController extends Controller
       $tsg->planner_id = null;
       $tsg->save();
 
-      return redirect(route('shift.mygroup', ['sgid' => $tsg->id]))
+      return redirect(route('shift.mygroup.view', ['sgid' => $tsg->id]))
         ->with([
           'alert' => 'Planner removed',
           'a_type' => 'info'
@@ -454,7 +463,5 @@ class ShiftGroupController extends Controller
     }
   }
 
-  
+
 }
-
-
