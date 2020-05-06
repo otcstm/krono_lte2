@@ -162,6 +162,25 @@
     </div><!--- .panel-body --->
 </div><!--- .panel panel-default --->
 
+{{-- <Br />
+    <h4>Search member to group (Non Executive in your group)</h4>
+    <div class="table-responsive">
+    <div class="panel panel-default">
+      <div class="panel-body">
+            <div class="form-group has-feedback {{ $errors->has('owner_name') ? 'has-error' : '' }}">
+              <label for="gmember_name">Find staff to add</label>
+              <div class="row">
+                <div class="col-xs-10">
+                  <input type="text" id="gmember_name" name="gmember_name" class="form-control" placeholder="Find staff here to add to group">
+                </div>
+                <div class="col-xs-2">
+                  <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#sgresult"><i class="fas fa-search"></i></button>
+                </div>
+              </div>
+        </div>
+      </div>
+    </div>     --}}
+
 </div><!--- .row --->
 </div><!--- .col-md-12 --->
 
@@ -314,11 +333,49 @@
   </div>
 </div>
 
+
+<!-- modal untuk add group member -->
+<div id="sgresult" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add as Group Member</h4>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+          <table id="tblsearch" class="table table-hover table-bordered">
+           <thead>
+             <tr>
+               <th>Staff No</th>
+               <th>Name</th>
+               <th>Choose</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr>
+               <td>s53877</td>
+               <td>amer bin ahmad</td>
+               <td style="text-align: center !important;"><button type="button" class="btn btn-xs btn-success" title="Select"><i class="fas fa-plus"></i></button></td>
+             </tr>
+           </tbody>
+         </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 @stop
 
 @section('js')
 <script type="text/javascript">
 $(document).ready(function() {
+  
 
     var t = $('#subord_nogroup').DataTable( {
         "columnDefs": [ {
@@ -371,11 +428,44 @@ t.on( 'order.dt search.dt', function () {
         }
       });
 
+
+   gmbrdt = $('#tblsearch').DataTable({
+    oLanguage: {
+       "sSearch": "Filter"
+     },
+    columns : [
+      {data: 'staffno'},
+      {data: 'name'},
+      {
+        data: 'id',
+        render: function(data, type, row){
+          return '<button type="button" class="btn btn-xs btn-np" title="Select" onclick="addMember('+data+')"><i class="fas fa-plus"></i></button>';
+        }
+      }
+    ]
+  });   
+
 } );
+
+$('#sgresult').on('show.bs.modal', function(e) {
+  gmbrdt.clear();
+  var search_url = "{{ route('verifier.subordSearch', ['q' => '']) }}" + document.getElementById('gmember_name').value;
+
+  $.ajax({
+    url: search_url,
+    success: function(result) {
+      gmbrdt.rows.add(result).draw();
+    },
+    error: function(xhr){
+      alert("An error occured: " + xhr.status + " " + xhr.statusText);
+    }
+  });
+});
 
 //select verifier id to selection
 function slctVerifier(vid,vname){
   //alert(vname+' ('+vid+')');
+  vid = parseInt(vid);
 
   //remove existing value 
   $('#selectVerifierId').children('option:not()').remove();
@@ -498,7 +588,7 @@ else{
                           "<div class='w-70'><span class='dm'>: </span><b>"+data[count].mobile+"</b></div>"+
                       "</div>"+
                   "</div>"+
-                    '<div class="w-10 text-center"><a class="btn btn-np" onclick="slctVerifier('+data[count].persno+',\''+data[count].name+'\')"><i class="fas fa-user-plus"></i> Add</a></div>'+
+                    '<div class="w-10 text-center"><a class="btn btn-np" onclick="slctVerifier(\''+data[count].persno+'\',\''+data[count].name+'\')"><i class="fas fa-user-plus"></i> Add</a></div>'+
               "</div>"+
           "</td>";
         //html += '<td><a class="btn btn-np" onclick="slctVerifier('+data[count].persno+',\''+data[count].name+'\')"><i class="fas fa-user-plus"></i></a></td>';

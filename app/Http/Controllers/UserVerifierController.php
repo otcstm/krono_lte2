@@ -154,7 +154,7 @@ class UserVerifierController extends Controller
         //dd($reptto_id);
 
         //final
-        $data = UserRecord::select("user_id as id","name")
+        $data = UserRecord::select("user_id as id","name","staffno")
         ->whereIn('user_id',$reptto_id)
         ->Where('empsgroup','Non Executive')
         ->where('name','LIKE',"%$search%")
