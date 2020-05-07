@@ -139,7 +139,7 @@
 <div id="resultAdvSearch" class="table-responsive"></div>    
 <fieldset id="formAdvSearch">
 <legend>Search Creteria</legend>
-<form class="form-horizontal" method="post" action="{{ route('verifier.advSearchSubord',[],false) }}">      
+<form class="form-horizontal" method="post" action="{{ route('verifier.ajaxAdvSearchSubord',[],false) }}">      
 
 <!-- Text input-->
 <div class="form-group">
