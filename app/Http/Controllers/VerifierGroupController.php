@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\UserVerifierGroup;
 use App\VerifierGroup;
 use App\VerifierGroupMember;
 
@@ -123,8 +124,10 @@ class VerifierGroupController extends Controller
         ->orderBy('name', 'asc')
         ->get();
 
-        $freeMember = User::where('reptto','=',$req->user()->id)
-        ->whereNotIn('id', $freeMemberList)
+        $reptto_list_id = $this->getListReptto($req);    
+
+        $freeMember = User::whereIn('persno', $reptto_list_id)
+        ->whereNotIn('persno', $groupMemberList)
         ->orderBy('name', 'asc')
         ->get();
 
@@ -284,5 +287,115 @@ class VerifierGroupController extends Controller
               ]);
         }
       }
+
+
+    public function getListReptto(Request $req)
+    {  
+        //direct rept crawl 8 tier
+        $reptto_id = [];
+
+        //1
+        $data = User::select("persno as user_id","name")
+        ->where('reptto','=',$req->user()->id)
+        ->get();
+
+        $reptto_id = $data->pluck('user_id')->toarray();
+        
+        //2
+        if($data->count() > 0){ 
+        $data = User::select("persno as user_id","name")
+        ->whereIn('reptto',$reptto_id)
+        ->get();
+        
+        $reptto_array = $data->pluck('user_id')->toarray();
+        foreach($reptto_array as $a)
+        {
+           array_push($reptto_id,$a);
+        }
+
+            //3
+            if($data->count() > 0){ 
+                
+                $data = User::select("persno as user_id","name")
+                ->whereIn('reptto',$reptto_id)
+                ->get();
+                
+                $reptto_array = $data->pluck('user_id')->toarray();
+                foreach($reptto_array as $a)
+                {
+                array_push($reptto_id,$a);
+                }
+
+                
+                //4
+                if($data->count() > 0){ 
+                    $data = User::select("persno as user_id","name")
+                    ->whereIn('reptto',$reptto_id)
+                    ->get();
+                
+                    $reptto_array = $data->pluck('user_id')->toarray();
+                    foreach($reptto_array as $a)
+                    {
+                    array_push($reptto_id,$a);
+                    }
+
+                    //5
+                    if($data->count() > 0){ 
+                        $data = User::select("persno as user_id","name")
+                        ->whereIn('reptto',$reptto_id)
+                        ->get();
+                    
+                        $reptto_array = $data->pluck('user_id')->toarray();
+                        foreach($reptto_array as $a)
+                        {
+                        array_push($reptto_id,$a);
+                        }                        
+
+                        //6
+                        if($data->count() > 0){ 
+                            $data = User::select("persno as user_id","name")
+                            ->whereIn('reptto',$reptto_id)
+                            ->get();
+                        
+                            $reptto_array = $data->pluck('user_id')->toarray();
+                            foreach($reptto_array as $a)
+                            {
+                            array_push($reptto_id,$a);
+                            }
+
+                            //7
+                            if($data->count() > 0){ 
+                                $data = User::select("persno as user_id","name")
+                                ->whereIn('reptto',$reptto_id)
+                                ->get();
+                            
+                                $reptto_array = $data->pluck('user_id')->toarray();
+                                foreach($reptto_array as $a)
+                                {
+                                array_push($reptto_id,$a);
+                                }
+
+                                //8
+                                if($data->count() > 0){ 
+                                    $data = User::select("persno as user_id","name")
+                                    ->whereIn('reptto',$reptto_id)
+                                    ->get();
+                                
+                                    $reptto_array = $data->pluck('user_id')->toarray();
+                                    foreach($reptto_array as $a)
+                                    {
+                                    array_push($reptto_id,$a);
+                                    }
+                                }  
+                            }  
+                        }  
+                    }      
+                }            
+            }            
+
+        }
+
+        return $reptto_id;
+    }
 }
 
