@@ -268,8 +268,13 @@ Route::group(['middleware' => ['auth','can:1-nav-admin']], function () {
 });
 
 // remidner thingy
-Route::group(['middleware' => ['auth','can:1-nav-admin']], function () {
-  Route::get('/reminder/resend', 'ReminderController@resend')->name('reminder.resend');
+Route::group(['middleware' => ['auth','can:5-user-mngmt']], function () {
+
+  Route::get('/reminder/jobs', 'ReminderController@jobs')->name('reminder.jobs');
+  Route::get('/reminder/jobs/detail', 'ReminderController@detail')->name('reminder.detail');
+  Route::post('/reminder/jobs/delete', 'ReminderController@delete')->name('reminder.delete');
+  Route::post('/reminder/resend', 'ReminderController@resend')->name('reminder.resend');
+  Route::get('/reminder/staff', 'ReminderController@staff')->name('reminder.staff');
 
 });
 
