@@ -106,7 +106,6 @@ class ShiftPatternController extends Controller
       $spd->delete();
 
       // $tsp->updateTotals();
-
       return redirect(route('sp.view', ['id' => $req->sp_id], false))->with(['alert' => $code . ' removed', 'a_type' => 'warning']);
 
     } else {
@@ -138,10 +137,12 @@ class ShiftPatternController extends Controller
       $tsp->deleted_by = $req->user()->id;
       $tsp->delete();
 
-      return redirect(route('sp.view', ['id' => $req->id], false))->with(['alert' => $code . ' deleted', 'a_type' => 'warning']);
+      // return redirect(route('sp.view', ['id' => $req->id], false))->with(['alert' => $code . ' deleted', 'a_type' => 'warning']);
+      return redirect(route('sp.index', [], false))->with(['alert' => 'Work schedule has been deleted', 'a_type' => 'warning']);
 
     } else {
-      return redirect(route('sp.index', [], false))->with(['alert' => 'Work schedule has been deleted', 'a_type' => 'warning']);
+      dd('here');
+      return redirect(route('sp.index', [], false))->with(['alert' => 'Shift pattern not found', 'a_type' => 'warning']);
     }
   }
 
