@@ -132,6 +132,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/admin/overtime/approval/view', 'OvertimeController@adminview')->name('ot.adminview');
   Route::post('/admin/overtime/approval/view', 'OvertimeController@adminview')->name('ot.adminview');
   Route::post('/admin/overtime/approval', 'OvertimeController@admin')->name('ot.admin');
+  Route::get('/admin/overtime/search', 'OvertimeController@adminsearch')->name('ot.adminsearch');
   Route::post('/admin/overtime/search', 'OvertimeController@adminsearch')->name('ot.adminsearch');
 
   // Route::post('/overtime/query/addverifier', 'OvertimeController@addverifier')->name('ot.addverifier');
