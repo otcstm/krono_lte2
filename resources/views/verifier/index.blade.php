@@ -139,7 +139,7 @@
 <div id="resultAdvSearch" class="table-responsive"></div>    
 <fieldset id="formAdvSearch">
 <legend>Search Creteria</legend>
-<form class="form-horizontal" method="post" action="{{ route('verifier.advSearchSubord',[],false) }}">      
+<form class="form-horizontal" method="post" action="{{ route('verifier.ajaxAdvSearchSubord',[],false) }}">      
 
 <!-- Text input-->
 <div class="form-group">
@@ -438,7 +438,7 @@ function advSearchSubmit(){
                             "<div class='w-70'><span class='dm'>: </span><b>"+data[count].mobile+"</b></div>"+
                         "</div>"+
                     "</div>"+
-                      '<div class="w-10 text-center"><a class="btn btn-np" onclick="slctVerifier('+data[count].persno+',\''+data[count].name+'\')"><i class="fas fa-user-plus"></i> Add</a></div>'+
+                      '<div class="w-10 text-center"><a class="btn btn-np" onclick="slctVerifier(\''+data[count].persno+'\',\''+data[count].name+'\')"><i class="fas fa-user-plus"></i> Add</a></div>'+
                 "</div>"+
             "</td>";
           //html += '<td><a class="btn btn-np" onclick="slctVerifier('+data[count].persno+',\''+data[count].name+'\')"><i class="fas fa-user-plus"></i></a></td>';
@@ -484,6 +484,7 @@ function advSearchSubmit(){
 //select verifier id to selection
 function slctVerifier(vid,vname){
   //alert(vname+' ('+vid+')');
+  vid = parseInt(vid);
 
   //remove existing value 
   $('#selectVerifierId').children('option:not()').remove();

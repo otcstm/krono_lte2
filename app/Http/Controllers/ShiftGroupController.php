@@ -62,6 +62,59 @@ class ShiftGroupController extends Controller
 
     return redirect(route('shift.group.view', ['id' => $nugrup->id], false));
 
+  }
+
+  public function addGroupWithPlanner(Request $req){
+    //dd($req->all());
+    // check for duplicate code
+    $dups = ShiftGroup::where('manager_id', $req->group_owner_id)
+      ->where('group_code', $req->group_code)->first();
+
+    if($dups){
+      return redirect()->back()->withInput()->with(['alert' => 'Duplicate code with ' . $dups->group_name, 'a_type' => 'danger']);
+    }
+
+    // no duplicate. proceed create new group
+    $nugrup = new ShiftGroup;
+    $nugrup->manager_id = $req->group_owner_id;
+    $nugrup->group_name = $req->group_name;
+    $nugrup->group_code = $req->group_code;
+    $nugrup->planner_id = $req->planner_id;
+    $nugrup->save();
+
+
+    // group owner yang akan terima notification tu
+    $to_user = User::where('id',$req->group_owner_id)->first();
+
+    $hcbd_role = DB::Table('role_user')->where('role_id',3);
+    $hcbd_role_list = $hcbd_role->pluck('user_id')->toArray();
+
+    $cc_user = \App\User::whereIn('id',$hcbd_role_list);
+    $cc_user_list = $cc_user->pluck('email')->toArray();
+
+    // object yang nak dinotify / tengok bila penerima notify tekan link
+    $shift_grp = \App\ShiftGroup::where('id', $nugrup->id)->first();
+    try{
+      // hantar notification ke user tu, untuk action yang berkaitan
+      $to_user->notify(new GroupOwnerAssigned($shift_grp,$cc_user_list));
+    } catch(\Exception $e){
+    }
+
+    // planner yang akan terima notification tu
+    $to_user = User::where('id',$req->planner_id)->first();
+    $cc_user = User::select('email')
+    ->where('id',$req->group_owner_id)->first();
+   
+    // object yang nak dinotify / tengok bila penerima notify tekan link
+    $shift_grp = \App\ShiftGroup::where('id', $nugrup->id)->first();
+   
+    try{
+       // hantar notification ke user tu, untuk action yang berkaitan
+       $to_user->notify(new GroupPlannerAssigned($shift_grp,$cc_user));
+    } catch(\Exception $e){
+    }
+
+    return redirect(route('shift.mygroup.view', ['sgid' => $nugrup->id], false));
 
   }
 
@@ -330,12 +383,16 @@ class ShiftGroupController extends Controller
 
       $allgrp = ShiftGroupMember::all();
       $allgrp_list_member = $allgrp->pluck('user_id')->toArray();
+
       $ingrp = ShiftGroupMember::where('shift_group_id',$req->sgid)->orderby('id')->get();
       $ingrp_list = $ingrp->pluck('user_id')->toArray();
       // foreach ($ingrp as $row) {
       //   array_push($ingrp_list, $row->User->id);
       // }
-      $outgrp = User::where('reptto', $req->user()->id)
+      
+      $reptto_list_id = $this->getListReptto($req, $tsg->manager_id);    
+
+      $outgrp = User::whereIn('persno', $reptto_list_id)
       ->whereNotIn('persno',$allgrp_list_member)
       ->get();
 
@@ -462,6 +519,115 @@ class ShiftGroupController extends Controller
       ]);
     }
   }
+
+  public function getListReptto(Request $req, $parentid)
+    {  
+        //direct rept crawl 8 tier
+        $reptto_id = [];
+
+        //1
+        $data = User::select("persno as user_id","name")
+        ->where('reptto','=',$parentid)
+        ->get();
+
+        $reptto_id = $data->pluck('user_id')->toarray();
+        
+        //2
+        if($data->count() > 0){ 
+        $data = User::select("persno as user_id","name")
+        ->whereIn('reptto',$reptto_id)
+        ->get();
+        
+        $reptto_array = $data->pluck('user_id')->toarray();
+        foreach($reptto_array as $a)
+        {
+           array_push($reptto_id,$a);
+        }
+
+            //3
+            if($data->count() > 0){ 
+                
+                $data = User::select("persno as user_id","name")
+                ->whereIn('reptto',$reptto_id)
+                ->get();
+                
+                $reptto_array = $data->pluck('user_id')->toarray();
+                foreach($reptto_array as $a)
+                {
+                array_push($reptto_id,$a);
+                }
+
+                
+                //4
+                if($data->count() > 0){ 
+                    $data = User::select("persno as user_id","name")
+                    ->whereIn('reptto',$reptto_id)
+                    ->get();
+                
+                    $reptto_array = $data->pluck('user_id')->toarray();
+                    foreach($reptto_array as $a)
+                    {
+                    array_push($reptto_id,$a);
+                    }
+
+                    //5
+                    if($data->count() > 0){ 
+                        $data = User::select("persno as user_id","name")
+                        ->whereIn('reptto',$reptto_id)
+                        ->get();
+                    
+                        $reptto_array = $data->pluck('user_id')->toarray();
+                        foreach($reptto_array as $a)
+                        {
+                        array_push($reptto_id,$a);
+                        }                        
+
+                        //6
+                        if($data->count() > 0){ 
+                            $data = User::select("persno as user_id","name")
+                            ->whereIn('reptto',$reptto_id)
+                            ->get();
+                        
+                            $reptto_array = $data->pluck('user_id')->toarray();
+                            foreach($reptto_array as $a)
+                            {
+                            array_push($reptto_id,$a);
+                            }
+
+                            //7
+                            if($data->count() > 0){ 
+                                $data = User::select("persno as user_id","name")
+                                ->whereIn('reptto',$reptto_id)
+                                ->get();
+                            
+                                $reptto_array = $data->pluck('user_id')->toarray();
+                                foreach($reptto_array as $a)
+                                {
+                                array_push($reptto_id,$a);
+                                }
+
+                                //8
+                                if($data->count() > 0){ 
+                                    $data = User::select("persno as user_id","name")
+                                    ->whereIn('reptto',$reptto_id)
+                                    ->get();
+                                
+                                    $reptto_array = $data->pluck('user_id')->toarray();
+                                    foreach($reptto_array as $a)
+                                    {
+                                    array_push($reptto_id,$a);
+                                    }
+                                }  
+                            }  
+                        }  
+                    }      
+                }            
+            }            
+
+        }
+
+        return $reptto_id;
+    }
 
 
 }
