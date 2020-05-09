@@ -120,7 +120,7 @@
 </div>
     </div><!-- /.box-body -->
     <div class="box-header bg-yellow-active color-palette">
-    <h3 class="box-title text-left">RM {{ $pending_payment_last_month }} (Estimated)</h3>
+    <h3 class="box-title text-left">RM {{ number_format((float)$pending_payment_last_month, 2, '.', '') }} (Estimated)</h3>
     </div><!-- /.box-header -->
     </div>
   </div>  

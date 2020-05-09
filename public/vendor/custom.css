@@ -680,6 +680,24 @@ tr .border-right{
     border: 1px solid #DDDDDD !important;
 } */
 
+
+.table-noborder > thead > tr > th{
+    border: none !important;
+    text-align: left !important;
+    background: #F5F6FA;
+}
+
+.table-noborder > thead > tr > th:first-child, .table-noborder > tbody > tr > td:first-child{
+    padding-left: 30px;
+}
+
+.table-noborder > tbody > tr > td{
+    border: none !important;
+    background: white;
+    text-align: left !important;
+}
+
+
 /* .table-bordered  td{
     border: 1px solid #DDDDDD !important;
     border-right: 1px solid #DDDDDD !important;
@@ -1332,6 +1350,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .content-wrapper h4, .master h4 {
     color: #143A8C !important;
     font-weight: 600;
+}
+
+.panel-heading h4{
+    color: #fff !important;
 }
 
 .dropdown-menu>li>a {
