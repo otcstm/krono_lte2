@@ -95,6 +95,9 @@
                                 @if(($view=='approver')||($view=='admin'))
                                 <th>Verifier</th>
                                 @endif
+                                @if(($view=='verifier')||($view=='admin'))
+                                <th>Approver</th>
+                                @endif
                             <th class="border-right" id="borderman">Action</th>
                             <th id="aremark" style="display: none">Action Remark</th>
                             @endif
@@ -136,22 +139,39 @@
                                         
                                         <span id="show-verifier-na-{{$no}}" @if($singleuser->verifier->name!="N/A") class="hidden" @endif >{{$singleuser->verifier->name}}</span>
                                         
-                                        <a id="show-verifier-a-{{$no}}" href="#" style="font-weight: bold; color: #143A8C" @if($singleuser->verifier->name=="N/A") class="hidden" @endif onclick="showverifier({{$no}})" data-id="{{$singleuser->verifier_id}}"><span id="show-verifier-{{$no}}">{{$singleuser->verifier->name}}</span></a>
+                                        <a id="show-verifier-a-{{$no}}" href="#" style="font-weight: bold; color: #143A8C" @if($singleuser->verifier->name=="N/A") class="hidden" @endif onclick="showverifier({{$no}})" data-id="{{$singleuser->verifier_id}}" data-otid="{{$singleuser->id}}"><span id="show-verifier-{{$no}}">{{$singleuser->verifier->name}}</span></a>
                                         
                                     </td>
                                 @endif
+                                
+                                @if(($view=='verifier')||($view=='admin'))
+                                <td>
+                                    <span class='hidden' id="show-approver-cache-{{$no}}">{{$singleuser->approver->name}}</span>
+                                    <a id="show-approver-a-{{$no}}" href="#" style="font-weight: bold; color: #143A8C" @if($singleuser->approver->name=="N/A") class="hidden" @endif onclick="showapprover({{$no}})" data-id="{{$singleuser->approver_id}}" data-otid="{{$singleuser->id}}"><span id="show-approver-{{$no}}">{{$singleuser->approver->name}}</span></a>
+                                </td>
+                                @endif
                             <td class="border-right" id="borderman-{{$no}}">
                                 <input type="text" class="hidden"  id="verifier-cache-{{$no}}" value="{{$singleuser->verifier_id}}">
+                                <input type="text" class="hidden"  id="approver-cache-{{$no}}" value="{{$singleuser->approver_id}}">
                                 <input type="text" class="hidden"  id="verifier-{{$no}}" name="verifier[]" value="{{$singleuser->verifier_id}}">
-                                <select name="inputaction[]" id="action-{{$no}}">
+                                <input type="text" class="hidden"  id="approver-{{$no}}" name="approver[]" value="{{$singleuser->approver_id}}">
+                                <select name="inputaction[]" id="action-{{$no}}" data-vid="{{$singleuser->verifier_id}}" data-otid="{{$singleuser->id}}">
                                     <option selected value="">Select Action</option>
                                     <option hidden value="Remove">Remove Verifier</option>
                                     <!-- <option hidden disabled selected value="">Select Action</option> -->
-                                    @if(($view=="verifier")||($view=='admin'))<option value="PA">Verify</option>@endif
+                                    @if(($view=="verifier")||($view=='admin')) 
+                                        @if($singleuser->status!="PA")<option value="PA">Verify</option>@endif 
+                                    @endif
                                     @if(($view=='approver')||($view=='admin'))
                                         <option value="A">Approve</option>
-                                        <option @if($singleuser->verifier_id!=null) hidden @endif  value="Assign" id="assign-{{$no}}">Assign Verifier</option>
-                                        
+                                        <option 
+                                            @if($singleuser->verifier_id!=null) 
+                                                hidden 
+                                            @endif  
+                                            value="Assign" id="assign-{{$no}}" data-type="Verifier" data-otid="{{$singleuser->id}}">Assign Verifier</option>
+                                    @endif
+                                    @if($view=='admin') 
+                                        <option hidden value="Change">Change Approver</option>
                                     @endif
                                     <option value="Q2">Query</option>
                                 </select>
@@ -230,6 +250,7 @@
 @section('js')
 <script type="text/javascript">
 
+    var otid;
     var today = new Date();
     var htmlstring = '<div style="border: 1px solid #DDDDDD; max-height: 60vh; overflow-y: scroll;  overflow-x: hidden;">';
     var no = 0
@@ -290,7 +311,15 @@
         $("#inputremark-"+i).prop('required',false);
         $("#inputremark-"+i).attr("placeholder", "");
         $("textremain-"+i).text("300");
-        @if($view=='approver')
+        // alert($("#action-"+i).data("vid"));
+        if($("#action-"+i).data("vid")==""){
+            $('#show-verifier-na-'+i).removeClass("hidden");
+            $('#show-verifier-a-'+i).addClass("hidden");
+        }
+        
+        $("#approver-"+i).val($("#approver-cache-"+i).val());
+        $("#show-approver-"+i).text($("#show-approver-cache-"+i).text());
+        @if(($view=='approver') || ($view=='admin')) 
             $("#verifier-"+i).val($("#verifier-cache-"+i).val());
             $("#show-verifier-"+i).text($("#show-verifier-cache-"+i).text());
         @endif
@@ -299,14 +328,14 @@
         @endif
     }
 
-    function remove(i){
-            $("#verifier-"+i).val("");
-            $("#show-verifier-na-"+i).text("N/A");
-            $('#show-verifier-na-'+i).removeClass("hidden");
-            $('#show-verifier-a-'+i).addClass("hidden");
-            $('#action-'+i).val("Remove");
-            $("#assign-"+i).prop('hidden',false);
-    }
+    // function remove(i){
+    //         $("#verifier-"+i).val("");
+    //         $("#show-verifier-na-"+i).text("N/A");
+    //         $('#show-verifier-na-'+i).removeClass("hidden");
+    //         $('#show-verifier-a-'+i).addClass("hidden");
+    //         $('#action-'+i).val("Remove");
+    //         $("#assign-"+i).prop('hidden',false);
+    // }
 
 
     for(i=1; i<{{count($otlist)+1}}; i++){
@@ -318,7 +347,7 @@
         @if($otlist ?? '')
         var aremark = false;
         for(x=1; x<{{count($otlist)}}+1; x++){
-            if(($("#action-"+x).val()=="Q2")||($("#action-"+x).val()=="Assign")){
+            if(($("#action-"+x).val()=="Q2")||($("#action-"+x).val()=="Assign")||($("#action-"+x).val()=="Change")){
                 aremark = true;
             }
         }
@@ -348,36 +377,9 @@
             @if($otlist ?? '')
                 table();
             @endif
+            otid = $("#action-"+i).data("otid");
             if($("#action-"+i).val()=="Q2"){
-                // $('#remark-'+i).css("display", "table-row");
-                // Swal.fire({
-                //     title: 'Remarks',
-                //     html: "<textarea id='remark' rows='4' style='width: 90%' placeholder='This is mandatory field. Please key in remarks here!' style='resize: none;'></textarea><p>Are you sure to query this claim application?</p>",
-                //     confirmButtonText:
-                //         'YES',
-                //         cancelButtonText: 'NO',
-                //     showCancelButton: true,
-                //     inputValidator: (result) => {
-                //         return !result && 'You need to agree with T&C'
-                //     }
-                // }).then((result) => {
-                //         if (result.value) {
-                            
-                //             $("#inputremark-"+i).prop('disabled',false);
-                //             $("#inputremark-"+i).prop('required',true);
-                //             $("#inputremark-"+i).val($('#remark').val());
-                //             @if(($view=='approver')||($view=='admin'))
-                //                 $("#verifier-"+i).val($("#verifier-cache-"+i).val());
-                //                 $("#show-verifier-"+i).text($("#show-verifier-cache-"+i).text());
-                //             @endif
-                            
-                //         }else{
-                            
-                            
-                //             reset(i);
-                //         }
-                // })
-
+                reset(i);
                 Swal.fire({
                     title: 'Remarks',
                     html: "<p>Are you sure to query this claim application?</p>",
@@ -387,8 +389,6 @@
                     showCancelButton: true
                 }).then((result) => {
                         if (result.value) {
-                            
-                            
                             $("#inputremark-"+i).attr("placeholder", "This is mandatory field. Please key in remarks here!");
                             $("#inputremark-"+i).prop('readonly',false);
                             $("#inputremark-"+i).prop('required',true);
@@ -408,8 +408,11 @@
             }else if($("#action-"+i).val()==""){
                 reset(i);
             }else if($("#action-"+i).val()=="Assign"){
-                normal(i, 'none');
+                // alert($(this).find(':selected').data('type'));
+                reset(i);
+                normal(i, 'none', 'Verifier');
             }else{
+                reset(i);
                 Swal.fire({
                     title: 'Terms and Conditions',
                     input: 'checkbox',
@@ -467,19 +470,19 @@
     }
     var number =  0;
 
-    function normal(i, block){
+    function normal(i, block, titles){
         Swal.fire({
-            title: "Verifier's Name",
+            title: titles+"'s Name",
             html: "<div class='text-left'>"+
                     "<input id='namet' placeholder=\"Enter Employee's Name\" style='width: 100%; box-sizing: border-box;' onkeyup='this.onchange();' onchange='return checkstring();'>"+
                         "<button type='button' id='namex' onclick='return cleart()' style='visibility: hidden;display: inline; position: absolute; right: 30px; margin-top: 3px' class='btn-no'>"+
                             "<i class='far fa-times-circle'></i>"+
                         "</button>"+
-                        "<button type='button' id='namex' onclick='return searcho("+i+")' style='display: inline; position: absolute; right: 15px; margin-top: 5px' class='btn-no'>"+
+                        "<button type='button' id='namex' onclick='return searcho("+i+","+titles+")' style='display: inline; position: absolute; right: 15px; margin-top: 5px' class='btn-no'>"+
                             "<i  class='fas fa-search'></i>"+
                         "</button>"+
                         "<p id='3more' style=' margin-top: 5px; color: #F00000; display: "+block+"'>Search input must be more than 3 alphabets!</p>"+
-                        "<a href='' onclick='return advance("+i+")' style='color: #143A8C'><b><u>Advance Search</u></b></a>"+
+                        "<a href='#' onclick=\"advance("+i+",\'"+titles+"\'); \" style='color: #143A8C'><b><u>Advance Search</u></b></a>"+
                     "</div>",
             confirmButtonText:
                 'NEXT',
@@ -489,15 +492,23 @@
             }
         }).then((result) => {
             if (result.value) {
-                $("#inputremark-"+i).val($('#remark').val());
-                $("#inputremark-"+i).prop('readonly',true);
-                $("#inputremark-"+i).val("");
-                $("#inputremark-"+i).prop('required',false);
-                @if($view=='approver')
-                    $("#verifier-"+i).val($("#verifier-cache-"+i).val());
-                    $("#show-verifier-"+i).text($("#show-verifier-cache-"+i).text());
-                @endif
-                return searcho(i);
+                // {{--$("#inputremark-"+i).val($('#remark').val());
+                // $("#inputremark-"+i).prop('readonly',true);
+                // $("#inputremark-"+i).val("");
+                // $("#inputremark-"+i).prop('required',false);
+                // @if($view=='approver')
+                //     $("#verifier-"+i).val($("#verifier-cache-"+i).val());
+                //     $("#show-verifier-"+i).text($("#show-verifier-cache-"+i).text());
+                // @endif
+                // @if($view=='admin')
+                //     if(titles=="Approver"){
+                //         $("#verifier-"+i).val($("#verifier-cache-"+i).val());
+                //         $("#show-verifier-"+i).text($("#show-verifier-cache-"+i).text());
+                //     }
+                // @endif--}}
+                
+                reset(i);
+                return searcho(i, titles);
             }else{
                 reset(i);
             }
@@ -507,6 +518,58 @@
     function updateResp(item, index){
         htmlstring = htmlstring + 
             "<button style='border: 1px solid #DDDDDD; min-height: 10vh; width: 100%; padding: 5px; text-align: left; background: transparent' onclick='addverifier(\""+item.persnoo+"\","+index+",\""+item.name+"\");' id='addv-"+index+"'>"+
+                "<div style='display: flex; align-items: center; flex-wrap: wrap; width: 95%; margin-left: 3%' padding: 15px>"+
+                    "<div class='w-10 text-center'><img src='/user/image/"+item.staffno.replace(' ','')+"' class='approval-search-img'></div>"+
+                    "<div class='w-30 m-15'>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Name<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.name+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Personnel No<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'><span class='dm'>: </span></span><b>"+item.persno+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Staff No<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.staffno+"</b></div>"+
+                        "</div>"+
+                    "</div>"+
+                    "<div class='w-30 m-15'>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Company Code<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.companycode+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Cost Center<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.costcenter+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Personnel Area<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.persarea+"</b></div>"+
+                        "</div>"+
+                    "</div>"+
+                    "<div class='w-30 m-15'>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Employee Subgroup<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.empsubgroup+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Email<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.email+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Mobile No<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.mobile+"</b></div>"+
+                        "</div>"+
+                    "</div>"+
+                "</div>"+
+            "</button>";
+            
+    }
+
+    function updateRespA(item, index){
+        htmlstring = htmlstring + 
+            "<button style='border: 1px solid #DDDDDD; min-height: 10vh; width: 100%; padding: 5px; text-align: left; background: transparent' onclick='addapprover(\""+item.persnoo+"\","+index+",\""+item.name+"\");' id='addv-"+index+"'>"+
                 "<div style='display: flex; align-items: center; flex-wrap: wrap; width: 95%; margin-left: 3%' padding: 15px>"+
                     "<div class='w-10 text-center'><img src='/user/image/"+item.staffno.replace(' ','')+"' class='approval-search-img'></div>"+
                     "<div class='w-30 m-15'>"+
@@ -572,19 +635,38 @@
             }
         }
     }
+
+    function addapprover(id, num, name){
+        $('#approver-'+no).val(id);
+        $('#show-approver-'+no).text(name);
+        $('#show-approver-a-'+no).data("id", id);
+        for(i = 0; i<number; i++){
+            if(i!=num){
+                $('#addv-'+i).css('outline','none');
+                $('#addv-'+i).css('border','1px solid #DDDDDD');
+            }else{
+                $('#addv-'+i).css('outline','1px solid #143A8C');
+                $('#addv-'+i).css('border','2px solid #143A8C');
+            }
+        }
+    }
     
-    function search(searchn, searchpn, searchsn, searchp, searchcc, searchct, searchpa, searchpsa, searchesg, searche, searchmn, searchon, type, block, i){
+    function search(searchn, searchpn, searchsn, searchp, searchcc, searchct, searchpa, searchpsa, searchesg, searche, searchmn, searchon, type, block, i, titles){
         const url='{{ route("ot.search", [], false)}}';
         no = i;
         htmlstring = '<div style="border: 1px solid #DDDDDD; max-height: 60vh; overflow-y: scroll;  overflow-x: hidden;">';
         $.ajax({
             type: "GET",
-            url: url+"?name="+searchn+"&persno="+searchpn+"&staffno="+searchsn+"&position="+searchp+"&company="+searchcc+"&cost="+searchct+"&persarea="+searchpa+"&perssarea="+searchpsa+"&empsgroup"+searchesg+"&email="+searche+"&mobile="+searchmn+"&office="+searchon+"&type="+type,
+            url: url+"?name="+searchn+"&persno="+searchpn+"&staffno="+searchsn+"&position="+searchp+"&company="+searchcc+"&cost="+searchct+"&persarea="+searchpa+"&perssarea="+searchpsa+"&empsgroup"+searchesg+"&email="+searche+"&mobile="+searchmn+"&office="+searchon+"&type="+type+"&otid="+otid,
             success: function(resp) {
                 if(resp.length>0){
                     number = resp.length;
-                    resp.forEach(updateResp);
-                    cfm = 'SELECT VERIFIER';
+                    if(titles == "Verifier"){
+                        resp.forEach(updateResp);
+                    }else{
+                        resp.forEach(updateRespA);
+                    }
+                    cfm = 'SELECT';
                     yes = true;
                 }
                 else{
@@ -595,8 +677,9 @@
                     cfm = 'NEXT';
                     yes = false;
                 }
+                titlex =  titles.toLowerCase();
                 Swal.fire({
-                    title: "Verifier's Name",
+                    title: titles+"'s Name",
                     customClass: 'test2',
                     // width: '75%',
                     html: "<div class='text-left swollo'>"+
@@ -604,15 +687,15 @@
                             "<button type='button' id='namex' onclick='return cleart()' class='approval-search-x btn-no'>"+
                                 "<i class='far fa-times-circle'></i>"+
                             "</button>"+
-                            "<button type='button' id='namex' onclick='return searcho("+i+")' class='approval-search-icon btn-no'>"+
+                            "<button type='button' id='namex' onclick='return searcho("+i+","+titles+")' class='approval-search-icon btn-no'>"+
                                 "<i class='fas fa-search'></i>"+
                             "</button>"+
                             "<p id='3more' style=' margin-top: 5px; color: #F00000; display: none'>Search input must be more than 3 alphabets!</p>"+
-                            "<a id='margin' href='' onclick='return advance("+i+")' style='margin-left: -20px; color: #143A8C'>"+
+                            "<a id='margin' href='' onclick='return advance("+i+","+titles+")' style='margin-left: -20px; color: #143A8C'>"+
                                 "<b><u>Advance Search</u></b>"+
                             "</a>"+
                         "</div>"+
-                        "<p style=' margin-top: 5px; color: #F00000; display: "+block+"'>Please select verifier!</p>"+
+                        "<p style=' margin-top: 5px; color: #F00000; display: "+block+"'>Please select "+titlex+"!</p>"+
                         "<div class='text-left'>"+htmlstring+"</div>",
                     confirmButtonText:
                         cfm,
@@ -620,48 +703,68 @@
                     cancelButtonText: 'CANCEL',
                 }).then((result) => {
                     if(yes){
-                        if (result.value) {            
-                            $("#action-"+i).val("Assign");
-                            table();
-                            $('#remark-'+i).css("display", "table-row");
-                            // Swal.fire({
-                            //         title: 'Remarks',
-                            //         html: "<textarea id='remark' rows='4' style='width: 90%' placeholder='This is mandatory field. Please key in remarks here!' style='resize: none;'></textarea><p>Are you sure to assign new verifier to this claim application?</p>",
-                            //         confirmButtonText:
-                            //             'YES',
-                            //             cancelButtonText: 'NO',
-                            //         showCancelButton: true,
-                            //         inputValidator: (result) => {
-                            //             return !result && 'You need to agree with T&C'
-                            //         }
-                            //     }).then((result) => {
-                            //             if (result.value) {
-                                                                    
-                                            $("#inputremark-"+i).attr("placeholder", "This is mandatory field. Please key in remarks here!");
-                                            $("#inputremark-"+i).prop('readonly',false);
-                                            $("#inputremark-"+i).prop('required',true);
-                                            // $("#inputremark-"+i).val($('#remark').val());  
-                                            // $("#inputremark-"+i).val($('#remark').val());
-                                                // if(yes){
-                                                //     if($('#verifier').val()!=''){
-                                                //         $('#formverifier').submit();
-                                                //     }else{
-                                                //         search(searchn, 'block', i);
-                                                //     }
-                                                // }else{
-                                                //     return searcho(i);
-                                                // }
-                                //         }else{
-                                            
-                                            
-                                //             reset(i);
+                        if (result.value) {   
+                            succeed = false;
+                            if(titles=="Verifier"){  
+                                // alert($('#verifier-'+i).val()+" "+$('#verifier-cache-'+i).val())
+                                if($('#verifier-'+i).val()!=$('#verifier-cache-'+i).val()){
+                                    succeed = true;
+                                }
+                            } else{  
+                                if($('#approver-'+i).val()!=$('#approver-cache-'+i).val()){
+                                    succeed = true;
+                                }
+                            }   
+                            // alert(succeed);
+                            if(succeed){                               
+                                if(titles=="Verifier"){         
+                                    $("#action-"+i).val("Assign");
+                                }else{
+                                    $("#action-"+i).val("Change");
+                                }
+                                table();
+                                $('#remark-'+i).css("display", "table-row");
+                                // Swal.fire({
+                                //         title: 'Remarks',
+                                //         html: "<textarea id='remark' rows='4' style='width: 90%' placeholder='This is mandatory field. Please key in remarks here!' style='resize: none;'></textarea><p>Are you sure to assign new verifier to this claim application?</p>",
+                                //         confirmButtonText:
+                                //             'YES',
+                                //             cancelButtonText: 'NO',
+                                //         showCancelButton: true,
+                                //         inputValidator: (result) => {
+                                //             return !result && 'You need to agree with T&C'
                                 //         }
-                                // })
+                                //     }).then((result) => {
+                                //             if (result.value) {
+                                                                        
+                                                $("#inputremark-"+i).attr("placeholder", "This is mandatory field. Please key in remarks here!");
+                                                $("#inputremark-"+i).prop('readonly',false);
+                                                $("#inputremark-"+i).prop('required',true);
+                                                // $("#inputremark-"+i).val($('#remark').val());  
+                                                // $("#inputremark-"+i).val($('#remark').val());
+                                                    // if(yes){
+                                                    //     if($('#verifier').val()!=''){
+                                                    //         $('#formverifier').submit();
+                                                    //     }else{
+                                                    //         search(searchn, 'block', i);
+                                                    //     }
+                                                    // }else{
+                                                    //     return searcho(i);
+                                                    // }
+                                    //         }else{
+                                                
+                                                
+                                    //             reset(i);
+                                    //         }
+                                    // })
+                            }else{
+                                search(searchn, searchpn, searchsn, searchp, searchcc, searchct, searchpa, searchpsa, searchesg, searche, searchmn, searchon, type, "block", i, titles);
+                            }
                         }else{
                             reset(i);
                         }
                     }else{
-                        normal(i, 'none');
+                        normal(i, 'none', titles);
                     }
                 });
                 
@@ -672,7 +775,7 @@
 
     // advance(i);
 
-    function advance(i){
+    function advance(i, titles){
         var checksend = true;
         Swal.fire({
             title: "Advance Search",
@@ -718,9 +821,9 @@
                     checksend = false;
                 }
                 if(checksend){
-                    search($('#sname').val(), $('#spersno').val(), $('#sstaffno').val(), $('#position').val(), $('#scompc').val(), $('#scostc').val(), $('#spersarea').val(), $('#sperssarea').val(), $('#sempsg').val(), $('#semail').val(), $('#smobile').val(), $('#soffice').val(), 'advance', 'none', i);
+                    search($('#sname').val(), $('#spersno').val(), $('#sstaffno').val(), $('#position').val(), $('#scompc').val(), $('#scostc').val(), $('#spersarea').val(), $('#sperssarea').val(), $('#sempsg').val(), $('#semail').val(), $('#smobile').val(), $('#soffice').val(), 'advance', 'none', i, titles);
                 }else{
-                    advance(i);
+                    advance(i, titles);
                 }
             }else{
                 
@@ -731,16 +834,18 @@
         return false;
     }
 
-    function searcho(i){
+    function searcho(i, titles){
         htmlstring = '<div style="border: 1px solid #DDDDDD; max-height: 60vh; overflow-y: scroll;  overflow-x: hidden;">';
         if(($('#namet').val().length)<3){
-                    normal(i, 'block');
+                    normal(i, 'block', titles);
         }else{
-            search($('#namet').val(), '', '', '', '', '', '', '', '', '', '', '', 'normal', 'none', i);
+            search($('#namet').val(), '', '', '', '', '', '', '', '', '', '', '', 'normal', 'none', i, titles);
         }
     }
 
     function showverifier(id){
+        
+        otid = $("#show-verifier-a-"+id).data("otid");
         const url='{{ route("ot.getverifier", [], false)}}';
         userid = $("#show-verifier-a-"+id).data("id");
         $.ajax({
@@ -808,7 +913,85 @@
                     //     normal(id, 'none');
                     // }
                     if (result.value) {
-                        normal(id, 'none');
+                        normal(id, 'none', 'Verifier');
+                    }
+                });
+            }
+        });   
+    }
+
+    function showapprover(id){
+        
+        otid = $("#show-approver-a-"+id).data("otid");
+        // alert(otid);
+        const url='{{ route("ot.getverifier", [], false)}}';
+        userid = $("#show-approver-a-"+id).data("id");
+        $.ajax({
+            type: "GET",
+            url: url+"?id="+userid,
+            success: function(resp) {
+                Swal.fire({
+                    title: "Current Approver",
+                    customClass: 'test2',
+                    // width: '75%',
+                    html: "<div style='border: 1px solid #DDDDDD; min-height: 10vh; width: 100%; padding: 5px; text-align: left;'>"+
+                            "<div style='display: flex; align-items: center; flex-wrap: wrap; width: 95%; margin-left: 3%' padding: 15px>"+
+                                "<div class='w-10 text-center'><img src='/user/image/"+resp.staffno.replace(' ','')+"' class='approval-search-img'></div>"+
+                                "<div class='w-30 m-15'>"+
+                                    "<div class='approval-search-item'>"+
+                                        "<div class='w-30'>Name<span class='dmx'>:</span></div>"+
+                                        "<div class='w-70'><span class='dm'>: </span><b>"+resp.name+"</b></div>"+
+                                    "</div>"+
+                                    "<div class='approval-search-item'>"+
+                                        "<div class='w-30'>Personnel No<span class='dmx'>:</span></div>"+
+                                        "<div class='w-70'><span class='dm'><span class='dm'>: </span></span><b>"+resp.persno+"</b></div>"+
+                                    "</div>"+
+                                    "<div class='approval-search-item'>"+
+                                        "<div class='w-30'>Staff No<span class='dmx'>:</span></div>"+
+                                        "<div class='w-70'><span class='dm'>: </span><b>"+resp.staffno+"</b></div>"+
+                                    "</div>"+
+                                "</div>"+
+                                "<div class='w-30 m-15'>"+
+                                    "<div class='approval-search-item'>"+
+                                        "<div class='w-30'>Company Code<span class='dmx'>:</span></div>"+
+                                        "<div class='w-70'><span class='dm'>: </span><b>"+resp.companycode+"</b></div>"+
+                                    "</div>"+
+                                    "<div class='approval-search-item'>"+
+                                        "<div class='w-30'>Cost Center<span class='dmx'>:</span></div>"+
+                                        "<div class='w-70'><span class='dm'>: </span><b>"+resp.costcenter+"</b></div>"+
+                                    "</div>"+
+                                    "<div class='approval-search-item'>"+
+                                        "<div class='w-30'>Personnel Area<span class='dmx'>:</span></div>"+
+                                        "<div class='w-70'><span class='dm'>: </span><b>"+resp.persarea+"</b></div>"+
+                                    "</div>"+
+                                "</div>"+
+                                "<div class='w-30 m-15'>"+
+                                    "<div class='approval-search-item'>"+
+                                        "<div class='w-30'>Employee Subgroup<span class='dmx'>:</span></div>"+
+                                        "<div class='w-70'><span class='dm'>: </span><b>"+resp.empsubgroup+"</b></div>"+
+                                    "</div>"+
+                                    "<div class='approval-search-item'>"+
+                                        "<div class='w-30'>Email<span class='dmx'>:</span></div>"+
+                                        "<div class='w-70'><span class='dm'>: </span><b>"+resp.email+"</b></div>"+
+                                    "</div>"+
+                                    "<div class='approval-search-item'>"+
+                                        "<div class='w-30'>Mobile No<span class='dmx'>:</span></div>"+
+                                        "<div class='w-70'><span class='dm'>: </span><b>"+resp.mobile+"</b></div>"+
+                                    "</div>"+
+                                "</div>"+
+                            "</div>"+
+                        "</div>",
+                    confirmButtonText: 'CHANGE APPROVER',
+                    // showCancelButton: yes,
+                    // cancelButtonText: 'CHANGE VERIFIER',
+                }).then((result) => {
+                    // if (result.value) {
+                    //     remove(id);
+                    // }else if (result.dismiss === Swal.DismissReason.cancel){
+                    //     normal(id, 'none');
+                    // }
+                    if (result.value) {
+                        normal(id, 'none', 'Approver');
                     }
                 });
             }
@@ -1107,13 +1290,13 @@
                             //     "<input id='value-1' class='countsearch' type='checkbox' value='Query' "+q+"> Query"+
                             // "</div>"+
                             // "<div class='col-md-9 col-md-offset-3'>"+
-                                "<input id='value-2' class='countsearch' type='checkbox' value='Pending Verification' "+pv+"> Pending Verification"+
+                                "<input id='value-1' class='countsearch' type='checkbox' value='Pending Verification' "+pv+"> Pending Verification"+
                             "</div>"+
                             "<div class='col-md-9 col-md-offset-3'>"+
-                                "<input id='value-3' class='countsearch' type='checkbox' value='Pending Approval' "+pa+"> Pending Approval"+
+                                "<input id='value-2' class='countsearch' type='checkbox' value='Pending Approval' "+pa+"> Pending Approval"+
                             "</div>"+
                             "<div class='col-md-9 col-md-offset-3'>"+
-                                "<input id='value-4' class='countsearch' type='checkbox' value='Approved' "+a+"> Approved"+
+                                "<input id='value-3' class='countsearch' type='checkbox' value='Approved' "+a+"> Approved"+
                             "</div>";
             Swal.fire({
                 title: 'Multiple Search Parameter',
@@ -1127,9 +1310,10 @@
                 if (result.value) {
                     
                     $("#search-"+i).val("");
-                    for(n=0; n<$(".countsearch").length; n++){
+                    for(n=0; n<$(".countsearch").length + 1; n++){
                         if($("#value-"+n).is(":checked")){
                             if($("#search-"+i).val()==""){
+                                // alert( $("#value-"+n).val());
                                 $("#search-"+i).val($("#value-"+n).val()); 
                             }else{
                                 $("#search-"+i).val( $("#search-"+i).val()+", "+$("#value-"+n).val());

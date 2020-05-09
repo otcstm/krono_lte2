@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\State;
+use App\PaymentSchedule;
 use App\Holiday;
 use App\HolidayCalendar;
 use Illuminate\Http\Request;
@@ -58,6 +59,16 @@ class GuideController extends Controller
 
     public function viewPaymentCalendar(Request $req)
     {
-        return view('guide.paymentcalendar', []);
+        $payment = PaymentSchedule::whereYear('payment_date', date("Y"))->orderBy('payment_date', "ASC")->get();
+        $month = PaymentSchedule::whereMonth('payment_date', date("m"))->first();
+        $lastsub = $month->last_sub_date;
+        $paymentd = $month->payment_date;
+        $today = date("Y-m-d");
+        $now = strtotime($today);
+        $calc = strtotime($paymentd);
+        // dd(($now));
+        $dtg = round(($calc - $now)/(60*60*24));
+        // dd($dtg);
+        return view('guide.paymentcalendar', ['lastsub' => $lastsub, 'paymentd'=>$paymentd, 'dtg'=>$dtg, "date"=> $payment]);
     }
 }
