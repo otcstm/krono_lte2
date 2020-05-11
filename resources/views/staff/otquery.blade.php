@@ -160,7 +160,7 @@
                                     <option hidden value="Remove">Remove Verifier</option>
                                     <!-- <option hidden disabled selected value="">Select Action</option> -->
                                     @if(($view=="verifier")||($view=='admin')) 
-                                        <option value="P=">Verify</option>
+                                        <option value="PA">Verify</option>
                                     @endif
                                     @if(($view=='approver')||($view=='admin'))
                                         <option value="A">Approve</option>
@@ -379,7 +379,7 @@
             @endif
             otid = $("#action-"+i).data("otid");
             if($("#action-"+i).val()=="Q2"){
-                reset(i);
+                // reset(i);
                 Swal.fire({
                     title: 'Remarks',
                     html: "<p>Are you sure to query this claim application?</p>",
@@ -406,10 +406,10 @@
                         }
                 })
             }else if($("#action-"+i).val()==""){
-                reset(i);
+                // reset(i);
             }else if($("#action-"+i).val()=="Assign"){
                 // alert($(this).find(':selected').data('type'));
-                reset(i);
+                // reset(i);
                 normal(i, 'none', 'Verifier');
             }else{
                 // reset(i);
@@ -444,6 +444,8 @@
                             $("#verifier-"+i).val($("#verifier-cache-"+i).val());
                             $("#show-verifier-"+i).text($("#show-verifier-cache-"+i).text());
                         @endif
+                        // table();
+                                // $('#remark-'+i).css("display", "table-row");
                     }else{
                         reset(i);
                     }
