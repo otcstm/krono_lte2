@@ -3,7 +3,7 @@
 @section('title', 'My Work Schedule')
 
 @section('content')
-<h1>My Work Schedule</h1>
+<h1>Team Work Schedule</h1>
 
 <div class="row-eq-height">
   <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">

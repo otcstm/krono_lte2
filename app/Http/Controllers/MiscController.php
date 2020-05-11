@@ -34,18 +34,28 @@ class MiscController extends Controller
     //user
     //actual payment for current month
     $act_payment_curr_month =
-    Overtime::where('user_id','=',$req->user()->id)
-    ->where('status', 'PAID')
-    ->whereYear('date', $curr_date)
-    ->whereMonth('date', $curr_date)
+    // Overtime::where('user_id','=',$req->user()->id)
+    // ->where('status', 'PAID')
+    // ->whereYear('date', $curr_date)
+    // ->whereMonth('date', $curr_date)
+    // ->sum('amount');    
+    DB::table('paid_ot')
+    ->where('user_id','=',$req->user()->id)
+    ->whereYear('period_dt', $curr_date)
+    ->whereMonth('period_dt', $curr_date)
     ->sum('amount');
 
     //actual payment for prev month
     $act_payment_prev_month =
-    Overtime::where('user_id','=',$req->user()->id)
-    ->where('status', 'PAID')
-    ->whereYear('date', $last_month)
-    ->whereMonth('date', $last_month)
+    // Overtime::where('user_id','=',$req->user()->id)
+    // ->where('status', 'PAID')
+    // ->whereYear('date', $last_month)
+    // ->whereMonth('date', $last_month)
+    // ->sum('amount');
+    DB::table('paid_ot')
+    ->where('user_id','=',$req->user()->id)
+    ->whereYear('period_dt', $last_month)
+    ->whereMonth('period_dt', $last_month)
     ->sum('amount');
 
     //Pending payment last month
@@ -130,31 +140,33 @@ class MiscController extends Controller
        ->groupby('year_label','month_label')
        ->get();
 
+       //dd($dataPaidMonth);
       $paidMonthly = [];
-
-        for ($m=1; $m<=12; $m++) {
-          if($dataPaidMonth->count() > 0)
-          {
-
+      for ($m=1; $m<=12; $m++) {        
+        if($dataPaidMonth->count() > 0)
+        {
+          //echo "out $m";
+          //echo "</br>";  
           foreach($dataPaidMonth as $dataPaidMonthRow){
             if($dataPaidMonthRow->month_label == $m){
-              array_push($paidMonthly, $dataPaidMonthRow->sum_amount);
-            }
-            else
-            {
-              array_push($paidMonthly, 0);
-            }
+               array_push($paidMonthly, $dataPaidMonthRow->sum_amount);
+               //echo "$dataPaidMonthRow->month_label == $m";
+               //echo "</br>";  
+              break;   
+             }
           }
 
-          }
-          else
-          {
+          if (count($paidMonthly) < $m){
             array_push($paidMonthly, 0);
           }
+
         }
+        else {          
+          array_push($paidMonthly, 0);
+        }
+      }
 
-
-    //dd($paidMonthly);
+    //dd($dataPaidMonth, $paidMonthly);
 
     $monthYearLabel = [];
     for ($m=1; $m<=12; $m++) {
