@@ -160,7 +160,7 @@
                                     <option hidden value="Remove">Remove Verifier</option>
                                     <!-- <option hidden disabled selected value="">Select Action</option> -->
                                     @if(($view=="verifier")||($view=='admin')) 
-                                        @if($singleuser->status!="PA")<option value="PA">Verify</option>@endif 
+                                        <option value="P=">Verify</option>
                                     @endif
                                     @if(($view=='approver')||($view=='admin'))
                                         <option value="A">Approve</option>
@@ -412,7 +412,7 @@
                 reset(i);
                 normal(i, 'none', 'Verifier');
             }else{
-                reset(i);
+                // reset(i);
                 Swal.fire({
                     title: 'Terms and Conditions',
                     input: 'checkbox',
