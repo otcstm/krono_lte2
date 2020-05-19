@@ -53,8 +53,8 @@
         <div class="col-sm-12">
           <div class="form-group has-feedback {{ $errors->has('group_code') ? 'has-error' : '' }}">
             <label for="group_code">Group Code</label>
-            <input id="group_code" type="text" name="group_code" class="form-control" value="{{ old('group_code') }}"
-                   placeholder="Short name for this group" required maxlength="10">
+            <input id="group_code" type="text" name="group_code" class="form-control" value="@if(old('group_code') ?? ''){{ old('group_code') }}@else{{ $autogen_gcode }}@endif"
+                   placeholder="Short name for this group" required maxlength="10" readonly>
             @if ($errors->has('group_code'))
                 <span class="help-block">
                     <strong>{{ $errors->first('group_code') }}</strong>
