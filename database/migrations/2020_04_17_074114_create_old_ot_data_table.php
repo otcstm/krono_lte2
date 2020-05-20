@@ -55,9 +55,9 @@ class CreateOldOtDataTable extends Migration
             $table->string('sup_name');
             $table->string('mgr_icno');
             $table->string('mgr_name');
-            $table->integer('appl_persno');
-            $table->integer('sup_persno');
-            $table->integer('mgr_persno');
+            $table->integer('appl_persno')->nullable();
+            $table->integer('sup_persno')->nullable();
+            $table->integer('mgr_persno')->nullable();
             
 
 
