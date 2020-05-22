@@ -42,6 +42,7 @@ class OtReport2Controller extends Controller
       if($req->searching == 'main'){
         $pilihcol = $req->cbcol;
         $otr = $this->fetch($req);
+        // dd($otr);
         return view('report.otrList',['otrep' => $otr,'cbcolumn'=>$pilihcol]);
       }
       //download
@@ -587,7 +588,8 @@ class OtReport2Controller extends Controller
         $headers = ['Personnel Number','Employee Name','IC Number','Staff ID',
         'Company Code','Reference Number','OT Date','Start Time','End Time'];
       }else {
-        $headers = ['Personnel Number','Employee Name','IC Number','Staff ID','Company Code','Reference Number','OT Date'];
+        $headers = ['Personnel Number','Employee Name','IC Number','Staff ID',
+        'Company Code','Reference Number','OT Date'];
       }
       //header
       if(isset($pilihcol)){
@@ -631,17 +633,17 @@ class OtReport2Controller extends Controller
           {
             array_push($headers, 'Manual Flag');
           }
-          if(in_array( 'dytype',$pilihcol))
-          {
-            array_push($headers, 'Day Type');
-          }
           if(in_array( 'loc',$pilihcol))
           {
             array_push($headers, 'Location');
           }
-          if(in_array( 'trnscd',$pilihcol))
+          if(in_array( 'tthour',$pilihcol))
           {
-            array_push($headers, 'Transaction Code');
+            array_push($headers, 'Total Hours');
+          }
+          if(in_array( 'ttlmin',$pilihcol))
+          {
+            array_push($headers, 'Total Minutes');
           }
           if(in_array( 'estamnt',$pilihcol))
           {
@@ -654,18 +656,6 @@ class OtReport2Controller extends Controller
           if(in_array( 'chrtype',$pilihcol))
           {
             array_push($headers, 'Charge Type');
-          }
-          if(in_array( 'noh',$pilihcol))
-          {
-            array_push($headers, 'Number of Hours');
-          }
-          if(in_array( 'nom',$pilihcol))
-          {
-            array_push($headers, 'Number of Minutes');
-          }
-          if(in_array( 'jst',$pilihcol))
-          {
-            array_push($headers, 'Justification');
           }
           if(in_array( 'bodycc',$pilihcol))
           {
@@ -695,13 +685,17 @@ class OtReport2Controller extends Controller
           {
             array_push($headers, 'Order Number');
           }
-          if(in_array( 'tthour',$pilihcol))
+          if(in_array( 'noh',$pilihcol))
           {
-            array_push($headers, 'Total Hours');
+            array_push($headers, 'Number of Hours');
           }
-          if(in_array( 'ttlmin',$pilihcol))
+          if(in_array( 'nom',$pilihcol))
           {
-            array_push($headers, 'Total Minutes');
+            array_push($headers, 'Number of Minutes');
+          }
+          if(in_array( 'jst',$pilihcol))
+          {
+            array_push($headers, 'Justification');
           }
           if(in_array( 'appdate',$pilihcol))
           {
@@ -715,7 +709,7 @@ class OtReport2Controller extends Controller
           {
             array_push($headers, 'Verifier');
           }
-          if(in_array( 'appdate',$pilihcol))
+          if(in_array( 'aprvdate',$pilihcol))
           {
             array_push($headers, 'Approval Date');
           }
@@ -735,6 +729,16 @@ class OtReport2Controller extends Controller
           {
             array_push($headers, 'Payment Date');
           }
+          if(in_array( 'trnscd',$pilihcol))
+          {
+            array_push($headers, 'Transaction Code');
+          }
+          if(in_array( 'dytype',$pilihcol))
+          {
+            array_push($headers, 'Day Type');
+          }
+
+
       }
       // dd($headers);
       // Log::info('siap buat header');
@@ -753,7 +757,11 @@ class OtReport2Controller extends Controller
           }else{
             // $value->ot_hour_exception='No';
             $sal_exception='No';
+            try {
             $salarycap=$value->SalCap()->salary_cap;
+            } catch (\Exception $e) {
+              $salarycap='COMP CODE ERROR';
+            }
           }
 
         $otdt = new Carbon($value->date);
@@ -786,7 +794,7 @@ class OtReport2Controller extends Controller
             $payment_date =date('d.m.Y', strtotime($value->payment_date));
           }
 
-        $info = [$value->user_id,$urekod->name,$urekod->new_ic,$urekod->staffno,$urekod->company_id,$value->refno,$otdt];
+        $info = [$value->user_id,$urekod->name,$urekod->new_ic,$urekod->staffno,$value->company_id,$value->refno,$otdt];
         // dd($pilihcol);
         if(isset($pilihcol)){
           if(in_array('psarea',$pilihcol ))
@@ -825,13 +833,13 @@ class OtReport2Controller extends Controller
           {
             array_push($info, $urekod->empstats);
           }
-          if(in_array( 'dytype',$pilihcol))
+          if(in_array( 'tthour',$pilihcol))
           {
-            array_push($info, $dtype);
+            array_push($info, $value->total_hour);
           }
-          if(in_array( 'trnscd',$pilihcol))
+          if(in_array( 'ttlmin',$pilihcol))
           {
-            array_push($info, $value->wage_type);
+            array_push($info, $value->total_minute);
           }
           if(in_array( 'estamnt',$pilihcol))
           {
@@ -839,7 +847,12 @@ class OtReport2Controller extends Controller
           }
           if(in_array( 'clmstatus',$pilihcol))
           {
-            array_push($info, $value->OTStatus()->item3);
+            try {
+              $statusOT=$value->OTStatus()->item3;
+            } catch (\Exception $e) {
+              $statusOT=$value->status;
+            }
+            array_push($info, $statusOT);
           }
           if(in_array( 'chrtype',$pilihcol))
           {
@@ -873,14 +886,6 @@ class OtReport2Controller extends Controller
           {
             array_push($info, $value->order_no);
           }
-          if(in_array( 'tthour',$pilihcol))
-          {
-            array_push($info, $value->total_hour);
-          }
-          if(in_array( 'ttlmin',$pilihcol))
-          {
-            array_push($info, $value->total_minute);
-          }
           if(in_array( 'appdate',$pilihcol))
           {
             array_push($info, $cdt);
@@ -893,7 +898,7 @@ class OtReport2Controller extends Controller
           {
             array_push($info, $value->verifier_id);
           }
-          if(in_array( 'appdate',$pilihcol))
+          if(in_array( 'aprvdate',$pilihcol))
           {
             array_push($info, $appvl_date);
           }
@@ -913,6 +918,15 @@ class OtReport2Controller extends Controller
           {
             array_push($info, $payment_date);
           }
+          if(in_array( 'trnscd',$pilihcol))
+          {
+            array_push($info, $value->wage_type);
+          }
+          if(in_array( 'dytype',$pilihcol))
+          {
+            array_push($info, $dtype);
+          }
+
         }
         array_push($otdata, $info);
       }
@@ -934,15 +948,20 @@ class OtReport2Controller extends Controller
           }else{
             // $mainOT->ot_hour_exception='No';
             $sal_exception='No';
-            $salarycap=$mainOT->SalCap()->salary_cap;
+            try {
+              $salarycap=$mainOT->SalCap()->salary_cap;
+            } catch (\Exception $e) {
+              $salarycap='COMP CODE ERROR';
+            }
+
           }
 
           $otdt = new Carbon($mainOT->date);
           $otdt = $otdt->format('d.m.Y');
           $st = new Carbon($value->start_time);
-          $st = $st->format('d.m.Y');
+          $st = $st->format('H:i:s');
           $et = new Carbon($value->end_time);
-          $et = $et->format('d.m.Y');
+          $et = $et->format('H:i:s');
 
           $dtype = $mainOT->daytype->description;
           $cdt = new Carbon($mainOT->created_at);
@@ -952,21 +971,21 @@ class OtReport2Controller extends Controller
             $ver_date = '';
           }
           else{
-            $ver_date = date('d.m.Y H:i:s', strtotime($mainOT->verification_date));
+            $ver_date = date('d.m.Y', strtotime($mainOT->verification_date));
           }
 
           if( $mainOT->approved_date == ''){
             $appvl_date = '';
           }
           else{
-            $appvl_date = date('d.m.Y H:i:s', strtotime($mainOT->approved_date));
+            $appvl_date = date('d.m.Y', strtotime($mainOT->approved_date));
           }
 
           if( $mainOT->queried_date == ''){
             $queried_date ='';
           }
           else{
-            $queried_date =date('d.m.Y H:i:s', strtotime($mainOT->queried_date));
+            $queried_date =date('d.m.Y', strtotime($mainOT->queried_date));
           }
 
           if( $mainOT->payment_date == ''){
@@ -976,7 +995,7 @@ class OtReport2Controller extends Controller
             $payment_date =date('d.m.Y', strtotime($mainOT->payment_date));
           }
 
-          $info = [$mainOT->user_id,$urekod->name,$urekod->new_ic,$urekod->staffno,$urekod->company_id,$mainOT->refno,$otdt,$st,$et];
+          $info = [$mainOT->user_id,$urekod->name,$urekod->new_ic,$urekod->staffno,$mainOT->company_id,$mainOT->refno,$otdt,$st,$et];
           // dd($pilihcol);
           if(isset($pilihcol)){
           if(in_array('psarea',$pilihcol ))
@@ -1019,17 +1038,9 @@ class OtReport2Controller extends Controller
             {
               array_push($info, $value->is_manual);
             }
-            if(in_array( 'dytype',$pilihcol))
-            {
-              array_push($info, $dtype);
-            }
             if(in_array( 'loc',$pilihcol))
             {
               array_push($info, '('.$value->in_latitude.','.$value->in_longitude.')');
-            }
-            if(in_array( 'trnscd',$pilihcol))
-            {
-              array_push($info, $mainOT->wage_type);
             }
             if(in_array( 'estamnt',$pilihcol))
             {
@@ -1037,12 +1048,46 @@ class OtReport2Controller extends Controller
             }
             if(in_array( 'clmstatus',$pilihcol))
             {
-              array_push($info, $mainOT->OTStatus()->item3);
+              try {
+                $statusOT=$mainOT->OTStatus()->item3;
+              } catch (\Exception $e) {
+                $statusOT=$mainOT->status;
+              }
+              array_push($info, $statusOT);
             }
             if(in_array( 'chrtype',$pilihcol))
             {
               array_push($info, $mainOT->charge_type);
             }
+            if(in_array( 'bodycc',$pilihcol))
+            {
+              array_push($info, $mainOT->costcenter);
+            }
+            if(in_array( 'othrcc',$pilihcol))
+            {
+              array_push($info, $mainOT->other_costcenter);
+            }
+            if(in_array( 'prtype',$pilihcol))
+            {
+              array_push($info, $mainOT->project_type);
+            }
+            if(in_array( 'pnumbr',$pilihcol))
+            {
+              array_push($info, $mainOT->project_no);
+            }
+            if(in_array( 'ntheadr',$pilihcol))
+            {
+              array_push($info, $mainOT->network_header);
+            }
+            if(in_array( 'ntact',$pilihcol))
+            {
+              array_push($info, $mainOT->network_act_no);
+            }
+            if(in_array( 'ordnum',$pilihcol))
+            {
+              array_push($info, $mainOT->order_no);
+            }
+
             if(in_array( 'noh',$pilihcol))
             {
               array_push($info, $value->hour);
@@ -1067,7 +1112,8 @@ class OtReport2Controller extends Controller
             {
               array_push($info, $mainOT->verifier_id);
             }
-            if(in_array( 'appdate',$pilihcol))
+
+            if(in_array( 'aprvdate',$pilihcol))
             {
               array_push($info, $appvl_date);
             }
@@ -1087,6 +1133,15 @@ class OtReport2Controller extends Controller
             {
               array_push($info, $payment_date);
             }
+            if(in_array( 'trnscd',$pilihcol))
+            {
+              array_push($info, $mainOT->wage_type);
+            }
+            if(in_array( 'dytype',$pilihcol))
+            {
+              array_push($info, $dtype);
+            }
+
       }
       array_push($otdata, $info);
     }
