@@ -100,7 +100,7 @@
      </table>
     </div>
 <Br />
-<h4>Shift Subordinate Without Group</h4>
+<h4>Subordinate Without Group</h4>
 
     <div class="table-responsive">
       <table id="nonmemlist" class="table table-hover table-bordered">

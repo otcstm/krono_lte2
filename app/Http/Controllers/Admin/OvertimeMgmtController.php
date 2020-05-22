@@ -50,7 +50,8 @@ class OvertimeMgmtController extends Controller
         $add = new OvertimeEligibility;
         $cancreate = true;
         if($latest){
-            if($latest->start_date!=$req->sdate){
+            if($latest->start_date==$req->sdate){
+                // dd($latest->start_date);
                 $cancreate = false;
             }
         }
@@ -70,7 +71,8 @@ class OvertimeMgmtController extends Controller
             $add->save();
             if($latest!=null){
                 $old = OvertimeEligibility::find($latest->id);
-                $old->end_date = $req->sdate;
+                // $old->end_date = $req->sdate;
+                $old->end_date = date('Y-m-d', strtotime('-1 day', strtotime($req->sdate)));
                 $old->save();
             }
             return redirect(route('oe.eligibility.show',[],false))->with([

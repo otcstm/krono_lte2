@@ -1173,7 +1173,7 @@ class OvertimeController extends Controller{
             $onecomp = explode(", ", $req->searchcomp);
             foreach($onecomp as $one){
                 if($one!=""){
-                    $otlist = $otlist->where('company_id', 'LIKE', '%' .$one. '%');
+                    $otlist = $otlist->orWhere('company_id', 'LIKE', '%' .$one. '%');
                 }
             }
         }
@@ -1181,7 +1181,7 @@ class OvertimeController extends Controller{
             $onecomp = explode(", ", $req->searchpersno);
             foreach($onecomp as $one){
                 if($one!=""){
-                    $otlist = $otlist->where('user_id', 'LIKE', '%' .$one. '%');
+                    $otlist = $otlist->orWhere('user_id', 'LIKE', '%' .$one. '%');
                 }
             }
         }
@@ -1189,7 +1189,7 @@ class OvertimeController extends Controller{
             $onecomp = explode(", ", $req->searchpersarea);
             foreach($onecomp as $one){
                 if($one!=""){
-                    $otlist = $otlist->where('persarea', 'LIKE', '%' .$one. '%');
+                    $otlist = $otlist->orWhere('persarea', 'LIKE', '%' .$one. '%');
                 }
             }
         }
@@ -1197,12 +1197,12 @@ class OvertimeController extends Controller{
             $onecomp = explode(", ", $req->searchperssarea);
             foreach($onecomp as $one){
                 if($one!=""){
-                    $otlist = $otlist->where('perssubarea', 'LIKE', '%' .$one. '%');
+                    $otlist = $otlist->orWhere('perssubarea', 'LIKE', '%' .$one. '%');
                 }
             }
         }
         if(($req->searchdate1!="")&&($req->searchdate2!="")){
-            $otlist = $otlist->where('submitted_date', '>=', $req->searchdate1.' 00:00:00')->where('submitted_date', '<=', $req->searchdate2.' 00:00:00');
+            $otlist = $otlist->orWhere('submitted_date', '>=', $req->searchdate1.' 00:00:00')->orWhere('submitted_date', '<=', $req->searchdate2.' 00:00:00');
         }
         if($req->searchstatus!=""){
             $onecomp = explode(", ", $req->searchstatus);
@@ -1215,7 +1215,7 @@ class OvertimeController extends Controller{
                     }else if($one=="Approved"){
                         $stat="A";
                     }
-                    $otlist = $otlist->where('status', $stat);
+                    $otlist = $otlist->orWhere('status', $stat);
                 }
             }
         }
@@ -1223,7 +1223,7 @@ class OvertimeController extends Controller{
             $onecomp = explode(", ", $req->searchotdate);
             foreach($onecomp as $one){
                 if($one!=""){
-                    $otlist = $otlist->where('date', $one);
+                    $otlist = $otlist->orWhere('date', $one);
                 }
             }
         }
@@ -1231,7 +1231,7 @@ class OvertimeController extends Controller{
         // $otlist = $otlist->where(function($q) {
         //     $q->where('status', '!=', 'Q1')->where('status', '!=', 'Q2')->where('status', '!=', 'D1')->where('status', '!=', 'D2');
         // })->orderBy('date_expiry')->orderBy('date')->get();
-        $otlist = $otlist->whereNotIn('status',['A','Q1','Q2','D1','D2']);
+        $otlist = $otlist->whereNotIn('status',['Q1','Q2','D1','D2']);
         $otlist = $otlist->orderBy('date_expiry')->orderBy('date')->get();
         // dd($otlist);
         Session::put(['otlist' => $otlist]);
@@ -1322,6 +1322,9 @@ class OvertimeController extends Controller{
                 }else if($req->inputaction[$i]=="Assign"){
                     $updateclaim->status="PV";
                     $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Assigned Verifier', 'Assigned Verifier with message: "'.$req->inputremark[$i].'"');
+                }else if($req->inputaction[$i]=="Change"){
+                    $updateclaim->approver_id=$req->approver[$i];
+                    $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Changed Approver', 'Changer Approver with message: "'.$req->inputremark[$i].'"');
                 }else if($req->inputaction[$i]=="Remove"){
                     $updateclaim->status="PA";
                     $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Removed Verifier', 'Removed Verifier');
@@ -1337,6 +1340,7 @@ class OvertimeController extends Controller{
                 $yes = true;
             }
         }
+        // dd($req->inputaction);
         // return redirect(route('ot.approval',[],false));
         if($yes){
             if($req->typef=="verifier"){
@@ -1366,8 +1370,16 @@ class OvertimeController extends Controller{
     //--------------------------------------------------search verifier--------------------------------------------------
     public function search(Request $req){
         $date = date('Y-m-d');
+        $ot = Overtime::where("id", $req->otid)->first();
+        $costc = $ot->costcenter;
+        $approver = $ot->approver_id;
+        $verifier = $ot->verifier_id;
+        if($ot->other_costcenter!=NULL){
+            $costc = $ot->other_costcenter;
+        }
         if($req->type=="normal"){
-            $staff = UserRecord::where('name', 'LIKE', '%' .$req->name. '%')->where('name', '!=', $req->user()->name)->where('upd_sap','<=',$date)->orderBy('name', 'ASC')->get();
+            $staff = UserRecord::where('name', 'LIKE', '%' .$req->name. '%')->where("costcentr", $costc)->where('id', '!=', $approver)->where('id', '!=', $verifier)->where('upd_sap','<=',$date)->orderBy('name', 'ASC')->get();
+            // $staff = UserRecord::where('name', 'LIKE', '%' .$req->name. '%')->where('name', '!=', $req->user()->name)->where('upd_sap','<=',$date)->orderBy('name', 'ASC')->get();
         }else{
             $staff = UserRecord::query();
             if($req->name!=""){
@@ -1385,7 +1397,7 @@ class OvertimeController extends Controller{
             // if($req->office!=""){
             //     $staff = $staff->orWhere('name', 'LIKE', '%' .$req->office. '%');
             // }
-            $staff = $staff->where('upd_sap','<=',$date)->orderBy('name', 'ASC')->get();
+            $staff = $staff->where("costcentr", $costc)->where('id', '!=', $approver)->where('id', '!=', $verifier)->where('upd_sap','<=',$date)->orderBy('name', 'ASC')->get();
         }
         $arr = [];
         foreach($staff as $s){
