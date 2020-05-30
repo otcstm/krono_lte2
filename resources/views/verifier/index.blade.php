@@ -138,7 +138,7 @@
 
 <div id="resultAdvSearch" class="table-responsive"></div>    
 <fieldset id="formAdvSearch">
-<legend>Search Creteria</legend>
+<legend>Search Criteria</legend>
 <form class="form-horizontal" method="post" action="{{ route('verifier.ajaxAdvSearchSubord',[],false) }}">      
 
 <!-- Text input-->
@@ -368,7 +368,7 @@ function advSearchSubmit(){
       html += '<div id="divOut" style="border: 1px solid #DDDDDD; max-height: 60vh; overflow-y: scroll;  overflow-x: hidden">';
       
       html += '<table id="resultAdvSearchTbl" class="table"><thead>';
-      html += '<th>Creteria</th>';
+      html += '<th>Criteria</th>';
       // html += '<th>Persno</th>';
       // html += '<th>Staffno</th>';
       // html += '<th>Sub Group</th>';
