@@ -17,6 +17,7 @@
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-4">State</div><div class="col-md-8">: <b>{{str_replace(')', '', str_replace('Malaysia (', '', $claim->state->state_descr))}}</b></div>
+                                <div class="col-md-4">Day Type</div><div class="col-md-8">: <b>{{$claim->daytype->description}}</b></div>
                                 <div class="col-md-4">Salary Exception</div><div class="col-md-8">: <b>
                                     @if($claim->URecord->ot_salary_exception=="X")
                                         Yes

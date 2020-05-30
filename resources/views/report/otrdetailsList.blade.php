@@ -43,18 +43,28 @@
       <th>Employment Status</th>
       @elseif( $col == 'mflag')
       <th>Manual Flag</th>
-      @elseif( $col == 'dytype')
-      <th>Day Type</th>
       @elseif( $col == 'loc')
       <th>Location</th>
-      @elseif( $col == 'trnscd')
-      <th>Transaction Code</th>
       @elseif( $col == 'estamnt')
       <th>Estimated Amount</th>
       @elseif( $col == 'clmstatus')
       <th>Claim Status</th>
       @elseif( $col == 'chrtype')
       <th>Charge Type</th>
+      @elseif( $col == 'bodycc')
+      <th>Body Cost Center</th>
+      @elseif( $col == 'othrcc')
+      <th>Other Cost Center</th>
+      @elseif( $col == 'prtype')
+      <th>Project Type</th>
+      @elseif( $col == 'pnumbr')
+      <th>Project Number</th>
+      @elseif( $col == 'ntheadr')
+      <th>Network Header</th>
+      @elseif( $col == 'ntact')
+      <th>Network Activity</th>
+      @elseif( $col == 'ordnum')
+      <th>Order Number</th>
       @elseif( $col == 'noh')
       <th>Number of Hours</th>
       @elseif( $col == 'nom')
@@ -67,16 +77,23 @@
       <th>Verification Date</th>
       @elseif( $col == 'verid')
       <th>Verifier</th>
-      @elseif( $col == 'appdate')
+
+      @elseif( $col == 'aprvdate')
       <th>Approval Date</th>
+
       @elseif( $col == 'apprvrid')
       <th>Approver</th>
+      
       @elseif( $col == 'qrdate')
       <th>Queried Date</th>
       @elseif( $col == 'qrdby')
       <th>Queried By</th>
       @elseif( $col == 'pydate')
       <th>Payment Date</th>
+      @elseif( $col == 'trnscd')
+      <th>Transaction Code</th>
+      @elseif( $col == 'dytype')
+      <th>Day Type</th>
       @endif
       @endforeach
       @endif
@@ -120,25 +137,37 @@
           <td>
           @if( $otr->mainOT->sal_exception == 'X')
           @else
-          {{ $otr->mainOT->SalCap()->salary_cap }}
+          {{ $otr->mainOT->SalCap()->salary_cap ?? 'COMP CODE ERROR' }}
           @endif
           </td>
           @elseif( $col == 'empst')
           <td>{{ $otr->mainOT->URecord->empstats }}</td>
           @elseif( $col == 'mflag')
           <td>{{ $otr->is_manual }}</td>
-          @elseif( $col == 'dytype')
-          <td>{{ $otr->mainOT->daytype->description }}</td>
           @elseif( $col == 'loc')
           <td>({{ $otr->in_latitude }}, {{ $otr->in_longitude }})</td>
-          @elseif( $col == 'trnscd')
-          <td>{{ $otr->mainOT->wage_type }}</td>
           @elseif( $col == 'estamnt')
           <td>{{ $otr->amount }}</td>
           @elseif( $col == 'clmstatus')
-          <td>{{ $otr->mainOT->OTStatus()->item3 }}</td>
+          <td>{{ $otr->mainOT->OTStatus()->item3 ?? $otr->mainOT->status }}</td>
           @elseif( $col == 'chrtype')
           <td>{{ $otr->mainOT->charge_type }}</td>
+
+          @elseif( $col == 'bodycc')
+          <td>{{ $otr->mainOT->costcenter }}</td>
+          @elseif( $col == 'othrcc')
+          <td>{{ $otr->mainOT->other_costcenter }}</td>
+          @elseif( $col == 'prtype')
+          <td>{{ $otr->mainOT->project_type }}</td>
+          @elseif( $col == 'pnumbr')
+          <td>{{ $otr->mainOT->project_no }}</td>
+          @elseif( $col == 'ntheadr')
+          <td>{{ $otr->mainOT->network_header }}</td>
+          @elseif( $col == 'ntact')
+          <td>{{ $otr->mainOT->network_act_no }}</td>
+          @elseif( $col == 'ordnum')
+          <td>{{ $otr->mainOT->order_no }}</td>
+
           @elseif( $col == 'noh')
           <td>{{ $otr->hour }}</td>
           @elseif( $col == 'nom')
@@ -147,34 +176,37 @@
           <td>{{ $otr->justification }}</td>
           @elseif( $col == 'appdate')
           <td>
-          @if( $otr->mainOT->created_at == '')
+          @if( $otr->mainOT->submitted_date == '')
           @else
-          {{ date('d-m-Y H:i:s', strtotime($otr->mainOT->created_at)) }}
+          {{ date('d-m-Y', strtotime($otr->mainOT->submitted_date)) }}
           @endif
           </td>
           @elseif( $col == 'verdate')
           <td>
           @if( $otr->mainOT->verification_date == '')
           @else
-          {{ date('d-m-Y H:i:s', strtotime($otr->mainOT->verification_date)) }}
+          {{ date('d-m-Y', strtotime($otr->mainOT->verification_date)) }}
           @endif
           </td>
           @elseif( $col == 'verid')
           <td>{{ $otr->mainOT->verifier_id }}</td>
-          @elseif( $col == 'appdate')
+
+          @elseif( $col == 'aprvdate')
           <td>
-          @if( $otr->mainOT->approval_date == '')
+          @if( $otr->mainOT->approved_date == '')
           @else
-          {{ date('d-m-Y H:i:s', strtotime($otr->mainOT->approval_date)) }}
+          {{ date('d-m-Y', strtotime($otr->mainOT->approved_date)) }}
           @endif
           </td>
+
           @elseif( $col == 'apprvrid')
           <td>{{ $otr->mainOT->approver_id }}</td>
+
           @elseif( $col == 'qrdate')
           <td>
           @if( $otr->mainOT->queried_date == '')
           @else
-          {{ date('d-m-Y H:i:s', strtotime($otr->mainOT->queried_date)) }}
+          {{ date('d-m-Y', strtotime($otr->mainOT->queried_date)) }}
           @endif
           </td>
           @elseif( $col == 'qrdby')
@@ -186,6 +218,10 @@
           {{ date('d-m-Y', strtotime($otr->mainOT->payment_date)) }}
           @endif
           </td>
+          @elseif( $col == 'trnscd')
+          <td>{{ $otr->mainOT->wage_type }}</td>
+          @elseif( $col == 'dytype')
+          <td>{{ $otr->mainOT->daytype->description }}</td>
           @endif
         @endforeach
         @endif
