@@ -8135,6 +8135,42 @@ class PsubareasTableSeeder extends Seeder
                                 'updated_at' => '2019-11-22 00:00:00',
                                 'deleted_at' => NULL,
                             ),
+                            451 => 
+                            array (
+                                'id' => 452,
+                                'company_id' => '1000',
+                                'persarea' => '1810',
+                                'persareadesc' => 'Celcom Mobile Bintulu',
+                                'perssubarea' => '1811',
+                                'perssubareades' => 'Sarawak',
+                                'state_id' => 'SR',
+                                'region' => 'SWK',
+                                'source' => 'OT',
+                                'created_by' => 39868,
+                                'last_edited_by' => NULL,
+                                'deleted_by' => 39868,
+                                'created_at' => '2020-05-14 16:31:28',
+                                'updated_at' => '2020-05-14 16:33:35',
+                                'deleted_at' => '2020-05-14 16:33:35',
+                            ),
+                            452 => 
+                            array (
+                                'id' => 453,
+                                'company_id' => '1000',
+                                'persarea' => '1810',
+                                'persareadesc' => 'Celcom Mobile Bintulu',
+                                'perssubarea' => '1811',
+                                'perssubareades' => 'Sarawak',
+                                'state_id' => 'SR',
+                                'region' => 'SWK',
+                                'source' => 'OT',
+                                'created_by' => 39868,
+                                'last_edited_by' => NULL,
+                                'deleted_by' => NULL,
+                                'created_at' => '2020-05-15 12:40:06',
+                                'updated_at' => '2020-05-15 12:40:06',
+                                'deleted_at' => NULL,
+                            ),
                         ));
         
         
