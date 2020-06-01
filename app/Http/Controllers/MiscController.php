@@ -11,6 +11,8 @@ use App\User;
 use App\Overtime;
 use App\UserLog;
 use App\PaymentSchedule;
+use App\ShiftGroup;
+use App\ShiftPlan;
 use \Carbon\Carbon;
 use Session;
 use DateTime;
@@ -32,28 +34,42 @@ class MiscController extends Controller
     //user
     //actual payment for current month
     $act_payment_curr_month =
-    Overtime::where('user_id','=',$req->user()->id)
-    ->where('status','=','PAID')
-    ->whereYear('date','=', $curr_date)
-    ->whereMonth('date','=', $curr_date)
+    // Overtime::where('user_id','=',$req->user()->id)
+    // ->where('status', 'PAID')
+    // ->whereYear('date', $curr_date)
+    // ->whereMonth('date', $curr_date)
+    // ->sum('amount');    
+    DB::table('paid_ot')
+    ->where('user_id','=',$req->user()->id)
+    ->whereYear('period_dt', $curr_date)
+    ->whereMonth('period_dt', $curr_date)
     ->sum('amount');
-    //->with(['detail' => function($query){
-    //  $query->sum('amount');
-    //}])
-    //dd($act_payment_curr_month);
+
+    //actual payment for prev month
+    $act_payment_prev_month =
+    // Overtime::where('user_id','=',$req->user()->id)
+    // ->where('status', 'PAID')
+    // ->whereYear('date', $last_month)
+    // ->whereMonth('date', $last_month)
+    // ->sum('amount');
+    DB::table('paid_ot')
+    ->where('user_id','=',$req->user()->id)
+    ->whereYear('period_dt', $last_month)
+    ->whereMonth('period_dt', $last_month)
+    ->sum('amount');
 
     //Pending payment last month
     $pending_payment_last_month =
-    Overtime::where('user_id','=',$req->user()->id)
-    ->where('status','=','PAID')
-    ->whereYear('date','=', $last_month)
-    ->whereMonth('date','=', $last_month)
+    Overtime::where('user_id',$req->user()->id)
+    ->whereIn('status', ['PV','PA'])
+    ->whereYear('date', $curr_date)
+    ->whereMonth('date', $curr_date)
     ->sum('amount');
 
     //total hour OT from current month
     $total_hour_ot_curr_month =
     Overtime::where('user_id','=',$req->user()->id)
-    ->where('status','=','PAID')
+    //->where('status','=','PAID')
     ->whereYear('date','=', $curr_date)
     ->whereMonth('date','=', $curr_date)
     ->sum('total_hour');
@@ -95,63 +111,21 @@ class MiscController extends Controller
     ->whereIn('status',array('PV','Assign'))
     ->count();
 
-    //link set default verifier
+    //check Shift Planner/Member Assignment owner id
+    $is_shift_gowner = ShiftGroup::where('manager_id',$req->user()->id)
+    ->count();
 
-    //link overtime plan
+    //Shift planning planner_id
+    $is_shift_gplanner = ShiftGroup::where('planner_id',$req->user()->id)
+    ->whereHas('ShiftPlans', function ($query) {
+      $query->where('status', 'Planning');
+    })->with('ShiftPlans')
+    ->count();
 
-    //mainpower request count()
-
-    //claim approval report
-
-    //notification top
-
-
-    //chart yearly bar
-    //usage view: {!! $chart->render() !!}
-
-    // //chart dataset 1 pending
-    // $dataPendingMonth =
-    // Overtime::select(
-    // DB::raw("sum(amount) as sum_amount"),
-    // DB::raw("DATE_FORMAT(date, '%Y') year_label"),
-    // DB::raw("DATE_FORMAT(date, '%m') month_label")
-    // )
-    // ->where('user_id','=',$req->user()->id)
-    // ->whereIn('status',array('PA', 'A'))
-    // ->whereYear('date','=', $curr_date)
-    // ->groupby('year_label','month_label')
-    // ->get();
-
-    // $pendingMonthly = [];
-    // for ($m=1; $m<=12; $m++) {
-    //   if($dataPendingMonth->count() > 0)
-    //   {
-    //     if($dataPendingMonth->month_label == $m){
-    //       array_push($pendingMonthly, $dataPendingMonth->sum_amount);
-    //     }
-    //     else
-    //     {
-    //       array_push($pendingMonthly, 0);
-    //     }
-    //   }
-    //   else
-    //   {
-    //     array_push($pendingMonthly, 0);
-    //   }
-    // }
-
-    // chart dataset 2 paid
-      // $dataPaidMonth = Overtime::select(
-      // DB::raw("sum(amount) as sum_amount"),
-      // DB::raw("DATE_FORMAT(date, '%Y') as year_label"),
-      // DB::raw("DATE_FORMAT(date, '%c') as month_label")
-      // )
-      // ->where('user_id','=',$req->user()->id)
-      // ->where('status','=','PAID')
-      // ->whereYear('date','=', $curr_date)
-      // ->groupby('year_label','month_label')
-      // ->get();
-    //->toSql();
+    //Shift approval approver_id
+    $is_shift_gapprover = ShiftPlan::where('approver_id',$req->user()->id)
+    ->where('status','Submitted')
+    ->count();
 
     
      //chart dataset  paid from table paid_ot
@@ -166,31 +140,33 @@ class MiscController extends Controller
        ->groupby('year_label','month_label')
        ->get();
 
+       //dd($dataPaidMonth);
       $paidMonthly = [];
-
-        for ($m=1; $m<=12; $m++) {
-          if($dataPaidMonth->count() > 0)
-          {
-
+      for ($m=1; $m<=12; $m++) {        
+        if($dataPaidMonth->count() > 0)
+        {
+          //echo "out $m";
+          //echo "</br>";  
           foreach($dataPaidMonth as $dataPaidMonthRow){
             if($dataPaidMonthRow->month_label == $m){
-              array_push($paidMonthly, $dataPaidMonthRow->sum_amount);
-            }
-            else
-            {
-              array_push($paidMonthly, 0);
-            }
+               array_push($paidMonthly, $dataPaidMonthRow->sum_amount);
+               //echo "$dataPaidMonthRow->month_label == $m";
+               //echo "</br>";  
+              break;   
+             }
           }
 
-          }
-          else
-          {
+          if (count($paidMonthly) < $m){
             array_push($paidMonthly, 0);
           }
+
         }
+        else {          
+          array_push($paidMonthly, 0);
+        }
+      }
 
-
-    //dd($paidMonthly);
+    //dd($dataPaidMonth, $paidMonthly);
 
     $monthYearLabel = [];
     for ($m=1; $m<=12; $m++) {
@@ -305,6 +281,7 @@ class MiscController extends Controller
       'first_last_month' => $first_last_month,
       'first_next_month' => $first_next_month,
       'act_payment_curr_month' => $act_payment_curr_month,
+      'act_payment_prev_month' => $act_payment_prev_month,
       'pending_payment_last_month' => $pending_payment_last_month,
       'total_hour_ot_curr_month' => $total_hour_ot_curr_month,
       'next_payment_sch' => $next_payment_sch,
@@ -316,7 +293,10 @@ class MiscController extends Controller
       'isUserAdmin' => $isUserAdmin,
       'isSysAdmin' => $isSysAdmin,
       'otYearChart' => $otYearChart,
-      'chartSumYear' => $dataPaidMonth->sum('sum_amount')
+      'chartSumYear' => $dataPaidMonth->sum('sum_amount'),
+      'is_shift_gowner' => $is_shift_gowner,
+      'is_shift_gplanner' => $is_shift_gplanner,
+      'is_shift_gapprover' => $is_shift_gapprover 
       ]);
   }
 

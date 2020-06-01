@@ -15,6 +15,12 @@
 @if($isApprover==1)
     @include('dashboard/section_approver')
 @endif 
+@if((isset($is_shift_gowner) and $is_shift_gowner > 0) 
+or (isset($is_shift_gplanner) and $is_shift_gplanner > 0) 
+or (isset($is_shift_gapprover) and $is_shift_gapprover > 0)
+)
+    @include('dashboard/section_shift')
+@endif 
 @if($isUserAdmin==1)
     @include('dashboard/section_admin')
 @endif 
