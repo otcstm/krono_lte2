@@ -39,7 +39,7 @@ class CreateOldOtDataTable extends Migration
             $table->decimal('amount',10,3);
             $table->string('status');
             $table->string('jenisot');
-            $table->string('project type');
+            $table->string('project_type');
             $table->string('resp_cc');
             $table->string('proj_no');
             $table->string('nethdr');
