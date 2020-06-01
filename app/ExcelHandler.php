@@ -10,8 +10,6 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ExcelHandler {
 
-
-
   private $filename = "";
   private $spreadsheet = null;
 
@@ -61,6 +59,13 @@ class ExcelHandler {
   public function getBinary(){
     return base64_encode(serialize($this->spreadsheet));
   }
+
+  public function removesheet(){
+  $sheetIndex = $this->spreadsheet->getIndex($this->spreadsheet->getSheetByName('Worksheet'));
+  $this->spreadsheet->removeSheetByIndex($sheetIndex);
+  }
+
+
 
   public function saveToPerStorage(){
     // dd('sini',$this->filename);
