@@ -1391,6 +1391,9 @@ class OvertimeController extends Controller{
             if($req->email!=""){
                 $staff = $staff->orWhere('email', 'LIKE', '%' .$req->email. '%');
             }
+            if($req->persno!=""){
+                $staff = $staff->orWhere('id', 'LIKE', '%' .$req->persno. '%');
+            }
             // if($req->mobile!=""){
             //     $staff = $staff->orWhere('name', 'LIKE', '%' .$req->mobile. '%');
             // }
