@@ -97,14 +97,14 @@
                             <div class="col-md-4">Capping</div>
                             <div class="col-md-6"><input type="number" name="capping" id="capping" min="0" style="width: 100%;" required></div>
                         </div>
-                        <div class="row" style=" margin-top: 15px">
+                        <!-- <div class="row" style=" margin-top: 15px">
                             <div class="col-md-4">Minimum Basic Salary</div>
                             <div class="col-md-6"><input type="number" name="minsalary" id="minsalary" min="0" style="width: 100%;" required></div>
                         </div>
                         <div class="row" style=" margin-top: 15px">
                             <div class="col-md-4">Maximum Basic Salary</div>
                             <div class="col-md-6"><input type="number" name="maxsalary" id="maxsalary" min="0" style="width: 100%;" required></div>
-                        </div>
+                        </div> -->
                         <div class="row" style=" margin-top: 15px">
                             <div class="col-md-4">Total Hours</div>
                             <div class="col-md-6"><input type="number" name="hours" id="hours" min="0" max="744" style="width: 100%;" required></div>
@@ -133,8 +133,8 @@
                             <th>Employee Subgroup</th>
                             <th>Pay Scale Group</th>
                             <th>Capping</th>
-                            <th>Minimum Basic Salary</th>
-                            <th>Maximum Basic Salary<</th>
+                            <!-- <th>Minimum Basic Salary</th>
+                            <th>Maximum Basic Salary<</th> -->
                             <th>Total Hours</th>
                             <th>Start Date</th>
                             <th>End Date</th>
@@ -151,8 +151,8 @@
                             <td>{{$singleuser->empsgroup}}</td>
                             <td>{{$singleuser->psgroup}}</td>
                             <td>RM{{$singleuser->salary_cap}}</td>
-                            <td>RM{{$singleuser->min_salary}}</td>
-                            <td>RM{{$singleuser->max_salary}}</td>
+                            <!-- <td>RM{{$singleuser->min_salary}}</td>
+                            <td>RM{{$singleuser->max_salary}}</td> -->
                             <td>{{$singleuser->hourpermonth}}</td>
                             <td>{{$singleuser->start_date}}</td>
                             <td>{{$singleuser->end_date}}</td>
@@ -190,8 +190,8 @@
     <input type="text" name="eempsgroup" id="eempsgroup">
     <input type="text" name="epsgroup" id="epsgroup">
     <input type="number" name="ecapping" id="ecapping">
-    <input type="number" name="eminsalary" id="eminsalary">
-    <input type="number" name="emaxsalary" id="emaxsalary">
+    <!-- <input type="number" name="eminsalary" id="eminsalary">
+    <input type="number" name="emaxsalary" id="emaxsalary"> -->
     <input type="number" name="ehours" id="ehours">
 </form>
 @stop
@@ -266,8 +266,8 @@ function edit(i){
         var empsgroup = $("#edit-"+i).data('empsgroup');
         var psgroup = $("#edit-"+i).data('psgroup');
         var salary_cap = $("#edit-"+i).data('salary_cap'); 
-        var min_salary = $("#edit-"+i).data('min_salary'); 
-        var max_salary = $("#edit-"+i).data('max_salary'); 
+        // var min_salary = $("#edit-"+i).data('min_salary'); 
+        // var max_salary = $("#edit-"+i).data('max_salary'); 
         var hourpermonth = $("#edit-"+i).data('hourpermonth'); 
         var start_date = $("#edit-"+i).data('start_date'); 
         var end_date = $("#edit-"+i).data('end_date'); 
@@ -327,22 +327,22 @@ function edit(i){
 							"<input type='number' id='scapping' class='check-6' value='"+salary_cap+"' style='width: 100%' required>"+
 						"</div>"+
 					"</div>"+
-        			"<div class='row'>"+
-						"<div class='col-md-4'>"+
-							"<p>Minimum Basic Salary</p>"+
-						"</div>"+
-						"<div class='col-md-8'>"+
-							"<input type='number' id='sminsalary' class='check-7' value='"+min_salary+"' style='width: 100%' required>"+
-						"</div>"+
-					"</div>"+
-        			"<div class='row'>"+
-						"<div class='col-md-4'>"+
-							"<p>Maximum Basic Salary</p>"+
-						"</div>"+
-						"<div class='col-md-8'>"+
-							"<input type='number' id='smaxsalary' class='check-8' value='"+max_salary+"' style='width: 100%' required>"+
-						"</div>"+
-					"</div>"+
+        			// "<div class='row'>"+
+					// 	"<div class='col-md-4'>"+
+					// 		"<p>Minimum Basic Salary</p>"+
+					// 	"</div>"+
+					// 	"<div class='col-md-8'>"+
+					// 		"<input type='number' id='sminsalary' class='check-7' value='"+min_salary+"' style='width: 100%' required>"+
+					// 	"</div>"+
+					// "</div>"+
+        			// "<div class='row'>"+
+					// 	"<div class='col-md-4'>"+
+					// 		"<p>Maximum Basic Salary</p>"+
+					// 	"</div>"+
+					// 	"<div class='col-md-8'>"+
+					// 		"<input type='number' id='smaxsalary' class='check-8' value='"+max_salary+"' style='width: 100%' required>"+
+					// 	"</div>"+
+					// "</div>"+
         			"<div class='row'>"+
 						"<div class='col-md-4'>"+
 							"<p>Total Hours</p>"+
