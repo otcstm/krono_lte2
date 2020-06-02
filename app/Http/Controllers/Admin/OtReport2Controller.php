@@ -339,6 +339,7 @@ class OtReport2Controller extends Controller
         array_push($otdata, $info);
     }
     $eksel->addSheet('OTLogChanges', $otdata, $headers);
+    $eksel->removesheet();
     return $eksel->download();
   }
 
@@ -515,6 +516,7 @@ class OtReport2Controller extends Controller
       array_push($otdata, $info);
     }
     $eksel->addSheet('StartEndOTTime', $otdata, $headers);
+    $eksel->removesheet();
     return $eksel->download();
 
   }
@@ -707,7 +709,15 @@ class OtReport2Controller extends Controller
           }
           if(in_array( 'verid',$pilihcol))
           {
-            array_push($headers, 'Verifier');
+            array_push($headers, 'Verifier ID');
+          }
+          if(in_array( 'vername',$pilihcol))
+          {
+            array_push($headers, 'Verifier Name');
+          }
+          if(in_array( 'vercocd',$pilihcol))
+          {
+            array_push($headers, 'Verifier Cocd');
           }
           if(in_array( 'aprvdate',$pilihcol))
           {
@@ -715,7 +725,15 @@ class OtReport2Controller extends Controller
           }
           if(in_array( 'apprvrid',$pilihcol))
           {
-            array_push($headers, 'Approver');
+            array_push($headers, 'Approver ID');
+          }
+          if(in_array( 'apprvrname',$pilihcol))
+          {
+            array_push($headers, 'Approver Name');
+          }
+          if(in_array( 'apprvrcocd',$pilihcol))
+          {
+            array_push($headers, 'Approver Cocd');
           }
           if(in_array( 'qrdate',$pilihcol))
           {
@@ -898,6 +916,14 @@ class OtReport2Controller extends Controller
           {
             array_push($info, $value->verifier_id);
           }
+          if(in_array( 'vername',$pilihcol))
+          {
+            array_push($info, $value->verifier->name);
+          }
+          if(in_array( 'vercocd',$pilihcol))
+          {
+            array_push($info, $value->verifier->company_id);
+          }
           if(in_array( 'aprvdate',$pilihcol))
           {
             array_push($info, $appvl_date);
@@ -905,6 +931,14 @@ class OtReport2Controller extends Controller
           if(in_array( 'apprvrid',$pilihcol))
           {
             array_push($info, $value->approver_id);
+          }
+          if(in_array( 'apprvrname',$pilihcol))
+          {
+           array_push($info, $value->approver->name);
+          }
+          if(in_array( 'apprvrcocd',$pilihcol))
+          {
+          array_push($info, $value->approver->company_id);
           }
           if(in_array( 'qrdate',$pilihcol))
           {
@@ -1112,7 +1146,14 @@ class OtReport2Controller extends Controller
             {
               array_push($info, $mainOT->verifier_id);
             }
-
+            if(in_array( 'vername',$pilihcol))
+            {
+              array_push($info, $mainOT->verifier->name);
+            }
+            if(in_array( 'vercocd',$pilihcol))
+            {
+              array_push($info, $mainOT->verifier->company_id);
+            }
             if(in_array( 'aprvdate',$pilihcol))
             {
               array_push($info, $appvl_date);
@@ -1120,6 +1161,14 @@ class OtReport2Controller extends Controller
             if(in_array( 'apprvrid',$pilihcol))
             {
               array_push($info, $mainOT->approver_id);
+            }
+            if(in_array( 'apprvrname',$pilihcol))
+            {
+              array_push($info, $mainOT->approver->name);
+            }
+            if(in_array( 'apprvrcocd',$pilihcol))
+            {
+              array_push($info, $mainOT->approver->company_id);
             }
             if(in_array( 'qrdate',$pilihcol))
             {
@@ -1149,6 +1198,8 @@ class OtReport2Controller extends Controller
     }
     // dd($otdata,$headers);
       $eksel->addSheet($sh, $otdata, $headers);
+      $eksel->removesheet();
+
       // Log::info('excel loaded');
       return $eksel->download();
   }

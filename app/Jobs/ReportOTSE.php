@@ -257,6 +257,7 @@ class ReportOTSE implements ShouldQueue
         }
 
         $eksel->addSheet('StartEndOTTime', $otdata, $headers);
+        $eksel->removesheet();
         $eksel->saveToPerStorage();
 
         $bjob->status = 'Completed';
