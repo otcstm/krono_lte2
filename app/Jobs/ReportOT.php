@@ -236,7 +236,15 @@ class ReportOT implements ShouldQueue
              }
              if(in_array( 'verid',$sltcol))
              {
-               array_push($headers, 'Verifier');
+               array_push($headers, 'Verifier ID');
+             }
+             if(in_array( 'vername',$sltcol))
+             {
+               array_push($headers, 'Verifier Name');
+             }
+             if(in_array( 'vercocd',$sltcol))
+             {
+               array_push($headers, 'Verifier Cocd');
              }
              if(in_array( 'aprvdate',$sltcol))
              {
@@ -244,7 +252,15 @@ class ReportOT implements ShouldQueue
              }
              if(in_array( 'apprvrid',$sltcol))
              {
-               array_push($headers, 'Approver');
+               array_push($headers, 'Approver ID');
+             }
+             if(in_array( 'apprvrname',$sltcol))
+             {
+               array_push($headers, 'Approver Name');
+             }
+             if(in_array( 'apprvrcocd',$sltcol))
+             {
+               array_push($headers, 'Approver Cocd');
              }
              if(in_array( 'qrdate',$sltcol))
              {
@@ -460,6 +476,16 @@ class ReportOT implements ShouldQueue
                 {
                   array_push($info, $value->verifier_id);
                 }
+
+                if(in_array( 'vername',$sltcol))
+                {
+                  array_push($info, $value->verifier->name);
+                }
+                if(in_array( 'vercocd',$sltcol))
+                {
+                  array_push($info, $value->verifier->company_id);
+                }
+
                 if(in_array( 'aprvdate',$sltcol))
                 {
                   if( $value->approved_date == ''){
@@ -474,16 +500,24 @@ class ReportOT implements ShouldQueue
                 {
                   array_push($info, $value->approver_id);
                 }
-                if(in_array( 'qrdate',$sltcol))
-                {
-                  if( $value->queried_date == ''){
-                    $queried_date ='';
-                  }else{
-                    $queried_date =date('d.m.Y', strtotime($value->queried_date));
-                  }
+              if(in_array( 'apprvrname',$sltcol))
+              {
+               array_push($info, $value->approver->name);
+              }
+              if(in_array( 'apprvrcocd',$sltcol))
+              {
+              array_push($info, $value->approver->company_id);
+              }
+              if(in_array( 'qrdate',$sltcol))
+              {
+                if( $value->queried_date == ''){
+                  $queried_date ='';
+                }else{
+                  $queried_date =date('d.m.Y', strtotime($value->queried_date));
+                }
 
                   array_push($info, $queried_date);
-                }
+              }
                 if(in_array( 'qrdby',$sltcol))
                 {
                   array_push($info, $value->querier_id);
@@ -674,6 +708,14 @@ class ReportOT implements ShouldQueue
                   {
                     array_push($info, $mainOT->verifier_id);
                   }
+                  if(in_array( 'vername',$sltcol))
+                  {
+                    array_push($info, $mainOT->verifier->name);
+                  }
+                  if(in_array( 'vercocd',$sltcol))
+                  {
+                    array_push($info, $mainOT->verifier->company_id);
+                  }
                   if(in_array( 'aprvdate',$sltcol))
                   {
                     if( $mainOT->approved_date == ''){
@@ -687,6 +729,14 @@ class ReportOT implements ShouldQueue
                   if(in_array( 'apprvrid',$sltcol))
                   {
                     array_push($info, $mainOT->approver_id);
+                  }
+                  if(in_array( 'apprvrname',$sltcol))
+                  {
+                    array_push($info, $mainOT->approver->name);
+                  }
+                  if(in_array( 'apprvrcocd',$sltcol))
+                  {
+                    array_push($info, $mainOT->approver->company_id);
                   }
                   if(in_array( 'qrdate',$sltcol))
                   {
@@ -739,6 +789,7 @@ class ReportOT implements ShouldQueue
              $sh = 'OvertimeDetailsReport';
            }
          $eksel->addSheet($sh, $otdata, $headers);
+         $eksel->removesheet();
          $eksel->saveToPerStorage();
 
          $bjob->status = 'Completed';

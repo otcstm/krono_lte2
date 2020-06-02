@@ -220,35 +220,53 @@
         </div>
         <div class="form-check">
           <input class="form-check-input-inline" type="checkbox" value="verid" id="choose-27" name="cbcol[]" >
-          <label class="form-check-label" for="ver"> Verifier </label>
+          <label class="form-check-label" for="ver"> Verifier ID</label>
         </div>
         <div class="form-check">
-          <input class="form-check-input-inline" type="checkbox" value="aprvdate" id="choose-28" name="cbcol[]" >
+          <input class="form-check-input-inline" type="checkbox" value="vername" id="choose-28" name="cbcol[]" >
+          <label class="form-check-label" for="vernm"> Verifier Name</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input-inline" type="checkbox" value="vercocd" id="choose-29" name="cbcol[]" >
+          <label class="form-check-label" for="vercd"> Verifier Cocd</label>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input-inline" type="checkbox" value="aprvdate" id="choose-30" name="cbcol[]" >
           <label class="form-check-label" for="appdt"> Approval Date </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input-inline" type="checkbox" value="apprvrid" id="choose-29" name="cbcol[]" >
-          <label class="form-check-label" for="apprvr"> Approver </label>
+          <input class="form-check-input-inline" type="checkbox" value="apprvrid" id="choose-31" name="cbcol[]" >
+          <label class="form-check-label" for="apprvr"> Approver ID</label>
         </div>
         <div class="form-check">
-          <input class="form-check-input-inline" type="checkbox" value="qrdate" id="choose-30" name="cbcol[]" >
+          <input class="form-check-input-inline" type="checkbox" value="apprvrname" id="choose-32" name="cbcol[]" >
+          <label class="form-check-label" for="apprvrnm"> Approver Name</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input-inline" type="checkbox" value="apprvrcocd" id="choose-33" name="cbcol[]" >
+          <label class="form-check-label" for="apprvrcd"> Approver Cocd</label>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input-inline" type="checkbox" value="qrdate" id="choose-34" name="cbcol[]" >
           <label class="form-check-label" for="qrdt"> Queried Date </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input-inline" type="checkbox" value="qrdby" id="choose-31" name="cbcol[]" >
+          <input class="form-check-input-inline" type="checkbox" value="qrdby" id="choose-35" name="cbcol[]" >
           <label class="form-check-label" for="qrby"> Queried By </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input-inline" type="checkbox" value="pydate" id="choose-32" name="cbcol[]" >
+          <input class="form-check-input-inline" type="checkbox" value="pydate" id="choose-36" name="cbcol[]" >
           <label class="form-check-label" for="pydt"> Payment Date </label>
         </div>
 
         <div class="form-check">
-          <input class="form-check-input-inline" type="checkbox" value="trnscd" id="choose-33" name="cbcol[]" >
+          <input class="form-check-input-inline" type="checkbox" value="trnscd" id="choose-37" name="cbcol[]" >
           <label class="form-check-label" for="trncd"> Transaction Code  </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input-inline" type="checkbox" value="dytype" id="choose-34" name="cbcol[]" >
+          <input class="form-check-input-inline" type="checkbox" value="dytype" id="choose-38" name="cbcol[]" >
           <label class="form-check-label" for="dyty"> Day Type  </label>
         </div>
       </div>
@@ -285,14 +303,18 @@
         <p id="reportn-24">Justification</p>
         <p id="reportn-25">Application Date</p>
         <p id="reportn-26">Verification Date</p>
-        <p id="reportn-27">Verifier</p>
-        <p id="reportn-28">Approval Date</p>
-        <p id="reportn-29">Approver</p>
-        <p id="reportn-30">Queried Date</p>
-        <p id="reportn-31">Queried By</p>
-        <p id="reportn-32">Payment Date</p>
-        <p id="reportn-33">Transaction Code</p>
-        <p id="reportn-34">Day Type</p>
+        <p id="reportn-27">Verifier ID</p>
+        <p id="reportn-28">Verifier Name</p>
+        <p id="reportn-29">Verifier Cocd</p>
+        <p id="reportn-30">Approval Date</p>
+        <p id="reportn-31">Approver ID</p>
+        <p id="reportn-32">Approver Name</p>
+        <p id="reportn-33">Approver Cocd</p>
+        <p id="reportn-34">Queried Date</p>
+        <p id="reportn-35">Queried By</p>
+        <p id="reportn-36">Payment Date</p>
+        <p id="reportn-37">Transaction Code</p>
+        <p id="reportn-38">Day Type</p>
 
     </div>
   </div>
@@ -333,14 +355,18 @@
       <p id="reporty-24" class="hidden">Justification</p>
       <p id="reporty-25" class="hidden">Application Date</p>
       <p id="reporty-26" class="hidden">Verification Date</p>
-      <p id="reporty-27" class="hidden">Verifier</p>
-      <p id="reporty-28" class="hidden">Approval Date</p>
-      <p id="reporty-29" class="hidden">Approver</p>
-      <p id="reporty-30" class="hidden">Queried Date</p>
-      <p id="reporty-31" class="hidden">Queried By</p>
-      <p id="reporty-32" class="hidden">Payment Date</p>
-      <p id="reporty-33" class="hidden">Transaction Code</p>
-      <p id="reporty-34" class="hidden">Day Type</p>
+      <p id="reporty-27" class="hidden">Verifier ID</p>
+      <p id="reporty-28" class="hidden">Verifier Name</p>
+      <p id="reporty-29" class="hidden">Verifier Cocd</p>
+      <p id="reporty-30" class="hidden">Approval Date</p>
+      <p id="reporty-31" class="hidden">Approver ID</p>
+      <p id="reporty-32" class="hidden">Approver Name</p>
+      <p id="reporty-33" class="hidden">Approver Cocd</p>
+      <p id="reporty-34" class="hidden">Queried Date</p>
+      <p id="reporty-35" class="hidden">Queried By</p>
+      <p id="reporty-36" class="hidden">Payment Date</p>
+      <p id="reporty-37" class="hidden">Transaction Code</p>
+      <p id="reporty-38" class="hidden">Day Type</p>
     </div>
   </div>
 </div>
@@ -415,7 +441,7 @@ $(document).ready(function() {
 });
 
 var checkno = 0;
-for(var i=0; i<35; i++){
+for(var i=0; i<39; i++){
   $("#reportn-"+i).on("click", clicked(i, "n"));
   $("#reporty-"+i).on("click", clicked(i, "y"));
 }
@@ -423,7 +449,7 @@ for(var i=0; i<35; i++){
 function clicked(i, t){
   return function(){
     checkno = i;
-    for(var n=0; n<35; n++){
+    for(var n=0; n<39; n++){
       $("#reportn-"+n).removeClass("click");
       $("#reporty-"+n).removeClass("click");
     }
@@ -444,7 +470,7 @@ function add(){
 }
 
 function addall(){
-  for(var n=0; n<35; n++){
+  for(var n=0; n<39; n++){
     $("#reportn-"+n).addClass("hidden");
     $("#reporty-"+n).removeClass("hidden");
     $("#choose-"+n).prop('checked', true);
@@ -460,7 +486,7 @@ function remove(){
 }
 
 function removeall(){
-  for(var n=0; n<35; n++){
+  for(var n=0; n<39; n++){
     $("#reportn-"+n).removeClass("hidden");
     $("#reporty-"+n).addClass("hidden");
     $("#choose-"+n).prop('checked', false);
