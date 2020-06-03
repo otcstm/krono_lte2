@@ -76,14 +76,22 @@
       @elseif( $col == 'verdate')
       <th>Verification Date</th>
       @elseif( $col == 'verid')
-      <th>Verifier</th>
+      <th>Verifier ID</th>
+      @elseif( $col == 'vername')
+      <th>Verifier Name</th>
+      @elseif( $col == 'vercocd')
+      <th>Verifier Cocd</th>
 
       @elseif( $col == 'aprvdate')
       <th>Approval Date</th>
 
       @elseif( $col == 'apprvrid')
-      <th>Approver</th>
-      
+      <th>Approver ID</th>
+      @elseif( $col == 'apprvrname')
+      <th>Approver Name</th>
+      @elseif( $col == 'apprvrcocd')
+      <th>Approver Cocd</th>
+
       @elseif( $col == 'qrdate')
       <th>Queried Date</th>
       @elseif( $col == 'qrdby')
@@ -190,6 +198,10 @@
           </td>
           @elseif( $col == 'verid')
           <td>{{ $otr->mainOT->verifier_id }}</td>
+          @elseif( $col == 'vername')
+          <td>{{ $otr->mainOT->verifier->name }}</td>
+          @elseif( $col == 'vercocd')
+          <td>{{ $otr->mainOT->verifier->company_id }}</td>
 
           @elseif( $col == 'aprvdate')
           <td>
@@ -201,6 +213,10 @@
 
           @elseif( $col == 'apprvrid')
           <td>{{ $otr->mainOT->approver_id }}</td>
+          @elseif( $col == 'apprvrname')
+          <td>{{ $otr->mainOT->approver->name }}</td>
+          @elseif( $col == 'apprvrcocd')
+          <td>{{ $otr->mainOT->approver->company_id }}</td>
 
           @elseif( $col == 'qrdate')
           <td>
