@@ -67,7 +67,7 @@
       <input type="hidden" name="mon" value="{{ $monNext }}" />
       {{-- <button type="submit" class="btn btn-xs btn-default">Next</button> --}}
       <button type="submit" class="btn btn-up" style="margin-top:3px;">Next</button>
-    </form> 
+    </form>
     {{-- {{route('staff.worksched', ['page' => 'teamc','mon' => $monNext])}} --}}
     </div>
      <div class="pull-right">
@@ -86,14 +86,16 @@
         <thead>
           <tr>
             @foreach($header as $h)
-            <th>{{ $h }}</th>
+            <th style="border:1pt solid black !important;">{{ $h }}</th>
             @endforeach
           </tr>
         </thead>
         <tbody>
           <tr>
             @foreach($data as $h)
-            <td><b>{{ $h['type'] }}</b><br />{{ $h['time'] }}</td>
+            <td style="border:1pt solid black !important; @if($h['bg'] != '') background-color:{{ $h['bg'] }}  @endif ">
+              <b>{{ $h['type'] }}</b><br />{{ $h['time'] }}
+            </td>
             @endforeach
           </tr>
         </tbody>
