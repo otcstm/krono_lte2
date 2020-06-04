@@ -38,6 +38,7 @@
     </div>
   </a>
   </div>
+  @if(isset($isShiftPlanMem) && $isShiftPlanMem == 0)
   <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
   <a href="{{route('staff.worksched', ['page' => 'reqs'])}}">
     <div class="box box-solid box-primary">
@@ -54,6 +55,7 @@
     </div>
   </a>
   </div>
+  @endif
 </div>
 
 <div class="panel panel-primary">
@@ -65,7 +67,7 @@
       <input type="hidden" name="mon" value="{{ $monNext }}" />
       {{-- <button type="submit" class="btn btn-xs btn-default">Next</button> --}}
       <button type="submit" class="btn btn-up" style="margin-top:3px;">Next</button>
-    </form> 
+    </form>
     {{-- {{route('staff.worksched', ['page' => 'teamc','mon' => $monNext])}} --}}
     </div>
      <div class="pull-right">
@@ -84,17 +86,19 @@
         <thead>
           <tr>
             @foreach($header as $h)
-            <th>{{ $h }}</th>
+            <th style="border:1pt solid black !important;">{{ $h }}</th>
             @endforeach
           </tr>
         </thead>
         <tbody>
           @foreach($staffs as $s)
           <tr>
-            <td>{{ $s['id'] }}</td>
-            <td>{{ $s['name'] }}</td>
+            <td style="border:1pt solid black !important;text-align:left !important">{{ $s['id'] }}</td>
+            <td style="border:1pt solid black !important;text-align:left !important">{{ $s['name'] }}</td>
             @foreach($s['data'] as $h)
-            <td><b>{{ $h['type'] }}</b><br />{{ $h['time'] }}</td>
+            <td style="border:1pt solid black !important; @if($h['bg'] != '') background-color:{{ $h['bg'] }}  @endif ">
+              <b>{{ $h['type'] }}</b><br />{{ $h['time'] }}
+            </td>
             @endforeach
           </tr>
           @endforeach
