@@ -70,13 +70,20 @@ class WorkSchedRuleController extends Controller
     }
 
     $planlist = ShiftPattern::where('is_weekly', true)->get();
-
+    $isShiftPlanMem = ShiftGroupMember::where('user_id',$req->user()->id)->count();
+    if($isShiftPlanMem > 0){
+      $isShiftPlanMem = 1;
+    }
+    else{
+      $isShiftPlan = 0;
+    }
 
     return view('staff.workschedulemain', [
       'cspid' => $cspid,
       'sdate' => $sdate,
       'edate' => $edate,
-      'planlist' => $planlist
+      'planlist' => $planlist,
+      'isShiftPlanMem' => $isShiftPlanMem
     ]);
   }
 
@@ -140,15 +147,15 @@ class WorkSchedRuleController extends Controller
       array_push($head, $ad->format('d-D'));
     }
 
-    $my = $this->getShiftCal($req->user()->id, $daterange);
-    
+    $my = UserHelper::GetShiftCal($req->user()->id, $daterange);
+
     return view('staff.workcalendar', [
       'mon' => $monlabel,
       'yr' => $ylabel,
       'header' => $head,
       'data' => $my,
       'monNext' => $monNext,
-      'monPrev' => $monPrev     
+      'monPrev' => $monPrev
     ]);
 
   }
@@ -187,7 +194,7 @@ class WorkSchedRuleController extends Controller
     $mysg = ShiftGroupMember::where('user_id', $req->user()->id)->first();
     if($mysg){
       foreach($mysg->Group->Members as $amember){
-        $my = $this->getShiftCal($amember->User->id, $daterange);
+        $my = UserHelper::GetShiftCal($amember->User->id, $daterange);
         array_push($caldata, [
           'id' => $amember->User->id,
           'name' => $amember->User->name,
@@ -202,31 +209,8 @@ class WorkSchedRuleController extends Controller
       'header' => $head,
       'staffs' => $caldata,
       'monNext' => $monNext,
-      'monPrev' => $monPrev      
+      'monPrev' => $monPrev
     ]);
-  }
-
-  private function getShiftCal($staff_id, $daterange){
-    $rv = [];
-    foreach ($daterange as $key => $value) {
-      $sd = ShiftPlanStaffDay::where('user_id', $staff_id)
-        ->whereDate('work_date', $value)
-        ->first();
-
-      if($sd){
-        array_push($rv, [
-          'type' => $sd->Day->code,
-          'time' => $sd->Day->getTimeRange()
-        ]);
-      } else {
-        array_push($rv, [
-          'type' => 'N/A',
-          'time' => ''
-        ]);
-      }
-    }
-
-    return $rv;
   }
 
   public function listChangeWsr(Request $req){
