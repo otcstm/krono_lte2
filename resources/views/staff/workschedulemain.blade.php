@@ -38,6 +38,7 @@
     </div>
   </a>
   </div>
+  @if(isset($isShiftPlanMem) && $isShiftPlanMem == 0)
   <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
   <a href="{{route('staff.worksched', ['page' => 'reqs'])}}">
     <div class="box box-solid box-primary">
@@ -54,6 +55,7 @@
     </div>
   </a>
   </div>
+  @endif
 </div>
 
 <div class="panel panel-primary">
