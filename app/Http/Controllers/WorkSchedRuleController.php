@@ -70,13 +70,20 @@ class WorkSchedRuleController extends Controller
     }
 
     $planlist = ShiftPattern::where('is_weekly', true)->get();
-
+    $isShiftPlanMem = ShiftGroupMember::where('user_id',$req->user()->id)->count();
+    if($isShiftPlanMem > 0){
+      $isShiftPlanMem = 1;
+    }
+    else{
+      $isShiftPlan = 0;
+    }
 
     return view('staff.workschedulemain', [
       'cspid' => $cspid,
       'sdate' => $sdate,
       'edate' => $edate,
-      'planlist' => $planlist
+      'planlist' => $planlist,
+      'isShiftPlanMem' => $isShiftPlanMem
     ]);
   }
 

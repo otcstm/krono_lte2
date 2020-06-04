@@ -11,6 +11,7 @@ use App\OvertimeLog;
 use App\OtIndicator;
 use App\Salary;
 use App\Psubarea;
+use App\Company;
 
 
 class URHelper
@@ -50,6 +51,17 @@ class URHelper
         if (!$u) {
             $u = new User;
             $u->id = $persno;
+        };
+
+        $excomp = Company::find($comp); 
+        if($excomp){      }
+
+        else{
+        $company_var = new Company;
+        
+        $company_var->company_descr = '';
+        $company_var->source  = 'OT';
+        $company_var->save();
         }
 
         $u->name        = $name;
