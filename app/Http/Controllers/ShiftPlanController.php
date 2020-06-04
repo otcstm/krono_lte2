@@ -484,50 +484,36 @@ class ShiftPlanController extends Controller
         // $spattern = ShiftPattern::all();
 
         // populate the calendar
-        $lastmon = new Carbon($sps->plan_month);
-        $lastmon->addMonths(-1);
-        $worklists = ShiftPlanStaffDay::where('user_id', $sps->user_id)
-          ->whereDate('work_date', '>=', $lastmon)
-          ->get();
+        $startdate = new Carbon($sps->plan_month);
+        $startdate->firstOfMonth();
+        $enddate = new Carbon($startdate);
+        $enddate->addMonth();
 
-        $eventlist = [];
-        foreach ($worklists as $key => $value) {
-          $tday = $value->Day;
-          $display = $tday->code . ' (' . $value->StaffTemplate->Pattern->code . ')';
-          if($value->is_work_day){
-            $fullday = false;
-            $stime = $value->start_time;
-            $etime = $value->end_time;
-          } else {
-            $fullday = true;
-            $stime = $value->work_date;
-            $etime = $value->work_date;
-          }
+        $daterange = new \DatePeriod(
+          $startdate,
+          \DateInterval::createFromDateString('1 day'),
+          $enddate
+        );
 
-          $eventlist[] = Calendar::event(
-          $display,
-          $fullday,
-          $stime,
-          $etime,
-          $value->id,[
-            // 'url' => route('area.evdetail', ['id' => $value->id], false),
-            'textColor' => $tday->font_color,
-            'backgroundColor' => $tday->bg_color,
-
-          ]);
+        $head = [];
+        foreach($daterange as $ad){
+          array_push($head, $ad->format('d-D'));
         }
+
+        $blankc[] = [
+          'data' => UserHelper::GetShiftCal($sps->user_id, $daterange)
+        ];
 
         // check if already use all of this month
         $lastmon = new Carbon($sps->plan_month);
         $lastmon->addMonth();
 
 
-        $blankc = Calendar::addEvents($eventlist)->setOptions(['defaultDate' => $lastplan->format('Y-m-d')]);
-
         // dd($blankc->getOptionsJson());
         return view('shiftplan.staff_detail', [
           'sps' => $sps,
           // 'patterns' => $spattern,
+          'header' => $head,
           'cal' => $blankc,
           'sdate' => $lastplan->format('Y-m-d'),
           'mindate' => $mindate->format('Y-m-d'),
