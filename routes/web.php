@@ -164,6 +164,7 @@ Route::group(['middleware' => ['auth']], function () {
 Route::get('/user/image/{staffno}', 'ProfilePicController@getStaffImage')->name('user.image');
 Route::get('/demo/location', 'DemoController@location')->name('demo.location');
 Route::post('/demo/location', 'DemoController@location')->name('demo.location');
+Route::get('/demo/leave/{user_id}/{dt}', 'DemoController@userLeave')->name('demo.leave');
 });
 
 Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth']], function () {

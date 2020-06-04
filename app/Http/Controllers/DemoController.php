@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 
 
 use App\Shared\GeoLocHelper;
+use App\Shared\LeaveHelper;
 use Illuminate\Http\Request;
 
 use App\Notifications\ShiftGroupCreated;
@@ -21,7 +22,12 @@ class DemoController extends Controller
         }
         return view('demo.location', ['loc'=>$loc]);
     }
+    
 
+    public function userLeave($user_id,$dt){
+     $cl = LeaveHelper::getLeave($user_id,$dt);
+     return $cl;
+  }
 
     public function sendnotify(Request $req){
   /*
