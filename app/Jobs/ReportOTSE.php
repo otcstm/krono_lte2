@@ -83,7 +83,7 @@ class ReportOTSE implements ShouldQueue
         $noww = Carbon::now();
 
         // Log::info('build filename');
-        $fname = 'StartEndOTTimeReport_' . $noww->format('YmdHis') . '.xlsx';
+        $fname = 'StartEndOTTimeReport_' . $noww->format('YmdHis') .'_'.$this->bjobid. '.xlsx';
 
         $cdate->addSecond();
         // Log::info('prep header');
