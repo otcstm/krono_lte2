@@ -60,6 +60,7 @@
 
 <div class="panel panel-primary">
   <div class="panel-heading">My Monthly Work Schedule for Month of <span class="text-yellow">{{ $mon }} {{ $yr }}</span>
+    
     <div class="pull-right">
       <form method="GET" action="{{ route('staff.worksched',[],false) }}">
         @csrf
@@ -70,6 +71,21 @@
     </form> 
     {{-- {{route('staff.worksched', ['page' => 'teamc','mon' => $monNext])}} --}}
     </div>
+    <div class="pull-right">
+      <form method="GET" action="{{ route('staff.worksched',[],false) }}">
+        @csrf
+        <input type="hidden" name="page" value="myc" />
+      <select name="mon"  class="btn btn-up"  style="margin-top:3px;" onchange="this.form.submit()">
+        @for($monStart=1; $monStart <= 12; ++$monStart)
+          <option value="{{ date('Y-m-d', mktime(0, 0, 0, $monStart, 1,$yr)) }}" 
+          @if(date('n',strtotime($mon)) == $monStart)
+          selected
+          @endif
+          >{{ date('F', mktime(0, 0, 0, $monStart, 1,$yr)) }}</option>
+        @endfor
+        </select> 
+      </form>
+      </div>
      <div class="pull-right">
       <form method="GET" action="{{ route('staff.worksched',[],false) }}">
         @csrf
@@ -93,7 +109,7 @@
         <tbody>
           <tr>
             @foreach($data as $h)
-            <td><b>{{ $h['type'] }}</b><br />{{ $h['time'] }}</td>
+            <td><b>{{ $h['type_descr'] }}</b><br />{{ $h['time'] }}</td>
             @endforeach
           </tr>
         </tbody>

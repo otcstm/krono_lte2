@@ -70,6 +70,21 @@
     </form> 
     {{-- {{route('staff.worksched', ['page' => 'teamc','mon' => $monNext])}} --}}
     </div>
+    <div class="pull-right">
+      <form method="GET" action="{{ route('staff.worksched',[],false) }}">
+        @csrf
+        <input type="hidden" name="page" value="teamc" />
+      <select name="mon"  class="btn btn-up"  style="margin-top:3px;" onchange="this.form.submit()">
+        @for($monStart=1; $monStart <= 12; ++$monStart)
+          <option value="{{ date('Y-m-d', mktime(0, 0, 0, $monStart, 1,$yr)) }}" 
+          @if(date('n',strtotime($mon)) == $monStart)
+          selected
+          @endif
+          >{{ date('F', mktime(0, 0, 0, $monStart, 1,$yr)) }}</option>
+        @endfor
+        </select> 
+      </form>
+      </div>
      <div class="pull-right">
       <form method="GET" action="{{ route('staff.worksched',[],false) }}">
         @csrf
@@ -93,10 +108,10 @@
         <tbody>
           @foreach($staffs as $s)
           <tr>
-            <td>{{ $s['id'] }}</td>
-            <td>{{ $s['name'] }}</td>
+            <td>{{ $s['staffno'] }}</td>
+            <td style="text-align: left !important;">{{ $s['name'] }}</td>
             @foreach($s['data'] as $h)
-            <td><b>{{ $h['type'] }}</b><br />{{ $h['time'] }}</td>
+            <td><b>{{ $h['type_descr'] }}</b><br />{{ $h['time'] }}</td>
             @endforeach
           </tr>
           @endforeach
