@@ -148,15 +148,15 @@ class WorkSchedRuleController extends Controller
       array_push($head, $ad->format('d-D'));
     }
 
-    $my = $this->getShiftCal($req->user()->id, $daterange);
-    
+    $my = UserHelper::GetShiftCal($req->user()->id, $daterange);
+
     return view('staff.workcalendar', [
       'mon' => $monlabel,
       'yr' => $ylabel,
       'header' => $head,
       'data' => $my,
       'monNext' => $monNext,
-      'monPrev' => $monPrev     
+      'monPrev' => $monPrev
     ]);
 
   }
@@ -195,7 +195,7 @@ class WorkSchedRuleController extends Controller
     $mysg = ShiftGroupMember::where('user_id', $req->user()->id)->first();
     if($mysg){
       foreach($mysg->Group->Members as $amember){
-        $my = $this->getShiftCal($amember->User->id, $daterange);
+        $my = UserHelper::GetShiftCal($amember->User->id, $daterange);
         array_push($caldata, [
           'id' => $amember->User->id,
           'staffno' => $amember->User->staff_no,
@@ -253,7 +253,7 @@ class WorkSchedRuleController extends Controller
       'header' => $head,
       'staffs' => $caldata,
       'monNext' => $monNext,
-      'monPrev' => $monPrev      
+      'monPrev' => $monPrev
     ]);
   }
 
