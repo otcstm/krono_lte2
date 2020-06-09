@@ -8,6 +8,7 @@ use App\UserShiftPattern;
 use App\ShiftPlanStaffDay;
 use App\ShiftPattern;
 use App\ShiftGroupMember;
+use App\ShiftGroup;
 use App\DayType;
 use \Carbon\Carbon;
 use App\Shared\UserHelper;
@@ -183,7 +184,7 @@ class WorkSchedRuleController extends Controller
       $endate
     );
 
-    $head = ['Personnel No', 'Name'];
+    $head = ['Staff ID', 'Name'];
     foreach($daterange as $ad){
       array_push($head, $ad->format('d-D'));
     }
@@ -197,9 +198,52 @@ class WorkSchedRuleController extends Controller
         $my = UserHelper::GetShiftCal($amember->User->id, $daterange);
         array_push($caldata, [
           'id' => $amember->User->id,
+          'staffno' => $amember->User->staff_no,
           'name' => $amember->User->name,
           'data' => $my
         ]);
+      }
+    }
+
+    $gid_self = [0];
+    if($mysg){
+        array_push($gid_self,$mysg->shift_group_id);
+    }
+    // manager_id, find team member, multi group
+    $mgr_sg = ShiftGroup::where('manager_id', $req->user()->id)
+    ->whereNotin('id',$gid_self)
+    ->get();
+
+    if($mgr_sg){
+      foreach($mgr_sg as $amgrgrp){
+        foreach($amgrgrp->Members as $amember){
+          $my = $this->getShiftCal($amember->User->id, $daterange);
+          array_push($caldata, [
+            'id' => $amember->User->id,
+            'staffno' => $amember->User->staff_no,
+            'name' => $amember->User->name,
+            'data' => $my
+          ]);
+        }
+      }
+    }
+
+    //  planner_id, find team member, multi group
+    $plnr_sg = ShiftGroup::where('planner_id', $req->user()->id)
+    ->whereNotin('id',$gid_self)
+    ->get();
+    
+    if($plnr_sg){
+      foreach($plnr_sg as $aplnnnergrp){
+        foreach($aplnnnergrp->Members as $amember){
+          $my = $this->getShiftCal($amember->User->id, $daterange);
+          array_push($caldata, [
+            'id' => $amember->User->id,
+            'staffno' => $amember->User->staff_no,
+            'name' => $amember->User->name,
+            'data' => $my
+          ]);
+        }
       }
     }
 
@@ -211,6 +255,31 @@ class WorkSchedRuleController extends Controller
       'monNext' => $monNext,
       'monPrev' => $monPrev
     ]);
+  }
+
+  private function getShiftCal($staff_id, $daterange){
+    $rv = [];
+    foreach ($daterange as $key => $value) {
+      $sd = ShiftPlanStaffDay::where('user_id', $staff_id)
+        ->whereDate('work_date', $value)
+        ->first();
+
+      if($sd){
+        array_push($rv, [
+          'type' => $sd->Day->code,
+          'type_descr' => $sd->Day->description,
+          'time' => $sd->Day->getTimeRange()
+        ]);
+      } else {
+        array_push($rv, [
+          'type' => 'N/A',
+          'type_descr' => 'N/A',
+          'time' => ''
+        ]);
+      }
+    }
+
+    return $rv;
   }
 
   public function listChangeWsr(Request $req){
