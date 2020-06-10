@@ -111,7 +111,7 @@
             <td>{{ $s['staffno'] }}</td>
             <td style="text-align: left !important;">{{ $s['name'] }}</td>
             @foreach($s['data'] as $h)
-            <td><b>{{ $h['type_descr'] }}</b><br />{{ $h['time'] }}</td>
+            <td ><b>{{ $h['type'] }}</b><br />{{ $h['time'] }}</td>
             @endforeach
           </tr>
           @endforeach

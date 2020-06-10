@@ -217,7 +217,8 @@ class WorkSchedRuleController extends Controller
     if($mgr_sg){
       foreach($mgr_sg as $amgrgrp){
         foreach($amgrgrp->Members as $amember){
-          $my = $this->getShiftCal($amember->User->id, $daterange);
+          //$my = $this->getShiftCal($amember->User->id, $daterange);
+          $my = UserHelper::GetShiftCal($amember->User->id, $daterange);
           array_push($caldata, [
             'id' => $amember->User->id,
             'staffno' => $amember->User->staff_no,
@@ -236,7 +237,7 @@ class WorkSchedRuleController extends Controller
     if($plnr_sg){
       foreach($plnr_sg as $aplnnnergrp){
         foreach($aplnnnergrp->Members as $amember){
-          $my = $this->getShiftCal($amember->User->id, $daterange);
+          $my = UserHelper::GetShiftCal($amember->User->id, $daterange);
           array_push($caldata, [
             'id' => $amember->User->id,
             'staffno' => $amember->User->staff_no,
