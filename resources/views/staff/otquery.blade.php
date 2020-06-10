@@ -86,6 +86,7 @@
                             <th>No</th>
                             <th>Name</th>
                             <th>Date</th>
+                            <th>Day Type</th>
                             <th>Start OT</th>
                             <th>End OT</th>
                             <th>Total Hours/Minutes</th>
@@ -110,6 +111,7 @@
                             <td>{{++$no}}</td>
                             <td>{{ $singleuser->name->name }}</td>
                             <td><a href="" id="a-{{$no}}" style="font-weight: bold; color: #143A8C" data-id="{{$singleuser->id}}">{{ date("d.m.Y", strtotime($singleuser->date)) }}</a></td>
+                            <td>{{$claim->daytype->description}}</td>
                             <td>
                                 @foreach($singleuser->detail as $details)
                                     {{date('Hi', strtotime($details->start_time)) }}<br>
@@ -210,6 +212,7 @@
                         <th>No</th>
                         <th>Name</th>
                         <th>Date</th>
+                        <th>Day Type</th>
                         <th>Start OT</th>
                         <th>End OT</th>
                         <th>Total Hours/Minutes</th>
@@ -673,7 +676,7 @@
                 }
                 else{
                     htmlstring = "<div style=' width: 100%; padding: 5px; text-align: center; vertical-align: middle'>"+
-                                    "<p>No maching records found. Try to search again.</p>"+
+                                    "<p>No matching records found. Try to search again.</p>"+
                                     "</div>";
                                     
                     cfm = 'NEXT';
