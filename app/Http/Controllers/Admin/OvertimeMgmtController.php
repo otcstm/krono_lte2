@@ -62,8 +62,8 @@ class OvertimeMgmtController extends Controller
             $add->empsgroup = $req->empsgroup;
             $add->psgroup = $req->psgroup;
             $add->salary_cap = $req->capping;
-            $add->min_salary = $req->minsalary;
-            $add->max_salary = $req->maxsalary;
+            // $add->min_salary = $req->minsalary;
+            // $add->max_salary = $req->maxsalary;
             $add->hourpermonth = $req->hours;
             $add->start_date = $req->sdate;
             $add->end_date = '9999-12-31';
@@ -112,8 +112,8 @@ class OvertimeMgmtController extends Controller
             $old->save();
         }
         $update->salary_cap = $req->ecapping;
-        $update->min_salary = $req->eminsalary;
-        $update->max_salary = $req->emaxsalary;
+        // $update->min_salary = $req->eminsalary;
+        // $update->max_salary = $req->emaxsalary;
         $update->hourpermonth = $req->ehours;
         $update->start_date = $req->esdate;
         $update->save();
