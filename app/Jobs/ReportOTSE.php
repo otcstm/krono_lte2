@@ -83,7 +83,7 @@ class ReportOTSE implements ShouldQueue
         $noww = Carbon::now();
 
         // Log::info('build filename');
-        $fname = 'StartEndOTTimeReport_' . $noww->format('YmdHis') .'_'.$this->bjobid. '.xlsx';
+        $fname = 'StartEndOTTimeReport_' . $noww->format('YmdHis') . '.xlsx';
 
         $cdate->addSecond();
         // Log::info('prep header');
@@ -257,7 +257,6 @@ class ReportOTSE implements ShouldQueue
         }
 
         $eksel->addSheet('StartEndOTTime', $otdata, $headers);
-        $eksel->removesheet();
         $eksel->saveToPerStorage();
 
         $bjob->status = 'Completed';

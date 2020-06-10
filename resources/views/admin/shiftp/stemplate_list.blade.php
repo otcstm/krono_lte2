@@ -62,21 +62,6 @@
 
     <form action="{{ route('sp.add', [], false) }}" method="post">
       @csrf
-      <div class="form-group has-feedback {{ $errors->has('compcode') ? 'has-error' : '' }}">
-        <label for="code">Company</label>
-        <select class="selectReport form-control" name="fcompany[]" multiple="multiple">
-          @if($companies ?? '')
-              @foreach($companies as $no=>$company)
-        <option value="{{$company->id}}">{{$company->id}}-{{$company->company_descr}}</option>
-              @endforeach
-          @endif
-        </select>
-        @if ($errors->has('compcode'))
-            <span class="help-block">
-                <strong>{{ $errors->first('code') }}</strong>
-            </span>
-        @endif
-      </div>
       <div class="form-group has-feedback {{ $errors->has('code') ? 'has-error' : '' }}">
         <label for="code">Code</label>
         <input id="code" type="text" name="code" class="form-control" value="{{ old('code') }}"
@@ -125,11 +110,6 @@ $(document).ready(function() {
   $('#tPunchHIstory').DataTable({
     "responsive": "true"
   });
-  
-  $('.selectReport').select2({
-      closeOnSelect: false
-    });
-
 } );
 
 </script>

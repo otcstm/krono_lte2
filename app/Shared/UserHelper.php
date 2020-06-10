@@ -30,31 +30,6 @@ class UserHelper {
 
   }
 
-  public static function GetShiftCal($staff_id, $daterange){
-    $rv = [];
-    foreach ($daterange as $key => $value) {
-      $sd = ShiftPlanStaffDay::where('user_id', $staff_id)
-        ->whereDate('work_date', $value)
-        ->first();
-
-      if($sd){
-        array_push($rv, [
-          'type' => $sd->Day->description,
-          'time' => $sd->Day->getTimeRange(),
-          'bg' => ''
-        ]);
-      } else {
-        array_push($rv, [
-          'type' => 'N/A',
-          'time' => '',
-          'bg' => 'pink'
-        ]);
-      }
-    }
-
-    return $rv;
-  }
-
   public static function GetUserInfo($staff_id){
     $sai = StaffAdditionalInfo::where('user_id', $staff_id)->first();
     if($sai){
