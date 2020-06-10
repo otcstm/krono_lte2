@@ -109,7 +109,7 @@
         <tbody>
           <tr>
             @foreach($data as $h)
-            <td><b>{{ $h['type_descr'] }}</b><br />{{ $h['time'] }}</td>
+            <td><b>{{ $h['type'] }}</b><br />{{ $h['time'] }}</td>
             @endforeach
           </tr>
         </tbody>
