@@ -105,14 +105,14 @@ class ReportOT implements ShouldQueue
            $nm = 'OvertimeDetailsReport';
          }
 
-         // Log::info('build filename');
+         Log::info('build filename');
          $fname = $nm
            // . $ldate->format('Ymd') . '_to_' . $cdate->format('Ymd')
-           . '_' . $noww->format('YmdHis') . '.xlsx';
+           . '_' . $noww->format('YmdHis') .'_'.$this->bjobid.'.xlsx';
 
          $cdate->addSecond();
 
-         // Log::info('prep header');
+         Log::info('prep header');
          if($this->btnsrh == 'gexcelm'){
            $headers = ['Personnel Number','Employee Name','IC Number','Staff ID','Company Code','Reference Number','OT Date'];
          }elseif ($this->btnsrh == 'gexceld') {
@@ -162,17 +162,17 @@ class ReportOT implements ShouldQueue
              {
                array_push($headers, 'Manual Flag');
              }
-             if(in_array( 'dytype',$sltcol))
-             {
-               array_push($headers, 'Day Type');
-             }
              if(in_array( 'loc',$sltcol))
              {
                array_push($headers, 'Location');
              }
-             if(in_array( 'trnscd',$sltcol))
+             if(in_array( 'tthour',$sltcol))
              {
-               array_push($headers, 'Transaction Code');
+               array_push($headers, 'Total Hours');
+             }
+             if(in_array( 'ttlmin',$sltcol))
+             {
+               array_push($headers, 'Total Minutes');
              }
              if(in_array( 'estamnt',$sltcol))
              {
@@ -185,18 +185,6 @@ class ReportOT implements ShouldQueue
              if(in_array( 'chrtype',$sltcol))
              {
                array_push($headers, 'Charge Type');
-             }
-             if(in_array( 'noh',$sltcol))
-             {
-               array_push($headers, 'Number of Hours');
-             }
-             if(in_array( 'nom',$sltcol))
-             {
-               array_push($headers, 'Number of Minutes');
-             }
-             if(in_array( 'jst',$sltcol))
-             {
-               array_push($headers, 'Justification');
              }
              if(in_array( 'bodycc',$sltcol))
              {
@@ -226,13 +214,17 @@ class ReportOT implements ShouldQueue
              {
                array_push($headers, 'Order Number');
              }
-             if(in_array( 'tthour',$sltcol))
+             if(in_array( 'noh',$sltcol))
              {
-               array_push($headers, 'Total Hours');
+               array_push($headers, 'Number of Hours');
              }
-             if(in_array( 'ttlmin',$sltcol))
+             if(in_array( 'nom',$sltcol))
              {
-               array_push($headers, 'Total Minutes');
+               array_push($headers, 'Number of Minutes');
+             }
+             if(in_array( 'jst',$sltcol))
+             {
+               array_push($headers, 'Justification');
              }
              if(in_array( 'appdate',$sltcol))
              {
@@ -244,15 +236,31 @@ class ReportOT implements ShouldQueue
              }
              if(in_array( 'verid',$sltcol))
              {
-               array_push($headers, 'Verifier');
+               array_push($headers, 'Verifier ID');
              }
-             if(in_array( 'appdate',$sltcol))
+             if(in_array( 'vername',$sltcol))
+             {
+               array_push($headers, 'Verifier Name');
+             }
+             if(in_array( 'vercocd',$sltcol))
+             {
+               array_push($headers, 'Verifier Cocd');
+             }
+             if(in_array( 'aprvdate',$sltcol))
              {
                array_push($headers, 'Approval Date');
              }
              if(in_array( 'apprvrid',$sltcol))
              {
-               array_push($headers, 'Approver');
+               array_push($headers, 'Approver ID');
+             }
+             if(in_array( 'apprvrname',$sltcol))
+             {
+               array_push($headers, 'Approver Name');
+             }
+             if(in_array( 'apprvrcocd',$sltcol))
+             {
+               array_push($headers, 'Approver Cocd');
              }
              if(in_array( 'qrdate',$sltcol))
              {
@@ -266,6 +274,15 @@ class ReportOT implements ShouldQueue
              {
                array_push($headers, 'Payment Date');
              }
+             if(in_array( 'trnscd',$sltcol))
+             {
+               array_push($headers, 'Transaction Code');
+             }
+             if(in_array( 'dytype',$sltcol))
+             {
+               array_push($headers, 'Day Type');
+             }
+
            }
 
            // dd($headers);
@@ -311,9 +328,9 @@ class ReportOT implements ShouldQueue
              $otdetail = OvertimeDetail::whereIn('ot_id', $list_of_id)
              ->where('checked','Y');
              // ->get();
-             Log::info($otdetail->toSql());
+             // Log::info($otdetail->toSql());
              $otdetail = $otdetail->get();
-             Log::info($otdetail->count());
+             // Log::info($otdetail->count());
 
            }
            $otdata = [];
@@ -326,7 +343,7 @@ class ReportOT implements ShouldQueue
                  $otdt = new Carbon($value->date);
                  $otdt = $otdt->format('d.m.Y');
 
-              $info = [$value->user_id,$urekod->name,$urekod->new_ic,$urekod->staffno,$urekod->company_id,$value->refno,$otdt];
+              $info = [$value->user_id,$urekod->name,$urekod->new_ic,$urekod->staffno,$value->company_id,$value->refno,$otdt];
               $sltcol = $this->pilihcol;
               if(isset($sltcol)){
                 if(in_array('psarea',$sltcol))
@@ -375,7 +392,11 @@ class ReportOT implements ShouldQueue
                   }else{
                     // $value->ot_hour_exception='No';
                     // $sal_exception='No';
-                    $salarycap=$value->SalCap()->salary_cap;
+                    try {
+                      $salarycap=$value->SalCap()->salary_cap;
+                    } catch (\Exception $e) {
+                      $salarycap='COMP CODE ERROR';
+                    }
                   }
                   array_push($info, $salarycap);
                 }
@@ -383,14 +404,13 @@ class ReportOT implements ShouldQueue
                 {
                   array_push($info, $urekod->empstats);
                 }
-                if(in_array( 'dytype',$sltcol))
+                if(in_array( 'tthour',$sltcol))
                 {
-                  $dtype = $value->daytype->description;
-                  array_push($info, $dtype);
+                  array_push($info, $value->total_hour);
                 }
-                if(in_array( 'trnscd',$sltcol))
+                if(in_array( 'ttlmin',$sltcol))
                 {
-                  array_push($info, $value->wage_type);
+                  array_push($info, $value->total_minute);
                 }
                 if(in_array( 'estamnt',$sltcol))
                 {
@@ -398,7 +418,12 @@ class ReportOT implements ShouldQueue
                 }
                 if(in_array( 'clmstatus',$sltcol))
                 {
-                  array_push($info, $value->OTStatus()->item3);
+                  try {
+                    $statusOT=$value->OTStatus()->item3;
+                  } catch (\Exception $e) {
+                    $statusOT=$value->status;
+                  }
+                  array_push($info, $statusOT);
                 }
                 if(in_array( 'chrtype',$sltcol))
                 {
@@ -432,17 +457,9 @@ class ReportOT implements ShouldQueue
                 {
                   array_push($info, $value->order_no);
                 }
-                if(in_array( 'tthour',$sltcol))
-                {
-                  array_push($info, $value->total_hour);
-                }
-                if(in_array( 'ttlmin',$sltcol))
-                {
-                  array_push($info, $value->total_minute);
-                }
                 if(in_array( 'appdate',$sltcol))
                 {
-                  $cdt = new Carbon($value->created_at);
+                  $cdt = new Carbon($value->submitted_date);
                   $cdt = $cdt->format('d.m.Y');
                   array_push($info, $cdt);
                 }
@@ -459,7 +476,17 @@ class ReportOT implements ShouldQueue
                 {
                   array_push($info, $value->verifier_id);
                 }
-                if(in_array( 'appdate',$sltcol))
+
+                if(in_array( 'vername',$sltcol))
+                {
+                  array_push($info, $value->verifier->name);
+                }
+                if(in_array( 'vercocd',$sltcol))
+                {
+                  array_push($info, $value->verifier->company_id);
+                }
+
+                if(in_array( 'aprvdate',$sltcol))
                 {
                   if( $value->approved_date == ''){
                     $appvl_date = '';
@@ -473,16 +500,24 @@ class ReportOT implements ShouldQueue
                 {
                   array_push($info, $value->approver_id);
                 }
-                if(in_array( 'qrdate',$sltcol))
-                {
-                  if( $value->queried_date == ''){
-                    $queried_date ='';
-                  }else{
-                    $queried_date =date('d.m.Y', strtotime($value->queried_date));
-                  }
+              if(in_array( 'apprvrname',$sltcol))
+              {
+               array_push($info, $value->approver->name);
+              }
+              if(in_array( 'apprvrcocd',$sltcol))
+              {
+              array_push($info, $value->approver->company_id);
+              }
+              if(in_array( 'qrdate',$sltcol))
+              {
+                if( $value->queried_date == ''){
+                  $queried_date ='';
+                }else{
+                  $queried_date =date('d.m.Y', strtotime($value->queried_date));
+                }
 
                   array_push($info, $queried_date);
-                }
+              }
                 if(in_array( 'qrdby',$sltcol))
                 {
                   array_push($info, $value->querier_id);
@@ -496,6 +531,20 @@ class ReportOT implements ShouldQueue
                   }
                   array_push($info, $payment_date);
                 }
+                if(in_array( 'trnscd',$sltcol))
+                {
+                  array_push($info, $value->wage_type);
+                }
+                if(in_array( 'dytype',$sltcol))
+                {
+                  try {
+                    $dtype = $value->daytype->description;
+                  } catch (\Exception $e) {
+                    $dtype = $value->daytype_id;
+                  }
+                  array_push($info, $dtype);
+                }
+
               }
 
               array_push($otdata, $info);
@@ -510,11 +559,11 @@ class ReportOT implements ShouldQueue
               $otdt = new Carbon($mainOT->date);
               $otdt = $otdt->format('d.m.Y');
               $st = new Carbon($value->start_time);
-              $st = $st->format('d.m.Y H:i:s');
+              $st = $st->format('H:i:s');
               $et = new Carbon($value->end_time);
-              $et = $et->format('d.m.Y H:i:s');
+              $et = $et->format('H:i:s');
 
-              $info = [$mainOT->user_id,$urekod->name,$urekod->new_ic,$urekod->staffno,$urekod->company_id,$mainOT->refno,$otdt,$st,$et];
+              $info = [$mainOT->user_id,$urekod->name,$urekod->new_ic,$urekod->staffno,$mainOT->company_id,$mainOT->refno,$otdt,$st,$et];
                 // dd($pilihcol);
                 $sltcol = $this->pilihcol;
                 if(isset($sltcol)){
@@ -564,7 +613,11 @@ class ReportOT implements ShouldQueue
                     }else{
                       // $mainOT->ot_hour_exception='No';
                       // $sal_exception='No';
-                      $salarycap=$mainOT->SalCap()->salary_cap;
+                      try {
+                        $salarycap=$mainOT->SalCap()->salary_cap;
+                      } catch (\Exception $e) {
+                        $salarycap='COMP CODE ERROR';
+                      }
                     }
                     array_push($info, $salarycap);
                   }
@@ -576,18 +629,9 @@ class ReportOT implements ShouldQueue
                   {
                     array_push($info, $value->is_manual);
                   }
-                  if(in_array( 'dytype',$sltcol))
-                  {
-                    $dtype = $mainOT->daytype->description;
-                    array_push($info, $dtype);
-                  }
                   if(in_array( 'loc',$sltcol))
                   {
                     array_push($info, '('.$value->in_latitude.','.$value->in_longitude.')');
-                  }
-                  if(in_array( 'trnscd',$sltcol))
-                  {
-                    array_push($info, $mainOT->wage_type);
                   }
                   if(in_array( 'estamnt',$sltcol))
                   {
@@ -595,12 +639,47 @@ class ReportOT implements ShouldQueue
                   }
                   if(in_array( 'clmstatus',$sltcol))
                   {
-                    array_push($info, $mainOT->OTStatus()->item3);
+                    try {
+                      $statusOT=$mainOT->OTStatus()->item3;
+                    } catch (\Exception $e) {
+                      $statusOT=$mainOT->status;
+                    }
+
+                    array_push($info, $statusOT);
                   }
                   if(in_array( 'chrtype',$sltcol))
                   {
                     array_push($info, $mainOT->charge_type);
                   }
+                  if(in_array( 'bodycc',$sltcol))
+                  {
+                    array_push($info, $mainOT->costcenter);
+                  }
+                  if(in_array( 'othrcc',$sltcol))
+                  {
+                    array_push($info, $mainOT->other_costcenter);
+                  }
+                  if(in_array( 'prtype',$sltcol))
+                  {
+                    array_push($info, $mainOT->project_type);
+                  }
+                  if(in_array( 'pnumbr',$sltcol))
+                  {
+                    array_push($info, $mainOT->project_no);
+                  }
+                  if(in_array( 'ntheadr',$sltcol))
+                  {
+                    array_push($info, $mainOT->network_header);
+                  }
+                  if(in_array( 'ntact',$sltcol))
+                  {
+                    array_push($info, $mainOT->network_act_no);
+                  }
+                  if(in_array( 'ordnum',$sltcol))
+                  {
+                    array_push($info, $mainOT->order_no);
+                  }
+
                   if(in_array( 'noh',$sltcol))
                   {
                     array_push($info, $value->hour);
@@ -615,7 +694,7 @@ class ReportOT implements ShouldQueue
                   }
                   if(in_array( 'appdate',$sltcol))
                   {
-                    $cdt = new Carbon($mainOT->created_at);
+                    $cdt = new Carbon($mainOT->submitted_date);
                     $cdt = $cdt->format('d.m.Y');
                     array_push($info, $cdt);
                   }
@@ -633,7 +712,15 @@ class ReportOT implements ShouldQueue
                   {
                     array_push($info, $mainOT->verifier_id);
                   }
-                  if(in_array( 'appdate',$sltcol))
+                  if(in_array( 'vername',$sltcol))
+                  {
+                    array_push($info, $mainOT->verifier->name);
+                  }
+                  if(in_array( 'vercocd',$sltcol))
+                  {
+                    array_push($info, $mainOT->verifier->company_id);
+                  }
+                  if(in_array( 'aprvdate',$sltcol))
                   {
                     if( $mainOT->approved_date == ''){
                       $appvl_date = '';
@@ -646,6 +733,14 @@ class ReportOT implements ShouldQueue
                   if(in_array( 'apprvrid',$sltcol))
                   {
                     array_push($info, $mainOT->approver_id);
+                  }
+                  if(in_array( 'apprvrname',$sltcol))
+                  {
+                    array_push($info, $mainOT->approver->name);
+                  }
+                  if(in_array( 'apprvrcocd',$sltcol))
+                  {
+                    array_push($info, $mainOT->approver->company_id);
                   }
                   if(in_array( 'qrdate',$sltcol))
                   {
@@ -671,6 +766,20 @@ class ReportOT implements ShouldQueue
                     }
                     array_push($info, $payment_date);
                   }
+                  if(in_array( 'trnscd',$sltcol))
+                  {
+                    array_push($info, $mainOT->wage_type);
+                  }
+                  if(in_array( 'dytype',$sltcol))
+                  {
+                    try {
+                      $dtype = $mainOT->daytype->description;
+                    } catch (\Exception $e) {
+                      $dtype = $mainOT->daytype_id;
+                    }
+                    array_push($info, $dtype);
+                  }
+
             }
             array_push($otdata, $info);
           }
@@ -688,6 +797,7 @@ class ReportOT implements ShouldQueue
              $sh = 'OvertimeDetailsReport';
            }
          $eksel->addSheet($sh, $otdata, $headers);
+         $eksel->removesheet();
          $eksel->saveToPerStorage();
 
          $bjob->status = 'Completed';

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 // use Illuminate\Support\Facades\Log;
 use \DB;
 use App\Overtime;
@@ -27,13 +28,13 @@ class OtSaRepController extends Controller
   public function main(Request $req)//OT Summary
   {
     return view('report.sysadmMain');
-
     // this if want user alias route name
     // return redirect(route('rep.sa.main', [], false))->with([
     //   'alert' => 'Welcome to System Admin Report Mainpage',
     //   'a_type' => 'info'
     // ]);
   }
+
 
   public function viewOT(Request $req)//OT Summary
   {
@@ -177,17 +178,36 @@ class OtSaRepController extends Controller
 
       if($bj){
         // return ExcelHandler::DownloadFromBin($bj->attachment, $bj->extra_info);
-        return ExcelHandler::DownloadFromPerStorage($bj->remark);
+        if($req->btn=='dwn'){//button download
+          return ExcelHandler::DownloadFromPerStorage($bj->remark);
+        }else{//button delete
+            if(\Storage::exists('reports/'.$bj->remark)){
+              $fileWillDelete = storage_path("app/reports/".$bj->remark);
+              File::delete($fileWillDelete);
+              BatchJob::destroy($req->bjid);
+              return redirect()->back();
+            }else{
+              return redirect()->back()->withInput()->with([
+              'alert' => 'Report no longer exist',
+              'a_type' => 'danger'
+              ]);
+            }
+            
+        }
+
       } else {
+
         return redirect()->back()->withInput()->with([
-          'alert' => 'Report no longer exist',
-          'a_type' => 'danger'
+        'alert' => 'Report no longer exist',
+        'a_type' => 'danger'
         ]);
       }
+
     } else {
+
       return redirect()->back()->withInput()->with([
-        'alert' => 'Missing ID in input',
-        'a_type' => 'warning'
+      'alert' => 'Missing ID in input',
+      'a_type' => 'warning'
       ]);
     }
   }

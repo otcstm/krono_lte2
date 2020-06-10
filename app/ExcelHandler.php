@@ -10,8 +10,6 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ExcelHandler {
 
-
-
   private $filename = "";
   private $spreadsheet = null;
 
@@ -62,10 +60,19 @@ class ExcelHandler {
     return base64_encode(serialize($this->spreadsheet));
   }
 
+  public function removesheet(){
+  $sheetIndex = $this->spreadsheet->getIndex($this->spreadsheet->getSheetByName('Worksheet'));
+  $this->spreadsheet->removeSheetByIndex($sheetIndex);
+  }
+
+
+
   public function saveToPerStorage(){
     // dd('sini',$this->filename);
     $writer = new Writer\Xlsx($this->spreadsheet);
+    // dev path
     $writer->save('/var/www/otcs/storage/app/reports/' . $this->filename);
+    // local path
     // $writer->save('storage/app/reports/' . $this->filename);
   }
 
