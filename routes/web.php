@@ -164,6 +164,7 @@ Route::group(['middleware' => ['auth']], function () {
 Route::get('/user/image/{staffno}', 'ProfilePicController@getStaffImage')->name('user.image');
 Route::get('/demo/location', 'DemoController@location')->name('demo.location');
 Route::post('/demo/location', 'DemoController@location')->name('demo.location');
+Route::get('/demo/leave/{user_id}/{dt}', 'DemoController@userLeave')->name('demo.leave');
 });
 
 Route::group(['prefix' => 'shift_plan', 'as' => 'shift.', 'middleware' => ['auth']], function () {
@@ -270,8 +271,13 @@ Route::group(['middleware' => ['auth','can:1-nav-admin']], function () {
 });
 
 // remidner thingy
-Route::group(['middleware' => ['auth','can:1-nav-admin']], function () {
-  Route::get('/reminder/resend', 'ReminderController@resend')->name('reminder.resend');
+Route::group(['middleware' => ['auth','can:5-user-mngmt']], function () {
+
+  Route::get('/reminder/jobs', 'ReminderController@jobs')->name('reminder.jobs');
+  Route::get('/reminder/jobs/detail', 'ReminderController@detail')->name('reminder.detail');
+  Route::post('/reminder/jobs/delete', 'ReminderController@delete')->name('reminder.delete');
+  Route::post('/reminder/resend', 'ReminderController@resend')->name('reminder.resend');
+  Route::get('/reminder/staff', 'ReminderController@staff')->name('reminder.staff');
 
 });
 

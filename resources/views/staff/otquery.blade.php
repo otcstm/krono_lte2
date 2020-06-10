@@ -12,7 +12,8 @@
 @elseif($view=='approverrept')
 <h1>Claim Approval Report</h1>
 @elseif($view=='admin')
-<h1>Claim Manual Approval</h1>
+<h1>Assign Verifier/Approver</h1>
+<!-- <h1>Claim Manual Approval</h1> -->
 @endif
 <div class="panel panel-default">
     <div class="panel-body">
@@ -86,6 +87,7 @@
                             <th>No</th>
                             <th>Name</th>
                             <th>Date</th>
+                            <th>Day Type</th>
                             <th>Start OT</th>
                             <th>End OT</th>
                             <th>Total Hours/Minutes</th>
@@ -110,6 +112,7 @@
                             <td>{{++$no}}</td>
                             <td>{{ $singleuser->name->name }}</td>
                             <td><a href="" id="a-{{$no}}" style="font-weight: bold; color: #143A8C" data-id="{{$singleuser->id}}">{{ date("d.m.Y", strtotime($singleuser->date)) }}</a></td>
+                            <td>{{$claim->daytype->description}}</td>
                             <td>
                                 @foreach($singleuser->detail as $details)
                                     {{date('Hi', strtotime($details->start_time)) }}<br>
@@ -159,10 +162,10 @@
                                     <option selected value="">Select Action</option>
                                     <option hidden value="Remove">Remove Verifier</option>
                                     <!-- <option hidden disabled selected value="">Select Action</option> -->
-                                    @if(($view=="verifier")||($view=='admin')) 
+                                    @if($view=="verifier") 
                                         <option value="PA">Verify</option>
                                     @endif
-                                    @if(($view=='approver')||($view=='admin'))
+                                    @if($view=='approver')
                                         <option value="A">Approve</option>
                                         <option 
                                             @if($singleuser->verifier_id!=null) 
@@ -210,6 +213,7 @@
                         <th>No</th>
                         <th>Name</th>
                         <th>Date</th>
+                        <th>Day Type</th>
                         <th>Start OT</th>
                         <th>End OT</th>
                         <th>Total Hours/Minutes</th>
@@ -673,7 +677,7 @@
                 }
                 else{
                     htmlstring = "<div style=' width: 100%; padding: 5px; text-align: center; vertical-align: middle'>"+
-                                    "<p>No maching records found. Try to search again.</p>"+
+                                    "<p>No matching records found. Try to search again.</p>"+
                                     "</div>";
                                     
                     cfm = 'NEXT';
@@ -799,6 +803,15 @@
                             "</div>"+
                             "<div class='col-md-9'>"+
                                 "<input type='text' id='sstaffno' style='width: 100%; box-sizing: border-box;'>"+
+                            "</div>"+
+                        "</div>"+
+
+                        "<div class='row'>"+
+                            "<div class='col-md-3'>"+
+                                "<p><b>Personnel Number</b></p>"+
+                            "</div>"+
+                            "<div class='col-md-9'>"+
+                                "<input type='text' id='spersno' style='width: 100%; box-sizing: border-box;'>"+
                             "</div>"+
                         "</div>"+
 

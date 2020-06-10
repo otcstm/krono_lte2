@@ -264,6 +264,12 @@ return [
               'icon' => '',
               'can' => '5-user-mngmt',
           ],
+          [
+              'text' => 'week_remind',
+              'route' => 'reminder.jobs',
+              'icon' => '',
+              'can' => '5-user-mngmt',
+          ],
         ]
       ],
 

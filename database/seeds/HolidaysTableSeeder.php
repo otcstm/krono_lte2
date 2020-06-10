@@ -179,16 +179,6 @@ class HolidaysTableSeeder extends Seeder
             ),
             16 => 
             array (
-                'id' => 17,
-            'descr' => 'New Year (MY)',
-                'dt' => '2020-01-01',
-                'guarantee_flag' => 0,
-                'update_by' => 43570,
-                'created_at' => '2019-11-21 10:31:26',
-                'updated_at' => '2019-11-21 10:31:26',
-            ),
-            17 => 
-            array (
                 'id' => 18,
             'descr' => 'Chinese New Year Day 1 (MY)',
                 'dt' => '2020-01-25',
@@ -197,7 +187,7 @@ class HolidaysTableSeeder extends Seeder
                 'created_at' => '2019-11-21 10:39:50',
                 'updated_at' => '2019-11-21 10:39:50',
             ),
-            18 => 
+            17 => 
             array (
                 'id' => 19,
             'descr' => 'Chinese New Year Day 2 (MY)',
@@ -207,7 +197,7 @@ class HolidaysTableSeeder extends Seeder
                 'created_at' => '2019-11-21 10:41:51',
                 'updated_at' => '2020-01-06 13:21:25',
             ),
-            19 => 
+            18 => 
             array (
                 'id' => 20,
             'descr' => 'Federal Territory Day (MY)',
@@ -217,7 +207,7 @@ class HolidaysTableSeeder extends Seeder
                 'created_at' => '2019-11-21 10:43:07',
                 'updated_at' => '2019-11-21 10:43:07',
             ),
-            20 => 
+            19 => 
             array (
                 'id' => 21,
                 'descr' => 'Thaipusam Day',
@@ -227,7 +217,7 @@ class HolidaysTableSeeder extends Seeder
                 'created_at' => '2019-11-21 10:49:40',
                 'updated_at' => '2019-11-21 10:49:40',
             ),
-            21 => 
+            20 => 
             array (
                 'id' => 22,
             'descr' => 'Labour Day (MY)',
@@ -237,7 +227,7 @@ class HolidaysTableSeeder extends Seeder
                 'created_at' => '2019-11-21 10:50:29',
                 'updated_at' => '2019-11-21 10:50:29',
             ),
-            22 => 
+            21 => 
             array (
                 'id' => 23,
             'descr' => 'Wesak Day (MY)',
@@ -247,7 +237,7 @@ class HolidaysTableSeeder extends Seeder
                 'created_at' => '2019-11-21 10:51:48',
                 'updated_at' => '2019-11-21 10:51:48',
             ),
-            23 => 
+            22 => 
             array (
                 'id' => 24,
                 'descr' => 'Nuzul Al-Quran Day Sun',
@@ -257,17 +247,17 @@ class HolidaysTableSeeder extends Seeder
                 'created_at' => '2019-11-21 10:52:55',
                 'updated_at' => '2019-11-21 10:52:55',
             ),
-            24 => 
+            23 => 
             array (
                 'id' => 25,
-            'descr' => 'Hari Raya Puasa Day 1 (MY) Sun',
+            'descr' => 'Hari Raya Puasa Day 1 (MY) Sun day',
                 'dt' => '2020-05-24',
                 'guarantee_flag' => 0,
                 'update_by' => 43570,
                 'created_at' => '2019-11-21 10:57:07',
-                'updated_at' => '2019-11-21 10:57:07',
+                'updated_at' => '2020-04-02 12:16:27',
             ),
-            25 => 
+            24 => 
             array (
                 'id' => 26,
             'descr' => 'Hari Raya Puasa Day 2 (MY)',
@@ -277,7 +267,7 @@ class HolidaysTableSeeder extends Seeder
                 'created_at' => '2019-11-21 10:57:43',
                 'updated_at' => '2019-11-21 10:57:43',
             ),
-            26 => 
+            25 => 
             array (
                 'id' => 27,
             'descr' => 'Hari Raya Puasa Day 1 (MY) Sun , moved',
@@ -287,7 +277,7 @@ class HolidaysTableSeeder extends Seeder
                 'created_at' => '2019-11-21 11:00:34',
                 'updated_at' => '2019-11-21 11:00:34',
             ),
-            27 => 
+            26 => 
             array (
                 'id' => 28,
                 'descr' => 'Hari Keputeraan YDP Agong',
@@ -297,7 +287,7 @@ class HolidaysTableSeeder extends Seeder
                 'created_at' => '2019-11-21 11:01:17',
                 'updated_at' => '2019-11-21 11:01:17',
             ),
-            28 => 
+            27 => 
             array (
                 'id' => 29,
             'descr' => 'Hari Raya Qurban Day 1 (MY)',
@@ -307,7 +297,7 @@ class HolidaysTableSeeder extends Seeder
                 'created_at' => '2019-11-21 11:02:17',
                 'updated_at' => '2019-11-21 11:02:17',
             ),
-            29 => 
+            28 => 
             array (
                 'id' => 30,
             'descr' => 'Awal Muharam- Maal Hijrah (MY)',
@@ -317,7 +307,7 @@ class HolidaysTableSeeder extends Seeder
                 'created_at' => '2019-11-21 11:02:59',
                 'updated_at' => '2019-11-21 11:02:59',
             ),
-            30 => 
+            29 => 
             array (
                 'id' => 31,
             'descr' => 'National Holiday (MY)',
@@ -327,7 +317,7 @@ class HolidaysTableSeeder extends Seeder
                 'created_at' => '2019-11-21 11:03:35',
                 'updated_at' => '2019-11-21 11:03:35',
             ),
-            31 => 
+            30 => 
             array (
                 'id' => 32,
                 'descr' => 'Malaysia Day',
@@ -337,7 +327,7 @@ class HolidaysTableSeeder extends Seeder
                 'created_at' => '2019-11-21 11:04:19',
                 'updated_at' => '2019-11-21 11:04:19',
             ),
-            32 => 
+            31 => 
             array (
                 'id' => 33,
             'descr' => 'Prophet Muhammad\'s B\'day (MY)',
@@ -347,7 +337,7 @@ class HolidaysTableSeeder extends Seeder
                 'created_at' => '2019-11-21 11:05:43',
                 'updated_at' => '2019-11-21 11:05:43',
             ),
-            33 => 
+            32 => 
             array (
                 'id' => 34,
             'descr' => 'Deepavali Day  (MY)',
@@ -357,17 +347,7 @@ class HolidaysTableSeeder extends Seeder
                 'created_at' => '2019-11-21 11:07:00',
                 'updated_at' => '2019-11-21 11:07:00',
             ),
-            34 => 
-            array (
-                'id' => 35,
-            'descr' => 'Christmas Day (MY)',
-                'dt' => '2020-12-25',
-                'guarantee_flag' => 0,
-                'update_by' => 43570,
-                'created_at' => '2019-11-21 11:07:43',
-                'updated_at' => '2019-11-21 11:07:43',
-            ),
-            35 => 
+            33 => 
             array (
                 'id' => 36,
                 'descr' => 'Birthday of Sultan Johor MY',
@@ -377,7 +357,7 @@ class HolidaysTableSeeder extends Seeder
                 'created_at' => '2019-11-21 11:13:02',
                 'updated_at' => '2019-11-21 11:13:02',
             ),
-            36 => 
+            34 => 
             array (
                 'id' => 37,
                 'descr' => 'Hari Hol Sultan Iskandar',
@@ -387,17 +367,17 @@ class HolidaysTableSeeder extends Seeder
                 'created_at' => '2019-11-21 11:22:53',
                 'updated_at' => '2019-11-21 11:22:53',
             ),
-            37 => 
+            35 => 
             array (
                 'id' => 38,
                 'descr' => 'Birthday of Sultan Johor MY',
                 'dt' => '2020-03-23',
                 'guarantee_flag' => 0,
-                'update_by' => 43570,
+                'update_by' => 15076,
                 'created_at' => '2019-11-21 11:26:50',
-                'updated_at' => '2019-11-21 11:26:50',
+                'updated_at' => '2020-04-13 08:58:19',
             ),
-            38 => 
+            36 => 
             array (
                 'id' => 39,
                 'descr' => 'Hari Hol Sultan Iskandar',
@@ -407,7 +387,7 @@ class HolidaysTableSeeder extends Seeder
                 'created_at' => '2019-11-21 11:31:02',
                 'updated_at' => '2019-11-21 11:31:02',
             ),
-            39 => 
+            37 => 
             array (
                 'id' => 40,
                 'descr' => 'Birthday of Sultan Kedah',
@@ -417,7 +397,7 @@ class HolidaysTableSeeder extends Seeder
                 'created_at' => '2019-11-21 11:33:23',
                 'updated_at' => '2019-11-21 11:33:23',
             ),
-            40 => 
+            38 => 
             array (
                 'id' => 41,
                 'descr' => 'Israk and Mikraj',
@@ -427,7 +407,7 @@ class HolidaysTableSeeder extends Seeder
                 'created_at' => '2019-11-21 11:35:24',
                 'updated_at' => '2019-11-21 11:35:24',
             ),
-            41 => 
+            39 => 
             array (
                 'id' => 42,
                 'descr' => 'Sultan Kelantan Birthday Day 1',
@@ -437,7 +417,7 @@ class HolidaysTableSeeder extends Seeder
                 'created_at' => '2019-11-21 11:44:57',
                 'updated_at' => '2019-11-21 11:44:57',
             ),
-            42 => 
+            40 => 
             array (
                 'id' => 43,
                 'descr' => 'Sultan Kelantan Birthday Day 2',
@@ -447,15 +427,35 @@ class HolidaysTableSeeder extends Seeder
                 'created_at' => '2019-11-21 11:45:34',
                 'updated_at' => '2019-11-21 11:45:34',
             ),
-            43 => 
+            41 => 
             array (
                 'id' => 44,
             'descr' => 'Chinese New Year Day 1 (MY) Sat Replacement',
                 'dt' => '2020-01-24',
                 'guarantee_flag' => 0,
-                'update_by' => 19021,
+                'update_by' => 15076,
                 'created_at' => '2020-01-06 13:21:03',
-                'updated_at' => '2020-01-06 13:21:03',
+                'updated_at' => '2020-04-13 09:13:06',
+            ),
+            42 => 
+            array (
+                'id' => 47,
+            'descr' => 'New Year (MY)',
+                'dt' => '2020-01-01',
+                'guarantee_flag' => 0,
+                'update_by' => 15076,
+                'created_at' => '2020-04-02 12:20:16',
+                'updated_at' => '2020-04-14 15:56:49',
+            ),
+            43 => 
+            array (
+                'id' => 67,
+                'descr' => 'jjj',
+                'dt' => '2020-01-01',
+                'guarantee_flag' => 0,
+                'update_by' => 15076,
+                'created_at' => '2020-04-13 09:12:08',
+                'updated_at' => '2020-04-13 09:12:08',
             ),
         ));
         
