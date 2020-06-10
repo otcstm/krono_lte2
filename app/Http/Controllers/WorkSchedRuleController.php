@@ -8,6 +8,7 @@ use App\UserShiftPattern;
 use App\ShiftPlanStaffDay;
 use App\ShiftPattern;
 use App\ShiftGroupMember;
+use App\ShiftGroup;
 use App\DayType;
 use \Carbon\Carbon;
 use App\Shared\UserHelper;
@@ -70,13 +71,20 @@ class WorkSchedRuleController extends Controller
     }
 
     $planlist = ShiftPattern::where('is_weekly', true)->get();
-
+    $isShiftPlanMem = ShiftGroupMember::where('user_id',$req->user()->id)->count();
+    if($isShiftPlanMem > 0){
+      $isShiftPlanMem = 1;
+    }
+    else{
+      $isShiftPlan = 0;
+    }
 
     return view('staff.workschedulemain', [
       'cspid' => $cspid,
       'sdate' => $sdate,
       'edate' => $edate,
-      'planlist' => $planlist
+      'planlist' => $planlist,
+      'isShiftPlanMem' => $isShiftPlanMem
     ]);
   }
 
@@ -140,15 +148,15 @@ class WorkSchedRuleController extends Controller
       array_push($head, $ad->format('d-D'));
     }
 
-    $my = $this->getShiftCal($req->user()->id, $daterange);
-    
+    $my = UserHelper::GetShiftCal($req->user()->id, $daterange);
+
     return view('staff.workcalendar', [
       'mon' => $monlabel,
       'yr' => $ylabel,
       'header' => $head,
       'data' => $my,
       'monNext' => $monNext,
-      'monPrev' => $monPrev     
+      'monPrev' => $monPrev
     ]);
 
   }
@@ -176,7 +184,7 @@ class WorkSchedRuleController extends Controller
       $endate
     );
 
-    $head = ['Personnel No', 'Name'];
+    $head = ['Staff ID', 'Name'];
     foreach($daterange as $ad){
       array_push($head, $ad->format('d-D'));
     }
@@ -187,12 +195,56 @@ class WorkSchedRuleController extends Controller
     $mysg = ShiftGroupMember::where('user_id', $req->user()->id)->first();
     if($mysg){
       foreach($mysg->Group->Members as $amember){
-        $my = $this->getShiftCal($amember->User->id, $daterange);
+        $my = UserHelper::GetShiftCal($amember->User->id, $daterange);
         array_push($caldata, [
           'id' => $amember->User->id,
+          'staffno' => $amember->User->staff_no,
           'name' => $amember->User->name,
           'data' => $my
         ]);
+      }
+    }
+
+    $gid_self = [0];
+    if($mysg){
+        array_push($gid_self,$mysg->shift_group_id);
+    }
+    // manager_id, find team member, multi group
+    $mgr_sg = ShiftGroup::where('manager_id', $req->user()->id)
+    ->whereNotin('id',$gid_self)
+    ->get();
+
+    if($mgr_sg){
+      foreach($mgr_sg as $amgrgrp){
+        foreach($amgrgrp->Members as $amember){
+          //$my = $this->getShiftCal($amember->User->id, $daterange);
+          $my = UserHelper::GetShiftCal($amember->User->id, $daterange);
+          array_push($caldata, [
+            'id' => $amember->User->id,
+            'staffno' => $amember->User->staff_no,
+            'name' => $amember->User->name,
+            'data' => $my
+          ]);
+        }
+      }
+    }
+
+    //  planner_id, find team member, multi group
+    $plnr_sg = ShiftGroup::where('planner_id', $req->user()->id)
+    ->whereNotin('id',$gid_self)
+    ->get();
+    
+    if($plnr_sg){
+      foreach($plnr_sg as $aplnnnergrp){
+        foreach($aplnnnergrp->Members as $amember){
+          $my = UserHelper::GetShiftCal($amember->User->id, $daterange);
+          array_push($caldata, [
+            'id' => $amember->User->id,
+            'staffno' => $amember->User->staff_no,
+            'name' => $amember->User->name,
+            'data' => $my
+          ]);
+        }
       }
     }
 
@@ -202,7 +254,7 @@ class WorkSchedRuleController extends Controller
       'header' => $head,
       'staffs' => $caldata,
       'monNext' => $monNext,
-      'monPrev' => $monPrev      
+      'monPrev' => $monPrev
     ]);
   }
 
@@ -216,11 +268,13 @@ class WorkSchedRuleController extends Controller
       if($sd){
         array_push($rv, [
           'type' => $sd->Day->code,
+          'type_descr' => $sd->Day->description,
           'time' => $sd->Day->getTimeRange()
         ]);
       } else {
         array_push($rv, [
           'type' => 'N/A',
+          'type_descr' => 'N/A',
           'time' => ''
         ]);
       }

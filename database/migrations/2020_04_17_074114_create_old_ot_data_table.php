@@ -39,7 +39,7 @@ class CreateOldOtDataTable extends Migration
             $table->decimal('amount',10,3);
             $table->string('status');
             $table->string('jenisot');
-            $table->string('project type');
+            $table->string('project_type');
             $table->string('resp_cc');
             $table->string('proj_no');
             $table->string('nethdr');
@@ -47,7 +47,7 @@ class CreateOldOtDataTable extends Migration
             $table->decimal('gaji','10','3');
             $table->string('otexpl');
             $table->string('staff_no');
-            $table->decimal('ot_hours_b',10,3);
+            $table->decimal('ot_hours_decimal',10,3);
             $table->string('sup_date');
             $table->string('mgr_date');
             $table->string('sent_date');
@@ -55,16 +55,13 @@ class CreateOldOtDataTable extends Migration
             $table->string('sup_name');
             $table->string('mgr_icno');
             $table->string('mgr_name');
-            $table->string('sup_date_dt')->nullable();;
-            $table->string('mgr_date_dt')->nullable();;
-            $table->string('sent_date_dt')->nullable();;
+            $table->string('sup_date_dt')->nullable();
+            $table->string('mgr_date_dt')->nullable();
+            $table->string('sent_date_dt')->nullable();
             $table->integer('appl_persno')->nullable();
             $table->integer('sup_persno')->nullable();
             $table->integer('mgr_persno')->nullable();
-            
-
-
-            
+                  
             $table->timestamps();
         });
     }

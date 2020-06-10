@@ -1,9 +1,5 @@
 @extends('adminlte::page')
 
-@section('css')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
-@stop
-
 @section('title', 'Shift Plan Details')
 
 @section('content')
@@ -104,17 +100,34 @@
 <div class="panel panel-default">
   <div class="panel-heading">{{$sps->plan_month->format('M-Y')}}'s calendar for {{ $sps->User->name }}</div>
   <div class="panel-body">
-    {!! $cal->calendar() !!}
+    <div class="table-responsive">
+      <table id="tbltwsc" class="table table-bordered table-condensed cell-border" style="white-space: nowrap;">
+        <thead>
+          <tr>
+            @foreach($header as $h)
+            <th style="border:1pt solid black !important;">{{ $h }}</th>
+            @endforeach
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($cal as $s)
+          <tr>
+            @foreach($s['data'] as $h)
+            <td style="border:1pt solid black !important; @if($h['bg'] != '') background-color:{{ $h['bg'] }}  @endif ">
+              <b>{{ $h['type'] }}</b><br />{{ $h['time'] }}
+            </td>
+            @endforeach
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
 @stop
 
 @section('js')
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
-{!! $cal->script() !!}
 
 <script type="text/javascript">
 $(document).ready(function() {
