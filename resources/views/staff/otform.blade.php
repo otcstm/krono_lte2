@@ -119,7 +119,7 @@
                     </p>
                     <p>Verifier: 
                         @if($claim ?? '') 
-                            {{$claim->verifier->name}} ({{$claim->verifier->staff_no}})
+                            {{$claim->verifier->name}}
                         @elseif($draft ?? '')
                             {{$draft[9]}} 
                         @else 
@@ -128,7 +128,7 @@
                     </p>
                     <p>Approver: 
                         @if($claim ?? '')
-                            {{$claim->approver->name}} ({{$claim->approver->staff_no}})
+                            {{$claim->approver->name}}
                         @elseif($draft ?? '')
                             {{$draft[10]}}
                         @else 
