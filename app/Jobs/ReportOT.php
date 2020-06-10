@@ -537,7 +537,11 @@ class ReportOT implements ShouldQueue
                 }
                 if(in_array( 'dytype',$sltcol))
                 {
-                  $dtype = $value->daytype->description;
+                  try {
+                    $dtype = $value->daytype->description;
+                  } catch (\Exception $e) {
+                    $dtype = $value->daytype_id;
+                  }
                   array_push($info, $dtype);
                 }
 
@@ -768,7 +772,11 @@ class ReportOT implements ShouldQueue
                   }
                   if(in_array( 'dytype',$sltcol))
                   {
-                    $dtype = $mainOT->daytype->description;
+                    try {
+                      $dtype = $mainOT->daytype->description;
+                    } catch (\Exception $e) {
+                      $dtype = $mainOT->daytype_id;
+                    }
                     array_push($info, $dtype);
                   }
 

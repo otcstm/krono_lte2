@@ -768,49 +768,9 @@ class OtReport2Controller extends Controller
       foreach($otr as $value){
 
         $urekod = $value->URecord;
-          if($value->sal_exception=='X'){
-            // $value->ot_hour_exception='Yes';
-            $sal_exception='Yes';
-            $salarycap='';
-          }else{
-            // $value->ot_hour_exception='No';
-            $sal_exception='No';
-            try {
-            $salarycap=$value->SalCap()->salary_cap;
-            } catch (\Exception $e) {
-              $salarycap='COMP CODE ERROR';
-            }
-          }
 
         $otdt = new Carbon($value->date);
         $otdt = $otdt->format('d.m.Y');
-        $dtype = $value->daytype->description;
-        $cdt = new Carbon($value->created_at);
-        $cdt = $cdt->format('d.m.Y');
-
-        if( $value->verification_date == ''){
-            $ver_date = '';
-          }else{
-            $ver_date = date('d.m.Y H:i:s', strtotime($value->verification_date));
-          }
-
-          if( $value->approved_date == ''){
-            $appvl_date = '';
-          }else{
-            $appvl_date = date('d.m.Y H:i:s', strtotime($value->approved_date));
-          }
-
-          if( $value->queried_date == ''){
-            $queried_date ='';
-          }else{
-            $queried_date =date('d.m.Y H:i:s', strtotime($value->queried_date));
-          }
-
-          if( $value->payment_date == ''){
-            $payment_date ='';
-          }else{
-            $payment_date =date('d.m.Y', strtotime($value->payment_date));
-          }
 
         $info = [$value->user_id,$urekod->name,$urekod->new_ic,$urekod->staffno,$value->company_id,$value->refno,$otdt];
         // dd($pilihcol);
@@ -841,10 +801,28 @@ class OtReport2Controller extends Controller
           }
           if(in_array( 'salexp',$pilihcol))
           {
+            if($value->sal_exception=='X'){
+              // $value->ot_hour_exception='Yes';
+              $sal_exception='Yes';
+            }else{
+              // $value->ot_hour_exception='No';
+              $sal_exception='No';
+            }
+
             array_push($info, $sal_exception);
           }
           if(in_array( 'capsal',$pilihcol))
           {
+            if($value->sal_exception=='X'){
+              $salarycap='';
+            }else{
+              try {
+              $salarycap=$value->SalCap()->salary_cap;
+              } catch (\Exception $e) {
+                $salarycap='COMP CODE ERROR';
+              }
+            }
+
             array_push($info, $salarycap);
           }
           if(in_array( 'empst',$pilihcol))
@@ -906,10 +884,18 @@ class OtReport2Controller extends Controller
           }
           if(in_array( 'appdate',$pilihcol))
           {
+            $cdt = new Carbon($value->submitted_date);
+            $cdt = $cdt->format('d.m.Y');
             array_push($info, $cdt);
           }
           if(in_array( 'verdate',$pilihcol))
           {
+            if( $value->verification_date == ''){
+                $ver_date = 'N/A';
+              }else{
+                $ver_date = date('d.m.Y', strtotime($value->verification_date));
+              }
+
             array_push($info, $ver_date);
           }
           if(in_array( 'verid',$pilihcol))
@@ -926,6 +912,12 @@ class OtReport2Controller extends Controller
           }
           if(in_array( 'aprvdate',$pilihcol))
           {
+            if( $value->approved_date == ''){
+              $appvl_date = 'N/A';
+            }else{
+              $appvl_date = date('d.m.Y', strtotime($value->approved_date));
+            }
+
             array_push($info, $appvl_date);
           }
           if(in_array( 'apprvrid',$pilihcol))
@@ -942,6 +934,12 @@ class OtReport2Controller extends Controller
           }
           if(in_array( 'qrdate',$pilihcol))
           {
+            if( $value->queried_date == ''){
+              $queried_date ='N/A';
+            }else{
+              $queried_date =date('d.m.Y', strtotime($value->queried_date));
+            }
+
             array_push($info, $queried_date);
           }
           if(in_array( 'qrdby',$pilihcol))
@@ -950,6 +948,12 @@ class OtReport2Controller extends Controller
           }
           if(in_array( 'pydate',$pilihcol))
           {
+            if( $value->payment_date == ''){
+              $payment_date ='N/A';
+            }else{
+              $payment_date =date('d.m.Y', strtotime($value->payment_date));
+            }
+
             array_push($info, $payment_date);
           }
           if(in_array( 'trnscd',$pilihcol))
@@ -958,6 +962,11 @@ class OtReport2Controller extends Controller
           }
           if(in_array( 'dytype',$pilihcol))
           {
+            try {
+              $dtype = $value->daytype->description;
+            } catch (\Exception $e) {
+              $dtype = $value->daytype_id;
+            }
             array_push($info, $dtype);
           }
 
@@ -975,20 +984,6 @@ class OtReport2Controller extends Controller
 
         $urekod = $value->mainOT->URecord;
         $mainOT = $value->mainOT;
-        if($mainOT->sal_exception=='X'){
-            // $mainOT->ot_hour_exception='Yes';
-            $sal_exception='Yes';
-            $salarycap='';
-          }else{
-            // $mainOT->ot_hour_exception='No';
-            $sal_exception='No';
-            try {
-              $salarycap=$mainOT->SalCap()->salary_cap;
-            } catch (\Exception $e) {
-              $salarycap='COMP CODE ERROR';
-            }
-
-          }
 
           $otdt = new Carbon($mainOT->date);
           $otdt = $otdt->format('d.m.Y');
@@ -997,37 +992,6 @@ class OtReport2Controller extends Controller
           $et = new Carbon($value->end_time);
           $et = $et->format('H:i:s');
 
-          $dtype = $mainOT->daytype->description;
-          $cdt = new Carbon($mainOT->created_at);
-          $cdt = $cdt->format('d.m.Y');
-
-          if( $mainOT->verification_date == ''){
-            $ver_date = '';
-          }
-          else{
-            $ver_date = date('d.m.Y', strtotime($mainOT->verification_date));
-          }
-
-          if( $mainOT->approved_date == ''){
-            $appvl_date = '';
-          }
-          else{
-            $appvl_date = date('d.m.Y', strtotime($mainOT->approved_date));
-          }
-
-          if( $mainOT->queried_date == ''){
-            $queried_date ='';
-          }
-          else{
-            $queried_date =date('d.m.Y', strtotime($mainOT->queried_date));
-          }
-
-          if( $mainOT->payment_date == ''){
-            $payment_date ='';
-          }
-          else{
-            $payment_date =date('d.m.Y', strtotime($mainOT->payment_date));
-          }
 
           $info = [$mainOT->user_id,$urekod->name,$urekod->new_ic,$urekod->staffno,$mainOT->company_id,$mainOT->refno,$otdt,$st,$et];
           // dd($pilihcol);
@@ -1058,10 +1022,28 @@ class OtReport2Controller extends Controller
             }
             if(in_array( 'salexp',$pilihcol))
             {
+              if($mainOT->sal_exception=='X'){
+                  // $mainOT->ot_hour_exception='Yes';
+                  $sal_exception='Yes';
+                }else{
+                  // $mainOT->ot_hour_exception='No';
+                  $sal_exception='No';
+                }
+
               array_push($info, $sal_exception);
             }
             if(in_array( 'capsal',$pilihcol))
             {
+              if($mainOT->sal_exception=='X'){
+                  $salarycap='';
+                }else{
+                  try {
+                    $salarycap=$mainOT->SalCap()->salary_cap;
+                    } catch (\Exception $e) {
+                      $salarycap='COMP CODE ERROR';
+                    }
+                }
+
               array_push($info, $salarycap);
             }
             if(in_array( 'empst',$pilihcol))
@@ -1136,10 +1118,20 @@ class OtReport2Controller extends Controller
             }
             if(in_array( 'appdate',$pilihcol))
             {
+              $cdt = new Carbon($mainOT->submitted_date);
+              $cdt = $cdt->format('d.m.Y');
+
               array_push($info, $cdt);
             }
             if(in_array( 'verdate',$pilihcol))
             {
+              if( $mainOT->verification_date == ''){
+                $ver_date = '';
+              }
+              else{
+                $ver_date = date('d.m.Y', strtotime($mainOT->verification_date));
+              }
+
               array_push($info, $ver_date);
             }
             if(in_array( 'verid',$pilihcol))
@@ -1156,6 +1148,13 @@ class OtReport2Controller extends Controller
             }
             if(in_array( 'aprvdate',$pilihcol))
             {
+              if( $mainOT->approved_date == ''){
+                $appvl_date = '';
+              }
+              else{
+                $appvl_date = date('d.m.Y', strtotime($mainOT->approved_date));
+              }
+
               array_push($info, $appvl_date);
             }
             if(in_array( 'apprvrid',$pilihcol))
@@ -1172,6 +1171,13 @@ class OtReport2Controller extends Controller
             }
             if(in_array( 'qrdate',$pilihcol))
             {
+              if( $mainOT->queried_date == ''){
+                $queried_date ='';
+              }
+              else{
+                $queried_date =date('d.m.Y', strtotime($mainOT->queried_date));
+              }
+
               array_push($info, $queried_date);
             }
             if(in_array( 'qrdby',$pilihcol))
@@ -1180,6 +1186,13 @@ class OtReport2Controller extends Controller
             }
             if(in_array( 'pydate',$pilihcol))
             {
+              if( $mainOT->payment_date == ''){
+                $payment_date ='';
+              }
+              else{
+                $payment_date =date('d.m.Y', strtotime($mainOT->payment_date));
+              }
+
               array_push($info, $payment_date);
             }
             if(in_array( 'trnscd',$pilihcol))
@@ -1188,9 +1201,13 @@ class OtReport2Controller extends Controller
             }
             if(in_array( 'dytype',$pilihcol))
             {
+              try {
+                $dtype = $mainOT->daytype->description;
+              } catch (\Exception $e) {
+                $dtype = $mainOT->daytype_id;
+              }
               array_push($info, $dtype);
             }
-
       }
       array_push($otdata, $info);
     }
@@ -1199,11 +1216,7 @@ class OtReport2Controller extends Controller
     // dd($otdata,$headers);
       $eksel->addSheet($sh, $otdata, $headers);
       $eksel->removesheet();
-
       // Log::info('excel loaded');
       return $eksel->download();
   }
-
-
-
 }

@@ -26,6 +26,7 @@
             </div>
             <div class="col-md-9">
               <select class="selectReport form-control" name="fcompany[]" multiple="multiple" required autofocus>
+              <!-- <select class="selectReport form-control" name="fcompany[]" multiple="multiple" autofocus> -->
                 @if($companies ?? '')
                     @foreach($companies as $no=>$company)
               <option value="{{$company->id}}">{{$company->id}}-{{$company->company_descr}}</option>
