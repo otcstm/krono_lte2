@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ReminderJobDetail;
 use App\Overtime;
-use \Carbon\Carbon;
 use App\Notifications\WeeklyReminder;
 
 class ReminderController extends Controller
@@ -27,22 +26,5 @@ class ReminderController extends Controller
     } else {
       abort(404);
     }
-  }
-
-  public function jobs(Request $req){
-    $now = new Carbon;
-    dd($now->year);
-  }
-
-  public function detail(Request $req){
-
-  }
-
-  public function delete(Request $req){
-
-  }
-
-  public function staff(Request $req){
-
   }
 }

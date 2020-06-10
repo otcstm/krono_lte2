@@ -135,7 +135,6 @@ class ReportOTLC implements ShouldQueue
             array_push($otdata, $info);
         }
         $eksel->addSheet('OTLogChanges', $otdata, $headers);
-        $eksel->removesheet();
         $eksel->saveToPerStorage();
 
         $bjob->status = 'Completed';

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Company;
 use App\ShiftPattern;
 use App\ShiftPatternDay;
 use App\DayType;
@@ -12,11 +11,7 @@ use App\DayType;
 class ShiftPatternController extends Controller
 {
   public function index(){
-    return view('admin.shiftp.stemplate_list', 
-    [
-      'p_list' => ShiftPattern::all(),    
-      'companies'=> Company::all()
-    ]);
+    return view('admin.shiftp.stemplate_list', ['p_list' => ShiftPattern::all()]);
   }
 
   public function addShiftPattern(Request $req){

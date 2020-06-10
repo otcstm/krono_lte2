@@ -85,9 +85,9 @@
        <tbody>
          @foreach($ingrp as $ap)
          <tr>
-           <td style="text-align: left !important;">{{ $ap->User->staff_no }}</td>
-           <td style="text-align: left !important;">{{ $ap->User->name }}</td>
-           <td style="text-align: center !important;">
+           <td>{{ $ap->User->staff_no }}</td>
+           <td>{{ $ap->User->name }}</td>
+           <td>
              <form method="post" action="{{ route('shift.staff.del', [], false) }}" onsubmit='return confirm("Confirm remove?")'>
                @csrf
                <button type="submit" class="btn btn-np" title="Delete"><i class="fas fa-trash-alt"></i></button>
@@ -114,9 +114,9 @@
        <tbody>
          @foreach($outgrp as $ap)
          <tr>
-           <td style="text-align: left !important;">{{ $ap->staff_no }}</td>
-           <td style="text-align: left !important;">{{ $ap->name }}</td>
-           <td style="text-align: center !important;">
+           <td>{{ $ap->staff_no }}</td>
+           <td>{{ $ap->name }}</td>
+           <td>
              {{-- <form method="post" action="{{ route('shift.staff.add', [], false) }}" onsubmit='return confirm("Confirm add?")'>
                @csrf
                <button type="submit" class="btn btn-np" title="Add"><i class="fas fa-plus"></i></button>

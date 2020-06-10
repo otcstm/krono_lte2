@@ -1,5 +1,9 @@
 @extends('adminlte::page')
 
+@section('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
+@stop
+
 @section('title', 'Shift Plan Details')
 
 @section('content')
@@ -55,7 +59,7 @@
        </tbody>
      </table>
      @if($role != 'noone')
-
+     
      <div class="form-group text-center">
        <form action="{{ route('shift.takeaction', [], false) }}" method="post">
          @csrf
@@ -87,32 +91,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">{{$sp->plan_month->format('M-Y')}}'s calendar for {{ $sp->name }}</div>
   <div class="panel-body">
-    <div class="table-responsive">
-      <table id="tbltwsc" class="table table-bordered table-condensed cell-border" style="white-space: nowrap;">
-        <thead>
-          <tr>
-            <th  style="border:1pt solid black !important;text-align:left !important">ID</th>
-            <th style="border:1pt solid black !important;text-align:left !important">Name</th>
-            @foreach($header as $h)
-            <th style="border:1pt solid black !important;">{{ $h }}</th>
-            @endforeach
-          </tr>
-        </thead>
-        <tbody>
-          @foreach($cal as $s)
-          <tr>
-            <td style="border:1pt solid black !important;text-align:left !important">{{ $s['id'] }}</td>
-            <td style="border:1pt solid black !important;text-align:left !important">{{ $s['name'] }}</td>
-            @foreach($s['data'] as $h)
-            <td style="border:1pt solid black !important; @if($h['bg'] != '') background-color:{{ $h['bg'] }}  @endif ">
-              <b>{{ $h['type'] }}</b><br />{{ $h['time'] }}
-            </td>
-            @endforeach
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
-    </div>
+    {!! $cal->calendar() !!}
   </div>
 </div>
 
@@ -203,6 +182,11 @@
 @stop
 
 @section('js')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
+{!! $cal->script() !!}
+
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -214,10 +198,6 @@ $(document).ready(function() {
   $('#planhist').DataTable({
     "responsive": "true"
   });
-  $('#tbltwsc').DataTable({
-    "responsive": "true"
-  });
-
 
 } );
 

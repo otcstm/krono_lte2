@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\State;
 
 class StatesTableSeeder extends Seeder
 {
@@ -12,32 +13,22 @@ class StatesTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
-        \DB::table('states')->delete();
-        
-        \DB::table('states')->insert(array (
-            0 => 
+
+
+
+        State::insert(array (
+            0 =>
             array (
                 'id' => 'JH',
             'state_descr' => 'Malaysia (Johor)',
                 'source' => 'OT',
-                'updated_by' => 43570,
+                'updated_by' => 19562,
                 'created_by' => 19562,
                 'created_at' => '2019-10-22 07:10:23',
-                'updated_at' => '2020-04-09 13:53:54',
+                'updated_at' => '2019-10-22 07:10:23',
             ),
-            1 => 
-            array (
-                'id' => 'KD',
-            'state_descr' => 'Malaysia (Kedah Darul Aman)',
-                'source' => 'OT',
-                'updated_by' => 39868,
-                'created_by' => 39868,
-                'created_at' => '2020-05-15 12:37:59',
-                'updated_at' => '2020-05-15 12:37:59',
-            ),
-            2 => 
+            1 =>
             array (
                 'id' => 'KH',
             'state_descr' => 'Malaysia (Kedah)',
@@ -47,7 +38,7 @@ class StatesTableSeeder extends Seeder
                 'created_at' => '2019-10-22 07:10:53',
                 'updated_at' => '2019-10-22 07:10:53',
             ),
-            3 => 
+            2 =>
             array (
                 'id' => 'KT',
             'state_descr' => 'Malaysia (Kelantan)',
@@ -57,7 +48,7 @@ class StatesTableSeeder extends Seeder
                 'created_at' => '2019-10-22 07:11:37',
                 'updated_at' => '2019-10-22 07:11:37',
             ),
-            4 => 
+            3 =>
             array (
                 'id' => 'LB',
             'state_descr' => 'Malaysia (Wilayah Persekutuan Labuan)',
@@ -67,7 +58,7 @@ class StatesTableSeeder extends Seeder
                 'created_at' => '2019-10-22 07:13:09',
                 'updated_at' => '2019-10-22 07:13:09',
             ),
-            5 => 
+            4 =>
             array (
                 'id' => 'ML',
             'state_descr' => 'Malaysia (Melaka)',
@@ -77,7 +68,7 @@ class StatesTableSeeder extends Seeder
                 'created_at' => '2019-10-22 07:10:06',
                 'updated_at' => '2019-10-22 07:10:06',
             ),
-            6 => 
+            5 =>
             array (
                 'id' => 'NS',
             'state_descr' => 'Malaysia (Negeri Sembilan)',
@@ -87,7 +78,7 @@ class StatesTableSeeder extends Seeder
                 'created_at' => '2019-10-22 07:09:55',
                 'updated_at' => '2019-10-22 07:09:55',
             ),
-            7 => 
+            6 =>
             array (
                 'id' => 'PG',
             'state_descr' => 'Malaysia (Pahang)',
@@ -97,7 +88,7 @@ class StatesTableSeeder extends Seeder
                 'created_at' => '2019-10-22 07:12:21',
                 'updated_at' => '2019-10-22 07:12:21',
             ),
-            8 => 
+            7 =>
             array (
                 'id' => 'PJ',
             'state_descr' => 'Malaysia (Wilayah Persekutuan Putrajaya)',
@@ -107,7 +98,7 @@ class StatesTableSeeder extends Seeder
                 'created_at' => '2019-10-22 07:08:09',
                 'updated_at' => '2019-10-22 07:08:09',
             ),
-            9 => 
+            8 =>
             array (
                 'id' => 'PK',
             'state_descr' => 'Malaysia (Perak)',
@@ -117,7 +108,7 @@ class StatesTableSeeder extends Seeder
                 'created_at' => '2019-10-22 07:11:24',
                 'updated_at' => '2019-10-22 07:11:24',
             ),
-            10 => 
+            9 =>
             array (
                 'id' => 'PP',
             'state_descr' => 'Malaysia (Pulau Pinang)',
@@ -127,7 +118,7 @@ class StatesTableSeeder extends Seeder
                 'created_at' => '2019-10-22 07:11:11',
                 'updated_at' => '2019-10-22 07:11:11',
             ),
-            11 => 
+            10 =>
             array (
                 'id' => 'PR',
             'state_descr' => 'Malaysia (Perlis)',
@@ -137,7 +128,7 @@ class StatesTableSeeder extends Seeder
                 'created_at' => '2019-10-22 07:10:36',
                 'updated_at' => '2019-10-22 07:10:36',
             ),
-            12 => 
+            11 =>
             array (
                 'id' => 'SB',
             'state_descr' => 'Malaysia (Sabah)',
@@ -147,7 +138,7 @@ class StatesTableSeeder extends Seeder
                 'created_at' => '2019-10-22 07:12:48',
                 'updated_at' => '2019-10-22 07:12:48',
             ),
-            13 => 
+            12 =>
             array (
                 'id' => 'SN',
             'state_descr' => 'Malaysia (Selangor)',
@@ -157,7 +148,7 @@ class StatesTableSeeder extends Seeder
                 'created_at' => '2019-10-22 07:08:28',
                 'updated_at' => '2019-10-22 07:08:28',
             ),
-            14 => 
+            13 =>
             array (
                 'id' => 'SR',
             'state_descr' => 'Malaysia (Sarawak)',
@@ -167,7 +158,7 @@ class StatesTableSeeder extends Seeder
                 'created_at' => '2019-10-22 07:13:29',
                 'updated_at' => '2019-10-22 07:13:29',
             ),
-            15 => 
+            14 =>
             array (
                 'id' => 'TG',
             'state_descr' => 'Malaysia (Terengganu)',
@@ -177,7 +168,7 @@ class StatesTableSeeder extends Seeder
                 'created_at' => '2019-10-22 07:12:07',
                 'updated_at' => '2019-10-22 07:12:07',
             ),
-            16 => 
+            15 =>
             array (
                 'id' => 'WP',
             'state_descr' => 'Malaysia (Wilayah Persekutuan K.Lumpur)',
@@ -188,7 +179,7 @@ class StatesTableSeeder extends Seeder
                 'updated_at' => '2019-10-22 07:07:55',
             ),
         ));
-        
-        
+
+
     }
 }

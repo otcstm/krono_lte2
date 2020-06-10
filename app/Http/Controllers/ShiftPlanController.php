@@ -116,29 +116,51 @@ class ShiftPlanController extends Controller
 
         $slist = $sp->StaffList;
         $eventlist = [];
-        $startdate = new Carbon($sp->plan_month);
-        $startdate->firstOfMonth();
-        $enddate = new Carbon($startdate);
-        $enddate->addMonth();
-
-        $daterange = new \DatePeriod(
-          $startdate,
-          \DateInterval::createFromDateString('1 day'),
-          $enddate
-        );
-
-        $head = [];
-        foreach($daterange as $ad){
-          array_push($head, $ad->format('d-D'));
-        }
 
         foreach ($slist as $key => $value) {
-          array_push($eventlist, [
-            'id' => $value->User->id,
-            'name' => $value->User->name,
-            'data' => UserHelper::GetShiftCal($value->User->id, $daterange)
-          ]);
+          $value->col = ColorHelper::GetRandColor();
+
+          if($sp->status == 'Planning'){
+            // get last planned for this staff
+            $staffExtra = UserHelper::GetUserInfo($value->user_id)['extra'];
+            if(isset($staffExtra->last_planned_day)){
+              $eventlist[] = Calendar::event(
+              $value->User->staff_no,
+              true,
+              $staffExtra->last_planned_day,
+              $staffExtra->last_planned_day,
+              $value->id,[
+                // 'url' => route('area.evdetail', ['id' => $value->id], false),
+                'textColor' => '#ffffff',
+                'backgroundColor' => '#000000',
+
+              ]);
+            }
+          }
+
+          // get the calendar for this staff
+          foreach ($value->Templates as $vt) {
+            $evdate = new Carbon($vt->end_date);
+            $evdate->addDay();
+            $eventlist[] = Calendar::event(
+            $vt->Pattern->code . '-> ' . $value->User->name,
+            true,
+            $vt->start_date,
+            $evdate,
+            $vt->id,[
+              // 'url' => route('area.evdetail', ['id' => $value->id], false),
+              'textColor' => $value->col['f'],
+              'backgroundColor' => $value->col['bg'],
+
+            ]);
+          }
         }
+
+
+        $blankc = Calendar::addEvents($eventlist)->setOptions([
+          'defaultDate' => $sp->plan_month,
+          'eventLimit' => false
+        ]);
 
         $myrole = 'noone';
         // decide next allowed action
@@ -150,8 +172,7 @@ class ShiftPlanController extends Controller
 
         return view('shiftplan.plan_detail', [
           'sp' => $sp,
-          'header' => $head,
-          'cal' => $eventlist,
+          'cal' => $blankc,
           'stafflist' => $slist,
           'role' => $myrole
         ]);
@@ -253,23 +274,23 @@ class ShiftPlanController extends Controller
       $sphist->user_id = $cuserid;
       $sphist->action = 'Approve';
       $sphist->save();
-
+      
       // E_0017
       // php artisan make:notification ShiftPlanApproved
       // Notification to Shift Planner once Group Owner approve Shift Planning.
       // to: Group Planner
       // cc: Group Owner
-
+      
       // user yang akan terima notification tu
       $to_user = User::where('id',$theplan->Group->planner_id)->first();
 
       // object yang nak dinotify / tengok bila penerima notify tekan link
-      $shift_grp = \App\ShiftGroup::where('id', $theplan->Group->id)->first();
+      $shift_grp = \App\ShiftGroup::where('id', $theplan->Group->id)->first();   
       try{
         // hantar notification ke planner tu, untuk action yang berkaitan
         $to_user->notify(new ShiftPlanApproved($shift_grp, $theplan));
-      } catch(\Exception $e){
-      }
+      } catch(\Exception $e){    
+      } 
       // also updatae the status for each of the staff plan
       foreach($theplan->StaffList as $asps){
         $asps->status = 'Approved';
@@ -280,10 +301,10 @@ class ShiftPlanController extends Controller
         try{
           // hantar notification ke user tu, untuk action yang berkaitan
             $to_user_member->notify(new ShiftPlanMembersApproved($shift_grp, $theplan, $asps));
-        } catch(\Exception $e){
-        }
+        } catch(\Exception $e){    
+        } 
       }
-
+            
 
       return redirect(route('shift.view', ['id' => $theplan->id], false))
         ->with([
@@ -325,18 +346,18 @@ class ShiftPlanController extends Controller
       // Notification to Shift Planner once Group Owner revert Shift Planning
       // to: Group Planner
       // cc: Group Owner
-
+      
       // user yang akan terima notification tu
       $to_user = User::where('id',$theplan->Group->planner_id)->first();
 
       // object yang nak dinotify / tengok bila penerima notify tekan link
-      $shift_grp = \App\ShiftGroup::where('id', $theplan->Group->id)->first();
+      $shift_grp = \App\ShiftGroup::where('id', $theplan->Group->id)->first();  
 
       try{
         // hantar notification ke planner tu, untuk action yang berkaitan
         $to_user->notify(new ShiftPlanReverted($shift_grp, $theplan, $reason));
-      } catch(\Exception $e){
-      }
+      } catch(\Exception $e){    
+      } 
 
       return redirect(route('shift.view', ['id' => $theplan->id], false))
         ->with([
@@ -375,18 +396,18 @@ class ShiftPlanController extends Controller
       // Notification to Group Owner once Shift Planner assign work schedule rule to Members (Shift Planning)
       // to: Group Owner
       // cc: Group Planner
-
+      
       // user yang akan terima notification tu
       $to_user = User::where('id',$theplan->Group->manager_id)->first();
 
       // object yang nak dinotify / tengok bila penerima notify tekan link
-      $shift_grp = \App\ShiftGroup::where('id', $theplan->Group->id)->first();
-
+      $shift_grp = \App\ShiftGroup::where('id', $theplan->Group->id)->first();    
+     
   try{
     // hantar notification ke user tu, untuk action yang berkaitan
     $to_user->notify(new ShiftPlanSubmitted($shift_grp, $theplan));
-  } catch(\Exception $e){
-  }
+  } catch(\Exception $e){    
+  } 
 
 
       return redirect(route('shift.view', ['id' => $theplan->id], false))
@@ -428,18 +449,18 @@ class ShiftPlanController extends Controller
       // Notification to Shift Planner once Group Owner revert Shift Planning
       // to: Group Planner
       // cc: Group Owner
-
+      
       // user yang akan terima notification tu
       $to_user = User::where('id',$theplan->Group->planner_id)->first();
 
       // object yang nak dinotify / tengok bila penerima notify tekan link
-      $shift_grp = \App\ShiftGroup::where('id', $theplan->Group->id)->first();
+      $shift_grp = \App\ShiftGroup::where('id', $theplan->Group->id)->first();  
 
       try{
         // hantar notification ke planner tu, untuk action yang berkaitan
         $to_user->notify(new ShiftPlanRejected($shift_grp, $theplan, $reason));
-      } catch(\Exception $e){
-      }
+      } catch(\Exception $e){    
+      } 
 
       return redirect(route('shift.view', ['id' => $theplan->id], false))
         ->with([
@@ -484,36 +505,50 @@ class ShiftPlanController extends Controller
         // $spattern = ShiftPattern::all();
 
         // populate the calendar
-        $startdate = new Carbon($sps->plan_month);
-        $startdate->firstOfMonth();
-        $enddate = new Carbon($startdate);
-        $enddate->addMonth();
+        $lastmon = new Carbon($sps->plan_month);
+        $lastmon->addMonths(-1);
+        $worklists = ShiftPlanStaffDay::where('user_id', $sps->user_id)
+          ->whereDate('work_date', '>=', $lastmon)
+          ->get();
 
-        $daterange = new \DatePeriod(
-          $startdate,
-          \DateInterval::createFromDateString('1 day'),
-          $enddate
-        );
+        $eventlist = [];
+        foreach ($worklists as $key => $value) {
+          $tday = $value->Day;
+          $display = $tday->code . ' (' . $value->StaffTemplate->Pattern->code . ')';
+          if($value->is_work_day){
+            $fullday = false;
+            $stime = $value->start_time;
+            $etime = $value->end_time;
+          } else {
+            $fullday = true;
+            $stime = $value->work_date;
+            $etime = $value->work_date;
+          }
 
-        $head = [];
-        foreach($daterange as $ad){
-          array_push($head, $ad->format('d-D'));
+          $eventlist[] = Calendar::event(
+          $display,
+          $fullday,
+          $stime,
+          $etime,
+          $value->id,[
+            // 'url' => route('area.evdetail', ['id' => $value->id], false),
+            'textColor' => $tday->font_color,
+            'backgroundColor' => $tday->bg_color,
+
+          ]);
         }
-
-        $blankc[] = [
-          'data' => UserHelper::GetShiftCal($sps->user_id, $daterange)
-        ];
 
         // check if already use all of this month
         $lastmon = new Carbon($sps->plan_month);
         $lastmon->addMonth();
 
 
+        $blankc = Calendar::addEvents($eventlist)->setOptions(['defaultDate' => $lastplan->format('Y-m-d')]);
+
         // dd($blankc->getOptionsJson());
         return view('shiftplan.staff_detail', [
           'sps' => $sps,
           // 'patterns' => $spattern,
-          'header' => $head,
           'cal' => $blankc,
           'sdate' => $lastplan->format('Y-m-d'),
           'mindate' => $mindate->format('Y-m-d'),
