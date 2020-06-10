@@ -20,19 +20,8 @@ class ShiftGroupController extends Controller
 
     $glist = ShiftGroup::all();
 
-    $new_gid = DB::table('INFORMATION_SCHEMA.TABLES')
-    ->select('AUTO_INCREMENT as id')
-    ->where('TABLE_SCHEMA','otcs')
-    ->where('TABLE_NAME','shift_groups')
-    ->first();
-
-    //$autogen_gcode = "G".str_pad($new_gid->id,11,"0",STR_PAD_LEFT);
-    $autogen_gcode = "GS".$new_gid->id;
-    //dd($autogen_gcode);
-
     return view('shiftplan.shift_group', [
-      'p_list' => $glist,
-      'autogen_gcode' => $autogen_gcode 
+      'p_list' => $glist
     ]);
   }
 

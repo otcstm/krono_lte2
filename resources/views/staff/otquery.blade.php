@@ -12,8 +12,7 @@
 @elseif($view=='approverrept')
 <h1>Claim Approval Report</h1>
 @elseif($view=='admin')
-<h1>Assign Verifier/Approver</h1>
-<!-- <h1>Claim Manual Approval</h1> -->
+<h1>Claim Manual Approval</h1>
 @endif
 <div class="panel panel-default">
     <div class="panel-body">
@@ -162,10 +161,10 @@
                                     <option selected value="">Select Action</option>
                                     <option hidden value="Remove">Remove Verifier</option>
                                     <!-- <option hidden disabled selected value="">Select Action</option> -->
-                                    @if($view=="verifier") 
+                                    @if(($view=="verifier")||($view=='admin')) 
                                         <option value="PA">Verify</option>
                                     @endif
-                                    @if($view=='approver')
+                                    @if(($view=='approver')||($view=='admin'))
                                         <option value="A">Approve</option>
                                         <option 
                                             @if($singleuser->verifier_id!=null) 
@@ -803,15 +802,6 @@
                             "</div>"+
                             "<div class='col-md-9'>"+
                                 "<input type='text' id='sstaffno' style='width: 100%; box-sizing: border-box;'>"+
-                            "</div>"+
-                        "</div>"+
-
-                        "<div class='row'>"+
-                            "<div class='col-md-3'>"+
-                                "<p><b>Personnel Number</b></p>"+
-                            "</div>"+
-                            "<div class='col-md-9'>"+
-                                "<input type='text' id='spersno' style='width: 100%; box-sizing: border-box;'>"+
                             "</div>"+
                         "</div>"+
 
