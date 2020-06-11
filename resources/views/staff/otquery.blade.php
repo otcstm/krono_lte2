@@ -112,7 +112,7 @@
                             <td>{{++$no}}</td>
                             <td>{{ $singleuser->name->name }}</td>
                             <td><a href="" id="a-{{$no}}" style="font-weight: bold; color: #143A8C" data-id="{{$singleuser->id}}">{{ date("d.m.Y", strtotime($singleuser->date)) }}</a></td>
-                            <td>{{$claim->daytype->description}}</td>
+                            <td>{{$singleuser->daytype->description}}</td>
                             <td>
                                 @foreach($singleuser->detail as $details)
                                     {{date('Hi', strtotime($details->start_time)) }}<br>
@@ -125,15 +125,13 @@
                             </td>
                             <td>{{ $singleuser->total_hour }}h {{ $singleuser->total_minute }}m</td>
                             <td>RM{{$singleuser->amount}}</td>
-                            <td>
-                                @if($singleuser->status=="PA")
-                                    <p>Pending Approval</p>
+                            <td>@if($singleuser->status=="PA")
+                                    <span>Pending Approval</span>
                                 @elseif($singleuser->status=="PV")
-                                    <p>Pending Verification</p>
+                                    <span>Pending Verification</span>
                                 @elseif($singleuser->status=="A")
-                                    <p>Approved</p>
-                                @endif
-                            </td>
+                                    <span>Approved</span>
+                                @endif</td>
                             
                             @if(($view=='verifier')||($view=='approver')||($view=='admin'))
                                 @if(($view=='approver')||($view=='admin'))
@@ -658,6 +656,7 @@
     }
     
     function search(searchn, searchpn, searchsn, searchp, searchcc, searchct, searchpa, searchpsa, searchesg, searche, searchmn, searchon, type, block, i, titles){
+        // alert(searchpn);
         const url='{{ route("ot.search", [], false)}}';
         no = i;
         htmlstring = '<div style="border: 1px solid #DDDDDD; max-height: 60vh; overflow-y: scroll;  overflow-x: hidden;">';
@@ -697,7 +696,7 @@
                                 "<i class='fas fa-search'></i>"+
                             "</button>"+
                             "<p id='3more' style=' margin-top: 5px; color: #F00000; display: none'>Search input must be more than 3 alphabets!</p>"+
-                            "<a id='margin' href='' onclick='return advance("+i+","+titles+")' style='margin-left: -20px; color: #143A8C'>"+
+                            "<a id='margin' href='#' onclick=\"advance("+i+",\'"+titles+"\'); \" style='margin-left: -20px; color: #143A8C'>"+
                                 "<b><u>Advance Search</u></b>"+
                             "</a>"+
                         "</div>"+
@@ -815,14 +814,14 @@
                             "</div>"+
                         "</div>"+
 
-                        "<div class='row'>"+
-                            "<div class='col-md-3'>"+
-                                "<p><b>Email</b></p>"+
-                            "</div>"+
-                            "<div class='col-md-9'>"+
-                            "<input type='text' id='semail' style='width: 100%; box-sizing: border-box;'>"+
-                            "</div>"+
-                        "</div>"+
+                        // "<div class='row'>"+
+                        //     "<div class='col-md-3'>"+
+                        //         "<p><b>Email</b></p>"+
+                        //     "</div>"+
+                        //     "<div class='col-md-9'>"+
+                        //     "<input type='text' id='semail' style='width: 100%; box-sizing: border-box;'>"+
+                        //     "</div>"+
+                        // "</div>"+
                         
                     "</div>",
             confirmButtonText:
