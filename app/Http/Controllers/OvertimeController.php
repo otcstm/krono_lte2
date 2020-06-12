@@ -927,15 +927,14 @@ class OvertimeController extends Controller{
         $total_hours = 0;
         $total_minutes = 0;
         foreach($total_hour as $single){
-            $total_hours = ($total_hours + $single->hour)*60;
+            $total_hours = $total_hours + ($single->hour*60);
             $total_minutes = $total_minutes + $single->minute;
         }
         $total_minutes = $total_hours+$total_minutes;
         Session::put(['claim' => $claim]);
-
+        // dd($id);
         //if add new time
         if($req->formtype=="add"){
-
             //if total ot hours exceed 12 hours
             if($total_minutes>=720){
                 return redirect(route('ot.form',[],false))->with([

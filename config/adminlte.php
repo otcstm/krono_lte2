@@ -183,6 +183,13 @@ return [
               'can' => '1-nav-admin',
           ],
           [
+              'text' => 'manage_formula',
+              'url' => '/admin/overtime/formula',
+              'icon' => '',
+            //   'icon' => 'fas fas fa-clock',
+              'can' => '1-nav-admin',
+          ],
+          [
               'text' => 'manage_wdays',
               'url'  => '/admin/workday',
               'icon' => '',
