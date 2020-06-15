@@ -11,7 +11,7 @@ class ShiftPatternDay extends Model
   }
 
   public function ShiftPattern(){
-    return $this->belongsTo(ShiftPattern::class, 'shift_pattern_id');
+    return $this->belongsTo(ShiftPatternCompany::class, 'shift_pattern_id');
   }
 
 }
