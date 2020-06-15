@@ -11,16 +11,13 @@ class DayType extends Model
   use SoftDeletes;
 
   public function showEndTime(){
-    if($this->is_work_day){
+    //if($this->is_work_day){
       $st = Carbon::create($this->start_time);
       $st->addHours($this->dur_hour);
       $st->addMinutes($this->dur_minute);
-
       return $st->toTimeString();
-    }
-
-    return null;
-
+    //}
+    //return null;
   }
 
   public function getTimeRange(){

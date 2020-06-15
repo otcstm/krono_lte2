@@ -22,6 +22,7 @@
            <th>Total Days</th>
            <th>Total Hours</th>
            <th>Is Weekly</th>
+           <th>Company</th>
            <th>Action</th>
          </tr>
        </thead>
@@ -39,6 +40,15 @@
              &#10008;
              @endif
            </td>
+           <td style="text-align: left !important;">            
+        @if($ap->companies ?? '')
+          @foreach($ap->companies as $acompany)           
+            {{$acompany->company_descr}} ({{$acompany->id}})<br />
+          @endforeach
+        @else
+            No Company Assigned
+        @endif       
+            </td>
            <td>
              <form method="post" action="{{ route('sp.delete', [], false) }}" onsubmit='return confirm("Confirm delete?")'>
                @csrf
@@ -62,21 +72,7 @@
 
     <form action="{{ route('sp.add', [], false) }}" method="post">
       @csrf
-      <div class="form-group has-feedback {{ $errors->has('compcode') ? 'has-error' : '' }}">
-        <label for="code">Company</label>
-        <select class="selectReport form-control" name="fcompany[]" multiple="multiple">
-          @if($companies ?? '')
-              @foreach($companies as $no=>$company)
-        <option value="{{$company->id}}">{{$company->id}}-{{$company->company_descr}}</option>
-              @endforeach
-          @endif
-        </select>
-        @if ($errors->has('compcode'))
-            <span class="help-block">
-                <strong>{{ $errors->first('code') }}</strong>
-            </span>
-        @endif
-      </div>
+      
       <div class="form-group has-feedback {{ $errors->has('code') ? 'has-error' : '' }}">
         <label for="code">Code</label>
         <input id="code" type="text" name="code" class="form-control" value="{{ old('code') }}"
@@ -108,6 +104,43 @@
         @endif
       </div>
 
+      <div class="form-group has-feedback {{ $errors->has('compcode') ? 'has-error' : '' }}">
+        <label>Company</label>  
+        
+        <div class="row">
+        @if($comp_list ?? '')
+        @foreach($comp_list as $alistcompany)   
+        <div class="col-sm-4">
+          <label class="btn btn-xs"> 
+          <input id="compcb" type="checkbox" name="compcb[]" value="{{$alistcompany->id}}">
+          {{$alistcompany->id}}-{{$alistcompany->company_descr}}
+        </label>
+        </div>
+        @endforeach
+        @endif
+        <br />
+        <div class="col-sm-12">
+          <label class="btn btn-xs btn-outline">
+        <input id="checkall" type="checkbox" onClick="CheckUncheckAll();" value="Check all">
+        Check All Company</label>
+        </div>
+      </div>
+
+        {{-- {{$company->id}} {{$company->id}}-{{$company->company_descr}}     --}}
+        {{-- <select class="selectReport form-control" name="fcompany[]" multiple="multiple">
+          @if($companies ?? '')
+              @foreach($companies as $no=>$company)
+        <option value="{{$company->id}}">{{$company->id}}-{{$company->company_descr}}</option>
+              @endforeach
+          @endif
+        </select> --}}
+        @if ($errors->has('compcode'))
+            <span class="help-block">
+                <strong>{{ $errors->first('code') }}</strong>
+            </span>
+        @endif
+      </div>
+
       <div class="form-group text-center">
         <button type="submit" class="btn btn-primary">Add</button>
       </div>
@@ -130,7 +163,22 @@ $(document).ready(function() {
       closeOnSelect: false
     });
 
-} );
+});
+
+function CheckUncheckAll(){
+   var  selectAllCheckbox=document.getElementById("checkall");
+   if(selectAllCheckbox.checked==true){
+    var checkboxes =  document.getElementsByName("compcb[]");
+     for(var i=0, n=checkboxes.length;i<n;i++) {
+      checkboxes[i].checked = true;
+     }
+    }else {
+     var checkboxes =  document.getElementsByName("compcb[]");
+     for(var i=0, n=checkboxes.length;i<n;i++) {
+      checkboxes[i].checked = false;
+     }
+    }
+   };
 
 </script>
 @stop
