@@ -47,14 +47,15 @@ class ShiftPatternController extends Controller
         foreach($req->compcb as $acompcb){
           $addSPComp = new CompanyShiftPattern;
           $addSPComp->company_id = $acompcb;
-          $addSPComp->shift_pattern_id = $req->id;
+          $addSPComp->shift_pattern_id = $nsp->id;
           $addSPComp->created_by = $req->user()->id;
           $addSPComp->save();
         }
       }        
     }
 
-    return redirect(route('sp.view', ['id' => $nsp->id], false));
+    return redirect(route('sp.view', ['id' => $nsp->id], false))
+    ->with(['alert' => 'Shift pattern added successfully', 'a_type' => 'success']);
 
   }
 
