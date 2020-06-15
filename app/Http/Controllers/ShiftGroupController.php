@@ -136,22 +136,22 @@ class ShiftGroupController extends Controller
     if($grup){
 
       //dd($grup->Manager->company_id);
-      $SpFilterByComp = CompanyShiftPattern::whereIn('shift_pattern_id', $grup->ShiftPatterns->pluck('id'))
+      $SpFilterByComp = CompanyShiftPattern::where('company_id', $grup->Manager->company_id)
       ->distinct('company_id')
-      ->get()
-      ->toArray();   
-      //dd($SpFilterByComp);  
-
+      ->get();
+      //dd($SpFilterByComp->pluck('shift_pattern_id'));  
+      
+      $therestofthepattern = [];  
       if($SpFilterByComp ?? '')
       {
-        $therestofthepattern = ShiftPattern::whereIn('id', $SpFilterByComp)
+        $therestofthepattern = ShiftPattern::whereIn('id', $SpFilterByComp->pluck('shift_pattern_id'))
         ->whereNotIn('id', $grup->ShiftPatterns->pluck('id'))
         ->where('is_weekly', false)->get();   
       }
-      else{
-        $therestofthepattern = ShiftPattern::whereNotIn('id', $grup->ShiftPatterns->pluck('id'))
-        ->where('is_weekly', false)->get();   
-      }    
+      // else{
+      //   // $therestofthepattern = ShiftPattern::whereNotIn('id', $grup->ShiftPatterns->pluck('id'))
+      //   // ->where('is_weekly', false)->get();   
+      // }    
 
       //dd($therestofthepattern); 
       return view('shiftplan.shift_group_detail', [
