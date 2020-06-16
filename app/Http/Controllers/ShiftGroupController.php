@@ -139,10 +139,9 @@ class ShiftGroupController extends Controller
       $SpFilterByComp = CompanyShiftPattern::where('company_id', $grup->Manager->company_id)
       ->distinct('company_id')
       ->get();
-      //dd($SpFilterByComp->pluck('shift_pattern_id'));  
       
       $therestofthepattern = [];  
-      if($SpFilterByComp ?? '')
+      if($SpFilterByComp->count() > 0)
       {
         $therestofthepattern = ShiftPattern::whereIn('id', $SpFilterByComp->pluck('shift_pattern_id'))
         ->whereNotIn('id', $grup->ShiftPatterns->pluck('id'))
