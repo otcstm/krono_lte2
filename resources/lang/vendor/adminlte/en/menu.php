@@ -15,7 +15,7 @@ return [
     'manage_overtimeex' => 'OT Claim Expiry Date',
     //'manage_wdays'    => 'Work Day Type',
     'manage_wdays'    => 'Period Work Schedule',
-    'admin_user_menu'   => 'USER MANAGMENT',
+    'admin_user_menu'   => 'USER MANAGEMENT',
     'manage_holiday'    => 'Holiday Management',
     'paymentsch' => 'Payment Schedule',
     'payrollgroup' => 'Payroll Grouping',
@@ -88,5 +88,6 @@ return [
     'guideline_calendar' => 'Holiday Calendar',
     'guideline_system' => 'System Guideline',
     'guideline_payment' => 'Payment Calendar',
+    'week_remind' => 'Weekly Reminders'
 
 ];

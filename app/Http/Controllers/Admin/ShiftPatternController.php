@@ -4,14 +4,25 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Company;
 use App\ShiftPattern;
+use App\CompanyShiftPattern;
 use App\ShiftPatternDay;
 use App\DayType;
+use DB;
 
 class ShiftPatternController extends Controller
 {
   public function index(){
-    return view('admin.shiftp.stemplate_list', ['p_list' => ShiftPattern::all()]);
+
+    //$sp = ShiftPattern::find(2);
+    //dd($sp->companies);
+
+    return view('admin.shiftp.stemplate_list', 
+    [
+      'p_list' => ShiftPattern::all(),    
+      'comp_list'=> Company::all()
+    ]);
   }
 
   public function addShiftPattern(Request $req){
@@ -25,10 +36,26 @@ class ShiftPatternController extends Controller
     $nsp->description = $req->description;
     $nsp->is_weekly = $req->has('is_weekly');
     $nsp->created_by = $req->user()->id;
-    $nsp->source = 'OTCS';
-    $nsp->save();
+    $nsp->source = 'OTCS';     
+    $nsp->save();    
 
-    return redirect(route('sp.view', ['id' => $nsp->id], false));
+    //dd($req);
+    if($req->compcb)
+    { 
+      if(sizeof($req->compcb) > 0)
+      { 
+        foreach($req->compcb as $acompcb){
+          $addSPComp = new CompanyShiftPattern;
+          $addSPComp->company_id = $acompcb;
+          $addSPComp->shift_pattern_id = $nsp->id;
+          $addSPComp->created_by = $req->user()->id;
+          $addSPComp->save();
+        }
+      }        
+    }
+
+    return redirect(route('sp.view', ['id' => $nsp->id], false))
+    ->with(['alert' => 'Shift pattern added successfully', 'a_type' => 'success']);
 
   }
 
@@ -46,11 +73,24 @@ class ShiftPatternController extends Controller
         $daycount = $days->count();
       }
 
+      $tspComp = [];
+      $tcsp = DB::table('company_shift_pattern')->select('company_id')
+      ->where('shift_pattern_id', $req->id)
+      ->distinct()
+      ->get();
+      //dd($tcsp);
+
+      if($tcsp->count() > 0){
+        $tspComp = $tcsp->pluck('company_id')->toArray();
+      }
+
       return view('admin.shiftp.stemplate_detail', [
         'tsp' => $tsp,
+        'tspComp' => $tspComp,
         'daycount' => $daycount,
         'daytype' => DayType::all(),
-        'daylist' => $days
+        'daylist' => $days,    
+        'comp_list'=> Company::all()
       ]);
 
     } else {
@@ -122,10 +162,38 @@ class ShiftPatternController extends Controller
       $tsp->source = 'OTCS';
       $tsp->save();
 
-      return redirect(route('sp.view', ['id' => $req->id], false))->with(['alert' => 'Description updated', 'a_type' => 'success']);
+      //dd($req);
+      if($req->compcb)
+      { 
+        if(sizeof($req->compcb) > 0)
+        {
+          $delSPComp = DB::table('company_shift_pattern')->where('shift_pattern_id', $req->id)
+          ->delete();
+
+          //dd($req->compcb, $delSPComp, $delSPComp->pluck('id')->toArray());
+  
+          foreach($req->compcb as $acompcb){
+            $addSPComp = new CompanyShiftPattern;
+            $addSPComp->company_id = $acompcb;
+            $addSPComp->shift_pattern_id = $req->id;
+            $addSPComp->created_by = $req->user()->id;
+            $addSPComp->save();
+          }
+        }      
+      }
+      else{
+        // $delSPComp = CompanyShiftPattern::where('shift_pattern_id', $req->id)
+        // ->delete();
+        return redirect(route('sp.view', ['id' => $req->id], false))
+        ->with(['alert' => 'Atleast has one company checked', 'a_type' => 'warning']);
+      }  
+
+      return redirect(route('sp.view', ['id' => $req->id], false))
+      ->with(['alert' => 'Data updated', 'a_type' => 'success']);
 
     } else {
-      return redirect(route('sp.index', [], false))->with(['alert' => 'Shift pattern not found', 'a_type' => 'warning']);
+      return redirect(route('sp.index', [], false))
+      ->with(['alert' => 'Shift pattern not found', 'a_type' => 'warning']);
     }
   }
 

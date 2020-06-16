@@ -38,6 +38,7 @@
     </div>
   </a>
   </div>
+  @if(isset($isShiftPlanMem) && $isShiftPlanMem == 0)
   <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
   <a href="{{route('staff.worksched', ['page' => 'reqs'])}}">
     <div class="box box-solid box-primary">
@@ -54,6 +55,7 @@
     </div>
   </a>
   </div>
+  @endif
 </div>
 
 <div class="panel panel-primary">
@@ -65,9 +67,24 @@
       <input type="hidden" name="mon" value="{{ $monNext }}" />
       {{-- <button type="submit" class="btn btn-xs btn-default">Next</button> --}}
       <button type="submit" class="btn btn-up" style="margin-top:3px;">Next</button>
-    </form> 
+    </form>
     {{-- {{route('staff.worksched', ['page' => 'teamc','mon' => $monNext])}} --}}
     </div>
+    <div class="pull-right">
+      <form method="GET" action="{{ route('staff.worksched',[],false) }}">
+        @csrf
+        <input type="hidden" name="page" value="teamc" />
+      <select name="mon"  class="btn btn-up"  style="margin-top:3px;" onchange="this.form.submit()">
+        @for($monStart=1; $monStart <= 12; ++$monStart)
+          <option value="{{ date('Y-m-d', mktime(0, 0, 0, $monStart, 1,$yr)) }}" 
+          @if(date('n',strtotime($mon)) == $monStart)
+          selected
+          @endif
+          >{{ date('F', mktime(0, 0, 0, $monStart, 1,$yr)) }}</option>
+        @endfor
+        </select> 
+      </form>
+      </div>
      <div class="pull-right">
       <form method="GET" action="{{ route('staff.worksched',[],false) }}">
         @csrf
@@ -84,17 +101,17 @@
         <thead>
           <tr>
             @foreach($header as $h)
-            <th>{{ $h }}</th>
+            <th style="border:1pt solid black !important;">{{ $h }}</th>
             @endforeach
           </tr>
         </thead>
         <tbody>
           @foreach($staffs as $s)
           <tr>
-            <td>{{ $s['id'] }}</td>
-            <td>{{ $s['name'] }}</td>
+            <td>{{ $s['staffno'] }}</td>
+            <td style="text-align: left !important;">{{ $s['name'] }}</td>
             @foreach($s['data'] as $h)
-            <td><b>{{ $h['type'] }}</b><br />{{ $h['time'] }}</td>
+            <td ><b>{{ $h['type'] }}</b><br />{{ $h['time'] }}</td>
             @endforeach
           </tr>
           @endforeach

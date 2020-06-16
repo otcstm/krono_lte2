@@ -8,6 +8,7 @@ use App\User;
 use App\ShiftGroupMember;
 use App\ShiftGroup;
 use App\ShiftPattern;
+use App\CompanyShiftPattern;
 use DB;
 
 use App\Notifications\GroupOwnerAssigned;
@@ -134,9 +135,25 @@ class ShiftGroupController extends Controller
     $grup = ShiftGroup::find($req->id);
     if($grup){
 
-      $therestofthepattern = ShiftPattern::whereNotIn('id', $grup->ShiftPatterns->pluck('id'))
-        ->where('is_weekly', false)->get();
+      //dd($grup->Manager->company_id);
+      $SpFilterByComp = CompanyShiftPattern::whereIn('shift_pattern_id', $grup->ShiftPatterns->pluck('id'))
+      ->distinct('company_id')
+      ->get()
+      ->toArray();   
+      //dd($SpFilterByComp);  
 
+      if($SpFilterByComp ?? '')
+      {
+        $therestofthepattern = ShiftPattern::whereIn('id', $SpFilterByComp)
+        ->whereNotIn('id', $grup->ShiftPatterns->pluck('id'))
+        ->where('is_weekly', false)->get();   
+      }
+      else{
+        $therestofthepattern = ShiftPattern::whereNotIn('id', $grup->ShiftPatterns->pluck('id'))
+        ->where('is_weekly', false)->get();   
+      }    
+
+      //dd($therestofthepattern); 
       return view('shiftplan.shift_group_detail', [
         'groupd' => $grup,
         'spattern' => $therestofthepattern

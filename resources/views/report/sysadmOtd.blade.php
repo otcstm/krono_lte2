@@ -386,8 +386,8 @@
   <table id="repothist" class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
-        <th scope="col">Submit Date</th>
-        <th scope="col">Group</th>
+        <th scope="col">Created at</th>
+        <th scope="col">File Name</th>
         <th scope="col">Status</th>
         <th scope="col">Data From</th>
         <th scope="col">Data To</th>
@@ -398,7 +398,7 @@
       @foreach($history as $his)
       <tr>
         <td>{{ $his->created_at }}</td>
-        <td>{{ $his->job_type }}</td>
+        <td>{{ $his->remark }}</td>
         <td>{{ $his->status }}</td>
         <td>{{ $his->from_date }}</td>
         <td>{{ $his->to_date }}</td>
@@ -407,7 +407,8 @@
           method="post">
           <input type="hidden" name="bjid" value="{{ $his->id }}" />
           @csrf
-          <button type="submit" class="btn btn-sm btn-info" title="Download"><i class="fa fa-download"></i></button>
+          <button type="submit" name="btn" value="dwn" class="btn btn-sm btn-info" title="Download"><i class="fa fa-download"></i></button>
+          <button type="submit" name="btn" value="del" class="btn btn-sm btn-danger" title="Delete" onclick="return confirm('Are you sure?')"><i class="fas fa-trash-alt"></i></button>
         </form></td>
         @else
         <td>...</td>

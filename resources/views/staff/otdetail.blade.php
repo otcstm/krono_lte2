@@ -32,8 +32,8 @@
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-4">Charge Type</div><div class="col-md-8">: <b>{{$claim->charge_type}}</b></div>
-                                <div class="col-md-4">Verifier</div><div class="col-md-8">: <b>{{$claim->verifier->name}}</b></div>
-                                <div class="col-md-4">Approver</div><div class="col-md-8">: <b>{{$claim->approver->name}}</b></div>
+                                <div class="col-md-4">Verifier</div><div class="col-md-8">: <b>{{$claim->verifier->name}} @if($claim->verifier_id!="")  ({{$claim->verifier->staff_no}}) @endif</b></div>
+                                <div class="col-md-4">Approver</div><div class="col-md-8">: <b>{{$claim->approver->name}} ({{$claim->approver->staff_no}})</b></div>
                                 <div class="col-md-4">Estimated Amount</div><div class="col-md-8">: <b>RM {{$claim->amount}}</b></div>
                             </div>
                         </div>

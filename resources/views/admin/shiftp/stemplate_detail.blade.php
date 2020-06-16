@@ -38,7 +38,51 @@
         <label for="code">Total Hours</label>
         <input type="text" class="form-control" value="{{ $tsp->total_hours }}" disabled >
       </div>
+      <div class="form-group has-feedback {{ $errors->has('compcode') ? 'has-error' : '' }}">
+        <label>Company</label>     
+        <div class="row">     
+        @if($comp_list ?? '')
+        @foreach($comp_list as $acompany)               
 
+        <div class="col-sm-4">     
+        <label class="btn btn-xs"> 
+          <input id="compcb" type="checkbox" name="compcb[]" value="{{$acompany->id}}" 
+          @if($tspComp)          
+          @if(in_array($acompany->id, $tspComp)) 
+          checked 
+          @endif 
+          @endif 
+          >
+          {{$acompany->id}}-{{$acompany->company_descr}}
+        </label>
+        </div>
+        @endforeach
+        @else
+        No Company configuration
+        @endif
+        <br />
+        <br />
+        <div class="col-sm-12">
+          <label class="btn btn-xs btn-outline">
+        <input id="checkall" type="checkbox" onClick="CheckUncheckAll();" value="Check all">
+        Check All Company</label>
+            </div>
+          </div>
+
+        {{-- {{$company->id}} {{$company->id}}-{{$company->company_descr}}     --}}
+        {{-- <select class="selectReport form-control" name="fcompany[]" multiple="multiple">
+          @if($companies ?? '')
+              @foreach($companies as $no=>$company)
+        <option value="{{$company->id}}">{{$company->id}}-{{$company->company_descr}}</option>
+              @endforeach
+          @endif
+        </select> --}}
+        @if ($errors->has('compcode'))
+            <span class="help-block">
+                <strong>{{ $errors->first('code') }}</strong>
+            </span>
+        @endif
+      </div>
       <div class="form-group text-center">
         <button type="submit" class="btn btn-primary">Update</button>
       </div>
@@ -142,7 +186,24 @@ $(document).ready(function() {
   $('#tPunchHIstory').DataTable({
     "responsive": "true"
   });
-} );
+  
 
+
+});
+
+function CheckUncheckAll(){
+   var  selectAllCheckbox=document.getElementById("checkall");
+   if(selectAllCheckbox.checked==true){
+    var checkboxes =  document.getElementsByName("compcb[]");
+     for(var i=0, n=checkboxes.length;i<n;i++) {
+      checkboxes[i].checked = true;
+     }
+    }else {
+     var checkboxes =  document.getElementsByName("compcb[]");
+     for(var i=0, n=checkboxes.length;i<n;i++) {
+      checkboxes[i].checked = false;
+     }
+    }
+   };
 </script>
 @stop
