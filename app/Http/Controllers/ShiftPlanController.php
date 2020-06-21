@@ -533,7 +533,8 @@ class ShiftPlanController extends Controller
       $staffExtra = UserHelper::GetUserInfo($sps->user_id)['extra'];
       $stemplate = ShiftPattern::find($req->spattern_id);
       $startdate = new Carbon($req->sdate);
-
+      $hour_gap = intVal(30);
+      
       // double check if the start date is before the last planning date
       if(isset($staffExtra->last_planning_day)){
         $lpd = new Carbon($staffExtra->last_planning_day);
@@ -548,7 +549,42 @@ class ShiftPlanController extends Controller
         }
 
         // check for gap -- todo?
+        
       }
+
+      //check gap 30hour from last working day in shift pattern
+      $spsdall = ShiftPlanStaffDay::where('user_id',$sps->user_id)
+      ->whereDate('work_date','<',$req->sdate)
+      ->where('is_work_day', 1)
+      ->orderBy('work_date','desc')
+      ->first();
+
+      // if($spsdall)
+      // {
+        $sdtm_prev = $spsdall->start_time;
+      
+        $sd_add = $startdate;  
+        $std1 = $stemplate->ListDays->where('day_seq','1');
+        foreach($stemplate->ListDays->where('day_seq','1') as $aDay){
+          $dtype = $aDay->Day;
+          $sdtm_add = new Carbon($startdate->format('Y-m-d') . ' ' . $dtype->start_time);        
+        }
+  
+        $timestamp1 = strtotime($sdtm_prev);
+        $timestamp2 = strtotime($sdtm_add);
+        $diff_hour = abs($timestamp2 - $timestamp1)/(60*60);
+        $min_nextdatetime = date('Y-m-d H:i:s',strtotime('+'.$hour_gap.' hour',strtotime($sdtm_prev)));
+        //dd($spsdall, $spsdall->count(), $sdtm_prev, date('Y-m-d H:i:s',strtotime($sdtm_add)), $diff_hour);
+
+        //if gap between shift pattern less than 30 hour return error
+        if((int)$diff_hour < (int)$hour_gap){
+          return redirect(route('shift.staff', ['id' => $sps->id], false))
+          ->with([
+            'alert' => 'Selected Shift Pattern less than '.$hour_gap.' hours from previous shift pattern. Please select shift pattern with first day start time atleast '.date('d-m-Y H:i',strtotime($min_nextdatetime)),
+            'a_type' => 'warning'
+          ]);
+        }
+      // }      
 
       // check if selected template exist
       if($stemplate){
