@@ -121,6 +121,7 @@ class ShiftPatternController extends Controller
       if($tsp->is_weekly == 1){
         $tsp->start_time = $tdaytype->start_time;
       }
+      //dd($tsp, $tdaytype);
       
       // $tsp->total_minutes += $tdaytype->total_minutes;
       // $tsp->days_count = $curdaycount;  
@@ -128,7 +129,6 @@ class ShiftPatternController extends Controller
       $tsp->source = 'OTCS';
       $tsp->save();
       // $tsp->updateTotals();      
-      dd($tsp, $tdaytype);
       
       return redirect(route('sp.view', ['id' => $tsp->id], false))->with(['alert' => $tdaytype->code . ' day added', 'a_type' => 'success']);
 
