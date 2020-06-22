@@ -607,6 +607,7 @@ class OvertimeController extends Controller{
             $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)+(($hour*60)+$minute);
             $updateclaim->total_hour = (int)($totaltime/60);
             $updateclaim->total_minute = ($totaltime%60);
+            $updateclaim->total_hours_minutes = (int)($totaltime/60)+($totaltime%60)/60*1;
             $updateclaim->amount = $updateclaim->amount + $pay;
             $newdetail->save();
             $updatemonth->save();
