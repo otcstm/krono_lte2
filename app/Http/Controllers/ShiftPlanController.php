@@ -552,12 +552,14 @@ class ShiftPlanController extends Controller
         
       }
 
-      //check gap 30hour from last working day in shift pattern
+      //check gap 30hour from last working day in "shift pattern day"
       $spsdall = ShiftPlanStaffDay::where('user_id',$sps->user_id)
       ->whereDate('work_date','<',$req->sdate)
       ->where('is_work_day', 1)
       ->orderBy('work_date','desc')
       ->first();
+
+      //2nd option get previous "shift pattern" and get column start time
 
       // if($spsdall)
       // {
@@ -569,12 +571,19 @@ class ShiftPlanController extends Controller
           $dtype = $aDay->Day;
           $sdtm_add = new Carbon($startdate->format('Y-m-d') . ' ' . $dtype->start_time);        
         }
-  
+
+        //fetch date -1 day from start selection shift pattern
+        $sdate_prev = date('Y-m-d',strtotime('-1 day',strtotime($sdtm_add)));
+        //fetch time working hour maximum date previous
+        $stime_prev = date('H:i:s',strtotime($sdtm_prev));
+        //new create date time
+        $sdtm_prev = new Carbon($sdate_prev.' '.$stime_prev);
         $timestamp1 = strtotime($sdtm_prev);
         $timestamp2 = strtotime($sdtm_add);
+
         $diff_hour = abs($timestamp2 - $timestamp1)/(60*60);
         $min_nextdatetime = date('Y-m-d H:i:s',strtotime('+'.$hour_gap.' hour',strtotime($sdtm_prev)));
-        //dd($spsdall, $spsdall->count(), $sdtm_prev, date('Y-m-d H:i:s',strtotime($sdtm_add)), $diff_hour);
+        //dd(date('Y-m-d H:i:s',$timestamp1), date('Y-m-d H:i:s',$timestamp2), $timestamp1, $timestamp2, $diff_hour);
 
         //if gap between shift pattern less than 30 hour return error
         if((int)$diff_hour < (int)$hour_gap){
