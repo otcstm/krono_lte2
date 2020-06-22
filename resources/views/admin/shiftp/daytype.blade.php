@@ -20,6 +20,8 @@
            <th>Code</th>
            <th>Description</th>
            <th>Is Working Day?</th>
+           <th>Day Type</th>
+           <th>Working Hour </th>
            <th>Start Time</th>
            <th>End Time</th>
            <th>Duration</th>
@@ -38,6 +40,8 @@
              &#10008;
              @endif
            </td>
+           <td>{{ $ap->day_type }}</td>
+           <td>{{ $ap->working_hour }}</td>
            <td>{{ $ap->start_time }}</td>
            <td>{{ $ap->showEndTime() }}</td>
            <td>{{ $ap->dur_hour }} h, {{ $ap->dur_minute }} m</td>
@@ -51,6 +55,13 @@
                   data-id="{{ $ap->id }}"
                   data-code="{{ $ap->code }}"
                   data-desc="{{ $ap->description }}"
+                  @if($ap->is_work_day)
+                  data-dtype="{{ $ap->day_type }}"
+                  @else
+                  data-dtype="{{ $ap->day_type }}"
+                  @endif
+                  data-wh="{{ $ap->working_hour }}"
+                  {{-- data-desc="{{ $ap->day_type }}" --}}
                   data-fontc="{{ $ap->font_color }}"
                   data-bgc="{{ $ap->bg_color }}"
                ><i class="fas fa-pencil-alt"></i></button>
@@ -81,7 +92,7 @@
                 <strong>{{ $errors->first('code') }}</strong>
             </span>
         @endif
-      </div>
+      </div>      
       <div class="form-group has-feedback {{ $errors->has('description') ? 'has-error' : '' }}">
         <label for="description">Description</label>
         <input id="description" type="text" name="description" class="form-control" value="{{ old('description') }}"
@@ -91,13 +102,39 @@
                 <strong>{{ $errors->first('description') }}</strong>
             </span>
         @endif
-      </div>
+      </div> 
       <div class="form-group has-feedback {{ $errors->has('is_work_day') ? 'has-error' : '' }}">
         <input id="is_work_day" type="checkbox" name="is_work_day" value="{{ old('is_work_day') }}" onchange="checkIsFullDay()">
         <label for="is_work_day">Is a working day</label>
         @if ($errors->has('is_work_day'))
             <span class="help-block">
                 <strong>{{ $errors->first('is_work_day') }}</strong>
+            </span>
+        @endif
+      </div>
+      <div class="form-group has-feedback {{ $errors->has('daytype') ? 'has-error' : '' }}">
+        <label for="daytype">Day Type</label>
+        <select type="text" name="daytype" id="daytype" required>
+            <option value="N">Normal Day</option>
+            <option value="R">Rest Day</option>
+            <option value="SR">Special Rest Day</option>
+            <option value="PH">Public Holiday</option>
+        </select>
+        @if ($errors->has('daytype'))
+            <span class="help-block">
+                <strong>{{ $errors->first('daytype') }}</strong>
+            </span>
+        @endif
+      </div>
+      <div class="form-group has-feedback {{ $errors->has('working_hour') ? 'has-error' : '' }}">
+        <label for="working_hour">Working Hour</label>        
+        <input id="working_hour_h" type="number" name="working_hour_h" value="{{ old('working_hour_h') }}"
+               placeholder="Hour" required min="0" max="23" step="1" value="6">
+        <input id="working_hour_m" type="number" name="working_hour_m" value="{{ old('working_hour_m') }}"
+               placeholder="Minute" required min="0" max="59" step="1" value="0">
+        @if ($errors->has('working_hour'))
+            <span class="help-block">
+                <strong>{{ $errors->first('working_hour') }}</strong>
             </span>
         @endif
       </div>
@@ -166,6 +203,27 @@
               <label for="inputname">Code:</label>
               <input type="text" class="form-control" id="inputname" name="code" value="" disabled>
           </div>
+          {{-- <div class="form-group">
+            <label for="inputdaytype">Day Type</label>
+            <select type="text" name="daytype" id="daytype" required>
+                <option value="N">Normal Day</option>
+                <option value="R">Rest Day</option>
+                <option value="SR">Special Rest Day</option>
+                <option value="PH">Public Holiday</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="working_hour">Working Hour</label>            
+            <input id="inputworking_hour_h" type="number" name="dur_hour" value="{{ old('working_hour_h') }}"
+                   placeholder="Hour" required min="0" max="23" step="1" value="6">
+            <input id="inputworking_hour_m" type="number" name="dur_minute" value="{{ old('working_hour_m') }}"
+                   placeholder="Minute" required min="0" max="59" step="1" value="0">
+            @if ($errors->has('working_hour'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('working_hour') }}</strong>
+                </span>
+            @endif
+          </div> --}}
           <div class="form-group">
               <label for="inputdesc">Description:</label>
               <input type="text" class="form-control" id="inputdesc" name="description" value="" required>
