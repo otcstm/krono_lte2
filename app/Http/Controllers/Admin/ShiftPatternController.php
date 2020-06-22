@@ -115,16 +115,21 @@ class ShiftPatternController extends Controller
       $spdays->shift_pattern_id = $tsp->id;
       $spdays->day_seq = $curdaycount;
       $spdays->day_type_id = $req->daytype;
-      $spdays->save();
-
+      $spdays->save();    
+      
+      //update latest added day (normal day only) punye start time ke start time column shiftpatern 
+      if($tsp->is_weekly == 1){
+        $tsp->start_time = $tdaytype->start_time;
+      }
+      //dd($tsp, $tdaytype);
+      
       // $tsp->total_minutes += $tdaytype->total_minutes;
-      // $tsp->days_count = $curdaycount;
+      // $tsp->days_count = $curdaycount;  
       $tsp->last_edited_by = $req->user()->id;
       $tsp->source = 'OTCS';
       $tsp->save();
-      // $tsp->updateTotals();
-
-
+      // $tsp->updateTotals();      
+      
       return redirect(route('sp.view', ['id' => $tsp->id], false))->with(['alert' => $tdaytype->code . ' day added', 'a_type' => 'success']);
 
     } else {
