@@ -119,18 +119,18 @@
                     </p>
                     <p>Verifier: 
                         @if($claim ?? '') 
-                            {{$claim->verifier->name}}
+                            {{$claim->verifier->name}} @if($claim->verifier->name!="N/A") @endif ({{$claim->verifier->staff_no}})
                         @elseif($draft ?? '')
-                            {{$draft[9]}} 
+                            {{$draft[9]}} @if($draft[9]!="N/A") ({{$draft[12]}}) @endif
                         @else 
                             N/A 
                         @endif
                     </p>
                     <p>Approver: 
                         @if($claim ?? '')
-                            {{$claim->approver->name}}
+                            {{$claim->approver->name}} ({{$claim->approver->staff_no}})
                         @elseif($draft ?? '')
-                            {{$draft[10]}}
+                            {{$draft[10]}} ({{$draft[13]}})
                         @else 
                             N/A
                         @endif

@@ -20,19 +20,21 @@ class DayTypeController extends Controller
     if($dupwd){
       return redirect()->back()->withInput()->withErrors(['code' => 'already exist']);
     }
-
+    
     $dt = new DayType;
     $dt->code = $r->code;
     $dt->description = $r->description;
     if($r->has('is_work_day') == true){
       $dt->is_work_day = true;
+    } else {
+      $dt->is_work_day = false;      
+    }
       $dt->start_time = $r->start_time;
       $dt->dur_hour = $r->dur_hour;
       $dt->dur_minute = $r->dur_minute;
       $dt->total_minute = MathHelper::getTotalMinutes($r->dur_hour, $r->dur_minute);
-    } else {
-      $dt->is_work_day = false;
-    }
+      $dt->day_type = $r->daytype;
+      $dt->working_hour = (MathHelper::getTotalMinutes($r->working_hour_h, $r->working_hour_m)/60);    
 
     $dt->bg_color = $r->bgcolor;
     $dt->font_color = $r->fontcolor;
