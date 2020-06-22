@@ -117,7 +117,7 @@
         <select type="text" name="daytype" id="daytype" required>
             <option value="N">Normal Day</option>
             <option value="R">Rest Day</option>
-            <option value="SR">Special Rest Day</option>
+            <option value="O">Special Rest Day</option>
             <option value="PH">Public Holiday</option>
         </select>
         @if ($errors->has('daytype'))
