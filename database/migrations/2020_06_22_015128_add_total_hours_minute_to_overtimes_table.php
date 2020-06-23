@@ -15,7 +15,7 @@ class AddTotalHoursMinuteToOvertimesTable extends Migration
     {
         Schema::table('overtimes', function (Blueprint $table) {
             //
-            $table->integer('total_hours_minutes')->nullable();
+            $table->decimal('total_hours_minutes', 10,2)->default(0);
         });
     }
 
