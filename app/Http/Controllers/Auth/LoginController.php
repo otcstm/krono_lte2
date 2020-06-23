@@ -44,6 +44,7 @@ class LoginController extends Controller
       
       $udata = LdapHelper::DoLogin($req->username, $req->password);
       
+      //password same username
       if($req->password == $req->username)
       {
       //if($udata['code'] == 200){
