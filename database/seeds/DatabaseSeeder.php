@@ -49,7 +49,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionRoleTableSeeder::class);
         //$this->call(AnnouncementTableSeeder::class);
         $this->call(PaidOtTableSeeder::class);
-        $this->call(CompanyPayrollgroupsTableSeeder::class);
+       // $this->call(CompanyPayrollgroupsTableSeeder::class);
         $this->call(PayrollgroupsTableSeeder::class);
     }
 }
