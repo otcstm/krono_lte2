@@ -88,6 +88,7 @@
     <hr />
     <div class="pull-right">
     <a href="{{ route('shift.group', [], false) }}" class="btn btn-p btn-primary">Create</a>
+    <a href="{{route('shift.group',[],false)}}"><button type="button" class="btn btn-outline btn-primary btn-p">Return</button></a>
     </div>
   </div>
 </div>
