@@ -43,10 +43,7 @@ class LoginController extends Controller
       ]);
       
       $udata = LdapHelper::DoLogin($req->username, $req->password);
-      
-      if($req->password == $req->username)
-      {
-      //if($udata['code'] == 200){
+      if($udata['code'] == 200){
         // session(['staffdata' => $logresp['user']]);
         // $cuser = User::find($udata['data']);
         
