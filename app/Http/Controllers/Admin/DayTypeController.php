@@ -27,14 +27,24 @@ class DayTypeController extends Controller
     if($r->has('is_work_day') == true){
       $dt->is_work_day = true;
     } else {
-      $dt->is_work_day = false;      
+      $dt->is_work_day = false; 
     }
-      $dt->start_time = $r->start_time;
-      $dt->dur_hour = $r->dur_hour;
-      $dt->dur_minute = $r->dur_minute;
+
+    if($r->daytype == 'O'){
+      $dt->total_minute = 0;
+    }
+    elseif($r->daytype == 'R'){
+      $dt->total_minute = 0;
+    }
+    else{      
       $dt->total_minute = MathHelper::getTotalMinutes($r->dur_hour, $r->dur_minute);
-      $dt->day_type = $r->daytype;
-      $dt->working_hour = (MathHelper::getTotalMinutes($r->working_hour_h, $r->working_hour_m)/60);    
+    }
+    
+    $dt->start_time = $r->start_time;
+    $dt->dur_hour = $r->dur_hour;
+    $dt->dur_minute = $r->dur_minute;
+    $dt->day_type = $r->daytype;
+    $dt->working_hour = (MathHelper::getTotalMinutes($r->working_hour_h, $r->working_hour_m)/60);    
 
     $dt->bg_color = $r->bgcolor;
     $dt->font_color = $r->fontcolor;

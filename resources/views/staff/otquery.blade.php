@@ -374,6 +374,7 @@
         @endif
     }
 
+    var sendtype;
     function remark(i){
         return function(){
             @if($otlist ?? '')
@@ -414,6 +415,11 @@
                 // reset(i);
                 normal(i, 'none', 'Verifier');
             }else{
+                if($("#action-"+i).val()=="A"){
+                    sendtype = "approve"
+                }else{
+                    sendtype = "verify"
+                }
                 // reset(i);
                 Swal.fire({
                     title: 'Terms and Conditions',
@@ -421,7 +427,7 @@
                     inputValue: 0,
                     inputPlaceholder:
                         "<p>By clicking on <span style='color: #143A8C'>\"Yes\"</span> button below, you are agreeing to the above related terms and conditions</p>",
-                        html: "<p>I hereby certify that my claim is compliance with company's term and condition on <span style='font-weight: bold'>PERJANJIAN BERSAMA, HUMAN RESOURCE MANUAL, and BUSINESS PROCESS MANUAL</span> If deemed falsed, disciplinary can be imposed on me.</p>",
+                        html: "<p>I hereby "+sendtype+" that this claim is compliance with company's term and condition on <span style='font-weight: bold'>PERJANJIAN BERSAMA, HUMAN RESOURCE MANUAL, and BUSINESS PROCESS MANUAL</span> If deemed falsed, disciplinary can be imposed on me.</p>",
                         confirmButtonText:
                         'YES',
                         cancelButtonText: 'NO',

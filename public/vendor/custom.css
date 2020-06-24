@@ -3,14 +3,15 @@ body{
     /* font-family: 'Cousine', monospace; */
     /* font-family: 'B612 Mono', monospace; */
     /* font-family: 'Source Code Pro', monospace; */
-    font-family: 'Roboto Mono', monospace;
-    font-size: 10pt;
+    /* font-family: 'Roboto Mono', monospace; */
+    font-family: calibri, cambria, 'Lucida Bright';
+    font-size: 12pt;
     background-color:transparent !important;
     height: 100%;
 }
 
 .treeview-menu li a {
-    font-size: 10pt;
+    font-size: 12pt;
 }
 
 .logo{
@@ -1319,7 +1320,8 @@ select[disabled] { background-color: #EBEBE4; }
 
 }
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-    font-family: 'Roboto Mono', monospace;
+    /* font-family: 'Roboto Mono', monospace; */
+    font-family: calibri, cambria, 'Lucida Bright';
 }
 
 .box-body {

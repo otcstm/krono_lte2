@@ -42,8 +42,8 @@
            </td>
            <td>{{ $ap->day_type }}</td>
            <td>{{ $ap->working_hour }}</td>
-           <td>{{ $ap->start_time }}</td>
-           <td>{{ $ap->showEndTime() }}</td>
+           <td>{{ date('H:i',strtotime($ap->start_time)) }}</td>
+           <td>{{ date('H:i',strtotime($ap->showEndTime())) }}</td>
            <td>{{ $ap->dur_hour }} h, {{ $ap->dur_minute }} m</td>
            <td>
 
@@ -117,7 +117,7 @@
         <select type="text" name="daytype" id="daytype" required>
             <option value="N">Normal Day</option>
             <option value="R">Rest Day</option>
-            <option value="SR">Special Rest Day</option>
+            <option value="O">Special Rest Day</option>
             <option value="PH">Public Holiday</option>
         </select>
         @if ($errors->has('daytype'))
