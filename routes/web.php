@@ -230,6 +230,8 @@ Route::group(['middleware' => ['auth','can:1-nav-admin']], function () {
   Route::post('/admin/psubarea/update', 'Admin\PsubareaController@update')->name('psubarea.edit');
   Route::post('/admin/psubarea/delete', 'Admin\PsubareaController@destroy')->name('psubarea.delete');
   //System Eligibility
+  Route::get('/admin/overtime/formula', 'Admin\OvertimeFormulaController@show')->name('oe.formula.show');
+
   Route::get('/admin/overtime/eligibility', 'Admin\OvertimeMgmtController@eligibilityshow')->name('oe.eligibility.show');
   Route::post('/admin/overtime/eligibility/add', 'Admin\OvertimeMgmtController@eligibilityadd')->name('oe.eligibility.add');
   Route::post('/admin/overtime/eligibility/remove', 'Admin\OvertimeMgmtController@eligibilityremove')->name('oe.eligibility.remove');

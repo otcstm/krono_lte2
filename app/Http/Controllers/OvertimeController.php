@@ -607,6 +607,8 @@ class OvertimeController extends Controller{
             $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)+(($hour*60)+$minute);
             $updateclaim->total_hour = (int)($totaltime/60);
             $updateclaim->total_minute = ($totaltime%60);
+            // dd($totaltime/60);
+            $updateclaim->total_hours_minutes = ($totaltime/60);
             $updateclaim->amount = $updateclaim->amount + $pay;
             $newdetail->save();
             $updatemonth->save();
@@ -660,29 +662,22 @@ class OvertimeController extends Controller{
                     //if checkbox changed
                     if($operation=="Y"){
                         $totaltime = (($updatemonth->hour*60)+$updatemonth->minute)+(($hour*60)+$minute);
-                        $updatemonth->hour = (int)($totaltime/60);
-                        $updatemonth->minute = ($totaltime%60);
                         $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)+(($hour*60)+$minute);
-                        $updateclaim->total_hour = (int)($totaltime/60);
-                        $updateclaim->total_minute = ($totaltime%60);
                         $updateclaim->amount = $updateclaim->amount + $pay;
                     }elseif($operation=="N"){
                         $totaltime = (($updatemonth->hour*60)+$updatemonth->minute)-(($hour*60)+$minute);
-                        $updatemonth->hour = (int)($totaltime/60);
-                        $updatemonth->minute = ($totaltime%60);
                         $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)-(($hour*60)+$minute);
-                        $updateclaim->total_hour = (int)($totaltime/60);
-                        $updateclaim->total_minute = ($totaltime%60);
                         $updateclaim->amount = $updateclaim->amount - $pay;
                     }else{  //if checkbox not changed
                         $totaltime = (($updatemonth->hour*60)+$updatemonth->minute)-(($updatedetail->hour*60)+$updatedetail->minute)+(($hour*60)+$minute);
-                        $updatemonth->hour = (int)($totaltime/60);
-                        $updatemonth->minute = ($totaltime%60);
                         $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)-(($updatedetail->hour*60)+$updatedetail->minute)+(($hour*60)+$minute);
-                        $updateclaim->total_hour = (int)($totaltime/60);
-                        $updateclaim->total_minute = ($totaltime%60);
                         $updateclaim->amount = $updateclaim->amount - $updatedetail->amount + $pay;
                     }
+                    $updatemonth->hour = (int)($totaltime/60);
+                    $updatemonth->minute = ($totaltime%60);
+                    $updateclaim->total_hour = (int)($totaltime/60);
+                    $updateclaim->total_minute = ($totaltime%60);      
+                    $updateclaim->total_hours_minutes = ($totaltime/60);
                     $updatedetail->checked = $req->inputcheck[$i];
                     $updatedetail->amount = $pay;
                     $updatedetail->hour = $hour;
@@ -783,6 +778,7 @@ class OvertimeController extends Controller{
                     if($req->chargetype == "Internal Order"){
                         $data=InternalOrder::where('id', $req->orderno)->first();
                         if($data!=null){
+                            $updateclaim->project_type = $data->type;
                             if($req->approvern!=null){
 
                                 //check if ot is more than 3 months from system date
@@ -814,6 +810,7 @@ class OvertimeController extends Controller{
                     }else{
                         $data=MaintenanceOrder::where('id', $req->orderno)->first();
                         if($data!=null){
+                            $updateclaim->project_type = $data->order_type;
                             if($data->approver_id!=""){
 
                                 //check if ot is more than 3 months from system date
@@ -841,6 +838,11 @@ class OvertimeController extends Controller{
             }else if($req->chargetype=="Project"){
                 if($req->orderno!=null){
                     $updateclaim->project_no = $req->orderno;
+                    $data = Project::where('project_no', $req->orderno)->first();
+                    if($data!=null){
+                        $updateclaim->project_type = $data->type;
+                    }
+
                     $updateclaim->network_header = $req->networkh;
                     $updateclaim->network_act_no = $req->networkn;
                     if($req->networkn!=null){
@@ -888,30 +890,43 @@ class OvertimeController extends Controller{
                 }
             }
         }
+        $wla = UserHelper::GetWageLegacyAmount($claim->id);
+        $updateclaim->wage_type = $wla[0];
+        $updateclaim->legacy_code = $wla[1];
+        $updateclaim->amount = $wla[2];
         $updateclaim->save();
 
         //check if delete time/file
         if(($req->inputfile!="")&&($req->formtype!="delete")){  //if not, upload file if exist
             $file   =   $req->file('inputfile');
-            $name = date("ymd", strtotime($updateclaim->date))."-".sprintf("%08d", $req->user()->id)."-".rand(10000,99999)."-".$file->getClientOriginalName();
-            $target_path    =   storage_path('/app/public/');
-            $store = $file->storeAs('public', $name);
-            if($file->getClientOriginalExtension()=="pdf"){
-                $imagick = new \Imagick($file.'[0]');
-                $newname = str_replace(".pdf","",$name);
-                $fileName = $newname . '.jpg';
-                $imagick->setImageFormat('jpg');
-                $imagick->writeImage($target_path.$fileName);
-            }
-            $claimfile = new OvertimeFile;
-            $claimfile->ot_id = $claim->id;
-            $claimfile->filename =  $name;
-            if($file->getClientOriginalExtension()=="pdf"){
-                $claimfile->thumbnail =  $fileName;
+            if(in_array($file->getClientOriginalExtension(), $array = array("pdf", "jpeg", "jpg", "bmp", "png", "tiff"))){
+                $name = date("ymd", strtotime($updateclaim->date))."-".sprintf("%08d", $req->user()->id)."-".rand(10000,99999)."-".$file->getClientOriginalName();
+                $target_path    =   storage_path('/app/public/');
+                $store = $file->storeAs('public', $name);
+                if($file->getClientOriginalExtension()=="pdf"){
+                    $imagick = new \Imagick($file.'[0]');
+                    $newname = str_replace(".pdf","",$name);
+                    $fileName = $newname . '.jpg';
+                    $imagick->setImageFormat('jpg');
+                    $imagick->writeImage($target_path.$fileName);
+                }
+                $claimfile = new OvertimeFile;
+                $claimfile->ot_id = $claim->id;
+                $claimfile->filename =  $name;
+                if($file->getClientOriginalExtension()=="pdf"){
+                    $claimfile->thumbnail =  $fileName;
+                }else{
+                    $claimfile->thumbnail =  $name;
+                }
+                $claimfile->save();
             }else{
-                $claimfile->thumbnail =  $name;
+                return redirect(route('ot.form',[],false))->with([
+                    'feedback' => true,
+                    'feedback_text' => "Your cannot upload files other than .pdf, .jpeg, .jpg, .bmp, .png, .tiff format!",
+                    'feedback_title' => "Warning"
+                ]);
             }
-            $claimfile->save();
+            
 
         //if delete time/file
         }elseif($req->formtype=="delete"){ 
@@ -927,15 +942,14 @@ class OvertimeController extends Controller{
         $total_hours = 0;
         $total_minutes = 0;
         foreach($total_hour as $single){
-            $total_hours = ($total_hours + $single->hour)*60;
+            $total_hours = $total_hours + ($single->hour*60);
             $total_minutes = $total_minutes + $single->minute;
         }
         $total_minutes = $total_hours+$total_minutes;
         Session::put(['claim' => $claim]);
-
+        // dd($id);
         //if add new time
         if($req->formtype=="add"){
-
             //if total ot hours exceed 12 hours
             if($total_minutes>=720){
                 return redirect(route('ot.form',[],false))->with([

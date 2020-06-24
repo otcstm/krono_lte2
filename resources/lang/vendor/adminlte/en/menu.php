@@ -11,6 +11,7 @@ return [
     // 'manage_overtime' => 'Overtime Management',
     'manage_announcement' => 'Announcement Management',
     'manage_eligibility' => 'System Eligibility',
+    'manage_formula' => 'Overtime Formula',
     'manual_overtime' => 'Claim Manual Approval',
     'manage_overtimeex' => 'OT Claim Expiry Date',
     //'manage_wdays'    => 'Work Day Type',
