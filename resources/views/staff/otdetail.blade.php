@@ -17,7 +17,15 @@
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-4">State</div><div class="col-md-8">: <b>{{str_replace(')', '', str_replace('Malaysia (', '', $claim->state->state_descr))}}</b></div>
-                                <div class="col-md-4">Day Type</div><div class="col-md-8">: <b>{{$claim->daytype->description}}</b></div>
+                                <div class="col-md-4">Day Type</div><div class="col-md-8">: <b>@if($claim->daytype->day_type == "N")
+                                    Normal Day
+                                @elseif($claim->daytype->day_type == "PH")
+                                    Public Holiday
+                                @elseif($claim->daytype->day_type == "R")
+                                    Rest Day
+                                @else
+                                    Off Day
+                                @endif</b></div>
                                 <div class="col-md-4">Salary Exception</div><div class="col-md-8">: <b>
                                     @if($claim->URecord->ot_salary_exception=="X")
                                         Yes

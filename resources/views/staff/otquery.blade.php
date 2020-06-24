@@ -112,7 +112,16 @@
                             <td>{{++$no}}</td>
                             <td>{{ $singleuser->name->name }}</td>
                             <td><a href="" id="a-{{$no}}" style="font-weight: bold; color: #143A8C" data-id="{{$singleuser->id}}">{{ date("d.m.Y", strtotime($singleuser->date)) }}</a></td>
-                            <td>{{$singleuser->daytype->description}}</td>
+                            <td>@if($singleuser->daytype->day_type == "N")
+                                    Normal Day
+                                @elseif($singleuser->daytype->day_type == "PH")
+                                    Public Holiday
+                                @elseif($singleuser->daytype->day_type == "R")
+                                    Rest Day
+                                @else
+                                    Off Day
+                                @endi
+                            </td>
                             <td>
                                 @foreach($singleuser->detail as $details)
                                     {{date('Hi', strtotime($details->start_time)) }}<br>
