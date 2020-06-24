@@ -561,10 +561,9 @@ class ShiftPlanController extends Controller
 
       //2nd option get previous "shift pattern" and get column start time
 
-      // if($spsdall)
-      // {
-        $sdtm_prev = $spsdall->start_time;
-      
+      $sdtm_prev = $spsdall->start_time;
+      if(isset($sdtm_prev))
+      {      
         $sd_add = $startdate;  
         $std1 = $stemplate->ListDays->where('day_seq','1');
         foreach($stemplate->ListDays->where('day_seq','1') as $aDay){
@@ -593,7 +592,7 @@ class ShiftPlanController extends Controller
             'a_type' => 'warning'
           ]);
         }
-      // }      
+      }      
 
       // check if selected template exist
       if($stemplate){

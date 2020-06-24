@@ -261,12 +261,12 @@
       </div>
       <div class="media-body">
         <h4 class="media-heading text-left">ADD</h4>
-        <p>ANNOUCEMENT</p>
+        <p>ANNOUNCEMENT</p>
       </div>
     </div>
     </div><!-- /.box-body -->
     <div class="box-header text-center bg-yellow-active color-palette">
-    <h3 class="box-title text-left">Add New Annoucement</h3>
+    <h3 class="box-title text-left">Add New Announcement</h3>
     </div><!-- /.box-header -->
     </div>
     </a>
