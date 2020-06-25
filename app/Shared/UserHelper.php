@@ -539,19 +539,11 @@ class UserHelper {
       $dayt = "NOR";
       $lg = OvertimeFormula::where('company_id',$ot->company_id)->where('region',$ot->region)->where("day_type", $dayt)->first();
       $legacy = $lg->legacy_codes;
-      if($ur->ot_hour_exception == "Y"){
-        $wage = "7215";
-      }else{
-        $wage = "7015";
-      }
-      if($ur->ot_salary_exception == "Y"){
-        $wage = "8215";
-      }else{
+      if($ur->ot_salary_exception == "N"){
         $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->psgroup)->where('empsgroup', $ur->empsgroup)->where('region', $ot->region)->first();
         if($oe){
           $salary = $oe->salary_cap;
         }
-        $wage = "8015";
       }
       $amount= $lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes);
 
