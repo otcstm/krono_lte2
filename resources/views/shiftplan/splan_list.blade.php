@@ -75,7 +75,7 @@
            <td>
              <form method="post" action="{{ route('shift.delete', [], false) }}" onsubmit='return confirm("Confirm delete?")'>
                @csrf
-               <a href="{{ route('shift.view', ['id' => $ap->id], false) }}"><button type="button" class="btn btn-xs btn-warning" title="Edit"><i class="glyphicon glyphicon-check"></i></button></a>
+               <a href="{{ route('shift.view', ['id' => $ap->id], false) }}"><button type="button" class="btn btn-xs btn-warning" title="Proceed"><i class="glyphicon glyphicon-check"></i></button></a>
                <button type="submit" class="btn btn-xs btn-danger" title="Delete"><i class="fas fa-trash-alt"></i></button>
                <input type="hidden" name="id" value="{{ $ap->id }}" />
              </form>
