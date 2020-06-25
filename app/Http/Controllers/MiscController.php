@@ -7,6 +7,7 @@ use App\Shared\UserHelper;
 use App\Shared\URHelper;
 use App\StaffPunch;
 use App\OvertimePunch;
+use App\OvertimeEligibility;
 use App\User;
 use App\Overtime;
 use App\UserLog;
@@ -379,6 +380,23 @@ class MiscController extends Controller
     }else{
       return ['result'=> false];
     }
+  }
+
+  public function eligiblePunch(Request $req){
+    $staffr = URHelper::getUserRecordByDate($req->user()->id, date('Y-m-d'));
+    $elig = OvertimeEligibility::where('company_id', $staffr->company_id)->where('empgroup', $staffr->psgroup)->where('empsgroup', $staffr->empsgroup)->where('psgroup', $staffr->empgroup)->where('region', $staffr->region)->first();
+    if($elig){
+      return ['result'=> true];
+    }else{
+      return ['result'=> false];
+    }
+      // return['result'=> $staffr->id];
+    // $currentp = StaffPunch::where("user_id", $req->user()->id)->where("punch_out_time", NULL)->first();
+    // if($currentp!=NULL){
+    //   return ['result'=> true, 'time'=>date('Y/m/d/H/i/s', strtotime($currentp->punch_in_time)), 'stime'=>date('Y-m-d H:i:s', strtotime($currentp->punch_in_time))];
+    // }else{
+    //   return ['result'=> false];
+    // }
   }
 
   public function checkDay(Request $req){

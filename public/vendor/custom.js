@@ -73,6 +73,7 @@ $.ajax({
         puncho();
     }
 });
+
 //when click start OT;
 $("#punchb").on('mousedown', function() {
     n=0;
@@ -81,11 +82,36 @@ $("#punchb").on('mousedown', function() {
 }).on('mouseup', function() {
     if(n<1){
         if(once){
-            puncho();
+            // puncho();
+            checkeligible();
         }
     }
     clearTimeout(timeoutId);
 });
+
+function checkeligible(){
+    $.ajax({
+        url: '/punch/eligible',
+        type: "GET",
+        success: function(resp) {
+            // alert(resp.result);
+            if(resp.result==true){
+                puncho();
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Start Overtime Error',
+                    text: "You are not eligible to start overtime!",
+                    showCancelButton: false,
+                    confirmButtonText: 'OK',
+                })
+            }
+        },
+        error: function(err) {
+            // puncho();
+        }
+    });
+}
 
 function puncho(){
     once =false;

@@ -539,62 +539,45 @@ class UserHelper {
       $dayt = "NOR";
       $lg = OvertimeFormula::where('company_id',$ot->company_id)->where('region',$ot->region)->where("day_type", $dayt)->first();
       $legacy = $lg->legacy_codes;
-      if($ur->ot_hour_exception == "Y"){
-        $wage = "7215";
-      }else{
-        $wage = "7015";
-      }
-      if($ur->ot_salary_exception == "Y"){
-        $wage = "8215";
-      }else{
+      if($ur->ot_salary_exception == "N"){
         $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->psgroup)->where('empsgroup', $ur->empsgroup)->where('region', $ot->region)->first();
         if($oe){
           $salary = $oe->salary_cap;
         }
-        $wage = "8015";
       }
-      $amount= $lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes);
+      if(26*$dt->working_hour==0){
+        $amount = 0;
+      }else{
+        $amount= $lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes);
+      }
 
 
 
     }else{
       if($dt->day_type=="PH"){ //=================================================PUBLIC HOLIDAY
         $dayt = "PHD";
-        $lg = OvertimeFormula::where('company_id',$ot->company_id)->where('region',$ot->region)->where("day_type", $dayt)->where('min_hour','<=',$ot->total_hour)->where('max_hour','>=',$ot->total_hour);
+        $lg = OvertimeFormula::where('company_id',$ur->company_id)->where('region',$ot->region)->where("day_type", $dayt)->where('min_hour','<=',$ot->total_hour)->where('max_hour','>=',$ot->total_hour);
         if($ot->total_hours_minutes>$whmax){
           $lg = $lg->where('min_minute', 1);
-          if($ur->ot_hour_exception == "Y"){
-            $wage = "7230";
-          }else{
-            $wage = "7030";
-          }
-          if($ur->ot_salary_exception == "Y"){
-            $wage = "8230";
-          }else{
+          if($ur->ot_salary_exception == "N"){
             $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->psgroup)->where('empsgroup', $ur->empsgroup)->where('region', $ot->region)->first();
             if($oe){
               $salary = $oe->salary_cap;
             }
-            $wage = "8030";
           }
-          $amount= $lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes);
-
+          if(26*$dt->working_hour==0){
+            $amount = 0;
+          }else{
+            $amount= $lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes);
+          }
 
         }else{
           $lg = $lg->where('min_minute', 0);
-          if($ur->ot_hour_exception == "Y"){
-            $wage = "7221";
-          }else{
-            $wage = "7021";
-          }
-          if($ur->ot_salary_exception == "Y"){
-            $wage = "8221";
-          }else{
+          if($ur->ot_salary_exception == "N"){
             $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->psgroup)->where('empsgroup', $ur->empsgroup)->where('region', $ot->region)->first();
             if($oe){
               $salary = $oe->salary_cap;
             }
-            $wage = "8021";
           }
           $amount= $lg->rate*(($salary+$ur->allowance)/26);
         }
@@ -613,19 +596,11 @@ class UserHelper {
           }else{
             $legacy = '252';
           }
-          if($ur->ot_hour_exception == "Y"){
-            $wage = "7205";
-          }else{
-            $wage = "7005";
-          }
-          if($ur->ot_salary_exception == "Y"){
-            $wage = "8205";
-          }else{
+          if($ur->ot_salary_exception == "N"){
             $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->psgroup)->where('empsgroup', $ur->empsgroup)->where('region', $ot->region)->first();
             if($oe){
               $salary = $oe->salary_cap;
             }
-            $wage = "8005";
           }
           $amount= 0.5*(($salary+$ur->allowance)/26);
 
@@ -638,21 +613,17 @@ class UserHelper {
           }else{
             $legacy = '254';
           }
-          if($ur->ot_hour_exception == "Y"){
-            $wage = "7220";
-          }else{
-            $wage = "7020";
-          }
-          if($ur->ot_salary_exception == "Y"){
-            $wage = "8220";
-          }else{
+          if($ur->ot_salary_exception == "N"){
             $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->psgroup)->where('empsgroup', $ur->empsgroup)->where('region', $ot->region)->first();
             if($oe){
               $salary = $oe->salary_cap;
             }
-            $wage = "8020";
           }
-          $amount= 2*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes);
+          if(26*$dt->working_hour==0){
+            $amount = 0;
+          }else{
+            $amount= 2*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes);
+          }
 
         }else{
           if($ot->region=="SEM"){
@@ -662,19 +633,11 @@ class UserHelper {
           }else{
             $legacy = '253';
           }
-          if($ur->ot_hour_exception == "Y"){
-            $wage = "7210";
-          }else{
-            $wage = "7010";
-          }
-          if($ur->ot_salary_exception == "Y"){
-            $wage = "8210";
-          }else{
+          if($ur->ot_salary_exception == "N"){
             $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->psgroup)->where('empsgroup', $ur->empsgroup)->where('region', $ot->region)->first();
             if($oe){
               $salary = $oe->salary_cap;
             }
-            $wage = "8010";
           }
           $amount= 1*(($salary+$ur->allowance)/26);
         }
@@ -684,34 +647,30 @@ class UserHelper {
 
       }else{
         $dayt = "OFF";
-        $lg = OvertimeFormula::where('company_id',$ot->company_id)->where('region',$ot->region)->where("day_type", $dayt)->first();
+        $lg = OvertimeFormula::where('company_id',$ur->company_id)->where('region',$ot->region)->where("day_type", $dayt)->first();
         if($lg){
           $legacy = $lg->legacy_codes;
         }else{
           $legacy = '05K';
         }
-        if($ur->ot_hour_exception == "Y"){
-          $wage = "7216";
-        }else{
-          $wage = "7016";
-        }
-        if($ur->ot_salary_exception == "Y"){
-          $wage = "8216";
-        }else{
+        if($ur->ot_salary_exception == "N"){
           $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->psgroup)->where('empsgroup', $ur->empsgroup)->where('region', $ot->region)->first();
           if($oe){
             $salary = $oe->salary_cap;
           }
-          $wage = "8016";
         }
-        $amount= 1.5*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes);
+        if(26*$dt->working_hour==0){
+          $amount = 0;
+        }else{
+          $amount= 1.5*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes);
+        }
       }
       
     }
     // $lg = OvertimeFormula::where('company_id',$ot->company_id)->where('region',$ot->region)->where("day_type", $dayt)->where('min_hour','<=',$ot->total_hour)->where('min_minute','<=', $ot->total_minute)->where('max_hour','>',$ot->total_hour)->where('max_minute','>', $ot->total_minute)->first();
     // dd($lg);
     // $legacy = $lg->legacy_code;
-    return [$wage, $legacy, $amount];
+    return [$legacy, $amount];
   }
 
 }
