@@ -545,7 +545,11 @@ class UserHelper {
           $salary = $oe->salary_cap;
         }
       }
-      $amount= $lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes);
+      if(26*$dt->working_hour==0){
+        $amount = 0;
+      }else{
+        $amount= $lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes);
+      }
 
 
 
@@ -561,8 +565,11 @@ class UserHelper {
               $salary = $oe->salary_cap;
             }
           }
-          $amount= $lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes);
-
+          if(26*$dt->working_hour==0){
+            $amount = 0;
+          }else{
+            $amount= $lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes);
+          }
 
         }else{
           $lg = $lg->where('min_minute', 0);
@@ -612,7 +619,11 @@ class UserHelper {
               $salary = $oe->salary_cap;
             }
           }
-          $amount= 2*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes);
+          if(26*$dt->working_hour==0){
+            $amount = 0;
+          }else{
+            $amount= 2*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes);
+          }
 
         }else{
           if($ot->region=="SEM"){
@@ -648,7 +659,11 @@ class UserHelper {
             $salary = $oe->salary_cap;
           }
         }
-        $amount= 1.5*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes);
+        if(26*$dt->working_hour==0){
+          $amount = 0;
+        }else{
+          $amount= 1.5*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes);
+        }
       }
       
     }
