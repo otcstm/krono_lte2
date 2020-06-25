@@ -220,7 +220,7 @@
           @endif
           </td>
            @elseif( $col == 'trnscd')
-          <td>{{ $otr->wage_type ?? 'N/A'}}</td>
+          <td>{{ $otr->legacy_code ?? 'N/A'}}</td>
             @elseif( $col == 'dytype')
           <td>{{ $otr->daytype->description ?? $otr->daytype_id}}</td>
 
