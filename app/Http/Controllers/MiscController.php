@@ -384,7 +384,7 @@ class MiscController extends Controller
 
   public function eligiblePunch(Request $req){
     $staffr = URHelper::getUserRecordByDate($req->user()->id, date('Y-m-d'));
-    $elig = OvertimeEligibility::where('company_id', $staffr->company_id)->where('empgroup', $staffr->psgroup)->where('empsgroup', $staffr->empsgroup)->where('psgroup', $staffr->empgroup)->where('region', $staffr->region)->first();
+    $elig = OvertimeEligibility::where('company_id', $staffr->company_id)->where('empgroup', $staffr->psgroup)->where('empsgroup', $staffr->empsgroup)->where('psgroup', $staffr->empgroup)->where('region', $staffr->region)->where('start_date','<=', date('Y-m-d'))->where('end_date','>', date('Y-m-d'))->first();
     if($elig){
       return ['result'=> true];
     }else{
