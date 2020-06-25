@@ -534,6 +534,7 @@ class ShiftPlanController extends Controller
       $stemplate = ShiftPattern::find($req->spattern_id);
       $startdate = new Carbon($req->sdate);
       $hour_gap = intVal(30);
+      $warning_msg = "";
       
       // double check if the start date is before the last planning date
       if(isset($staffExtra->last_planning_day)){
@@ -586,11 +587,13 @@ class ShiftPlanController extends Controller
 
         //if gap between shift pattern less than 30 hour return error
         if((int)$diff_hour < (int)$hour_gap){
-          return redirect(route('shift.staff', ['id' => $sps->id], false))
-          ->with([
-            'alert' => 'Selected Shift Pattern less than '.$hour_gap.' hours from previous shift pattern. Please select shift pattern with first day start time atleast '.date('d-m-Y H:i',strtotime($min_nextdatetime)),
-            'a_type' => 'warning'
-          ]);
+          //RPM instruct just give message 25/6/2020
+          $warning_msg = 'Shift pattern’s rest day does not meet the required minimum hours by Employment Act. Please contact your respective HCBD for further information.';
+          // return redirect(route('shift.staff', ['id' => $sps->id], false))
+          // ->with([
+          //   'alert' => 'Selected Shift Pattern less than '.$hour_gap.' hours from previous shift pattern. Please select shift pattern with first day start time atleast '.date('d-m-Y H:i',strtotime($min_nextdatetime)),
+          //   'a_type' => 'warning'
+          // ]);
         }
       }      
 
@@ -688,8 +691,9 @@ class ShiftPlanController extends Controller
         ShiftPlanStaff::find($req->sps_id)->updateSums();
 
         return redirect(route('shift.staff', ['id' => $sps->id], false))->with([
-          'alert' => $daycount . ' days added',
-          'a_type' => 'success'
+          'alert' => $daycount . ' days added.',
+          'a_type' => 'success',
+          'warning_msg' => $warning_msg
         ]);
 
       } else {

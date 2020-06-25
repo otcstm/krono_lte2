@@ -14,6 +14,12 @@
       <strong>{{ session()->get('alert') }}</strong>
     </div>
     @endif
+    @if (session()->has('warning_msg'))
+    <div class="alert alert-warning alert-dismissible">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>{{ session()->get('warning_msg') }}</strong>
+    </div>
+    @endif
     @if($filled != true)
     <form action="{{ route('shift.staff.push', [], false) }}" method="post">
       @csrf
@@ -41,7 +47,6 @@
             </span>
         @endif
       </div>
-
       <div class="form-group text-center">
         <button type="submit" class="btn btn-primary">{{ __('shift.f_sp_append') }}</button>
       </div>
@@ -121,6 +126,10 @@
           @endforeach
         </tbody>
       </table>
+    </div>
+    
+    <div class="form-group text-right">
+    <a class="btn btn-primary btn-outline" href="{{route('shift.index',[],false)}}" >Return</a>
     </div>
   </div>
 </div>
