@@ -301,7 +301,7 @@ class OvertimeController extends Controller{
         $dy = DayType::where('id', $day[4])->first();
         // dd($day[4]);
         $day_type=$dy->day_type;
-        $elig = OvertimeEligibility::where('company_id', $staffr->company_id)->where('empgroup', $staffr->psgroup)->where('empsgroup', $staffr->empsgroup)->where('psgroup', $staffr->empgroup)->where('region', $staffr->region)->first();
+        $elig = OvertimeEligibility::where('company_id', $staffr->company_id)->where('empgroup', $staffr->psgroup)->where('empsgroup', $staffr->empsgroup)->where('psgroup', $staffr->empgroup)->where('region', $staffr->region)->where('start_date','<=', $req->inputdate)->where('end_date','>', $req->inputdate)->first();
         if($elig){
 
             Session::put(['draft' => []]);
