@@ -540,7 +540,8 @@ class UserHelper {
       $lg = OvertimeFormula::where('company_id',$ur->company_id)->where('region',$ot->region)->where("day_type", $dayt)->first();
       $legacy = $lg->legacy_codes;
       if($ur->ot_salary_exception == "N"){
-        $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->psgroup)->where('empsgroup', $ur->empsgroup)->where('region', $ot->region)->first();
+        $oe = URHelper::getUserEligibility($ot->user_id, $ot->date);
+        // $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->empgroup)->where('empsgroup', $ur->empsgroup)->where('psgroup', $ur->psgroup)->where('region', $ot->region)->first();
         if($oe){
           $salary = $oe->salary_cap;
         }
@@ -560,7 +561,7 @@ class UserHelper {
         if($ot->total_hours_minutes>$whmax){
           $lg = $lg->where('min_minute', 1);
           if($ur->ot_salary_exception == "N"){
-            $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->psgroup)->where('empsgroup', $ur->empsgroup)->where('region', $ot->region)->first();
+            $oe = URHelper::getUserEligibility($ot->user_id, $ot->date);
             if($oe){
               $salary = $oe->salary_cap;
             }
@@ -574,7 +575,7 @@ class UserHelper {
         }else{
           $lg = $lg->where('min_minute', 0);
           if($ur->ot_salary_exception == "N"){
-            $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->psgroup)->where('empsgroup', $ur->empsgroup)->where('region', $ot->region)->first();
+            $oe = URHelper::getUserEligibility($ot->user_id, $ot->date);
             if($oe){
               $salary = $oe->salary_cap;
             }
@@ -597,7 +598,7 @@ class UserHelper {
             $legacy = '252';
           }
           if($ur->ot_salary_exception == "N"){
-            $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->psgroup)->where('empsgroup', $ur->empsgroup)->where('region', $ot->region)->first();
+            $oe = URHelper::getUserEligibility($ot->user_id, $ot->date);
             if($oe){
               $salary = $oe->salary_cap;
             }
@@ -614,7 +615,7 @@ class UserHelper {
             $legacy = '254';
           }
           if($ur->ot_salary_exception == "N"){
-            $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->psgroup)->where('empsgroup', $ur->empsgroup)->where('region', $ot->region)->first();
+            $oe = URHelper::getUserEligibility($ot->user_id, $ot->date);
             if($oe){
               $salary = $oe->salary_cap;
             }
@@ -634,7 +635,7 @@ class UserHelper {
             $legacy = '253';
           }
           if($ur->ot_salary_exception == "N"){
-            $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->psgroup)->where('empsgroup', $ur->empsgroup)->where('region', $ot->region)->first();
+            $oe = URHelper::getUserEligibility($ot->user_id, $ot->date);
             if($oe){
               $salary = $oe->salary_cap;
             }
@@ -654,7 +655,7 @@ class UserHelper {
           $legacy = '05K';
         }
         if($ur->ot_salary_exception == "N"){
-          $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->psgroup)->where('empsgroup', $ur->empsgroup)->where('region', $ot->region)->first();
+          $oe = URHelper::getUserEligibility($ot->user_id, $ot->date);
           if($oe){
             $salary = $oe->salary_cap;
           }

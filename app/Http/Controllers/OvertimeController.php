@@ -63,8 +63,8 @@ class OvertimeController extends Controller{
         //if claim exist
         if($req->session()->get('claim')!=null){
             $day = UserHelper::CheckDay($req->user()->id, $req->session()->get('claim')->date);
-            $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $region->region)->where('start_date','<=', $req->session()->get('claim')->date)->where('end_date','>', $req->session()->get('claim')->date)->first();
-            
+            // $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $region->region)->where('start_date','<=', $req->session()->get('claim')->date)->where('end_date','>', $req->session()->get('claim')->date)->first();
+            $eligiblehour = URHelper::getUserEligibility($req->user()->id, $req->session()->get('claim')->date);
             //if charge type is other cost center
             if($req->session()->get('claim')->charge_type=="Other Cost Center"){
                 $compn = Costcenter::groupBy('company_id')->get();
@@ -138,7 +138,8 @@ class OvertimeController extends Controller{
         }else if($req->session()->get('draft')!=null){
             $draft = $req->session()->get('draft');
             $day = UserHelper::CheckDay($req->user()->id, date('Y-m-d', strtotime($draft[4])));
-            $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $region->region)->where('start_date','<=', $draft[4])->where('end_date','>', $draft[4])->first();
+            // $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $region->region)->where('start_date','<=', $draft[4])->where('end_date','>', $draft[4])->first();
+            $eligiblehour = URHelper::getUserEligibility($req->user()->id, $draft[4]);
             // dd($req->session()->get('draft'));
             return view('staff.otform', ['draft' => $req->session()->get('draft'), 'day' => $day, 'eligiblehour' => $eligiblehour->hourpermonth, 'costc' => $costc]);
             
@@ -205,7 +206,8 @@ class OvertimeController extends Controller{
             //check if exceeds eligible hours
             if($eligibility){
                 if($eligibility->ot_hour_exception!="Y"){
-                    $eligiblehour = URHelper::getUserEligibity($req->user()->company_id, $region->region, $claim->date);
+                    // $eligiblehour = URHelper::getUserEligibility($req->user()->company_id, $region->region, $claim->date);
+                    $eligiblehour = URHelper::getUserEligibility($claim->user_id, $claim->date);
                     $month = OvertimeMonth::where('id', $claim->month_id)->first();
                     $totalsubmit = ($month->hour*60+$month->minute) + ($claim->total_hour*60+$claim->total_minute);
                     //if exceed, disable submition
@@ -301,7 +303,8 @@ class OvertimeController extends Controller{
         $dy = DayType::where('id', $day[4])->first();
         // dd($day[4]);
         $day_type=$dy->day_type;
-        $elig = OvertimeEligibility::where('company_id', $staffr->company_id)->where('empgroup', $staffr->psgroup)->where('empsgroup', $staffr->empsgroup)->where('psgroup', $staffr->empgroup)->where('region', $staffr->region)->where('start_date','<=', $req->inputdate)->where('end_date','>', $req->inputdate)->first();
+        // $elig = OvertimeEligibility::where('company_id', $staffr->company_id)->where('empgroup', $staffr->empgroup)->where('empsgroup', $staffr->empsgroup)->where('psgroup', $staffr->psgroup)->where('region', $staffr->region)->where('start_date','<=', $req->inputdate)->where('end_date','>', $req->inputdate)->first();
+        $elig = URHelper::getUserEligibility($req->user()->id, $req->inputdate);
         // dd($elig);
         if($elig){
 
@@ -398,7 +401,9 @@ class OvertimeController extends Controller{
                         
                         //check user ot salary exception
                         if($staffr->ot_salary_exception=="Y"){
-                            $salarycap = URHelper::getUserEligibity($staffr->company_id, $region->region, $claim->date);
+                            // $salarycap = URHelper::getUserEligibility($staffr->company_id, $region->region, $claim->date);
+                            $salarycap = URHelper::getUserEligibility($claim->user_id, $claim->date);
+                            
                             $salary = $salarycap->salary_cap;
                         }
                         $pay = UserHelper::CalOT($salary, $punches->hour, $punches->minute);
@@ -574,7 +579,8 @@ class OvertimeController extends Controller{
         //check user ot salary exception
         $salary = $staffr->salary;
         if($staffr->ot_salary_exception=="Y"){
-            $salarycap = URHelper::getUserEligibity($staffr->company_id, $region->region, $claim->date);
+            // $salarycap = URHelper::getUserEligibility($staffr->company_id, $region->region, $claim->date);
+            $salarycap = URHelper::getUserEligibility($claim->user_id, $claim->date);
             $salary = $salarycap->salary_cap;
         }
 
@@ -1036,7 +1042,8 @@ class OvertimeController extends Controller{
                     $updateclaim->save();
                     
                     //check eligibity
-                    $eligibility = URHelper::getUserEligibity($staffr->company_id, $region->region, $claim->date);
+                    $eligibility = URHelper::getUserEligibility($claim->user_id, $claim->date);
+                    // $eligibility = URHelper::getUserEligibility($staffr->company_id, $region->region, $claim->date);
 
                     //send notification to verifier/approver
                     $claim = Overtime::where('id', $claim->id)->first();
@@ -1057,15 +1064,17 @@ class OvertimeController extends Controller{
                         //check if eligible for ot hour exception
                         if($eligibility->ot_hour_exception!="Y"){   //if not
                             $reg = Psubarea::where('state_id', $req->user()->state_id)->first();
-                            $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $region->region)->where('start_date','<=', $claim->date)->where('end_date','>', $claim->date)->first();
+                            // $eligiblehour = OvertimeEligibility::where('company_id', $staffr->company_id)->where('empgroup', $staffr->empgroup)->where('empsgroup', $staffr->empsgroup)->where('psgroup', $staffr->psgroup)->where('region', $staffr->region)->where('start_date','<=', $claim->date)->where('end_date','>', $claim->date)->first();
+                            // $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $region->region)->where('start_date','<=', $claim->date)->where('end_date','>', $claim->date)->first();
                             $month = OvertimeMonth::where('id', $claim->month_id)->first();
                             $totalsubmit = (($claim->total_hour*60)+$claim->total_minute)+(($month->total_hour*60)+$month->total_minute);
 
                             //check if total claim time exceeds eligible ot time to claim
-                            if($totalsubmit>($eligiblehour->hourpermonth*60)){
+                            if($totalsubmit>($eligibility->hourpermonth*60)){
+                            // if($totalsubmit>($eligiblehour->hourpermonth*60)){
                                 return redirect(route('ot.list',[],false))->with([
                                     'feedback' => true,
-                                    'feedback_text' => "Warning! Your overtime claim has exceeded eligible claim hours of ".$eligiblehour->hourpermonth." hours.",
+                                    'feedback_text' => "Warning! Your overtime claim has exceeded eligible claim hours of ".$eligibility->hourpermonth." hours.",
                                     'feedback_title' => "Successfully Submitted"
                                 ]);
                             }else{
