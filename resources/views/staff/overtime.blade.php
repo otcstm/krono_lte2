@@ -46,7 +46,16 @@
                             <td>@foreach($singleuser->detail as $details) @if($details->checked=="Y") {{date('Hi', strtotime($details->start_time)) }}<br> @endif @endforeach</td>
                             <td>@foreach($singleuser->detail as $details) @if($details->checked=="Y") {{ date('Hi', strtotime($details->end_time))}}<br> @endif @endforeach</td>
                             <td>{{ $singleuser->total_hour }}h {{ $singleuser->total_minute }}m</td>
-                            <td>{{$singleuser->daytype->description}}</td> 
+                            <td>@if($singleuser->daytype->day_type == "N")
+                                    Normal Day
+                                @elseif($singleuser->daytype->day_type == "PH")
+                                    Public Holiday
+                                @elseif($singleuser->daytype->day_type == "R")
+                                    Rest Day
+                                @else
+                                    Off Day
+                                @endif
+                            </td> 
                             <td>
                                 @if($singleuser->charge_type!=null)
                                     {{ $singleuser->charge_type }}

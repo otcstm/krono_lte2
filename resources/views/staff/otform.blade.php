@@ -72,9 +72,27 @@
                         </form>    
                         <p>Day Type:
                             @if($claim ?? '')  
-                                {{$claim->daytype->description}}
+                                {{--$claim->daytype->description--}}
+                                @if($claim->daytype->day_type == "N")
+                                    Normal Day
+                                @elseif($claim->daytype->day_type == "PH")
+                                    Public Holiday
+                                @elseif($claim->daytype->day_type == "R")
+                                    Rest Day
+                                @else
+                                    Off Day
+                                @endif
                             @elseif(($draft ?? ''))
-                                {{$draft[8]}}
+                                {{--$draft[8]--}}
+                                @if($draft[8] == "N")
+                                    Normal Day
+                                @elseif($draft[8] == "PH")
+                                    Public Holiday
+                                @elseif($draft[8] == "R")
+                                    Rest Day
+                                @else
+                                    Off Day
+                                @endif
                             @else 
                                 N/A
                             @endif</p>   
@@ -119,7 +137,7 @@
                     </p>
                     <p>Verifier: 
                         @if($claim ?? '') 
-                            {{$claim->verifier->name}} @if($claim->verifier->name!="N/A") @endif ({{$claim->verifier->staff_no}})
+                            {{$claim->verifier->name}} @if($claim->verifier->name!="N/A") ({{$claim->verifier->staff_no}}) @endif 
                         @elseif($draft ?? '')
                             {{$draft[9]}} @if($draft[9]!="N/A") ({{$draft[12]}}) @endif
                         @else 
