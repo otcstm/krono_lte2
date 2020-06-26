@@ -26,6 +26,12 @@
                                 @else
                                     Off Day
                                 @endif</b></div>
+                                <div class="col-md-4">OT Date</div><div class="col-md-8">: <b>{{date('d.m.Y', strtotime($claim->date))}}</b></div>
+                                <div class="col-md-4">Total Hours/Minute</div><div class="col-md-8">: <b>{{$claim->total_hour}}h {{$claim->total_minute}}m</b></div>
+                                </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
                                 <div class="col-md-4">Salary Exception</div><div class="col-md-8">: <b>
                                     @if($claim->URecord->ot_salary_exception=="X")
                                         Yes
@@ -33,13 +39,6 @@
                                         No
                                     @endif
                                 </b></div>
-                                <div class="col-md-4">OT Date</div><div class="col-md-8">: <b>{{date('d.m.Y', strtotime($claim->date))}}</b></div>
-                                <div class="col-md-4">Total Hours/Minute</div><div class="col-md-8">: <b>{{$claim->total_hour}}h {{$claim->total_minute}}m</b></div>
-                                </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-4">Charge Type</div><div class="col-md-8">: <b>{{$claim->charge_type}}</b></div>
                                 <div class="col-md-4">Verifier</div><div class="col-md-8">: <b>{{$claim->verifier->name}} @if($claim->verifier_id!="")  ({{$claim->verifier->staff_no}}) @endif</b></div>
                                 <div class="col-md-4">Approver</div><div class="col-md-8">: <b>{{$claim->approver->name}} ({{$claim->approver->staff_no}})</b></div>
                                 <div class="col-md-4">Estimated Amount</div><div class="col-md-8">: <b>RM {{$claim->amount}}</b></div>
@@ -47,6 +46,59 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div><div class="panel panel-default">
+                <div class="panel-heading">
+                    <a id="btn-5" data-toggle="collapse" href="#collapse5"><span>Overtime Charge Type</span><i id="fas-5" class="fas fa-sort-down"></i></a>
+                </div>
+            <div id="collapse5" class="panel-collapse collapse">
+                <div class="panel-body"> 
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-4">Charge Type</div><div class="col-md-8">: <b>{{$claim->charge_type}}</b></div>
+                        <div class="col-md-4">Company Code</div><div class="col-md-8">: <b>{{$claim->company_id}}</b></div>
+                        <div class="col-md-4">Cost Center</div><div class="col-md-8">: <b>
+                            @if(($claim->costcenter==$claim->other_costcenter)||($claim->other_costcenter==""))
+                                {{$claim->costcenter}}
+                            @else
+                                {{$claim->other_costcenter}}
+                            @endif
+                        </b></div>
+                        @if(in_array($claim->charge_type, $array = array("Project", "Internal Order", "Maintenance Order")))
+                            <div class="col-md-4">
+                            @if($claim->charge_type=="Project")
+                                Project
+                            @else
+                                Order
+                            @endif No
+                            </div><div class="col-md-8">: <b>
+                            @if($claim->charge_type=="Project")
+                                {{$claim->project_no}}
+                            @else
+                                {{$claim->order_no}}
+                            @endif</b></div>
+                            <div class="col-md-4">Description</div>
+                            @if($claim->charge_type=="Project")
+                                <div class="col-md-8">: <b>{{$claim->project->descr}}</b></div>
+                            @elseif($claim->charge_type=="Internal Order")
+                                <div class="col-md-8">: <b>{{$claim->iorder->descr}}</b></div>
+                            @else
+                                <div class="col-md-8">: <b>{{$claim->morder->descr}}</b></div>
+                            @endif
+                        @endif
+                    </div>
+                </div>
+                @if($claim->charge_type=="Project")
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-4">Network Header</div><div class="col-md-8">: <b>{{$claim->project->network_header}}</b></div>
+                            <div class="col-md-4">Network Header Desc</div><div class="col-md-8">: <b>{{$claim->project->network_headerdescr}}</b></div>
+                            <div class="col-md-4">Network Activity</div><div class="col-md-8">: <b>{{$claim->project->network_act_no}}</b></div>
+                            <div class="col-md-4">Network Activity Desc</div><div class="col-md-8">: <b>{{$claim->project->network_act_descr}}</b></div>
+                        </div>
+                    </div>
+                @endif
+            </div>
             </div>
         </div>
         <div class="panel panel-default">
@@ -196,7 +248,7 @@
         }
     }
 
-    for(i=1; i<5; i++){
+    for(i=1; i<6; i++){
         $("#btn-"+i).on("click", chang(i));
     }
 </script>

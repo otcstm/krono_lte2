@@ -196,9 +196,13 @@ class URHelper
       }
 
 
-      public static function getUserEligibity( $comp, $region, $date)
+      public static function getUserEligibility( $id, $date)
+      // public static function getUserEligibity( $comp, $region, $date)
       {
-        $eligibity = OvertimeEligibility::where('company_id',$comp)->where('region',$region)->where('start_date','<=', $date)->where('end_date','>', $date)->first();
+        $staffr = URHelper::getUserRecordByDate($id, $date);
+        $eligibity = OvertimeEligibility::where('company_id', $staffr->company_id)->where('empgroup', $staffr->empgroup)->where('empsgroup', $staffr->empsgroup)->where('psgroup', $staffr->psgroup)->where('region', $staffr->region)->where('start_date','<=', $date)->where('end_date','>', $date)->first();
+                            
+        // $eligibity = OvertimeEligibility::where('company_id',$comp)->where('region',$region)->where('start_date','<=', $date)->where('end_date','>', $date)->first();
         return $eligibity;
       }
 
