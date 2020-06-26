@@ -48,6 +48,13 @@
                                     <option value="Permanent">Permanent</option>
                                     <option value="Contract - Internal">Contract - Internal</option>
                                     <option value="Contract - External">Contract - External</option>
+                                    <option value="Contract - Retiree">Contract - Retiree</option>
+                                    <option value="Contract - Sales">Contract - Sales</option>
+                                    <option value="Contract - Project">Contract - Project</option>
+                                    <option value="Contract for Service">Contract for Service</option>
+                                    <option value="Retiree">Retiree</option>
+                                    <option value="Trainee">Trainee</option>
+                                    <option value="Leasing">Leasing</option>
                                     <option value="Part-Timer">Part-Timer</option>
                                 </select>
                             </div>
@@ -68,7 +75,8 @@
                         </div>
                         <div class="row" style=" margin-top: 15px">
                             <div class="col-md-4">Pay Scale Group</div>
-                            <div class="col-md-6">
+                            <div class="col-md-6"><input type="text" name="psgroup" id="psgroup" style="width: 100%;" required></div>
+                            <!-- <div class="col-md-6">
                                 <select type="text" name="psgroup" id="psgroup" style="width: 100%;" required>
                                     <option selected hidden disabled></option>
                                     <option value="1">1</option>
@@ -91,7 +99,7 @@
                                     <option value="P1">P1</option>
                                     <option value="P3">P3</option>
                                 </select>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="row" style=" margin-top: 15px">
                             <div class="col-md-4">Capping</div>

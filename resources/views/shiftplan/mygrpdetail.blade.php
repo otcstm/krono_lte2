@@ -161,7 +161,7 @@
   </div>
   @endif --}}
 <div class="pull-right">
-<a id="btnCancelGrpAssign"  href="{{ route('shift.mygroup', [], false) }}" class="btn btn-p btn-primary btn-outline">Cancel</a>
+<a id="btnCancelGrpAssign"  href="{{ route('shift.mygroup', [], false) }}" class="btn btn-p btn-primary btn-outline">Return</a>
 <a id="btnCreateGrpAssign" href="{{ route('shift.mygroup', [], false) }}" class="btn btn-p btn-primary">Create</a>
 </div>
   </div>

@@ -533,7 +533,7 @@ class ReportOT implements ShouldQueue
                 }
                 if(in_array( 'trnscd',$sltcol))
                 {
-                  array_push($info, $value->wage_type);
+                  array_push($info, $value->legacy_code);
                 }
                 if(in_array( 'dytype',$sltcol))
                 {
@@ -768,7 +768,7 @@ class ReportOT implements ShouldQueue
                   }
                   if(in_array( 'trnscd',$sltcol))
                   {
-                    array_push($info, $mainOT->wage_type);
+                    array_push($info, $mainOT->legacy_code);
                   }
                   if(in_array( 'dytype',$sltcol))
                   {

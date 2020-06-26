@@ -16,9 +16,10 @@ class OTQueryApprove extends Notification
      *
      * @return void
      */
-    public function __construct($myot)
+    public function __construct($myot, $cc_email)
     {
         $this->claim = $myot;
+        $this->cc_email = $cc_email;
     }
 
     /**
@@ -54,6 +55,7 @@ class OTQueryApprove extends Notification
         // dd($this->claim->approver->name);
         return (new MailMessage)
         ->subject('Overtime claim '.$this->claim->refno.' - Queried')
+        ->cc($this->cc_email)
         ->markdown('email.ot.otquery', [
             'url' => $url,
             'reason' => $reason,

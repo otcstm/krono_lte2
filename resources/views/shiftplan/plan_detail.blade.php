@@ -39,7 +39,7 @@
            <td style="color: {{ $ap->col['f'] }};background-color:{{ $ap->col['bg'] }}">{{ $ap->User->staff_no }}</td>
            <td>{{ $ap->User->name }}</td>
            <td>{{ $ap->total_days }}</td>
-           <td>{{ $ap->total_minutes / 60 }}</td>
+           <td>{{ bcdiv(($ap->total_minutes / 60),1,2) }}</td>
            <td>{{ $ap->start_date }}</td>
            <td>{{ $ap->end_date }}</td>
            <td>{{ $ap->status }}</td>

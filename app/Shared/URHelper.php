@@ -140,6 +140,13 @@ class URHelper
         $ur->ot_salary_exception  = $oti->ot_salary_exception;
         $ur->allowance            = $oti->allowance;
         $ur->salary               = $sal->salary;
+
+        $reg = Psubarea::where('company_id', $ur->company_id)->where('persarea', $ur->persarea)->where('perssubarea', $ur->perssubarea)->where('state_id', $ur->state_id)->first();
+        if(!$reg){
+          $reg = new Psubarea();
+  
+        }
+        $ur->region = $reg->region;
       //$urA = $ur->toArray();
       //  $urA->mergeRecursive(['test'=>'testval']);
       //dd($ur);
@@ -163,9 +170,6 @@ class URHelper
         $salu = new Salary();
 
         }
-
-
-
         $u->ot_hour_exception    = $otiu->ot_hour_exception;
         $u->ot_salary_exception  = $otiu->ot_salary_exception;
         $u->allowance            = $otiu->allowance;
@@ -192,9 +196,13 @@ class URHelper
       }
 
 
-      public static function getUserEligibity( $comp, $region, $date)
+      public static function getUserEligibility( $id, $date)
+      // public static function getUserEligibity( $comp, $region, $date)
       {
-        $eligibity = OvertimeEligibility::where('company_id',$comp)->where('region',$region)->where('start_date','<=', $date)->where('end_date','>', $date)->first();
+        $staffr = URHelper::getUserRecordByDate($id, $date);
+        $eligibity = OvertimeEligibility::where('company_id', $staffr->company_id)->where('empgroup', $staffr->empgroup)->where('empsgroup', $staffr->empsgroup)->where('psgroup', $staffr->psgroup)->where('region', $staffr->region)->where('start_date','<=', $date)->where('end_date','>', $date)->first();
+                            
+        // $eligibity = OvertimeEligibility::where('company_id',$comp)->where('region',$region)->where('start_date','<=', $date)->where('end_date','>', $date)->first();
         return $eligibity;
       }
 
