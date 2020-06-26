@@ -32,6 +32,21 @@ class Overtime extends Model
         return $this->belongsTo(User::class, 'verifier_id')->withDefault(['name' => 'N/A']);
     }
 
+    public function project()
+    {
+        return $this->belongsTo(Project::class, 'project_no', 'project_no');
+    }
+
+    public function morder()
+    {
+        return $this->belongsTo(MaintenanceOrder::class, 'order_no');
+    }
+
+    public function iorder()
+    {
+        return $this->belongsTo(InternalOrder::class, 'order_no');
+    }
+
     public function time()
     {
         return $this->belongsTo(OvertimeMonth::class, 'month_id')->withDefault(['hour' => '0', 'minute' => '0', ]);
