@@ -120,7 +120,7 @@
                                     Rest Day
                                 @else
                                     Off Day
-                                @endi
+                                @endif
                             </td>
                             <td>
                                 @foreach($singleuser->detail as $details)

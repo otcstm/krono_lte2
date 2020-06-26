@@ -16,9 +16,10 @@ class OTVerified extends Notification
      *
      * @return void
      */
-    public function __construct($myot)
+    public function __construct($myot, $cc_email)
     {
         $this->claim = $myot;
+        $this->cc_email = $cc_email;
     }
 
     /**
@@ -47,7 +48,8 @@ class OTVerified extends Notification
            // boleh guna view / markdown
            return (new MailMessage)
            ->subject('Overtime claim '.$this->claim->refno.' - Pending Approval')
-           ->markdown('email.ot.otsubmittedverified', [
+           ->cc($this->cc_email)
+            ->markdown('email.ot.otsubmittedverified', [
                'url' => $url,
                'type' => 'approval',
                'appname' => $this->claim->name->name,
