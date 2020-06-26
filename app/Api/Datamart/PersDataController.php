@@ -108,39 +108,37 @@ class LeaveController extends Controller
 
     public function insert(Request $req)
     {
-        $startDate = DateTime::createFromFormat('Ymd H:i:s', $req->start_date . ' 00:00:00');
-        $endDate = DateTime::createFromFormat('Ymd H:i:s', $req->end_date . ' 00:00:00');
-        $upd_sap = DateTime::createFromFormat('Ymd H:i:s', $req->change_on . ' 00:00:00');
-        $exLeaveList = Leave::where('user_id', $req->pers_no)
-            ->where('start_date', $startDate)
-            ->where('end_date', $endDate)
-            ->where('leave_type', $req->leave_type)
-            ->where('doc_id', $req->doc_id)->delete();
-
-
-       
-
-        $l = new Leave;
-        $l->user_id       = $req->pers_no;
-        $l->upd_sap       = $upd_sap;
-        $l->start_date    = $startDate;
-        $l->end_date      = $endDate;
-        $l->leave_type = $req->leave_type;
-        $l->leave_descr     = $req->leave_descr;
-        $l->leave_status = $req->leave_status;
-        $l->version_no  = $req->version_no;
-        $l->doc_id      = $req->doc_id;
-        $l->opr         = $req->operation;
-        $l->save();
-        $collection = ["user_id" => $l->user_id, "start_date" => $l->start_date];
-        return $collection;
+        $ur = regUser(
+            $req->pers_no,      //persno
+            $req->new_ic_no,    //nic
+            $req->old_ic_no,
+            $req->staff_no,     //staffno 
+            $req->name,         //complete_name   
+            $req->sub_orgunit,  //orgunit
+            $req->comp_code,    //comp
+            $req->pers_area,    
+            $req->pers_subarea,
+            $req->emp_sgroup_descr, //empsgroup
+            $req->band,             //psgroup
+            $req->emp_group_descr,  //empgroup
+            $req->ps_level,         //pslvl
+            $req->birth_date,
+            $req->email,
+            $req->cell_no,       //cellno
+            $req->reptto,
+            $req->emp_status,    //empstats
+            $req->position,
+            $req->cost_centre,   //costcentr
+            $req->last_upd_dt    //upd_sap
+        ) ;
+        
     }
 
 
 
     public function returnMaxDate()
     {
-        $upd_sap = Leave::max('upd_sap');
+        $upd_sap = User::max('upd_sap');
 
         return $upd_sap;
     }
