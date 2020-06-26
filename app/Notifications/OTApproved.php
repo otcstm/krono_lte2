@@ -16,9 +16,10 @@ class OTApproved extends Notification
      *
      * @return void
      */
-    public function __construct($myot)
+    public function __construct($myot, $cc_email)
     {
         $this->claim = $myot;
+        $this->cc_email = $cc_email;
     }
 
     /**
@@ -51,7 +52,8 @@ class OTApproved extends Notification
         }
         return (new MailMessage)
         ->subject('Overtime claim '.$this->claim->refno.' - Approved')
-        ->markdown('email.ot.otapproved', [
+        ->cc($this->cc_email)
+            ->markdown('email.ot.otapproved', [
             'url' => $url,
             'type' => $type,
             'toname' => $this->claim->approver->name,

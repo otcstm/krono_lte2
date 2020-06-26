@@ -537,7 +537,7 @@ class UserHelper {
     }
     if($dt->day_type=="N"){ //=================================================NORMAL
       $dayt = "NOR";
-      $lg = OvertimeFormula::where('company_id',$ot->company_id)->where('region',$ot->region)->where("day_type", $dayt)->first();
+      $lg = OvertimeFormula::where('company_id',$ur->company_id)->where('region',$ot->region)->where("day_type", $dayt)->first();
       $legacy = $lg->legacy_codes;
       if($ur->ot_salary_exception == "N"){
         $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->psgroup)->where('empsgroup', $ur->empsgroup)->where('region', $ot->region)->first();

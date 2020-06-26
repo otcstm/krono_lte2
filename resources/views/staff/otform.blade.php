@@ -137,7 +137,7 @@
                     </p>
                     <p>Verifier: 
                         @if($claim ?? '') 
-                            {{$claim->verifier->name}} @if($claim->verifier->name!="N/A") @endif ({{$claim->verifier->staff_no}})
+                            {{$claim->verifier->name}} @if($claim->verifier->name!="N/A") ({{$claim->verifier->staff_no}}) @endif 
                         @elseif($draft ?? '')
                             {{$draft[9]}} @if($draft[9]!="N/A") ({{$draft[12]}}) @endif
                         @else 

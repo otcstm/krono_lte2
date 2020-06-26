@@ -302,6 +302,7 @@ class OvertimeController extends Controller{
         // dd($day[4]);
         $day_type=$dy->day_type;
         $elig = OvertimeEligibility::where('company_id', $staffr->company_id)->where('empgroup', $staffr->psgroup)->where('empsgroup', $staffr->empsgroup)->where('psgroup', $staffr->empgroup)->where('region', $staffr->region)->where('start_date','<=', $req->inputdate)->where('end_date','>', $req->inputdate)->first();
+        // dd($elig);
         if($elig){
 
             Session::put(['draft' => []]);
@@ -1041,11 +1042,15 @@ class OvertimeController extends Controller{
                     $claim = Overtime::where('id', $claim->id)->first();
                     $user = $claim->verifier;
                     $myot = \App\Overtime::where('verifier_id', $user->id)->first();
+                    $ccuser = \App\User::orWhere('id',$claim->user_id)->orWhere('id',$claim->approver_id)->get();
                     if($claim->verifier_id==NULL){
                         $user = $claim->approver;
                         $myot = \App\Overtime::where('approver_id', $user->id)->first();
+                        $ccuser = \App\User::orWhere('id',$claim->user_id)->get();
                     }
-                    $user->notify(new OTSubmitted($myot));
+                    // dd($ccuser);
+                    $cc = $ccuser->pluck('email')->toArray();
+                    $user->notify(new OTSubmitted($myot, $cc));
 
                     if($eligibility){
 
@@ -1318,10 +1323,11 @@ class OvertimeController extends Controller{
                     //notification
                     $user = $claim->approver;
                     $myot = \App\Overtime::where('id', $req->inputid[$i])->first();
-                    $user->notify(new OTVerified($myot));
+                    $ccuser = \App\User::orWhere('id',$claim->user_id)->orWhere('id',$claim->verifier_id)->get();
+                    $cc = $ccuser->pluck('email')->toArray();
+                    $user->notify(new OTVerified($myot, $cc));
                     $user = $claim->name;
                     $user->notify(new OTVerifiedApplicant($myot));
-
                     $updateclaim->verification_date = date("Y-m-d H:i:s");
                 
                     $updateclaim->status=$req->inputaction[$i];
@@ -1332,7 +1338,9 @@ class OvertimeController extends Controller{
                     $user = $claim->name;
                     //notification
                     $myot = \App\Overtime::where('id', $claim->id)->first();
-                    $user->notify(new OTApproved($myot));
+                    $ccuser = \App\User::orWhere('id',$claim->user_id)->get();
+                    $cc = $ccuser->pluck('email')->toArray();
+                    $user->notify(new OTApproved($myot, $cc));
                     $updateclaim->approved_date = date("Y-m-d H:i:s");
                 
                     $updateclaim->status=$req->inputaction[$i];
@@ -1355,12 +1363,17 @@ class OvertimeController extends Controller{
                     $myot = \App\Overtime::where('id', $claim->id)->first();
                     // dd($myot);
                     if($claim->status=="PA"){
-                        $user->notify(new OTQueryApprove($myot));
+                    // standardkan semua link ke email guna yg ni supaya dia 'mark as read'
+                        $ccuser = \App\User::orWhere('id',$claim->approver_id)->get();
+                        $cc = $ccuser->pluck('email')->toArray();
+                        $user->notify(new OTQueryApprove($myot, $cc));
                         if($claim->verifier_id!=null){
                             $user->notify(new OTQueryApproverVerify($myot));
                         }
                     }else{
-                        $user->notify(new OTQueryVerify($myot));
+                        $ccuser = \App\User::orWhere('id',$claim->verifier_id)->orWhere('id',$claim->approver_id)->get();
+                        $cc = $ccuser->pluck('email')->toArray();
+                        $user->notify(new OTQueryVerify($myot, $cc));
                     }
                     $updateclaim->status=$req->inputaction[$i];
                     // dd($updateclaim);
