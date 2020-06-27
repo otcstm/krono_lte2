@@ -9,7 +9,7 @@
         <img src="vendor/ot-assets/ot-clock-icon.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
-        <h4 class="media-heading text-left">LAST APPROVAL DATE</h4>
+        <h4 class="media-heading text-left">Last Approval Date</h4>
         <p>{{ date('j F Y', strtotime($last_approval_date)) }}</p>
       </div>
     </div>
@@ -34,8 +34,8 @@
       {{ $pending_approval_count }}                
       @else
       0        
-      @endif PENDING</h4>
-    <p>APPROVAL</p>
+      @endif Pending</h4>
+    <p>Approval</p>
   </div>
 </div>
     </div><!-- /.box-body -->
@@ -56,8 +56,8 @@
       <img src="vendor/ot-assets/bill.jpg" class="media-object" style="width:50px">
     </div>
     <div class="media-body">
-      <h4 class="media-heading">SET DEFAULT</h4>
-      <p>VERIFIER</p>
+      <h4 class="media-heading">Set Default</h4>
+      <p>Verifier</p>
     </div>
   </div>
       </div><!-- /.box-body -->
@@ -116,8 +116,8 @@
                 <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px">
               </div>
               <div class="media-body">
-                <h4 class="media-heading">CLAIM APPROVAL</h4>
-                <p>REPORT</p>
+                <h4 class="media-heading">Claim Approval</h4>
+                <p>Report</p>
               </div>
             </div>
         </div><!-- /.box-body -->
