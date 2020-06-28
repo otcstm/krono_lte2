@@ -12,7 +12,7 @@ use \Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
-class LeaveController extends Controller
+class PersDataController extends Controller
 {
     public function list()
     {
