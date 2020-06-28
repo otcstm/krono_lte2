@@ -131,6 +131,8 @@ class LeaveController extends Controller
             $req->cost_centre,   //costcentr
             $req->last_upd_dt    //upd_sap
         ) ;
+
+        return $ur;
         
     }
 
