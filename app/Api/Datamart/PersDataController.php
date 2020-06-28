@@ -109,6 +109,7 @@ class PersDataController extends Controller
 
     public function insert(Request $req)
     {
+        $upd_sap = DateTime::createFromFormat('Ymd H:i:s', $req->change_on .' 00:00:00');
         $ur = $this->regUser(
             $req->pers_no,      //persno
             $req->new_ic_no,    //nic
@@ -130,7 +131,9 @@ class PersDataController extends Controller
             $req->emp_status,    //empstats
             $req->position,
             $req->cost_centre,   //costcentr
-            $req->last_upd_dt    //upd_sap
+            //$req->last_upd_dt,    //upd_sap
+            $upd_sap
+            
         ) ;
 
         return $ur;
