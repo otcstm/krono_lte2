@@ -108,7 +108,7 @@ class PersDataController extends Controller
 
     public function insert(Request $req)
     {
-        $ur = regUser(
+        $ur = $this->regUser(
             $req->pers_no,      //persno
             $req->new_ic_no,    //nic
             $req->old_ic_no,
