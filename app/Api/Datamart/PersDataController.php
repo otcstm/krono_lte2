@@ -20,7 +20,7 @@ class PersDataController extends Controller
         return $users;
     }
 
-    public static function regUser(
+    public function regUser(
         $persno,
         $nic,
         $oic,
