@@ -6,6 +6,7 @@ namespace app\Api\Datamart;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Company;
 use App\UserRecord;
 use DateTime;
 use \Carbon\Carbon;
