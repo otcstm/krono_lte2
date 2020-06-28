@@ -9,7 +9,7 @@
         <img src="vendor/ot-assets/usradm_group_owner.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
-        <h4 class="media-heading text-left">CREATE GROUP OWNER</h4>
+        <h4 class="media-heading text-left">Create Group Owner</h4>
     	<p> </p>
       </div>
     </div>
@@ -31,7 +31,7 @@
         <img src="vendor/ot-assets/usradm_reports.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
-        <h4 class="media-heading text-left">REPORTS</h4>
+        <h4 class="media-heading text-left">Report</h4>
        <!-- <p>DESC FUNCTION</p>-->
       </div>
     </div>
