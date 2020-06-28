@@ -41,29 +41,50 @@ class LoginController extends Controller
             'username' => 'required', 
             'password' => 'required',
       ]);
-      
-      $udata = LdapHelper::DoLogin($req->username, $req->password);
-      
-      //password same username
-      if($req->password == $req->username)
-      {
-      //if($udata['code'] == 200){
-        // session(['staffdata' => $logresp['user']]);
-        // $cuser = User::find($udata['data']);
-        
-        // dd(session()->all());
-        $cuser = User::where('staff_no', $req->username)->first();
-        if($cuser){
-          
-        Session::put(['announcementx' => true]);
-        } else {
-          return redirect()->back()->withErrors(['username' => 'User not in OT system']);
+      //dd(\App::environment());
+            
+      if (\App::environment('local','development')) {
+        // The environment is dev
+        //password same username
+        if($req->password == $req->username)
+        {          
+          // dd(session()->all());
+          $cuser = User::where('staff_no', $req->username)->first();
+          if($cuser){
+            
+          Session::put(['announcementx' => true]);
+          } else {
+            return redirect()->back()->withErrors(['username' => 'User not in OT system']);
+          }
+          // attach normal user
+          $cuser->roles()->attach(1);
+          Auth::loginUsingId($cuser->id, true);
+          return redirect()->intended(route('misc.home', [], false), 302, [], true);
         }
-        // attach normal user
-        $cuser->roles()->attach(1);
-        Auth::loginUsingId($cuser->id, true);
-        return redirect()->intended(route('misc.home', [], false), 302, [], true);
       }
+
+      else{
+        // The environment is not dev
+        $udata = LdapHelper::DoLogin($req->username, $req->password);
+        if($udata['code'] == 200){
+          // session(['staffdata' => $logresp['user']]);
+          // $cuser = User::find($udata['data']);
+          
+          // dd(session()->all());
+          $cuser = User::where('staff_no', $req->username)->first();
+          if($cuser){
+            
+          Session::put(['announcementx' => true]);
+        } 
+        else {
+            return redirect()->back()->withErrors(['username' => 'User not in OT system']);
+        }
+          // attach normal user
+          $cuser->roles()->attach(1);
+          Auth::loginUsingId($cuser->id, true);
+          return redirect()->intended(route('misc.home', [], false), 302, [], true);
+        }
+      }      
       return redirect()->back()->withErrors(['username' => $udata['msg']]);
     }
 }

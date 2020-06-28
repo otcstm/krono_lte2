@@ -20,6 +20,7 @@
         <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" class="img-rounded img-responsive" />
                     
                     --}}
+                   
                     </div>
                     <div class="col-sm-6 col-md-8">
                         <div id="msgtoread">
