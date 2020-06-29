@@ -57,7 +57,7 @@
             If you have any queries, problems or have not received any ID and password for OT System, please log into 
             <a href="https://iris2.tm.com.my/" target="_blank">IRIS Self Service System</a></small>
             <br>
-            <span style="color: white">Mode: {{ App::environment() }}</span>
+            <span style="color: white">Mode: {{ $_ENV['APP_ENV'] }}</span>
         </div>
     </div>
 </div>
