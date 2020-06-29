@@ -41,10 +41,10 @@ class LoginController extends Controller
             'username' => 'required', 
             'password' => 'required',
       ]);
-      //dd(\App::environment());
-            
-      if (\App::environment('local','development')) {
-        dd('Hye im NOT local,development',\App::environment());
+                  
+      if ($_ENV['APP_ENV'] == 'local' || $_ENV['APP_ENV'] == 'development') {
+      //if (\App::environment('local','development')) {
+        //dd('Hye im NOT local,development',\App::environment());
         // The environment is dev
         //password same username
         if($req->username == $req->password)
@@ -68,7 +68,7 @@ class LoginController extends Controller
       }
 
       else{
-        dd('Hye im NOT local,development',\App::environment());
+        //dd('Hye im NOT local,development',\App::environment());
         // The environment is not dev
         $udata = LdapHelper::DoLogin($req->username, $req->password);
         if($udata['code'] == 200){
@@ -92,6 +92,5 @@ class LoginController extends Controller
         }
       }
       
-      dd('Hye im out of all clause',\App::environment());
     }
 }
