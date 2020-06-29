@@ -91,5 +91,7 @@ class LoginController extends Controller
           return redirect()->back()->withErrors(['username' => $udata['msg']]);
         }
       }
+      
+      dd('Hye im out of all clause',\App::environment());
     }
 }
