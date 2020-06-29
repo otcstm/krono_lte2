@@ -41,12 +41,13 @@ class LoginController extends Controller
             'username' => 'required', 
             'password' => 'required',
       ]);
-      //dd(\App::environment());
+      
             
       if (\App::environment('local','development')) {
+        dd('Hye im NOT local,development',\App::environment());
         // The environment is dev
         //password same username
-        if($req->password == $req->username)
+        if($req->username == $req->password)
         {          
           // dd(session()->all());
           $cuser = User::where('staff_no', $req->username)->first();
@@ -62,11 +63,12 @@ class LoginController extends Controller
           return redirect()->intended(route('misc.home', [], false), 302, [], true);
         }
         else{
-          return redirect()->back()->withErrors(['username' => 'Invalid credentials']);
+          return redirect()->back()->withErrors(['username' => 'Invalid credentials: '.\App::environment()]);
         }
       }
 
       else{
+        dd('Hye im NOT local,development',\App::environment());
         // The environment is not dev
         $udata = LdapHelper::DoLogin($req->username, $req->password);
         if($udata['code'] == 200){
