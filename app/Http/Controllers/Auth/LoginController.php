@@ -50,8 +50,8 @@ class LoginController extends Controller
         {          
           // dd(session()->all());
           $cuser = User::where('staff_no', $req->username)->first();
-          if($cuser){
-            
+          //dd($cuser);
+          if($cuser){            
           Session::put(['announcementx' => true]);
           } else {
             return redirect()->back()->withErrors(['username' => 'User not in OT system']);
@@ -60,6 +60,9 @@ class LoginController extends Controller
           $cuser->roles()->attach(1);
           Auth::loginUsingId($cuser->id, true);
           return redirect()->intended(route('misc.home', [], false), 302, [], true);
+        }
+        else{
+          return redirect()->back()->withErrors(['username' => 'Invalid credentials']);
         }
       }
 
@@ -72,19 +75,19 @@ class LoginController extends Controller
           
           // dd(session()->all());
           $cuser = User::where('staff_no', $req->username)->first();
-          if($cuser){
-            
+          if($cuser){            
           Session::put(['announcementx' => true]);
-        } 
-        else {
-            return redirect()->back()->withErrors(['username' => 'User not in OT system']);
-        }
+          }else {
+              return redirect()->back()->withErrors(['username' => 'User not in OT system']);
+          }
           // attach normal user
           $cuser->roles()->attach(1);
           Auth::loginUsingId($cuser->id, true);
           return redirect()->intended(route('misc.home', [], false), 302, [], true);
         }
-      }      
-      return redirect()->back()->withErrors(['username' => $udata['msg']]);
+        else{          
+          return redirect()->back()->withErrors(['username' => $udata['msg']]);
+        }
+      }
     }
 }
