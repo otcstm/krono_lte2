@@ -41,7 +41,7 @@ class LoginController extends Controller
             'username' => 'required', 
             'password' => 'required',
       ]);
-      
+      //dd(\App::environment());
             
       if (\App::environment('local','development')) {
         dd('Hye im NOT local,development',\App::environment());
