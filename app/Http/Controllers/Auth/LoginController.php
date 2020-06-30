@@ -41,56 +41,27 @@ class LoginController extends Controller
             'username' => 'required', 
             'password' => 'required',
       ]);
-      
-      echo "hye im before checking. mode:".$_ENV['APP_ENV'];
 
-      if ($_ENV['APP_ENV'] == 'local' || $_ENV['APP_ENV'] == 'development') {
-        dd("hye im local/development",$_ENV['APP_ENV']);
-        //password same username
-        if($req->username == $req->password)
-        {          
-          $staff_no = str_replace(' ','',strtoupper(trim($req->username)));
-          $cuser = User::where(DB::raw('REPLACE(UPPER(TRIM(staff_no))," ","")'), $staff_no)->first();
-          if($cuser){            
-            Session::put(['announcementx' => true]);
-            // attach normal user
-            $cuser->roles()->attach(1);
-            Auth::loginUsingId($cuser->id, true);
-            return redirect(route('misc.home', [], false));
-          } 
-          else {
-            return redirect()->back()->withErrors(['username' => 'User not in OT system']);
-          }
+      $inp_staffno = str_replace(' ','',strtoupper(trim($req->username)));      
+      $udata = LdapHelper::DoLogin($inp_staffno, $req->password);
+      if($udata['code'] == 200){
+        // session(['staffdata' => $logresp['user']]);
+        // $cuser = User::find($udata['data']);        
+        // dd(session()->all());
+        //$cuser = User::where('staff_no', $req->username)->first();
+        
+        $cuser = User::where(DB::raw('REPLACE(UPPER(TRIM(staff_no))," ","")'), $inp_staffno)->first();
+        if($cuser){
+          
+        Session::put(['announcementx' => true]);
+        } else {
+          return redirect()->back()->withErrors(['username' => 'User not in OT system']);
         }
-        else{
-          return redirect()->back()->withErrors(['username' => 'Invalid credentials: '.$_ENV['APP_ENV']]);
-        }
+        // attach normal user
+        $cuser->roles()->attach(1);
+        Auth::loginUsingId($cuser->id, true);
+        return redirect()->intended(route('misc.home', [], false), 302, [], true);
       }
-      else{
-        dd("hye im ELSE",$_ENV['APP_ENV']);
-        $udata = LdapHelper::DoLogin($req->username, $req->password);
-        if($udata['code'] == 200){
-          $staff_no = str_replace(' ','',strtoupper(trim($req->username)));
-          $cuser = User::where(DB::raw('REPLACE(UPPER(TRIM(staff_no))," ","")'), $staff_no)->first();
-          if($cuser){          
-            Session::put(['announcementx' => true]);
-            // attach normal user
-            $cuser->roles()->attach(1);
-            Auth::loginUsingId($cuser->id, true);
-          } else {
-            //no record in users table
-            return redirect()->back()->withErrors(['username' => 'User not in OT system']);
-          }
-          dd("hye im LdapHelper 200",$_ENV['APP_ENV']);
-          //return to guess if auth not pass else authorized to homepage
-          return redirect()->intended(route('misc.home', [], false), 302, [], true);
-        }
-        else{
-          //code other than 200
-          dd("hye im LdapHelper !200",$_ENV['APP_ENV']);
-          return redirect()->back()->withErrors(['username' => $udata['msg'].$_ENV['APP_ENV']]);
-        }
-      }
-      dd("Im after all clause",$_ENV['APP_ENV']); 
+      return redirect()->back()->withErrors(['username' => $udata['msg']]);
     }
 }
