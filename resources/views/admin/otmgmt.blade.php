@@ -28,6 +28,9 @@
                             <label for="inputcompany">Company:</label>
                             <select name="inputcompany" id="inputcompany" required>
                                 <option hidden disabled selected value="">Select Company</option>
+                                @foreach($comp as $singlecomp)
+                                    <option value="{{$singlecomp->id}}">{{$singlecomp->company_descr}}</option>
+                                @endforeach
                             </select>
                         </div>
                         
@@ -65,22 +68,22 @@ $(document).ready(function() {
         ]
     });
 });
-$("#inputregion").change(function(){
-    const url='{{ route("oe.getcompany", [], false)}}';
+// $("#inputregion").change(function(){
+//     const url='{{ route("oe.getcompany", [], false)}}';
     
-    $.ajax({
-    url: url+"?region="+$("#inputregion").val(),
-    type: "GET",
-    success: function(resp) {
-        $( "#inputcompany" ).html("");
-        $( "#inputcompany" ).append('<option hidden disabled selected value="">Select Company</option>');
-        resp.forEach(updateResp);
-    },
-        error: function(err) {
-            // respjson.forEach(myFunction);
-        }
-    });
-});
+//     $.ajax({
+//     url: url+"?region="+$("#inputregion").val(),
+//     type: "GET",
+//     success: function(resp) {
+//         $( "#inputcompany" ).html("");
+//         $( "#inputcompany" ).append('<option hidden disabled selected value="">Select Company</option>');
+//         resp.forEach(updateResp);
+//     },
+//         error: function(err) {
+//             // respjson.forEach(myFunction);
+//         }
+//     });
+// });
 
 function updateResp(item, index){
     $( "#inputcompany" ).append('<option value="'+item.id+'">'+item.id+' - '+item.name+'</option>');  
