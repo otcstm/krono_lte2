@@ -135,18 +135,22 @@ class URHelper
 
         $urMaxDate = UserRecord::where('user_id',$persno)->where('upd_sap','<=',$dt)->max('upd_sap');
         $ur = UserRecord::where('user_id',$persno)->where('upd_sap','=',$urMaxDate)->get()->first();
-        $ur->ot_hour_exception    = $oti->ot_hour_exception;
-        //$ur->ot_salary_exception  = '0';
-        $ur->ot_salary_exception  = $oti->ot_salary_exception;
-        $ur->allowance            = $oti->allowance;
-        $ur->salary               = $sal->salary;
-
-        $reg = Psubarea::where('company_id', $ur->company_id)->where('persarea', $ur->persarea)->where('perssubarea', $ur->perssubarea)->where('state_id', $ur->state_id)->first();
-        if(!$reg){
-          $reg = new Psubarea();
-  
+        if(!($ur)){
+          $ur = UserRecord::where('user_id',$persno)->orderBy('upd_sap','asc')->first();
         }
-        $ur->region = $reg->region;
+        if($ur){
+          $ur->ot_hour_exception    = $oti->ot_hour_exception;
+          //$ur->ot_salary_exception  = '0';
+          $ur->ot_salary_exception  = $oti->ot_salary_exception;
+          $ur->allowance            = $oti->allowance;
+          $ur->salary               = $sal->salary;
+          $reg = Psubarea::where('company_id', $ur->company_id)->where('persarea', $ur->persarea)->where('perssubarea', $ur->perssubarea)->where('state_id', $ur->state_id)->first();
+          if(!$reg){
+            $reg = new Psubarea();
+    
+          }
+          $ur->region = $reg->region;
+        }
       //$urA = $ur->toArray();
       //  $urA->mergeRecursive(['test'=>'testval']);
       //dd($ur);
