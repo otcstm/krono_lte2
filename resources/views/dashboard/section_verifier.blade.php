@@ -34,8 +34,8 @@
       @else
       0        
       @endif
-      PENDING</h4>
-    <p>VERIFICATION</p>
+      Pending</h4>
+    <p>Verification</p>
   </div>
 </div>
     </div><!-- /.box-body -->
@@ -56,8 +56,8 @@
                 <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px">
               </div>
               <div class="media-body">
-                <h4 class="media-heading">CLAIM VERIFICATION</h4>
-                <p>REPORT</p>
+                <h4 class="media-heading">Claim Verification</h4>
+                <p>Report</p>
               </div>
             </div>
         </div><!-- /.box-body -->

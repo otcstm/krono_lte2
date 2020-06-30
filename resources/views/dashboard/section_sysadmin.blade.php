@@ -286,8 +286,8 @@
         <img src="vendor/ot-assets/sysadm_set_user_authorization.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
-        <h4 class="media-heading text-left">SET USER</h4>
-        <p>AUTHORIZATION</p>
+        <h4 class="media-heading text-left">Set User</h4>
+        <p>Authorization</p>
       </div>
     </div>
     </div><!-- /.box-body -->
@@ -307,8 +307,8 @@
         <img src="vendor/ot-assets/sysadm_set_user_profile.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
-        <h4 class="media-heading text-left">DISPLAY USER</h4>
-        <p>PROFILE</p>
+        <h4 class="media-heading text-left">Display User</h4>
+        <p>Profile</p>
       </div>
     </div>
     </div><!-- /.box-body -->
@@ -329,8 +329,8 @@
           <img src="vendor/ot-assets/sysadm_claim_manual_approval.png" class="media-object" style="width:50px">
         </div>
         <div class="media-body">
-          <h4 class="media-heading text-left">CLAIM MANUAL</h4>
-          <p>APPROVAL</p>
+          <h4 class="media-heading text-left">Claim Manual</h4>
+          <p>Approval</p>
         </div>
       </div>
       </div><!-- /.box-body -->
@@ -351,8 +351,8 @@
       <img src="vendor/ot-assets/sysadm_user_activity_log.png" class="media-object" style="width:50px">
     </div>
     <div class="media-body">
-      <h4 class="media-heading text-left">USER ACTIVITY</h4>
-      <p>LOG</p>
+      <h4 class="media-heading text-left">User Activity</h4>
+      <p>Log</p>
     </div>
   </div>
   </div><!-- /.box-body -->
@@ -378,7 +378,7 @@
       <img src="vendor/ot-assets/sysadm_reports.png" class="media-object" style="width:50px">
     </div>
     <div class="media-body">
-      <h4 class="media-heading text-left">REPORTS</h4>
+      <h4 class="media-heading text-left">Reports</h4>
       <!--<p>DESC FUNCTION</p>-->
     </div>
   </div>
