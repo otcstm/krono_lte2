@@ -41,54 +41,50 @@ class LoginController extends Controller
             'username' => 'required', 
             'password' => 'required',
       ]);
-                  
+
       if ($_ENV['APP_ENV'] == 'local' || $_ENV['APP_ENV'] == 'development') {
-      //if (\App::environment('local','development')) {
-        //dd('Hye im NOT local,development',\App::environment());
-        // The environment is dev
+        //dd("hye im local/development",$_ENV['APP_ENV']);
         //password same username
         if($req->username == $req->password)
         {          
-          // dd(session()->all());
-          $cuser = User::where('staff_no', $req->username)->first();
-          //dd($cuser);
+          $staff_no = str_replace(' ','',strtoupper(trim($req->username)));
+          $cuser = User::where(DB::raw('REPLACE(UPPER(TRIM(staff_no))," ","")'), $staff_no)->first();
           if($cuser){            
-          Session::put(['announcementx' => true]);
-          } else {
+            Session::put(['announcementx' => true]);
+            // attach normal user
+            $cuser->roles()->attach(1);
+            Auth::loginUsingId($cuser->id, true);
+            return redirect(route('misc.home', [], false));
+          } 
+          else {
             return redirect()->back()->withErrors(['username' => 'User not in OT system']);
           }
-          // attach normal user
-          $cuser->roles()->attach(1);
-          Auth::loginUsingId($cuser->id, true);
+        }
+        else{
+          return redirect()->back()->withErrors(['username' => 'Invalid credentials: '.$_ENV['APP_ENV']]);
+        }
+      }
+      else{
+        //dd("hye im ELSE",$_ENV['APP_ENV']);
+        $udata = LdapHelper::DoLogin($req->username, $req->password);
+        if($udata['code'] == 200){
+          $staff_no = str_replace(' ','',strtoupper(trim($req->username)));
+          $cuser = User::where(DB::raw('REPLACE(UPPER(TRIM(staff_no))," ","")'), $staff_no)->first();
+          if($cuser){          
+            Session::put(['announcementx' => true]);
+            // attach normal user
+            $cuser->roles()->attach(1);
+            Auth::loginUsingId($cuser->id, true);
+          } else {
+            //no record in users table
+            return redirect()->back()->withErrors(['username' => 'User not in OT system']);
+          }
+          //return to guess if auth not pass else authorized to homepage
           return redirect()->intended(route('misc.home', [], false), 302, [], true);
         }
         else{
-          return redirect()->back()->withErrors(['username' => 'Invalid credentials: '.\App::environment()]);
-        }
-      }
-
-      else{
-        //dd('Hye im NOT local,development',\App::environment());
-        // The environment is not dev
-        $udata = LdapHelper::DoLogin($req->username, $req->password);
-        if($udata['code'] == 200){
-          // session(['staffdata' => $logresp['user']]);
-          // $cuser = User::find($udata['data']);
-          
-          // dd(session()->all());
-          $cuser = User::where('staff_no', $req->username)->first();
-          if($cuser){            
-          Session::put(['announcementx' => true]);
-          }else {
-              return redirect()->back()->withErrors(['username' => 'User not in OT system']);
-          }
-          // attach normal user
-          $cuser->roles()->attach(1);
-          Auth::loginUsingId($cuser->id, true);
-          return redirect()->intended(route('misc.home', [], false), 302, [], true);
-        }
-        else{          
-          return redirect()->back()->withErrors(['username' => $udata['msg']]);
+          //code other than 200
+          return redirect()->back()->withErrors(['username' => $udata['msg'].$_ENV['APP_ENV']]);
         }
       }
       
