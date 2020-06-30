@@ -23,7 +23,9 @@ class OvertimeMgmtController extends Controller
         }
         if($req->formtype==""){
             $oe = OvertimeEligibility::all();     
-            return view('admin.otmgmt', ['oe' => $oe]);
+            // return view('admin.otmgmt', ['oe' => $oe]);
+            $comp = Company::all();  
+            return view('admin.otmgmt', ['oe' => $oe, 'comp' => $comp]);
         }
         // else if($req->formtype=="eligibility"){
         //     $oe = OvertimeEligibility::where('company_id', $req->inputcompany)->where('region', $req->inputregion)->get();  
