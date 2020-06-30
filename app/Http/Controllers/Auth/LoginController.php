@@ -41,9 +41,11 @@ class LoginController extends Controller
             'username' => 'required', 
             'password' => 'required',
       ]);
+      
+      echo "hye im before checking. mode:".$_ENV['APP_ENV'];
 
       if ($_ENV['APP_ENV'] == 'local' || $_ENV['APP_ENV'] == 'development') {
-        //dd("hye im local/development",$_ENV['APP_ENV']);
+        dd("hye im local/development",$_ENV['APP_ENV']);
         //password same username
         if($req->username == $req->password)
         {          
@@ -65,7 +67,7 @@ class LoginController extends Controller
         }
       }
       else{
-        //dd("hye im ELSE",$_ENV['APP_ENV']);
+        dd("hye im ELSE",$_ENV['APP_ENV']);
         $udata = LdapHelper::DoLogin($req->username, $req->password);
         if($udata['code'] == 200){
           $staff_no = str_replace(' ','',strtoupper(trim($req->username)));
@@ -79,14 +81,16 @@ class LoginController extends Controller
             //no record in users table
             return redirect()->back()->withErrors(['username' => 'User not in OT system']);
           }
+          dd("hye im LdapHelper 200",$_ENV['APP_ENV']);
           //return to guess if auth not pass else authorized to homepage
           return redirect()->intended(route('misc.home', [], false), 302, [], true);
         }
         else{
           //code other than 200
+          dd("hye im LdapHelper !200",$_ENV['APP_ENV']);
           return redirect()->back()->withErrors(['username' => $udata['msg'].$_ENV['APP_ENV']]);
         }
       }
-      
+      dd("Im after all clause",$_ENV['APP_ENV']); 
     }
 }
