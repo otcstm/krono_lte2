@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Guide - Calendar')
+@section('title', 'Guideline')
 
 @section('content')
         <h1>System Guideline</h1>
@@ -33,14 +33,48 @@
                         <!-- <p style=" margin: 0">• How to start/end overtime?</p> -->
                         <!-- <p style=" margin: 0">• How to apply new overtime claim and submit for approval?</p>
                         <p style=" margin: 0">• How to change current work schedule?</p> -->
-                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideUser_01SEndOvertime.pdf")}}" target="_blank">• How to start/end overtime?</a></p>
-                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideUser_02ApplyClaim.pdf")}}" target="_blank">• How to apply new overtime claim and submit for approval?</a></p>
-                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideUser_03ChangeWsc.pdf")}}" target="_blank">• How to change current work schedule?</a></p>
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideUser_01SEndOvertime.pdf")}}" target="_blank">• Start and end overtime (to capture clocking time for overtime)</a></p>
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideUser_02ApplyClaim.pdf")}}" target="_blank">• Apply new overtime claim and submit for approval</a></p>
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideUser_03ChangeWsc.pdf")}}" target="_blank">• Change current work schedule (Not applicable for shift employee)</a></p>
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideUser_04ViewCalendar.pdf")}}" target="_blank">• View own calendar and work team calendar (For shift employee only)</a></p>
 
                 </div>
-                <div class="col-md-2 col-md-offset-1 guide-system-inside text-center flex">
+                <!-- <div class="col-md-2 col-md-offset-1 guide-system-inside text-center flex">
                     <img src="{{asset("/vendor/images/guide-video.png")}}">
+                </div> -->
+            </div>
+        </div>
+
+        <div class="guide-system">
+            <div class="row">
+                <div class="col-md-2 guide-system-inside text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50.417" height="46.944" viewBox="0 0 50.417 46.944">
+                    <g id="verified-text-paper" transform="translate(0 -1.777)">
+                        <g id="Group_3168" data-name="Group 3168" transform="translate(0 0.778)">
+                        <path id="Path_1846" data-name="Path 1846" d="M25.637,6.794H6.809a2.095,2.095,0,0,0,0,4.19H25.635a2.095,2.095,0,0,0,0-4.19Z" transform="translate(2.785 2.771)" fill="#143a8c"/>
+                        <path id="Path_1847" data-name="Path 1847" d="M25.637,11.187H6.809a2.1,2.1,0,0,0,0,4.191H25.635a2.1,2.1,0,0,0,0-4.191Z" transform="translate(2.785 5.363)" fill="#143a8c"/>
+                        <path id="Path_1848" data-name="Path 1848" d="M25.637,15.581H6.809a2.042,2.042,0,1,0,0,4.083H25.635a2.042,2.042,0,1,0,0-4.083Z" transform="translate(2.785 7.956)" fill="#143a8c"/>
+                        <path id="Path_1849" data-name="Path 1849" d="M4.719,21.816a2.045,2.045,0,0,0,2.089,2.04h7.025A8.474,8.474,0,0,1,15.2,21.5a7.43,7.43,0,0,1,2.245-1.736H6.81A2.057,2.057,0,0,0,4.719,21.816Z" transform="translate(2.784 10.426)" fill="#143a8c"/>
+                        <path id="Path_1850" data-name="Path 1850" d="M18.458,19.771H16.887a5.739,5.739,0,0,1,1.456.971l2.086,1.786a1.981,1.981,0,0,0,.121-.695A2.075,2.075,0,0,0,18.458,19.771Z" transform="translate(9.963 10.428)" fill="#143a8c"/>
+                        <path id="Path_1852" data-name="Path 1852" d="M77.824,45.721H46.575A2.632,2.632,0,0,1,44,43.042V4.14a.859.859,0,1,1,1.717,0v38.9a.877.877,0,0,0,.858.893H77.824a.877.877,0,0,0,.858-.893V2.679a.877.877,0,0,0-.858-.893H47.957A.876.876,0,0,1,47.1.893.876.876,0,0,1,47.957,0H77.824A2.632,2.632,0,0,1,80.4,2.679V43.042A2.632,2.632,0,0,1,77.824,45.721Z" transform="translate(-44 1.086)"/>
+                        <path id="Path_1851" data-name="Path 1851" d="M41.751,16.574a3.654,3.654,0,0,0-5.161.413l-12.027,14.1-6.012-5.164a3.661,3.661,0,1,0-4.77,5.555l8.8,7.556a3.686,3.686,0,0,0,2.385.886c.1,0,.189,0,.289-.013a3.663,3.663,0,0,0,2.5-1.274l14.415-16.9A3.662,3.662,0,0,0,41.751,16.574Z" transform="translate(7.377 8.024)" fill="#ef7202"/>
+                        <path id="Path_1853" data-name="Path 1853" d="M44.893,168.786a.894.894,0,1,1,.631-.262A.9.9,0,0,1,44.893,168.786Z" transform="translate(-44 -166.001)"/>
+                        </g>
+                    </g>
+                    </svg>
+                    <h4 style="color: #143A8C; font-weight: bold; margin-top: 0px;">Verifier</h4>
                 </div>
+                <div class="col-md-6 col-md-offset-1">
+                        <h4 style="color: #143A8C; font-weight: bold">Get Started</h4>
+                        <!-- <p style=" margin: 0">• How to verify/query overtime claim?</p>
+                        <p style=" margin: 0">• How to view claim verification report?</p> -->
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideVerifier_01VerifyClaim.pdf")}}" target="_blank">• Verify overtime claim</a></p>
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideVerifier_02VerifyQuery.pdf")}}" target="_blank">• Query overtime claim</a></p>
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideVerifier_03ClaimReport.pdf")}}" target="_blank">• View claim verification report</a></p>
+                </div>
+                <!-- <div class="col-md-2 col-md-offset-1 guide-system-inside text-center flex">
+                    <img src="{{asset("/vendor/images/guide-video.png")}}">
+                </div> -->
             </div>
         </div>
 
@@ -75,48 +109,20 @@
                         <!-- <p style=" margin: 0">• How to set default verifier?</p>
                         <p style=" margin: 0">• How to approve/query overtime claim?</p>
                         <p style=" margin: 0">• How to view claim approval report?</p> -->
-                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideApprver_01SetVerifier.pdf")}}" target="_blank">• How to set default verifier?</a></p>
-                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideApprver_02ApproveQueryClaim.pdf")}}" target="_blank">• How to approve/query overtime claim?</a></p>
-                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideApprver_03ClaimReport.pdf")}}" target="_blank">• How to view claim approval report?</a></p>
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideApprver_01SetVerifier.pdf")}}" target="_blank">• Set default verifier (Optional)</a></p>
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideApprver_02SetSpecVerifier.pdf")}}" target="_blank">• Assign specific verifier to specific overtime claim (Optional)</a></p>
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideApprver_03ApproveClaim.pdf")}}" target="_blank">• Approve overtime claim</a></p>
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideApprver_04QueryClaim.pdf")}}" target="_blank">• Query overtime claim</a></p>
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideApprver_05ViewClaim.pdf")}}" target="_blank">• View claim approval report</a></p>
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideApprver_06CRWorkSche.pdf")}}" target="_blank">• Approve/reject change request of work schedule</a></p>
 
                 </div>
-                <div class="col-md-2 col-md-offset-1 guide-system-inside text-center flex">
+                <!-- <div class="col-md-2 col-md-offset-1 guide-system-inside text-center flex">
                     <img src="{{asset("/vendor/images/guide-video.png")}}">
-                </div>
+                </div> -->
             </div>
         </div>
 
-        <div class="guide-system">
-            <div class="row">
-                <div class="col-md-2 guide-system-inside text-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50.417" height="46.944" viewBox="0 0 50.417 46.944">
-                    <g id="verified-text-paper" transform="translate(0 -1.777)">
-                        <g id="Group_3168" data-name="Group 3168" transform="translate(0 0.778)">
-                        <path id="Path_1846" data-name="Path 1846" d="M25.637,6.794H6.809a2.095,2.095,0,0,0,0,4.19H25.635a2.095,2.095,0,0,0,0-4.19Z" transform="translate(2.785 2.771)" fill="#143a8c"/>
-                        <path id="Path_1847" data-name="Path 1847" d="M25.637,11.187H6.809a2.1,2.1,0,0,0,0,4.191H25.635a2.1,2.1,0,0,0,0-4.191Z" transform="translate(2.785 5.363)" fill="#143a8c"/>
-                        <path id="Path_1848" data-name="Path 1848" d="M25.637,15.581H6.809a2.042,2.042,0,1,0,0,4.083H25.635a2.042,2.042,0,1,0,0-4.083Z" transform="translate(2.785 7.956)" fill="#143a8c"/>
-                        <path id="Path_1849" data-name="Path 1849" d="M4.719,21.816a2.045,2.045,0,0,0,2.089,2.04h7.025A8.474,8.474,0,0,1,15.2,21.5a7.43,7.43,0,0,1,2.245-1.736H6.81A2.057,2.057,0,0,0,4.719,21.816Z" transform="translate(2.784 10.426)" fill="#143a8c"/>
-                        <path id="Path_1850" data-name="Path 1850" d="M18.458,19.771H16.887a5.739,5.739,0,0,1,1.456.971l2.086,1.786a1.981,1.981,0,0,0,.121-.695A2.075,2.075,0,0,0,18.458,19.771Z" transform="translate(9.963 10.428)" fill="#143a8c"/>
-                        <path id="Path_1852" data-name="Path 1852" d="M77.824,45.721H46.575A2.632,2.632,0,0,1,44,43.042V4.14a.859.859,0,1,1,1.717,0v38.9a.877.877,0,0,0,.858.893H77.824a.877.877,0,0,0,.858-.893V2.679a.877.877,0,0,0-.858-.893H47.957A.876.876,0,0,1,47.1.893.876.876,0,0,1,47.957,0H77.824A2.632,2.632,0,0,1,80.4,2.679V43.042A2.632,2.632,0,0,1,77.824,45.721Z" transform="translate(-44 1.086)"/>
-                        <path id="Path_1851" data-name="Path 1851" d="M41.751,16.574a3.654,3.654,0,0,0-5.161.413l-12.027,14.1-6.012-5.164a3.661,3.661,0,1,0-4.77,5.555l8.8,7.556a3.686,3.686,0,0,0,2.385.886c.1,0,.189,0,.289-.013a3.663,3.663,0,0,0,2.5-1.274l14.415-16.9A3.662,3.662,0,0,0,41.751,16.574Z" transform="translate(7.377 8.024)" fill="#ef7202"/>
-                        <path id="Path_1853" data-name="Path 1853" d="M44.893,168.786a.894.894,0,1,1,.631-.262A.9.9,0,0,1,44.893,168.786Z" transform="translate(-44 -166.001)"/>
-                        </g>
-                    </g>
-                    </svg>
-                    <h4 style="color: #143A8C; font-weight: bold; margin-top: 0px;">Verifier</h4>
-                </div>
-                <div class="col-md-6 col-md-offset-1">
-                        <h4 style="color: #143A8C; font-weight: bold">Get Started</h4>
-                        <!-- <p style=" margin: 0">• How to verify/query overtime claim?</p>
-                        <p style=" margin: 0">• How to view claim verification report?</p> -->
-                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideVerifier_01VerifyQueryClaim.pdf")}}" target="_blank">• How to verify/query overtime claim?</a></p>
-                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideVerifier_02ClaimReport.pdf")}}" target="_blank">• How to view claim verification report?</a></p>
-                </div>
-                <div class="col-md-2 col-md-offset-1 guide-system-inside text-center flex">
-                    <img src="{{asset("/vendor/images/guide-video.png")}}">
-                </div>
-            </div>
-        </div>
 
         <div class="guide-system">
             <div class="row">
@@ -152,12 +158,12 @@
                         <h4 style="color: #143A8C; font-weight: bold">Get Started</h4>
                         <!-- <p style=" margin: 0">• Shift Management</p>
                         <p style=" margin: 0">• Generate Reports</p> -->
-                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideUserADM_01ShiftManagement.pdf")}}" target="_blank">• Shift Management</a></p>
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideUserADM_01ShiftManagement.pdf")}}" target="_blank">• End to end shift management process</a></p>
                         <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideUserADM_02GenerateReports.pdf")}}" target="_blank">• Generate Reports</a></p>
                 </div>
-                <div class="col-md-2 col-md-offset-1 guide-system-inside text-center flex">
+                <!-- <div class="col-md-2 col-md-offset-1 guide-system-inside text-center flex">
                     <img src="{{asset("/vendor/images/guide-video.png")}}">
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -179,18 +185,18 @@
                 </g>
                 </svg>
 
-                    <h4 style="color: #143A8C; font-weight: bold; margin-top: 0px;">System Admin</h4>
+                    <h4 style="color: #143A8C; font-weight: bold; margin-top: 0px;">System/Super Admin</h4>
                 </div>
                 <div class="col-md-6 col-md-offset-1">
                         <h4 style="color: #143A8C; font-weight: bold">Get Started</h4>
                         <!-- <p style=" margin: 0">• Maintain all configuration</p>
                         <p style=" margin: 0">• Generate Reports</p> -->
-                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideSysADM_01Configuration.pdf")}}" target="_blank">• Maintain all configuration</a></p>
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideSysADM_01Configuration.pdf")}}" target="_blank">• Maintain all configuration/setting</a></p>
                         <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideSysADM_02GenerateReports.pdf")}}" target="_blank">• Generate Reports</a></p>
         </div>
-                <div class="col-md-2 col-md-offset-1 guide-system-inside text-center flex">
+                <!-- <div class="col-md-2 col-md-offset-1 guide-system-inside text-center flex">
                     <img src="{{asset("/vendor/images/guide-video.png")}}">
-                </div>
+                </div> -->
             </div>
         </div>
 @stop

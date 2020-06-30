@@ -51,5 +51,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PaidOtTableSeeder::class);
         // $this->call(CompanyPayrollgroupsTableSeeder::class);
         // $this->call(PayrollgroupsTableSeeder::class);
+
     }
 }

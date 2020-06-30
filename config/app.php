@@ -175,7 +175,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\MaddHatter\LaravelFullcalendar\ServiceProvider::class,
-Fx3costa\LaravelChartJs\Providers\ChartjsServiceProvider::class
+        Fx3costa\LaravelChartJs\Providers\ChartjsServiceProvider::class,
+        Orangehill\Iseed\IseedServiceProvider::class,
 
     ],
 

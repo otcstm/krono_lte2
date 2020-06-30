@@ -11,8 +11,8 @@
         <img src="vendor/ot-assets/sysadm_role_management.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
-        <h4 class="media-heading text-left">ROLE</h4>
-        <p>MANAGEMENT</p>
+        <h4 class="media-heading text-left">Role</h4>
+        <p>Management</p>
       </div>
     </div>
     </div><!-- /.box-body -->
@@ -32,8 +32,8 @@
         <img src="vendor/ot-assets/sysadm_company_management.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
-        <h4 class="media-heading text-left">COMPANY </h4>
-        <p><span class="media-heading text-left">MANAGEMENT</span></p>
+        <h4 class="media-heading text-left">Company </h4>
+        <p><span class="media-heading text-left">Management</span></p>
       </div>
     </div>
     </div><!-- /.box-body -->
@@ -53,8 +53,8 @@
         <img src="vendor/ot-assets/sysadm_state_management.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
-        <h4 class="media-heading text-left">STATE</h4>
-        <p><span class="media-heading text-left">MANAGEMENT</span></p>
+        <h4 class="media-heading text-left">State</h4>
+        <p><span class="media-heading text-left">Management</span></p>
       </div>
     </div>
     </div><!-- /.box-body -->
@@ -74,8 +74,8 @@
         <img src="vendor/ot-assets/sysadm_subarea_management.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
-        <h4 class="media-heading text-left">SUBAREA</h4>
-        <p><span class="media-heading text-left">MANAGEMENT</span></p>
+        <h4 class="media-heading text-left">Subarea</h4>
+        <p><span class="media-heading text-left">Management</span></p>
       </div>
     </div>
     </div><!-- /.box-body -->
@@ -100,8 +100,8 @@
         <img src="vendor/ot-assets/sysadm_holiday_management.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
-        <h4 class="media-heading text-left">HOLIDAY</h4>
-        <p><span class="media-heading text-left">MANAGEMENT</span></p>
+        <h4 class="media-heading text-left">Holiday</h4>
+        <p><span class="media-heading text-left">Management</span></p>
       </div>
     </div>
     </div><!-- /.box-body -->
@@ -122,8 +122,8 @@
         <img src="vendor/ot-assets/sysadm_period_work_schedule_rule.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
-        <h4 class="media-heading text-left">PERIOD WORK</h4>
-        <p>SCHEDULE RULE</p>
+        <h4 class="media-heading text-left">Period Work</h4>
+        <p>Schedule Rule</p>
       </div>
     </div>
     </div><!-- /.box-body -->
@@ -144,8 +144,8 @@
         <img src="vendor/ot-assets/sysadm_work_schedule_rule.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
-        <h4 class="media-heading text-left">WORK SCHEDULE</h4>
-        <p>RULE</p>
+        <h4 class="media-heading text-left">Work Schedule</h4>
+        <p>Rule</p>
       </div>
     </div>
     </div><!-- /.box-body -->
@@ -166,8 +166,8 @@
         <img src="vendor/ot-assets/sysadm_system_eligibility.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
-        <h4 class="media-heading text-left">SYSTEM</h4>
-        <p>ELIGIBILITY</p>
+        <h4 class="media-heading text-left">System</h4>
+        <p>Eligibility</p>
       </div>
     </div>
     </div><!-- /.box-body -->
@@ -194,8 +194,8 @@
           <img src="vendor/ot-assets/sysadm_payment_schedule_management.png" class="media-object" style="width:50px">
         </div>
         <div class="media-body">
-          <h4 class="media-heading text-left">PAYMENT GROUPING</h4>
-          <p>MANAGEMENT</p>
+          <h4 class="media-heading text-left">Payment Grouping</h4>
+          <p>Management</p>
         </div>
       </div>
       </div><!-- /.box-body -->
@@ -216,8 +216,8 @@
         <img src="vendor/ot-assets/sysadm_payment_schedule_management.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
-        <h4 class="media-heading text-left">PAYMENT SCHEDULE</h4>
-        <p>MANAGEMENT</p>
+        <h4 class="media-heading text-left">Payment Schedule</h4>
+        <p>Management</p>
       </div>
     </div>
     </div><!-- /.box-body -->
@@ -238,8 +238,8 @@
         <img src="vendor/ot-assets/sysadm_set_user_authorization.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
-        <h4 class="media-heading text-left">OVERTIME CLAIM</h4>
-        <p>EXPIRY DATE</p>
+        <h4 class="media-heading text-left">Overtime Claim</h4>
+        <p>Expiry Date</p>
       </div>
     </div>
     </div><!-- /.box-body -->
@@ -261,7 +261,7 @@
       </div>
       <div class="media-body">
         <h4 class="media-heading text-left">ADD</h4>
-        <p>ANNOUNCEMENT</p>
+        <p>Announcement</p>
       </div>
     </div>
     </div><!-- /.box-body -->
