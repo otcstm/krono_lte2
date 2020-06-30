@@ -225,7 +225,7 @@
                         <th>End OT</th>
                         <th>Total Hours/Minutes</th>
                         <th>Amount (Estimated)</th>
-                        <th>Status</th>
+                        <!-- <th>Status</th> -->
                     </tr>
                 </thead>
                 <tbody>
