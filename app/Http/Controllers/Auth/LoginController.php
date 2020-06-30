@@ -47,7 +47,8 @@ class LoginController extends Controller
         //password same username
         if($req->username == $req->password)
         {          
-          $cuser = User::where('staff_no', $req->username)->first();
+          $staff_no = str_replace(' ','',strtoupper(trim($req->username)));
+          $cuser = User::where(DB::raw('REPLACE(UPPER(TRIM(staff_no))," ","")'), $staff_no)->first();
           if($cuser){            
             Session::put(['announcementx' => true]);
             // attach normal user
@@ -67,7 +68,8 @@ class LoginController extends Controller
         //dd("hye im ELSE",$_ENV['APP_ENV']);
         $udata = LdapHelper::DoLogin($req->username, $req->password);
         if($udata['code'] == 200){
-          $cuser = User::where('staff_no', $req->username)->first();
+          $staff_no = str_replace(' ','',strtoupper(trim($req->username)));
+          $cuser = User::where(DB::raw('REPLACE(UPPER(TRIM(staff_no))," ","")'), $staff_no)->first();
           if($cuser){          
             Session::put(['announcementx' => true]);
             // attach normal user
@@ -82,7 +84,7 @@ class LoginController extends Controller
         }
         else{
           //code other than 200
-          return redirect()->back()->withErrors(['username' => $udata['msg']]);
+          return redirect()->back()->withErrors(['username' => $udata['msg'].$_ENV['APP_ENV']]);
         }
       }
       

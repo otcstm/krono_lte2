@@ -22,10 +22,9 @@ class TempController extends Controller
     $this->validate($req, [
           'staff_no' => 'required', 'password' => 'required',
     ]);
-    $staff_no = strtoupper(trim($req->staff_no));
-    // $staff_no = str_replace(' ','',$staff_no);
-    // $cuser = User::where(DB::raw('REPLACE(UPPER(staff_no)," ","")'), $staff_no)->first();
-    $cuser = User::where(DB::raw('UPPER(staff_no)'), $staff_no)->first();
+    $staff_no = str_replace(' ','',strtoupper(trim($req->staff_no)));
+    $cuser = User::where(DB::raw('REPLACE(UPPER(TRIM(staff_no))," ","")'), $staff_no)->first();
+    //$cuser = User::where(DB::raw('UPPER(staff_no)'), $staff_no)->first();
     if($cuser){      
       Session::put(['announcementx' => true]);
       Auth::loginUsingId($cuser->id, true);
