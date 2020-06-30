@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Shared\LdapHelper;
 use App\User;
 use Session;
+use DB;
 class LoginController extends Controller
 {
     /*
@@ -51,8 +52,7 @@ class LoginController extends Controller
         //$cuser = User::where('staff_no', $req->username)->first();
         
         $cuser = User::where(DB::raw('REPLACE(UPPER(TRIM(staff_no))," ","")'), $inp_staffno)->first();
-        if($cuser){
-          
+        if($cuser){          
         Session::put(['announcementx' => true]);
         } else {
           return redirect()->back()->withErrors(['username' => 'User not in OT system']);
