@@ -392,8 +392,10 @@ class UserHelper {
       $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->first();
       $hc = null;
       if($ph){
+        // $userstate = UserRecord::where('user_id', $user)->where('upd_sap','<=',$date)->first();
+        $userstate = URHelper::getUserRecordByDate($user,$date);
         // dd($userstate);
-        $userstate = UserRecord::where('user_id', $user)->where('upd_sap','<=',$date)->first();
+        
         $hc = HolidayCalendar::where('holiday_id', $ph->id)->where('state_id', $userstate->state_id)->first();
       }
       if($hc){
