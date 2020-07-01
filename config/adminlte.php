@@ -33,7 +33,7 @@ return [
     |
     */
 
-    'logo' => 'New ERA Overtime Claim System',
+    'logo' => 'NEO',
 
     // 'logo_mini' => '<b>A</b>LT',
     'logo_mini' => 'NEO',

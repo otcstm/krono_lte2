@@ -461,7 +461,7 @@
                                                 <label>No:</label>
                                             </div>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-select" style="position: relative; z-index: 8;" id="orderno" name="orderno" placeholder="@if($claim->charge_type=="Project") Search Project No" value="@if($claim->project_no!=null) {{$claim->project_no}} @endif" @else Search Order No" value="@if($claim->order_no!=null) {{$claim->order_no}} @endif" @endif required>
+                                                <input type="text" class="form-select" style="position: relative; z-index: 8;" id="orderno" name="orderno" placeholder="@if($claim->charge_type=="Project") Search project no" @if($claim->project_no!=null) value="{{$claim->project_no}}"@endif @else Search order no" @if($claim->order_no!=null) value="{{$claim->order_no}}" @endif @endif required>
                                                 <i style="position: relative; z-index: 9; margin-left: -25px" class="fas fa-search"></i>
                                                 {{-- <!-- <select class="form-select" name="orderno" id="orderno" required 
                                                 @if($claim->charge_type=="Project") 
@@ -1547,13 +1547,14 @@
     //     $("#form").submit();
     // });    
     $("#orderno").on('click', function(){
+        // alert("x"+$("#orderno").val());
         search($("#orderno").val());
         // $("#formtype").val("save");
         // $("#form").submit();
     });    
     var htmlstring;
     var searchtml;
-    var checkorder;
+    var checkorder = null;
     var potype;
     var number;
     var checkselect = false;
@@ -1566,12 +1567,12 @@
                         "<input id='namet' placeholder=\"Enter"+ 
                         @if($claim ?? '')
                             @if($claim->charge_type=="Project")
-                                " Project "+
+                                " project "+
                             @else
-                                " Order "+
+                                " order "+
                             @endif
                         @endif
-                        "No\" style='width: 100%; box-sizing: border-box;' onkeyup='this.onchange();' onchange='return checkstring();'>"+
+                        "no\" style='width: 100%; box-sizing: border-box;' onkeyup='this.onchange();' onchange='return checkstring();'>"+
                         "<button type='button' id='namex' onclick='return cleart()' class='approval-search-x btn-no'>"+
                             "<i class='far fa-times-circle'></i>"+
                         "</button>"+
@@ -1669,7 +1670,15 @@
                         if (result.value) {
 
                         }else{
-                            $('#orderno').val("");
+                            @if($claim ?? '')
+                                @if($claim->project_no!=null)
+                                    $('#orderno').val("{{$claim->project_no}}");
+                                @elseif($claim->order_no!=null)
+                                    $('#orderno').val("{{$claim->order_no}}");
+                                @else
+                                    $('#orderno').val("");
+                                @endif
+                            @endif
                         }
                     });
                 }
@@ -1715,9 +1724,15 @@
         }else{
             type = 'Order';
         }
+        var border="";
+        // console.log(checkorder);
+        // console.log(item.id);
+        if(checkorder==item.id){
+            border = "outline: 1px solid #143A8C; border: 2px solid #143A8C";
+        }
         htmlstring = htmlstring + 
-            "<button style='border: 1px solid #DDDDDD; min-height: 10vh; width: 100%; padding: 5px; text-align: left; background: transparent' onclick='selectno(\""+item.id+"\","+index+");' id='addv-"+index+"'>"+
-                "<div style='display: flex; align-items: center; flex-wrap: wrap; width: 95%; margin-left: 3%' padding: 15px>"+
+            "<button style='border: 1px solid #DDDDDD; min-height: 10vh; width: 100%; padding: 5px; text-align: left; background: transparent "+border+"' onclick='selectno(\""+item.id+"\","+index+");' id='addv-"+index+"'>"+
+                "<div style='display: flex; align-items: center; flex-wrap: wrap; width: 95%; margin-left: 3% padding: 15px '>"+
                     "<div class='w-50 m-15'>"+
                         "<div class='approval-search-item'>"+
                             "<div class='w-30'> "+type+" No<span class='dmx'>:</span></div>"+
