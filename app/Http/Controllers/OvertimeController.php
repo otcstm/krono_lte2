@@ -563,10 +563,11 @@ class OvertimeController extends Controller{
             $draftclaim->region =  $region->region;
             $draftclaim->costcenter =  $staffr->costcentr;
             // $draftclaim->wage_type =  $wage->legacy_codes; //temp
-            $userrecid = URHelper::getUserRecordByDate($req->user()->persno, date('Y-m-d', strtotime(($req->session()->get('draft'))[4])));
-            $salexecpt = URHelper::getUserRecordByDate($req->user()->persno, date('Y-m-d', strtotime(($req->session()->get('draft'))[2])));
-            $draftclaim->user_records_id =  $userrecid->id;
-            $draftclaim->sal_exception =  $salexecpt->ot_salary_exception;
+            // $userrecid = URHelper::getUserRecordByDate($req->user()->persno, date('Y-m-d', strtotime(($req->session()->get('draft'))[4])));
+            // $salexecpt = URHelper::getUserRecordByDate($req->user()->persno, date('Y-m-d', strtotime(($req->session()->get('draft'))[2])));
+            // dd($userrecid);
+            $draftclaim->user_records_id =  $staffr->id;
+            $draftclaim->sal_exception =  $staffr->ot_salary_exception;
             $draftclaim->status = 'D1';
             $draftclaim->save();
             $claim = Overtime::where('user_id', $req->user()->id)->where('date', ($req->session()->get('draft'))[4])->first();
