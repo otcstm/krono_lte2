@@ -23,6 +23,7 @@ use DB;
 class MiscController extends Controller
 {
   public function home(Request $req){
+    $execute = UserHelper::LogUserAct($req, "LOGIN", "Homepage");
 
     $last_month = Carbon::now()->addMonths(-1);
     $first_last_month = date('01-m-Y',strtotime($last_month));
