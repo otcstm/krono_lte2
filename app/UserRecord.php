@@ -21,6 +21,11 @@ class UserRecord extends Model
     {
         return $this->belongsTo(Psubarea::class,'perssubarea','perssubarea');
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id');
+    }
+
 
     // public function Reg(){//based on OT date
     //   return URHelper::getRegion($this->perssubarea);
