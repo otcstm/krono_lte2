@@ -10,7 +10,7 @@
 
 <div class="panel panel-default panel-main">
     <div class="panel panel-default">
-        <div class="panel-heading panel-primary">Overtime Management (Expiry) - {{$oe->get(0)->companyid->company_descr}} ({{$oe->get(0)->region}})</div>
+        <div class="panel-heading panel-primary">Overtime Management (Expiry) - {{$comp->company_descr}} ({{$reg}})</div>
         <div class="panel-body">
             <div class="table-responsive">
                 <table id="tRoleList" class="table table-bordered">
@@ -84,8 +84,8 @@
                     @csrf
                     <div class="col-md-6">
                         <input type="text" class="hidden" id="formtype" name="formtype" value="expiry" required>
-                        <input type="text" class="hidden" id="inputcompany" name="inputcompany" value="{{$oe->get($n)->company_id}}" required>
-                        <input type="text" class="hidden" id="inputregion" name="inputregion" value="{{$oe->get($n)->region}}" required>
+                        <input type="text" class="hidden" id="inputcompany" name="inputcompany" value="{{$comp->id}}" required>
+                        <input type="text" class="hidden" id="inputregion" name="inputregion" value="{{$reg}}" required>
                         <div class="row">
                             <div class="col-md-4" style="margin-top: 5px">
                                 <label for="inputstatus">Overtime Status:</label>
@@ -160,8 +160,8 @@
                 <form action="{{route('oe.expiryupdate')}}" method="POST">
                     @csrf
                     <input type="text" class="hidden" id="formtype" name="formtype" value="expiry" required>
-                    <input type="text" class="hidden" id="inputcompany" name="inputcompany" value="{{$oe->get($n)->company_id}}" required>
-                    <input type="text" class="hidden" id="inputregion" name="inputregion" value="{{$oe->get($n)->region}}" required>
+                    <input type="text" class="hidden" id="inputcompany" name="inputcompany" value="{{$comp->id}}" required>
+                    <input type="text" class="hidden" id="inputregion" name="inputregion" value="{{$reg}}" required>
                     <div class="row">
                         <div class="col-lg-3" style="margin-top: 5px">
                             <label for="inputestatus">Overtime Status:</label>
@@ -240,8 +240,8 @@
                     @csrf
                     <input type="text" class="form-control hidden" id="inputid" name="inputid" value="" required>
                     <input type="text" class="hidden" id="formtype" name="formtype" value="expiry" required>
-                    <input type="text" class="hidden" id="inputcompany" name="inputcompany" value="{{$oe->get($n)->company_id}}" required>
-                    <input type="text" class="hidden" id="inputregion" name="inputregion" value="{{$oe->get($n)->region}}" required>
+                    <input type="text" class="hidden" id="inputcompany" name="inputcompany" value="{{$comp->id}}" required>
+                    <input type="text" class="hidden" id="inputregion" name="inputregion" value="{{$reg}}" required>
                     <button type="submit" class="btn btn-danger">DELETE</button>
                 </form>
             </div>
@@ -285,15 +285,19 @@ while(d.length<2){
     d = "0"+d;
 }
 
+@if(count($oe)!=0)
 if(Date.parse(y+"-"+m+"-"+d)>=Date.parse("{{date('Y-m-d', strtotime($oe->get($n)->start_date . '+1 days'))}}")){
     $("#inputdate").attr("min", y+"-"+m+"-"+d);
 }
+@else
+    $("#inputdate").attr("min", y+"-"+m+"-"+d);
+@endif
 
 $("#inputstatus").change(function(){
     status = $("#inputstatus").val();
     const url='{{ route("oe.getexpiry", [], false)}}';
     $.ajax({
-    url: url+"?region="+"{{$oe->get($n)->region}}"+"&company="+"{{$oe->get($n)->company_id}}"+"&status="+status,
+    url: url+"?region="+"{{$reg}}"+"&company="+"{{$comp->id}}"+"&status="+status,
     type: "GET",
     success: function(resp) {
         $('input[name=inputmonth]').attr("disabled", false);
@@ -350,7 +354,7 @@ $('#edit').on('show.bs.modal', function(e) {
 
     const url='{{ route("oe.expirygetlast", [], false)}}';
     $.ajax({
-    url: url+"?region="+"{{$oe->get($n)->region}}"+"&company="+"{{$oe->get($n)->company_id}}"+"&sd="+start_date,
+    url: url+"?region="+"{{$reg}}"+"&company="+"{{$comp->id}}"+"&sd="+start_date,
     type: "GET",
     success: function(resp) {
         $('input[name=inputedate]').attr("min", resp.min);

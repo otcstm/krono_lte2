@@ -35,8 +35,9 @@ class OvertimeMgmtController extends Controller
         else if($req->formtype=="expiry"){
             // dd($req->inputcompany);
             $oe = OvertimeExpiry::where('company_id', $req->inputcompany)->where('region', $req->inputregion)->get();  
+            $comp = Company::where('id', $req->inputcompany)->first();  
             // dd($oe);
-            return view('admin.otmgmtexpiry', ['oe' => $oe]);
+            return view('admin.otmgmtexpiry', ['oe' => $oe, 'comp' => $comp, 'reg' => $req->inputregion]);
         }
     }
 
