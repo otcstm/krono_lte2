@@ -260,7 +260,7 @@
         <img src="vendor/ot-assets/sysadm_set_user_profile.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
-        <h4 class="media-heading text-left">ADD</h4>
+        <h4 class="media-heading text-left">Add</h4>
         <p>Announcement</p>
       </div>
     </div>

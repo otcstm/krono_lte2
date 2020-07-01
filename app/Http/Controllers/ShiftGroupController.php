@@ -58,10 +58,10 @@ class ShiftGroupController extends Controller
     // user yang akan terima notification tu
     $to_user = User::where('id',$req->group_owner_id)->first();
 
-    $hcbd_role = DB::Table('role_user')->where('role_id',3);
-    $hcbd_role_list = $hcbd_role->pluck('user_id')->toArray();
+    //$hcbd_role = DB::Table('role_user')->where('role_id',3);
+    //$hcbd_role_list = $hcbd_role->pluck('user_id')->toArray();
 
-    $cc_user = \App\User::whereIn('id',$hcbd_role_list);
+    $cc_user = \App\User::where('id',$req->user()->id);
     $cc_user_list = $cc_user->pluck('email')->toArray();
 
     // object yang nak dinotify / tengok bila penerima notify tekan link
@@ -98,10 +98,10 @@ class ShiftGroupController extends Controller
     // group owner yang akan terima notification tu
     $to_user = User::where('id',$req->group_owner_id)->first();
 
-    $hcbd_role = DB::Table('role_user')->where('role_id',3);
-    $hcbd_role_list = $hcbd_role->pluck('user_id')->toArray();
+    //$hcbd_role = DB::Table('role_user')->where('role_id',3);
+    //$hcbd_role_list = $hcbd_role->pluck('user_id')->toArray();
 
-    $cc_user = \App\User::whereIn('id',$hcbd_role_list);
+    $cc_user = \App\User::where('id',$req->user()->id);
     $cc_user_list = $cc_user->pluck('email')->toArray();
 
     // object yang nak dinotify / tengok bila penerima notify tekan link

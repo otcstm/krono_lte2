@@ -33,10 +33,10 @@ return [
     |
     */
 
-    'logo' => 'OT Claim System',
+    'logo' => 'NEO',
 
     // 'logo_mini' => '<b>A</b>LT',
-    'logo_mini' => 'OTCS',
+    'logo_mini' => 'NEO',
 
     /*
     |--------------------------------------------------------------------------
