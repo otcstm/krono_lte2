@@ -67,7 +67,7 @@
         </div>
             <!-- /.box-header -->
         <div class="box-body">
-        @if(!empty($verifier_detail))
+        @if(!empty($direct_report))
         <div class="col-sm-6 col-md-4">
         <img src="{{route('user.image', ['staffno' => str_replace(' ','',$direct_report->staff_no)   ])}}" 
         alt="" class="profile-user-img img-rounded img-responsive img-zoom" />
