@@ -1439,6 +1439,48 @@ class OvertimeController extends Controller{
         }
     }
 
+    //--------------------------------------------------search order no--------------------------------------------------
+    public function searchorder(Request $req){
+        // dd($req->type);
+        $arr = [];
+        if($req->type=="project"){
+            $no = Project::where("project_no", 'LIKE', '%'.$req->order. '%')->get();
+            foreach($no as $o){
+                array_push($arr, [
+                    'id'=>$o->project_no,
+                    'descr'=>$o->descr,
+                    'type'=>$o->type,
+                    'costc'=>$o->cost_center,
+                    'comp'=>$o->company_code,
+                ]);
+            }
+        }else if($req->type=="internal"){
+            $no = InternalOrder::where('id', 'LIKE', '%'.$req->order. '%')->get();
+            foreach($no as $o){
+                array_push($arr, [
+                    'id'=>$o->id,
+                    'descr'=>$o->descr,
+                    'type'=>$o->order_type,
+                    'costc'=>$o->cost_center,
+                    'comp'=>$o->company_code,
+                ]);
+            }
+        }else{
+            $no = MaintenanceOrder::where("id", 'LIKE', '%'.$req->order. '%')->get();
+            foreach($no as $o){
+                array_push($arr, [
+                    'id'=>$o->id,
+                    'descr'=>$o->descr,
+                    'type'=>$o->type,
+                    'costc'=>$o->cost_center,
+                    'comp'=>$o->company_code,
+                ]);
+            }
+        }
+        
+        // dd($no);
+        return $arr;
+    }
     //--------------------------------------------------search verifier--------------------------------------------------
     public function search(Request $req){
         $date = date('Y-m-d');
