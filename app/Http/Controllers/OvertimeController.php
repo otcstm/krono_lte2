@@ -366,7 +366,8 @@ class OvertimeController extends Controller{
                         }
                         $draftclaim->date_expiry = date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d', strtotime("+3 months", strtotime($req->inputdate))))));
                     }
-                    $draftclaim->state_id =  $req->user()->state_id;
+                    // $draftclaim->state_id =  $req->user()->state_id;
+                    $draftclaim->state_id =  $staffr->state_id;
                     $draftclaim->daytype_id =  $day[4];
                     $draftclaim->profile_id =  $staffr->id;
                     $draftclaim->company_id =  $staffr->company_id;
@@ -486,8 +487,10 @@ class OvertimeController extends Controller{
                                     $claimtime,                     //[3] - month
                                     $req->inputdate,                //[4] - date
                                     $req->user()->name,             //[5] - user name
-                                    $state->state_id,               //[6] - stateid
-                                    $state->statet->state_descr,    //[7] - statedescr
+                                    // $state->state_id,               //[6] - stateid
+                                    $staffr->state_id,
+                                    $staffr->statet->state_descr,
+                                    // $state->statet->state_descr,    //[7] - statedescr
                                     $day_type,                      //[8] - day type
                                     $verifyn,                       //[9] - verifier name
                                     $approver,                 //[10] - approver name
