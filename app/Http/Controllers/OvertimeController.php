@@ -366,7 +366,8 @@ class OvertimeController extends Controller{
                         }
                         $draftclaim->date_expiry = date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d', strtotime("+3 months", strtotime($req->inputdate))))));
                     }
-                    $draftclaim->state_id =  $req->user()->state_id;
+                    // $draftclaim->state_id =  $req->user()->state_id;
+                    $draftclaim->state_id =  $staffr->state_id;
                     $draftclaim->daytype_id =  $day[4];
                     $draftclaim->profile_id =  $staffr->id;
                     $draftclaim->company_id =  $staffr->company_id;
@@ -486,8 +487,10 @@ class OvertimeController extends Controller{
                                     $claimtime,                     //[3] - month
                                     $req->inputdate,                //[4] - date
                                     $req->user()->name,             //[5] - user name
-                                    $state->state_id,               //[6] - stateid
-                                    $state->statet->state_descr,    //[7] - statedescr
+                                    // $state->state_id,               //[6] - stateid
+                                    $staffr->state_id,
+                                    $staffr->statet->state_descr,
+                                    // $state->statet->state_descr,    //[7] - statedescr
                                     $day_type,                      //[8] - day type
                                     $verifyn,                       //[9] - verifier name
                                     $approver,                 //[10] - approver name
@@ -560,10 +563,11 @@ class OvertimeController extends Controller{
             $draftclaim->region =  $region->region;
             $draftclaim->costcenter =  $staffr->costcentr;
             // $draftclaim->wage_type =  $wage->legacy_codes; //temp
-            $userrecid = URHelper::getUserRecordByDate($req->user()->persno, date('Y-m-d', strtotime(($req->session()->get('draft'))[4])));
-            $salexecpt = URHelper::getUserRecordByDate($req->user()->persno, date('Y-m-d', strtotime(($req->session()->get('draft'))[2])));
-            $draftclaim->user_records_id =  $userrecid->id;
-            $draftclaim->sal_exception =  $salexecpt->ot_salary_exception;
+            // $userrecid = URHelper::getUserRecordByDate($req->user()->persno, date('Y-m-d', strtotime(($req->session()->get('draft'))[4])));
+            // $salexecpt = URHelper::getUserRecordByDate($req->user()->persno, date('Y-m-d', strtotime(($req->session()->get('draft'))[2])));
+            // dd($userrecid);
+            $draftclaim->user_records_id =  $staffr->id;
+            $draftclaim->sal_exception =  $staffr->ot_salary_exception;
             $draftclaim->status = 'D1';
             $draftclaim->save();
             $claim = Overtime::where('user_id', $req->user()->id)->where('date', ($req->session()->get('draft'))[4])->first();

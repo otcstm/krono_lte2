@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Shared\LdapHelper;
 use App\User;
 use Session;
+use DB;
 class LoginController extends Controller
 {
     /*
@@ -41,20 +42,17 @@ class LoginController extends Controller
             'username' => 'required', 
             'password' => 'required',
       ]);
-      
-      $udata = LdapHelper::DoLogin($req->username, $req->password);
-      
-      //password same username
-      if($req->password == $req->username)
-      {
-      //if($udata['code'] == 200){
+
+      $inp_staffno = str_replace(' ','',strtoupper(trim($req->username)));      
+      $udata = LdapHelper::DoLogin($inp_staffno, $req->password);
+      if($udata['code'] == 200){
         // session(['staffdata' => $logresp['user']]);
-        // $cuser = User::find($udata['data']);
-        
+        // $cuser = User::find($udata['data']);        
         // dd(session()->all());
-        $cuser = User::where('staff_no', $req->username)->first();
-        if($cuser){
-          
+        //$cuser = User::where('staff_no', $req->username)->first();
+        
+        $cuser = User::where(DB::raw('REPLACE(UPPER(TRIM(staff_no))," ","")'), $inp_staffno)->first();
+        if($cuser){          
         Session::put(['announcementx' => true]);
         } else {
           return redirect()->back()->withErrors(['username' => 'User not in OT system']);

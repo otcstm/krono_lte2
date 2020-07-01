@@ -29,8 +29,8 @@
         <img src="vendor/ot-assets/usradm_assign_shift_planner-members.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
-        <h4 class="media-heading text-left">ASSIGN SHIFT</h4>
-        <p>PLANNER/MEMBERS</p>
+        <h4 class="media-heading text-left">Assign Shift</h4>
+        <p>Planner/Members</p>
       </div>
     </div>
     </div><!-- /.box-body -->
@@ -51,7 +51,7 @@
         <img src="vendor/ot-assets/usradm_shift_planning.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
-        <h4 class="media-heading text-left">SHIFT PLANNING</h4>
+        <h4 class="media-heading text-left">Shift Planning</h4>
         <!--<p>DESC FUNCTION</p>-->
       </div>
     </div>
@@ -73,7 +73,7 @@
         <img src="vendor/ot-assets/usradm_shift_approval.png" class="media-object" style="width:50px">
       </div>
       <div class="media-body">
-        <h4 class="media-heading text-left">SHIFT APPROVAL</h4>
+        <h4 class="media-heading text-left">Shift Approval</h4>
         <!--<p>DESC FUNCTION</p>-->
       </div>
     </div>

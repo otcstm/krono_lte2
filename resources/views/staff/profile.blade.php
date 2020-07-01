@@ -20,6 +20,7 @@
         <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" class="img-rounded img-responsive" />
                     
                     --}}
+                   
                     </div>
                     <div class="col-sm-6 col-md-8">
                         <div id="msgtoread">
@@ -66,6 +67,7 @@
         </div>
             <!-- /.box-header -->
         <div class="box-body">
+        @if(!empty($direct_report))
         <div class="col-sm-6 col-md-4">
         <img src="{{route('user.image', ['staffno' => str_replace(' ','',$direct_report->staff_no)   ])}}" 
         alt="" class="profile-user-img img-rounded img-responsive img-zoom" />
@@ -102,7 +104,9 @@
                             <br />
                         </p>                     
             </div>
-            
+        @else 
+        No data [reptto]    
+        @endif    
         </div><!-- /.box-body -->            
     </div><!-- /.box box-solid -->  
 </div><!-- /.col-md-6-->  
@@ -234,13 +238,13 @@ alt="User profile picture">
 
               <h3 class="profile-username text-center">{{ $row_subord->name }} </h3>
 
-              <p class="text-muted text-center">{{ $row_subord->userrecordLatest->empsgroup }} </p>
+              <p class="text-muted text-center">{{ $row_subord->userRecordLatest->empsgroup }} </p>
               <div class="col-md-12" style="word-wrap: break-all">
               <b>Staff ID:</b> {{ $row_subord->staff_no }} 
                             <br />
                             <b>Company:</b> {{ $row_subord->companyid->company_descr }}
                             <br />
-                            <b>Cost Center:</b> {{ $row_subord->costcentr }}
+                            <b>Cost Center:</b> {{ $row_subord->userRecordLatest->costcentr }}
                             <br />
                             <b>Ot Salary Exception:</b> 
                             @if ($row_subord->ot_salary_exception == '1') 

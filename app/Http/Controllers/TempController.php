@@ -22,15 +22,15 @@ class TempController extends Controller
     $this->validate($req, [
           'staff_no' => 'required', 'password' => 'required',
     ]);
-    $staff_no = strtoupper(trim($req->staff_no));
-    $cuser = User::where(DB::raw('UPPER(staff_no)'), $staff_no)->first();
-    if($cuser){
-      
+    $staff_no = str_replace(' ','',strtoupper(trim($req->staff_no)));
+    $cuser = User::where(DB::raw('REPLACE(UPPER(TRIM(staff_no))," ","")'), $staff_no)->first();
+    //$cuser = User::where(DB::raw('UPPER(staff_no)'), $staff_no)->first();
+    if($cuser){      
       Session::put(['announcementx' => true]);
       Auth::loginUsingId($cuser->id, true);
       return redirect(route('misc.home', [], false));
     } else {
-      return redirect()->back()->withErrors('staff_no', 'user not exist');
+      return redirect()->back()->withErrors(['staff_no' => 'User not in OT system']);
     }
   }
 }
