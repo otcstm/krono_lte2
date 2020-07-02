@@ -27,7 +27,7 @@
                 <p>Your Staff ID</p>
                 <div class="form-group has-feedback {{ $errors->has('username') ? 'has-error' : '' }}">
                     <input type="text" name="username" class="form-control" value="{{ old('username') }}"
-                           placeholder="Eg: TM52025">
+                           placeholder="IDM Username Eg: TM52025">
                     @if ($errors->has('username'))
                         <span class="help-block">
                             <strong>{{ $errors->first('username') }}</strong>
@@ -37,7 +37,8 @@
                 <p>Your Password</p>
                 <div class="form-group has-feedback {{ $errors->has('password') ? 'has-error' : '' }}">
                     <input type="password" name="password" class="form-control"
-                           placeholder="{{ __('adminlte::adminlte.password') }}">
+                           placeholder="IDM Password"> 
+                           {{-- {{ __('adminlte::adminlte.password') }} --}}
                     @if ($errors->has('password'))
                         <span class="help-block">
                             <strong>{{ $errors->first('password') }}</strong>
@@ -54,8 +55,10 @@
             </form>
             <br class="d-none"><br class="d-none">
             <small>Dear User, <br />
-            If you have any queries, problems or have not received any ID and password for OT System, please log into 
+            If you have any queries or problems regarding your ID & password for this system, please log into 
             <a href="https://iris2.tm.com.my/" target="_blank">IRIS Self Service System</a></small>
+            {{-- <br>
+            <span style="color: white">Mode: {{ $_ENV['APP_ENV'] }}</span> --}}
         </div>
     </div>
 </div>

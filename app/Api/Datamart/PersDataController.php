@@ -6,13 +6,14 @@ namespace app\Api\Datamart;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Company;
 use App\UserRecord;
 use DateTime;
 use \Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
-class LeaveController extends Controller
+class PersDataController extends Controller
 {
     public function list()
     {
@@ -20,7 +21,7 @@ class LeaveController extends Controller
         return $users;
     }
 
-    public static function regUser(
+    public function regUser(
         $persno,
         $nic,
         $oic,
@@ -108,7 +109,8 @@ class LeaveController extends Controller
 
     public function insert(Request $req)
     {
-        $ur = regUser(
+        $upd_sap = DateTime::createFromFormat('Ymd H:i:s', $req->change_on .' 00:00:00');
+        $ur = $this->regUser(
             $req->pers_no,      //persno
             $req->new_ic_no,    //nic
             $req->old_ic_no,
@@ -129,8 +131,12 @@ class LeaveController extends Controller
             $req->emp_status,    //empstats
             $req->position,
             $req->cost_centre,   //costcentr
-            $req->last_upd_dt    //upd_sap
+            //$req->last_upd_dt,    //upd_sap
+            $upd_sap
+            
         ) ;
+
+        return $ur;
         
     }
 

@@ -366,7 +366,8 @@ class OvertimeController extends Controller{
                         }
                         $draftclaim->date_expiry = date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d', strtotime("+3 months", strtotime($req->inputdate))))));
                     }
-                    $draftclaim->state_id =  $req->user()->state_id;
+                    // $draftclaim->state_id =  $req->user()->state_id;
+                    $draftclaim->state_id =  $staffr->state_id;
                     $draftclaim->daytype_id =  $day[4];
                     $draftclaim->profile_id =  $staffr->id;
                     $draftclaim->company_id =  $staffr->company_id;
@@ -486,8 +487,10 @@ class OvertimeController extends Controller{
                                     $claimtime,                     //[3] - month
                                     $req->inputdate,                //[4] - date
                                     $req->user()->name,             //[5] - user name
-                                    $state->state_id,               //[6] - stateid
-                                    $state->statet->state_descr,    //[7] - statedescr
+                                    // $state->state_id,               //[6] - stateid
+                                    $staffr->state_id,
+                                    $staffr->statet->state_descr,
+                                    // $state->statet->state_descr,    //[7] - statedescr
                                     $day_type,                      //[8] - day type
                                     $verifyn,                       //[9] - verifier name
                                     $approver,                 //[10] - approver name
@@ -560,10 +563,11 @@ class OvertimeController extends Controller{
             $draftclaim->region =  $region->region;
             $draftclaim->costcenter =  $staffr->costcentr;
             // $draftclaim->wage_type =  $wage->legacy_codes; //temp
-            $userrecid = URHelper::getUserRecordByDate($req->user()->persno, date('Y-m-d', strtotime(($req->session()->get('draft'))[4])));
-            $salexecpt = URHelper::getUserRecordByDate($req->user()->persno, date('Y-m-d', strtotime(($req->session()->get('draft'))[2])));
-            $draftclaim->user_records_id =  $userrecid->id;
-            $draftclaim->sal_exception =  $salexecpt->ot_salary_exception;
+            // $userrecid = URHelper::getUserRecordByDate($req->user()->persno, date('Y-m-d', strtotime(($req->session()->get('draft'))[4])));
+            // $salexecpt = URHelper::getUserRecordByDate($req->user()->persno, date('Y-m-d', strtotime(($req->session()->get('draft'))[2])));
+            // dd($userrecid);
+            $draftclaim->user_records_id =  $staffr->id;
+            $draftclaim->sal_exception =  $staffr->ot_salary_exception;
             $draftclaim->status = 'D1';
             $draftclaim->save();
             $claim = Overtime::where('user_id', $req->user()->id)->where('date', ($req->session()->get('draft'))[4])->first();
@@ -748,6 +752,7 @@ class OvertimeController extends Controller{
             }
             $updateclaim->charge_type = null;
             $updateclaim->order_no = null;
+            $req->orderno = null;
             $updateclaim->project_no = null;
             $updateclaim->project_type = null;
             $updateclaim->network_header = null;
@@ -857,32 +862,45 @@ class OvertimeController extends Controller{
             //if charge type project
             }else if($req->chargetype=="Project"){
                 if($req->orderno!=null){
-                    $updateclaim->project_no = $req->orderno;
-                    $data = Project::where('project_no', $req->orderno)->first();
-                    if($data!=null){
-                        $updateclaim->project_type = $data->type;
-                    }
-
-                    $updateclaim->network_header = $req->networkh;
-                    $updateclaim->network_act_no = $req->networkn;
-                    if($req->networkn!=null){
-                        $data = Project::where('project_no', $req->orderno)->where('network_act_no', $req->networkn)->first();
+                    if($updateclaim->project_no != $req->orderno){
+                        $updateclaim->project_no = $req->orderno;
+                        $data = Project::where('project_no', $req->orderno)->first();
                         if($data!=null){
+                            $updateclaim->project_type = $data->type;
+                            $updateclaim->network_header = $data->network_header;
+                            $updateclaim->network_act_no = null;
+                            // dd($updateclaim->network_act_no);
+                            // $updateclaim->network_act_no = $data->network_act_no;
+                        }
+                    }else{
+                        // dd("S");
+                        $updateclaim->project_no = $req->orderno;
+                        $data = Project::where('project_no', $req->orderno)->first();
+                        if($data!=null){
+                            $updateclaim->project_type = $data->type;
+                        }
 
-                            
-                            //check if ot is more than 3 months from system date
-                            if($gm){ //if more than 3 months
-                                $updateclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($updateclaim->date)));
-                                $updateclaim->verifier_id = $data->approver_id;
-                            }else{
-                                $updateclaim->approver_id = $data->approver_id;
-                                $vgm = VerifierGroupMember::where('user_id', $req->user()->id)->first();
-                                if($vgm){
-                                    $vg = VerifierGroup::where('id', $vgm->user_verifier_groups_id)->first();
-                                    $updateclaim->verifier_id =  $vg->verifier_id;
+                        $updateclaim->network_header = $req->networkh;
+                        $updateclaim->network_act_no = $req->networkn;
+                        if($req->networkn!=null){
+                            $data = Project::where('project_no', $req->orderno)->where('network_act_no', $req->networkn)->first();
+                            if($data!=null){
+
+                                
+                                //check if ot is more than 3 months from system date
+                                if($gm){ //if more than 3 months
+                                    $updateclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($updateclaim->date)));
+                                    $updateclaim->verifier_id = $data->approver_id;
+                                }else{
+                                    $updateclaim->approver_id = $data->approver_id;
+                                    $vgm = VerifierGroupMember::where('user_id', $req->user()->id)->first();
+                                    if($vgm){
+                                        $vg = VerifierGroup::where('id', $vgm->user_verifier_groups_id)->first();
+                                        $updateclaim->verifier_id =  $vg->verifier_id;
+                                    }
                                 }
+                                $updateclaim->company_id = $data->company_code;
                             }
-                            $updateclaim->company_id = $data->company_code;
                         }
                     }
                 }
@@ -1435,6 +1453,48 @@ class OvertimeController extends Controller{
         }
     }
 
+    //--------------------------------------------------search order no--------------------------------------------------
+    public function searchorder(Request $req){
+        // dd($req->type);
+        $arr = [];
+        if($req->type=="project"){
+            $no = Project::where("project_no", 'LIKE', '%'.$req->order. '%')->get();
+            foreach($no as $o){
+                array_push($arr, [
+                    'id'=>$o->project_no,
+                    'descr'=>$o->descr,
+                    'type'=>$o->type,
+                    'costc'=>$o->cost_center,
+                    'comp'=>$o->company_code,
+                ]);
+            }
+        }else if($req->type=="internal"){
+            $no = InternalOrder::where('id', 'LIKE', '%'.$req->order. '%')->get();
+            foreach($no as $o){
+                array_push($arr, [
+                    'id'=>$o->id,
+                    'descr'=>$o->descr,
+                    'type'=>$o->order_type,
+                    'costc'=>$o->cost_center,
+                    'comp'=>$o->company_code,
+                ]);
+            }
+        }else{
+            $no = MaintenanceOrder::where("id", 'LIKE', '%'.$req->order. '%')->get();
+            foreach($no as $o){
+                array_push($arr, [
+                    'id'=>$o->id,
+                    'descr'=>$o->descr,
+                    'type'=>$o->type,
+                    'costc'=>$o->cost_center,
+                    'comp'=>$o->company_code,
+                ]);
+            }
+        }
+        
+        // dd($no);
+        return $arr;
+    }
     //--------------------------------------------------search verifier--------------------------------------------------
     public function search(Request $req){
         $date = date('Y-m-d');
