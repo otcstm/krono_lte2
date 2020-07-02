@@ -35,10 +35,22 @@
         @endif
       </div>
       <div class="form-group has-feedback {{ $errors->has('spattern_id') ? 'has-error' : '' }}">
+       
         <label for="spattern">{{ __('shift.f_shift_pattern') }}</label>
         <select class="form-control" id="spattern" name="spattern_id" required>
           @foreach($sps->ShiftPlan->Group->shiftpatterns as $pt)
-          <option value="{{ $pt->id }}">{{ $pt->code }} : {{ $pt->description }} ({{ $pt->days_count }} days / {{ $pt->total_hours }} hours)</option>
+          @php $unique_day = []; @endphp
+          @php $unique_day_descr = []; @endphp
+            @foreach ($pt->ListDays as $item)
+                @if(!in_array($item->Day->code,$unique_day))
+                  @php array_push($unique_day,$item->Day->code); @endphp
+                  @php array_push($unique_day_descr,$item->Day->description); @endphp
+                @endif
+            @endforeach   
+
+          <option value="{{ $pt->id }}"
+          title="{{ implode( ", ", $unique_day_descr ) }}">
+            {{ $pt->code }} : {{ $pt->description }} ({{ $pt->days_count }} days / {{ $pt->total_hours }} hours)</option>
           @endforeach
         </select>
         @if ($errors->has('spattern_id'))
@@ -78,7 +90,18 @@
          <tr>
            <td>{{ $ap->day_seq }}</td>
            <td>{{ $ap->Pattern->code }}</td>
-           <td>{{ $ap->Pattern->description }}</td>
+           <td>{{ $ap->Pattern->description }}
+            @php $unique_day = []; @endphp
+            @php $unique_day_descr = []; @endphp
+            @foreach ($ap->Pattern->ListDays as $item)
+                @if(!in_array($item->Day->code,$unique_day))
+                  @php array_push($unique_day,$item->Day->code); @endphp
+                  @php array_push($unique_day_descr,$item->Day->description); @endphp
+                @endif
+            @endforeach  
+            <br /> 
+            ({{ implode( "), (", $unique_day_descr ) }})
+          </td>
            <td>{{ $ap->Pattern->days_count }}</td>
            <td>{{ $ap->start_date }}</td>
            <td>{{ $ap->Pattern->total_hours }}</td>
