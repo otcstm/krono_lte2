@@ -106,9 +106,7 @@ class ReportOT implements ShouldQueue
          }
 
          Log::info('build filename');
-         $fname = $nm
-           // . $ldate->format('Ymd') . '_to_' . $cdate->format('Ymd')
-           . '_' . $noww->format('YmdHis') .'_'.$this->bjobid.'.xlsx';
+         $fname = $nm.'_'.$noww->format('YmdHis').'_'.$this->bjobid.'.xlsx';
 
          $cdate->addSecond();
 
