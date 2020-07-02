@@ -9,7 +9,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-//Afdzal test
 Route::redirect('/', '/login');
 Auth::routes(['register' => false]);
 //Temporary offline login (url /login/offline)
