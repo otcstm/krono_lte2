@@ -55,7 +55,12 @@
 <!-- </div> -->
 <footer class="foot">
     <div class="container" style="padding: 0 2.5vw; width: 100%">
-        <div class="foot-text">Copyright © 2020 Telekom Malaysia Berhad. All rights reserved.</div>
+        <div class="foot-text">Copyright © 2020 Telekom Malaysia Berhad. All rights reserved.
+        <span style="color: rgba(0, 0, 0, 0);">
+        {{ env('APP_HOSTNAME') }} 
+        </span>
+        </div>
+        
         <img class="foot-img" src="/vendor/ot-assets/footer-logo.png">
     </div>
 </footer>
