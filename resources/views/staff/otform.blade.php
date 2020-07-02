@@ -461,7 +461,9 @@
                                                 <label>No:</label>
                                             </div>
                                             <div class="col-md-9">
-                                                <select class="form-select" name="orderno" id="orderno" required 
+                                                <input type="text" class="form-select" style="position: relative; z-index: 8;" id="orderno" name="orderno" placeholder="@if($claim->charge_type=="Project") Search project no" @if($claim->project_no!=null) value="{{$claim->project_no}}"@endif @else Search order no" @if($claim->order_no!=null) value="{{$claim->order_no}}" @endif @endif required>
+                                                <i style="position: relative; z-index: 9; margin-left: -25px" class="fas fa-search"></i>
+                                                {{-- <!-- <select class="form-select" name="orderno" id="orderno" required 
                                                 @if($claim->charge_type=="Project") 
                                                     @if($orderlist==null) disabled @endif
                                                 @else
@@ -481,7 +483,7 @@
                                                             @endforeach
                                                         @endif
                                                     @endif
-                                                </select> 
+                                                </select>  --> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -1540,10 +1542,258 @@
         $("#formtype").val("save");
         $("#form").submit();
     });    
-    $("#orderno").change(function(){
-        $("#formtype").val("save");
-        $("#form").submit();
+    // $("#orderno").change(function(){
+    //     $("#formtype").val("save");
+    //     $("#form").submit();
+    // });    
+    $("#orderno").on('click', function(){
+        // alert("x"+$("#orderno").val());
+        search($("#orderno").val());
+        // $("#formtype").val("save");
+        // $("#form").submit();
     });    
+    var htmlstring;
+    var searchtml;
+    var checkorder = null;
+    var potype;
+    var number;
+    var checkselect = false;
+
+    function search(orderno){
+        checkorder = orderno;
+        checkselect = false;
+        htmlstring = '<div style="border: 1px solid #DDDDDD; max-height: 60vh; overflow-y: scroll;  overflow-x: hidden;">';
+        searchtml = "<div class='text-left swollo'>"+
+                        "<input id='namet' placeholder=\"Enter"+ 
+                        @if($claim ?? '')
+                            @if($claim->charge_type=="Project")
+                                " project "+
+                            @else
+                                " order "+
+                            @endif
+                        @endif
+                        "no\" style='width: 100%; box-sizing: border-box;' onkeyup='this.onchange();' onchange='return checkstring();'>"+
+                        "<button type='button' id='namex' onclick='return cleart()' class='approval-search-x btn-no'>"+
+                            "<i class='far fa-times-circle'></i>"+
+                        "</button>"+
+                        "<button type='button' id='namex' onclick=\"if(($('#namet').val().length)>3){ if($('#namet').val()==''){ $('#checker').css('display','block'); }else{ return search($('#namet').val())}}else{ $('#namex').css('visibility','hidden'); $('#3more').css('display','block'); $('#margin').css('margin-left','0');}\" class='approval-search-icon btn-no'>"+
+                            "<i class='fas fa-search'></i>"+
+                        "</button>"+
+                        "<p id='3more' style=' margin-top: -15px; color: #F00000; display: none'>Search input must be more than 3 alphabets!</p>"+
+                        "<p id='checker' style=' margin-top: -15px; color: #F00000; display: none'>Please fill in"+
+                        @if($claim ?? '')
+                            @if($claim->charge_type=="Project")
+                                " project "+
+                            @else
+                                " order "+
+                            @endif
+                        @endif
+                        "no before searching!</p>"+
+                        "<p id='sel' style=' margin-top: -15px; color: #F00000; display: none'>Please select"+
+                        @if($claim ?? '')
+                            @if($claim->charge_type=="Project")
+                                " project "+
+                            @else
+                                " order "+
+                            @endif
+                        @endif
+                        "no!</p>"+
+                    "</div>";
+        if(orderno!=""){
+            @if($claim ?? '')
+                @if($claim->charge_type=="Project")
+                    potype = "project";
+                @elseif($claim->charge_type=="Internal Order")
+                    potype = "internal";
+                @else
+                    potype = "maintenance";
+                @endif
+            @endif
+            const url='{{ route("ot.searchod", [], false)}}';
+            $.ajax({
+                type: "GET",
+                url: url+"?order="+orderno+"&type="+potype,
+                success: function(resp) {
+                    var classc="test3"   
+                    var confirm = "SELECT"; 
+                    if(resp.length>0){
+                        number = resp.length;
+                        resp.forEach(updateResp);
+                        classc="test2"    
+                    }else{
+                        confirm = "SEARCH"; 
+                        htmlstring = "<div style=' width: 100%; padding: 5px; text-align: center; vertical-align: middle'>"+
+                                    "<p>No matching records found. Try to search again.</p>"+
+                                    "</div>";
+                    }
+                    Swal.fire({
+                        @if($claim ?? '')
+                            @if($claim->charge_type=="Project")
+                                title: "Project No",
+                            @else
+                                title: "Order No",
+                            @endif
+                        @endif
+                        customClass: classc,
+                        html: searchtml +
+                                "<div class='text-left'>"+htmlstring+"</div>",
+                        confirmButtonText: confirm,
+                        showCancelButton: true,
+                        cancelButtonText: 'CANCEL',
+                        preConfirm: function() {
+                            if(confirm=="SELECT"){
+                                if(checkselect){
+
+                                    $("#formtype").val("save");
+                                    $("#form").submit();
+                                }else{
+                                    
+                                    $('#sel').css('display','block');
+                                }
+                            }else{
+                                if(($('#namet').val().length)>3){
+                                    if($('#namet').val()==''){ 
+                                        $('#checker').css('display','block');
+                                        return false;
+                                    }else{
+                                        search($('#namet').val());
+                                    }
+                                }else{
+                                    $('#namex').css('visibility','hidden');
+                                    $('#3more').css('display','block');
+                                    $('#margin').css('margin-left','0');
+                                    return false;
+                                }
+                            }
+                        }
+                    }).then((result) => {
+                        if (result.value) {
+
+                        }else{
+                            @if($claim ?? '')
+                                @if($claim->project_no!=null)
+                                    $('#orderno').val("{{$claim->project_no}}");
+                                @elseif($claim->order_no!=null)
+                                    $('#orderno').val("{{$claim->order_no}}");
+                                @else
+                                    $('#orderno').val("");
+                                @endif
+                            @endif
+                        }
+                    });
+                }
+            });
+        }else{
+            Swal.fire({
+                @if($claim ?? '')
+                    @if($claim->charge_type=="Project")
+                        title: "Project No",
+                    @else
+                        title: "Order No",
+                    @endif
+                @endif
+                customClass: 'test3',
+                html: searchtml +
+                        "<div class='text-left'>"+htmlstring+"</div>",
+                confirmButtonText: 'SEARCH',
+                showCancelButton: true,
+                cancelButtonText: 'CANCEL',
+                preConfirm: function() {
+                    if(($('#namet').val().length)>3){
+                        if($('#namet').val()==''){ 
+                            $('#checker').css('display','block');
+                            return false;
+                        }else{
+                            search($('#namet').val());
+                        }
+                    }else{
+                        $('#namex').css('visibility','hidden');
+                        $('#3more').css('display','block');
+                        $('#margin').css('margin-left','0');
+                        return false;
+                    }
+                }
+            });
+        }
+    }
+
+    function updateResp(item, index){
+        var type;
+        if(potype == 'project'){
+            type = 'Project';
+        }else{
+            type = 'Order';
+        }
+        var border="";
+        // console.log(checkorder);
+        // console.log(item.id);
+        if(checkorder==item.id){
+            border = "outline: 1px solid #143A8C; border: 2px solid #143A8C";
+        }
+        htmlstring = htmlstring + 
+            "<button style='border: 1px solid #DDDDDD; min-height: 10vh; width: 100%; padding: 5px; text-align: left; background: transparent "+border+"' onclick='selectno(\""+item.id+"\","+index+");' id='addv-"+index+"'>"+
+                "<div style='display: flex; align-items: center; flex-wrap: wrap; width: 95%; margin-left: 3% padding: 15px '>"+
+                    "<div class='w-50 m-15'>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'> "+type+" No<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.id+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Description<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'><span class='dm'>: </span></span><b>"+item.descr+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Type<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.type+"</b></div>"+
+                        "</div>"+
+                    "</div>"+
+                    "<div class='w-50 m-15'>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Company Code<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.costc+"</b></div>"+
+                        "</div>"+
+                        "<div class='approval-search-item'>"+
+                            "<div class='w-30'>Company Code<span class='dmx'>:</span></div>"+
+                            "<div class='w-70'><span class='dm'>: </span><b>"+item.comp+"</b></div>"+
+                        "</div>"+
+                    "</div>"+
+                "</div>"+
+            "</button>";
+            
+    }
+
+    function selectno(id, num){
+        $('#orderno').val(id);
+        checkselect = true;
+        for(i = 0; i<number; i++){
+            if(i!=num){
+                $('#addv-'+i).css('outline','none');
+                $('#addv-'+i).css('border','1px solid #DDDDDD');
+            }else{
+                $('#addv-'+i).css('outline','1px solid #143A8C');
+                $('#addv-'+i).css('border','2px solid #143A8C');
+            }
+        }
+    }
+
+    function cleart(){
+        $('#namet').val('');
+        $('#namex').css('visibility','hidden');
+    }
+
+    function checkstring(){
+        $('#checker').css('display', 'none');
+        if(($('#namet').val().length)>3){
+            $('#namex').css('visibility', 'visible');
+            $('#3more').css('display', 'none');
+            $('#margin').css('margin-left', '-20px');
+        }else{
+            $('#namex').css('visibility','hidden');
+            $('#3more').css('display','block');
+            $('#margin').css('margin-left','0');
+        }
+    }
+
     $("#networkh").change(function(){
         $("#formtype").val("save");
         $("#form").submit();
