@@ -35,7 +35,19 @@
          @foreach($groupd->shiftpatterns as $ap)
          <tr>
            <td class="text-left">{{ $ap->code }}</td>
-           <td class="text-left">{{ $ap->description }}</td>
+           <td class="text-left">{{ $ap->description }}          
+            <Br />
+            @php $unique_day = []; @endphp
+            @php $unique_day_descr = []; @endphp
+            @foreach ($ap->ListDays as $item)
+                @if(!in_array($item->Day->code,$unique_day))
+                  @php array_push($unique_day,$item->Day->code); @endphp
+                  @php array_push($unique_day_descr,$item->Day->description); @endphp
+                @endif
+            @endforeach    
+            @foreach ($unique_day_descr as $d)
+            ({{ $d }})
+            @endforeach</td>
            <td class="text-left">{{ $ap->days_count }}</td>
            <td class="text-left">{{ $ap->total_hours }}</td>
            <td>
@@ -69,7 +81,19 @@
          @foreach($spattern as $ap)
          <tr>
            <td class="text-left">{{ $ap->code }}</td>
-           <td class="text-left">{{ $ap->description }}</td>
+           <td class="text-left">{{ $ap->description }}
+          <Br />
+          @php $unique_day = []; @endphp
+          @php $unique_day_descr = []; @endphp
+          @foreach ($ap->ListDays as $item)
+              @if(!in_array($item->Day->code,$unique_day))
+                @php array_push($unique_day,$item->Day->code); @endphp
+                @php array_push($unique_day_descr,$item->Day->description); @endphp
+              @endif
+          @endforeach    
+          @foreach ($unique_day_descr as $d)
+          ({{ $d }})
+          @endforeach
            <td class="text-left">{{ $ap->days_count }}</td>
            <td class="text-left">{{ $ap->total_hours }}</td>
            <td>
