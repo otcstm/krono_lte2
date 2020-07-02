@@ -752,6 +752,7 @@ class OvertimeController extends Controller{
             }
             $updateclaim->charge_type = null;
             $updateclaim->order_no = null;
+            $req->orderno = null;
             $updateclaim->project_no = null;
             $updateclaim->project_type = null;
             $updateclaim->network_header = null;
@@ -861,32 +862,45 @@ class OvertimeController extends Controller{
             //if charge type project
             }else if($req->chargetype=="Project"){
                 if($req->orderno!=null){
-                    $updateclaim->project_no = $req->orderno;
-                    $data = Project::where('project_no', $req->orderno)->first();
-                    if($data!=null){
-                        $updateclaim->project_type = $data->type;
-                    }
-
-                    $updateclaim->network_header = $req->networkh;
-                    $updateclaim->network_act_no = $req->networkn;
-                    if($req->networkn!=null){
-                        $data = Project::where('project_no', $req->orderno)->where('network_act_no', $req->networkn)->first();
+                    if($updateclaim->project_no != $req->orderno){
+                        $updateclaim->project_no = $req->orderno;
+                        $data = Project::where('project_no', $req->orderno)->first();
                         if($data!=null){
+                            $updateclaim->project_type = $data->type;
+                            $updateclaim->network_header = $data->network_header;
+                            $updateclaim->network_act_no = null;
+                            // dd($updateclaim->network_act_no);
+                            // $updateclaim->network_act_no = $data->network_act_no;
+                        }
+                    }else{
+                        // dd("S");
+                        $updateclaim->project_no = $req->orderno;
+                        $data = Project::where('project_no', $req->orderno)->first();
+                        if($data!=null){
+                            $updateclaim->project_type = $data->type;
+                        }
 
-                            
-                            //check if ot is more than 3 months from system date
-                            if($gm){ //if more than 3 months
-                                $updateclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($updateclaim->date)));
-                                $updateclaim->verifier_id = $data->approver_id;
-                            }else{
-                                $updateclaim->approver_id = $data->approver_id;
-                                $vgm = VerifierGroupMember::where('user_id', $req->user()->id)->first();
-                                if($vgm){
-                                    $vg = VerifierGroup::where('id', $vgm->user_verifier_groups_id)->first();
-                                    $updateclaim->verifier_id =  $vg->verifier_id;
+                        $updateclaim->network_header = $req->networkh;
+                        $updateclaim->network_act_no = $req->networkn;
+                        if($req->networkn!=null){
+                            $data = Project::where('project_no', $req->orderno)->where('network_act_no', $req->networkn)->first();
+                            if($data!=null){
+
+                                
+                                //check if ot is more than 3 months from system date
+                                if($gm){ //if more than 3 months
+                                    $updateclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($updateclaim->date)));
+                                    $updateclaim->verifier_id = $data->approver_id;
+                                }else{
+                                    $updateclaim->approver_id = $data->approver_id;
+                                    $vgm = VerifierGroupMember::where('user_id', $req->user()->id)->first();
+                                    if($vgm){
+                                        $vg = VerifierGroup::where('id', $vgm->user_verifier_groups_id)->first();
+                                        $updateclaim->verifier_id =  $vg->verifier_id;
+                                    }
                                 }
+                                $updateclaim->company_id = $data->company_code;
                             }
-                            $updateclaim->company_id = $data->company_code;
                         }
                     }
                 }
@@ -1439,6 +1453,48 @@ class OvertimeController extends Controller{
         }
     }
 
+    //--------------------------------------------------search order no--------------------------------------------------
+    public function searchorder(Request $req){
+        // dd($req->type);
+        $arr = [];
+        if($req->type=="project"){
+            $no = Project::where("project_no", 'LIKE', '%'.$req->order. '%')->get();
+            foreach($no as $o){
+                array_push($arr, [
+                    'id'=>$o->project_no,
+                    'descr'=>$o->descr,
+                    'type'=>$o->type,
+                    'costc'=>$o->cost_center,
+                    'comp'=>$o->company_code,
+                ]);
+            }
+        }else if($req->type=="internal"){
+            $no = InternalOrder::where('id', 'LIKE', '%'.$req->order. '%')->get();
+            foreach($no as $o){
+                array_push($arr, [
+                    'id'=>$o->id,
+                    'descr'=>$o->descr,
+                    'type'=>$o->order_type,
+                    'costc'=>$o->cost_center,
+                    'comp'=>$o->company_code,
+                ]);
+            }
+        }else{
+            $no = MaintenanceOrder::where("id", 'LIKE', '%'.$req->order. '%')->get();
+            foreach($no as $o){
+                array_push($arr, [
+                    'id'=>$o->id,
+                    'descr'=>$o->descr,
+                    'type'=>$o->type,
+                    'costc'=>$o->cost_center,
+                    'comp'=>$o->company_code,
+                ]);
+            }
+        }
+        
+        // dd($no);
+        return $arr;
+    }
     //--------------------------------------------------search verifier--------------------------------------------------
     public function search(Request $req){
         $date = date('Y-m-d');
