@@ -91,8 +91,8 @@ class Overtime extends Model
     //   return URHelper::getUserRecordByDate($this->user_id,$this->date_created);
     // }
 
-    public function SalCap(){//based on application date
-      return URHelper::getUserEligibity($this->company_id,$this->region,$this->date_created);
+    public function SalCap(){//guna untk report
+      return URHelper::getUserEligibility($this->user_id,$this->date);
     }
 
     public function OTStatus(){
