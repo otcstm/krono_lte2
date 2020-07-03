@@ -1444,6 +1444,13 @@
         }
     })
 
+  $(window).keydown(function(event){
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
+    }
+  });
+  
     function submission(){
         if(($("#formtype").val()=="submit")){          
             if(@if($claim ?? ''){{count($claim->detail)}}@else 0 @endif!=0){

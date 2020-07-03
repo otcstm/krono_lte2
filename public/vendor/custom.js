@@ -108,6 +108,7 @@ function checkeligible(){
                         if(resp.check==true){
                             puncho();
                         }else{
+                            location.reload();
                             checkOTClocked();
                         }
                     },
@@ -163,6 +164,7 @@ function puncho(){
                                         if(resp.check==true){
                                             getLocation();
                                         }else{
+                                            location.reload();
                                             checkOTClocked();
                                         }
                                     },
@@ -499,7 +501,7 @@ function endpunch(){
                         Swal.fire({
                             icon: 'warning',
                             title: 'Overtime Ended',
-                            text: "New working hour has staterd",
+                            text: "New working hour has started",
                             showCancelButton: false,
                             confirmButtonText: 'OK',
                         }).then((result) => {

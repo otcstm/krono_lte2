@@ -231,15 +231,15 @@ class OvertimeController extends Controller{
         if($cansubmit){
             for($i = 0; $i<count($id); $i++){
                 $updateclaim = Overtime::find($id[$i]);
-                $updateclaim->approver_id = $req->user()->reptto;
+                // $updateclaim->approver_id = $req->user()->reptto;
                 $updateclaim->submitted_date = date("Y-m-d H:i:s");
                 $execute = UserHelper::LogOT($id[$i], $req->user()->id, "Submitted", "Submitted ".$updateclaim->refno);
                 //check if ot have verifier
-                if($updateclaim->verifier_id==null){
-                    $updateclaim->status = 'PA';
-                }else{
-                    $updateclaim->status = 'PV';
-                }
+                // if($updateclaim->verifier_id==null){
+                //     $updateclaim->status = 'PA';
+                // }else{
+                //     $updateclaim->status = 'PV';
+                // }
                 $expiry = OvertimeExpiry::where('company_id', $req->user()->company_id)->where('region', $region->region)->where('start_date','<=', $claim->date)->where('end_date','>', $claim->date)->first();
                 if($expiry->status == "ACTIVE"){
                     if((($expiry->based_date == "Submit to Approver Date")&&($updateclaim->status == 'PA'))||(($expiry->based_date == "Submit to Verifier Date")&&($updateclaim->status == 'PV'))){
@@ -1337,6 +1337,7 @@ class OvertimeController extends Controller{
             if($req->inputaction[$i]!=""){
                 $reg = Psubarea::where('state_id', $otlist[$i]->name->stateid->id)->first();
                 $expiry = OvertimeExpiry::where('company_id', $otlist[$i]->name->company_id)->where('region', $reg->region)->where('start_date','<=', $otlist[$i]->date)->where('end_date','>', $otlist[$i]->date)->first();
+                // dd($expiry);
                 
                 $claim = Overtime::where('id', $req->inputid[$i])->first();
                 $updateclaim = Overtime::find($req->inputid[$i]);
@@ -1417,10 +1418,12 @@ class OvertimeController extends Controller{
                     $updateclaim->status="PA";
                     $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Removed Verifier', 'Removed Verifier');
                 }
-                if($expiry->status == "ACTIVE"){
-                    if((($expiry->based_date == "Submit to Approver Date")&&($updateclaim->status == 'PA'))||(($expiry->based_date == "Query Date")&&($updateclaim->status == 'Q2'))){
-                        $draftclaim->date_expiry = date('Y-m-d', strtotime("+".$expiry->noofmonth." months"));
-                    }
+                if($expiry){
+                    if($expiry->status == "ACTIVE"){
+                        if((($expiry->based_date == "Submit to Approver Date")&&($updateclaim->status == 'PA'))||(($expiry->based_date == "Query Date")&&($updateclaim->status == 'Q2'))){
+                            $draftclaim->date_expiry = date('Y-m-d', strtotime("+".$expiry->noofmonth." months"));
+                        }
+                    } 
                 } 
                 // dd($req->inputaction[$i]);
                 $updateclaim->verifier_id=$req->verifier[$i];
