@@ -362,6 +362,7 @@ class OvertimeController extends Controller{
                         $vgm = VerifierGroupMember::where('user_id', $req->user()->id)->first();
                         if($vgm){
                             $vg = VerifierGroup::where('id', $vgm->id)->first();
+                            // dd($vgm);
                             $draftclaim->verifier_id =  $vg->verifier_id;
                         }
                         $draftclaim->date_expiry = date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d', strtotime("+3 months", strtotime($req->inputdate))))));
@@ -685,20 +686,21 @@ class OvertimeController extends Controller{
 
                     //if checkbox changed
                     if($operation=="Y"){
-                        $totaltime = (($updatemonth->hour*60)+$updatemonth->minute)+(($hour*60)+$minute);
+                        $totaltimem = (($updatemonth->hour*60)+$updatemonth->minute)+(($hour*60)+$minute);
                         $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)+(($hour*60)+$minute);
                         $updateclaim->amount = $updateclaim->amount + $pay;
                     }elseif($operation=="N"){
-                        $totaltime = (($updatemonth->hour*60)+$updatemonth->minute)-(($hour*60)+$minute);
+                        $totaltimem = (($updatemonth->hour*60)+$updatemonth->minute)-(($hour*60)+$minute);
+                        // dd($totaltime);
                         $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)-(($hour*60)+$minute);
                         $updateclaim->amount = $updateclaim->amount - $pay;
                     }else{  //if checkbox not changed
-                        $totaltime = (($updatemonth->hour*60)+$updatemonth->minute)-(($updatedetail->hour*60)+$updatedetail->minute)+(($hour*60)+$minute);
+                        $totaltimem = (($updatemonth->hour*60)+$updatemonth->minute)-(($updatedetail->hour*60)+$updatedetail->minute)+(($hour*60)+$minute);
                         $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)-(($updatedetail->hour*60)+$updatedetail->minute)+(($hour*60)+$minute);
                         $updateclaim->amount = $updateclaim->amount - $updatedetail->amount + $pay;
                     }
-                    $updatemonth->hour = (int)($totaltime/60);
-                    $updatemonth->minute = ($totaltime%60);
+                    $updatemonth->hour = (int)($totaltimem/60);
+                    $updatemonth->minute = ($totaltimem%60);
                     $updateclaim->total_hour = (int)($totaltime/60);
                     $updateclaim->total_minute = ($totaltime%60);      
                     $updateclaim->total_hours_minutes = ($totaltime/60);

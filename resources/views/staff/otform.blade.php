@@ -461,7 +461,7 @@
                                                 <label>No:</label>
                                             </div>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-select" style="position: relative; z-index: 8;" id="orderno" name="orderno" placeholder="@if($claim->charge_type=="Project") Search project no" @if($claim->project_no!=null) value="{{$claim->project_no}}"@endif @else Search order no" @if($claim->order_no!=null) value="{{$claim->order_no}}" @endif @endif required>
+                                                <input type="text" class="form-select" style="position: relative; z-index: 8;" id="orderno" name="orderno" placeholder="@if($claim->charge_type=="Project") Search project no" @if($claim->project_no!=null) value="{{$claim->project_no}}"@endif @else Search order no" @if($claim->order_no!=null) value="{{$claim->order_no}}" @endif @endif @if(in_array($claim->charge_type, $array = array("Project", "Internal Order", "Maintenance Order"))) required @endif readonly >
                                                 <i style="position: relative; z-index: 9; margin-left: -25px" class="fas fa-search"></i>
                                                 {{-- <!-- <select class="form-select" name="orderno" id="orderno" required 
                                                 @if($claim->charge_type=="Project") 
@@ -548,7 +548,7 @@
                                                 <label>Network Activity No:</label>
                                             </div>
                                             <div class="col-md-9">
-                                                    <select class="form-select" name="networkn" id="networkn" required @if($networkn==null) disabled @endif>
+                                                    <select class="form-select" name="networkn" id="networkn" @if($claim->charge_type=="Project") @if($networkn!=null) required @endif @endif @if($networkn==null) disabled @endif>
                                                         <option value="" @if($claim->project_type==NULL) selected @endif hidden>Select network activity no</option>
                                                     @if($networkn!=null)
                                                         @foreach($networkn as $singlenet)
