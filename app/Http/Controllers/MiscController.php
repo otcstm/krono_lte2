@@ -360,6 +360,7 @@ class MiscController extends Controller
     $date = date("Y-m-d", strtotime($req->time));
     $day = UserHelper::CheckDay($req->user()->id, $date);
     // return ['test' => $date];
+    // $checker = StaffPunch::where('user_id', $req->user()->id)->where('status')
     $userrecordid = URHelper::getUserRecordByDate($req->user()->id, $date);
     $currentp = new StaffPunch;
     $currentp->user_id = $req->user()->id;
@@ -388,6 +389,7 @@ class MiscController extends Controller
     $elig = URHelper::getUserEligibility($req->user()->id, date('Y-m-d'));
     // $elig = OvertimeEligibility::where('company_id', $staffr->company_id)->where('empgroup', $staffr->psgroup)->where('empsgroup', $staffr->empsgroup)->where('psgroup', $staffr->psgroup)->where('region', $staffr->region)->where('start_date','<=', date('Y-m-d'))->where('end_date','>', date('Y-m-d'))->first();
     if($elig){
+      
       return ['result'=> true];
     }else{
       return ['result'=> false];
@@ -399,6 +401,17 @@ class MiscController extends Controller
     // }else{
     //   return ['result'=> false];
     // }
+  }
+  public function checkStart(Request $req){
+    // $staffr = URHelper::getUserRecordByDate($req->user()->id, date('Y-m-d'));
+    $check = true;
+    $checks = StaffPunch::where('user_id', $req->user()->id)->where('status', 'in')->get();
+    if(count($checks)!=0){
+      $check = false;
+    }
+      // dd($check);
+      
+      return ['check' => $check];
   }
 
   public function checkDay(Request $req){

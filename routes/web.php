@@ -9,7 +9,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-//Afdzal test
 Route::redirect('/', '/login');
 Auth::routes(['register' => false]);
 //Temporary offline login (url /login/offline)
@@ -63,6 +62,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/punch/start',  'MiscController@startPunch')->name('punch.start');
   Route::get('/punch/check',  'MiscController@checkPunch')->name('punch.check');
   Route::get('/punch/eligible',  'MiscController@eligiblePunch')->name('punch.eligible');
+  Route::get('/punch/checkstart',  'MiscController@checkStart')->name('punch.checkstart');
   Route::get('/punch/checkday',  'MiscController@checkDay')->name('punch.checkday');
   Route::get('/punch/checkworktime',  'MiscController@checkWorkTime')->name('punch.checkworktime');
   Route::get('/punch/end',  'MiscController@endPunch')->name('punch.end');

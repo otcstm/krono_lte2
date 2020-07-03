@@ -24,55 +24,59 @@ var showerror = true;
 
 
 //every page load check for existing oT
-$.ajax({
-    url: '/punch/check',
-    type: "GET",
-    success: function(resp) {
-        if(resp.result==true){
-            timedif = Date.parse(check)-Date.parse(resp.stime);
-            cs = Math.floor(timedif / 1000);
-            cm = Math.floor(cs / 60);
-            cs = cs % 60;
-            ch = Math.floor(cm / 60);
-            cm = cm % 60;
-            ch = ch % 24;
-            if(ch<10){
-                chd = "0"+ch;
-            }else{
-                chd = ch;
+checkOTClocked();
+
+function checkOTClocked(){
+    $.ajax({
+        url: '/punch/check',
+        type: "GET",
+        success: function(resp) {
+            if(resp.result==true){
+                timedif = Date.parse(check)-Date.parse(resp.stime);
+                cs = Math.floor(timedif / 1000);
+                cm = Math.floor(cs / 60);
+                cs = cs % 60;
+                ch = Math.floor(cm / 60);
+                cm = cm % 60;
+                ch = ch % 24;
+                if(ch<10){
+                    chd = "0"+ch;
+                }else{
+                    chd = ch;
+                }
+                if(cm<10){
+                    cmd = "0"+cm;
+                }else{
+                    cmd = cm;
+                }
+                if(cs<10){
+                    csd = "0"+cs ;
+                }else{
+                    csd = cs;
+                }
+                timere=chd+":"+cmd+":"+csd;
+                var stime = resp.stime;
+                
+                wtms = Date.parse(check).toString("yyyy-MM-dd HH:mm");
+                $.ajax({
+                    url: '/punch/checkworktime?time='+wtms,
+                    type: "GET",
+                    success: function(resp) {
+                        enddate = (Date.parse(check).addDays(resp.addday).toString("dd.MM.yyyy"));
+                        starttime(stime, stime);
+                        timestart = setInterval(timer(cs, cm, ch, parseInt(Date.parse(check).toString("ss")), parseInt(Date.parse(check).toString("mm")), parseInt(Date.parse(check).toString("H")), check, resp.swtime), 1000);
+                    },
+                    error: function(err) {
+                        puncho();
+                    }  
+                });    
             }
-            if(cm<10){
-                cmd = "0"+cm;
-            }else{
-                cmd = cm;
-            }
-            if(cs<10){
-                csd = "0"+cs ;
-            }else{
-                csd = cs;
-            }
-            timere=chd+":"+cmd+":"+csd;
-            var stime = resp.stime;
-            
-            wtms = Date.parse(check).toString("yyyy-MM-dd HH:mm");
-            $.ajax({
-                url: '/punch/checkworktime?time='+wtms,
-                type: "GET",
-                success: function(resp) {
-                    enddate = (Date.parse(check).addDays(resp.addday).toString("dd.MM.yyyy"));
-                    starttime(stime, stime);
-                    timestart = setInterval(timer(cs, cm, ch, parseInt(Date.parse(check).toString("ss")), parseInt(Date.parse(check).toString("mm")), parseInt(Date.parse(check).toString("H")), check, resp.swtime), 1000);
-                },
-                error: function(err) {
-                    puncho();
-                }  
-            });    
+        },
+        error: function(err) {
+            puncho();
         }
-    },
-    error: function(err) {
-        puncho();
-    }
-});
+    });
+}
 
 //when click start OT;
 $("#punchb").on('mousedown', function() {
@@ -96,7 +100,22 @@ function checkeligible(){
         success: function(resp) {
             // alert(resp.result);
             if(resp.result==true){
-                puncho();
+                $.ajax({
+                    url: '/punch/checkstart',
+                    type: "GET",
+                    success: function(resp) {
+                        // alert(resp.result);
+                        if(resp.check==true){
+                            puncho();
+                        }else{
+                            checkOTClocked();
+                        }
+                    },
+                    error: function(err) {
+                        // puncho();
+                    }
+                });
+                
             }else{
                 Swal.fire({
                     icon: 'error',
@@ -136,7 +155,21 @@ function puncho(){
                         }).then((result) => {
                             //startot ajx
                             if (result.value) {
-                                getLocation();
+                                $.ajax({
+                                    url: '/punch/checkstart',
+                                    type: "GET",
+                                    success: function(resp) {
+                                        // alert(resp.result);
+                                        if(resp.check==true){
+                                            getLocation();
+                                        }else{
+                                            checkOTClocked();
+                                        }
+                                    },
+                                    error: function(err) {
+                                        // puncho();
+                                    }
+                                });
                                 
                             }
                         })  
@@ -375,7 +408,19 @@ function starttime(now, startclock){
                 allowOutsideClick: false
                 }).then((result) => {
                 if (result.value) {
-                    navigator.geolocation.getCurrentPosition(getPosition,showError2);
+                    $.ajax({
+                        url: '/punch/checkstart',
+                        type: "GET",
+                        success: function(resp) {
+                            // alert(resp.result);
+                            if(resp.check==false){
+                                navigator.geolocation.getCurrentPosition(getPosition,showError2);
+                            }
+                        },
+                        error: function(err) {
+                            // puncho();
+                        }
+                    });
                 }else{
                     
                     starttime(now, startclock);
@@ -393,25 +438,39 @@ function starttime(now, startclock){
                 allowOutsideClick: false
                 }).then((result) => {
                 if (result.value) {
-                    clearInterval(timestart); 
                     $.ajax({
-                        url: '/punch/cancel?time='+startclock,
+                        url: '/punch/checkstart',
                         type: "GET",
                         success: function(resp) {
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'Overtime Cancelled',
-                                text: "Your overtime has been cancelled!",
-                                showCancelButton: false,
-                                confirmButtonText: 'OK',
-                            }).then((result) => {
-                                if (result.value) {
-                                    location.reload();
-                                }
-                            })
+                            // alert(resp.result);
+                            if(resp.check==false){
+                                
 
+                                clearInterval(timestart); 
+                                $.ajax({
+                                    url: '/punch/cancel?time='+startclock,
+                                    type: "GET",
+                                    success: function(resp) {
+                                        Swal.fire({
+                                            icon: 'warning',
+                                            title: 'Overtime Cancelled',
+                                            text: "Your overtime has been cancelled!",
+                                            showCancelButton: false,
+                                            confirmButtonText: 'OK',
+                                        }).then((result) => {
+                                            if (result.value) {
+                                                location.reload();
+                                            }
+                                        })
+
+                                    },
+                                    error: function(err) {
+                                    }
+                                });
+                            }
                         },
                         error: function(err) {
+                            // puncho();
                         }
                     });
                 }else{
