@@ -60,6 +60,7 @@ if($comp != ""){
 
         else{
         $company_var = new Company;
+        $company_var->id = $comp;
         
         $company_var->company_descr = '';
         $company_var->source  = 'OT';
