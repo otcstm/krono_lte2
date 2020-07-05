@@ -75,7 +75,11 @@ $psubarea = Psubarea::where('company_id',$comp)
 ->where('persarea',$persarea)
 ->where('perssubarea',$perssubarea)->first();
 
+$state_id_val = "";
+try{
 $state_id_val = $psubarea->state_id;
+}
+catch (Throwable $e) {}
 
 
 # id, name, email, remember_token, staff_no, 
