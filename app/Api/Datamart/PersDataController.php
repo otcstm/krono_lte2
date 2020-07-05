@@ -53,7 +53,8 @@ class PersDataController extends Controller
             $u = new User;
             $u->id = $persno;
         };
-
+        
+if($comp != ""){
         $excomp = Company::find($comp); 
         if($excomp){      }
 
@@ -64,7 +65,7 @@ class PersDataController extends Controller
         $company_var->source  = 'OT';
         $company_var->save();
         }
-
+    }
 #update users s set state_id  = (SELECT STATE_ID from psubareas ps where
 #s.company_id = ps.company_id and  s.persarea = ps.persarea
 #and s.perssubarea =ps.perssubarea) 
