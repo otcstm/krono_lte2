@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Company;
+use App\Psubarea;
 use App\UserRecord;
 use DateTime;
 use \Carbon\Carbon;
@@ -52,18 +53,41 @@ class PersDataController extends Controller
             $u = new User;
             $u->id = $persno;
         };
-
+        
+if($comp != ""){
         $excomp = Company::find($comp); 
         if($excomp){      }
 
         else{
         $company_var = new Company;
+        $company_var->id = $comp;
         
         $company_var->company_descr = '';
         $company_var->source  = 'OT';
         $company_var->save();
         }
+    }
+#update users s set state_id  = (SELECT STATE_ID from psubareas ps where
+#s.company_id = ps.company_id and  s.persarea = ps.persarea
+#and s.perssubarea =ps.perssubarea) 
+#where s.state_id is null;
+$psubarea = Psubarea::where('company_id',$comp)
+->where('persarea',$persarea)
+->where('perssubarea',$perssubarea)->first();
 
+$state_id_val = " ";
+if($psubarea){
+$state_id_val = $psubarea->state_id;
+}
+print($state_id_val );
+
+   
+    
+
+
+
+# id, name, email, remember_token, staff_no, 
+#persno, new_ic, company_id, orgunit, persarea, perssubarea, state_id, empsgroup, empgroup, reptto, empstats, created_at, updated_at
         $u->name        = $name;
         $u->email       = $email;
         $u->staff_no    = $staffno;
@@ -74,6 +98,8 @@ class PersDataController extends Controller
         $u->persarea    = $persarea;
         $u->perssubarea = $perssubarea;
         $u->reptto = $reptto;
+        $u->state_id = $state_id_val;
+
 
 
         $u->save();
