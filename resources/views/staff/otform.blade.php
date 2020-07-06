@@ -1220,7 +1220,7 @@
         
         //when click add time
         var canadd = true
-
+        var addsubmit = true;
         $("#add").on('click', function(){
             @if($claim ?? '')
             for(j=1; j<{{count($claim->detail)}}+1;j++){
@@ -1236,6 +1236,12 @@
             }
             @endif
             // alert(canadd);
+            
+            if(($('#inputstart-0').val()=="")||($('#inputend-0').val()=="")||($('#inputremark-0').val()=="")){
+            // if(($('#inputstart-0').val()==="")){
+                // alert("sad");
+                addsubmit = false;
+            }
             if(canadd){
                 if(add){
                     // $('#oldds-0').text($("#inputstart-0").val());
@@ -1248,24 +1254,43 @@
                     $('#nodata').css("display","none");
                     // $('#add').prop("disabled",true);
                     add=false;  
+                    addsubmit = true;
                 }else{
                 //     for(j=0; j<3;j++){
                 //         if($('.check-0-'+j).get(0).checkValidity()==false){
                 //             $('.check-0-'+j).get(0).reportValidity();
                 //         }
                 //     }
+                // alert($('#inputstart-0').val());
+                // alert($('#inputend-0').val());
+                // alert($('#inputremark-0').val());
+                // alert(addsubmit);
+                // alert(add);
+                    if(addsubmit){
+                        // $("#formtype").val("add");
+                        // $("#form").submit();
+                    }else{
+                        
+                        addsubmit = true;
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Incomplete',
+                            text: 'Please complete current input fields before adding a new one!'
+                        })
+                    }
+                }
+            }else{
+                if(addsubmit){
+                    // $("#formtype").val("add");
+                    // $("#form").submit();
+                }else{
+                        addsubmit = true;
                     Swal.fire({
                         icon: 'error',
                         title: 'Incomplete',
                         text: 'Please complete current input fields before adding a new one!'
                     })
                 }
-            }else{
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Incomplete',
-                    text: 'Please complete current input fields before adding a new one!'
-                }) 
             }
         });
         
@@ -1450,7 +1475,7 @@
       return false;
     }
   });
-  
+
     function submission(){
         if(($("#formtype").val()=="submit")){          
             if(@if($claim ?? ''){{count($claim->detail)}}@else 0 @endif!=0){
