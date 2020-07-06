@@ -461,8 +461,9 @@
                                                 <label>No:</label>
                                             </div>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-select" style="position: relative; z-index: 8;" id="orderno" name="orderno" placeholder="@if($claim->charge_type=="Project") Search project no" @if($claim->project_no!=null) value="{{$claim->project_no}}"@endif @else Search order no" @if($claim->order_no!=null) value="{{$claim->order_no}}" @endif @endif @if(in_array($claim->charge_type, $array = array("Project", "Internal Order", "Maintenance Order"))) required @endif readonly >
-                                                <i style="position: relative; z-index: 9; margin-left: -25px" class="fas fa-search"></i>
+                                                <input type="text" class="form-select" style="position: relative; z-index: 8;" id="orderno" name="orderno" placeholder="@if($claim->charge_type=="Project") Search project no" @if($claim->project_no!=null) value="{{$claim->project_no}}"@endif @else Search order no" @if($claim->order_no!=null) value="{{$claim->order_no}}" @endif @endif @if(in_array($claim->charge_type, $array = array("Project", "Internal Order", "Maintenance Order")))  @endif required data-readonly >
+                                                <i id="ordernosearch" style="position: relative; z-index: 9; margin-left: -25px" class="fas fa-search"></i>
+                                                <!-- <div class="aaaa" style="position: fixed;   z-index: 9999; width: 100%; border: red;">a</div> -->
                                                 {{-- <!-- <select class="form-select" name="orderno" id="orderno" required 
                                                 @if($claim->charge_type=="Project") 
                                                     @if($orderlist==null) disabled @endif
@@ -1578,7 +1579,7 @@
     //     $("#formtype").val("save");
     //     $("#form").submit();
     // });    
-    $("#orderno").on('click', function(){
+    $("#ordernosearch").on('click', function(){
         // alert("x"+$("#orderno").val());
         search($("#orderno").val());
         // $("#formtype").val("save");

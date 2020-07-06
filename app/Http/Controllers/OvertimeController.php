@@ -1075,7 +1075,7 @@ class OvertimeController extends Controller{
                         $myot = \App\Overtime::where('approver_id', $user->id)->first();
                         $ccuser = \App\User::orWhere('id',$claim->user_id)->get();
                     }
-                    // dd($ccuser);
+                    // dd($claim);
                     $cc = $ccuser->pluck('email')->toArray();
                     $user->notify(new OTSubmitted($myot, $cc));
 

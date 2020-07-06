@@ -358,7 +358,7 @@ class MiscController extends Controller
     // $req->time = "2020-02-05 19:24:09"; //testing
 
     $date = date("Y-m-d", strtotime($req->time));
-    $checkdate = StaffPunch::whereDate('punch+in_time', $date)->where('status', 'in')->get();
+    $checkdate = StaffPunch::whereDate('punch_in_time', $date)->where('status', 'in')->get();
     if($checkdate){
 
     }else{
