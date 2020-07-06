@@ -358,21 +358,26 @@ class MiscController extends Controller
     // $req->time = "2020-02-05 19:24:09"; //testing
 
     $date = date("Y-m-d", strtotime($req->time));
-    $day = UserHelper::CheckDay($req->user()->id, $date);
-    // return ['test' => $date];
-    // $checker = StaffPunch::where('user_id', $req->user()->id)->where('status')
-    $userrecordid = URHelper::getUserRecordByDate($req->user()->id, $date);
-    $currentp = new StaffPunch;
-    $currentp->user_id = $req->user()->id;
-    $currentp->day_type = $day[2];
-    $currentp->punch_in_time = $req->time;
-    $currentp->user_records_id = $userrecordid->id;
-    // $currentp->in_latitude = 0.0; //temp
-    // $currentp->in_longitude = 0.0; //temp
-    $currentp->in_latitude = $req->lat; //temp
-    $currentp->in_longitude = $req->long; //temp
+    $checkdate = StaffPunch::whereDate('punch+in_time', $date)->where('status', 'in')->get();
+    if($checkdate){
 
-    $currentp->save();
+    }else{
+      $day = UserHelper::CheckDay($req->user()->id, $date);
+      // return ['test' => $date];
+      // $checker = StaffPunch::where('user_id', $req->user()->id)->where('status')
+      $userrecordid = URHelper::getUserRecordByDate($req->user()->id, $date);
+      $currentp = new StaffPunch;
+      $currentp->user_id = $req->user()->id;
+      $currentp->day_type = $day[2];
+      $currentp->punch_in_time = $req->time;
+      $currentp->user_records_id = $userrecordid->id;
+      // $currentp->in_latitude = 0.0; //temp
+      // $currentp->in_longitude = 0.0; //temp
+      $currentp->in_latitude = $req->lat; //temp
+      $currentp->in_longitude = $req->long; //temp
+
+      $currentp->save();
+    }
   }
 
   public function checkPunch(Request $req){
