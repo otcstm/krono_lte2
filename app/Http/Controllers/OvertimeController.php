@@ -266,7 +266,7 @@ class OvertimeController extends Controller{
                     $ccuser = \App\User::orWhere('id',$claim->user_id)->get();
                 }
                 $cc = $ccuser->pluck('email')->toArray();
-                $user->notify(new OTSubmitted($myot, $cc));
+                $user->notify(new OTSubmitted($claim, $cc));
             }
 
             // check if exceeds eligibility hour
