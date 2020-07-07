@@ -258,11 +258,11 @@ class OvertimeController extends Controller{
 
                 $claim = Overtime::where('id', $id[$i])->first();
                 $user = $claim->verifier;
-                $myot = \App\Overtime::where('verifier_id', $user->id)->first();
+                // $myot = \App\Overtime::where('verifier_id', $user->id)->first();
                 $ccuser = \App\User::orWhere('id',$claim->user_id)->orWhere('id',$claim->approver_id)->get();
                 if($claim->verifier_id==NULL){
                     $user = $claim->approver;
-                    $myot = \App\Overtime::where('approver_id', $user->id)->first();
+                    // $myot = \App\Overtime::where('approver_id', $user->id)->first();
                     $ccuser = \App\User::orWhere('id',$claim->user_id)->get();
                 }
                 $cc = $ccuser->pluck('email')->toArray();
@@ -1073,16 +1073,14 @@ class OvertimeController extends Controller{
                     //send notification to verifier/approver
                     $claim = Overtime::where('id', $claim->id)->first();
                     $user = $claim->verifier;
-                    $myot = \App\Overtime::where('verifier_id', $user->id)->first();
                     $ccuser = \App\User::orWhere('id',$claim->user_id)->orWhere('id',$claim->approver_id)->get();
                     if($claim->verifier_id==NULL){
                         $user = $claim->approver;
-                        $myot = \App\Overtime::where('approver_id', $user->id)->first();
                         $ccuser = \App\User::orWhere('id',$claim->user_id)->get();
                     }
-                    // dd($claim);
+                    // dd($myot);
                     $cc = $ccuser->pluck('email')->toArray();
-                    $user->notify(new OTSubmitted($myot, $cc));
+                    $user->notify(new OTSubmitted($claim, $cc));
 
                     if($eligibility){
 
