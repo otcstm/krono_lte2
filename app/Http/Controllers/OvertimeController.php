@@ -170,7 +170,9 @@ class OvertimeController extends Controller{
         $updatemonth = OvertimeMonth::find($claim->month_id);
         $totaltime = (($updatemonth->hour*60)+$updatemonth->minute)-((($claim->total_hour)*60)+$claim->total_minute);
         $updatemonth->hour = (int)($totaltime/60);
+        $updatemonth->total_hour = (int)($totaltime/60);
         $updatemonth->minute = ($totaltime%60);
+        $updatemonth->total_minute = ($totaltime%60);
         $updatemonth->save();
 
         //delete all relate punch in data
@@ -235,11 +237,11 @@ class OvertimeController extends Controller{
                 $updateclaim->submitted_date = date("Y-m-d H:i:s");
                 $execute = UserHelper::LogOT($id[$i], $req->user()->id, "Submitted", "Submitted ".$updateclaim->refno);
                 //check if ot have verifier
-                // if($updateclaim->verifier_id==null){
-                //     $updateclaim->status = 'PA';
-                // }else{
-                //     $updateclaim->status = 'PV';
-                // }
+                if($updateclaim->verifier_id==null){
+                    $updateclaim->status = 'PA';
+                }else{
+                    $updateclaim->status = 'PV';
+                }
                 $expiry = OvertimeExpiry::where('company_id', $req->user()->company_id)->where('region', $region->region)->where('start_date','<=', $claim->date)->where('end_date','>', $claim->date)->first();
                 if($expiry->status == "ACTIVE"){
                     if((($expiry->based_date == "Submit to Approver Date")&&($updateclaim->status == 'PA'))||(($expiry->based_date == "Submit to Verifier Date")&&($updateclaim->status == 'PV'))){
@@ -257,11 +259,14 @@ class OvertimeController extends Controller{
                 $claim = Overtime::where('id', $id[$i])->first();
                 $user = $claim->verifier;
                 $myot = \App\Overtime::where('verifier_id', $user->id)->first();
+                $ccuser = \App\User::orWhere('id',$claim->user_id)->orWhere('id',$claim->approver_id)->get();
                 if($claim->verifier_id==NULL){
                     $user = $claim->approver;
                     $myot = \App\Overtime::where('approver_id', $user->id)->first();
+                    $ccuser = \App\User::orWhere('id',$claim->user_id)->get();
                 }
-                $user->notify(new OTSubmitted($myot));
+                $cc = $ccuser->pluck('email')->toArray();
+                $user->notify(new OTSubmitted($myot, $cc));
             }
 
             // check if exceeds eligibility hour
