@@ -120,6 +120,7 @@ class PersDataController extends Controller
         $ur->position     = $position;
         $ur->costcentr    = $costcentr;
         $ur->upd_sap      = $upd_sap;
+        $ur->state_id = $state_id_val;
         $ur->save();
 
         return $ur->user_id;
