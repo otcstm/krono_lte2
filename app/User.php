@@ -64,6 +64,6 @@ class User extends Authenticatable
 
     public function userRecordLatest()
     {
-        return $this->hasOne(UserRecord::class)->latest('updated_at');
+        return $this->hasOne(UserRecord::class)->latest('upd_sap');
     }
 }
