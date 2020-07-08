@@ -56,7 +56,7 @@ class OTApproved extends Notification
             ->markdown('email.ot.otapproved', [
             'url' => $url,
             'type' => $type,
-            'toname' => $this->claim->approver->name,
+            'toname' => $this->claim->name->name,
             'claim' => $this->claim->refno
         ]);
     }

@@ -1371,7 +1371,8 @@ class OvertimeController extends Controller{
                     $user = $claim->name;
                     //notification
                     $myot = \App\Overtime::where('id', $claim->id)->first();
-                    $ccuser = \App\User::orWhere('id',$claim->user_id)->get();
+                    $ccuser = \App\User::orWhere('id',$claim->approver_id)->get();
+                    // dd($myot);
                     $cc = $ccuser->pluck('email')->toArray();
                     $user->notify(new OTApproved($myot, $cc));
                     $updateclaim->approved_date = date("Y-m-d H:i:s");
@@ -1393,15 +1394,15 @@ class OvertimeController extends Controller{
                     
                     //notification
                     $user = $claim->name;
-                    $myot = \App\Overtime::where('id', $claim->id)->first();
+                    // $myot = \App\Overtime::where('id', $claim->id)->first();
                     // dd($myot);
                     if($claim->status=="PA"){
                     // standardkan semua link ke email guna yg ni supaya dia 'mark as read'
                         $ccuser = \App\User::orWhere('id',$claim->approver_id)->get();
                         $cc = $ccuser->pluck('email')->toArray();
-                        $user->notify(new OTQueryApprove($myot, $cc));
+                        $user->notify(new OTQueryApprove($claim, $cc));
                         if($claim->verifier_id!=null){
-                            $user->notify(new OTQueryApproverVerify($myot));
+                            $user->notify(new OTQueryApproverVerify($claim));
                         }
                     }else{
                         $ccuser = \App\User::orWhere('id',$claim->verifier_id)->orWhere('id',$claim->approver_id)->get();
