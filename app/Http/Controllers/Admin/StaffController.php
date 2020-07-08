@@ -172,12 +172,12 @@ class StaffController extends Controller
     }
     
       $staff_detail = UserRecord::where('user_id', '=', $staff->id)
-      ->orderBy('updated_at', 'desc')
+      ->orderBy('upd_sap', 'desc')
       ->first();
 
       $directreport = User::find($staff->reptto);
       $directreport_detail = UserRecord::where('user_id', '=', $staff->reptto)
-      ->orderBy('updated_at', 'desc')
+      ->orderBy('upd_sap', 'desc')
       ->first();
 
       $verifierGroupMember = VerifierGroupMember::where('user_id', '=', $staff->id)
