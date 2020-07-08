@@ -1407,7 +1407,7 @@ class OvertimeController extends Controller{
                     }else{
                         $ccuser = \App\User::orWhere('id',$claim->verifier_id)->orWhere('id',$claim->approver_id)->get();
                         $cc = $ccuser->pluck('email')->toArray();
-                        $user->notify(new OTQueryVerify($myot, $cc));
+                        $user->notify(new OTQueryVerify($claim, $cc));
                     }
                     $updateclaim->status=$req->inputaction[$i];
                     // dd($updateclaim);
