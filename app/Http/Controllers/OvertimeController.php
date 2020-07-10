@@ -258,15 +258,15 @@ class OvertimeController extends Controller{
 
                 $claim = Overtime::where('id', $id[$i])->first();
                 $user = $claim->verifier;
-                $myot = \App\Overtime::where('verifier_id', $user->id)->first();
+                // $myot = \App\Overtime::where('verifier_id', $user->id)->first();
                 $ccuser = \App\User::orWhere('id',$claim->user_id)->orWhere('id',$claim->approver_id)->get();
                 if($claim->verifier_id==NULL){
                     $user = $claim->approver;
-                    $myot = \App\Overtime::where('approver_id', $user->id)->first();
+                    // $myot = \App\Overtime::where('approver_id', $user->id)->first();
                     $ccuser = \App\User::orWhere('id',$claim->user_id)->get();
                 }
                 $cc = $ccuser->pluck('email')->toArray();
-                $user->notify(new OTSubmitted($myot, $cc));
+                $user->notify(new OTSubmitted($claim, $cc));
             }
 
             // check if exceeds eligibility hour
@@ -1073,16 +1073,14 @@ class OvertimeController extends Controller{
                     //send notification to verifier/approver
                     $claim = Overtime::where('id', $claim->id)->first();
                     $user = $claim->verifier;
-                    $myot = \App\Overtime::where('verifier_id', $user->id)->first();
                     $ccuser = \App\User::orWhere('id',$claim->user_id)->orWhere('id',$claim->approver_id)->get();
                     if($claim->verifier_id==NULL){
                         $user = $claim->approver;
-                        $myot = \App\Overtime::where('approver_id', $user->id)->first();
                         $ccuser = \App\User::orWhere('id',$claim->user_id)->get();
                     }
-                    // dd($claim);
+                    // dd($myot);
                     $cc = $ccuser->pluck('email')->toArray();
-                    $user->notify(new OTSubmitted($myot, $cc));
+                    $user->notify(new OTSubmitted($claim, $cc));
 
                     if($eligibility){
 
@@ -1373,7 +1371,8 @@ class OvertimeController extends Controller{
                     $user = $claim->name;
                     //notification
                     $myot = \App\Overtime::where('id', $claim->id)->first();
-                    $ccuser = \App\User::orWhere('id',$claim->user_id)->get();
+                    $ccuser = \App\User::orWhere('id',$claim->approver_id)->get();
+                    // dd($myot);
                     $cc = $ccuser->pluck('email')->toArray();
                     $user->notify(new OTApproved($myot, $cc));
                     $updateclaim->approved_date = date("Y-m-d H:i:s");
@@ -1395,20 +1394,20 @@ class OvertimeController extends Controller{
                     
                     //notification
                     $user = $claim->name;
-                    $myot = \App\Overtime::where('id', $claim->id)->first();
+                    // $myot = \App\Overtime::where('id', $claim->id)->first();
                     // dd($myot);
                     if($claim->status=="PA"){
                     // standardkan semua link ke email guna yg ni supaya dia 'mark as read'
                         $ccuser = \App\User::orWhere('id',$claim->approver_id)->get();
                         $cc = $ccuser->pluck('email')->toArray();
-                        $user->notify(new OTQueryApprove($myot, $cc));
+                        $user->notify(new OTQueryApprove($claim, $cc));
                         if($claim->verifier_id!=null){
-                            $user->notify(new OTQueryApproverVerify($myot));
+                            $user->notify(new OTQueryApproverVerify($claim));
                         }
                     }else{
                         $ccuser = \App\User::orWhere('id',$claim->verifier_id)->orWhere('id',$claim->approver_id)->get();
                         $cc = $ccuser->pluck('email')->toArray();
-                        $user->notify(new OTQueryVerify($myot, $cc));
+                        $user->notify(new OTQueryVerify($claim, $cc));
                     }
                     $updateclaim->status=$req->inputaction[$i];
                     // dd($updateclaim);
