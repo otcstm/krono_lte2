@@ -726,7 +726,7 @@ class OvertimeController extends Controller{
         $claimdetail = OvertimeDetail::where('ot_id', $claim->id)->get();
 
         //check claim charge type empty or claim hours exist
-        if(($req->chargetype=="")||(count($claimdetail)==0)){
+        if(($req->chargetype=="")||(count($claimdetail)==0)||($claim->approver_id==null)){
             $status = false;
         }
 
@@ -1031,7 +1031,7 @@ class OvertimeController extends Controller{
         }
         if($req->formtype=="submit"){ //if submit
             $cansubmit = true;  //can submit ot or not
-
+            $haveapprover = true; //approve have or not
             //check for leave
             $leave = UserHelper::CheckLeave($req->user()->id, $claim->date);
             if($leave){
@@ -1040,9 +1040,17 @@ class OvertimeController extends Controller{
                 }
             }
 
+            // $claim->approver_id = null;
+            // $claim->save();
+
+            //check for approver
+            if($claim->approver_id==null){
+                $haveapprover = false;
+            }
+
             if($havecheckedclaim){
                 //if not on leave
-                if($cansubmit){
+                if(($cansubmit)&&($haveapprover)){
                     $month = OvertimeMonth::where('id', $claim->month_id)->first();
                     $totalsubmit = (($claim->total_hour*60)+$claim->total_minute)+(($month->total_hour*60)+$month->total_minute);
                     $updatemonth = OvertimeMonth::find($month->id);
@@ -1123,10 +1131,16 @@ class OvertimeController extends Controller{
                     }
                 
                 //if on leave
-                }else{
+                }else if(!($cansubmit)){
                     return redirect(route('ot.form',[],false))->with([
                         'feedback' => true,
                         'feedback_text' => "You are on leave for this date.",
+                        'feedback_title' => "Submission Failed!"
+                    ]);
+                }else if(!($haveapprover)){
+                    return redirect(route('ot.form',[],false))->with([
+                        'feedback' => true,
+                        'feedback_text' => "OT approver for this project currently blank. Please contact your project manager to update OT approver for this project.",
                         'feedback_title' => "Submission Failed!"
                     ]);
                 }
