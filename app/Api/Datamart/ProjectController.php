@@ -15,7 +15,10 @@ class ProjectController extends Controller
     public function insert(Request $req)
     {
 
-      $exPrList = Project::where('project_no', $req->project_no)->delete();
+      $exPrList = Project::where('project_no', $req->project_no)
+      ->where('network_header',$req->network_header)
+      ->where('network_act_no',$req->network_act_no)
+      ->delete();
 
       $pr = new Project;
       $pr->project_no         = $req->project_no;

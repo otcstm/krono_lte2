@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Shared\LdapHelper;
 use App\User;
 use Session;
-class LoginController extends Controller
+class LoginController_dev extends Controller
 {
     /*
     |--------------------------------------------------------------------------
