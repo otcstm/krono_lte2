@@ -277,6 +277,12 @@ return [
               'icon' => '',
               'can' => '5-user-mngmt',
           ],
+          [
+              'text' => 'admin_shift_group',
+              'route' => 'reminder.jobs',
+              'icon' => '',
+              'can' => '5-user-mngmt',
+          ],
         ]
       ],
 
