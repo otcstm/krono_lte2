@@ -279,7 +279,7 @@ return [
           ],
           [
               'text' => 'admin_shift_group',
-              'route' => 'reminder.jobs',
+              'route' => 'admin.shiftgroup',
               'icon' => '',
               'can' => '5-user-mngmt',
           ],
