@@ -71,7 +71,6 @@ Route::group(['middleware' => ['auth']], function () {
 
   //List staff & search
   Route::get('/staff', 'Admin\StaffController@showStaff')->name('staff.list');
-  Route::post('/staff', 'Admin\StaffController@showStaff')->name('staff.list');
   Route::post('/staff/search', 'Admin\StaffController@searchStaff')->name('staff.search');
 
   //User management
@@ -118,7 +117,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/overtime/form/getthumbnail', 'OvertimeController@getthumbnail')->name('ot.thumbnail');
   Route::get('/overtime/form/getfile', 'OvertimeController@getfile')->name('ot.file');
   Route::get('/overtime/form/search', 'OvertimeController@searchorder')->name('ot.searchod');
-
+  
   //OT activity - Verifier
   Route::get('/overtime/verify', 'OvertimeController@verify')->name('ot.verify');
   Route::post('/overtime/verify', 'OvertimeController@verify')->name('ot.verify');
