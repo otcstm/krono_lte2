@@ -26,9 +26,6 @@ class UserRecord extends Model
         return $this->belongsTo(User::class,'user_id');
     }
 
-    public function getreg(){
-      return URHelper::getRegion($this->perssubarea);
-    }
 
     // public function Reg(){//based on OT date
     //   return URHelper::getRegion($this->perssubarea);
