@@ -67,6 +67,7 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserRecord::class)->latest('upd_sap');
     }
+
     // public function getreg(){
     //      return URHelper::getRegion($this->perssubarea);
     //    }
@@ -92,4 +93,15 @@ class User extends Authenticatable
        }
 
 
-   }
+    public function userShiftPatternLatest()
+    {
+        return $this->hasOne(UserShiftPattern::class)->latest('upd_sap');
+    }
+
+    public function userOtIndicator()
+    {
+        return $this->hasOne(OtIndicator::class)->latest('upd_sap');
+    }
+
+
+}
