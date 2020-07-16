@@ -27,19 +27,19 @@
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-4">Company Code</div>
-                        <div class="col-md-8"><input type="text" id="search-1" class="searchman searchman-1" name="searchcomp" style="width: 100%; " data-text="Company Code"><i style="position: relative; margin-left: -20px" class="far fa-share-square"></i></div>
+                        <div class="col-md-8"><input type="text" id="search-1" class="searchman searchman-1" name="searchcomp" style="width: 100%; " data-text="Company Code" readonly ><i style="position: relative; margin-left: -20px" class="far fa-share-square"></i></div>
                     </div>
                     <div class="row" style="margin-top: 5px">
                         <div class="col-md-4">Personnel Number</div>
-                        <div class="col-md-8"><input type="text" id="search-2" class="searchman searchman-2" name="searchpersno" style="width: 100%; " data-text="Personnel Number"><i style="position: relative; margin-left: -20px" class="far fa-share-square"></i></div>
+                        <div class="col-md-8"><input type="text" id="search-2" class="searchman searchman-2" name="searchpersno" style="width: 100%; " data-text="Personnel Number" readonly ><i style="position: relative; margin-left: -20px" class="far fa-share-square"></i></div>
                     </div>
                     <div class="row" style="margin-top: 5px">
                         <div class="col-md-4">Personnel Area</div>
-                        <div class="col-md-8"><input type="text" id="search-3" class="searchman searchman-3" name="searchpersarea" style="width: 100%; " data-text="Personnel Area"><i style="position: relative; margin-left: -20px" class="far fa-share-square"></i></div>
+                        <div class="col-md-8"><input type="text" id="search-3" class="searchman searchman-3" name="searchpersarea" style="width: 100%; " data-text="Personnel Area" readonly ><i style="position: relative; margin-left: -20px" class="far fa-share-square"></i></div>
                     </div>
                     <div class="row" style="margin-top: 5px">
                         <div class="col-md-4">Personnel Sub Area</div>
-                        <div class="col-md-8"><input type="text" id="search-4" class="searchman searchman-4" name="searchperssarea" style="width: 100%; " data-text="Personnel Sub Area"><i style="position: relative; margin-left: -20px" class="far fa-share-square"></i></div>
+                        <div class="col-md-8"><input type="text" id="search-4" class="searchman searchman-4" name="searchperssarea" style="width: 100%; " data-text="Personnel Sub Area" readonly><i style="position: relative; margin-left: -20px" class="far fa-share-square"></i></div>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -50,11 +50,11 @@
                     </div>
                     <div class="row" style="margin-top: 5px">
                         <div class="col-md-4">Claim Status</div>
-                        <div class="col-md-8"><input type="text" id="search-5" class="searchman searchman-5" name="searchstatus" style="width: 100%; " data-text="Claim Status"><i style="position: relative; margin-left: -20px" class="far fa-share-square"></i></div>
+                        <div class="col-md-8"><input type="text" id="search-5" class="searchman searchman-5" name="searchstatus" style="width: 100%; " data-text="Claim Status"><i style="position: relative; margin-left: -20px" class="far fa-share-square" readonly ></i></div>
                     </div>
                     <div class="row" style="margin-top: 5px">
                         <div class="col-md-4">Overtime Date</div>
-                        <div class="col-md-8"><input type="text" id="search-6" class="searchman searchman-6" name="searchotdate" style="width: 100%; " data-text="Overtime Date"><i style="position: relative; margin-left: -20px" class="far fa-share-square"></i></div>
+                        <div class="col-md-8"><input type="text" id="search-6" class="searchman searchman-6" name="searchotdate" style="width: 100%; " data-text="Overtime Date"><i style="position: relative; margin-left: -20px" class="far fa-share-square" readonly ></i></div>
                     </div>
                 </div>
             </div>
@@ -157,7 +157,10 @@
                                 @if(($view=='verifier')||($view=='admin'))
                                 <td>
                                     <span class='hidden' id="show-approver-cache-{{$no}}">{{$singleuser->approver->name}}</span>
-                                    <a id="show-approver-a-{{$no}}" href="#" style="font-weight: bold; color: #143A8C" @if($singleuser->approver->name=="N/A") class="hidden" @endif onclick="showapprover({{$no}})" data-id="{{$singleuser->approver_id}}" data-otid="{{$singleuser->id}}"><span id="show-approver-{{$no}}">{{$singleuser->approver->name}}</span></a>
+                                    <!-- <span id="show-approver-na-{{$no}}" @if($singleuser->approver->name!="N/A") class="hidden" @endif >{{$singleuser->approver->name}}</span> -->
+                                     
+                                     @if($singleuser->approver->name=="N/A")<a id="show-approver-a-{{$no}}" href="#" style="font-weight: bold; color: #143A8C" onclick="otid ={{$singleuser->id}}; return normal({{$no}}, 'none', 'Approver')" data-id="{{$singleuser->approver_id}}" data-otid="{{$singleuser->id}}"><span id="show-approver-{{$no}}">{{$singleuser->approver->name}}</span></a>
+                                    @else<a id="show-approver-a-{{$no}}" href="#" style="font-weight: bold; color: #143A8C" @if($singleuser->approver->name=="N/A") class="hidden" @endif onclick="showapprover({{$no}})" data-id="{{$singleuser->approver_id}}" data-otid="{{$singleuser->id}}"><span id="show-approver-{{$no}}">{{$singleuser->approver->name}}</span></a>@endif
                                 </td>
                                 @endif
                             <td class="border-right" id="borderman-{{$no}}">
@@ -181,7 +184,7 @@
                                             value="Assign" id="assign-{{$no}}" data-type="Verifier" data-otid="{{$singleuser->id}}">Assign Verifier</option>
                                     @endif
                                     @if($view=='admin') 
-                                        <option hidden value="Change">Change Approver</option>
+                                        <option value="Change">Change Approver</option>
                                     @endif
                                     <option value="Q2">Query</option>
                                 </select>
@@ -274,6 +277,7 @@
     while(d.length<2){
         d = "0"+d;
     }
+    $("#search-date-1").attr("max", y+"-"+m+"-"+d);
     $("#search-date-2").attr("max", y+"-"+m+"-"+d);
     $(document).ready(function() {
         $('#tOTList').DataTable({
@@ -656,6 +660,7 @@
     }
 
     function addapprover(id, num, name){
+        console.log(no +" "+ num);
         $('#approver-'+no).val(id);
         $('#show-approver-'+no).text(name);
         $('#show-approver-a-'+no).data("id", id);
@@ -734,6 +739,7 @@
                                 if($('#approver-'+i).val()!=$('#approver-cache-'+i).val()){
                                     succeed = true;
                                 }
+                                // console.log(($('#approver-'+i).val()+" "+$('#approver-cache-'+i).val()));
                             }   
                             // alert(succeed);
                             if(succeed){                               
@@ -1296,16 +1302,16 @@
             html = "<div class='row text-left'><div class='col-md-3'>Claim Status</div>";
             pv = "";
             pa = "";
-            a = "";
+            // a = "";
             // d = "";
             // q = "";
             for(v=0; v<(value.length)+1; v++){
                 if(value[v]=="Pending Verification"){
                     pv = "checked";
                 }else if(value[v]=="Pending Approval"){
-                    pa = "checked";
-                }else if(value[v]=="Approved"){
-                    a = "checked";}
+                    pa = "checked";}
+                // }else if(value[v]=="Approved"){
+                //     a = "checked";}
                 // }else if(value[v]=="Draft"){
                 //     d = "checked";
                 // }else if(value[v]=="Query"){
@@ -1323,10 +1329,10 @@
                             "</div>"+
                             "<div class='col-md-9 col-md-offset-3'>"+
                                 "<input id='value-2' class='countsearch' type='checkbox' value='Pending Approval' "+pa+"> Pending Approval"+
-                            "</div>"+
-                            "<div class='col-md-9 col-md-offset-3'>"+
-                                "<input id='value-3' class='countsearch' type='checkbox' value='Approved' "+a+"> Approved"+
                             "</div>";
+                            // "<div class='col-md-9 col-md-offset-3'>"+
+                            //     "<input id='value-3' class='countsearch' type='checkbox' value='Approved' "+a+"> Approved"+
+                            // "</div>";
             Swal.fire({
                 title: 'Multiple Search Parameter',
                 html: html+"</div>",
