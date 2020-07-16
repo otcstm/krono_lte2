@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Log;
+// use Illuminate\Support\Facades\Log;
 
 use App\ExcelHandler;
 use App\BatchJob;
@@ -58,9 +58,9 @@ class ReportOTLC implements ShouldQueue
       if($bjob && $bjob->status == 'Queued'){
         $bjob->status = 'Processing';
         $bjob->save();
-        Log::info('batch job id: ' . $this->bjobid);
-        Log::info('start date: ' . $this->start_date);
-        Log::info('end date: ' . $this->end_date);
+        // Log::info('batch job id: ' . $this->bjobid);
+        // Log::info('start date: ' . $this->start_date);
+        // Log::info('end date: ' . $this->end_date);
 
 
         $cdate = new Carbon($this->end_date);

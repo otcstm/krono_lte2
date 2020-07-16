@@ -254,7 +254,8 @@ return [
           ],
           [
               'text' => 'staff_list',
-              'url'  => '/staff',
+              // 'url'  => '/staff',
+              'url'  => '/staffidx',
               'icon' => '',
               'can' => '5-user-mngmt',
           ],

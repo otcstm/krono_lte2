@@ -68,34 +68,34 @@
                         <td>@if($singleuser->state_id ?? ''){{ $singleuser->stateid->state_descr }}@endif</td>
                             @if($mgmt ?? '')
                             <td>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editMgmt" 
-                                data-role_iddata-role_id="{{$singleuser['id']}}" 
-                                data-role_no="{{$singleuser['staff_no']}}" 
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editMgmt"
+                                data-role_iddata-role_id="{{$singleuser['id']}}"
+                                data-role_no="{{$singleuser['staff_no']}}"
                                 data-role_name="{{$singleuser['name']}}"
-                                data-role_company="{{$singleuser['company_id']}}" 
+                                data-role_company="{{$singleuser['company_id']}}"
                                 data-role_state="{{$singleuser['state_id']}}">
                                     <i class="fas fa-pencil-alt"></i>
                                 </button>
                             </td>
                             @else
                             <td>
-                                {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#info" 
-                                data-role_id="{{$singleuser['id']}}" 
-                                data-role_no="{{$singleuser['staff_no']}}" 
-                                data-role_name="{{$singleuser['name']}}" 
-                                data-role_email="{{$singleuser['email']}}" 
-                                data-role_company="@if($singleuser->company_id ?? ''){{ $singleuser->companyid->company_descr }}@endif" 
+                                {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#info"
+                                data-role_id="{{$singleuser['id']}}"
+                                data-role_no="{{$singleuser['staff_no']}}"
+                                data-role_name="{{$singleuser['name']}}"
+                                data-role_email="{{$singleuser['email']}}"
+                                data-role_company="@if($singleuser->company_id ?? ''){{ $singleuser->companyid->company_descr }}@endif"
                                 data-role_state="@if($singleuser->state_id ?? ''){{ $singleuser->stateid->state_descr }}@endif">
                                     <i class="fas fa-info"></i>
                                 </button> --}}
-                                
+
         <form action="{{ route('staff.profile') }}" target="_blank" method="POST">
             @csrf
             <input type="hidden" name="getProfile" value="{{$singleuser['id']}}" />
                                 <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#info">
                                     <i class="fas fa-info"></i>
                                 </button>
-        </form>                        
+        </form>
                             </td>
                             @endif
                         @endif
@@ -185,7 +185,7 @@ $('#info').on('show.bs.modal', function(e) {
 
 for(i = 0; i<{{count($roles)}}; i++){
 	$("#edit-"+i).on("click", edit(i));
-	
+
 }
 
 function edit(i){
@@ -225,7 +225,7 @@ function edit(i){
                 }else{
                     html = html +"<div class='col-md-8 col-md-offset-4'>";
                 }
-                
+
                 for(i=0; i<role_users.length; i++){
                     if(role_users[i]=={{$singlerole->id}}){
                         checked = "checked";
