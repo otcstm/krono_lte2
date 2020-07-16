@@ -203,21 +203,7 @@ class OvertimeController extends Controller{
        
         //checking on selected ot
         for($i = 0; $i<count($id); $i++){
-            $claim = Overtime::find($id[$i]);
-            $eligibility = OtIndicator::where('user_id', $req->user()->id)->where('upd_sap','<=',date('Y-m-d',strtotime($claim->date)))->first();
-            //check if exceeds eligible hours
-            if($eligibility){
-                if($eligibility->ot_hour_exception!="Y"){
-                    // $eligiblehour = URHelper::getUserEligibility($req->user()->company_id, $region->region, $claim->date);
-                    $eligiblehour = URHelper::getUserEligibility($claim->user_id, $claim->date);
-                    $month = OvertimeMonth::where('id', $claim->month_id)->first();
-                    $totalsubmit = ($month->hour*60+$month->minute) + ($claim->total_hour*60+$claim->total_minute);
-                    //if exceed, disable submition
-                    if($totalsubmit>($eligiblehour->hourpermonth*60)){
-                        $eligibitywarning = true;
-                    }
-                }
-            }
+            
 
             //check if checked ot date have leave
             $claim = Overtime::find($id[$i]);
@@ -233,56 +219,79 @@ class OvertimeController extends Controller{
         if($cansubmit){
             for($i = 0; $i<count($id); $i++){
                 $updateclaim = Overtime::find($id[$i]);
-                // $updateclaim->approver_id = $req->user()->reptto;
-                $updateclaim->submitted_date = date("Y-m-d H:i:s");
-                $execute = UserHelper::LogOT($id[$i], $req->user()->id, "Submitted", "Submitted ".$updateclaim->refno);
-                //check if ot have verifier
-                if($updateclaim->verifier_id==null){
-                    $updateclaim->status = 'PA';
-                }else{
-                    $updateclaim->status = 'PV';
-                }
-                $expiry = OvertimeExpiry::where('company_id', $req->user()->company_id)->where('region', $region->region)->where('start_date','<=', $claim->date)->where('end_date','>', $claim->date)->first();
-                if($expiry->status == "ACTIVE"){
-                    if((($expiry->based_date == "Submit to Approver Date")&&($updateclaim->status == 'PA'))||(($expiry->based_date == "Submit to Verifier Date")&&($updateclaim->status == 'PV'))){
-                        $draftclaim->date_expiry = date('Y-m-d', strtotime("+".$expiry->noofmonth." months"));
+                $claim = Overtime::find($id[$i]);
+                $eligibility = OtIndicator::where('user_id', $req->user()->id)->where('upd_sap','<=',date('Y-m-d',strtotime($claim->date)))->first();
+                //check if exceeds eligible hours
+                // dd($eligibility);
+                if($eligibility){
+                    if($eligibility->ot_hour_exception!="Y"){
+                        // $eligiblehour = URHelper::getUserEligibility($req->user()->company_id, $region->region, $claim->date);
+                        $eligiblehour = URHelper::getUserEligibility($claim->user_id, $claim->date);
+                        $month = OvertimeMonth::where('id', $claim->month_id)->first();
+                        $totalsubmit = ($month->hour*60+$month->minute) + ($claim->total_hour*60+$claim->total_minute);
+                        // dd($eligiblehour->hourpermonth*60);
+                        // dd($totalsubmit);
+                        
+                        //if exceed, disable submition
+                        if($totalsubmit>($eligiblehour->hourpermonth*60)){
+                            $eligibitywarning = true;
+                        }
                     }
                 }
-                $updatemonth = OvertimeMonth::find($updateclaim->month_id);
-                $totalsubmit = (($updatemonth->total_hour*60)+$updatemonth->total_minute)+(($updateclaim->total_hour*60)+$updateclaim->total_minute);
-                $updatemonth->total_hour = (int)($totalsubmit/60);
-                $updatemonth->total_minute = $totalsubmit%60;
-                $updatemonth->save();
-                $updateclaim->save();
-                //send notification to verifier/approver
+                
+                // check if exceeds eligibility hour
+                if($eligibitywarning){
+                    return redirect(route('ot.list',[],false))->with([
+                        'feedback' => true,
+                        'feedback_text' => "Your total claim time has exceeded eligible claim time.",
+                        'feedback_title' => "Submission failed!"
+                    ]);
+                }else{
 
-                $claim = Overtime::where('id', $id[$i])->first();
-                $user = $claim->verifier;
-                // $myot = \App\Overtime::where('verifier_id', $user->id)->first();
-                $ccuser = \App\User::orWhere('id',$claim->user_id)->orWhere('id',$claim->approver_id)->get();
-                if($claim->verifier_id==NULL){
-                    $user = $claim->approver;
-                    // $myot = \App\Overtime::where('approver_id', $user->id)->first();
-                    $ccuser = \App\User::orWhere('id',$claim->user_id)->get();
+                    // $updateclaim->approver_id = $req->user()->reptto;
+                    $updateclaim->submitted_date = date("Y-m-d H:i:s");
+                    $execute = UserHelper::LogOT($id[$i], $req->user()->id, "Submitted", "Submitted ".$updateclaim->refno);
+                    //check if ot have verifier
+                    if($updateclaim->verifier_id==null){
+                        $updateclaim->status = 'PA';
+                    }else{
+                        $updateclaim->status = 'PV';
+                    }
+                    $expiry = OvertimeExpiry::where('company_id', $req->user()->company_id)->where('region', $region->region)->where('start_date','<=', $claim->date)->where('end_date','>', $claim->date)->first();
+                    if($expiry->status == "ACTIVE"){
+                        if((($expiry->based_date == "Submit to Approver Date")&&($updateclaim->status == 'PA'))||(($expiry->based_date == "Submit to Verifier Date")&&($updateclaim->status == 'PV'))){
+                            $draftclaim->date_expiry = date('Y-m-d', strtotime("+".$expiry->noofmonth." months"));
+                        }
+                    }
+                    $updatemonth = OvertimeMonth::find($updateclaim->month_id);
+                    $totalsubmit = (($updatemonth->total_hour*60)+$updatemonth->total_minute)+(($updateclaim->total_hour*60)+$updateclaim->total_minute);
+                    $updatemonth->total_hour = (int)($totalsubmit/60);
+                    $updatemonth->total_minute = $totalsubmit%60;
+                    $updatemonth->save();
+                    $updateclaim->save();
+                    //send notification to verifier/approver
+
+                    $claim = Overtime::where('id', $id[$i])->first();
+                    $user = $claim->verifier;
+                    // $myot = \App\Overtime::where('verifier_id', $user->id)->first();
+                    $ccuser = \App\User::orWhere('id',$claim->user_id)->orWhere('id',$claim->approver_id)->get();
+                    if($claim->verifier_id==NULL){
+                        $user = $claim->approver;
+                        // $myot = \App\Overtime::where('approver_id', $user->id)->first();
+                        $ccuser = \App\User::orWhere('id',$claim->user_id)->get();
+                    }
+                    $cc = $ccuser->pluck('email')->toArray();
+                    $user->notify(new OTSubmitted($claim, $cc));
                 }
-                $cc = $ccuser->pluck('email')->toArray();
-                $user->notify(new OTSubmitted($claim, $cc));
             }
-
-            // check if exceeds eligibility hour
-            if($eligibitywarning){
-                return redirect(route('ot.list',[],false))->with([
-                    'feedback' => true,
-                    'feedback_text' => "Your submitted claim time has exceeded eligible claim time.",
-                    'feedback_title' => "Warning!"
-                ]);
-            }else{
-                return redirect(route('ot.list',[],false))->with([
-                    'feedback' => true,
-                    'feedback_text' => "Your overtime claim has successfully submitted.",
-                    'feedback_title' => "Successfully Submitted"
-                ]);
-            }
+            
+                    
+                    
+            return redirect(route('ot.list',[],false))->with([
+                'feedback' => true,
+                'feedback_text' => "Your overtime claim has successfully submitted.",
+                'feedback_title' => "Successfully Submitted"
+            ]);
         }else{
             return redirect(route('ot.list',[],false))->with([
                 'feedback' => true,
@@ -898,8 +907,14 @@ class OvertimeController extends Controller{
                                 if($gm){ //if more than 3 months
                                     $updateclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($updateclaim->date)));
                                     $updateclaim->verifier_id = $data->approver_id;
+                                    if($data->approve_id==0){
+                                        $updateclaim->verifier_id = null;
+                                    }
                                 }else{
                                     $updateclaim->approver_id = $data->approver_id;
+                                    if($data->approve_id==0){
+                                        $updateclaim->verifier_id = null;
+                                    }
                                     $vgm = VerifierGroupMember::where('user_id', $req->user()->id)->first();
                                     if($vgm){
                                         $vg = VerifierGroup::where('id', $vgm->user_verifier_groups_id)->first();
@@ -1044,7 +1059,7 @@ class OvertimeController extends Controller{
             // $claim->save();
 
             //check for approver
-            if($claim->approver_id==null){
+            if(($claim->approver_id==null)||($claim->approver_id==0)){
                 $haveapprover = false;
             }
 
@@ -1268,41 +1283,51 @@ class OvertimeController extends Controller{
         $otlist = Overtime::query();
         if($req->searchcomp!=""){
             $onecomp = explode(", ", $req->searchcomp);
-            foreach($onecomp as $one){
-                if($one!=""){
-                    $otlist = $otlist->orWhere('company_id', 'LIKE', '%' .$one. '%');
-                }
-            }
+            // foreach($onecomp as $one){
+            //     if($one!=""){
+            //         $otlist = $otlist->orWhere('company_id', 'LIKE', '%' .$one. '%');
+            //     }
+            // }
+            $otlist = $otlist->whereIn('company_id', $onecomp);
+            // whereIn('id', array(1, 2, 3))->get();
         }
         if($req->searchpersno!=""){
             $onecomp = explode(", ", $req->searchpersno);
-            foreach($onecomp as $one){
-                if($one!=""){
-                    $otlist = $otlist->orWhere('user_id', 'LIKE', '%' .$one. '%');
-                }
-            }
+            // foreach($onecomp as $one){
+            //     if($one!=""){
+            //         $otlist = $otlist->orWhere('user_id', 'LIKE', '%' .$one. '%');
+            //     }
+            // }
+            $otlist = $otlist->whereIn('user_id', $onecomp);
         }
         if($req->searchpersarea!=""){
             $onecomp = explode(", ", $req->searchpersarea);
-            foreach($onecomp as $one){
-                if($one!=""){
-                    $otlist = $otlist->orWhere('persarea', 'LIKE', '%' .$one. '%');
-                }
-            }
+            // foreach($onecomp as $one){
+            //     if($one!=""){
+            //         $otlist = $otlist->orWhere('persarea', 'LIKE', '%' .$one. '%');
+            //     }
+            // }
+            $otlist = $otlist->whereIn('persarea', $onecomp);
         }
         if($req->searchperssarea!=""){
             $onecomp = explode(", ", $req->searchperssarea);
-            foreach($onecomp as $one){
-                if($one!=""){
-                    $otlist = $otlist->orWhere('perssubarea', 'LIKE', '%' .$one. '%');
-                }
-            }
+            // foreach($onecomp as $one){
+            //     if($one!=""){
+            //         $otlist = $otlist->orWhere('perssubarea', 'LIKE', '%' .$one. '%');
+            //     }
+            // }
+            $otlist = $otlist->whereIn('perssubarea', $onecomp);
         }
         if(($req->searchdate1!="")&&($req->searchdate2!="")){
-            $otlist = $otlist->orWhere('submitted_date', '>=', $req->searchdate1.' 00:00:00')->orWhere('submitted_date', '<=', $req->searchdate2.' 00:00:00');
+            $add = date('Y-m-d', strtotime($req->searchdate2. ' +1 day'));
+            // $otlist = $otlist->where('submitted_date', '>=', $req->searchdate1.' 00:00:00')->where('submitted_date', '<=', $req->searchdate2.' 00:00:00');
+            // $otlist = $otlist->whereBetween('submitted_date', [$req->searchdate1.' 00:00:00', '2020-07-17 00:00:00']);
+            // $otlist = $otlist->whereBetween('submitted_date', [$req->searchdate1.' 00:00:00', $req->searchdate2.' 00:00:00']);
+            $otlist = $otlist->whereBetween('submitted_date', [$req->searchdate1.' 00:00:00', $add.' 00:00:00']);
         }
         if($req->searchstatus!=""){
             $onecomp = explode(", ", $req->searchstatus);
+            $status = array();
             foreach($onecomp as $one){
                 if($one!=""){
                     if($one=="Pending Verification"){
@@ -1312,17 +1337,22 @@ class OvertimeController extends Controller{
                     }else if($one=="Approved"){
                         $stat="A";
                     }
-                    $otlist = $otlist->orWhere('status', $stat);
+                    array_push($status, $stat);
+                    // $otlist = $otlist->where('status', $stat);
                 }
             }
+
+            // dd($status);
+            $otlist = $otlist->whereIn('status', $status);
         }
         if($req->searchotdate!=""){
             $onecomp = explode(", ", $req->searchotdate);
-            foreach($onecomp as $one){
-                if($one!=""){
-                    $otlist = $otlist->orWhere('date', $one);
-                }
-            }
+            // foreach($onecomp as $one){
+            //     if($one!=""){
+            //         $otlist = $otlist->orWhere('date', $one);
+            //     }
+            // }
+            $otlist = $otlist->whereIn('date', $onecomp);
         }
         // $status = ['A','Q1','Q2','D1','D2'];
         // $otlist = $otlist->where(function($q) {
@@ -1330,6 +1360,7 @@ class OvertimeController extends Controller{
         // })->orderBy('date_expiry')->orderBy('date')->get();
         $otlist = $otlist->whereNotIn('status',['Q1','Q2','D1','D2']);
         $otlist = $otlist->orderBy('date_expiry')->orderBy('date')->get();
+
         // dd($otlist);
         Session::put(['otlist' => $otlist]);
         return redirect(route('ot.admin',[],false));
@@ -1522,6 +1553,8 @@ class OvertimeController extends Controller{
     public function search(Request $req){
         $date = date('Y-m-d');
         $ot = Overtime::where("id", $req->otid)->first();
+
+        // dd($ot);
         $costc = $ot->costcenter;
         $approver = $ot->approver_id;
         $verifier = $ot->verifier_id;

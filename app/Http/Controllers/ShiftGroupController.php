@@ -9,6 +9,7 @@ use App\ShiftGroupMember;
 use App\ShiftGroup;
 use App\ShiftPattern;
 use App\CompanyShiftPattern;
+use App\ViewShiftGroup;
 use DB;
 
 use App\Notifications\GroupOwnerAssigned;
@@ -656,5 +657,15 @@ class ShiftGroupController extends Controller
         return $reptto_id;
     }
 
+    public function showall(Request $req){
+
+      $sglist = ViewShiftGroup::all();
+   
+      return view('admin.shiftGroup',compact('sglist'));
+
+      // return view('shiftplan.shift_group', [
+      //   'sglist' => $sglist        
+      // ]);
+    }
 
 }

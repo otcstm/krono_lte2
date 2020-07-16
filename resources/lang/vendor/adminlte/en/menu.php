@@ -20,6 +20,7 @@ return [
     'manage_holiday'    => 'Holiday Management',
     'paymentsch' => 'Payment Schedule',
     'payrollgroup' => 'Payroll Grouping',
+    'admin_shift_group'   => 'Shift Groups',
 
 
 
