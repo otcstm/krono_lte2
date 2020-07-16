@@ -108,6 +108,10 @@ Route::group(['middleware' => ['auth']], function () {
   //Log activity
   Route::get('/log/listUserLogs', 'MiscController@listUserLogs')->name('log.listUserLogs');
   Route::get('/log/updUserLogs', 'MiscController@logUserAct')->name('log.logUserAct');
+
+  //view all shift group  
+  Route::get('/admin/shiftgroup', 'ShiftGroupController@showall')->name('admin.shiftgroup');
+
   //OT activity - User
   Route::get('/overtime', 'OvertimeController@list')->name('ot.list');
   Route::post('/overtime/submit', 'OvertimeController@submit')->name('ot.submit');
