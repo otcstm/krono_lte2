@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Log;
+// use Illuminate\Support\Facades\Log;
 
 use App\ExcelHandler;
 use App\BatchJob;
@@ -88,9 +88,9 @@ class ReportOT implements ShouldQueue
        if($bjob && $bjob->status == 'Queued'){
          $bjob->status = 'Processing';
          $bjob->save();
-         Log::info('batch job id: ' . $this->bjobid);
-         Log::info('start date: ' . $this->start_date);
-         Log::info('end date: ' . $this->end_date);
+         // Log::info('batch job id: ' . $this->bjobid);
+         // Log::info('start date: ' . $this->start_date);
+         // Log::info('end date: ' . $this->end_date);
 
 
          $cdate = new Carbon($this->end_date);
@@ -105,12 +105,12 @@ class ReportOT implements ShouldQueue
            $nm = 'OvertimeDetailsReport';
          }
 
-         Log::info('build filename');
+         // Log::info('build filename');
          $fname = $nm.'_'.$noww->format('YmdHis').'_'.$this->bjobid.'.xlsx';
 
          $cdate->addSecond();
 
-         Log::info('prep header');
+         // Log::info('prep header');
          if($this->btnsrh == 'gexcelm'){
            $headers = ['Personnel Number','Employee Name','IC Number','Staff ID','Company Code','Reference Number','OT Date'];
          }elseif ($this->btnsrh == 'gexceld') {
