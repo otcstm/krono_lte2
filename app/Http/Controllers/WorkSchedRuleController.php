@@ -71,20 +71,14 @@ class WorkSchedRuleController extends Controller
     }
 
     $planlist = ShiftPattern::where('is_weekly', true)->get();
-    $isShiftPlanMem = ShiftGroupMember::where('user_id',$req->user()->id)->count();
-    if($isShiftPlanMem > 0){
-      $isShiftPlanMem = 1;
-    }
-    else{
-      $isShiftPlan = 0;
-    }
 
     return view('staff.workschedulemain', [
+      'currwsr' => $currwsr,
       'cspid' => $cspid,
       'sdate' => $sdate,
       'edate' => $edate,
       'planlist' => $planlist,
-      'isShiftPlanMem' => $isShiftPlanMem
+      'usrWorkSche' => $currwsr->shiftpattern->is_weekly
     ]);
   }
 
@@ -150,13 +144,21 @@ class WorkSchedRuleController extends Controller
 
     $my = UserHelper::GetShiftCal($req->user()->id, $daterange);
 
+    $cbdate = new Carbon;
+    $currwsr = UserShiftPattern::where('user_id', $req->user()->id)
+      ->whereDate('start_date', '<=', $cbdate)
+      ->whereDate('end_date', '>=', $cbdate)
+      ->orderBy('start_date', 'desc')
+      ->first();
+
     return view('staff.workcalendar', [
       'mon' => $monlabel,
       'yr' => $ylabel,
       'header' => $head,
       'data' => $my,
       'monNext' => $monNext,
-      'monPrev' => $monPrev
+      'monPrev' => $monPrev,
+      'usrWorkSche' => $currwsr->shiftpattern->is_weekly
     ]);
 
   }
@@ -247,6 +249,13 @@ class WorkSchedRuleController extends Controller
         }
       }
     }
+    
+    $cbdate = new Carbon;
+    $currwsr = UserShiftPattern::where('user_id', $req->user()->id)
+      ->whereDate('start_date', '<=', $cbdate)
+      ->whereDate('end_date', '>=', $cbdate)
+      ->orderBy('start_date', 'desc')
+      ->first();
 
     return view('staff.workteamcalendar', [
       'mon' => $monlabel,
@@ -254,7 +263,8 @@ class WorkSchedRuleController extends Controller
       'header' => $head,
       'staffs' => $caldata,
       'monNext' => $monNext,
-      'monPrev' => $monPrev
+      'monPrev' => $monPrev,
+      'usrWorkSche' => $currwsr->shiftpattern->is_weekly
     ]);
   }
 
@@ -287,10 +297,18 @@ class WorkSchedRuleController extends Controller
     $pendingapp = WsrChangeReq::where('superior_id', $req->user()->id)
       ->where('status', 'Pending Approval')->get();
     $myown = WsrChangeReq::withTrashed()->where('user_id', $req->user()->id)->get();
+    
+    $cbdate = new Carbon;
+    $currwsr = UserShiftPattern::where('user_id', $req->user()->id)
+      ->whereDate('start_date', '<=', $cbdate)
+      ->whereDate('end_date', '>=', $cbdate)
+      ->orderBy('start_date', 'desc')
+      ->first();
 
     return view('staff.workschedulereqs', [
       'requests' => $pendingapp,
-      'mine' => $myown
+      'mine' => $myown,
+      'usrWorkSche' => $currwsr->shiftpattern->is_weekly
     ]);
 
   }
