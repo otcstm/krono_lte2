@@ -7,6 +7,22 @@
 
 <div class="row-eq-height">
   <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
+  <a href="{{route('staff.worksched')}}">
+    <div class="box box-solid box-primary">
+    <div class="box-body">
+    <div class="media">
+      <div class="media-left">
+        <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px;height:50px">
+      </div>
+      <div class="media-body">
+        <p>My Work Schedule</p>
+      </div>
+    </div>
+    </div><!-- /.box-body -->
+    </div>
+  </a>
+  </div>
+  <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
   <a href="{{route('staff.worksched', ['page' => 'myc'])}}">
     <div class="box box-solid box-primary">
     <div class="box-body">
@@ -38,7 +54,8 @@
     </div>
   </a>
   </div>
-  @if(isset($isShiftPlanMem) && $isShiftPlanMem == 0)
+  {{-- 3-{{$usrWorkSche}} --}}
+  @if(isset($usrWorkSche) && $usrWorkSche == 1)
   <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
   <a href="{{route('staff.worksched', ['page' => 'reqs'])}}">
     <div class="box box-solid box-primary">
