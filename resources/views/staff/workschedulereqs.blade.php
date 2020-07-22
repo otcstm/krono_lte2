@@ -4,7 +4,6 @@
 
 @section('content')
 <h1>Status of Change Request</h1>
-
 <div class="row-eq-height">
   <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
   <a href="{{route('staff.worksched')}}">

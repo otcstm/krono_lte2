@@ -57,7 +57,6 @@ class WorkSchedRuleController extends Controller
         } else {
           // also not found. just return OFF1 as default
           $sptr = ShiftPattern::where('code', 'OFF1')->first();
-
           $sdate = new Carbon;
           $edate = Carbon::maxValue();
           $cspid = $sptr->id;
