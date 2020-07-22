@@ -20,8 +20,8 @@
                     <th>Owner Staffno</th>
                     <th>Planner Name</th>
                     <th>Planner Staffno</th>
-                    <th>User Name</th>
-                    <th>User Staffno</th>
+                    <th>Member Name</th>
+                    <th>Member Staffno</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,7 +53,20 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $('#tList').DataTable({
-        "responsive": "true"
+        dom: '<"html5buttons">Bfrtip',
+        language: {
+                buttons: {
+                    colvis : 'show / hide', // label button show / hide
+                    colvisRestore: "Reset Kolom" //lael untuk reset kolom ke default
+                }
+        },
+        
+        buttons : [
+                    // {extend:'csv'},
+                    // {extend: 'pdf', title:'Contoh File PDF Datatables'},
+                    {extend: 'excel'}
+        ],
+        "responsive": "true"   
     });
 });
 </script>
