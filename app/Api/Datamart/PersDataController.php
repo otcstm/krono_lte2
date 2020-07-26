@@ -26,6 +26,7 @@ class PersDataController extends Controller
         $persno,
         $nic,
         $oic,
+        $primaryic,
         $staffno,
         $name,
         $ou,
@@ -89,6 +90,7 @@ class PersDataController extends Controller
         $u->staff_no    = $staffno;
         $u->persno      = $persno;
         $u->new_ic      = $nic;
+        $u->primaryic   = $primaryic;
         $u->company_id  = $comp;
         $u->orgunit     = $ou;
         $u->persarea    = $persarea;
@@ -103,6 +105,7 @@ class PersDataController extends Controller
         $ur->user_id      = $persno;
         $ur->new_ic       = $nic;
         $ur->oic          = $oic;
+        $ur->primaryic    = $primaryic;
         $ur->staffno      = $staffno;
         $ur->name         = $name;
         $ur->orgunit      = $ou;
@@ -134,6 +137,7 @@ class PersDataController extends Controller
             $req->pers_no,      //persno
             $req->new_ic_no,    //nic
             $req->old_ic_no,
+            $req->primary_ic_no,
             $req->staff_no,     //staffno
             $req->name,         //complete_name
             $req->sub_orgunit,  //orgunit
