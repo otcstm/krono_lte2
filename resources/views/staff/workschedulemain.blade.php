@@ -4,8 +4,23 @@
 
 @section('content')
 <h1>My Work Schedule</h1>
-
 <div class="row-eq-height">
+  <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
+    <a href="{{route('staff.worksched')}}">
+    <div class="box box-solid box-primary">
+    <div class="box-body">
+    <div class="media">
+      <div class="media-left">
+        <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px;height:50px">
+      </div>
+      <div class="media-body">
+        <p>My Work Schedule</p>
+      </div>
+    </div>
+    </div><!-- /.box-body -->
+    </div>
+  </a>
+  </div>
   <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
   <a href="{{route('staff.worksched', ['page' => 'myc'])}}">
     <div class="box box-solid box-primary">
@@ -38,7 +53,8 @@
     </div>
   </a>
   </div>
-  @if(isset($isShiftPlanMem) && $isShiftPlanMem == 0)
+  {{-- 0-{{$usrWorkSche}} --}}
+  @if(isset($usrWorkSche) && $usrWorkSche == 1)
   <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
   <a href="{{route('staff.worksched', ['page' => 'reqs'])}}">
     <div class="box box-solid box-primary">
@@ -71,9 +87,17 @@
                 <div class="col-md-4">Work Schedule Rule</div>
                 <div class="col-md-7">
                   <select name="spid" id="sspid" onchange="loadTimeTable()" disabled>
+                    @if($planlist->pluck('id')->contains($cspid)==false)
+                    <option value="{{ $currwsr->shiftpattern->id }}" selected>
+                      {{ $currwsr->shiftpattern->code }} : {{ $currwsr->shiftpattern->description }}
+                    </option>
+                    @else
                     @foreach($planlist as $aplan)
-                    <option value="{{ $aplan->id }}" @if($aplan->id == $cspid) selected @endif>{{ $aplan->code }} : {{ $aplan->description }}</option>
+                    <option value="{{ $aplan->id }}" @if($aplan->id == $cspid) selected @endif>
+                     {{ $aplan->code }} : {{ $aplan->description }}
+                    </option>
                     @endforeach
+                    @endif
                   </select>
                 </div>
               </div>
@@ -106,6 +130,7 @@
                   </div>
                 </div>
               </div>
+              @if($planlist->pluck('id')->contains($cspid)==true)
               <div id="baten_edit">
                 <div class="row" id="baten_edit">
                   <div class="col-md-8 text-center">
@@ -113,6 +138,7 @@
                   </div>
                 </div>
               </div>
+              @endif
             </div>
             <div class="col-md-12">
               &nbsp;
