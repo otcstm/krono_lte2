@@ -128,7 +128,7 @@ class StaffController extends Controller
           $staff = $staff->whereIn('staff_no',$iiStaffno);
         }
         if(isset($iPMIC)){
-          $staff = $staff->whereIn('new_ic',$iiPMIC); 
+          $staff = $staff->whereIn('new_ic',$iiPMIC);
         }
         $staff = $staff ->orderBy('name', 'ASC')->get();
 
@@ -187,7 +187,7 @@ class StaffController extends Controller
               }
               else {
                 $onestaff->wccode='N/A';
-                $onestaff->wcdesc='N/A'; //not found
+                $onestaff->wcdesc=''; //not found
                           }
                 }
 

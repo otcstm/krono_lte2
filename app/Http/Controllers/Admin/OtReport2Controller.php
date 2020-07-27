@@ -963,7 +963,8 @@ class OtReport2Controller extends Controller
           if(in_array( 'dytype',$pilihcol))
           {
             try {
-              $dtype = $value->daytype->description;
+              // $dtype = $value->daytype->description;
+              $dtype = $value->daytype->code;
             } catch (\Exception $e) {
               $dtype = $value->daytype_id;
             }
@@ -1202,7 +1203,8 @@ class OtReport2Controller extends Controller
             if(in_array( 'dytype',$pilihcol))
             {
               try {
-                $dtype = $mainOT->daytype->description;
+                // $dtype = $mainOT->daytype->description;
+                $dtype = $mainOT->daytype->code;
               } catch (\Exception $e) {
                 $dtype = $mainOT->daytype_id;
               }
