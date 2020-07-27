@@ -334,10 +334,7 @@
                   <br />
                   <b>Email:</b>
                   <span style="word-break: break-all">{{ $row_subord->email }}</span>
-                  <br />
-                  <button type="button" class="btn btn-np">
-                      RETURN
-                  </button>
+                  
 
   </div>
   </div>
