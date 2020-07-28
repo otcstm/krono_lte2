@@ -41,9 +41,9 @@
                             <b>Ot Salary Exception:</b>
                             @if(!empty($OtIndicator))
                               @if ($OtIndicator->ot_salary_exception == 'Y')
-                              Yes
+                              Actual
                               @elseif ($OtIndicator->ot_salary_exception == 'N')
-                              No
+                              Limit
                               @else
                               N/A
                               @endif
@@ -334,10 +334,7 @@
                   <br />
                   <b>Email:</b>
                   <span style="word-break: break-all">{{ $row_subord->email }}</span>
-                  <br />
-                  <button type="button" class="btn btn-np">
-                      RETURN
-                  </button>
+
 
   </div>
   </div>
