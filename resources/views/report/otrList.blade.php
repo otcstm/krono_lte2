@@ -222,7 +222,8 @@
            @elseif( $col == 'trnscd')
           <td>{{ $otr->legacy_code ?? 'N/A'}}</td>
             @elseif( $col == 'dytype')
-          <td>{{ $otr->daytype->description ?? $otr->daytype_id}}</td>
+          <!-- <td>{{ $otr->daytype->description ?? $otr->daytype_id}}</td> -->
+          <td>{{ $otr->daytype->code ?? $otr->daytype_id}}</td>
 
         @endif
         @endforeach

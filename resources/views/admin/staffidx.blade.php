@@ -111,9 +111,9 @@
                         <td>{{ $singleuser->rs->costcentr ?? 'N/A'}}</td>
                         <td>
                           @if ($singleuser->ot_salary_exception == 'Y')
-                          Yes
+                          Actual
                           @elseif ($singleuser->ot_salary_exception == 'N')
-                          No
+                          Limit
                           @else
                           N/A
                           @endif

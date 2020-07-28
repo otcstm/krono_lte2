@@ -187,7 +187,7 @@ class StaffController extends Controller
               }
               else {
                 $onestaff->wccode='N/A';
-                $onestaff->wcdesc='N/A'; //not found
+                $onestaff->wcdesc=''; //not found
                           }
                 }
 
@@ -244,7 +244,7 @@ class StaffController extends Controller
         } else {
           // $staffr = $staff->pluck('id');
           $staffr = $staff;
-          
+
         }
 
       // dd($staffr);

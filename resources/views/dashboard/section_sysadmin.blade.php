@@ -1,7 +1,7 @@
 
 <h1>System Admin</h1>
 <div class="row row-eq-height">
-  <!-- /t1 --> 
+  <!-- /t1 -->
   <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('role.list', [], false) }}">
     <div class="box box-solid">
@@ -22,7 +22,7 @@
     </div>
     </a>
   </div>
-  <!-- /t2 --> 
+  <!-- /t2 -->
   <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('company.index', [], false) }}">
     <div class="box box-solid">
@@ -43,7 +43,7 @@
     </div>
     </a>
   </div>
-  <!-- /t3 --> 
+  <!-- /t3 -->
   <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('state.show', [], false) }}">
     <div class="box box-solid">
@@ -64,7 +64,7 @@
     </div>
     </a>
   </div>
-  <!-- /t4 --> 
+  <!-- /t4 -->
   <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('psubarea.index', [], false) }}">
     <div class="box box-solid">
@@ -89,7 +89,7 @@
 
 <!-- /row2 -->
 <div class="row row-eq-height">
- 
+
  <!-- /t1 -->
    <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('holiday.show', [], false) }}">
@@ -111,8 +111,8 @@
     </div>
     </a>
   </div>
-  
- <!-- /t2 --> 
+
+ <!-- /t2 -->
     <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('wd.index', [], false) }}">
     <div class="box box-solid">
@@ -133,8 +133,8 @@
     </div>
     </a>
   </div>
-  
-  <!-- /t3 --> 
+
+  <!-- /t3 -->
     <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('sp.index', [], false) }}">
     <div class="box box-solid">
@@ -155,8 +155,8 @@
     </div>
     </a>
   </div>
-  
-  <!-- /t4 --> 
+
+  <!-- /t4 -->
   <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('oe.eligibility.show', [], false) }}">
     <div class="box box-solid">
@@ -176,15 +176,15 @@
     </div><!-- /.box-header -->
     </div>
     </a>
-  </div> 
- 
+  </div>
+
 
 </div>
 
 <!-- /row3 -->
 <div class="row row-eq-height">
- 
- <!-- /t1 --> 
+
+ <!-- /t1 -->
     <div class="col-md-3 col-sm-6 col-xs-12 ">
       <a href="{{ route('pygroup.index', [], false) }}">
       <div class="box box-solid">
@@ -204,9 +204,9 @@
       </div><!-- /.box-header -->
       </div>
       </a>
-    </div> 
+    </div>
 
-<!-- /t2 -->  
+<!-- /t2 -->
     <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('paymentsc.index', [], false) }}">
     <div class="box box-solid">
@@ -226,9 +226,9 @@
     </div><!-- /.box-header -->
     </div>
     </a>
-  </div> 
- 
- <!-- /t3 --> 
+  </div>
+
+ <!-- /t3 -->
   <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('oe.show', [], false) }}">
     <div class="box box-solid">
@@ -249,8 +249,8 @@
     </div>
     </a>
   </div>
-  
-<!-- /t4 --> 
+
+<!-- /t4 -->
   <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('announcement.show', [], false) }}">
     <div class="box box-solid">
@@ -297,9 +297,9 @@
     </div>
     </a>
   </div>
-  <!-- /t2 --> 
+  <!-- /t2 -->
   <div class="col-md-3 col-sm-6 col-xs-12 ">
-    <a href="{{ route('staff.list', [], false) }}">
+    <a href="{{ route('staff.idx', [], false) }}">
     <div class="box box-solid">
     <div class="box-body">
     <div class="media">
@@ -318,7 +318,7 @@
     </div>
     </a>
   </div>
-  
+
   <!-- /t3 -->
   <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('ot.admin', [], false) }}">
@@ -393,7 +393,7 @@
 </div><!-- ./row5 -->
 
 
-  
+
    {{-- <div class="col-md-3 col-sm-6 col-xs-12 ">
     <a href="{{ route('misc.home', [], false) }}">
     <div class="box box-solid">
