@@ -559,7 +559,11 @@ class UserHelper {
     }else{
       if($dt->day_type=="PH"){ //=================================================PUBLIC HOLIDAY
         $dayt = "PHD";
-        $lg = OvertimeFormula::where('company_id',$ur->company_id)->where('region',$ot->region)->where("day_type", $dayt)->where('min_hour','<=',$ot->total_hour)->where('max_hour','>=',$ot->total_hour);
+        $lg = OvertimeFormula::where('company_id',$ur->company_id)
+        ->where('region',$ot->region)->where("day_type", $dayt)
+        ->where('min_hour','<=',$ot->total_hour)
+        ->where('max_hour','>=',$ot->total_hour);
+
         if($ot->total_hours_minutes>$whmax){
           $lg = $lg->where('min_minute', 1);
           if($ur->ot_salary_exception == "N"){
@@ -573,9 +577,8 @@ class UserHelper {
           }else{
             $amount= $lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes);
           }
-
         }else{
-          $lg = $lg->where('min_minute', 0);
+          $lg = $lg->where('min_minute', 0)->first();
           if($ur->ot_salary_exception == "N"){
             $oe = URHelper::getUserEligibility($ot->user_id, $ot->date);
             if($oe){

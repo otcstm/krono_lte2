@@ -198,7 +198,11 @@ class ShiftGroupController extends Controller
     // double check if this staff in any group
     $ingrp = ShiftGroupMember::where('user_id', $req->user_id)->first();
     if($ingrp){
-      return redirect()->back()->with(['alert' => 'Selected user already in group', 'a_type' => 'danger']);
+      $gname = $ingrp->Group->group_name;
+      $gmanager = $ingrp->Group->Manager->name;
+      return redirect()->back()->with([
+        'alert' => 'Selected user already in group '.$gname.' (Group Owner: '.$gmanager.'). Kindly liaise with '.$gmanager.' to release the team member.', 
+        'a_type' => 'danger']);
     }
 
     // add to group
