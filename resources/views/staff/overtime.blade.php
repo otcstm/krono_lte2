@@ -133,7 +133,7 @@
     </div>
     <div id="submitbtn" class="panel-footer" style="display: none">
         <div class="text-right">
-            <form id="submitform" action="{{route('ot.submit',[],false)}}" method="POST"  style="display:inline">
+            <form id="submitform" action="{{route('ot.submit',[],false)}}" method="POST" onsubmit="return submits()"  style="display:inline">
                 @csrf
                 <input type="text" class="hidden" id="submitid" name="submitid" value="" required>
                 <input type="text" class="hidden" id="multi" name="multi" value="yes" required>
@@ -297,5 +297,25 @@ function submission(){
     // }
 }
 
+function submits(){
+        // $('input[name="inputact[]"').eq(2).val("A");
+        
+            // alert($('#action-3').val());
+            // return false;
+        Swal.fire({
+            title: 'Submitting form',
+            html: 'Please wait while we process your submission.',
+            timerProgressBar: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            showConfirmButton: false,
+            showCancelButton: false,
+            customClass: "load",
+            onBeforeOpen: () => {
+            Swal.showLoading()}
+        })
+        // return false;
+    }
 </script>
 @stop
