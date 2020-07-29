@@ -440,6 +440,22 @@ body{
     background: #EF7202 !important;
 }
 
+.load .swal2-confirm{
+    padding: 0 !important;
+    /* border-radius: initial !important; */
+    /* border: initial !important; */
+    background: initial !important;
+    border-radius: 2.5em !important;
+    background-color: transparent!important;
+    color: transparent!important;
+    border: .25em solid transparent !important;
+    border-left-color: rgb(48, 133, 214) !important;
+    border-right-color: rgb(48, 133, 214) !important;
+    width: 2.45em !important;
+    height: 2.45em !important;
+    margin: .46875em;
+}
+
 .test .swal2-confirm{
     padding: 6px 30px !important;
     border-radius: 25px !important;

@@ -71,7 +71,7 @@
 
     @if(count($otlist)!=0)
         
-        <form action="{{route('ot.query',[],false)}}" method="POST" style="display:inline"> 
+        <form action="{{route('ot.query',[],false)}}" method="POST" style="display:inline" onsubmit="return submits()"> 
             @csrf    
             @if($view=='verifier')
             <input type="text" class="hidden" name="typef" value="verifier" required>
@@ -109,6 +109,10 @@
                         @foreach($otlist as $no=>$singleuser)
                         <tr>
                             <input type="text" class="form-control hidden" name="inputid[]" value="{{$singleuser->id}}" required>
+                            <input type="text" class="form-control hidden" name="inputact[]" value="">
+                            <input type="text" class="form-control hidden" name="inputapp[]" value="">
+                            <input type="text" class="form-control hidden" name="inputver[]" value="">
+                            <input type="text" class="form-control hidden" name="inputrem[]" value="">
                             <td>{{++$no}}</td>
                             <td>{{ $singleuser->name->name }}</td>
                             <td><a href="" id="a-{{$no}}" style="font-weight: bold; color: #143A8C" data-id="{{$singleuser->id}}">{{ date("d.m.Y", strtotime($singleuser->date)) }}</a></td>
@@ -190,7 +194,7 @@
                                 </select>
                             </td>
                             <td id="aremark-{{$no}}" style="display: none">
-                                <textarea rows = "4" cols="40" type="text" maxlength="300" id="inputremark-{{$no}}" name="inputremark[]" value="" placeholder="" onkeydown="this.onchange();"  onkeyup="this.onchange();" onchange='return checkstringx({{$no}});' style="max-height: 180px; resize: vertical; overflow-y: scroll; display: inline" readonly ></textarea>
+                                <textarea rows = "4" cols="40" type="text" maxlength="300" id="inputremark-{{$no}}" name="inputremark[]" value="" placeholder="" onkeydown="this.onchange();" onchange='return checkstringx({{$no}});' style="max-height: 180px; resize: vertical; overflow-y: scroll; display: inline" readonly ></textarea>
                                 <p style="float: right" class="small">Text remaining: <span id="textremain-{{$no}}">300</span></p>
                             </td>
                             @endif
@@ -280,7 +284,17 @@
     }
     $("#search-date-1").attr("max", y+"-"+m+"-"+d);
     $("#search-date-2").attr("max", y+"-"+m+"-"+d);
+    
     $(document).ready(function() {
+
+        // var inputact = [];
+        {{--@if($otlist ?? '')
+            @foreach($otlist as $singleuser)
+                inputact.push("");
+            @endforeach
+        @endif--}}
+        // $('#inputact').val(inputact);
+
         var tot = $('#tOTList').DataTable({
             "responsive": "true",
             // "order" : [[1, "asc"]],
@@ -298,9 +312,12 @@
             $('#pagenumber').val(info.page + 1);
         } );
 
+        // var ts = tot.rows().data();
+        // alert(ts.length);
+        // alert($('#inputact').val());
+        // $('#inputact').val(inputact);
+        // inputact
        // var info = tot.page.info();
-        
-
 
         // var t = $('#time').DataTable({
         //     "responsive": "true",
@@ -329,12 +346,17 @@
 
     function checkstringx(i){
         $("#textremain-"+i).text(300-$("#inputremark-"+i).val().length);
+        $('input[name="inputrem[]"').eq(i-1).val($('#inputremark-'+i).val());
     }
 
     function reset(i){
         $("#action-"+i).val("");
         $("#inputremark-"+i).prop('readonly',true);
         $("#inputremark-"+i).val("");
+        $('input[name="inputact[]"').eq(i-1).val("");
+        $('input[name="inputapp[]"').eq(i-1).val("");
+        $('input[name="inputver[]"').eq(i-1).val("");
+        $('input[name="inputrem[]"').eq(i-1).val("");
         $("#inputremark-"+i).prop('required',false);
         $("#inputremark-"+i).attr("placeholder", "");
         $("textremain-"+i).text("300");
@@ -402,6 +424,8 @@
     var sendtype;
     function remark(i){
         return function(){
+            
+            $('input[name="inputact[]"').eq(i-1).val($('#action-'+i).val());
             @if($otlist ?? '')
                 table();
             @endif
@@ -421,6 +445,7 @@
                             $("#inputremark-"+i).prop('readonly',false);
                             $("#inputremark-"+i).prop('required',true);
                             $("#inputremark-"+i).val($('#remark').val());
+                            $('input[name="inputrem[]"').eq(i-1).val($('#remark').val());
                             @if(($view=='approver')||($view=='admin'))
                                 $("#verifier-"+i).val($("#verifier-cache-"+i).val());
                                 $("#show-verifier-"+i).text($("#show-verifier-cache-"+i).text());
@@ -434,6 +459,7 @@
                         }
                 })
             }else if($("#action-"+i).val()==""){
+                
                 // reset(i);
             }else if($("#action-"+i).val()=="Assign"){
                 // alert($(this).find(':selected').data('type'));
@@ -445,6 +471,7 @@
                 }else{
                     sendtype = "verify"
                 }
+                
                 // reset(i);
                 Swal.fire({
                     title: 'Terms and Conditions',
@@ -656,6 +683,8 @@
 
     function addverifier(id, num, name){
         $('#verifier-'+no).val(id);
+        $('input[name="inputver[]"').eq(no-1).val($('#verifier-'+no).val());
+        $('input[name="inputact[]"').eq(no-1).val("Assign");
         $('#show-verifier-'+no).text(name);
         $('#show-verifier-na-'+no).addClass("hidden");
         $('#show-verifier-a-'+no).removeClass("hidden");
@@ -674,6 +703,8 @@
     function addapprover(id, num, name){
         console.log(no +" "+ num);
         $('#approver-'+no).val(id);
+        $('input[name="inputapp[]"').eq(no-1).val($('#approver-'+no).val());
+        $('input[name="inputact[]"').eq(no-1).val("Assign");
         $('#show-approver-'+no).text(name);
         $('#show-approver-a-'+no).data("id", id);
         for(i = 0; i<number; i++){
@@ -757,8 +788,12 @@
                             if(succeed){                               
                                 if(titles=="Verifier"){         
                                     $("#action-"+i).val("Assign");
+                                    $('input[name="inputver[]"').eq(i-1).val($('#verifier-'+i).val());
+
                                 }else{
                                     $("#action-"+i).val("Change");
+                                    $('input[name="inputapp[]"').eq(i-1).val($('#approver-'+i).val());
+
                                 }
                                 table();
                                 $('#remark-'+i).css("display", "table-row");
@@ -1391,9 +1426,28 @@
             confirmButtonText:'OK'
             })
             return false;
-        }
+        }        
+    }
 
+    function submits(){
+        // $('input[name="inputact[]"').eq(2).val("A");
         
+            // alert($('#action-3').val());
+            // return false;
+        Swal.fire({
+            title: 'Submitting form',
+            html: 'Please wait while we process your submission.',
+            timerProgressBar: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            showConfirmButton: false,
+            showCancelButton: false,
+            customClass: "load",
+            onBeforeOpen: () => {
+            Swal.showLoading()}
+        })
+        // return false;
     }
 
     @if(session()->has('feedback'))
