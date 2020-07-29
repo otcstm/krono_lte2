@@ -20,7 +20,7 @@
         
         @if($view=='admin')
         
-        <form action="{{route('ot.adminsearch')}}" method="POST" onsubmit="return submitsearch()"> 
+        <form action="{{route('ot.adminsearch',[],false)}}" method="POST" onsubmit="return submitsearch()"> 
             @csrf    
             <h4><b>Search Parameter</b></h4>
             <div class="row">
@@ -71,7 +71,7 @@
 
     @if(count($otlist)!=0)
         
-        <form action="{{route('ot.query')}}" method="POST" style="display:inline"> 
+        <form action="{{route('ot.query',[],false)}}" method="POST" style="display:inline"> 
             @csrf    
             @if($view=='verifier')
             <input type="text" class="hidden" name="typef" value="verifier" required>
@@ -244,7 +244,7 @@
 </div>
 
         
-<form action="{{route('ot.detail')}}" method="POST" class="hidden" id="form">
+<form action="{{route('ot.detail',[],false)}}" method="POST" class="hidden" id="form">
     @csrf
     <input type="text" class="hidden" name="detailid" id="detailid" value="" required>
     @if($view=='verifier')

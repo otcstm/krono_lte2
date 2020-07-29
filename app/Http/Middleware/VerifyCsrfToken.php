@@ -21,7 +21,8 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         //'overtime/query',
         //'overtime/approval',
-        'overtime/*'
+        'overtime/*',
+        'logout'
         //
     ];
 }
