@@ -1380,7 +1380,7 @@ class OvertimeController extends Controller{
             $otlist = $req->session()->get('otlist');
         }
         $yes = false;
-        // dd($otlist);
+        dd($otlist);
         for($i=0; $i<count($otlist); $i++){
             if($req->inputaction[$i]!=""){
                 $reg = Psubarea::where('state_id', $otlist[$i]->name->stateid->id)->first();
