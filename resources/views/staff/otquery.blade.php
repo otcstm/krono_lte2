@@ -208,7 +208,8 @@
             @if(($view=='verifier')||($view=='approver')||($view=='admin'))
                 @if($otlist ?? '')
                 <div id="submitbtn" class="panel-footer">
-                    <div class="text-right">    
+                    <div class="text-right">  
+                    <input type="hidden" name="pagenumber" id="pagenumber" value="0" />  
                         <button type="submit" class="btn btn-primary btn-p">SUBMIT</button>
                     </div>
                 </div>
@@ -280,7 +281,7 @@
     $("#search-date-1").attr("max", y+"-"+m+"-"+d);
     $("#search-date-2").attr("max", y+"-"+m+"-"+d);
     $(document).ready(function() {
-        $('#tOTList').DataTable({
+        var tot = $('#tOTList').DataTable({
             "responsive": "true",
             // "order" : [[1, "asc"]],
             "searching": false,
@@ -290,6 +291,16 @@
                 'csv', 'excel', 'pdf'
             ]
         });
+        $('#pagenumber').val(tot.page.info().page + 1);
+
+            $('#tOTList').on( 'page.dt', function () {
+            var info = tot.page.info();
+            $('#pagenumber').val(info.page + 1);
+        } );
+
+       // var info = tot.page.info();
+        
+
 
         // var t = $('#time').DataTable({
         //     "responsive": "true",
@@ -304,6 +315,7 @@
         //     });
         // }).draw();
     });
+
     
     function yes(i){
         return function(){
