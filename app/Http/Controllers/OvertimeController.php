@@ -174,7 +174,11 @@ class OvertimeController extends Controller
     {
         $claim = Overtime::where('id', $req->delid)->first();
         $updatemonth = OvertimeMonth::find($claim->month_id);
-        $totaltime = (($updatemonth->hour*60)+$updatemonth->minute)-((($claim->total_hour)*60)+$claim->total_minute);
+        $time = (($claim->total_hour)*60)+$claim->total_minute;
+        if($time >= 420){
+            $time = $time - 420;
+        }
+        $totaltime = (($updatemonth->hour*60)+$updatemonth->minute)-($time);
         $updatemonth->hour = (int)($totaltime/60);
         $updatemonth->total_hour = (int)($totaltime/60);
         $updatemonth->minute = ($totaltime%60);
@@ -235,7 +239,11 @@ class OvertimeController extends Controller
                         // $eligiblehour = URHelper::getUserEligibility($req->user()->company_id, $region->region, $claim->date);
                         $eligiblehour = URHelper::getUserEligibility($claim->user_id, $claim->date);
                         $month = OvertimeMonth::where('id', $claim->month_id)->first();
-                        $totalsubmit = ($month->hour*60+$month->minute) + ($claim->total_hour*60+$claim->total_minute);
+                        $time = (($claim->total_hour)*60)+$claim->total_minute;
+                        if($time >= 420){
+                            $time = $time - 420;
+                        }
+                        $totalsubmit = ($month->hour*60+$month->minute) + $time;
                         // dd($eligiblehour->hourpermonth*60);
                         // dd($totalsubmit);
                         
@@ -271,7 +279,11 @@ class OvertimeController extends Controller
                         }
                     }
                     $updatemonth = OvertimeMonth::find($updateclaim->month_id);
-                    $totalsubmit = (($updatemonth->total_hour*60)+$updatemonth->total_minute)+(($updateclaim->total_hour*60)+$updateclaim->total_minute);
+                    $time = (($updateclaim->total_hour)*60)+$updateclaim->total_minute;
+                    if($time >= 420){
+                        $time = $time - 420;
+                    }
+                    $totalsubmit = (($updatemonth->total_hour*60)+$updatemonth->total_minute)+($time);
                     $updatemonth->total_hour = (int)($totalsubmit/60);
                     $updatemonth->total_minute = $totalsubmit%60;
                     $updatemonth->save();
@@ -399,6 +411,7 @@ class OvertimeController extends Controller
                     $draftclaim->region =  $region->region;
                     $draftclaim->charge_type =  "Own Cost Center";
                     $draftclaim->costcenter =  $staffr->costcentr;
+                    $draftclaim->sal_exception =  $staffr->ot_salary_exception;
                     $draftclaim->wage_type =  null; //temp
 
                     // $draftclaim->wage_type =  $wage->legacy_codes; //temp
@@ -647,7 +660,11 @@ class OvertimeController extends Controller
             $newdetail->justification = $req->inputremarknew;
             $newdetail->is_manual = "X";
             $updatemonth = OvertimeMonth::find($claim->month_id);
-            $totaltime = (($updatemonth->hour*60)+$updatemonth->minute)+(($hour*60)+$minute);
+            $time = ($hour*60)+$minute;
+            if($time >= 420){
+                $time = $time - 420;
+            }
+            $totaltime = (($updatemonth->hour*60)+$updatemonth->minute)+($time);
             $updatemonth->hour = (int)($totaltime/60);
             $updatemonth->minute = ($totaltime%60);
             $updateclaim = Overtime::find($claim->id);
@@ -706,18 +723,26 @@ class OvertimeController extends Controller
                     $updatemonth = OvertimeMonth::find($claim->month_id);
                     $updateclaim = Overtime::find($claim->id);
 
+                    $time = ($hour*60)+$minute;
+                    if($time >= 420){
+                        $time = $time - 420;
+                    }
+                    $time2 = ($updatedetail->hour*60)+$updatedetail->minute;
+                    if($time2 >= 420){
+                        $time2 = $time2 - 420;
+                    }
                     //if checkbox changed
                     if ($operation=="Y") {
-                        $totaltimem = (($updatemonth->hour*60)+$updatemonth->minute)+(($hour*60)+$minute);
+                        $totaltimem = (($updatemonth->hour*60)+$updatemonth->minute)+$time;
                         $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)+(($hour*60)+$minute);
                         $updateclaim->amount = $updateclaim->amount + $pay;
                     } elseif ($operation=="N") {
-                        $totaltimem = (($updatemonth->hour*60)+$updatemonth->minute)-(($hour*60)+$minute);
+                        $totaltimem = (($updatemonth->hour*60)+$updatemonth->minute)-$time;
                         // dd($totaltime);
                         $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)-(($hour*60)+$minute);
                         $updateclaim->amount = $updateclaim->amount - $pay;
                     } else {  //if checkbox not changed
-                        $totaltimem = (($updatemonth->hour*60)+$updatemonth->minute)-(($updatedetail->hour*60)+$updatedetail->minute)+(($hour*60)+$minute);
+                        $totaltimem = (($updatemonth->hour*60)+$updatemonth->minute)-$time2 +$time;
                         $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)-(($updatedetail->hour*60)+$updatedetail->minute)+(($hour*60)+$minute);
                         $updateclaim->amount = $updateclaim->amount - $updatedetail->amount + $pay;
                     }
@@ -1075,7 +1100,11 @@ class OvertimeController extends Controller
                 //if not on leave
                 if (($cansubmit)&&($haveapprover)) {
                     $month = OvertimeMonth::where('id', $claim->month_id)->first();
-                    $totalsubmit = (($claim->total_hour*60)+$claim->total_minute)+(($month->total_hour*60)+$month->total_minute);
+                    $time = ($claim->total_hour*60)+$claim->total_minute;
+                    if($time >= 420){
+                        $time = $time - 420;
+                    }
+                    $totalsubmit = $time+(($month->total_hour*60)+$month->total_minute);
                     $updatemonth = OvertimeMonth::find($month->id);
                     $updatemonth->total_hour = (int)($totalsubmit/60);
                     $updatemonth->total_minute = $totalsubmit%60;
@@ -1211,7 +1240,11 @@ class OvertimeController extends Controller
         $end = $claimdetail->end_time;
         $updatemonth = OvertimeMonth::find($claim->month_id);
         $updateclaim = Overtime::find($claim->id);
-        $totaltime = (($updatemonth->hour*60)+$updatemonth->minute)-((($claimdetail->hour)*60)+$claimdetail->minute);
+        $time = ($updateclaim->hour*60)+$updateclaim->minute;
+        if($time >= 420){
+            $time = $time - 420;
+        }
+        $totaltime = (($updatemonth->hour*60)+$updatemonth->minute)-$time;
         $updatemonth->hour = (int)($totaltime/60);
         $updatemonth->minute = ($totaltime%60);
         $updatemonth->total_hour = (int)($totaltime/60);
@@ -1399,10 +1432,10 @@ class OvertimeController extends Controller
             $otlist = $req->session()->get('otlist');
         }
         $yes = false;
-        //dd($otlist);
+        // dd($req);
         for ($i=0; $i<count($otlist); $i++) {
             try {
-                if ($req->inputaction[$i]!="") {
+                if ($req->inputact[$i]!="") {
                     $reg = Psubarea::where('state_id', $otlist[$i]->name->stateid->id)->first();
                     $expiry = OvertimeExpiry::where('company_id', $otlist[$i]->name->company_id)->where('region', $reg->region)->where('start_date', '<=', $otlist[$i]->date)->where('end_date', '>', $otlist[$i]->date)->first();
                     // dd($expiry);
@@ -1414,7 +1447,7 @@ class OvertimeController extends Controller
                     }
 
                     //verify
-                    if ($req->inputaction[$i]=="PA") {
+                    if ($req->inputact[$i]=="PA") {
                         // $updateclaim->date_expiry = date('Y-m-d', strtotime("+90 days"));
                         $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Verified', 'Verified');
                         //notification
@@ -1427,10 +1460,10 @@ class OvertimeController extends Controller
                         $user->notify(new OTVerifiedApplicant($myot));
                         $updateclaim->verification_date = date("Y-m-d H:i:s");
                 
-                        $updateclaim->status=$req->inputaction[$i];
+                        $updateclaim->status=$req->inputact[$i];
                     // dd($updateclaim->status);
                 //approved
-                    } elseif ($req->inputaction[$i]=="A") {
+                    } elseif ($req->inputact[$i]=="A") {
                         $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Approved', 'Approved');
                         $user = $claim->name;
                         //notification
@@ -1441,11 +1474,15 @@ class OvertimeController extends Controller
                         $user->notify(new OTApproved($myot, $cc));
                         $updateclaim->approved_date = date("Y-m-d H:i:s");
                 
-                        $updateclaim->status=$req->inputaction[$i];
+                        $updateclaim->status=$req->inputact[$i];
                     //queried
-                    } elseif ($req->inputaction[$i]=="Q2") {
+                    } elseif ($req->inputact[$i]=="Q2") {
                         $updatemonth = OvertimeMonth::find($updateclaim->month_id);
-                        $totaltime = (($updatemonth->total_hour*60)+$updatemonth->total_minute) - (($updateclaim->total_hour*60)+$updateclaim->total_minute);
+                        $time = ($updateclaim->total_hour*60)+$updateclaim->total_minute;
+                        if($time >= 420){
+                            $time = $time - 420;
+                        }
+                        $totaltime = (($updatemonth->total_hour*60)+$updatemonth->total_minute) - $time;
                         $updatemonth->total_hour = (int)($totaltime/60);
                         $updatemonth->total_minute = ($totaltime%60);
                         $updatemonth->save();
@@ -1453,7 +1490,7 @@ class OvertimeController extends Controller
                         $updateclaim->queried_date = date("Y-m-d H:i:s");
                         // dd($updatemonth->total_hour);
                         // dd($req);
-                        $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Queried', 'Queried with message: "'.$req->inputremark[$i].'"');
+                        $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Queried', 'Queried with message: "'.$req->inputrem[$i].'"');
                         // $updateclaim->date_expiry = date('Y-m-d', strtotime("+90 days"));
                     
                         //notification
@@ -1473,15 +1510,16 @@ class OvertimeController extends Controller
                             $cc = $ccuser->pluck('email')->toArray();
                             $user->notify(new OTQueryVerify($claim, $cc));
                         }
-                        $updateclaim->status=$req->inputaction[$i];
+                        $updateclaim->status=$req->inputact[$i];
                     // dd($updateclaim);
-                    } elseif ($req->inputaction[$i]=="Assign") {
+                    } elseif ($req->inputact[$i]=="Assign") {
+                        $updateclaim->verifier_id=$req->inputver[$i];
                         $updateclaim->status="PV";
                         $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Assigned Verifier', 'Assigned Verifier with message: "'.$req->inputremark[$i].'"');
-                    } elseif ($req->inputaction[$i]=="Change") {
-                        $updateclaim->approver_id=$req->approver[$i];
+                    } elseif ($req->inputact[$i]=="Change") {
+                        $updateclaim->approver_id=$req->app[$i];
                         $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Changed Approver', 'Changer Approver with message: "'.$req->inputremark[$i].'"');
-                    } elseif ($req->inputaction[$i]=="Remove") {
+                    } elseif ($req->inputact[$i]=="Remove") {
                         $updateclaim->status="PA";
                         $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Removed Verifier', 'Removed Verifier');
                     }
@@ -1493,7 +1531,6 @@ class OvertimeController extends Controller
                         }
                     }
                     // dd($req->inputaction[$i]);
-                    $updateclaim->verifier_id=$req->verifier[$i];
                     $updateclaim->save();
                     $yes = true;
                 }
