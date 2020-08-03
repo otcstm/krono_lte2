@@ -370,7 +370,7 @@ class ReportOT implements ShouldQueue
                 }
                 if(in_array( 'salexp',$sltcol))
                 {
-                  if($value->sal_exception=='X'){
+                  if($value->sal_exception=='Y'){
                     // $value->ot_hour_exception='Yes';
                     $sal_exception='Yes';
                     // $salarycap='';
@@ -383,7 +383,7 @@ class ReportOT implements ShouldQueue
                 }
                 if(in_array( 'capsal',$sltcol))
                 {
-                  if($value->sal_exception=='X'){
+                  if($value->sal_exception=='Y'){
                     // $value->ot_hour_exception='Yes';
                     // $sal_exception='Yes';
                     $salarycap='';
@@ -393,7 +393,7 @@ class ReportOT implements ShouldQueue
                     try {
                       $salarycap=$value->SalCap()->salary_cap;
                     } catch (\Exception $e) {
-                      $salarycap='COMP CODE ERROR';
+                      $salarycap='Overtime Eligibility Error';
                     }
                   }
                   array_push($info, $salarycap);
@@ -592,7 +592,7 @@ class ReportOT implements ShouldQueue
                   }
                   if(in_array( 'salexp',$sltcol))
                   {
-                    if($mainOT->sal_exception=='X'){
+                    if($mainOT->sal_exception=='Y'){
                       // $mainOT->ot_hour_exception='Yes';
                       $sal_exception='Yes';
                       // $salarycap='';
@@ -603,9 +603,10 @@ class ReportOT implements ShouldQueue
                     }
                     array_push($info, $sal_exception);
                   }
+                
                   if(in_array( 'capsal',$sltcol))
                   {
-                    if($mainOT->sal_exception=='X'){
+                    if($mainOT->sal_exception=='Y'){
                       // $mainOT->ot_hour_exception='Yes';
                       // $sal_exception='Yes';
                       $salarycap='';
@@ -615,11 +616,12 @@ class ReportOT implements ShouldQueue
                       try {
                         $salarycap=$mainOT->SalCap()->salary_cap;
                       } catch (\Exception $e) {
-                        $salarycap='COMP CODE ERROR';
+                        $salarycap='Overtime Eligibility Error';
                       }
                     }
                     array_push($info, $salarycap);
                   }
+
                   if(in_array( 'empst',$sltcol))
                   {
                     array_push($info, $urekod->empstats);
