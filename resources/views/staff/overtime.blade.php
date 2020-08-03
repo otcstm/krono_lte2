@@ -7,7 +7,7 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="text-right" style="margin-bottom: 15px">
-            <form action="{{route('ot.formnew')}}" method="POST" style="display:inline;">
+            <form action="{{route('ot.formnew',[],false)}}" method="POST" style="display:inline;">
                 @csrf
                 <button type="submit" class="btn-up" style=" margin-top: 15px">APPLY NEW OVERTIME</button>
             </form>
@@ -100,14 +100,14 @@
                                 @endif
                             </td>
                             <td class="td-btn">
-                                <form action="{{route('ot.detail')}}" method="POST" style="display:inline">
+                                <form action="{{route('ot.detail',[],false)}}" method="POST" style="display:inline">
                                     @csrf
                                     <input type="text" class="hidden" name="detailid" value="{{$singleuser->id}}" required>
                                     <input type="text" class="hidden" name="type" value="ot" required>
                                     <button type="submit" class="btn btn-np"><i class="fas fa-info-circle"></i></button>
                                 </form>
                                 @if(in_array($singleuser->status, $array = array("D1", "D2", "Q2", "Q1")))
-                                    <form action="{{route('ot.update')}}" method="POST" style="display:inline">
+                                    <form action="{{route('ot.update',[],false)}}" method="POST" style="display:inline">
                                         @csrf
                                         <input type="text" class="hidden"  name="inputid" value="{{$singleuser->id}}" required>
                                         <button type="submit" class="btn btn-np"><i class="fas fa-edit"></i></button>
@@ -116,7 +116,7 @@
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 {{--@else
-                                <form action="{{route('ot.detail')}}" method="POST" style="display:inline">
+                                <form action="{{route('ot.detail',[],false)}}" method="POST" style="display:inline">
                                     @csrf
                                     <input type="text" class="hidden" name="detailid" value="{{$singleuser->id}}" required>
                                     <input type="text" class="hidden" name="type" value="ot" required>
@@ -133,7 +133,7 @@
     </div>
     <div id="submitbtn" class="panel-footer" style="display: none">
         <div class="text-right">
-            <form id="submitform" action="{{route('ot.submit')}}" method="POST"  style="display:inline">
+            <form id="submitform" action="{{route('ot.submit',[],false)}}" method="POST" onsubmit="return submits()"  style="display:inline">
                 @csrf
                 <input type="text" class="hidden" id="submitid" name="submitid" value="" required>
                 <input type="text" class="hidden" id="multi" name="multi" value="yes" required>
@@ -166,7 +166,7 @@
     </div>
 </div> -->
 
-<form action="{{ route('ot.remove') }}" method="POST" class="hidden" id="form">
+<form action="{{ route('ot.remove',[],false) }}" method="POST" class="hidden" id="form">
     @csrf
     <input type="text" class="hidden" id="delid" name="delid" value="" required>
     <button type="submit" class="btn btn-primary">DELETE</button>
@@ -297,5 +297,25 @@ function submission(){
     // }
 }
 
+function submits(){
+        // $('input[name="inputact[]"').eq(2).val("A");
+        
+            // alert($('#action-3').val());
+            // return false;
+        Swal.fire({
+            title: 'Submitting form',
+            html: 'Please wait while we process your submission.',
+            timerProgressBar: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            showConfirmButton: false,
+            showCancelButton: false,
+            customClass: "load",
+            onBeforeOpen: () => {
+            Swal.showLoading()}
+        })
+        // return false;
+    }
 </script>
 @stop
