@@ -57,6 +57,8 @@ class OtReport2Controller extends Controller
   public function viewOTd(Request $req)//OT Detail
   {
     // dd('here');
+    ini_set("memory_limit","256M");
+    ini_set('max_execution_time', 3000); // 300 seconds = 5 minutes
     set_time_limit(0);
     $company = Company::all();
     $state = State::all();
@@ -76,6 +78,9 @@ class OtReport2Controller extends Controller
 
   public function viewStEd(Request $req)//List of Start/End OT Time (Punch)
   {
+
+    ini_set("memory_limit","256M");
+    ini_set('max_execution_time', 3000); // 300 seconds = 5 minutes
     set_time_limit(0);
     $company = Company::all();
     $state = State::all();
@@ -96,6 +101,8 @@ class OtReport2Controller extends Controller
 
   public function viewLC(Request $req)
   {
+    ini_set("memory_limit","256M");
+    ini_set('max_execution_time', 3000); // 300 seconds = 5 minutes
     set_time_limit(0);
 
     if($req->filled('searching')){
@@ -265,6 +272,8 @@ class OtReport2Controller extends Controller
 
   public function doLogExcel(Request $req)
   {
+    ini_set("memory_limit","256M");
+    ini_set('max_execution_time', 3000); // 300 seconds = 5 minutes
     set_time_limit(0);
     $fdate = $req->fdate;
     $tdate = $req->tdate;
@@ -345,6 +354,8 @@ class OtReport2Controller extends Controller
 
   public function doSEExcel(Request $req)
   {
+    ini_set("memory_limit","256M");
+    ini_set('max_execution_time', 3000); // 300 seconds = 5 minutes
     set_time_limit(0);
     $fdate = $req->fdate;
     $tdate = $req->tdate;
@@ -524,6 +535,8 @@ class OtReport2Controller extends Controller
 
   public function doOTExcel(Request $req)
   {
+    ini_set("memory_limit","256M");
+    ini_set('max_execution_time', 3000); // 300 seconds = 5 minutes
     set_time_limit(0);
     $fdate = $req->fdate;
     $tdate = $req->tdate;
@@ -801,7 +814,7 @@ class OtReport2Controller extends Controller
           }
           if(in_array( 'salexp',$pilihcol))
           {
-            if($value->sal_exception=='X'){
+            if($value->sal_exception=='Y'){
               // $value->ot_hour_exception='Yes';
               $sal_exception='Yes';
             }else{
@@ -813,13 +826,13 @@ class OtReport2Controller extends Controller
           }
           if(in_array( 'capsal',$pilihcol))
           {
-            if($value->sal_exception=='X'){
+            if($value->sal_exception=='Y'){
               $salarycap='';
             }else{
               try {
               $salarycap=$value->SalCap()->salary_cap;
               } catch (\Exception $e) {
-                $salarycap='COMP CODE ERROR';
+                $salarycap='Overtime Eligibility Error';
               }
             }
 
@@ -827,6 +840,18 @@ class OtReport2Controller extends Controller
           }
           if(in_array( 'empst',$pilihcol))
           {
+            // if($urekod->empstats == '1'){
+            //     $emp_stats='Inactive';
+            // }elseif($urekod->empstats == '2'){
+            //       $emp_stats=$urekod->empstats;
+            // }elseif($urekod->empstats == '3'){
+            //         $emp_stats='Active';
+            // }elseif($urekod->empstats == '0'){
+            //         $emp_stats='Withdrawn';
+            //   }else{
+            //     $emp_stats=$urekod->empstats;
+            //   }
+
             array_push($info, $urekod->empstats);
           }
           if(in_array( 'tthour',$pilihcol))
@@ -1023,7 +1048,7 @@ class OtReport2Controller extends Controller
             }
             if(in_array( 'salexp',$pilihcol))
             {
-              if($mainOT->sal_exception=='X'){
+              if($mainOT->sal_exception=='Y'){
                   // $mainOT->ot_hour_exception='Yes';
                   $sal_exception='Yes';
                 }else{
@@ -1035,13 +1060,13 @@ class OtReport2Controller extends Controller
             }
             if(in_array( 'capsal',$pilihcol))
             {
-              if($mainOT->sal_exception=='X'){
+              if($mainOT->sal_exception=='Y'){
                   $salarycap='';
                 }else{
                   try {
                     $salarycap=$mainOT->SalCap()->salary_cap;
                     } catch (\Exception $e) {
-                      $salarycap='COMP CODE ERROR';
+                      $salarycap='Overtime Eligibility Error';
                     }
                 }
 
@@ -1049,6 +1074,19 @@ class OtReport2Controller extends Controller
             }
             if(in_array( 'empst',$pilihcol))
             {
+              // if($urekod->empstats == '1'){
+              //     $emp_stats='Inactive';
+              // }elseif($urekod->empstats == '2'){
+              //       $emp_stats=$urekod->empstats;
+              // }elseif($urekod->empstats == '3'){
+              //         $emp_stats='Active';
+              // }elseif($urekod->empstats == '0'){
+              //         $emp_stats='Withdrawn';
+              //   }else{
+              //     $emp_stats=$urekod->empstats;
+              //
+              //   }
+
               array_push($info, $urekod->empstats);
             }
             if(in_array( 'mflag',$pilihcol))

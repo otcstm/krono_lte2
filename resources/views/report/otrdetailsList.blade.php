@@ -135,7 +135,7 @@
           <td>{{ $otr->mainOT->URecord->empsgroup ?? 'N/A'}}</td>
             @elseif( $col == 'salexp')
           <td>
-          @if( $otr->mainOT->sal_exception == 'X')
+          @if( $otr->mainOT->sal_exception == 'Y')
           Yes
           @else
           No
@@ -143,14 +143,29 @@
           </td>
           @elseif( $col == 'capsal')
           <td>
-          @if( $otr->mainOT->sal_exception == 'X')
+          @if( $otr->mainOT->sal_exception == 'Y')
           N/A
           @else
-          {{ $otr->mainOT->SalCap()->salary_cap ?? 'COMP CODE ERROR' }}
+          {{ $otr->mainOT->SalCap()->salary_cap ?? 'Overtime Eligibility Error' }}
           @endif
           </td>
           @elseif( $col == 'empst')
-          <td>{{ $otr->mainOT->URecord->empstats ?? 'N/A'}}</td>
+          <td>
+            <!-- @if($otr->mainOT->URecord->empstat == '1')
+            Inactive
+            @elseif($otr->mainOT->URecord->empstat == '2')
+            {{$otr->mainOT->URecord->empstat ?? 'N/A'}}
+            @elseif($otr->mainOT->URecord->empstat == '3')
+            Active
+            @elseif($otr->mainOT->URecord->empstat == '0')
+            Withdrawn
+            @else
+            {{ $otr->mainOT->URecord->empstat ?? 'N/A'}}
+            @endif -->
+            {{ $otr->mainOT->URecord->empstats ?? 'N/A'}}
+
+          </td>
+
           @elseif( $col == 'mflag')
           <td>{{ $otr->is_manual }}</td>
           @elseif( $col == 'loc')
