@@ -389,14 +389,22 @@ class UserHelper {
       // get the day info
       $theday = $wd->Day;
       $idday = $wd->day_type_id;
-      $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->first();
+      // $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->first();
+      $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->get();
       $hc = null;
       if($ph){
-        // $userstate = UserRecord::where('user_id', $user)->where('upd_sap','<=',$date)->first();
+      //   // $userstate = UserRecord::where('user_id', $user)->where('upd_sap','<=',$date)->first();
         $userstate = URHelper::getUserRecordByDate($user,$date);
-        // dd($userstate);
-        
-        $hc = HolidayCalendar::where('holiday_id', $ph->id)->where('state_id', $userstate->state_id)->first();
+      //   // dd($userstate);
+      //   // $hcal =  HolidayCalendar::where('state_id', $userstate->state_id)->get();
+
+      //   $hc = HolidayCalendar::where('holiday_id', $ph->id)->where('state_id', $userstate->state_id)->first();
+        foreach($ph as $phol){
+          $hc = HolidayCalendar::where('holiday_id', $phol->id)->first();
+          if($hc->state_id == $userstate->state_id){
+            break;
+          }
+        }
       }
       if($hc){
         $start = "00:00";

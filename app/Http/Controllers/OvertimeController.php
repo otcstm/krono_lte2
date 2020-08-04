@@ -403,6 +403,7 @@ class OvertimeController extends Controller
                     // $draftclaim->state_id =  $req->user()->state_id;
                     $draftclaim->state_id =  $staffr->state_id;
                     $draftclaim->daytype_id =  $day[4];
+                    $draftclaim->day_type_code =  $day_type;
                     $draftclaim->profile_id =  $staffr->id;
                     $draftclaim->company_id =  $staffr->company_id;
                     $draftclaim->persarea =  $staffr->persarea;
@@ -592,6 +593,7 @@ class OvertimeController extends Controller
                 }
             }
             $draftclaim->daytype_id =  $day[4];
+            $draftclaim->day_type_code =  $day_type;
             $draftclaim->state_id =  ($req->session()->get('draft'))[6];
             $draftclaim->company_id =  $staffr->company_id;
             $draftclaim->persarea =  $staffr->persarea;
