@@ -566,11 +566,11 @@ class UserHelper {
     }else{
       if($dt->day_type=="PH"){ //=================================================PUBLIC HOLIDAY
         $dayt = "PHD";
-        $lg = OvertimeFormula::where('company_id',$ur->company_id)
+        $lg = OvertimeFormula::query();
+        $lg = $lg->where('company_id',$ur->company_id)
         ->where('region',$ot->region)->where("day_type", $dayt)
         ->where('min_hour','<=',$ot->total_hour)
         ->where('max_hour','>=',$ot->total_hour);
-
         if($ot->total_hours_minutes>$whmax){
           $lg = $lg->where('min_minute', 1)
           ->orderby('id')->first();
@@ -596,7 +596,7 @@ class UserHelper {
           }
           $amount= $lg->rate*(($salary+$ur->allowance)/26);
         }
-        $lg = $lg->first();
+        // $lg = $lg->get();
         $legacy = $lg->legacy_codes;
 
 
@@ -620,7 +620,7 @@ class UserHelper {
           $amount= 0.5*(($salary+$ur->allowance)/26);
 
 
-        }else if($ot->total_hours_minutes>=$whmax){
+        }else if($ot->total_hours_minutes>$whmax){
           if($ot->region=="SEM"){
             $legacy = '054';
           }else if($ot->region=="SBH"){

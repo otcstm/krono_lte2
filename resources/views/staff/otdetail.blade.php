@@ -28,7 +28,8 @@
                                 @endif</b></div>
                                 <div class="col-md-4">OT Date</div><div class="col-md-8">: <b>{{date('d.m.Y', strtotime($claim->date))}}</b></div>
                                 <div class="col-md-4">Total Hours/Minute</div><div class="col-md-8">: <b>{{$claim->total_hour}}h {{$claim->total_minute}}m</b></div>
-                                </div>
+                                <div class="col-md-4">Total Day</div><div class="col-md-8">: <b>{{$claim->eligible_day}}</b></div>
+                            </div>
                         </div>
                         <div class="col-md-6">
                             <div class="row">
@@ -42,6 +43,7 @@
                                 <div class="col-md-4">Verifier</div><div class="col-md-8">: <b>{{$claim->verifier->name}} @if($claim->verifier_id!="")  ({{$claim->verifier->staff_no}}) @endif</b></div>
                                 <div class="col-md-4">Approver</div><div class="col-md-8">: <b>{{$claim->approver->name}} ({{$claim->approver->staff_no}})</b></div>
                                 <div class="col-md-4">Estimated Amount</div><div class="col-md-8">: <b>RM {{$claim->amount}}</b></div>
+                                <div class="col-md-4">Transaction Code</div><div class="col-md-8">: <b>{{$claim->legacy_code}}</b></div>
                             </div>
                         </div>
                     </div>
