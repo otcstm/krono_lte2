@@ -124,7 +124,7 @@
           <td>{{ $otr->URecord->empsgroup ?? 'N/A' }}</td>
           @elseif( $col == 'salexp')
           <td>
-            @if( $otr->sal_exception == 'X')
+            @if( $otr->sal_exception == 'Y')
             Yes
             @else
             No
@@ -132,14 +132,28 @@
           </td>
           @elseif( $col == 'capsal')
           <td>
-          @if( $otr->sal_exception == 'X')
+          @if( $otr->sal_exception == 'Y')
           N/A
           @else
-          {{ $otr->SalCap()->salary_cap ?? 'COMP CODE ERROR'}}
+          {{ $otr->SalCap()->salary_cap ?? 'Overtime Eligibility Error'}}
           @endif
           </td>
           @elseif( $col == 'empst')
-          <td>{{ $otr->URecord->empstats ?? 'N/A'}}</td>
+          <td>
+            <!-- @if($otr->URecord->empstats == '1')
+            Inactive
+            @elseif($otr->URecord->empstats == '2')
+            {{ $otr->URecord->empstats ?? 'N/A'}}
+            @elseif($otr->URecord->empstats == '3')
+            Active
+            @elseif($otr->URecord->empstats == '0')
+            Withdrawn
+            @else
+            {{ $otr->URecord->empstats ?? 'N/A'}}
+            @endif -->
+            {{ $otr->URecord->empstats ?? 'N/A'}}
+
+          </td>
           @elseif( $col == 'tthour')
           <td>{{ $otr->total_hour }}</td>
           @elseif( $col == 'ttlmin')
