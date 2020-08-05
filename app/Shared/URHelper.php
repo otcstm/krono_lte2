@@ -250,8 +250,8 @@ class URHelper
         $hourc = "";
         if($dc=="PH"){
           $dcc = "PHD";
-          $dyd = OvertimeFormula::where('company_id', $ur->company_id)->where('region', $ur->region)->where('day_type', $dcc)->where('min_hour', 7)->first();
-          $dyh = OvertimeFormula::where('company_id', $ur->company_id)->where('region', $ur->region)->where('day_type', $dcc)->where('min_hour', 0)->first();
+          $dyd = OvertimeFormula::where('company_id', $ur->company_id)->where('region', $ur->region)->where('day_type', $dcc)->where('min_hour', 0)->first();
+          $dyh = OvertimeFormula::where('company_id', $ur->company_id)->where('region', $ur->region)->where('day_type', $dcc)->where('min_hour', 7)->first();
           $dayc = $dyd->legacy_codes;
           $hourc = $dyh->legacy_codes;
         }
