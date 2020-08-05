@@ -450,7 +450,6 @@ class ShiftPlanController extends Controller
 
     public function staffInfo(Request $req){
       $sps = ShiftPlanStaff::find($req->id);
-
       if($sps){
         $staffAddInfo = UserHelper::GetUserInfo($sps->user_id);
         $curmon = new Carbon($sps->plan_month);
@@ -508,7 +507,6 @@ class ShiftPlanController extends Controller
         $lastmon = new Carbon($sps->plan_month);
         $lastmon->addMonth();
 
-
         // dd($blankc->getOptionsJson());
         return view('shiftplan.staff_detail', [
           'sps' => $sps,
@@ -535,6 +533,7 @@ class ShiftPlanController extends Controller
       $startdate = new Carbon($req->sdate);
       $hour_gap = intVal(30);
       $warning_msg = "";
+      
       
       // double check if the start date is before the last planning date
       if(isset($staffExtra->last_planning_day)){
@@ -625,9 +624,14 @@ class ShiftPlanController extends Controller
 
         // check if already crossed over the month date limit
         $nexmon = new Carbon($sps->plan_month);
-        $nexmon->addMonth()->firstOfMonth();
-        $endate = new Carbon($sps->end_date);
-
+        $nexmon = $nexmon->addMonth()->firstOfMonth();
+        //check if end_date is null - 20200804
+        if(empty($sps->end_date)){
+          $endate = $nexmon;    
+        }else{
+          $endate = new Carbon($sps->end_date);
+        }
+        //dd($nexmon, $endate, $sps);
         if($endate->gt($nexmon)){
           return redirect()->back()->with([
             'alert' => 'Already overflow to the following month',

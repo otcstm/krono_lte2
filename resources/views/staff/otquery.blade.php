@@ -1431,7 +1431,6 @@
 
     function submits(){
         // $('input[name="inputact[]"').eq(2).val("A");
-        
             // alert($('#action-3').val());
             // return false;
         Swal.fire({

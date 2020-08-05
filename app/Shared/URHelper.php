@@ -5,6 +5,7 @@ use App\User;
 use App\UserRecord;
 use App\OvertimeEligibility;
 use App\OvertimeExpiry;
+use App\OvertimeFormula;
 use App\StaffPunch;
 use App\SetupCode;
 use App\OvertimeLog;
@@ -241,6 +242,20 @@ class URHelper
          // dd($otlog);
         return $otlog;
 
+      }
+
+      public static function getDayCode($persno, $dt, $dc){
+        $ur = URHelper::getUserRecordByDate($persno, $dt);
+        $dayc = "";
+        $hourc = "";
+        if($dc=="PH"){
+          $dcc = "PHD";
+          $dyd = OvertimeFormula::where('company_id', $ur->company_id)->where('region', $ur->region)->where('day_type', $dcc)->where('min_hour', 7)->first();
+          $dyh = OvertimeFormula::where('company_id', $ur->company_id)->where('region', $ur->region)->where('day_type', $dcc)->where('min_hour', 0)->first();
+          $dayc = $dyd->legacy_codes;
+          $hourc = $dyh->legacy_codes;
+        }
+        return [$dayc, $hourc];
       }
 
 
