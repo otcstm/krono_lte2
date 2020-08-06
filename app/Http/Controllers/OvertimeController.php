@@ -553,6 +553,7 @@ class OvertimeController extends Controller
     //--------------------------------------------------add new time/auto-save form/submit form--------------------------------------------------
     public function formsubmit(Request $req)
     {
+        // dd($req);
         $status = true; //claim status
         $region = URHelper::getRegion($req->user()->perssubarea);
         // dd($req->inputdates);
@@ -643,20 +644,21 @@ class OvertimeController extends Controller
                 }
             }
             if ($req->inputendnew=="0:00") {
-                $req->inputendnew="24:00";
+                $req->inputendnew2="24:00";
             }
-            $dif = (strtotime($req->inputendnew) - strtotime($req->inputstartnew))/60;
+            $dif = (strtotime($req->inputendnew2) - strtotime($req->inputstartnew))/60;
             $hour = (int) ($dif/60);
             $minute = $dif%60;
             $pay = UserHelper::CalOT($salary, $hour, $minute);
             $newdetail = new OvertimeDetail;
             $newdetail->ot_id = $claim->id;
             $newdetail->start_time = $claim->date." ".$req->inputstartnew.":00";
-            if ($req->inputendnew=="24:00") {
+            if ($req->inputendnew2=="24:00") {
                 $newdetail->end_time = date('Y-m-d', strtotime($claim->date . "+1 days"))." ".$req->inputendnew.":00";
             } else {
                 $newdetail->end_time = $claim->date." ".$req->inputendnew.":00";
             }
+            // dd($newdetail);
             $newdetail->hour = $hour;
             $newdetail->minute = $minute;
             $newdetail->checked = "Y";
@@ -676,20 +678,44 @@ class OvertimeController extends Controller
             $updateclaim->total_hour = (int)($totaltime/60);
             $updateclaim->total_minute = ($totaltime%60);
             // if($updateclaim->day_type_code=="PH"){
+            $updateclaim->eligible_day = 0;
+            $updateclaim->eligible_total_hours_minutes_code =  null;
+            $updateclaim->eligible_total_hours_minutes = null;
+            $updateclaim->eligible_total_hours_minutes_code =  null;
+            $code = URHelper::getDayCode($updateclaim->user_id, $updateclaim->date, $updateclaim->day_type_code, $totaltime);
+            if(($updateclaim->day_type_code=="N")||($updateclaim->day_type_code=="O")){
+                $updateclaim->eligible_total_hours_minutes = $totaltime/60;
+                $updateclaim->eligible_total_hours_minutes_code =  $code[1];
+            }else{
+                $updateclaim->eligible_day = 1;
+                $updateclaim->eligible_day_code = $code[0];
                 if($totaltime >= 420){
                     $totaltime = $totaltime - 420;
-                    $updateclaim->eligible_day = 1;
-                    $code = URHelper::getDayCode($updateclaim->user_id, $updateclaim->date, $updateclaim->day_type_code);
-                    $updateclaim->eligible_day_code = $code[0];
                     $updateclaim->eligible_total_hours_minutes = $totaltime/60;
                     $updateclaim->eligible_total_hours_minutes_code =  $code[1];
-                }else{
-                    $updateclaim->eligible_day = 0;
-                    $code = URHelper::getDayCode($updateclaim->user_id, $updateclaim->date, $updateclaim->day_type_code);
-                    $updateclaim->eligible_day_code = $code[0];
-                    $updateclaim->eligible_total_hours_minutes = $totaltime/60;
-                    $updateclaim->eligible_total_hours_minutes_code =  $code[1];
-                }
+                } 
+            }
+                // if($totaltime >= 420){
+                //     $code = URHelper::getDayCode($updateclaim->user_id, $updateclaim->date, $updateclaim->day_type_code);
+                //     if(($updateclaim->day_type_code!="N")||($updateclaim->day_type_code!="O")){
+                //         $totaltime = $totaltime - 420;
+                //         $updateclaim->eligible_day = 1;
+                //         $updateclaim->eligible_day_code = $code[0];
+                //     }
+                //     $updateclaim->eligible_total_hours_minutes = $totaltime/60;
+                //     $updateclaim->eligible_total_hours_minutes_code =  $code[1];
+                // }else{
+                //     $code = URHelper::getDayCode($updateclaim->user_id, $updateclaim->date, $updateclaim->day_type_code);
+                //     if(($updateclaim->day_type_code!="N")||($updateclaim->day_type_code!="O")){
+                //         $totaltime = $totaltime - 420;
+                //         $updateclaim->eligible_day = 1;
+                //         $updateclaim->eligible_day_code = $code[0];
+                //     }
+                //     $updateclaim->eligible_day = 0;
+                //     $updateclaim->eligible_day_code = $code[0];
+                //     $updateclaim->eligible_total_hours_minutes = $totaltime/60;
+                //     $updateclaim->eligible_total_hours_minutes_code =  $code[1];
+                // }
             // }
             // dd($totaltime/60);
             $updateclaim->total_hours_minutes = ($totaltime/60);
@@ -697,6 +723,7 @@ class OvertimeController extends Controller
             $newdetail->save();
             $updatemonth->save();
             $updateclaim->save();
+            // dd($newdetail);
         }
 
         $havecheckedclaim = false;   //check have checked claim or not
@@ -771,20 +798,33 @@ class OvertimeController extends Controller
                     $updateclaim->total_hour = (int)($totaltime/60);
                     $updateclaim->total_minute = ($totaltime%60);
                     $updateclaim->total_hours_minutes = ($totaltime/60);
-                    if($totaltime >= 420){
-                        $totaltime = $totaltime - 420;
-                        $updateclaim->eligible_day = 1;
-                        $code = URHelper::getDayCode($updateclaim->user_id, $updateclaim->date, $updateclaim->day_type_code);
-                        $updateclaim->eligible_day_code = $code[0];
+                    $code = URHelper::getDayCode($updateclaim->user_id, $updateclaim->date, $updateclaim->day_type_code, $totaltime);
+                    if(($updateclaim->day_type_code=="N")||($updateclaim->day_type_code=="O")){
                         $updateclaim->eligible_total_hours_minutes = $totaltime/60;
                         $updateclaim->eligible_total_hours_minutes_code =  $code[1];
                     }else{
-                        $updateclaim->eligible_day = 0;
-                        $code = URHelper::getDayCode($updateclaim->user_id, $updateclaim->date, $updateclaim->day_type_code);
+                        $updateclaim->eligible_day = 1;
                         $updateclaim->eligible_day_code = $code[0];
-                        $updateclaim->eligible_total_hours_minutes = $totaltime/60;
-                        $updateclaim->eligible_total_hours_minutes_code =  $code[1];
+                        if($totaltime >= 420){
+                            $totaltime = $totaltime - 420;
+                            $updateclaim->eligible_total_hours_minutes = $totaltime/60;
+                            $updateclaim->eligible_total_hours_minutes_code =  $code[1];
+                        } 
                     }
+                    // if($totaltime >= 420){
+                    //     $totaltime = $totaltime - 420;
+                    //     $updateclaim->eligible_day = 1;
+                    //     $code = URHelper::getDayCode($updateclaim->user_id, $updateclaim->date, $updateclaim->day_type_code);
+                    //     $updateclaim->eligible_day_code = $code[0];
+                    //     $updateclaim->eligible_total_hours_minutes = $totaltime/60;
+                    //     $updateclaim->eligible_total_hours_minutes_code =  $code[1];
+                    // }else{
+                    //     $updateclaim->eligible_day = 0;
+                    //     $code = URHelper::getDayCode($updateclaim->user_id, $updateclaim->date, $updateclaim->day_type_code);
+                    //     $updateclaim->eligible_day_code = $code[0];
+                    //     $updateclaim->eligible_total_hours_minutes = $totaltime/60;
+                    //     $updateclaim->eligible_total_hours_minutes_code =  $code[1];
+                    // }
                     $updatedetail->checked = $req->inputcheck[$i];
                     $updatedetail->amount = $pay;
                     $updatedetail->hour = $hour;
@@ -1298,20 +1338,33 @@ class OvertimeController extends Controller
         if (count($claimdetail)==0) {
             $updateclaim->status = 'D1';
         }
-        if($totaltime >= 420){
-            $totaltime = $totaltime - 420;
-            $updateclaim->eligible_day = 1;
-            $code = URHelper::getDayCode($updateclaim->user_id, $updateclaim->date, $updateclaim->day_type_code);
-            $updateclaim->eligible_day_code = $code[0];
+        $code = URHelper::getDayCode($updateclaim->user_id, $updateclaim->date, $updateclaim->day_type_code, $totaltime);
+        if(($updateclaim->day_type_code=="N")||($updateclaim->day_type_code=="O")){
             $updateclaim->eligible_total_hours_minutes = $totaltime/60;
             $updateclaim->eligible_total_hours_minutes_code =  $code[1];
         }else{
-            $updateclaim->eligible_day = 0;
-            $code = URHelper::getDayCode($updateclaim->user_id, $updateclaim->date, $updateclaim->day_type_code);
+            $updateclaim->eligible_day = 1;
             $updateclaim->eligible_day_code = $code[0];
-            $updateclaim->eligible_total_hours_minutes = $totaltime/60;
-            $updateclaim->eligible_total_hours_minutes_code =  $code[1];
+            if($totaltime >= 420){
+                $totaltime = $totaltime - 420;
+                $updateclaim->eligible_total_hours_minutes = $totaltime/60;
+                $updateclaim->eligible_total_hours_minutes_code =  $code[1];
+            } 
         }
+        // if($totaltime >= 420){
+        //     $totaltime = $totaltime - 420;
+        //     $updateclaim->eligible_day = 1;
+        //     $code = URHelper::getDayCode($updateclaim->user_id, $updateclaim->date, $updateclaim->day_type_code);
+        //     $updateclaim->eligible_day_code = $code[0];
+        //     $updateclaim->eligible_total_hours_minutes = $totaltime/60;
+        //     $updateclaim->eligible_total_hours_minutes_code =  $code[1];
+        // }else{
+        //     $updateclaim->eligible_day = 0;
+        //     $code = URHelper::getDayCode($updateclaim->user_id, $updateclaim->date, $updateclaim->day_type_code);
+        //     $updateclaim->eligible_day_code = $code[0];
+        //     $updateclaim->eligible_total_hours_minutes = $totaltime/60;
+        //     $updateclaim->eligible_total_hours_minutes_code =  $code[1];
+        // }
         $updateclaim->save();
         $claim = Overtime::where('id', $claim->id)->first();
         Session::put(['claim' => $claim]);
@@ -1468,6 +1521,7 @@ class OvertimeController extends Controller
     //--------------------------------------------------ot query actions--------------------------------------------------
     public function query(Request $req)
     {
+        // dd($req);
         if ($req->typef=="verifier") {
             $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', 'PV')->orderBy('date_expiry')->orderBy('date')->get();
         } elseif ($req->typef=="approver") {
@@ -1479,6 +1533,7 @@ class OvertimeController extends Controller
         } elseif ($req->typef=="admin") {
             $otlist = $req->session()->get('otlist');
         }
+        // dd($otlist);
         $yes = false;
         // dd($req);
         for ($i=0; $i<count($otlist); $i++) {
@@ -1563,10 +1618,11 @@ class OvertimeController extends Controller
                     } elseif ($req->inputact[$i]=="Assign") {
                         $updateclaim->verifier_id=$req->inputver[$i];
                         $updateclaim->status="PV";
-                        $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Assigned Verifier', 'Assigned Verifier with message: "'.$req->inputremark[$i].'"');
+                        $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Assigned Verifier', 'Assigned Verifier with message: "'.$req->inputrem[$i].'"');
+                        // dd($execute);
                     } elseif ($req->inputact[$i]=="Change") {
                         $updateclaim->approver_id=$req->app[$i];
-                        $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Changed Approver', 'Changer Approver with message: "'.$req->inputremark[$i].'"');
+                        $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Changed Approver', 'Changer Approver with message: "'.$req->inputrem[$i].'"');
                     } elseif ($req->inputact[$i]=="Remove") {
                         $updateclaim->status="PA";
                         $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Removed Verifier', 'Removed Verifier');
