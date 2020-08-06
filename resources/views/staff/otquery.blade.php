@@ -110,8 +110,8 @@
                         <tr>
                             <input type="text" class="form-control hidden" name="inputid[]" value="{{$singleuser->id}}" required>
                             <input type="text" class="form-control hidden" name="inputact[]" value="">
-                            <input type="text" class="form-control hidden" name="inputapp[]" value="">
-                            <input type="text" class="form-control hidden" name="inputver[]" value="">
+                            <input type="text" class="form-control hidden" style="border: 1px solid blue" name="inputapp[]" value="">
+                            <input type="text" class="form-control hidden" style="border: 1px solid red" name="inputver[]" value="">
                             <input type="text" class="form-control hidden" name="inputrem[]" value="">
                             <td>{{++$no}}</td>
                             <td>{{ $singleuser->name->name }}</td>

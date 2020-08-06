@@ -1521,6 +1521,7 @@ class OvertimeController extends Controller
     //--------------------------------------------------ot query actions--------------------------------------------------
     public function query(Request $req)
     {
+        // dd($req);
         if ($req->typef=="verifier") {
             $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', 'PV')->orderBy('date_expiry')->orderBy('date')->get();
         } elseif ($req->typef=="approver") {
@@ -1532,6 +1533,7 @@ class OvertimeController extends Controller
         } elseif ($req->typef=="admin") {
             $otlist = $req->session()->get('otlist');
         }
+        // dd($otlist);
         $yes = false;
         // dd($req);
         for ($i=0; $i<count($otlist); $i++) {
@@ -1616,10 +1618,11 @@ class OvertimeController extends Controller
                     } elseif ($req->inputact[$i]=="Assign") {
                         $updateclaim->verifier_id=$req->inputver[$i];
                         $updateclaim->status="PV";
-                        $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Assigned Verifier', 'Assigned Verifier with message: "'.$req->inputremark[$i].'"');
+                        $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Assigned Verifier', 'Assigned Verifier with message: "'.$req->inputrem[$i].'"');
+                        // dd($execute);
                     } elseif ($req->inputact[$i]=="Change") {
                         $updateclaim->approver_id=$req->app[$i];
-                        $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Changed Approver', 'Changer Approver with message: "'.$req->inputremark[$i].'"');
+                        $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Changed Approver', 'Changer Approver with message: "'.$req->inputrem[$i].'"');
                     } elseif ($req->inputact[$i]=="Remove") {
                         $updateclaim->status="PA";
                         $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Removed Verifier', 'Removed Verifier');
