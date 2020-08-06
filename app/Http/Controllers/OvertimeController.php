@@ -553,6 +553,7 @@ class OvertimeController extends Controller
     //--------------------------------------------------add new time/auto-save form/submit form--------------------------------------------------
     public function formsubmit(Request $req)
     {
+        // dd($req);
         $status = true; //claim status
         $region = URHelper::getRegion($req->user()->perssubarea);
         // dd($req->inputdates);
@@ -643,20 +644,21 @@ class OvertimeController extends Controller
                 }
             }
             if ($req->inputendnew=="0:00") {
-                $req->inputendnew="24:00";
+                $req->inputendnew2="24:00";
             }
-            $dif = (strtotime($req->inputendnew) - strtotime($req->inputstartnew))/60;
+            $dif = (strtotime($req->inputendnew2) - strtotime($req->inputstartnew))/60;
             $hour = (int) ($dif/60);
             $minute = $dif%60;
             $pay = UserHelper::CalOT($salary, $hour, $minute);
             $newdetail = new OvertimeDetail;
             $newdetail->ot_id = $claim->id;
             $newdetail->start_time = $claim->date." ".$req->inputstartnew.":00";
-            if ($req->inputendnew=="24:00") {
+            if ($req->inputendnew2=="24:00") {
                 $newdetail->end_time = date('Y-m-d', strtotime($claim->date . "+1 days"))." ".$req->inputendnew.":00";
             } else {
                 $newdetail->end_time = $claim->date." ".$req->inputendnew.":00";
             }
+            // dd($newdetail);
             $newdetail->hour = $hour;
             $newdetail->minute = $minute;
             $newdetail->checked = "Y";
@@ -721,6 +723,7 @@ class OvertimeController extends Controller
             $newdetail->save();
             $updatemonth->save();
             $updateclaim->save();
+            // dd($newdetail);
         }
 
         $havecheckedclaim = false;   //check have checked claim or not
