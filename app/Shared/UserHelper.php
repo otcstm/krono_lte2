@@ -391,14 +391,22 @@ class UserHelper {
       // get the day info
       $theday = $wd->Day;
       $idday = $wd->day_type_id;
-      $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->first();
+      // $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->first();
+      $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->get();
       $hc = null;
       if($ph){
-        // $userstate = UserRecord::where('user_id', $user)->where('upd_sap','<=',$date)->first();
+      //   // $userstate = UserRecord::where('user_id', $user)->where('upd_sap','<=',$date)->first();
         $userstate = URHelper::getUserRecordByDate($user,$date);
-        // dd($userstate);
-        
-        $hc = HolidayCalendar::where('holiday_id', $ph->id)->where('state_id', $userstate->state_id)->first();
+      //   // dd($userstate);
+      //   // $hcal =  HolidayCalendar::where('state_id', $userstate->state_id)->get();
+
+      //   $hc = HolidayCalendar::where('holiday_id', $ph->id)->where('state_id', $userstate->state_id)->first();
+        foreach($ph as $phol){
+          $hc = HolidayCalendar::where('holiday_id', $phol->id)->first();
+          if($hc->state_id == $userstate->state_id){
+            break;
+          }
+        }
       }
       if($hc){
         $start = "00:00";
@@ -560,11 +568,11 @@ class UserHelper {
     }else{
       if($dt->day_type=="PH"){ //=================================================PUBLIC HOLIDAY
         $dayt = "PHD";
-        $lg = OvertimeFormula::where('company_id',$ur->company_id)
+        $lg = OvertimeFormula::query();
+        $lg = $lg->where('company_id',$ur->company_id)
         ->where('region',$ot->region)->where("day_type", $dayt)
         ->where('min_hour','<=',$ot->total_hour)
         ->where('max_hour','>=',$ot->total_hour);
-
         if($ot->total_hours_minutes>$whmax){
           $lg = $lg->where('min_minute', 1)
           ->orderby('id')->first();
@@ -590,7 +598,7 @@ class UserHelper {
           }
           $amount= $lg->rate*(($salary+$ur->allowance)/26);
         }
-        $lg = $lg->first();
+        // $lg = $lg->get();
         $legacy = $lg->legacy_codes;
 
 
@@ -614,7 +622,7 @@ class UserHelper {
           $amount= 0.5*(($salary+$ur->allowance)/26);
 
 
-        }else if($ot->total_hours_minutes>=$whmax){
+        }else if($ot->total_hours_minutes>$whmax){
           if($ot->region=="SEM"){
             $legacy = '054';
           }else if($ot->region=="SBH"){

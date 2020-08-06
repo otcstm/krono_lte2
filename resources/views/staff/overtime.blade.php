@@ -28,6 +28,7 @@
                         <th>OT Date</th>
                         <th>Start OT</th>
                         <th>End OT</th>
+                        <th>Total Day</th>
                         <th>Total Hours/Minutes</th>
                         <th>Day Type</th>
                         <th>Charge Code</th>
@@ -45,6 +46,7 @@
                             <td>{{ date("d.m.Y", strtotime($singleuser->date)) }}</td>
                             <td>@foreach($singleuser->detail as $details) @if($details->checked=="Y") {{date('Hi', strtotime($details->start_time)) }}<br> @endif @endforeach</td>
                             <td>@foreach($singleuser->detail as $details) @if($details->checked=="Y") {{ date('Hi', strtotime($details->end_time))}}<br> @endif @endforeach</td>
+                            <td>{{ $singleuser->eligible_day }}</td>
                             <td>{{ $singleuser->total_hour }}h {{ $singleuser->total_minute }}m</td>
                             <td>@if($singleuser->daytype->day_type == "N")
                                     Normal Day
