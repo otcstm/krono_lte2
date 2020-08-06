@@ -104,7 +104,7 @@
                         <td>{{ $singleuser->rs->new_ic }}</td>
                         <td>{{ $singleuser->rs->email }}</td>
                         <td>{{ $singleuser->rs->empstats }}</td>
-                        <td>{{ $singleuser->rs->perssubarea}} <br> {{$singleuser->rs->getreg()->perssubareades}}</td>
+                        <td>{{ $singleuser->rs->perssubarea ?? ''}} <br> {{$singleuser->rs->getreg()->perssubareades ?? ''}}</td>
                         <td>@if($singleuser->rs->company_id ?? ''){{$singleuser->rs->company_id}} <br>{{ $singleuser->rs->companyid->company_descr }}@endif</td>
                         <td>{{ $singleuser->rs->empgroup }}</td>
                         <td>{{ $singleuser->rs->getreg()->region ?? 'N/A'}}</td>
