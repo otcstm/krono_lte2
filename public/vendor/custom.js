@@ -352,7 +352,7 @@ function showError2(error) {
 function punchman(){
     // alert(now);
     wtm = Date.parse(now).toString("yyyy-MM-dd HH:mm");
-    alert(startclock+" "+lat+" "+long);
+    // alert(startclock+" "+lat+" "+long);
     $.ajax({
         url: '/punch/start?time='+startclock+'&lat='+lat+'=&long='+long,
         type: "GET",
