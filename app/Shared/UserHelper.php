@@ -405,6 +405,8 @@ class UserHelper {
           $hc = HolidayCalendar::where('holiday_id', $phol->id)->first();
           if($hc->state_id == $userstate->state_id){
             break;
+          }else{
+            $hc = null;
           }
         }
       }
