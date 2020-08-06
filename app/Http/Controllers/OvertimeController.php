@@ -810,6 +810,10 @@ class OvertimeController extends Controller
                             $totaltime = $totaltime - 420;
                             $updateclaim->eligible_total_hours_minutes = $totaltime/60;
                             $updateclaim->eligible_total_hours_minutes_code =  $code[1];
+                        }else{
+                            
+                            $updateclaim->eligible_total_hours_minutes = 0;
+                            $updateclaim->eligible_total_hours_minutes_code =  null;
                         } 
                     }
                     $updatedetail->checked = $req->inputcheck[$i];
