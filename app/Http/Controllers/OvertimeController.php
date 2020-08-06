@@ -443,8 +443,7 @@ class OvertimeController extends Controller
                             
                             $salary = $salarycap->salary_cap;
                         }
-                        $pay = UserHelper::CalOT($salary, $punches->hour, $punches->minute);
-                        $newclaim->amount = $pay;
+                        
                         $newclaim->justification = "";
                         $newclaim->in_latitude = $punches->in_latitude;
                         $newclaim->in_longitude = $punches->in_longitude;
@@ -452,6 +451,13 @@ class OvertimeController extends Controller
                         $newclaim->out_longitude = $punches->out_longitude;
                         $newclaim->save();
                         $staffpunch->save();
+                        $updateclaim = OvertimeDetail::latest()->first(); 
+                        $pay = UserHelper::CalOT($updateclaim->id);
+                        // $pay = UserHelper::CalOT($salary, $punches->hour, $punches->minute);
+                        $updateclaim->amount = $pay;
+                        $draftclaim->amount = $draftclaim->amount + $pay;
+                        $newclaim->save();
+                        $draftclaim->save();
                     }
                     $execute = UserHelper::LogOT($claim->id, $req->user()->id, "Created draft", "Created draft for ".$claim->refno);
                     $claim = Overtime::where('user_id', $req->user()->id)->where('date', $req->inputdate)->first();
@@ -651,7 +657,7 @@ class OvertimeController extends Controller
             // dd($dif);
             $hour = (int) ($dif/60);
             $minute = $dif%60;
-            $pay = UserHelper::CalOT($salary, $hour, $minute);
+            // $pay = UserHelper::CalOT($salary, $hour, $minute);
             $newdetail = new OvertimeDetail;
             $newdetail->ot_id = $claim->id;
             $newdetail->start_time = $claim->date." ".$req->inputstartnew.":00";
@@ -664,11 +670,11 @@ class OvertimeController extends Controller
             $newdetail->hour = $hour;
             $newdetail->minute = $minute;
             $newdetail->checked = "Y";
-            $newdetail->amount = $pay;
             $newdetail->justification = $req->inputremarknew;
             $newdetail->is_manual = "X";
             $updatemonth = OvertimeMonth::find($claim->month_id);
             $time = ($hour*60)+$minute;
+            $time2 = $time;
             if($time >= 420){
                 $time = $time - 420;
             }
@@ -697,33 +703,16 @@ class OvertimeController extends Controller
                     $updateclaim->eligible_total_hours_minutes_code =  $code[1];
                 } 
             }
-                // if($totaltime >= 420){
-                //     $code = URHelper::getDayCode($updateclaim->user_id, $updateclaim->date, $updateclaim->day_type_code);
-                //     if(($updateclaim->day_type_code!="N")||($updateclaim->day_type_code!="O")){
-                //         $totaltime = $totaltime - 420;
-                //         $updateclaim->eligible_day = 1;
-                //         $updateclaim->eligible_day_code = $code[0];
-                //     }
-                //     $updateclaim->eligible_total_hours_minutes = $totaltime/60;
-                //     $updateclaim->eligible_total_hours_minutes_code =  $code[1];
-                // }else{
-                //     $code = URHelper::getDayCode($updateclaim->user_id, $updateclaim->date, $updateclaim->day_type_code);
-                //     if(($updateclaim->day_type_code!="N")||($updateclaim->day_type_code!="O")){
-                //         $totaltime = $totaltime - 420;
-                //         $updateclaim->eligible_day = 1;
-                //         $updateclaim->eligible_day_code = $code[0];
-                //     }
-                //     $updateclaim->eligible_day = 0;
-                //     $updateclaim->eligible_day_code = $code[0];
-                //     $updateclaim->eligible_total_hours_minutes = $totaltime/60;
-                //     $updateclaim->eligible_total_hours_minutes_code =  $code[1];
-                // }
-            // }
-            // dd($totaltime/60);
-            $updateclaim->total_hours_minutes = ($totaltime/60);
-            $updateclaim->amount = $updateclaim->amount + $pay;
             $newdetail->save();
+            // dd($pay);
+            $claimdetail = OvertimeDetail::latest()->first(); 
+            $pay = UserHelper::CalOT($claimdetail->id);
+            // $pay = UserHelper::CalOT($salary, $punches->hour, $punches->minute);
+            $claimdetail->amount = $pay;
+            $updateclaim->amount = $updateclaim->amount + $pay;
+            $updateclaim->total_hours_minutes = ($time2/60);
             $updatemonth->save();
+            $claimdetail->save();
             $updateclaim->save();
             // dd($newdetail);
         }
@@ -747,15 +736,23 @@ class OvertimeController extends Controller
                         $status = false;
                     }
                     $end = $req->inputend[$i];
+                    $end2 = $end;
                     if ($end=="0:00") {
                         // dd($req->inputend[$i]);
-                        $end="24:00";
+                        $end2="24:00";
                     }
-                    $dif = (strtotime($end) - strtotime($req->inputstart[$i]))/60;
+                    $dif = (strtotime($end2) - strtotime($req->inputstart[$i]))/60;
                     $hour = (int) ($dif/60);
                     $minute = $dif%60;
-                    $pay = UserHelper::CalOT($salary, $hour, $minute);
+                    // $pay = UserHelper::CalOT($salary, $hour, $minute);
                     $updatedetail = $claimdetail[$i];
+                    $uphm = ($updatedetail->hour*60)+($updatedetail->minute);
+                    $updatedetail->hour = $hour;
+                    $updatedetail->minute = $minute;
+                    $updatedetail->save();
+                    $updatedetail= $claimdetail[$i];
+                    $pay = UserHelper::CalOT($updatedetail->id);
+                    $updatedetail->amount = $pay;
                     $updatedetail->start_time = $claim->date." ".$req->inputstart[$i].":00";
                     if ($end=="00:00") {
                         $newdetail->end_time = date('Y-m-d', strtotime($claim->date . "+1 days"))." ".$end.":00";
@@ -792,8 +789,10 @@ class OvertimeController extends Controller
                         $updateclaim->amount = $updateclaim->amount - $pay;
                     } else {  //if checkbox not changed
                         $totaltimem = (($updatemonth->hour*60)+$updatemonth->minute)-$time2 +$time;
-                        $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)-(($updatedetail->hour*60)+$updatedetail->minute)+(($hour*60)+$minute);
+                        $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)-($uphm)+(($hour*60)+$minute);
+                        // $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)-(($updatedetail->hour*60)+$updatedetail->minute)+(($hour*60)+$minute);
                         $updateclaim->amount = $updateclaim->amount - $updatedetail->amount + $pay;
+                        // dd($totaltime);
                     }
                     $updatemonth->hour = (int)($totaltimem/60);
                     $updatemonth->minute = ($totaltimem%60);
@@ -813,24 +812,7 @@ class OvertimeController extends Controller
                             $updateclaim->eligible_total_hours_minutes_code =  $code[1];
                         } 
                     }
-                    // if($totaltime >= 420){
-                    //     $totaltime = $totaltime - 420;
-                    //     $updateclaim->eligible_day = 1;
-                    //     $code = URHelper::getDayCode($updateclaim->user_id, $updateclaim->date, $updateclaim->day_type_code);
-                    //     $updateclaim->eligible_day_code = $code[0];
-                    //     $updateclaim->eligible_total_hours_minutes = $totaltime/60;
-                    //     $updateclaim->eligible_total_hours_minutes_code =  $code[1];
-                    // }else{
-                    //     $updateclaim->eligible_day = 0;
-                    //     $code = URHelper::getDayCode($updateclaim->user_id, $updateclaim->date, $updateclaim->day_type_code);
-                    //     $updateclaim->eligible_day_code = $code[0];
-                    //     $updateclaim->eligible_total_hours_minutes = $totaltime/60;
-                    //     $updateclaim->eligible_total_hours_minutes_code =  $code[1];
-                    // }
                     $updatedetail->checked = $req->inputcheck[$i];
-                    $updatedetail->amount = $pay;
-                    $updatedetail->hour = $hour;
-                    $updatedetail->minute = $minute;
                     $updatedetail->save();
                     $updatemonth->save();
                     $updateclaim->save();
@@ -1059,6 +1041,8 @@ class OvertimeController extends Controller
                 }
             }
         }
+        $updateclaim->save();
+        $updateclaim = Overtime::find($claim->id);
         $wla = UserHelper::GetWageLegacyAmount($claim->id);
         $updateclaim->legacy_code = $wla[0];
         $updateclaim->amount = $wla[1];
@@ -1327,11 +1311,15 @@ class OvertimeController extends Controller
         $updatemonth->total_hour = (int)($totaltime/60);
         $updatemonth->total_minute = ($totaltime%60);
         $updatemonth->save();
-        $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)-((($claimdetail->hour)*60)+$claimdetail->minute);
-        
-        $updateclaim->total_hour = (int)($totaltime/60);
-        $updateclaim->total_minute = ($totaltime%60);
-        $updateclaim->amount = $updateclaim->amount - $claimdetail->amount;
+
+        if($claimdetail->checked=="Y"){
+            $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)-((($claimdetail->hour)*60)+$claimdetail->minute);
+            
+            $updateclaim->total_hour = (int)($totaltime/60);
+            $updateclaim->total_minute = ($totaltime%60);
+            $updateclaim->total_hours_minutes = ($totaltime/60);
+            $updateclaim->amount = $updateclaim->amount - $claimdetail->amount;
+        }
         OvertimeDetail::find($req->delid)->delete();
         if ($claimdetail->clock_in!=null) {
             $delotpunch = OvertimePunch::where('start_time', $claimdetail->clock_in)->delete();

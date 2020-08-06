@@ -7,6 +7,7 @@ use App\Shared\URHelper;
 use App\User;
 use App\UserLog;
 use App\Overtime;
+use App\OvertimeDetail;
 use App\OvertimeLog;
 use App\OvertimeFormula;
 use App\OvertimeEligibility;
@@ -350,14 +351,107 @@ class UserHelper {
         return 'OK';
     }
 
-    public static function CalOT($salary, $h, $m)
-    {
-      $time = ($h*60)+$m;
-      $work = 26*7*60;
-      $rate = $salary/$work;
-      $pay = 1.5*$rate*$time;
-      return $pay;
+    public static function CalOT($otdid){
+      $otd = OvertimeDetail::where('id', $otdid)->first();
+      $ot = Overtime::where('id', $otd->ot_id)->first();
+      $ur = URHelper::getUserRecordByDate($ot->user_id, $ot->date);
+      $cd = UserHelper::CheckDay($ot->user_id, $ot->date);
+      $dt = DayType::where("id", $cd[4])->first();
+      $salary=$ur->salary;
+      if($ur->ot_salary_exception == "N"){
+        $oe = URHelper::getUserEligibility($ot->user_id, $ot->date);
+        // $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->empgroup)->where('empsgroup', $ur->empsgroup)->where('psgroup', $ur->psgroup)->where('region', $ot->region)->first();
+        if($oe){
+          $salary = $oe->salary_cap;
+        }
+      }
+      //check if there's any shift planned for this person
+      $wd = ShiftPlanStaffDay::where('user_id', $ot->user_id)->whereDate('work_date', $ot->date)->first();
+      if($wd){
+        $whmax = $dt->working_hour;
+        $whmin = $dt->working_hour/2;
+      } else {
+        $whmax = 7;
+        $whmin = 3.5;
+      }
+      if($dt->day_type=="N"){ //=================================================NORMAL
+        $dayt = "NOR";
+        $lg = OvertimeFormula::where('company_id',$ur->company_id)->where('region',$ot->region)
+        ->where("day_type", $dayt)->first();
+        if(26*$dt->working_hour==0){
+          $amount = 0;
+        }else{
+          $amount= $lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*((($otd->hour*60)+$otd->minute)/60);
+        }
+      }else{
+        if($dt->day_type=="PH"){ //=================================================PUBLIC HOLIDAY
+          $dayt = "PHD";
+          $lg = OvertimeFormula::query();
+          $lg = $lg->where('company_id',$ur->company_id)
+          ->where('region',$ot->region)->where("day_type", $dayt)
+          ->where('min_hour','<=',$otd->hour)
+          ->where('max_hour','>=',$otd->hour);
+          if((($otd->hour*60)+$otd->minute)>($whmax*60)){
+            $lg = $lg->where('min_minute', 1)
+            ->orderby('id')->first();
+            $lg2 = OvertimeFormula::where('company_id',$ur->company_id)
+            ->where('region',$ot->region)->where("day_type", $dayt)
+            ->where('min_hour',0)->where('min_minute', 0)
+            ->orderby('id')->first();
+            if(26*$dt->working_hour==0){
+              $amount = 0;
+            }else{
+              $amount2= $lg2->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*($whmax);
+              $amount= $amount2 + ($lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*(((($otd->hour*60)+$otd->minute)-($whmax*60))/60));
+            }
+          }else{
+            $lg = $lg->where('min_minute', 0)
+            ->orderby('id')->first();
+            $amount= $lg->rate*(($salary+$ur->allowance)/26);
+          }
+  
+        }else if($dt->day_type=="R"){ //=================================================RESTDAY
+          $dayt = "RST";
+          if((($otd->hour*60)+$otd->minute)<=($whmin*60)){
+            $amount= 0.5*(($salary+$ur->allowance)/26);
+  
+  
+          }else if((($otd->hour*60)+$otd->minute)>($whmax*60)){
+            if(26*$dt->working_hour==0){
+              $amount = 0;
+            }else{ 
+              $amount2= 1*(($salary+$ur->allowance)/26);
+              $amount= $amount2+(2*(($salary+$ur->allowance)/(26*$dt->working_hour))*(((($otd->hour*60)+$otd->minute)-($whmax*60))/60));
+            }
+  
+          }else{
+            $amount= 1*(($salary+$ur->allowance)/26);
+          }
+          
+          // $lg = $lg->first();
+          // $legacy = $lg->legacy_codes;
+  
+        }else{
+          $dayt = "OFF";
+          if(26*$dt->working_hour==0){
+            $amount = 0;
+          }else{
+            $amount= 1.5*(($salary+$ur->allowance)/(26*$dt->working_hour))*((($otd->hour*60)+$otd->minute)/60);
+          }
+        }
+        
+      }
+      return $amount;
     }
+
+    // public static function CalOT($salary, $h, $m)
+    // {
+    //   $time = ($h*60)+$m;
+    //   $work = 26*7*60;
+    //   $rate = $salary/$work;
+    //   $pay = 1.5*$rate*$time;
+    //   return $pay;
+    // }
 
     public static function CheckLeave($user, $date)
     {
@@ -377,10 +471,13 @@ class UserHelper {
       $wd = ShiftPlanStaffDay::where('user_id', $user)
         ->whereDate('work_date', $date)->first();
 // dd($wd);
+      $ph = null;
+      $hc = null;
       if($wd){
 
       } else {
         // not a shift staff. get based on the wsr
+        $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->get();
         $currwsr = UserHelper::GetWorkSchedRule($user, $date);
         // then get that day
         // dd($currwsr);
@@ -390,8 +487,6 @@ class UserHelper {
       $theday = $wd->Day;
       $idday = $wd->day_type_id;
       // $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->first();
-      $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->get();
-      $hc = null;
       if($ph){
       //   // $userstate = UserRecord::where('user_id', $user)->where('upd_sap','<=',$date)->first();
         $userstate = URHelper::getUserRecordByDate($user,$date);
@@ -538,6 +633,13 @@ class UserHelper {
     $cd = UserHelper::CheckDay($ot->user_id, $ot->date);
     $dt = DayType::where("id", $cd[4])->first();
     $salary=$ur->salary;
+    if($ur->ot_salary_exception == "N"){
+      $oe = URHelper::getUserEligibility($ot->user_id, $ot->date);
+      // $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->empgroup)->where('empsgroup', $ur->empsgroup)->where('psgroup', $ur->psgroup)->where('region', $ot->region)->first();
+      if($oe){
+        $salary = $oe->salary_cap;
+      }
+    }
     //check if there's any shift planned for this person
     $wd = ShiftPlanStaffDay::where('user_id', $ot->user_id)->whereDate('work_date', $ot->date)->first();
     if($wd){
@@ -552,13 +654,6 @@ class UserHelper {
       $lg = OvertimeFormula::where('company_id',$ur->company_id)->where('region',$ot->region)
       ->where("day_type", $dayt)->first();
       $legacy = $lg->legacy_codes;
-      if($ur->ot_salary_exception == "N"){
-        $oe = URHelper::getUserEligibility($ot->user_id, $ot->date);
-        // $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->empgroup)->where('empsgroup', $ur->empsgroup)->where('psgroup', $ur->psgroup)->where('region', $ot->region)->first();
-        if($oe){
-          $salary = $oe->salary_cap;
-        }
-      }
       if(26*$dt->working_hour==0){
         $amount = 0;
       }else{
@@ -576,32 +671,22 @@ class UserHelper {
         if($ot->total_hours_minutes>$whmax){
           $lg = $lg->where('min_minute', 1)
           ->orderby('id')->first();
-          if($ur->ot_salary_exception == "N"){
-            $oe = URHelper::getUserEligibility($ot->user_id, $ot->date);
-            if($oe){
-              $salary = $oe->salary_cap;
-            }
-          }
+          $lg2 = OvertimeFormula::where('company_id',$ur->company_id)
+          ->where('region',$ot->region)->where("day_type", $dayt)
+          ->where('min_hour',0)->where('min_minute', 0)
+          ->orderby('id')->first();
           if(26*$dt->working_hour==0){
             $amount = 0;
           }else{
-            $amount= $lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes);
+            $amount2= $lg2->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*($whmax);
+            $amount= $amount2 + ($lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes - $whmax));
           }
         }else{
           $lg = $lg->where('min_minute', 0)
           ->orderby('id')->first();
-          if($ur->ot_salary_exception == "N"){
-            $oe = URHelper::getUserEligibility($ot->user_id, $ot->date);
-            if($oe){
-              $salary = $oe->salary_cap;
-            }
-          }
           $amount= $lg->rate*(($salary+$ur->allowance)/26);
         }
-        // $lg = $lg->get();
         $legacy = $lg->legacy_codes;
-
-
 
       }else if($dt->day_type=="R"){ //=================================================RESTDAY
         $dayt = "RST";
@@ -613,14 +698,8 @@ class UserHelper {
           }else{
             $legacy = '252';
           }
-          if($ur->ot_salary_exception == "N"){
-            $oe = URHelper::getUserEligibility($ot->user_id, $ot->date);
-            if($oe){
-              $salary = $oe->salary_cap;
-            }
-          }
           $amount= 0.5*(($salary+$ur->allowance)/26);
-
+          // dd($ot->total_hours_minutes." s");
 
         }else if($ot->total_hours_minutes>$whmax){
           if($ot->region=="SEM"){
@@ -630,31 +709,21 @@ class UserHelper {
           }else{
             $legacy = '254';
           }
-          if($ur->ot_salary_exception == "N"){
-            $oe = URHelper::getUserEligibility($ot->user_id, $ot->date);
-            if($oe){
-              $salary = $oe->salary_cap;
-            }
-          }
           if(26*$dt->working_hour==0){
             $amount = 0;
-          }else{
-            $amount= 2*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes);
+          }else{ 
+            $amount2= 1*(($salary+$ur->allowance)/26);
+            $amount= $amount2+(2*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes-$whmax));
           }
-
+          // dd($ot->total_hours_minutes." ss");
         }else{
+          // dd($ot->total_hours_minutes." sss");
           if($ot->region=="SEM"){
             $legacy = '053';
           }else if($ot->region=="SBH"){
             $legacy = '153';
           }else{
             $legacy = '253';
-          }
-          if($ur->ot_salary_exception == "N"){
-            $oe = URHelper::getUserEligibility($ot->user_id, $ot->date);
-            if($oe){
-              $salary = $oe->salary_cap;
-            }
           }
           $amount= 1*(($salary+$ur->allowance)/26);
         }
@@ -669,12 +738,6 @@ class UserHelper {
           $legacy = $lg->legacy_codes;
         }else{
           $legacy = '05K';
-        }
-        if($ur->ot_salary_exception == "N"){
-          $oe = URHelper::getUserEligibility($ot->user_id, $ot->date);
-          if($oe){
-            $salary = $oe->salary_cap;
-          }
         }
         if(26*$dt->working_hour==0){
           $amount = 0;
