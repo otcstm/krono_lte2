@@ -643,17 +643,19 @@ class OvertimeController extends Controller
                     ]);
                 }
             }
+            $inputendnew2 = $req->inputendnew;
             if ($req->inputendnew=="0:00") {
-                $req->inputendnew2="24:00";
+                $inputendnew2="24:00";
             }
-            $dif = (strtotime($req->inputendnew2) - strtotime($req->inputstartnew))/60;
+            $dif = (strtotime($inputendnew2) - strtotime($req->inputstartnew))/60;
+            // dd($dif);
             $hour = (int) ($dif/60);
             $minute = $dif%60;
             $pay = UserHelper::CalOT($salary, $hour, $minute);
             $newdetail = new OvertimeDetail;
             $newdetail->ot_id = $claim->id;
             $newdetail->start_time = $claim->date." ".$req->inputstartnew.":00";
-            if ($req->inputendnew2=="24:00") {
+            if ($inputendnew2=="24:00") {
                 $newdetail->end_time = date('Y-m-d', strtotime($claim->date . "+1 days"))." ".$req->inputendnew.":00";
             } else {
                 $newdetail->end_time = $claim->date." ".$req->inputendnew.":00";
