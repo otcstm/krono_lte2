@@ -244,11 +244,32 @@ class URHelper
 
       }
 
-      public static function getDayCode($persno, $dt, $dc){
+      public static function getDayCode($persno, $dt, $dc, $total){
         $ur = URHelper::getUserRecordByDate($persno, $dt);
-        $dayc = "";
-        $hourc = "";
-        if($dc=="PH"){
+        $dayc = null;
+        $hourc = null;
+        if($dc=="N"){
+          $dcc = "NOR";
+          $dyh = OvertimeFormula::where('company_id', $ur->company_id)->where('region', $ur->region)->where('day_type', $dcc)->first();
+          $hourc = $dyh->legacy_codes;
+        }else if($dc=="O"){
+          $dcc = "OFF";
+          $dyh = OvertimeFormula::where('company_id', $ur->company_id)->where('region', $ur->region)->where('day_type', $dcc)->first();
+          $hourc = $dyh->legacy_codes;
+        }else if($dc=="R"){
+          $dcc = "RST";
+          if($total>=210){
+            $dyd = OvertimeFormula::where('company_id', $ur->company_id)->where('region', $ur->region)->where('day_type', $dcc)->where('min_hour', 3)->first();
+            $dayc = $dyd->legacy_codes;
+            if($total>=420){
+              $dyh = OvertimeFormula::where('company_id', $ur->company_id)->where('region', $ur->region)->where('day_type', $dcc)->where('min_hour', 7)->first();
+              $hourc = $dyh->legacy_codes;
+            }
+          }else{
+            $dyd = OvertimeFormula::where('company_id', $ur->company_id)->where('region', $ur->region)->where('day_type', $dcc)->where('min_hour', 0)->first();
+            $dayc = $dyd->legacy_codes;
+          }
+        }else if($dc=="PH"){
           $dcc = "PHD";
           $dyd = OvertimeFormula::where('company_id', $ur->company_id)->where('region', $ur->region)->where('day_type', $dcc)->where('min_hour', 0)->first();
           $dyh = OvertimeFormula::where('company_id', $ur->company_id)->where('region', $ur->region)->where('day_type', $dcc)->where('min_hour', 7)->first();
