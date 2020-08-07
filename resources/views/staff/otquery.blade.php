@@ -90,7 +90,9 @@
                             <th>Day Type</th>
                             <th>Start OT</th>
                             <th>End OT</th>
+                            <th>Total Day</th>
                             <th>Total Hours/Minutes</th>
+                            <th>Transaction Code</th>
                             <th>Amount (Estimated)</th>
                             <th>Status</th>
                             @if(($view=='verifier')||($view=='approver')||($view=='admin'))
@@ -136,7 +138,10 @@
                                     {{ date('Hi', strtotime($details->end_time))}}<br>
                                 @endforeach
                             </td>
-                            <td>{{ $singleuser->total_hour }}h {{ $singleuser->total_minute }}m</td>
+                            <td>{{ $singleuser->eligible_day }}</td>
+                            <td>@if($singleuser->eligible_day==0){{$singleuser->total_hour}}h {{$singleuser->total_minute}}m @else @php($total = $singleuser->eligible_total_hours_minutes*60) {{(int)($total/60)}}h {{$total%60}}m @endif</td>
+                            <td>@if(($singleuser->eligible_day_code)&&($singleuser->eligible_total_hours_minutes_code)) {{$singleuser->eligible_day_code}}, {{$singleuser->eligible_total_hours_minutes_code}} @elseif($singleuser->eligible_total_hours_minutes_code) {{$singleuser->eligible_total_hours_minutes_code}} @else {{$singleuser->eligible_day_code}} @endif</td>
+                            
                             <td>RM{{$singleuser->amount}}</td>
                             <td>@if($singleuser->status=="PA")
                                     <span>Pending Approval</span>
@@ -1435,7 +1440,7 @@
             // return false;
         Swal.fire({
             title: 'Submitting form',
-            html: 'Please wait while we process your submission.',
+            html: 'Please wait while we process your submission. DO NOT RELOAD/CLOSE THIS TAB!',
             timerProgressBar: true,
             allowOutsideClick: false,
             allowEscapeKey: false,
