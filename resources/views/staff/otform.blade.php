@@ -57,7 +57,7 @@
                         </p>
                         <form id="formdate" action="{{route('ot.formdate')}}" method="POST">
                             @csrf
-                            <p>OT Date: <input type="text" class='datepicker-here' data-language='en' data-date-format="yyyy-mm-dd" id="inputdate" name="inputdate" 
+                            <p>OT Date: <input type="text" data-language='en' data-date-format="yyyy-mm-dd" id="inputdate" name="inputdate" 
                                 
                                 @if($claim ?? '')
                                     value="{{$claim->date}}"
