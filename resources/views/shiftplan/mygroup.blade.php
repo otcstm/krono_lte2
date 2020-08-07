@@ -50,8 +50,9 @@
            </td>
            {{-- <td>{{ $ap->Members->count() }}</td> --}}
            <td style="text-align: center !important">
+            <a href="{{ route('shift.mygroup.view', ['sgid' => $ap->id], false) }}"><button type="button" class="btn btn-np" title="Edit"> <i class="fas fa-pencil-alt"></i></button></a>
              {{-- <a href="{{ route('shift.mygroup', ['sgid' => $ap->id], false) }}"><button type="button" class="btn btn-np" title="Assign Planner"> <i class="glyphicon glyphicon-repeat"></i></button></a> --}}
-             @if($countrow == 1)
+             {{-- @if($countrow == 1)
              <a href="{{ route('shift.mygroup.view', ['sgid' => $ap->id], false) }}"><button type="button" class="btn btn-np" title="Edit"> <i class="fas fa-pencil-alt"></i></button></a>
               @else 
              <form method="post" action="{{ route('shift.group.del', [], false) }}" onsubmit='return confirm("Confirm delete?")'  class="text-center">
@@ -60,7 +61,7 @@
               <button type="submit" class="btn btn-np" title="Delete"><i class="fas fa-trash-alt"></i></button>
               <input type="hidden" name="id" value="{{ $ap->id }}" />
               </form>   
-              @endif   
+              @endif    --}}
             </td>
          </tr>
          @php $countrow++ @endphp
