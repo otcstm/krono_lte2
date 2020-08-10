@@ -1615,7 +1615,7 @@ class OvertimeController extends Controller
                         $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Assigned Verifier', 'Assigned Verifier with message: "'.$req->inputrem[$i].'"');
                         // dd($execute);
                     } elseif ($req->inputact[$i]=="Change") {
-                        $updateclaim->approver_id=$req->app[$i];
+                        $updateclaim->approver_id=$req->inputapp[$i];
                         $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Changed Approver', 'Changer Approver with message: "'.$req->inputrem[$i].'"');
                     } elseif ($req->inputact[$i]=="Remove") {
                         $updateclaim->status="PA";
