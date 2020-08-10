@@ -147,6 +147,7 @@ class ShiftGroupController extends Controller
         $therestofthepattern = ShiftPattern::whereIn('id', $SpFilterByComp->pluck('shift_pattern_id'))
         ->whereNotIn('id', $grup->ShiftPatterns->pluck('id'))
         ->where('is_weekly', false)->get();   
+        //->where('is_weekly', false)->toSQL();   
       }
       // else{
       //   // $therestofthepattern = ShiftPattern::whereNotIn('id', $grup->ShiftPatterns->pluck('id'))
@@ -270,7 +271,10 @@ class ShiftGroupController extends Controller
 
   public function delGroup(Request $req){
     $cgroup = ShiftGroup::find($req->id);
-
+    //check admin/hcbd
+    $urole = DB::table('role_user')->whereIn('role_id',[2,3])->where('user_id',$req->user()->id);
+    //dd($urole);
+    
     if($cgroup){
       $gname = $cgroup->group_code;
       // remove all member of this group first
@@ -279,10 +283,20 @@ class ShiftGroupController extends Controller
       // then only delete this group
       $cgroup->delete();
 
-      return redirect(route('shift.group', [], false))->with(['alert' => 'Shift Group ' . $gname . ' deleted', 'a_type' => 'warning']);
+      if($urole->Count() > 0){
+        // admin/hcbd redirect page
+        return redirect(route('shift.group', [], false))->with(['alert' => 'Shift Group ' . $gname . ' deleted', 'a_type' => 'warning']);
+      } else {
+        return redirect(route('shift.mygroup', [], false))->with(['alert' => 'Shift Group ' . $gname . ' deleted', 'a_type' => 'warning']);
+      }
+
     } else {
-      return redirect(route('shift.group', [], false))->with(['alert' => 'Group not found', 'a_type' => 'warning']);
-    }
+      if($urole->Count() > 0){
+        // admin/hcbd redirect page
+        return redirect(route('shift.group', [], false))->with(['alert' => 'Group not found', 'a_type' => 'warning']);
+      } else {
+        return redirect(route('shift.mygroup', [], false))->with(['alert' => 'Group not found', 'a_type' => 'warning']);
+      }}
   }
 
   public function ApiSearchStaff(Request $req){
@@ -342,6 +356,12 @@ class ShiftGroupController extends Controller
 
   public function mygroup(Request $req){
     $dups = ShiftGroup::where('manager_id', $req->user()->id)->get();
+    $urole = DB::table('role_user')->whereIn('role_id',[2,3])->where('user_id',$req->user()->id);
+    if($urole->count() > 0){
+      $urole = 1;
+    } else {
+      $urole = 0;
+    }
 
     if($req->filled('sgid')){
       $tsg = ShiftGroup::find($req->sgid);
@@ -350,7 +370,8 @@ class ShiftGroupController extends Controller
         if($tsg->manager_id != $req->user()->id){
           return redirect(route('shift.mygroup'))->with([
             'alert' => 'You are not the owner of that group',
-            'a_type' => 'warning'
+            'a_type' => 'warning',
+            'urole' => $urole
           ]);
         }
 
@@ -363,7 +384,8 @@ class ShiftGroupController extends Controller
           'p_list' => $dups,
           'sgid' => $req->sgid,
           'grp' => $tsg,
-          'planner_name' => $plannername
+          'planner_name' => $plannername,
+          'urole' => $urole
         ]);
 
       }
@@ -371,7 +393,8 @@ class ShiftGroupController extends Controller
         // group 404
         return redirect(route('shift.mygroup'))->with([
           'alert' => 'Shift group not found',
-          'a_type' => 'warning'
+          'a_type' => 'warning',
+          'urole' => $urole
         ]);
         }
 
@@ -379,7 +402,8 @@ class ShiftGroupController extends Controller
     }
     else{
       return view('shiftplan.mygroup', [
-        'p_list' => $dups
+        'p_list' => $dups,
+        'urole' => $urole
       ]);
     }
 

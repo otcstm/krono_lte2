@@ -47,13 +47,15 @@ class UserHelper {
         array_push($rv, [
           'type' => $sd->Day->description,
           'time' => $sd->Day->getTimeRange(),
-          'bg' => ''
+          'bg' => '',
+          'dateWork' => $sd->work_day
         ]);
       } else {
         array_push($rv, [
           'type' => 'N/A',
           'time' => '',
-          'bg' => 'pink'
+          'bg' => 'pink',
+          'dateWork' => ''
         ]);
       }
     }

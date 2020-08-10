@@ -80,6 +80,14 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/staffidx', 'Admin\StaffController@idxStaff')->name('staff.idx');
   Route::post('/staff/searchst', 'Admin\StaffController@cariStaff')->name('staff.cari');
 
+  //Listing of project
+  Route::get('/admin/project', 'Admin\ProjectController@index')->name('project.list');
+  Route::post('/admin/project', 'Admin\ProjectController@index')->name('project.list');
+
+  //Listing of maintenance order
+  Route::get('/admin/maintncorder', 'Admin\MaintenanceOrderController@index')->name('mo.list');
+  Route::post('/admin/maintncorder', 'Admin\MaintenanceOrderController@index')->name('mo.list');
+
   //User management
   Route::get('/admin/staff', 'Admin\StaffController@showMgmt')->name('staff.list.mgmt');
   Route::post('/admin/staff/edit', 'Admin\StaffController@updateMgmt')->name('staff.edit.mgmt');
@@ -109,7 +117,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/log/listUserLogs', 'MiscController@listUserLogs')->name('log.listUserLogs');
   Route::get('/log/updUserLogs', 'MiscController@logUserAct')->name('log.logUserAct');
 
-  //view all shift group  
+  //view all shift group
   Route::get('/admin/shiftgroup', 'ShiftGroupController@showall')->name('admin.shiftgroup');
 
   //OT activity - User

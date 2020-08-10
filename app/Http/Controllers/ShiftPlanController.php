@@ -10,11 +10,13 @@ use App\ShiftPlanStaffTemplate;
 use App\ShiftPlanStaffDay;
 use App\ShiftGroup;
 use App\ShiftPattern;
+use App\StaffAdditionalInfo;
 use App\User;
 use App\Shared\UserHelper;
 use App\Shared\ColorHelper;
 use \Carbon\Carbon;
 use \Calendar;
+use DB;
 
 use App\Notifications\ShiftPlanSubmitted;
 use App\Notifications\ShiftPlanApproved;
@@ -167,6 +169,7 @@ class ShiftPlanController extends Controller
 
     public function delPlan(Request $req){
       $sp = ShiftPlan::find($req->id);
+      $sps_stafflist = $sp->StaffList->pluck('user_id');
       $cuser = $req->user()->id;
       if($sp){
         // check plan ownership
@@ -177,10 +180,28 @@ class ShiftPlanController extends Controller
         // check the status of this plan
         if($sp->status != 'Planning'){
           return redirect()->back()->withInput()->with(['alert' => 'Can only delete shift plans that are in Planning stage', 'a_type' => 'danger']);
-        }
+        }       
 
         // delete the plan
         $sp->delete();
+
+        //new update fix last_planning_day
+        $sps = ShiftPlanStaff::select('user_id','plan_month', DB::raw('max(end_date) as max_plan_enddate'))
+        ->whereIn('user_id',$sps_stafflist)
+        ->groupBy('user_id')
+        ->get();
+        //dd($sps);
+
+        foreach($sps as $asps){
+          
+          $upd_lastplanningdate = $asps->max_plan_enddate;
+
+          //update staff_additional_info
+          $staffExtra = UserHelper::GetUserInfo($asps->user_id)['extra'];          
+          $staffExtra->last_planning_day = $upd_lastplanningdate;
+          $staffExtra->save();
+        }
+
 
         return redirect(route('shift.index', [], false))->with([
           'alert' => 'Shift plan deleted',
@@ -727,13 +748,6 @@ class ShiftPlanController extends Controller
           }
           // no issues detected
 
-          // undo the last planning day
-          $lastpdate = new Carbon($spst->start_date);
-          $lastpdate->addDays(-1);
-          $staffExtra = UserHelper::GetUserInfo($theStaffPlan->user_id)['extra'];
-          $staffExtra->last_planning_day = $lastpdate;
-          $staffExtra->save();
-
 
           // delete the days of that template
           ShiftPlanStaffDay::where('shift_plan_staff_template_id', $spst->id)->delete();
@@ -745,14 +759,30 @@ class ShiftPlanController extends Controller
 
           // if the total days is 0, just reset back the planning day to be the same as current planned day
           if($theStaffPlan->total_days == 0){
-            $staffExtra->last_planning_day = $staffExtra->last_planned_day;
-            $staffExtra->save();
-          }
+            $theStaffPlan->start_date = null;
+            $theStaffPlan->end_date = null;
+            $theStaffPlan->save();
+          }         
+
+            //new update fix last_planning_day
+            $lastmaxsps = ShiftPlanStaff::select('user_id','plan_month', DB::raw('max(end_date) as max_plan_enddate'))
+            ->where('user_id',$theStaffPlan->user_id)
+            ->groupBy('user_id')
+            ->first();
+            //dd($lastmaxsps);
+
+            $upd_lastplanningdate = $lastmaxsps->max_plan_enddate;
+
+            //update staff_additional_info
+            $staffExtra1 = UserHelper::GetUserInfo($theStaffPlan->user_id)['extra'];  
+            $staffExtra1->last_planning_day = $upd_lastplanningdate;
+            $staffExtra1->save();
 
           return redirect(route('shift.staff', ['id' => $req->sps_id], false))
             ->with(['alert' => 'Last template removed', 'a_type' => 'success']);
 
       } else {
+
         return redirect()->back()->with(['alert' => 'Selected template no longer exist for this staff', 'a_type' => 'danger']);
       }
     }

@@ -49,6 +49,7 @@
                 </div>
             </div>
             <div class="text-right">
+              <br>
                 <button class="btn-up">SEARCH</button>
             </div>
             <br>
