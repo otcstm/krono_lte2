@@ -1359,6 +1359,9 @@ class OvertimeController extends Controller
         //     $updateclaim->eligible_total_hours_minutes = $totaltime/60;
         //     $updateclaim->eligible_total_hours_minutes_code =  $code[1];
         // }
+        $wla = UserHelper::GetWageLegacyAmount($claim->id);
+        $updateclaim->legacy_code = $wla[0];
+        $updateclaim->amount = $wla[1];
         $updateclaim->save();
         $claim = Overtime::where('id', $claim->id)->first();
         Session::put(['claim' => $claim]);
