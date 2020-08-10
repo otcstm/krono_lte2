@@ -284,6 +284,18 @@ return [
               'icon' => '',
               'can' => '5-user-mngmt',
           ],
+          [
+              'text' => 'maintenance_order',
+              'route' => 'mo.list',
+              'icon' => '',
+              'can' => '5-user-mngmt',
+          ],
+          [
+              'text' => 'project_list',
+              'route' => 'project.list',
+              'icon' => '',
+              'can' => '5-user-mngmt',
+          ],
         ]
       ],
 
