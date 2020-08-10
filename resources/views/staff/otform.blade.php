@@ -818,7 +818,9 @@
         maxDate: new Date(y+"-"+m+"-"+d),
         onSelect: function onSelect(){
             if(noloop){
-                $("#formdate").submit();
+                if($("#inputdate").val()!=""){
+                    $("#formdate").submit();
+                }
             }
         },
         selectDate: new Date(y+"-"+m+"-"+d),

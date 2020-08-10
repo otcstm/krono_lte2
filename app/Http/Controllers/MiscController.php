@@ -461,6 +461,9 @@ class MiscController extends Controller
     // $req->stime = "2020-02-05 19:24:09"; //testing
     // $req->etime = "2020-02-05 20:40:09"; //testing
 
+    // if(((date("j", strtotime($req->etime)))- (date("j", strtotime($req->stime)))) > 1){
+    //   $req->etime = 
+    // }
     $sdate = date("Y-m-d", strtotime($req->stime));
     $edate = date("Y-m-d", strtotime($req->etime));
     $eday = UserHelper::CheckDay($req->user()->id, $req->etime);
