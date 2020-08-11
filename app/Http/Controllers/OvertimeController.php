@@ -1549,7 +1549,6 @@ class OvertimeController extends Controller
                     //verify
                     if ($req->inputact[$i]=="PA") {
                         // $updateclaim->date_expiry = date('Y-m-d', strtotime("+90 days"));
-                        $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Verified', 'Verified');
                         //notification
                         $user = $claim->approver;
                         $myot = \App\Overtime::where('id', $req->inputid[$i])->first();
@@ -1561,10 +1560,10 @@ class OvertimeController extends Controller
                         $updateclaim->verification_date = date("Y-m-d H:i:s");
                 
                         $updateclaim->status=$req->inputact[$i];
+                        $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Verified', 'Verified');
                     // dd($updateclaim->status);
                 //approved
                     } elseif ($req->inputact[$i]=="A") {
-                        $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Approved', 'Approved');
                         $user = $claim->name;
                         //notification
                         $myot = \App\Overtime::where('id', $claim->id)->first();
@@ -1575,6 +1574,7 @@ class OvertimeController extends Controller
                         $updateclaim->approved_date = date("Y-m-d H:i:s");
                 
                         $updateclaim->status=$req->inputact[$i];
+                        $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Approved', 'Approved');
                     //queried
                     } elseif ($req->inputact[$i]=="Q2") {
                         $updatemonth = OvertimeMonth::find($updateclaim->month_id);
