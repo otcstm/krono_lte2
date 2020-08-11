@@ -9,8 +9,8 @@ class MaintenanceOrderController extends Controller
 {
   public function index(Request $req){
 
-    $molist = MaintenanceOrder::all();
-    // $molist = [];
+    // $molist = MaintenanceOrder::all();
+    $molist = [];
 
       if($req->filled('searching')){
         //keluarkan result
