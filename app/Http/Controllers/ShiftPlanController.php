@@ -543,19 +543,24 @@ class ShiftPlanController extends Controller
         ->whereBetween('work_date', [$fd_planMonth, $ed_planMonth])
         ->orderby('work_date','desc')
         ->first();
-        //dd($sps, $fd_planMonth, $ed_planMonth, $spsd);
 
         //check record for selected month
-        if($sps->end_date){
-          //has record. get max date -> add 1 day
-          $lastmon = new Carbon($sps->end_date);
-          $lastmon->addDay();    
-          $datelock = 'readonly="readonly"';      
+        if($sps->end_date){      
+            //has record. get max date -> add 1 day
+            $lastmon = new Carbon($sps->end_date);
+            $sdate_default = $lastmon->addDay();    
+            $datelock = 'readonly="readonly"';    
         } else{
-          //no record, just default it to 1st of the plan month
-          $lastplan = new Carbon($sps->plan_month);
+          //no record sps, check spsd default it to min work_date         
+          if($spsd){  
+            $mindate_selectedmonth =   new Carbon($spsd->work_date);
+            $sdate_default = $mindate_selectedmonth->addDay();
+          } else{
+            $sdate_default = new Carbon($sps->plan_month);
+          }  
           $datelock = '';
         }
+        // dd($sdate_default, $lastmon, $lastplan, $sps, $fd_planMonth, $ed_planMonth, $spsd);
 
         // dd($blankc->getOptionsJson());
         return view('shiftplan.staff_detail', [
@@ -563,7 +568,7 @@ class ShiftPlanController extends Controller
           // 'patterns' => $spattern,
           'header' => $head,
           'cal' => $blankc,
-          'sdate' => $lastplan->format('Y-m-d'),
+          'sdate' => $sdate_default->format('Y-m-d'),
           'mindate' => $mindate->format('Y-m-d'),
           'maxdate' => $maxdate->format('Y-m-d'),
           'dlock' => $datelock,          
