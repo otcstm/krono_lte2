@@ -95,20 +95,32 @@
                 <tbody>
                     @foreach($projectlists as $plist)
                     <tr>
-                        <td>{{ $plist->project_no }}</td>
-                        <td>{{ $plist->descr }}</td>
-                        <td>{{ $plist->status }}</td>
-                        <td>{{ $plist->type }}</td>
+                        <td>{{ $plist->project_no}}</td>
+                        <td>{{ $plist->descr}}</td>
+                        <td>{{ $plist->status}}</td>
+                        <td>{{ $plist->type}}</td>
                         <td>{{ $plist->cost_center }}</td>
                         <td>{{ $plist->company_code }}</td>
-                        <td>{{ $plist->network_header}}</td>
-                        <td>{{ $plist->network_headerdescr}}</td>
-                        <td>{{ $plist->network_act_no}}</td>
-                        <td>{{ $plist->network_act_descr}}</td>
-                        <td>{{ $plist->approver_id}}</td>
-                        <td>{{ $plist->budget}}</td>
-                        <td>{{ date('d-m-Y', strtotime($plist->upd_dm)) }}</td>
-                        <td>{{ date('d-m-Y', strtotime($plist->created_at)) }}</td>
+                        <td>{{ $plist->network_header }}</td>
+                        <td>{{ $plist->network_headerdescr }}</td>
+                        <td>{{ $plist->network_act_no }}</td>
+                        <td>{{ $plist->network_act_descr }}</td>
+                        <td>{{ $plist->approver_id }}</td>
+                        <td>{{ $plist->budget }}</td>
+                        <td>
+                          @if( $plist->upd_dm == '')
+
+                          @else
+                          {{ date('d-m-Y', strtotime($plist->upd_dm)) }}
+                          @endif
+                        </td>
+                        <td>
+                          @if( $plist->created_at == '')
+
+                          @else
+                          {{ date('d-m-Y', strtotime($plist->created_at)) }}
+                          @endif
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
