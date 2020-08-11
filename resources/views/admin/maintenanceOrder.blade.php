@@ -88,11 +88,23 @@
                         <td>{{ $molist->type }}</td>
                         <td>{{ $molist->status }}</td>
                         <td>{{ $molist->cost_center }}</td>
-                        <td>{{ $molist->company_code}}</td>
+                        <td>{{ $molist->company_code }}</td>
                         <td>{{ $molist->approver_id }}</td>
-                        <td>{{ $molist->budget}}</td>
-                        <td>{{ date('d-m-Y', strtotime($molist->upd_dm)) }}</td>
-                        <td>{{ date('d-m-Y', strtotime($molist->created_at)) }}</td>
+                        <td>{{ $molist->budget }}</td>
+                        <td>
+                          @if( $molist->upd_dm == '')
+
+                          @else
+                          {{ date('d-m-Y', strtotime($molist->upd_dm)) }}
+                          @endif
+                        </td>
+                        <td>
+                          @if( $molist->created_at == '')
+
+                          @else
+                          {{ date('d-m-Y', strtotime($molist->created_at)) }}
+                          @endif
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
