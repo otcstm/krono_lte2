@@ -451,7 +451,7 @@ class MiscController extends Controller
     if(((date("G", strtotime($times))*60)+date("i", strtotime($times)))<($stime[0]*60+$stime[1])){
       $i= 0;
     }
-    return ["swtime" => $check[0], "addday" => $i, "test1" => ((date("G", strtotime($times))*60)+date("i", strtotime($times))), "test2" => ($stime[0]*60+$stime[1]), 'test3' => $req->timex];
+    return ["swtime" => $check[0], "ewtime" => $check[1],  "addday" => $i, "test1" => ((date("G", strtotime($times))*60)+date("i", strtotime($times))), "test2" => ($stime[0]*60+$stime[1]) ];
   }
 
   public function endPunch(Request $req){
