@@ -586,7 +586,9 @@ function timer(psecond, pminute, phour, dsecond, dminute, dhour, now, swtime, st
         $("#timerd").text(Date.parse(cnow).toString("dd.MM.yyyy"));
         swtimes = swtime.split(":");
         ewtimes = ewtime.split(":");
-        stdates = stdate.split(":");
+        // stdates = stdate.split(":");
+        stdatex = Date.parse(stdate).toString("HH:mm");
+        stdates = stdatex.split(":");
         ctime = Date.parse(cnow).toString("HH:mm");
         ctimes = ctime.split(":");
         // alert(stdate);
@@ -624,7 +626,9 @@ function timer(psecond, pminute, phour, dsecond, dminute, dhour, now, swtime, st
                 future = Date.parse(cnow).toString("yyyy-MM-dd")+" "+swtime+":00";
                 navigator.geolocation.getCurrentPosition(getPosition,showError2);
             }else if(((parseInt(ctimes[0]*60))+parseInt(ctimes[1]))>=((parseInt(ewtimes[0]*60))+parseInt(ewtimes[1]))){
+                // alert(stdates);
                 if(((parseInt(stdates[0]*60))+parseInt(stdates[1]))<(parseInt((ewtimes[0]*60))+parseInt(ewtimes[1]))){
+                    // alert(stdates);
                     nework = true;
                     endclock = Date.parse(cnow).toString("yyyy-MM-dd")+" "+swtime+":00";
                     future = Date.parse(cnow).toString("yyyy-MM-dd")+" "+swtime+":00";
