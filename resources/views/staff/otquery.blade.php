@@ -111,7 +111,7 @@
                         @foreach($otlist as $no=>$singleuser)
                         <tr>
                             <input type="text" class="form-control hidden" name="inputid[]" value="{{$singleuser->id}}" required>
-                            <input type="text" class="form-control hidden" name="inputact[]" value="">
+                            <input type="text" class="form-control hidden" name="inputact[]" style="border: 1px solid green"  value="">
                             <input type="text" class="form-control hidden" style="border: 1px solid blue" name="inputapp[]" value="">
                             <input type="text" class="form-control hidden" style="border: 1px solid red" name="inputver[]" value="">
                             <input type="text" class="form-control hidden" name="inputrem[]" value="">
@@ -193,7 +193,7 @@
                                             value="Assign" id="assign-{{$no}}" data-type="Verifier" data-otid="{{$singleuser->id}}">Assign Verifier</option>
                                     @endif
                                     @if($view=='admin') 
-                                        <option value="Change">Change Approver</option>
+                                        <option hidden value="Change">Change Approver</option>
                                     @endif
                                     <option value="Q2">Query</option>
                                 </select>
@@ -709,7 +709,7 @@
         console.log(no +" "+ num);
         $('#approver-'+no).val(id);
         $('input[name="inputapp[]"').eq(no-1).val($('#approver-'+no).val());
-        $('input[name="inputact[]"').eq(no-1).val("Assign");
+        $('input[name="inputact[]"').eq(no-1).val("Change");
         $('#show-approver-'+no).text(name);
         $('#show-approver-a-'+no).data("id", id);
         for(i = 0; i<number; i++){

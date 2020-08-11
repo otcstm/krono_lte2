@@ -1359,6 +1359,9 @@ class OvertimeController extends Controller
         //     $updateclaim->eligible_total_hours_minutes = $totaltime/60;
         //     $updateclaim->eligible_total_hours_minutes_code =  $code[1];
         // }
+        $wla = UserHelper::GetWageLegacyAmount($claim->id);
+        $updateclaim->legacy_code = $wla[0];
+        $updateclaim->amount = $wla[1];
         $updateclaim->save();
         $claim = Overtime::where('id', $claim->id)->first();
         Session::put(['claim' => $claim]);
@@ -1615,7 +1618,7 @@ class OvertimeController extends Controller
                         $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Assigned Verifier', 'Assigned Verifier with message: "'.$req->inputrem[$i].'"');
                         // dd($execute);
                     } elseif ($req->inputact[$i]=="Change") {
-                        $updateclaim->approver_id=$req->app[$i];
+                        $updateclaim->approver_id=$req->inputapp[$i];
                         $execute = UserHelper::LogOT($req->inputid[$i], $req->user()->id, 'Changed Approver', 'Changer Approver with message: "'.$req->inputrem[$i].'"');
                     } elseif ($req->inputact[$i]=="Remove") {
                         $updateclaim->status="PA";

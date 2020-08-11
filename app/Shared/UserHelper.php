@@ -475,11 +475,12 @@ class UserHelper {
 // dd($wd);
       $ph = null;
       $hc = null;
+      $hcc = null;
       if($wd){
 
       } else {
         // not a shift staff. get based on the wsr
-        $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->get();
+        $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->first();
         $currwsr = UserHelper::GetWorkSchedRule($user, $date);
         // then get that day
         // dd($currwsr);
@@ -489,19 +490,28 @@ class UserHelper {
       $theday = $wd->Day;
       $idday = $wd->day_type_id;
       // $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->first();
-      if($ph){
-      //   // $userstate = UserRecord::where('user_id', $user)->where('upd_sap','<=',$date)->first();
-        $userstate = URHelper::getUserRecordByDate($user,$date);
-      //   // dd($userstate);
-      //   // $hcal =  HolidayCalendar::where('state_id', $userstate->state_id)->get();
-
-      //   $hc = HolidayCalendar::where('holiday_id', $ph->id)->where('state_id', $userstate->state_id)->first();
-        foreach($ph as $phol){
-          $hc = HolidayCalendar::where('holiday_id', $phol->id)->first();
-          if($hc->state_id == $userstate->state_id){
-            break;
-          }else{
-            $hc = null;
+      // dd($ph);
+      if($ph!=null){
+        $hcc = HolidayCalendar::where('holiday_id', $ph->id)->get();
+      }
+      // dd($hcc);
+      if($hcc){
+        if(count($hcc)!=0){
+        //   // $userstate = UserRecord::where('user_id', $user)->where('upd_sap','<=',$date)->first();
+          $userstate = URHelper::getUserRecordByDate($user,$date);
+          // dd($userstate);
+        //   // $hcal =  HolidayCalendar::where('state_id', $userstate->state_id)->get();
+  // dd($userstate);
+        //   $hc = HolidayCalendar::where('holiday_id', $ph->id)->where('state_id', $userstate->state_id)->first();
+          foreach($hcc as $phol){
+            $hc = HolidayCalendar::where('id', $phol->id)->first();
+            // dd($phol->id);
+            // dd($hc);
+            if($hc->state_id == $userstate->state_id){
+              break;
+            }else{
+              $hc = null;
+            }
           }
         }
       }
