@@ -89,6 +89,11 @@
                       @endforeach
                     </ul>
                   </li>
+                  <li>
+                    <a style="padding: 10px 10px; text-align: center" onclick="return clearnoti();">
+                      <b style="color: #FF4949">Clear Notification</b>
+                    </a>
+                  </li>
                 </ul>
                 @else
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="No Notification">
@@ -338,6 +343,26 @@
 
       }
     });
+  }
+
+  function clearnoti() {
+      Swal.fire({
+        title: 'Clear Notification',
+        html: "<p>Are you sure to clear your notification(s)?</p>",
+        confirmButtonText: 'YES',
+        cancelButtonText: 'NO',
+        showCancelButton: true,
+        }).then((result) => {
+          if (result.value) {
+            $.ajax({
+              type: "GET",
+              url: '{{ route("noti.clear", [], false)}}',
+              success: function(resp) {
+                location.reload();
+            }
+          });
+        }
+      })
   }
 </script>
 @stop
