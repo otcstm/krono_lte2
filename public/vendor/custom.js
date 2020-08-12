@@ -33,6 +33,7 @@ function checkOTClocked(){
         success: function(resp) {
             if(resp.result==true){
                 timedif = Date.parse(check)-Date.parse(resp.stime);
+                sttime = resp.stime;
                 cs = Math.floor(timedif / 1000);
                 cm = Math.floor(cs / 60);
                 cs = cs % 60;
@@ -56,7 +57,7 @@ function checkOTClocked(){
                 }
                 timere=chd+":"+cmd+":"+csd;
                 var stime = resp.stime;
-                
+                // alert(stime);
                 wtms = Date.parse(check).toString("yyyy-MM-dd HH:mm");
                 $.ajax({
                     url: '/punch/checkworktime?time='+wtms,
@@ -64,7 +65,9 @@ function checkOTClocked(){
                     success: function(resp) {
                         enddate = (Date.parse(check).addDays(resp.addday).toString("dd.MM.yyyy"));
                         starttime(stime, stime);
-                        timestart = setInterval(timer(cs, cm, ch, parseInt(Date.parse(check).toString("ss")), parseInt(Date.parse(check).toString("mm")), parseInt(Date.parse(check).toString("H")), check, resp.swtime), 1000);
+                        // alert(resp.swtime);
+                        // alert(resp.test1+" "+resp.test2+" "+resp.test3);
+                        timestart = setInterval(timer(cs, cm, ch, parseInt(Date.parse(check).toString("ss")), parseInt(Date.parse(check).toString("mm")), parseInt(Date.parse(check).toString("H")), check, resp.swtime, sttime, resp.ewtime), 1000);
                     },
                     error: function(err) {
                         puncho();
@@ -366,7 +369,8 @@ function punchman(){
                     dayadd = now;
                     enddate = (Date.parse(dayadd).addDays(resp.addday).toString("dd.MM.yyyy"));
                     now = (Date.parse(dayadd).addDays(-resp.addday).toString("dd.MM.yyyy"));
-                    timestart = setInterval(timer(0, 0, 0, parseInt(Date.parse(now).toString("ss")), parseInt(Date.parse(now).toString("mm")), parseInt(Date.parse(now).toString("H")), now, resp.swtime), 1000);
+                    // alert(now);
+                    timestart = setInterval(timer(0, 0, 0, parseInt(Date.parse(now).toString("ss")), parseInt(Date.parse(now).toString("mm")), parseInt(Date.parse(now).toString("H")), now, resp.swtime, startclock, resp.ewtime), 1000);
                     starttime(now, startclock);
                 },
                 error: function(err) {
@@ -549,7 +553,7 @@ function endpunch(){
 }
     
 
-function timer(psecond, pminute, phour, dsecond, dminute, dhour, now, swtime){
+function timer(psecond, pminute, phour, dsecond, dminute, dhour, now, swtime, stdate, ewtime){
     return function(){
         psecond++;
         if(psecond==60){
@@ -581,19 +585,60 @@ function timer(psecond, pminute, phour, dsecond, dminute, dhour, now, swtime){
         var cnow = new Date();
         $("#timerd").text(Date.parse(cnow).toString("dd.MM.yyyy"));
         swtimes = swtime.split(":");
+        ewtimes = ewtime.split(":");
+        // stdates = stdate.split(":");
+        stdatex = Date.parse(stdate).toString("HH:mm");
+        stdates = stdatex.split(":");
         ctime = Date.parse(cnow).toString("HH:mm");
         ctimes = ctime.split(":");
+        // alert(stdate);
         // Date.parse(now).addDays(1)
-        // alert(enddate);
+        // alert((cnow.getTime() - new Date(stdate).getTime())/ (1000 * 3600 * 24));
         // console.log(cnow+" "+enddate+" "+parseInt(ctimes[0]*60)+parseInt(ctimes[1])+" >= "+(parseInt(swtimes[0]*60)+parseInt(swtimes[1])));
-        if(Date.parse(cnow).toString("dd.MM.yyyy")==enddate){
-            if(parseInt(ctimes[0]*60)+parseInt(ctimes[1])>=(parseInt(swtimes[0]*60)+parseInt(swtimes[1]))){
+        if((Date.parse(cnow).toString("dd.MM.yyyy")==enddate)||(((cnow.getTime() - new Date(stdate).getTime())/ (1000 * 3600 * 24))>1)){
+            
+            if((((cnow.getTime() - new Date(stdate).getTime())/ (1000 * 3600 * 24))<2)){
+                if(parseInt(ctimes[0]*60)+parseInt(ctimes[1])>=(parseInt(swtimes[0]*60)+parseInt(swtimes[1]))){
+                    nework = true;
+                    endclock = Date.parse(cnow).toString("yyyy-MM-dd")+" "+swtime+":00";
+                    future = Date.parse(cnow).toString("yyyy-MM-dd")+" "+swtime+":00";
+                    navigator.geolocation.getCurrentPosition(getPosition,showError2);
+                }
+            }else{
+                nework = true;
+                // endclock = Date.parse(new Date(stdate).setDate(stdate.getDate()+1)).toString("yyyy-MM-dd")+" "+swtime+":00";
+                // dt = new Date(stdate);
+                // edt = dt.setDate(dt.getDate()+1);
+                // alert(edt);
+                endclock = Date.parse(stdate).addDays(1).toString("yyyy-MM-dd")+" "+swtime+":00";
+                future = Date.parse(stdate).addDays(1).toString("yyyy-MM-dd")+" "+swtime+":00";
+                // alert(endclock);
+                navigator.geolocation.getCurrentPosition(getPosition,showError2);
+            }
+        }
+
+        if(Date.parse(cnow).toString("dd.MM.yyyy")==Date.parse(stdate).toString("dd.MM.yyyy")){
+            // alert(((ctimes[0]*60)+ctimes[1]));
+            if((((parseInt(ctimes[0]*60))+parseInt(ctimes[1]))>=((parseInt(swtimes[0]*60))+parseInt(swtimes[1])))&&(((parseInt(ctimes[0]*60))+parseInt(ctimes[1]))<((parseInt(ewtimes[0]*60))+parseInt(ewtimes[1])))){
+                
                 nework = true;
                 endclock = Date.parse(cnow).toString("yyyy-MM-dd")+" "+swtime+":00";
                 future = Date.parse(cnow).toString("yyyy-MM-dd")+" "+swtime+":00";
                 navigator.geolocation.getCurrentPosition(getPosition,showError2);
-                // alert("gojok");
+            }else if(((parseInt(ctimes[0]*60))+parseInt(ctimes[1]))>=((parseInt(ewtimes[0]*60))+parseInt(ewtimes[1]))){
+                // alert(stdates);
+                if(((parseInt(stdates[0]*60))+parseInt(stdates[1]))<(parseInt((ewtimes[0]*60))+parseInt(ewtimes[1]))){
+                    // alert(stdates);
+                    nework = true;
+                    endclock = Date.parse(cnow).toString("yyyy-MM-dd")+" "+swtime+":00";
+                    future = Date.parse(cnow).toString("yyyy-MM-dd")+" "+swtime+":00";
+                    navigator.geolocation.getCurrentPosition(getPosition,showError2);
+                }
             }
+            // alert("yeah");
+            // if(Date.parse(cnow).toString("dd.MM.yyyy")){
+
+            // }
         }
     }
 }
