@@ -6,7 +6,7 @@
 <h1>Details of Overtime Claim</h1>
 <div class="panel panel-default ">
     <div class="panel-body panel-main">
-        <p style="margin: 15px 0 35px"><b>Reference No: <span style="color: #143A8C">{{$claim->refno}}</span></b></p>
+        <p style="margin: 15px 0 35px"><b>Reference No: <span style="color: #143A8C">{{$claim->refno}} ({{$claim->employee_type}})</span></b></p>
         <div class="panel panel-default">
                 <div class="panel-heading">
                     <a id="btn-1" data-toggle="collapse" href="#collapse1"><span>Overtime Information</span><i id="fas-1" class="fas fa-sort-up"></i></a>
