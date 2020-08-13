@@ -25,6 +25,18 @@ sgc - App\Notifications\ShiftGroupCreated - my list of shift group
     // dd(Auth::user());
     if (Auth::check()) {
       $nitofylist = Auth::user()->unreadNotifications;
+
+      foreach($nitofylist as $nit){
+       $id = $nit->data['id'];
+       $route_name = $nit->data['route_name'];
+       dd( Auth::user()->id ) ;  
+
+
+
+      };
+      
+     // dd($nitofylist);
+
       session([
         'notifylist' => $nitofylist,
         'notifycount' => $nitofylist->count()
