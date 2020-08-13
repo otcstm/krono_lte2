@@ -12,6 +12,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use League\Flysystem\Adapter\Ftp;
 use League\Flysystem\Adapter\Local as LocalAdapter;
 use League\Flysystem\AdapterInterface;
 use League\Flysystem\AwsS3v3\AwsS3Adapter;
@@ -162,11 +163,7 @@ class FilesystemAdapter implements CloudFilesystemContract
 
         $response->setCallback(function () use ($path) {
             $stream = $this->readStream($path);
-
-            while (! feof($stream)) {
-                echo fread($stream, 2048);
-            }
-
+            fpassthru($stream);
             fclose($stream);
         });
 
@@ -233,7 +230,7 @@ class FilesystemAdapter implements CloudFilesystemContract
      *
      * @param  string  $path
      * @param  \Illuminate\Http\File|\Illuminate\Http\UploadedFile|string  $file
-     * @param  array  $options
+     * @param  mixed  $options
      * @return string|false
      */
     public function putFile($path, $file, $options = [])
@@ -249,7 +246,7 @@ class FilesystemAdapter implements CloudFilesystemContract
      * @param  string  $path
      * @param  \Illuminate\Http\File|\Illuminate\Http\UploadedFile|string  $file
      * @param  string  $name
-     * @param  array  $options
+     * @param  mixed  $options
      * @return string|false
      */
     public function putFileAs($path, $file, $name, $options = [])
@@ -435,6 +432,8 @@ class FilesystemAdapter implements CloudFilesystemContract
             return $this->driver->getUrl($path);
         } elseif ($adapter instanceof AwsS3Adapter) {
             return $this->getAwsUrl($adapter, $path);
+        } elseif ($adapter instanceof Ftp) {
+            return $this->getFtpUrl($path);
         } elseif ($adapter instanceof LocalAdapter) {
             return $this->getLocalUrl($path);
         } else {
@@ -485,6 +484,21 @@ class FilesystemAdapter implements CloudFilesystemContract
         return $adapter->getClient()->getObjectUrl(
             $adapter->getBucket(), $adapter->getPathPrefix().$path
         );
+    }
+
+    /**
+     * Get the URL for the file at the given path.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    protected function getFtpUrl($path)
+    {
+        $config = $this->driver->getConfig();
+
+        return $config->has('url')
+                ? $this->concatPathToUrl($config->get('url'), $path)
+                : $path;
     }
 
     /**
