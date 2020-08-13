@@ -4,11 +4,7 @@
 
 namespace Composer\Autoload;
 
-<<<<<<< HEAD
-class ComposerStaticInit9b03c1bf557f7eae344ed1ea4b673849
-=======
 class ComposerStaticInitf32507f476dbf51f000db115c178c8ab
->>>>>>> b39ee2d9c42bc01f5b7d55f5d28b60252a3e6c45
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
