@@ -70,6 +70,11 @@ class WorkSchedRuleController extends Controller
     }
 
     $planlist = ShiftPattern::where('is_weekly', true)->get();
+    
+    $usrWorkSche = 1;
+    if($currwsr){
+      $usrWorkSche = $currwsr->shiftpattern->is_weekly;    
+    }
 
     return view('staff.workschedulemain', [
       'currwsr' => $currwsr,
@@ -77,7 +82,7 @@ class WorkSchedRuleController extends Controller
       'sdate' => $sdate,
       'edate' => $edate,
       'planlist' => $planlist,
-      'usrWorkSche' => $currwsr->shiftpattern->is_weekly
+      'usrWorkSche' => $usrWorkSche
     ]);
   }
 
@@ -255,6 +260,11 @@ class WorkSchedRuleController extends Controller
       ->whereDate('end_date', '>=', $cbdate)
       ->orderBy('start_date', 'desc')
       ->first();
+    
+    $usrWorkSche = 1;
+    if($currwsr){
+      $usrWorkSche = $currwsr->shiftpattern->is_weekly;    
+    }
 
     return view('staff.workteamcalendar', [
       'mon' => $monlabel,
@@ -263,7 +273,7 @@ class WorkSchedRuleController extends Controller
       'staffs' => $caldata,
       'monNext' => $monNext,
       'monPrev' => $monPrev,
-      'usrWorkSche' => $currwsr->shiftpattern->is_weekly
+      'usrWorkSche' => $usrWorkSche
     ]);
   }
 

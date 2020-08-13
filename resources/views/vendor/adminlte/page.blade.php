@@ -292,7 +292,7 @@
       @foreach(session()->get('notifylist') as $onutifi)
       <li>
         <a href="{{ $onutifi['href'] }}">
-          <i class="{{ $onutifi['icon'] }}"></i>
+          <i class="{{ $onutifi['icon'] }}"> </i>
           <span>{{ $onutifi['text'] }}</span>
         </a>
       </li>

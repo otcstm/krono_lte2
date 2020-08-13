@@ -182,6 +182,8 @@ class ShiftPlanController extends Controller
           return redirect()->back()->withInput()->with(['alert' => 'Can only delete shift plans that are in Planning stage', 'a_type' => 'danger']);
         }       
 
+        // check existing plan already use for claim.
+
         // delete the plan
         $sp->delete();
 
@@ -474,7 +476,7 @@ class ShiftPlanController extends Controller
       if($sps){
         $staffAddInfo = UserHelper::GetUserInfo($sps->user_id);
         $curmon = new Carbon($sps->plan_month);
-
+        
         // set the max date input
         $maxdate = new Carbon($sps->plan_month);
         $maxdate->addMonth();
@@ -528,17 +530,61 @@ class ShiftPlanController extends Controller
         $lastmon = new Carbon($sps->plan_month);
         $lastmon->addMonth();
 
+        //new changes enable backdated 20200811
+        //related need to add validation cant redundant date @ 
+        //method overwrite condition using staffadditioninfo->last_planning_day
+        //$filled = $lastplan->gte($lastmon); 
+        $filled = false;
+
+        $fd_planMonth = $sps->plan_month;
+        $ed_planMonth = $sps->plan_month->endOfMonth();
+
+        //check selceted month has plan or not
+        $spsd = ShiftPlanStaffDay::where('user_id',$sps->user_id)
+        //->where('shift_plan_id',$sps->id)
+        ->whereBetween('work_date', [$fd_planMonth, $ed_planMonth])
+        ->orderby('work_date','desc')
+        ->first();
+
+        //check record for selected month
+        if($sps->end_date){      
+            //has record. get max date -> add 1 day
+            $lastmon = new Carbon($sps->end_date);
+            $sdate_default = $lastmon->addDay();
+
+            if($sdate_default>$ed_planMonth){
+              $filled = true;
+            }
+            $datelock = 'readonly="readonly"';  
+            //dd(1);  
+        } else{
+          //no record sps, check spsd default it to min work_date         
+          if($spsd){  
+            $mindate_selectedmonth =   new Carbon($spsd->work_date);
+            $sdate_default = $mindate_selectedmonth->addDay();
+            //dd(2);  
+          } else{
+            $sdate_default = new Carbon($sps->plan_month);            
+            //$filled = true;
+            //dd(3);  
+          }  
+          $datelock = '';
+        }
+        // dd($sdate_default, $lastmon, $lastplan, $sps, $fd_planMonth, $ed_planMonth, $spsd);
+
         // dd($blankc->getOptionsJson());
         return view('shiftplan.staff_detail', [
           'sps' => $sps,
           // 'patterns' => $spattern,
           'header' => $head,
           'cal' => $blankc,
-          'sdate' => $lastplan->format('Y-m-d'),
+          'sdate' => $sdate_default->format('Y-m-d'),
           'mindate' => $mindate->format('Y-m-d'),
           'maxdate' => $maxdate->format('Y-m-d'),
-          'dlock' => $datelock,
-          'filled' => $lastplan->gte($lastmon)
+          'dlock' => $datelock,          
+          // disable this 
+          //'filled' => $lastplan->gte($lastmon)
+          'filled' => $filled
         ]);
 
       } else {
@@ -555,23 +601,51 @@ class ShiftPlanController extends Controller
       $hour_gap = intVal(30);
       $warning_msg = "";
       
-      
+      // disable for backdated 20200811
       // double check if the start date is before the last planning date
-      if(isset($staffExtra->last_planning_day)){
-        $lpd = new Carbon($staffExtra->last_planning_day);
+      // if(isset($staffExtra->last_planning_day)){
+      //   $lpd = new Carbon($staffExtra->last_planning_day);
 
-        if($startdate->lt($lpd)) {
+      //   if($startdate->lt($lpd)) {
+      //     return redirect()->back()->withInput()->withErrors([
+      //       'sdate' => 'Already planned until ' . $staffExtra->last_planning_day
+      //     ])->with([
+      //       'alert' => 'Overlapping plan. Please refresh the page to get updated info ' . $startdate,
+      //       'a_type' => 'danger'
+      //     ]);
+      //   }
+
+      //   // check for gap -- todo?
+        
+      // }
+
+      // add checking cannot redundant template
+      $dayToAdd = (($stemplate->days_count)-1);
+
+      $fd_template = new Carbon($req->sdate);
+
+      $ed_template = new Carbon($req->sdate);
+      $ed_template = $ed_template->addDay($dayToAdd);
+
+      $spsd = ShiftPlanStaffDay::where('user_id',$sps->user_id)
+        ->whereBetween('work_date', [$fd_template, $ed_template])
+        ->orderby('work_date','asc')
+        ->first();
+      //dd($fd_template, $ed_template, $spsd, $spsd->ShiftPlan);
+
+      // if got template in between
+      if($spsd) {
+        $min_dt_overlap = new carbon($spsd->work_date);
+        $sf_planmonth_overlap = $spsd->ShiftPlan->plan_month->format('Ym').' ('.$spsd->ShiftPlan->plan_month->format('M Y').')';
+
           return redirect()->back()->withInput()->withErrors([
-            'sdate' => 'Already planned until ' . $staffExtra->last_planning_day
+            'sdate' => 'Already has plan between this template.'
           ])->with([
-            'alert' => 'Overlapping plan. Please refresh the page to get updated info ' . $startdate,
+            'alert' => 'Overlapping with other plan. ' . $sf_planmonth_overlap,
             'a_type' => 'danger'
           ]);
-        }
+      };        
 
-        // check for gap -- todo?
-        
-      }
 
       //check gap 30hour from last working day in "shift pattern day"
       $spsdall = ShiftPlanStaffDay::where('user_id',$sps->user_id)
@@ -746,6 +820,12 @@ class ShiftPlanController extends Controller
           if($cuserid != $theGroup->manager_id && $cuserid != $theGroup->planner_id){
             return redirect()->back()->with(['alert' => 'You are not authorized to edit this shift group', 'a_type' => 'danger']);
           }
+
+          // check if the plan already has claim. 20200811
+          // because the team agree can revert plan even has a claim on it
+          //dd($spst);
+          
+
           // no issues detected
 
 
