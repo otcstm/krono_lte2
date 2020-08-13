@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/role', 'Admin\RoleController@index')->name('role.index');
   Route::get('/readnotify', 'NotiMenuController@read')->name('notify.read');
   Route::get('/announcement/close', 'Admin\AnnouncementController@close')->name('announce.close');
+  Route::get('/notification/clear', 'Admin\AnnouncementController@noticlear')->name('noti.clear');
 
   // work schedule rule
   Route::get('/workschedule', 'WorkSchedRuleController@wsrPage')->name('staff.worksched');

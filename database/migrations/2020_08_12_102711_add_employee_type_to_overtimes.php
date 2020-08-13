@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DummyClass extends Migration
+class AddEmployeeTypeToOvertimes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,10 @@ class DummyClass extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('overtimes', function (Blueprint $table) {
+            //
+            $table->string('employee_type')->nullable();
+        });
     }
 
     /**
@@ -23,6 +26,8 @@ class DummyClass extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('overtimes', function (Blueprint $table) {
+            //
+        });
     }
 }
