@@ -182,6 +182,8 @@ class ShiftPlanController extends Controller
           return redirect()->back()->withInput()->with(['alert' => 'Can only delete shift plans that are in Planning stage', 'a_type' => 'danger']);
         }       
 
+        // check existing plan already use for claim.
+
         // delete the plan
         $sp->delete();
 
@@ -548,15 +550,23 @@ class ShiftPlanController extends Controller
         if($sps->end_date){      
             //has record. get max date -> add 1 day
             $lastmon = new Carbon($sps->end_date);
-            $sdate_default = $lastmon->addDay();    
-            $datelock = 'readonly="readonly"';    
+            $sdate_default = $lastmon->addDay();
+
+            if($sdate_default>$ed_planMonth){
+              $filled = true;
+            }
+            $datelock = 'readonly="readonly"';  
+            //dd(1);  
         } else{
           //no record sps, check spsd default it to min work_date         
           if($spsd){  
             $mindate_selectedmonth =   new Carbon($spsd->work_date);
             $sdate_default = $mindate_selectedmonth->addDay();
+            //dd(2);  
           } else{
-            $sdate_default = new Carbon($sps->plan_month);
+            $sdate_default = new Carbon($sps->plan_month);            
+            //$filled = true;
+            //dd(3);  
           }  
           $datelock = '';
         }

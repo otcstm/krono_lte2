@@ -63,6 +63,23 @@
         <button type="submit" class="btn btn-primary">{{ __('shift.f_sp_append') }}</button>
       </div>
     </form>
+    @else 
+    <div class="alert alert-warning alert-dismissible">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>The shift pattern for this month already full</strong>
+    </div>
+      <div class="form-group has-feedback {{ $errors->has('sdate') ? 'has-error' : '' }}">
+        <label for="sdate">Start Date</label>
+        <input type="date" id="sdate" name="sdate" value="" disabled />
+      </div>
+      <div class="form-group has-feedback {{ $errors->has('spattern_id') ? 'has-error' : '' }}">       
+        <label for="spattern">{{ __('shift.f_shift_pattern') }}</label>
+        <select class="form-control" id="spattern" name="spattern_id" disabled>
+        </select>
+      </div>
+      <div class="form-group text-center">
+        <button type="button" class="btn btn-primary" disabled>{{ __('shift.f_sp_append') }}</button>
+      </div>
     @endif
   </div>
 </div>
