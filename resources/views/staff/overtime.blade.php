@@ -44,7 +44,7 @@
                             <td>@if(($singleuser->status=="D2")||($singleuser->status=="Q2"))<input type="checkbox" id="checkbox-{{$no}}" value="{{$singleuser->id}}"> @endif</td>
                             <td></td>
                             <!-- <td>{{-- $singleuser->refno --}}</td> -->
-                            <td>{{ date("d.m.Y", strtotime($singleuser->date)) }}</td>
+                            <td>{{ date("d.m.Y", strtotime($singleuser->date)) }} ({{$singleuser->employee_type}})</td>
                             <td>@foreach($singleuser->detail as $details) @if($details->checked=="Y") {{date('Hi', strtotime($details->start_time)) }}<br> @endif @endforeach</td>
                             <td>@foreach($singleuser->detail as $details) @if($details->checked=="Y") {{ date('Hi', strtotime($details->end_time))}}<br> @endif @endforeach</td>
                             <td>{{ $singleuser->eligible_day }}</td>

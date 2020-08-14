@@ -114,6 +114,16 @@
                     </div>
                 </div>
                 <div class="col-md-6">
+                    <p>Employee Type: 
+                        @if($claim ?? '') 
+                            {{$claim->employee_type}} 
+                        @elseif($draft ?? '') 
+                            {{$draft[14]}} 
+                        @else 
+                            N/A
+                        @endif
+                    </p>
+                        
                     <p>Status: 
                         @if($claim ?? '')  
                             @if($c ?? '')

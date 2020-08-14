@@ -98,4 +98,14 @@ class AnnouncementController extends Controller
             'feedback_title' => "Successfully Updated"
         ]);
     }
+
+    public function noticlear(Request $req){
+        // $del = Notification::where('notifiable_id', $req->user()->id)->get();
+        // dd($del);
+        // $del->delete();
+        
+            auth()->user()->unreadNotifications->markAsRead();
+    }
+
+
 }

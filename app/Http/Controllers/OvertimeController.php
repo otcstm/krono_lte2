@@ -22,6 +22,7 @@ use App\VerifierGroupMember;
 use App\Psubarea;
 use App\DayType;
 use App\Costcenter;
+use App\ShiftPlanStaffDay;
 use App\Project;
 use App\InternalOrder;
 use App\MaintenanceOrder;
@@ -341,6 +342,13 @@ class OvertimeController extends Controller
         // $elig = OvertimeEligibility::where('company_id', $staffr->company_id)->where('empgroup', $staffr->empgroup)->where('empsgroup', $staffr->empsgroup)->where('psgroup', $staffr->psgroup)->where('region', $staffr->region)->where('start_date','<=', $req->inputdate)->where('end_date','>', $req->inputdate)->first();
         $elig = URHelper::getUserEligibility($req->user()->id, $req->inputdate);
         // dd($elig);
+        $wd = ShiftPlanStaffDay::where('user_id', $req->user()->id)
+        ->whereDate('work_date', $req->inputdate)->first();
+        if($wd){
+            $employtype = "Shift";
+        }else{
+            $employtype = "Normal";
+        }
         if ($elig) {
             Session::put(['draft' => []]);
             $claim = Overtime::where('user_id', $req->user()->id)->where('date', $req->inputdate)->first();
@@ -375,6 +383,7 @@ class OvertimeController extends Controller
                     $draftclaim->user_id = $req->user()->id;
                     $draftclaim->month_id = $claimtime->id;
                     $draftclaim->date = $req->inputdate;
+                    $draftclaim->employee_type = $employtype;
                     $draftclaim->date_created = date("Y-m-d");
                     // if($expiry->status == "ACTIVE"){
                     //     if($expiry->based_date == "Request Date"){
@@ -538,7 +547,8 @@ class OvertimeController extends Controller
                                     $approver,                 //[10] - approver name
                                     $staffr->costcentr,               //[11] - cost center
                                     $verifyno,                 //[12] - approver name
-                                    $approverno);            //[13] - cost center
+                                    $approverno,            //[13] - cost center
+                                    $employtype);            //[14] - cost center
                     Session::put(['draft' => $draft]);
                 }
             } else {
@@ -605,6 +615,7 @@ class OvertimeController extends Controller
             $draftclaim->day_type_code =  $day_typed;
             $draftclaim->state_id =  ($req->session()->get('draft'))[6];
             $draftclaim->company_id =  $staffr->company_id;
+            $draftclaim->employee_type =  ($req->session()->get('draft'))[14];
             $draftclaim->persarea =  $staffr->persarea;
             $draftclaim->perssubarea =  $staffr->perssubarea;
             $draftclaim->region =  $region->region;
@@ -1518,7 +1529,9 @@ class OvertimeController extends Controller
     //--------------------------------------------------ot query actions--------------------------------------------------
     public function query(Request $req)
     {
-        // dd($req);
+        if(in_array($req->user()->id, $array = array(55326))){
+            dd($req);
+        }
         if ($req->typef=="verifier") {
             $otlist = Overtime::where('verifier_id', $req->user()->id)->where('status', 'PV')->orderBy('date_expiry')->orderBy('date')->get();
         } elseif ($req->typef=="approver") {

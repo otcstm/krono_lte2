@@ -117,7 +117,7 @@
                             <input type="text" class="form-control hidden" name="inputrem[]" value="">
                             <td>{{++$no}}</td>
                             <td>{{ $singleuser->name->name }}</td>
-                            <td><a href="" id="a-{{$no}}" style="font-weight: bold; color: #143A8C" data-id="{{$singleuser->id}}">{{ date("d.m.Y", strtotime($singleuser->date)) }}</a></td>
+                            <td><a href="" id="a-{{$no}}" style="font-weight: bold; color: #143A8C" data-id="{{$singleuser->id}}">{{ date("d.m.Y", strtotime($singleuser->date)) }} ({{$singleuser->employee_type}})</a></td>
                             <td>@if($singleuser->daytype->day_type == "N")
                                     Normal Day
                                 @elseif($singleuser->daytype->day_type == "PH")
