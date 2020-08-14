@@ -29,7 +29,7 @@ sgc - App\Notifications\ShiftGroupCreated - my list of shift group
       foreach($nitofylist as $nit){
        $id = $nit->data['id'];
        $route_name = $nit->data['route_name'];
-       dd( Auth::user()->id ) ;  
+       //dd( Auth::user()->id ) ;  
 
 
 
