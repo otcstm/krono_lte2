@@ -14,7 +14,7 @@
       <strong>{{ session()->get('alert') }}</strong>
     </div>
     @endif
-    @if (isset($warning_msg))
+    @if(session()->get('warning_msg'))
     <div class="alert alert-warning alert-dismissible">
       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
       <strong>{{ session()->get('warning_msg') }}</strong>
