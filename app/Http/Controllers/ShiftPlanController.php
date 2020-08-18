@@ -677,12 +677,12 @@ class ShiftPlanController extends Controller
 
         $diff_hour = abs($timestamp2 - $timestamp1)/(60*60);
         $min_nextdatetime = date('Y-m-d H:i:s',strtotime('+'.$hour_gap.' hour',strtotime($sdtm_prev)));
-        //dd(date('Y-m-d H:i:s',$timestamp1), date('Y-m-d H:i:s',$timestamp2), $timestamp1, $timestamp2, $diff_hour);
+        //dd(date('Y-m-d H:i:s',$timestamp1), date('Y-m-d H:i:s',$timestamp2), $timestamp1, $timestamp2, (int)$diff_hour, (int)$hour_gap);
 
         //if gap between shift pattern less than 30 hour return error
         if((int)$diff_hour < (int)$hour_gap){
           //RPM instruct just give message 25/6/2020
-          $warning_msg = 'Shift pattern’s rest day does not meet the required minimum hours by Employment Act. Please contact your respective HCBD for further information.';
+          $warning_msg = 'Shift pattern’s for rest day does not meet the required minimum hours by Employment Act. Please contact your respective HCBD for further information.';
           // return redirect(route('shift.staff', ['id' => $sps->id], false))
           // ->with([
           //   'alert' => 'Selected Shift Pattern less than '.$hour_gap.' hours from previous shift pattern. Please select shift pattern with first day start time atleast '.date('d-m-Y H:i',strtotime($min_nextdatetime)),
@@ -778,7 +778,6 @@ class ShiftPlanController extends Controller
           $startdate->addDays(-1);
         }
 
-
         // update the end date
         $nustempl->end_date = $startdate->format('Y-m-d');
         $nustempl->save();
@@ -789,10 +788,12 @@ class ShiftPlanController extends Controller
         // update the staffplan sums
         ShiftPlanStaff::find($req->sps_id)->updateSums();
 
-        return redirect(route('shift.staff', ['id' => $sps->id], false))->with([
+        return redirect(route('shift.staff', ['id' => $sps->id], false))
+        ->with([
+          //'alert' => $daycount . ' days added. ['.date('Y-m-d H:i:s',$timestamp1).' '.date('Y-m-d H:i:s',$timestamp2).' '. $timestamp1.' '.$timestamp2.' '.(int)$diff_hour.' '.(int)$hour_gap.']',
           'alert' => $daycount . ' days added.',
           'a_type' => 'success',
-          'warning_msg' => $warning_msg
+          'warning_msg' => $warning_msg,
         ]);
 
       } else {
