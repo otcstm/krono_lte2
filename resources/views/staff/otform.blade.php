@@ -25,7 +25,27 @@
 
 <div class="panel panel-default panel-main">
     <div class="panel panel-default">
-        <div class="panel-heading panel-primary">Overtime Application</div>
+        <div class="panel-heading panel-primary">Overtime Application (Status: 
+                        @if($claim ?? '')  
+                            @if($c ?? '')
+                                Draft 
+                            @elseif ($q ?? '')
+                                Query 
+                            @elseif ($claim->status=="PA")
+                                Pending Approval 
+                            @elseif ($claim->status=="PV")
+                                Pending Verification  
+                            @elseif ($claim->status=="A")
+                                Aproved 
+                            @else 
+                                {{ $claim->status }} 
+                            @endif  
+                        @elseif($draft ?? '') 
+                            Draft 
+                        @else 
+                            N/A
+                        @endif)
+                    </div>
         <div class="panel-body" style="min-height:50vh">
             {{--@if(session()->has('feedback'))
             <div class="alert alert-{{session()->get('feedback_type')}} alert-dismissible" id="alert">
@@ -57,16 +77,21 @@
                         </p>
                         <form id="formdate" action="{{route('ot.formdate')}}" method="POST">
                             @csrf
-                            <p>OT Date: <input type="text" data-language='en' data-date-format="yyyy-mm-dd" id="inputdate" name="inputdate" 
-                                
+                            <p>OT Date: <input type="text" data-language='en' data-date-format="dd.mm.yyyy" id="inputdate" name="inputdate" 
+                                style ="width: 100px"
                                 @if($claim ?? '')
-                                    value="{{$claim->date}}"
+                                    value="{{date('d-m-Y', strtotime($claim->date))}}"
                                 @elseif($draft ?? '')
-                                    value="{{date('Y-m-d', strtotime($draft[4]))}}"
+                                    value="{{date('d-m-Y', strtotime($draft[4]))}}"
                                 @else
                                     value=""
                                 @endif
                                 required  onkeydown="return false">
+                                @if($claim ?? '')
+                                    ({{date('l', strtotime($claim->date))}})
+                                @elseif($draft ?? '')
+                                    ({{date('l', strtotime($draft[4]))}})
+                                @endif
                                 <!-- <button type="button" id="btn-date" class="btn btn-primary" style="padding: 2px 3px; margin: 0; margin-top: -3px;"><i class="fas fa-share-square"></i></button> -->
                             </p>
                         </form>    
@@ -111,10 +136,12 @@
                                 <p>Charging type: {{$claim->charge_type}}</p>
                             @endif
                         @endif
+                    
+                    
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <p>Employee Type: 
+                    <p>Work Schedule: 
                         @if($claim ?? '') 
                             {{$claim->employee_type}} 
                         @elseif($draft ?? '') 
@@ -123,24 +150,11 @@
                             N/A
                         @endif
                     </p>
-                        
-                    <p>Status: 
-                        @if($claim ?? '')  
-                            @if($c ?? '')
-                                Draft 
-                            @elseif ($q ?? '')
-                                Query 
-                            @elseif ($claim->status=="PA")
-                                Pending Approval 
-                            @elseif ($claim->status=="PV")
-                                Pending Verification  
-                            @elseif ($claim->status=="A")
-                                Aproved 
-                            @else 
-                                {{ $claim->status }} 
-                            @endif  
+                    <p>Salary Capping for OT: 
+                        @if($claim ?? '') 
+                            {{$claim->salary_exception}} 
                         @elseif($draft ?? '') 
-                            Draft 
+                            {{$draft[15]}} 
                         @else 
                             N/A
                         @endif
@@ -198,11 +212,62 @@
                 @endif
                 </div>
             </div>
-            <div class="row" style="display: flex">
-                <div class="col-xs-6" style="display: flex; align-items: flex-end;">
-                    <p><b>TIME LIST</b></p>
-                </div>
+
+            <div class="row" style="display: flex; margin-top: 50px">
                 <div class="col-xs-6">
+                    <p><b>TIME LIST</b> </p>
+                            @if(($c ?? '')||($d ?? '')) 
+                    <p>
+                                <b>Applicable Time Range:</b>
+                                {{$start}} 
+                                @if($c ?? '')  
+                                    {{date('d.m.Y', strtotime($claim->date))}} 
+                                @elseif($d ?? '')  
+                                    {{date("d.m.Y", strtotime($draft[4]))}}
+                                @endif
+                                 -  {{$end}}
+                                @if($c ?? '') 
+                                    @if($shift == "Yes") 
+                                        {{date('d.m.Y', strtotime($claim->date. ' + 1 days'))}}
+                                    @else 
+                                        {{date('d.m.Y', strtotime($claim->date))}} 
+                                    @endif
+                                @elseif($d ?? '')
+                                    @if($shift == "Yes") 
+                                        {{date('d.m.Y', strtotime($draft[4]. ' + 1 days'))}} 
+                                    @else
+                                        {{date("d.m.Y", strtotime($draft[4]))}}
+                                    @endif
+                                @endif
+                                
+                        </span>
+                    </p>
+                    <p> <span style="color: red">
+                    <b>Working Time Range:</b> {{$day[0]}} 
+                        @if($c ?? '')  
+                            {{date('d.m.Y', strtotime($claim->date))}} 
+                        @elseif($d ?? '')  
+                            {{date("d.m.Y", strtotime($draft[4]))}}
+                        @endif
+                        - {{$day[1]}}
+                        @if($day[5])
+                            @if($c ?? '')  
+                                {{date('d.m.Y', strtotime($claim->date))}} 
+                            @elseif($d ?? '')  
+                                {{date("d.m.Y", strtotime($draft[4]))}}
+                            @endif
+                        @else
+                            @if($c ?? '')  
+                                {{date('d.m.Y', strtotime($claim->date. ' + 1 days'))}}
+                            @elseif($d ?? '')  
+                                {{date('d.m.Y', strtotime($draft[4]. ' + 1 days'))}} 
+                            @endif
+                        @endif
+                    </span></p>
+                    
+                    @endif
+                </div>
+                <div class="col-xs-6" style="display: flex; flex-direction: row; justify-content: flex-end; align-items: flex-end">
                     @if($claim ?? '')
                         @if(in_array($claim->status, $array = array("D1", "D2", "Q1", "Q2")))
                             @php($c = true)
@@ -299,7 +364,7 @@
                                                 <td>
                                                     @if(($c ?? '')||($d ?? '')||($q ?? ''))
                                                         <span id="oldds-{{$no}}" class="hidden">{{date('H:i', strtotime($singleuser->start_time))}}</span>
-                                                        <input style="width: 40px" id="inputstart-{{$no}}" name="inputstart[]" type="text" class="timepicker check-{{$no}} check-{{$no}}-1 @if($singleuser->checked=="N") hidden @endif" 
+                                                        <input style="width: 50px" id="inputstart-{{$no}}" name="inputstart[]" type="text" class="timepicker check-{{$no}} check-{{$no}}-1 @if($singleuser->checked=="N") hidden @endif" 
                                                             data-clock_in="{{ date('H:i', strtotime($singleuser->clock_in))}}"
                                                             data-start_time="{{ date('H:i', strtotime($singleuser->start_time))}}"
                                                             @if($singleuser->clock_in!="")
@@ -315,13 +380,17 @@
                                                 </td>
                                                 <td>
                                                     @if(($c ?? '')||($d ?? '')||($q ?? ''))
-                                                        <span id="oldde-{{$no}}" class="hidden">{{date('H:i', strtotime($singleuser->end_time))}}</span>
-                                                        <input style="width: 40px" id="inputend-{{$no}}" name="inputend[]" type="text" class="timepicker check-{{$no}} check-{{$no}}-2 @if($singleuser->checked=="N") hidden @endif" 
+                                                        <span id="oldde-{{$no}}" class="hidden">@if(date('H:i', strtotime($singleuser->end_time))=='00:00')24:00 @else{{date('H:i', strtotime($singleuser->end_time))}} @endif</span>
+                                                        <input style="width: 50px" id="inputend-{{$no}}" name="inputend[]" type="text" class="timepicker check-{{$no}} check-{{$no}}-2 @if($singleuser->checked=="N") hidden @endif" 
                                                             data-clock_out="{{ date('H:i', strtotime($singleuser->clock_out))}}"
-                                                            data-end_time="{{ date('H:i', strtotime($singleuser->end_time))}}"
-                                                            value="{{ date('H:i', strtotime($singleuser->end_time))}}" required>
+                                                            data-end_time="@if(date('H:i', strtotime($singleuser->end_time))=='00:00')24:00 @else{{date('H:i', strtotime($singleuser->end_time))}} @endif"
+                                                            value="@if(date('H:i', strtotime($singleuser->end_time))=='00:00')24:00 @else{{date('H:i', strtotime($singleuser->end_time))}} @endif" required>
                                                         @if($singleuser->checked=="N")
-                                                            {{ date('Hi', strtotime($singleuser->end_time)) }}
+                                                            @if(date('H:i', strtotime($singleuser->end_time))=="00:00")
+                                                                24:00
+                                                            @else
+                                                                {{ date('H:i', strtotime($singleuser->end_time)) }}
+                                                            @endif
                                                         @endif
                                                     @else
                                                         {{ date('Hi', strtotime($singleuser->end_time)) }}
@@ -374,11 +443,12 @@
                                 <!-- <td>Manual Input</td> -->
                                 <td>
                                     <span id="oldds-0" class="hidden">0</span>
-                                    <input style="width: 40px" id="inputstart-0" type="text" name="inputstartnew" class="timepicker check-0 check-0-0">
+                                    <!-- <input style="width: 40px" id="inputstart-0" type="text" name="inputstartnew" class="timepicker check-0 check-0-0"> -->
+                                    <input style="width: 50px" id="inputstart-0" type="text" name="inputstartnew" class=" check-0 check-0-0">
                                 </td>
                                 <td>
                                     <span id="oldde-0" class="hidden">0</span>
-                                    <input style="width: 40px" id="inputend-0" type="text" name="inputendnew" class="timepicker check-0 check-0-1" disabled>
+                                    <input style="width: 50px" id="inputend-0" type="text" name="inputendnew" class="timepicker check-0 check-0-1" disabled>
                                 </td>
                                 <td>
                                     <span id="olddh-0" class="hidden">0</span>
@@ -792,7 +862,7 @@
         // });
 
     var add = true; //flag when click addtime button
-    var checker = true; //since bootstrap timepicker do onchange twice
+    // var checker = true; //since bootstrap timepicker do onchange twice
     var submit = false; //check validation before adding new time
     var check=true;
     var whensubmit = true;
@@ -890,17 +960,18 @@
     //     });
 
     //apply timepicker plugin to all time input
-    $('.timepicker').timepicker({
-        minuteStep: 1,
-        maxHours: 24,
-        showMeridian: false,
-        defaultTime: false
-    });
+    // $('.timepicker').timepicker({
+    //     minuteStep: 1,
+    //     maxHours: 24,
+    //     showMeridian: false,
+    //     defaultTime: false
+    // });
 
 
     @if(($c ?? '')||($d ?? '')||($q ?? ''))
         //check start time & end time
         function killview(i, m, s, e){
+            // console.log("masuk");
             // alert(m);
             Swal.fire({
                 icon: 'error',
@@ -914,9 +985,9 @@
                 $("#inputstart-"+i).val("");
                 $("#inputend-"+i).val("");
                 $("#inputend-"+i).prop('disabled', true);
-                $("#inputduration-"+i).text("");
+                $("#inputduration-"+i).text('');
             }
-            return false;
+            // return false;
         }
 
         function timemaster(st, et){
@@ -957,12 +1028,22 @@
         }
 
         function checktime(i){
-            return function(){
-                var clock_in = $("#inputstart-"+i).data('clock_in');
-                var clock_out = $("#inputend-"+i).data('clock_out');
-                var start_time = $("#inputstart-"+i).data('start_time');
-                var end_time = $("#inputend-"+i).data('end_time');
-                // alert($("#inputend-"+i).val());
+        // return function(){
+            var clock_in = $("#inputstart-"+i).data('clock_in');
+            var clock_out = $("#inputend-"+i).data('clock_out');
+            var start_time = $("#inputstart-"+i).data('start_time');
+            var end_time = $("#inputend-"+i).data('end_time');
+            // alert($("#inputend-"+i).val());
+            // console.log($("#inputstart-"+i).val());
+            if($("#inputstart-"+i).val()=="24:00"){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Input time error',
+                    text: "Start time cannot be 24:00!"
+                    // text: "End time must be more than "+sh+":"+sm+me+"!"
+                })
+                $("#inputstart-"+i).val("");
+            }else{
                 if(i!=0){
                     if($("#inputstart-"+i).val()==""){
                         $("#inputstart-"+i).val(start_time);
@@ -970,164 +1051,175 @@
                         $("#inputend-"+i).val(end_time);
                     }
                 }
-                var clocker = $("#inputstart-"+i).data('clocker');
-                if(checker){
-                    if(clock_in!=""){
-                        if($("#inputstart-"+i).val()==""){
-                            $("#inputstart-"+i).val(start_time);
-                        }else if($("#inputend-"+i).val()==""){
-                            $("#inputend-"+i).val(end_time);
+                var clocker = $("#inputstart-"+i).data('clocker'); //start time
+                // if(checker){
+                //     if(clock_in!=""){
+                //         if($("#inputstart-"+i).val()==""){
+                //             $("#inputstart-"+i).val(start_time);
+                //         }else if($("#inputend-"+i).val()==""){
+                //             $("#inputend-"+i).val(end_time);
+                //         }
+                //     }
+                //     checker = false;
+                // }else{
+                //     check=true;
+                var time=[];
+                var st = ($("#inputstart-"+i).val()).split(":");
+                // console.log(st);
+                var min = "{{$day[0]}}";
+                var max = "{{$day[1]}}";
+                var mt = min.split(":");
+                var mxt = max.split(":");
+                var h = parseInt(st[0]);
+                var m = parseInt(st[1]);
+                sh = h.toString();
+                while(sh.length<2){
+                    sh = "0"+sh;
+                }
+                sm = m.toString();
+                while(sm.length<2){
+                    sm = "0"+sm;
+                }
+                // var me = "AM";
+                // if(h>12){
+                //     h = h-12;
+                //     me = "PM"
+                // }else if(h==0){
+                //     h = 12;
+                // }
+                // sh = h.toString();
+                // while(sh.length<2){
+                //     sh = "0"+sh;
+                // }
+                // sm = m.toString();
+                // while(sm.length<2){
+                //     sm = "0"+sm;
+                // }
+                var start = ((parseInt(st[0]))*60)+(parseInt(st[1]));
+                var nstart = ((parseInt(mt[0]))*60)+(parseInt(mt[1]));
+                var nend = ((parseInt(mxt[0]))*60)+(parseInt(mxt[1]));
+                // console.log(start + " s:"+nstart+" e:"+nend);
+                if($("#inputend-"+i).val()!=""){
+                    // if($("#inputend-"+i).val()=="00:00"){
+                    //     var entime = "24:00";
+                    // }else{
+                    var entime = $("#inputend-"+i).val();
+                    // }
+                    var et = entime.split(":");
+                    // var et = ($("#inputend-"+i).val()).split(":");
+                    var end = ((parseInt(et[0]))*60)+(parseInt(et[1]));
+                }
+                if(clocker!=undefined){
+                    time = timemaster(clock_in, clock_out);
+                    // if(check){
+                        if((time[0]<=start&&time[1]>=start)&&(time[0]<=end&&time[1]>=end)){
+                            calshowtime(i, end-start, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
+                        }else{
+                            calshowtime(i, (parseInt($("#fixdh-"+i).text()*60)+parseInt($("#fixdm-"+i).text())), $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
+                            check = killview(i, "Time input must be within time range from "+clock_in+" to "+clock_out+"!", (clock_in), clock_out);
                         }
-                    }
-                    checker = false;
+                    // }   
                 }else{
-                    check=true;
-                    var time=[];
-                    var st = ($("#inputstart-"+i).val()).split(":");
-                    var min = "{{$day[0]}}";
-                    var max = "{{$day[1]}}";
-                    var mt = min.split(":");
-                    var mxt = max.split(":");
-                    var h = parseInt(st[0]);
-                    var m = parseInt(st[1]);
-                    sh = h.toString();
-                    while(sh.length<2){
-                        sh = "0"+sh;
-                    }
-                    sm = m.toString();
-                    while(sm.length<2){
-                        sm = "0"+sm;
-                    }
-                    // var me = "AM";
-                    // if(h>12){
-                    //     h = h-12;
-                    //     me = "PM"
-                    // }else if(h==0){
-                    //     h = 12;
-                    // }
-                    // sh = h.toString();
-                    // while(sh.length<2){
-                    //     sh = "0"+sh;
-                    // }
-                    // sm = m.toString();
-                    // while(sm.length<2){
-                    //     sm = "0"+sm;
-                    // }
-                    var start = ((parseInt(st[0]))*60)+(parseInt(st[1]));
-                    var nstart = ((parseInt(mt[0]))*60)+(parseInt(mt[1]));
-                    var nend = ((parseInt(mxt[0]))*60)+(parseInt(mxt[1]));
-                    if($("#inputend-"+i).val()!=""){
-                        if($("#inputend-"+i).val()=="0:00"){
-                            var entime = "24:00"
-                        }else{
-                            var entime = $("#inputend-"+i).val();
-                        }
-                        var et = entime.split(":");
-                        // var et = ($("#inputend-"+i).val()).split(":");
-                        var end = ((parseInt(et[0]))*60)+(parseInt(et[1]));
-                    }
-                    if(clocker!=undefined){
-                        time = timemaster(clock_in, clock_out);
-                        if(check){
-                            if((time[0]<=start&&time[1]>=start)&&(time[0]<=end&&time[1]>=end)){
-                                calshowtime(i, end-start, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
-                            }else{
-                                check = killview(i, "Time input must be within time range from "+clock_in+" to "+clock_out+"!", (clock_in), clock_out);
-                                calshowtime(i, (parseInt($("#fixdh-"+i).text()*60)+parseInt($("#fixdm-"+i).text())), $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
-                            }
-                        }   
+                    if($("#inputstart-"+i).val()!=""){
+                        $("#inputend-"+i).prop('disabled', false);
                     }else{
-                        if($("#inputstart-"+i).val()!=""){
-                            $("#inputend-"+i).prop('disabled', false);
-                        }else{
-                            $("#inputend-"+i).prop('disabled', true);
-                        }
-                        @if($claim ?? '')
-                            @if(count($claim->detail)!=0)
-                                for(n=0; n<{{$no}}+1; n++){
-                                    time = timemaster($('#oldds-'+n).text(), $('#oldde-'+n).text());
-                                    if(check){
-                                        if(start > time[0] && start < time[1]){
-                                            if(i!=0){
-                                                if(!($('#oldds-'+n).text()==start_time)){
-                                                    check = killview(i, "Time input cannot be within inserted time range!", start_time, end_time);
-                                                    calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());   
-                                                }
-                                            }
-                                            else if(n!=0){
-                                                check = killview(i, "Time input cannot be within inserted time range!", start_time, end_time);  
-                                                calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());  
+                        $("#inputend-"+i).prop('disabled', true);
+                    }
+                    @if($claim ?? '')
+                        @if(count($claim->detail)!=0)
+                            for(n=0; n<{{$no}}+1; n++){
+                                time = timemaster($('#oldds-'+n).text(), $('#oldde-'+n).text());
+                                // if(check){
+                                    if(start > time[0] && start < time[1]){
+                                        if(i!=0){
+                                            if(!($('#oldds-'+n).text()==start_time)){
+                                                calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());   
+                                                killview(i, "Time input cannot be within inserted time range!", start_time, end_time);
+                                                // check = killview(i, "Time input cannot be within inserted time range!", start_time, end_time);
                                             }
                                         }
+                                        else if(n!=0){
+                                            calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());  
+                                            killview(i, "Time input cannot be within inserted time range!", start_time, end_time);  
+                                            // check = killview(i, "Time input cannot be within inserted time range!", start_time, end_time);  
+                                        }
                                     }
-                                }
-                                @endif
-                        @endif
-                        if(check){
-                            if(start > nstart && start < nend){
-                                check = killview(i, "Time input cannot be between {{$day[0]}} and {{$day[1]}}!", start_time, end_time);
-                                calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
+                                // }
                             }
+                            @endif
+                    @endif
+                    //check if within working time or not
+                    // if(check){
+                        if(start > nstart && start < nend){
+                            // check = killview(i, "Time input cannot be between {{$day[0]}} and {{$day[1]}}!", start_time, end_time);
+                            calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
+                            killview(i, "Time input cannot be between {{$day[0]}} and {{$day[1]}}!", start_time, end_time);
                         }
-                        if($("#inputstart-"+i).val()!="" && $("#inputend-"+i).val()!=""){
-                            // alert(start+" "+end);
-                            if(start<end){
-                                @if($claim ?? '')
-                                    @if(count($claim->detail)!=0)
-                                        for(n=0; n<{{$no}}+1; n++){
-                                            time = timemaster($('#oldds-'+n).text(), $('#oldde-'+n).text());
-                                            if(check){
-                                                if((time[0]<end&&time[1]>start)){
-                                                    if(i!=0){
-                                                        if(!($('#oldds-'+n).text()==start_time)){
-                                                            if(n!=i){
-                                                                check = killview(i, "Time input cannot be within inserted time range!", start_time, end_time);
-                                                                calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
-                                                            }
+                    // }
+                    if($("#inputstart-"+i).val()!="" && $("#inputend-"+i).val()!=""){
+                        // alert(start+" "+end);
+                        if(start<end){
+                            @if($claim ?? '')
+                                @if(count($claim->detail)!=0)
+                                    for(n=0; n<{{$no}}+1; n++){
+                                        time = timemaster($('#oldds-'+n).text(), $('#oldde-'+n).text());
+                                        // if(check){
+                                            if((time[0]<end&&time[1]>start)){
+                                                if(i!=0){
+                                                    if(!($('#oldds-'+n).text()==start_time)){
+                                                        if(n!=i){
+                                                            calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
+                                                            killview(i, "Time input cannot be within inserted time range!", start_time, end_time);
+                                                            // check = killview(i, "Time input cannot be within inserted time range!", start_time, end_time);
                                                         }
                                                     }
-                                                    else if(n!=0){
-                                                        check = killview(i, "Time input cannot be within inserted time range!", start_time, end_time);
-                                                        calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
-                                                    }
+                                                }
+                                                else if(n!=0){
+                                                    calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
+                                                    killview(i, "Time input cannot be within inserted time range!", start_time, end_time);
+                                                    // check = killview(i, "Time input cannot be within inserted time range!", start_time, end_time);
                                                 }
                                             }
-                                        }
-                                    @endif
-                                @endif
-                                if(check){
-                                    if((end>nstart && end<nend)||(nstart<end && nend>start)){
-                                        check = killview(i, "Time input cannot be between {{$day[0]}} and {{$day[1]}}!");
-                                        calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
-                                    }else{
-                                        calshowtime(i, end-start, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
-                                        // if(i!=0){
-                                            $('#oldds-'+i).text($("#inputstart-"+i).val());
-                                            $('#oldde-'+i).text($("#inputend-"+i).val());
+                                        // }
                                     }
+                                @endif
+                            @endif
+                            // if(check){
+                                if((end>nstart && end<nend)||(nstart<end && nend>start)){
+                                    calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
+                                    killview(i, "Time input cannot be between {{$day[0]}} and {{$day[1]}}!");
+                                    // check = killview(i, "Time input cannot be between {{$day[0]}} and {{$day[1]}}!");
                                 }
-                            }else{
-                                if(check){
-                                    // alert("End time must be more than "+sh+":"+sm+me+"!");
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Input time error',
-                                        text: "End time must be more than "+sh+":"+sm+"!"
-                                        // text: "End time must be more than "+sh+":"+sm+me+"!"
-                                    })
-                                    // if(i==0){
-                                    $("#inputend-"+i).val("");
-                                    // }else{
-                                    //     $("#inputend-"+i).val(clock_out);
-                                    // }
-                                }
-                            }
+                                // else{
+                                //     calshowtime(i, end-start, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
+                                //     // if(i!=0){
+                                //     $('#oldds-'+i).text($("#inputstart-"+i).val());
+                                //     $('#oldde-'+i).text($("#inputend-"+i).val());
+                                // }
+                            // }
+                        }else{
+                            // if(check){
+                                // alert("End time must be more than "+sh+":"+sm+me+"!");
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Input time error',
+                                    text: "End time must be more than "+sh+":"+sm+"!"
+                                    // text: "End time must be more than "+sh+":"+sm+me+"!"
+                                })
+                                // if(i==0){
+                                $("#inputend-"+i).val("");
+                                // }else{
+                                //     $("#inputend-"+i).val(clock_out);
+                                // }
+                            // }
                         }
-                    } 
-                    checker = true;        
-                }                   
-            };
-        };
+                    }
+                } 
+                // checker = true;        
+            }    
+        }              
+            // };
+        // };
 
         function checkbox(i){
             return function(){
@@ -1184,12 +1276,72 @@
             @else 
                 1 
             @endif; i++) {
-            $("#inputstart-"+i).change(checktime(i));
-            $("#inputend-"+i).change(checktime(i));
+            $("#inputstart-"+i).change(timepicker(i, "#"+$("#inputstart-"+i).attr("id")));
+            $("#inputend-"+i).change(timepicker(i, "#"+$("#inputend-"+i).attr("id")));
             $("#inputcheck-"+i).change(checkbox(i));
             $("#delete-"+i).on('click', deleteid(i));
         };
         
+
+        function timepicker(i, id){
+            return function(){
+                var split = $(id).val().split("");
+                var h1 = "0";
+                var h2 = "0";
+                var m1 = "0";
+                var m2 = "0";
+                // alert(split.length);
+                if(split.length==1){
+                    if(!(isNaN(parseInt(split[0])))){
+                        h2 = split[0];
+                    }
+                    $(id).val(h1+h2+":"+m1+m2);
+                }else{
+                    if(split.length>0){
+                        if(!(isNaN(parseInt(split[0])))){
+                            if(parseInt(split[0])>2){
+                                h1 = "2";
+                            }else{
+                                h1 = split[0];
+                            }
+                        }
+                        if(split.length>1){
+                            if(!(isNaN(parseInt(split[1])))){
+                                if(parseInt(h1)==2){
+                                    if(parseInt(split[1])>4){
+                                        h2 = "4";
+                                    }else{
+                                        h2 = split[1];
+                                    }
+                                }else{
+                                    h2 = split[1];
+                                }
+                            }
+                            if(split.length>2){
+                                if(!(parseInt(h1 + h2)>23)){
+                                    if(!(isNaN(parseInt(split[2])))){
+                                        // if(parseInt(h1)==2){
+                                            if(parseInt(split[2])>5){
+                                                m1 = "5";
+                                            }else{
+                                                m1 = split[1];
+                                            }
+                                        // }else{
+                                        //     h2 = split[1];
+                                        // }
+                                    }
+                                    if(!(isNaN(parseInt(split[3])))){
+                                        m2 = split[3];
+                                    }
+                                }
+                            }
+                        }
+                    }                    
+                }
+                $(id).val(h1+h2+":"+m1+m2);
+                return checktime(i);
+            }
+        }
         //when click delete file
         function deletefile(i){
             return function(){
@@ -1313,13 +1465,15 @@
                 $('#oldds-0').text("0");
                 $('#oldde-0').text("0");
                 $('#addform').css("display", "none");
-                $("#inputduration-0").val('');
+                $("#inputduration-0").text('');
                 $("#inputstart-0").val('');
                 $("#inputend-0").val('');
                 $("#inputstart-0").prop('required',false);
                 $("#inputend-0").prop('required',false);
                 $("#inputremark-0").prop('required',false);
                 nhm = showtime((parseInt($("#oldth").text()*60)+parseInt($("#oldtm").text()))-(parseInt($("#olddh-0").text()*60)+parseInt($("#olddm-0").text())));
+                $('#olddh-0').text("0");
+                $('#olddm-0').text("0");
                 $("#oldth").text(nhm[0]);
                 $("#oldtm").text(nhm[1]);
                 $("#showtime").text(nhm[0]+"h "+nhm[1]+"m");
@@ -1409,7 +1563,7 @@
             // alert(submit+" "+check+" "+$('.check-1').val());   
             if(submit){
                 if($('.check-'+i+'-1').val()!=""){
-                    if(checker){
+                    // if(checker){
                         if(check){
                             if(i==0){
                                 $("#formtype").val("add");
@@ -1419,7 +1573,7 @@
                                 $("#form").submit();
                             }
                         }
-                    }
+                    // }
                 }
             }
         }
