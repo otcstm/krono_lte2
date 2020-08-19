@@ -216,7 +216,7 @@
             <div class="row" style="display: flex; margin-top: 50px">
                 <div class="col-xs-6">
                     <p><b>TIME LIST</b> </p>
-                            @if(($c ?? '')||($d ?? '')) 
+                    {{--        @if(($c ?? '')||($d ?? '')) 
                     <p>
                                 <b>Applicable Time Range:</b>
                                 {{$start}} 
@@ -265,7 +265,7 @@
                         @endif
                     </span></p>
                     
-                    @endif
+                    @endif--}}
                 </div>
                 <div class="col-xs-6" style="display: flex; flex-direction: row; justify-content: flex-end; align-items: flex-end">
                     @if($claim ?? '')
@@ -1190,12 +1190,12 @@
                                     killview(i, "Time input cannot be between {{$day[0]}} and {{$day[1]}}!");
                                     // check = killview(i, "Time input cannot be between {{$day[0]}} and {{$day[1]}}!");
                                 }
-                                // else{
-                                //     calshowtime(i, end-start, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
-                                //     // if(i!=0){
-                                //     $('#oldds-'+i).text($("#inputstart-"+i).val());
-                                //     $('#oldde-'+i).text($("#inputend-"+i).val());
-                                // }
+                                else{
+                                    calshowtime(i, end-start, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
+                                    // if(i!=0){
+                                    $('#oldds-'+i).text($("#inputstart-"+i).val());
+                                    $('#oldde-'+i).text($("#inputend-"+i).val());
+                                }
                             // }
                         }else{
                             // if(check){
