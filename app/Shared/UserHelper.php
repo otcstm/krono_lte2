@@ -15,6 +15,7 @@ use App\OvertimePunch;
 use App\StaffPunch;
 use App\WsrChangeReq;
 use App\UserShiftPattern;
+use App\ShiftPlan;
 use App\ShiftPlanStaffDay;
 use App\ShiftPattern;
 use App\DayType;
@@ -459,7 +460,7 @@ class UserHelper {
     {
       $leave = Leave::where('user_id', $user)->whereDate('start_date','<=',$date)->whereDate('end_date','>=',$date)->orderby('upd_sap', "DESC")->first();
       if($leave){
-        return $leave->opr;
+        return $leave;
       }
       return null;
     }
@@ -469,15 +470,29 @@ class UserHelper {
     {
       $day = date('N', strtotime($date));
       $sameday = true;
+      $sp = null;
       // first, check if there's any shift planned for this person
-      $wd = ShiftPlanStaffDay::where('user_id', $user)
-        ->whereDate('work_date', $date)->first();
+      $usp = UserShiftPattern::where("user_id", $user)
+        ->whereDate('start_date','<=', $date)
+        ->whereDate('end_date','>=', $date)->first();
+      if(($usp!="OFF1")&&($usp!="OFF2")){
+        $wd = ShiftPlanStaffDay::where('user_id', $user)
+          ->whereDate('work_date', $date)->first();
+        if($wd){
+          $sp = ShiftPlan::where("id", $wd->shift_plan_id)->first();
+          if($sp->status=="Approved"){
+            
+          }else{
+            $wd = null;
+          }
+        }
+      }
 // dd($wd);
       $ph = null;
       $hc = null;
       $hcc = null;
       if($wd){
-
+        $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->first();
       } else {
         // not a shift staff. get based on the wsr
         $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->first();

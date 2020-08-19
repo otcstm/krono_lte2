@@ -23,6 +23,7 @@ use App\VerifierGroupMember;
 use App\Psubarea;
 use App\DayType;
 use App\Costcenter;
+use App\ShiftPlan;
 use App\ShiftPlanStaffDay;
 use App\Project;
 use App\InternalOrder;
@@ -69,13 +70,21 @@ class OvertimeController extends Controller
         $end = null;
         $day = null;
         $wd = null;
+        $sp = null;
         //if claim exist
         if ($req->session()->get('claim')!=null) {
             $day = UserHelper::CheckDay($req->user()->id, $req->session()->get('claim')->date);
             $ushiftp = UserHelper::GetUserShiftPatternSAP($req->user()->id, date('Y-m-d', strtotime($req->session()->get('claim')->date))." 00:00:00");
-            if(($ushiftp=="OFF1")&&($ushiftp=="OFF2")){
+            if(($ushiftp!="OFF1")&&($ushiftp!="OFF2")){
+                
                 $wd = ShiftPlanStaffDay::where('user_id', $req->user()->id)
                 ->whereDate('work_date', $req->session()->get('claim')->date)->first();
+                $sp = ShiftPlan::where("id", $wd->shift_plan_id)->first();
+                if($sp->status=="Approved"){
+                  
+                }else{
+                  $wd = null;
+                }
             }
             if($wd){
                 $shift = "Yes";
@@ -173,6 +182,12 @@ class OvertimeController extends Controller
             if(($ushiftp=="OFF1")&&($ushiftp=="OFF2")){
                 $wd = ShiftPlanStaffDay::where('user_id', $req->user()->id)
                 ->whereDate('work_date', date('Y-m-d', strtotime($draft[4])))->first();
+                $sp = ShiftPlan::where("id", $wd->shift_plan_id)->first();
+                if($sp->status=="Approved"){
+                  
+                }else{
+                  $wd = null;
+                }
             }
             if($wd){
                 $shift = "Yes";
@@ -388,7 +403,14 @@ class OvertimeController extends Controller
        
         // dd($elig);
         $wd = ShiftPlanStaffDay::where('user_id', $req->user()->id)
-        ->whereDate('work_date', $req->inputdate)->first();
+        ->whereDate('work_date', date("Y-m-d", strtotime($req->inputdate)))->first();
+        // dd($wd);
+        $sp = ShiftPlan::where("id", $wd->shift_plan_id)->first();
+        if($sp->status=="Approved"){
+            
+        }else{
+            $wd = null;
+        }
         if($wd){
             $employtype = "Shift";
         }else{
