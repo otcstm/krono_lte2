@@ -1318,20 +1318,27 @@
                                 }
                             }
                             if(split.length>2){
-                                if(!(parseInt(h1 + h2)>23)){
-                                    if(!(isNaN(parseInt(split[2])))){
-                                        // if(parseInt(h1)==2){
-                                            if(parseInt(split[2])>5){
-                                                m1 = "5";
-                                            }else{
-                                                m1 = split[1];
-                                            }
-                                        // }else{
-                                        //     h2 = split[1];
-                                        // }
-                                    }
-                                    if(!(isNaN(parseInt(split[3])))){
-                                        m2 = split[3];
+                                if(split.length==3){
+                                    h1 = "0";
+                                    h2 = split[0];
+                                    m1 = split[1];
+                                    m2 = split[2];
+                                }else{
+                                    if(!(parseInt(h1 + h2)>23)){
+                                        if(!(isNaN(parseInt(split[2])))){
+                                            // if(parseInt(h1)==2){
+                                                if(parseInt(split[2])>5){
+                                                    m1 = "5";
+                                                }else{
+                                                    m1 = split[1];
+                                                }
+                                            // }else{
+                                            //     h2 = split[1];
+                                            // }
+                                        }
+                                        if(!(isNaN(parseInt(split[3])))){
+                                            m2 = split[3];
+                                        }
                                     }
                                 }
                             }
