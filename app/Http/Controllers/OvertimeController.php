@@ -97,6 +97,7 @@ class OvertimeController extends Controller
                 $start = "00:00";
                 $end = "24:00";
             }
+            dd($shift);
             // $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $region->region)->where('start_date','<=', $req->session()->get('claim')->date)->where('end_date','>', $req->session()->get('claim')->date)->first();
             $eligiblehour = URHelper::getUserEligibility($req->user()->id, $req->session()->get('claim')->date);
             //if charge type is other cost center
@@ -179,10 +180,11 @@ class OvertimeController extends Controller
             // $ushiftp = UserShiftPattern::where('user_id', $req->user()->id)
             // ->whereDate('start_date','<=', date("Y-m-d", strtotime($draft[4]))." 00:00:00")
             // ->whereDate('end_date','>=', date("Y-m-d", strtotime($draft[4]))." 00:00:00")->first();
-            if(($ushiftp=="OFF1")&&($ushiftp=="OFF2")){
+            if(($ushiftp!="OFF1")&&($ushiftp!="OFF2")){
                 $wd = ShiftPlanStaffDay::where('user_id', $req->user()->id)
                 ->whereDate('work_date', date('Y-m-d', strtotime($draft[4])))->first();
                 $sp = ShiftPlan::where("id", $wd->shift_plan_id)->first();
+                // dd($wd);
                 if($sp->status=="Approved"){
                   
                 }else{
@@ -402,15 +404,34 @@ class OvertimeController extends Controller
         $elig = URHelper::getUserEligibility($req->user()->id, $otdate);
        
         // dd($elig);
-        $wd = ShiftPlanStaffDay::where('user_id', $req->user()->id)
-        ->whereDate('work_date', date("Y-m-d", strtotime($req->inputdate)))->first();
-        // dd($wd);
-        $sp = ShiftPlan::where("id", $wd->shift_plan_id)->first();
-        if($sp->status=="Approved"){
-            
-        }else{
-            $wd = null;
+        $wd = null;
+        $ushiftp = UserHelper::GetUserShiftPatternSAP($req->user()->id, date('Y-m-d', strtotime($otdate))." 00:00:00");
+        // dd($ushiftp);
+        if(($ushiftp!="OFF1")&&($ushiftp!="OFF2")){
+            $wd = ShiftPlanStaffDay::where('user_id', $req->user()->id)
+            ->whereDate('work_date', date('Y-m-d', strtotime($otdate)))->first();
+            $sp = ShiftPlan::where("id", $wd->shift_plan_id)->first();
+            // dd($sp);
+            if($sp->status=="Approved"){
+              
+            }else{
+                return redirect(route('ot.form', [], false))->with([
+                    'feedback' => true,
+                    'feedback_text' => "Your shift planning for date ".date('d.m.Y', strtotime($otdate))." has not yet been approved. Please contact you supervisor for shift planning approval.",
+                    'feedback_title' => "Date select failed!"
+                ]);
+            }
         }
+        
+        // $wd = ShiftPlanStaffDay::where('user_id', $req->user()->id)
+        // ->whereDate('work_date', date("Y-m-d", strtotime($req->inputdate)))->first();
+        // // dd($wd);
+        // $sp = ShiftPlan::where("id", $wd->shift_plan_id)->first();
+        // if($sp->status=="Approved"){
+            
+        // }else{
+        //     $wd = null;
+        // }
         if($wd){
             $employtype = "Shift";
         }else{
