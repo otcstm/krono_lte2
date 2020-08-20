@@ -97,7 +97,7 @@ class OvertimeController extends Controller
                 $start = "00:00";
                 $end = "24:00";
             }
-            dd($shift);
+            // dd($shift);
             // $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $region->region)->where('start_date','<=', $req->session()->get('claim')->date)->where('end_date','>', $req->session()->get('claim')->date)->first();
             $eligiblehour = URHelper::getUserEligibility($req->user()->id, $req->session()->get('claim')->date);
             //if charge type is other cost center
