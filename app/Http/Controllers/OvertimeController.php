@@ -404,8 +404,9 @@ class OvertimeController extends Controller
         $elig = URHelper::getUserEligibility($req->user()->id, $otdate);
        
         // dd($elig);
-        
+        $wd = null;
         $ushiftp = UserHelper::GetUserShiftPatternSAP($req->user()->id, date('Y-m-d', strtotime($otdate))." 00:00:00");
+        // dd($ushiftp);
         if(($ushiftp!="OFF1")&&($ushiftp!="OFF2")){
             $wd = ShiftPlanStaffDay::where('user_id', $req->user()->id)
             ->whereDate('work_date', date('Y-m-d', strtotime($otdate)))->first();
@@ -421,6 +422,7 @@ class OvertimeController extends Controller
                 ]);
             }
         }
+        
         // $wd = ShiftPlanStaffDay::where('user_id', $req->user()->id)
         // ->whereDate('work_date', date("Y-m-d", strtotime($req->inputdate)))->first();
         // // dd($wd);
