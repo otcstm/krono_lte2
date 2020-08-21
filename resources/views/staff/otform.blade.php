@@ -381,7 +381,7 @@
                                                 <td>
                                                     @if(($c ?? '')||($d ?? '')||($q ?? ''))
                                                         <span id="oldde-{{$no}}" class="hidden">@if(date('H:i', strtotime($singleuser->end_time))=='00:00')24:00 @else{{date('H:i', strtotime($singleuser->end_time))}} @endif</span>
-                                                        <input style="width: 50px" id="inputend-{{$no}}" name="inputend[]" type="text" class="timepicker check-{{$no}} check-{{$no}}-2 @if($singleuser->checked=="N") hidden @endif" 
+                                                        <input style="width: 50px" id="inputend-{{$no}}" name="inputend[]" type="text" class=" check-{{$no}} check-{{$no}}-2 @if($singleuser->checked=="N") hidden @endif" 
                                                             data-clock_out="{{ date('H:i', strtotime($singleuser->clock_out))}}"
                                                             data-end_time="@if(date('H:i', strtotime($singleuser->end_time))=='00:00')24:00 @else{{date('H:i', strtotime($singleuser->end_time))}} @endif"
                                                             value="@if(date('H:i', strtotime($singleuser->end_time))=='00:00')24:00 @else{{date('H:i', strtotime($singleuser->end_time))}} @endif" required>
@@ -448,7 +448,7 @@
                                 </td>
                                 <td>
                                     <span id="oldde-0" class="hidden">0</span>
-                                    <input style="width: 50px" id="inputend-0" type="text" name="inputendnew" class="timepicker check-0 check-0-1" disabled>
+                                    <input style="width: 50px" id="inputend-0" type="text" name="inputendnew" class=" check-0 check-0-1" disabled>
                                 </td>
                                 <td>
                                     <span id="olddh-0" class="hidden">0</span>
@@ -1064,6 +1064,7 @@
                 // }else{
                 //     check=true;
                 var time=[];
+                // console.log(i);
                 var st = ($("#inputstart-"+i).val()).split(":");
                 // console.log(st);
                 var min = "{{$day[0]}}";
@@ -1285,59 +1286,70 @@
 
         function timepicker(i, id){
             return function(){
-                var split = $(id).val().split("");
+                var splits = $(id).val().split("");
                 var h1 = "0";
                 var h2 = "0";
                 var m1 = "0";
                 var m2 = "0";
+                // console.log(splits);
                 // alert(split.length);
-                if(split.length==1){
-                    if(!(isNaN(parseInt(split[0])))){
-                        h2 = split[0];
+                // var splice = null;
+                var length = splits.length;
+                for(var x=0; x<length; x++){
+                    if(splits[x]==":"){
+                        splits.splice(x, 1);
+                        length = length - 1;
+                    }
+                }
+                
+                // console.log(splits);
+                if(splits.length==1){
+                    if(!(isNaN(parseInt(splits[0])))){
+                        h2 = splits[0];
                     }
                     $(id).val(h1+h2+":"+m1+m2);
                 }else{
-                    if(split.length>0){
-                        if(!(isNaN(parseInt(split[0])))){
-                            if(parseInt(split[0])>2){
+                    if(splits.length>0){
+                        if(!(isNaN(parseInt(splits[0])))){
+                            if(parseInt(splits[0])>2){
                                 h1 = "2";
                             }else{
-                                h1 = split[0];
+                                h1 = splits[0];
                             }
                         }
-                        if(split.length>1){
-                            if(!(isNaN(parseInt(split[1])))){
+                        if(splits.length>1){
+                            if(!(isNaN(parseInt(splits[1])))){
                                 if(parseInt(h1)==2){
-                                    if(parseInt(split[1])>4){
+                                    if(parseInt(splits[1])>4){
                                         h2 = "4";
                                     }else{
-                                        h2 = split[1];
+                                        h2 = splits[1];
                                     }
                                 }else{
-                                    h2 = split[1];
+                                    h2 = splits[1];
                                 }
                             }
-                            if(split.length>2){
-                                if(split.length==3){
+                            if(splits.length>2){
+                                if(splits.length==3){
                                     h1 = "0";
-                                    h2 = split[0];
-                                    m1 = split[1];
-                                    m2 = split[2];
+                                    h2 = splits[0];
+                                    m1 = splits[1];
+                                    m2 = splits[2];
                                 }else{
                                     if(!(parseInt(h1 + h2)>23)){
-                                        if(!(isNaN(parseInt(split[2])))){
+                                        if(!(isNaN(parseInt(splits[2])))){
                                             // if(parseInt(h1)==2){
-                                                if(parseInt(split[2])>5){
+                                                if(parseInt(splits[2])>5){
                                                     m1 = "5";
                                                 }else{
-                                                    m1 = split[1];
+                                                    m1 = splits[2];
                                                 }
                                             // }else{
                                             //     h2 = split[1];
                                             // }
                                         }
-                                        if(!(isNaN(parseInt(split[3])))){
-                                            m2 = split[3];
+                                        if(!(isNaN(parseInt(splits[3])))){
+                                            m2 = splits[3];
                                         }
                                     }
                                 }
@@ -1345,6 +1357,8 @@
                         }
                     }                    
                 }
+                console.log("h1:"+h1+", h2:"+h2+", m1:"+m1+", m2:"+m2);
+                console.log(id);
                 $(id).val(h1+h2+":"+m1+m2);
                 return checktime(i);
             }
@@ -1477,6 +1491,7 @@
                 $("#inputend-0").val('');
                 $("#inputstart-0").prop('required',false);
                 $("#inputend-0").prop('required',false);
+                $("#inputend-0").prop('disabled',true);
                 $("#inputremark-0").prop('required',false);
                 nhm = showtime((parseInt($("#oldth").text()*60)+parseInt($("#oldtm").text()))-(parseInt($("#olddh-0").text()*60)+parseInt($("#olddm-0").text())));
                 $('#olddh-0').text("0");
