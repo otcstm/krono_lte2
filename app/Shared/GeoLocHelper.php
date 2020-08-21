@@ -14,16 +14,16 @@ class GeoLocHelper
   public static $baseuri = "https://tmoip.tm.com.my/api/t/tm.com.my/geosmartmap/1.0.0";
   public static $options = [
 
-    'headers' => ['Custom' => 'Bearer fab8822f-00b5-38e3-8c58-22ec93d9adae']
+    'headers' => ['Custom' => 'Bearer 9b2a6889-16db-38ca-b18d-280f191f2be6']
   ];
-
+  #'headers' => ['Custom' => 'Bearer 9b2a6889-16db-38ca-b18d-280f191f2be6']  
   public static function getLocDescr($lat,$lon)
   {
     $uri = self::$baseuri . "/search/reversegeocode";
 
     $options = [
 
-      'headers' => ['Custom' => 'Bearer fab8822f-00b5-38e3-8c58-22ec93d9adae'],
+      'headers' => ['Custom' => 'Bearer 9b2a6889-16db-38ca-b18d-280f191f2be6'],
       'query' => ['lat' => $lat, 'lon' => $lon]
     ];
   
