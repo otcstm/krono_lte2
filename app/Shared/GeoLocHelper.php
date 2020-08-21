@@ -14,7 +14,7 @@ class GeoLocHelper
   public static $baseuri = "https://tmoip.tm.com.my/api/t/tm.com.my/geosmartmap/1.0.0";
   public static $options = [
 
-    'headers' => ['Custom' => 'Bearer 9fe33ae1-5c61-3969-a2e6-b9fd97c038cf']
+    'headers' => ['Custom' => 'Bearer 1f189981-5481-3c1f-aaee-283f16981eda']
   ];
   #'headers' => ['Custom' => 'Bearer fab8822f-00b5-38e3-8c58-22ec93d9adae']  
   public static function getLocDescr($lat,$lon)
@@ -23,7 +23,7 @@ class GeoLocHelper
 
     $options = [
 
-      'headers' => ['Custom' => 'Bearer 9fe33ae1-5c61-3969-a2e6-b9fd97c038cf'],
+      'headers' => ['Custom' => 'Bearer 1f189981-5481-3c1f-aaee-283f16981eda'],
       'query' => ['lat' => $lat, 'lon' => $lon]
     ];
   
