@@ -410,6 +410,15 @@ class OvertimeController extends Controller
         if(($ushiftp!="OFF1")&&($ushiftp!="OFF2")){
             $wd = ShiftPlanStaffDay::where('user_id', $req->user()->id)
             ->whereDate('work_date', date('Y-m-d', strtotime($otdate)))->first();
+            if($wd){
+
+            }else{
+                return redirect(route('ot.form', [], false))->with([
+                    'feedback' => true,
+                    'feedback_text' => "Your shift planning for date ".date('d.m.Y', strtotime($otdate))." has not yet been created. Please contact you supervisor for shift planning.",
+                    'feedback_title' => "Date select failed!"
+                ]);
+            }
             $sp = ShiftPlan::where("id", $wd->shift_plan_id)->first();
             // dd($sp);
             if($sp->status=="Approved"){
