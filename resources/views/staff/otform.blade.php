@@ -364,7 +364,7 @@
                                                 <td>
                                                     @if(($c ?? '')||($d ?? '')||($q ?? ''))
                                                         <span id="oldds-{{$no}}" class="hidden">{{date('H:i', strtotime($singleuser->start_time))}}</span>
-                                                        <input style="width: 50px" id="inputstart-{{$no}}" name="inputstart[]" type="text" class="timepicker check-{{$no}} check-{{$no}}-1 @if($singleuser->checked=="N") hidden @endif" 
+                                                        <input style="width: 50px" id="inputstart-{{$no}}" name="inputstart[]" type="text" class=" check-{{$no}} check-{{$no}}-1 @if($singleuser->checked=="N") hidden @endif" 
                                                             data-clock_in="{{ date('H:i', strtotime($singleuser->clock_in))}}"
                                                             data-start_time="{{ date('H:i', strtotime($singleuser->start_time))}}"
                                                             @if($singleuser->clock_in!="")

@@ -683,69 +683,78 @@ class OvertimeController extends Controller
         $staffr = URHelper::getUserRecordByDate($req->user()->id, $req->inputdates);
 
         //check for existing claim
-        if ($req->inputid=="") {  //if not
-            $gm = UserHelper::CheckGM(date("Y-m-d"), date("Y-m-d", strtotime(($req->session()->get('draft'))[4])));
-            // $wage = OvertimeFormula::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', ($req->session()->get('draft'))[4])->where('end_date','>', ($req->session()->get('draft'))[4])->first();   //temp
-            $draftclaim = new Overtime;
-            $draftclaim->refno = ($req->session()->get('draft'))[0];
-            $draftclaim->user_id = $req->user()->id;
-            $draftclaim->profile_id = $staffr->id;
-            $draftclaim->month_id = ($req->session()->get('draft'))[3]->id;
-            $draftclaim->date = ($req->session()->get('draft'))[4];
-            $draftclaim->date_created = date("Y-m-d", strtotime(($req->session()->get('draft'))[2]));
-            $draftclaim->date_expiry = ($req->session()->get('draft'))[1];
-            $draftclaim->total_hour = 0;
-            $draftclaim->total_minute = 0;
-            $draftclaim->amount = 0;
-            $day= UserHelper::CheckDay($req->user()->id, $req->session()->get('draft')[4]);
-            $day_type=$day[2];
-            $dy = DayType::where('id', $day[4])->first();
-            // dd($day[4]);
-            $day_typed=$dy->day_type;
-            //check if ot date is more than 3 months from system date
-            if ($gm) { //if more than 3 months
-                $draftclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime(($req->session()->get('draft'))[2])));
-                $draftclaim->verifier_id =  $req->user()->reptto;
-            } else {
-                $draftclaim->approver_id = $req->user()->reptto;
-                $vgm = VerifierGroupMember::where('user_id', $req->user()->id)->first();
-                if ($vgm) {
-                    $vg = VerifierGroup::where('id', $vgm->user_verifier_groups_id)->first();
-                    if ($vg) {
-                        if ($vg!="") {
-                            $draftclaim->verifier_id =  $vg->verifier_id;
+        $c =  Overtime::where("user_id", $req->user()->id)->where("date", date("Y-m-d", strtotime($req->inputdates)))->first();
+        if($c==null){
+            if (($req->inputid==null)) {
+                
+                // dd($req);
+                $gm = UserHelper::CheckGM(date("Y-m-d"), date("Y-m-d", strtotime(($req->session()->get('draft'))[4])));
+                // $wage = OvertimeFormula::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', ($req->session()->get('draft'))[4])->where('end_date','>', ($req->session()->get('draft'))[4])->first();   //temp
+                $draftclaim = new Overtime;
+                $draftclaim->refno = ($req->session()->get('draft'))[0];
+                $draftclaim->user_id = $req->user()->id;
+                $draftclaim->profile_id = $staffr->id;
+                $draftclaim->month_id = ($req->session()->get('draft'))[3]->id;
+                $draftclaim->date = ($req->session()->get('draft'))[4];
+                $draftclaim->date_created = date("Y-m-d", strtotime(($req->session()->get('draft'))[2]));
+                $draftclaim->date_expiry = ($req->session()->get('draft'))[1];
+                $draftclaim->total_hour = 0;
+                $draftclaim->total_minute = 0;
+                $draftclaim->amount = 0;
+                $day= UserHelper::CheckDay($req->user()->id, $req->session()->get('draft')[4]);
+                $day_type=$day[2];
+                $dy = DayType::where('id', $day[4])->first();
+                // dd($day[4]);
+                $day_typed=$dy->day_type;
+                //check if ot date is more than 3 months from system date
+                if ($gm) { //if more than 3 months
+                    $draftclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime(($req->session()->get('draft'))[2])));
+                    $draftclaim->verifier_id =  $req->user()->reptto;
+                } else {
+                    $draftclaim->approver_id = $req->user()->reptto;
+                    $vgm = VerifierGroupMember::where('user_id', $req->user()->id)->first();
+                    if ($vgm) {
+                        $vg = VerifierGroup::where('id', $vgm->user_verifier_groups_id)->first();
+                        if ($vg) {
+                            if ($vg!="") {
+                                $draftclaim->verifier_id =  $vg->verifier_id;
+                            }
                         }
                     }
                 }
+                $draftclaim->daytype_id =  $day[4];
+                $draftclaim->day_type_code =  $day_typed;
+                $draftclaim->state_id =  ($req->session()->get('draft'))[6];
+                $draftclaim->company_id =  $staffr->company_id;
+                $draftclaim->employee_type =  ($req->session()->get('draft'))[14];
+                $draftclaim->salary_exception =  ($req->session()->get('draft'))[15];
+                $draftclaim->persarea =  $staffr->persarea;
+                $draftclaim->perssubarea =  $staffr->perssubarea;
+                $draftclaim->region =  $region->region;
+                $draftclaim->costcenter =  $staffr->costcentr;
+                // $draftclaim->wage_type =  $wage->legacy_codes; //temp
+                // $userrecid = URHelper::getUserRecordByDate($req->user()->persno, date('Y-m-d', strtotime(($req->session()->get('draft'))[4])));
+                // $salexecpt = URHelper::getUserRecordByDate($req->user()->persno, date('Y-m-d', strtotime(($req->session()->get('draft'))[2])));
+                // dd($userrecid);
+                $draftclaim->user_records_id =  $staffr->id;
+                $draftclaim->sal_exception =  $staffr->ot_salary_exception;
+                $draftclaim->status = 'D1';
+                $draftclaim->save();
+                $claim = Overtime::where('user_id', $req->user()->id)->where('date', ($req->session()->get('draft'))[4])->first();
+                $id = $claim->id;
+                $execute = UserHelper::LogOT($claim->id, $req->user()->id, "Created draft", "Created draft for ".$claim->refno);
+                Session::put(['draft' => []]);
             }
-            $draftclaim->daytype_id =  $day[4];
-            $draftclaim->day_type_code =  $day_typed;
-            $draftclaim->state_id =  ($req->session()->get('draft'))[6];
-            $draftclaim->company_id =  $staffr->company_id;
-            $draftclaim->employee_type =  ($req->session()->get('draft'))[14];
-            $draftclaim->salary_exception =  ($req->session()->get('draft'))[15];
-            $draftclaim->persarea =  $staffr->persarea;
-            $draftclaim->perssubarea =  $staffr->perssubarea;
-            $draftclaim->region =  $region->region;
-            $draftclaim->costcenter =  $staffr->costcentr;
-            // $draftclaim->wage_type =  $wage->legacy_codes; //temp
-            // $userrecid = URHelper::getUserRecordByDate($req->user()->persno, date('Y-m-d', strtotime(($req->session()->get('draft'))[4])));
-            // $salexecpt = URHelper::getUserRecordByDate($req->user()->persno, date('Y-m-d', strtotime(($req->session()->get('draft'))[2])));
-            // dd($userrecid);
-            $draftclaim->user_records_id =  $staffr->id;
-            $draftclaim->sal_exception =  $staffr->ot_salary_exception;
-            $draftclaim->status = 'D1';
-            $draftclaim->save();
-            $claim = Overtime::where('user_id', $req->user()->id)->where('date', ($req->session()->get('draft'))[4])->first();
-            $id = $claim->id;
-            $execute = UserHelper::LogOT($claim->id, $req->user()->id, "Created draft", "Created draft for ".$claim->refno);
-            Session::put(['draft' => []]);
         } else {
-            $claim = Overtime::where('id', $req->inputid)->first();
+            if($req->inputid == null){
+                $claim =  Overtime::where("user_id", $req->user()->id)->where("date", date("Y-m-d", strtotime($req->inputdates)))->first();
+            }else{
+                $claim = Overtime::where('id', $req->inputid)->first();
+            }
             $id = $claim->id;
             $gm = UserHelper::CheckGM($claim->date_created, $claim->date);
         }
-
+        // dd($claim);
         //check user ot salary exception
         $salary = $staffr->salary;
         if ($staffr->ot_salary_exception=="Y") {
@@ -855,102 +864,105 @@ class OvertimeController extends Controller
             for ($i=0; $i<count($claimdetail); $i++) {
 
                 //check claim hour detail form is complete
-                if (($req->inputstart[$i]!="")&&$req->inputend[$i]!="") {
-                    $operation = null;
+                if(($req->inputstart)&&($req->inputend)){
+                    if (($req->inputstart[$i]!="")&&$req->inputend[$i]!="") {
+                        $operation = null;
 
-                    //check if draft/query status complete or not (D1/D2/Q1/Q2)
-                    if (($req->inputremark[$i]=="")||($req->inputstart[$i]=="")||($req->inputend[$i]=="")) {
-                        $status = false;
-                    }
-                    $end = $req->inputend[$i];
-                    $end2 = $end;
-                    if ($end=="0:00") {
-                        // dd($req->inputend[$i]);
-                        $end2="24:00";
-                    }
-                    $dif = (strtotime($end2) - strtotime($req->inputstart[$i]))/60;
-                    $hour = (int) ($dif/60);
-                    $minute = $dif%60;
-                    // $pay = UserHelper::CalOT($salary, $hour, $minute);
-                    $updatedetail = $claimdetail[$i];
-                    $uphm = ($updatedetail->hour*60)+($updatedetail->minute);
-                    $updatedetail->hour = $hour;
-                    $updatedetail->minute = $minute;
-                    $updatedetail->save();
-                    $updatedetail= $claimdetail[$i];
-                    $pay = UserHelper::CalOT($updatedetail->id);
-                    $updatedetail->amount = $pay;
-                    $updatedetail->start_time = $claim->date." ".$req->inputstart[$i].":00";
-                    if ($end=="00:00") {
-                        $newdetail->end_time = date('Y-m-d', strtotime($claim->date . "+1 days"))." ".$end.":00";
-                    } else {
-                        $updatedetail->end_time = $claim->date." ".$end.":00";
-                    }
+                        //check if draft/query status complete or not (D1/D2/Q1/Q2)
+                        if (($req->inputremark[$i]=="")||($req->inputstart[$i]=="")||($req->inputend[$i]=="")) {
+                            $status = false;
+                        }
+                        $end = $req->inputend[$i];
+                        $end2 = $end;
+                        if ($end=="0:00") {
+                            // dd($req->inputend[$i]);
+                            $end2="24:00";
+                        }
+                        $dif = (strtotime($end2) - strtotime($req->inputstart[$i]))/60;
+                        $hour = (int) ($dif/60);
+                        $minute = $dif%60;
+                        // $pay = UserHelper::CalOT($salary, $hour, $minute);
+                        $updatedetail = $claimdetail[$i];
+                        $uphm = ($updatedetail->hour*60)+($updatedetail->minute);
+                        $updatedetail->hour = $hour;
+                        $updatedetail->minute = $minute;
+                        $updatedetail->save();
+                        $updatedetail= $claimdetail[$i];
+                        $pay = UserHelper::CalOT($updatedetail->id);
+                        $updatedetail->amount = $pay;
+                        $updatedetail->start_time = $claim->date." ".$req->inputstart[$i].":00";
+                        if ($end=="00:00") {
+                            $newdetail->end_time = date('Y-m-d', strtotime($claim->date . "+1 days"))." ".$end.":00";
+                        } else {
+                            $updatedetail->end_time = $claim->date." ".$end.":00";
+                        }
 
-                    //check if checkbox changed or not
-                    if ($updatedetail->checked != $req->inputcheck[$i]) {
-                        $updatedetail->checked = $req->inputcheck[$i];
-                        $operation = $req->inputcheck[$i];
-                    }
-                    $updatedetail->justification = $req->inputremark[$i];
-                    $updatemonth = OvertimeMonth::find($claim->month_id);
-                    $updateclaim = Overtime::find($claim->id);
+                        //check if checkbox changed or not
+                        if ($updatedetail->checked != $req->inputcheck[$i]) {
+                            $updatedetail->checked = $req->inputcheck[$i];
+                            $operation = $req->inputcheck[$i];
+                        }
+                        $updatedetail->justification = $req->inputremark[$i];
+                        $updatemonth = OvertimeMonth::find($claim->month_id);
+                        $updateclaim = Overtime::find($claim->id);
 
-                    $time = ($hour*60)+$minute;
-                    if($time >= 420){
-                        $time = $time - 420;
-                    }
-                    $time2 = ($updatedetail->hour*60)+$updatedetail->minute;
-                    if($time2 >= 420){
-                        $time2 = $time2 - 420;
-                    }
-                    //if checkbox changed
-                    if ($operation=="Y") {
-                        $totaltimem = (($updatemonth->hour*60)+$updatemonth->minute)+$time;
-                        $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)+(($hour*60)+$minute);
-                        $updateclaim->amount = $updateclaim->amount + $pay;
-                    } elseif ($operation=="N") {
-                        $totaltimem = (($updatemonth->hour*60)+$updatemonth->minute)-$time;
-                        // dd($totaltime);
-                        $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)-(($hour*60)+$minute);
-                        $updateclaim->amount = $updateclaim->amount - $pay;
-                    } else {  //if checkbox not changed
-                        $totaltimem = (($updatemonth->hour*60)+$updatemonth->minute)-$time2 +$time;
-                        $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)-($uphm)+(($hour*60)+$minute);
-                        // $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)-(($updatedetail->hour*60)+$updatedetail->minute)+(($hour*60)+$minute);
-                        $updateclaim->amount = $updateclaim->amount - $updatedetail->amount + $pay;
-                        // dd($totaltime);
-                    }
-                    $updatemonth->hour = (int)($totaltimem/60);
-                    $updatemonth->minute = ($totaltimem%60);
-                    $updateclaim->total_hour = (int)($totaltime/60);
-                    $updateclaim->total_minute = ($totaltime%60);
-                    $updateclaim->total_hours_minutes = ($totaltime/60);
-                    $code = URHelper::getDayCode($updateclaim->user_id, $updateclaim->date, $updateclaim->day_type_code, $totaltime);
-                    if(($updateclaim->day_type_code=="N")||($updateclaim->day_type_code=="O")){
-                        $updateclaim->eligible_total_hours_minutes = $totaltime/60;
-                        $updateclaim->eligible_total_hours_minutes_code =  $code[1];
-                    }else{
-                        $updateclaim->eligible_day = 1;
-                        $updateclaim->eligible_day_code = $code[0];
-                        if($totaltime >= 420){
-                            $totaltime = $totaltime - 420;
+                        $time = ($hour*60)+$minute;
+                        if($time >= 420){
+                            $time = $time - 420;
+                        }
+                        $time2 = ($updatedetail->hour*60)+$updatedetail->minute;
+                        if($time2 >= 420){
+                            $time2 = $time2 - 420;
+                        }
+                        //if checkbox changed
+                        if ($operation=="Y") {
+                            $totaltimem = (($updatemonth->hour*60)+$updatemonth->minute)+$time;
+                            $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)+(($hour*60)+$minute);
+                            $updateclaim->amount = $updateclaim->amount + $pay;
+                        } elseif ($operation=="N") {
+                            $totaltimem = (($updatemonth->hour*60)+$updatemonth->minute)-$time;
+                            // dd($totaltime);
+                            $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)-(($hour*60)+$minute);
+                            $updateclaim->amount = $updateclaim->amount - $pay;
+                        } else {  //if checkbox not changed
+                            $totaltimem = (($updatemonth->hour*60)+$updatemonth->minute)-$time2 +$time;
+                            $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)-($uphm)+(($hour*60)+$minute);
+                            // $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)-(($updatedetail->hour*60)+$updatedetail->minute)+(($hour*60)+$minute);
+                            $updateclaim->amount = $updateclaim->amount - $updatedetail->amount + $pay;
+                            // dd($totaltime);
+                        }
+                        $updatemonth->hour = (int)($totaltimem/60);
+                        $updatemonth->minute = ($totaltimem%60);
+                        $updateclaim->total_hour = (int)($totaltime/60);
+                        $updateclaim->total_minute = ($totaltime%60);
+                        $updateclaim->total_hours_minutes = ($totaltime/60);
+                        $code = URHelper::getDayCode($updateclaim->user_id, $updateclaim->date, $updateclaim->day_type_code, $totaltime);
+                        if(($updateclaim->day_type_code=="N")||($updateclaim->day_type_code=="O")){
                             $updateclaim->eligible_total_hours_minutes = $totaltime/60;
                             $updateclaim->eligible_total_hours_minutes_code =  $code[1];
                         }else{
-                            
-                            $updateclaim->eligible_total_hours_minutes = 0;
-                            $updateclaim->eligible_total_hours_minutes_code =  null;
-                        } 
-                    }
-                    $updatedetail->checked = $req->inputcheck[$i];
-                    $updatedetail->save();
-                    $updatemonth->save();
-                    $updateclaim->save();
+                            $updateclaim->eligible_day = 1;
+                            $updateclaim->eligible_day_code = $code[0];
+                            if($totaltime >= 420){
+                                $totaltime = $totaltime - 420;
+                                $updateclaim->eligible_total_hours_minutes = $totaltime/60;
+                                $updateclaim->eligible_total_hours_minutes_code =  $code[1];
+                            }else{
+                                
+                                $updateclaim->eligible_total_hours_minutes = 0;
+                                $updateclaim->eligible_total_hours_minutes_code =  null;
+                            } 
+                        }
+                        $updatedetail->checked = $req->inputcheck[$i];
+                        $updatedetail->save();
+                        $updatemonth->save();
+                        $updateclaim->save();
 
-                    if ($updatedetail->checked=="Y") {
-                        $havecheckedclaim = true;
+                        if ($updatedetail->checked=="Y") {
+                            $havecheckedclaim = true;
+                        }
                     }
+                    
                 }
             }
         }
