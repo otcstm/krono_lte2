@@ -15,6 +15,7 @@ use App\OvertimePunch;
 use App\StaffPunch;
 use App\WsrChangeReq;
 use App\UserShiftPattern;
+use App\ShiftPlan;
 use App\ShiftPlanStaffDay;
 use App\ShiftPattern;
 use App\DayType;
@@ -459,7 +460,7 @@ class UserHelper {
     {
       $leave = Leave::where('user_id', $user)->whereDate('start_date','<=',$date)->whereDate('end_date','>=',$date)->orderby('upd_sap', "DESC")->first();
       if($leave){
-        return $leave->opr;
+        return $leave;
       }
       return null;
     }
@@ -468,16 +469,30 @@ class UserHelper {
     public static function CheckDay($user, $date)
     {
       $day = date('N', strtotime($date));
-
+      $sameday = true;
+      $sp = null;
       // first, check if there's any shift planned for this person
-      $wd = ShiftPlanStaffDay::where('user_id', $user)
-        ->whereDate('work_date', $date)->first();
+      $usp = UserShiftPattern::where("user_id", $user)
+        ->whereDate('start_date','<=', $date)
+        ->whereDate('end_date','>=', $date)->first();
+      if(($usp!="OFF1")&&($usp!="OFF2")){
+        $wd = ShiftPlanStaffDay::where('user_id', $user)
+          ->whereDate('work_date', $date)->first();
+        if($wd){
+          $sp = ShiftPlan::where("id", $wd->shift_plan_id)->first();
+          if($sp->status=="Approved"){
+            
+          }else{
+            $wd = null;
+          }
+        }
+      }
 // dd($wd);
       $ph = null;
       $hc = null;
       $hcc = null;
       if($wd){
-
+        $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->first();
       } else {
         // not a shift staff. get based on the wsr
         $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->first();
@@ -527,7 +542,9 @@ class UserHelper {
           $stime = new Carbon($theday->start_time);
           $etime = new Carbon($theday->start_time);
           $etime->addMinutes($theday->total_minute);
-
+          if( $start = $stime->format('Y-MM-DD')!=$start = $stime->format('Y-MM-DD')){
+            $sameday = false;
+          }
           $start = $stime->format('H:i');
           $end =  $etime->format('H:i');
         } else {
@@ -538,7 +555,7 @@ class UserHelper {
       }
       $day_type_id = "";
       // return ["09:43", "00:00", $day_type, $day, $wd->day_type_id];
-      return [$start, $end, $day_type, $day, $idday];
+      return [$start, $end, $day_type, $day, $idday, $sameday];
 
       // below is the original temp
 
@@ -639,6 +656,14 @@ class UserHelper {
         // dd($currwsr->shiftpattern);
     return $currwsr->shiftpattern;
   }
+
+  public static function GetUserShiftPatternSAP($otid, $otdate){
+    $ushiftp = UserShiftPattern::where('user_id', $otid)
+            ->whereDate('start_date','<=', $otdate)
+            ->whereDate('end_date','>=', $otdate)->first();
+    return $ushiftp->sap_code; 
+  }    
+
   public static function GetWageLegacyAmount($otid){
     $ot = Overtime::where('id', $otid)->first();
     $ur = URHelper::getUserRecordByDate($ot->user_id, $ot->date);
