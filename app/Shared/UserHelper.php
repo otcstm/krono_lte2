@@ -364,6 +364,7 @@ class UserHelper {
       if($ur->ot_salary_exception == "N"){
         $oe = URHelper::getUserEligibility($ot->user_id, $ot->date);
         // $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->empgroup)->where('empsgroup', $ur->empsgroup)->where('psgroup', $ur->psgroup)->where('region', $ot->region)->first();
+        // dd($oe);
         if($oe){
           $salary = $oe->salary_cap;
         }
