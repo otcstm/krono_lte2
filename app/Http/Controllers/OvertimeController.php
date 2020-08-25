@@ -392,6 +392,8 @@ class OvertimeController extends Controller
     public function formdate(Request $req)
     {
         $otdate = date("Y-m-d", strtotime($req->inputdate));
+        
+        $shift = false;
         $gm = UserHelper::CheckGM(date("Y-m-d"), $otdate);
         $staffr = URHelper::getUserRecordByDate($req->user()->id, $otdate);
         // $staffr = UserRecord::where('user_id', $req->user()->id)->where('upd_sap','<=',date('Y-m-d'))->first();
@@ -422,7 +424,7 @@ class OvertimeController extends Controller
             $sp = ShiftPlan::where("id", $wd->shift_plan_id)->first();
             // dd($sp);
             if($sp->status=="Approved"){
-              
+              $shift = true;
             }else{
                 return redirect(route('ot.form', [], false))->with([
                     'feedback' => true,
@@ -475,8 +477,18 @@ class OvertimeController extends Controller
                     $newmonth->save();
                     $claimtime = OvertimeMonth::where('user_id', $req->user()->id)->where('year', $claimyear)->where('month', $claimmonth)->first();
                 }
-                $punch = OvertimePunch::where('user_id', $req->user()->id)->where('date', $otdate)->get();
+                // dd($day[0]);
+                if($shift){
+                    $punch = OvertimePunch::where('user_id', $req->user()->id)
+                    // ->where('date', $otdate)->orWhere('date', date("Y-m-d", strtotime($otdate."+1 day")))
+                    ->where('start_time',"<=", date("Y-m-d", strtotime($otdate."+1 day"))." ".$day[5].":00")
+                    ->where('end_time',">=", $otdate." ".$day[0].":00")->get();
+                }else{
+                    $punch = OvertimePunch::where('user_id', $req->user()->id)->where('date', $otdate)->get();
+                   
+                }
 
+                // dd($punch);
                 //check if selected ot date's have punch in data or not, if empty create ot month
                 if (count($punch)!=0) {
                     $totalhour = 0;

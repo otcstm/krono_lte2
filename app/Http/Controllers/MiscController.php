@@ -424,7 +424,7 @@ class MiscController extends Controller
       $stime = explode(":", $check[0]);
       $etime = explode(":", $check[1]);
       $sstime = $stime[0]*60+$stime[1];
-      $eetime = $etime[0]*60+$etime[1];
+      $eetime = ($etime[0]*60+$etime[1]);
       $time=date("G", strtotime($req->date))*60+date("i", strtotime($req->date));
 
       if(($time<$sstime)||($time>=$eetime)){
