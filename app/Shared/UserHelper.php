@@ -364,6 +364,7 @@ class UserHelper {
       if($ur->ot_salary_exception == "N"){
         $oe = URHelper::getUserEligibility($ot->user_id, $ot->date);
         // $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->empgroup)->where('empsgroup', $ur->empsgroup)->where('psgroup', $ur->psgroup)->where('region', $ot->region)->first();
+        // dd($oe);
         if($oe){
           $salary = $oe->salary_cap;
         }
@@ -465,12 +466,16 @@ class UserHelper {
       return null;
     }
 
-    // temp=====================================================
     public static function CheckDay($user, $date)
     {
       $day = date('N', strtotime($date));
-      $sameday = true;
+      $shift = null;
+      $ph = null;
+      $hc = null;
+      $hcc = null;
       $sp = null;
+      $sameday = true;
+      $ed = "24:00";
       // first, check if there's any shift planned for this person
       $usp = UserShiftPattern::where("user_id", $user)
         ->whereDate('start_date','<=', $date)
@@ -481,16 +486,13 @@ class UserHelper {
         if($wd){
           $sp = ShiftPlan::where("id", $wd->shift_plan_id)->first();
           if($sp->status=="Approved"){
-            
+            $shift = "Yes";
           }else{
             $wd = null;
           }
         }
       }
-// dd($wd);
-      $ph = null;
-      $hc = null;
-      $hcc = null;
+
       if($wd){
         $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->first();
       } else {
@@ -498,7 +500,6 @@ class UserHelper {
         $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->first();
         $currwsr = UserHelper::GetWorkSchedRule($user, $date);
         // then get that day
-        // dd($currwsr);
         $wd = $currwsr->ListDays->where('day_seq', $day)->first();
       };
       // get the day info
@@ -516,7 +517,6 @@ class UserHelper {
           $userstate = URHelper::getUserRecordByDate($user,$date);
           // dd($userstate);
         //   // $hcal =  HolidayCalendar::where('state_id', $userstate->state_id)->get();
-  // dd($userstate);
         //   $hc = HolidayCalendar::where('holiday_id', $ph->id)->where('state_id', $userstate->state_id)->first();
           foreach($hcc as $phol){
             $hc = HolidayCalendar::where('id', $phol->id)->first();
@@ -530,7 +530,7 @@ class UserHelper {
           }
         }
       }
-      if($hc){
+      if($hc!=null){
         $start = "00:00";
         $end =  "00:00";
         $day_type = 'Public Holiday';
@@ -542,7 +542,8 @@ class UserHelper {
           $stime = new Carbon($theday->start_time);
           $etime = new Carbon($theday->start_time);
           $etime->addMinutes($theday->total_minute);
-          if( $start = $stime->format('Y-MM-DD')!=$start = $stime->format('Y-MM-DD')){
+
+          if( $stime->format('Y-MM-DD') != $etime->format('Y-MM-DD')){
             $sameday = false;
           }
           $start = $stime->format('H:i');
@@ -552,37 +553,28 @@ class UserHelper {
           $end =  "00:00";
           $day_type = $theday->description;
         }
+        
+        if($shift=="Yes"){
+          $wd = ShiftPlanStaffDay::where('user_id', $user)
+          ->whereDate('work_date', date("Y-m-d", strtotime($date."+1 day")))->first();
+          $theday = $wd->Day;
+          $stime = new Carbon($theday->start_time);
+          $ed =  $stime->format('H:i');
+          
+        }
       }
       $day_type_id = "";
       // return ["09:43", "00:00", $day_type, $day, $wd->day_type_id];
-      return [$start, $end, $day_type, $day, $idday, $sameday];
-
-      // below is the original temp
-
-      // $day = 6;
-      // dd($day);
-      // $start = "00:00";
-      // $end =  "00:00";
-
-      // // $day_type = 'Off Day'; //temp
-      // if($day==6){
-      //   $day_type = 'Off Day';
-      // }elseif($day>6){
-      //   $day_type = 'Rest Day';
-      // }else{
-      //   $start = "08:30";
-      //   $end = "17:30";
-      //   // $end = "22:30";
-      //   $day_type = 'Normal Day';
-      // }
-
-      // $daytpe = DayType::where()->first();
-
-
-
-      // return [$start, $end, $day_type, $day];
+      return [$start, $end, $day_type, $day, $idday, $ed, $sameday, $date];
+      //[0] Start work time
+      //[1] End work time
+      //[2] Day type
+      //[3] Day name
+      //[4] Day id
+      //[5] End of day cycle
+      //[6] Is same day or not
+      //[7] Date
     }
-     // temp=====================================================
 
   public static function GetMySubords($persno, $recursive = false){
     $retval = [];

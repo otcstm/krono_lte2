@@ -89,13 +89,13 @@ class OvertimeController extends Controller
             if($wd){
                 $shift = "Yes";
                 $start = $day[0];
-                $end = "22:00";
+                $end = $day[5];
                 // $start = $day[0];
                 // $end = $day[0];
             }else{
                 $shift = "No";
                 $start = "00:00";
-                $end = "24:00";
+                $end = $day[5];
             }
             // dd($shift);
             // $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $region->region)->where('start_date','<=', $req->session()->get('claim')->date)->where('end_date','>', $req->session()->get('claim')->date)->first();
@@ -194,13 +194,13 @@ class OvertimeController extends Controller
             if($wd){
                 $shift = "Yes";
                 $start = $day[0];
-                $end = "22:00";
+                $end = $day[5];
                 // $start = $day[0];
                 // $end = $day[0];
             }else{
                 $shift = "No";
                 $start = "00:00";
-                $end = "24:00";
+                $end = $day[5];
             }
             // $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $region->region)->where('start_date','<=', $draft[4])->where('end_date','>', $draft[4])->first();
             $eligiblehour = URHelper::getUserEligibility($req->user()->id, $draft[4]);
@@ -392,6 +392,8 @@ class OvertimeController extends Controller
     public function formdate(Request $req)
     {
         $otdate = date("Y-m-d", strtotime($req->inputdate));
+        
+        $shift = false;
         $gm = UserHelper::CheckGM(date("Y-m-d"), $otdate);
         $staffr = URHelper::getUserRecordByDate($req->user()->id, $otdate);
         // $staffr = UserRecord::where('user_id', $req->user()->id)->where('upd_sap','<=',date('Y-m-d'))->first();
@@ -422,7 +424,7 @@ class OvertimeController extends Controller
             $sp = ShiftPlan::where("id", $wd->shift_plan_id)->first();
             // dd($sp);
             if($sp->status=="Approved"){
-              
+              $shift = true;
             }else{
                 return redirect(route('ot.form', [], false))->with([
                     'feedback' => true,
@@ -475,8 +477,18 @@ class OvertimeController extends Controller
                     $newmonth->save();
                     $claimtime = OvertimeMonth::where('user_id', $req->user()->id)->where('year', $claimyear)->where('month', $claimmonth)->first();
                 }
-                $punch = OvertimePunch::where('user_id', $req->user()->id)->where('date', $otdate)->get();
+                // dd($day[0]);
+                if($shift){
+                    $punch = OvertimePunch::where('user_id', $req->user()->id)
+                    // ->where('date', $otdate)->orWhere('date', date("Y-m-d", strtotime($otdate."+1 day")))
+                    ->where('start_time',"<=", date("Y-m-d", strtotime($otdate."+1 day"))." ".$day[5].":00")
+                    ->where('end_time',">=", $otdate." ".$day[0].":00")->get();
+                }else{
+                    $punch = OvertimePunch::where('user_id', $req->user()->id)->where('date', $otdate)->get();
+                   
+                }
 
+                // dd($punch);
                 //check if selected ot date's have punch in data or not, if empty create ot month
                 if (count($punch)!=0) {
                     $totalhour = 0;
@@ -779,8 +791,14 @@ class OvertimeController extends Controller
             }
             $check2 = true;
 
-            if(($req->inputstartnew == "")||($req->inputendnew == "")||($req->inputremarknew == "")){
-                $check2 = false;
+            if($req->usertype=="Shift"){
+                if(($req->inputdatenew == "")||($req->inputstartnew == "")||($req->inputendnew == "")||($req->inputremarknew == "")){
+                    $check2 = false;
+                }
+            }else{
+                if(($req->inputstartnew == "")||($req->inputendnew == "")||($req->inputremarknew == "")){
+                    $check2 = false;
+                }
             }
             if($check2){
                 $inputendnew2 = $req->inputendnew;
@@ -795,11 +813,19 @@ class OvertimeController extends Controller
                 // $pay = UserHelper::CalOT($salary, $hour, $minute);
                 $newdetail = new OvertimeDetail;
                 $newdetail->ot_id = $claim->id;
-                $newdetail->start_time = $claim->date." ".$req->inputstartnew.":00";
+                if($req->usertype=="Shift"){
+                    $newdetail->start_time = date("Y-m-d", strtotime($req->inputdatenew))." ".$req->inputstartnew.":00";
+                }else{
+                    $newdetail->start_time = $claim->date." ".$req->inputstartnew.":00";
+                }
                 if ($inputendnew2=="24:00") {
                     $newdetail->end_time = date('Y-m-d', strtotime($claim->date . "+1 days"))." 00:00";
                 } else {
-                    $newdetail->end_time = $claim->date." ".$req->inputendnew.":00";
+                    if($req->usertype=="Shift"){
+                        $newdetail->end_time = date("Y-m-d", strtotime($req->inputdatenew))." ".$req->inputendnew.":00";
+                    }else{
+                        $newdetail->end_time = $claim->date." ".$req->inputendnew.":00";
+                    }
                 }
                 // dd($newdetail);
                 $newdetail->hour = $hour;
