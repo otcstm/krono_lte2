@@ -45,7 +45,7 @@ class PHTag extends Command
      */
     public function handle()
     {
-        $todate = date("Y-m-d");
+        $today = date("Y-m-d");
         // $check
     }
 }

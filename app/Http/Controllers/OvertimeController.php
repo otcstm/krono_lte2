@@ -405,7 +405,6 @@ class OvertimeController extends Controller
         // $elig = OvertimeEligibility::where('company_id', $staffr->company_id)->where('empgroup', $staffr->empgroup)->where('empsgroup', $staffr->empsgroup)->where('psgroup', $staffr->psgroup)->where('region', $staffr->region)->where('start_date','<=', $req->inputdate)->where('end_date','>', $req->inputdate)->first();
         $elig = URHelper::getUserEligibility($req->user()->id, $otdate);
        
-        // dd($elig);
         $wd = null;
         $ushiftp = UserHelper::GetUserShiftPatternSAP($req->user()->id, date('Y-m-d', strtotime($otdate))." 00:00:00");
         // dd($ushiftp);
@@ -1683,7 +1682,7 @@ class OvertimeController extends Controller
     //--------------------------------------------------ot query actions--------------------------------------------------
     public function query(Request $req)
     {
-        if(in_array($req->user()->id, $array = array(55326))){
+        if(in_array($req->user()->staff_no, $array = array("B15589"))){
             dd($req);
         }
         if ($req->typef=="verifier") {

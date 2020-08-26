@@ -549,9 +549,23 @@ class UserHelper {
           $start = $stime->format('H:i');
           $end =  $etime->format('H:i');
         } else {
-          $start = "00:00";
-          $end =  "00:00";
-          $day_type = $theday->description;
+          
+          if($shift=="Yes"){
+          
+            $stime = new Carbon($theday->start_time);
+            $etime = new Carbon($theday->start_time);
+            $etime->addMinutes($theday->total_minute);
+            if( $stime->format('Y-MM-DD') != $etime->format('Y-MM-DD')){
+              $sameday = false;
+            }
+            $start = $stime->format('H:i');
+            $end =  $etime->format('H:i');
+            $day_type = $theday->description;
+          }else{
+            $start = "00:00";
+            $end =  "00:00";
+            $day_type = $theday->description;
+          }
         }
         
         if($shift=="Yes"){
