@@ -485,8 +485,12 @@ class UserHelper {
           ->whereDate('work_date', $date)->first();
         if($wd){
           $sp = ShiftPlan::where("id", $wd->shift_plan_id)->first();
-          if($sp->status=="Approved"){
-            $shift = "Yes";
+          if($sp){
+            if($sp->status=="Approved"){
+              $shift = "Yes";
+            }else{
+              $wd = null;
+            }
           }else{
             $wd = null;
           }
@@ -667,7 +671,12 @@ class UserHelper {
     $ushiftp = UserShiftPattern::where('user_id', $otid)
             ->whereDate('start_date','<=', $otdate)
             ->whereDate('end_date','>=', $otdate)->first();
-    return $ushiftp->sap_code; 
+    if($ushiftp){
+      $sapc = $ushiftp->sap_code;
+    }else{
+      $sapc = "OFF1";
+    }
+    return $sapc; 
   }    
 
   public static function GetWageLegacyAmount($otid){
