@@ -218,7 +218,7 @@
                 @if($otlist ?? '')
                 <div id="submitbtn" class="panel-footer">
                     <div class="text-right">  
-                    <input type="hidden" name="pagenumber" id="pagenumber" value="0" />  
+                    <!-- <input type="hidden" name="pagenumber" id="pagenumber" value="0" />   -->
                         <button type="submit" class="btn btn-primary btn-p">SUBMIT</button>
                     </div>
                 </div>
@@ -310,12 +310,12 @@
                 'csv', 'excel', 'pdf'
             ]
         });
-        $('#pagenumber').val(tot.page.info().page + 1);
+        // $('#pagenumber').val(tot.page.info().page + 1);
 
-            $('#tOTList').on( 'page.dt', function () {
-            var info = tot.page.info();
-            $('#pagenumber').val(info.page + 1);
-        } );
+        //     $('#tOTList').on( 'page.dt', function () {
+        //     var info = tot.page.info();
+        //     $('#pagenumber').val(info.page + 1);
+        // } );
 
         // var ts = tot.rows().data();
         // alert(ts.length);
