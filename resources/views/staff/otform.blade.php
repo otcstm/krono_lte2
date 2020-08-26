@@ -216,55 +216,68 @@
             <div class="row" style="display: flex; margin-top: 50px">
                 <div class="col-xs-6">
                     <p><b>TIME LIST</b> </p>
-                           @if(($c ?? '')||($d ?? '')) 
-                    <p>
-                                <b>Applicable Time Range:</b>
-                                {{$start}} 
-                                @if($c ?? '')  
-                                    {{date('d.m.Y', strtotime($claim->date))}} 
-                                @elseif($d ?? '')  
-                                    {{date("d.m.Y", strtotime($draft[4]))}}
-                                @endif
-                                 -  {{$end}}
-                                @if($c ?? '') 
-                                    @if($shift == "Yes") 
-                                        {{date('d.m.Y', strtotime($claim->date. ' + 1 days'))}}
-                                    @else 
-                                        {{date('d.m.Y', strtotime($claim->date))}} 
-                                    @endif
-                                @elseif($d ?? '')
-                                    @if($shift == "Yes") 
-                                        {{date('d.m.Y', strtotime($draft[4]. ' + 1 days'))}} 
-                                    @else
-                                        {{date("d.m.Y", strtotime($draft[4]))}}
-                                    @endif
-                                @endif
-                                
-                        </span>
-                    </p>
-                    <p> <span style="color: red">
-                    <b>Working Time Range:</b> {{$day[0]}} 
-                        @if($c ?? '')  
-                            {{date('d.m.Y', strtotime($claim->date))}} 
-                        @elseif($d ?? '')  
-                            {{date("d.m.Y", strtotime($draft[4]))}}
-                        @endif
-                        - {{$day[1]}}
-                        @if($day[6])
+                    @if(($c ?? '')||($d ?? '')) 
+                        <p>
+                            <b>Applicable Time Range:</b>
+                            {{$start}} 
                             @if($c ?? '')  
                                 {{date('d.m.Y', strtotime($claim->date))}} 
                             @elseif($d ?? '')  
                                 {{date("d.m.Y", strtotime($draft[4]))}}
                             @endif
-                        @else
-                            @if($c ?? '')  
-                                {{date('d.m.Y', strtotime($claim->date. ' + 1 days'))}}
-                            @elseif($d ?? '')  
-                                {{date('d.m.Y', strtotime($draft[4]. ' + 1 days'))}} 
+                                -  {{$end}}
+                            @if($c ?? '') 
+                                @if($shift == "Yes") 
+                                    {{date('d.m.Y', strtotime($claim->date. ' + 1 days'))}}
+                                @else 
+                                    {{date('d.m.Y', strtotime($claim->date))}} 
+                                @endif
+                            @elseif($d ?? '')
+                                @if($shift == "Yes") 
+                                    {{date('d.m.Y', strtotime($draft[4]. ' + 1 days'))}} 
+                                @else
+                                    {{date("d.m.Y", strtotime($draft[4]))}}
+                                @endif
+                            @endif
+                                    
+                            </span>
+                        </p>
+                        <p> <span style="color: red">
+                        @php($show = true)
+                        @if($c ?? '')  
+                            @if($claim->daytype->day_type != "N")
+                                @php($show = false)
+                            @endif
+                        @elseif($d ?? '')
+                            @if($draft[8] != "N")
+                                @php($show = false)
                             @endif
                         @endif
-                    </span></p>
-                    
+                        @if($show)
+
+                            <b>Working Time Range:</b> {{$day[0]}} 
+                                @if($c ?? '')  
+                                    {{date('d.m.Y', strtotime($claim->date))}} 
+                                @elseif($d ?? '')  
+                                    {{date("d.m.Y", strtotime($draft[4]))}}
+                                @endif
+                                - {{$day[1]}}
+                                @if($day[6])
+                                    @if($c ?? '')  
+                                        {{date('d.m.Y', strtotime($claim->date))}} 
+                                    @elseif($d ?? '')  
+                                        {{date("d.m.Y", strtotime($draft[4]))}}
+                                    @endif
+                                @else
+                                    @if($c ?? '')  
+                                        {{date('d.m.Y', strtotime($claim->date. ' + 1 days'))}}
+                                    @elseif($d ?? '')  
+                                        {{date('d.m.Y', strtotime($draft[4]. ' + 1 days'))}} 
+                                    @endif
+                                @endif
+                            </span></p>
+                            
+                        @endif
                     @endif
                 </div>
                 <div class="col-xs-6" style="display: flex; flex-direction: row; justify-content: flex-end; align-items: flex-end">

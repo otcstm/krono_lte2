@@ -146,6 +146,7 @@ class URHelper
           $ur->allowance            = $oti->allowance;
           $ur->salary               = $sal->salary;
           $reg = Psubarea::where('company_id', $ur->company_id)->where('persarea', $ur->persarea)->where('perssubarea', $ur->perssubarea)->where('state_id', $ur->state_id)->first();
+          // dd($reg);
           if(!$reg){
             $reg = new Psubarea();
     
@@ -205,8 +206,9 @@ class URHelper
       // public static function getUserEligibity( $comp, $region, $date)
       {
         $staffr = URHelper::getUserRecordByDate($id, $date);
+        // dd($staffr); 
         $eligibity = OvertimeEligibility::where('company_id', $staffr->company_id)->where('empgroup', $staffr->empgroup)->where('empsgroup', $staffr->empsgroup)->where('psgroup', $staffr->psgroup)->where('region', $staffr->region)->where('start_date','<=', $date)->where('end_date','>', $date)->first();
-                            
+                           
         // $eligibity = OvertimeEligibility::where('company_id',$comp)->where('region',$region)->where('start_date','<=', $date)->where('end_date','>', $date)->first();
         return $eligibity;
       }
