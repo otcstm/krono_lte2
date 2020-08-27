@@ -33,13 +33,14 @@
                         </div>
                         <div class="col-md-6">
                             <div class="row">
-                                <div class="col-md-4">Salary Exception</div><div class="col-md-8">: <b>
+                                {{--<div class="col-md-4">Salary Exception</div><div class="col-md-8">: <b>
                                     @if($claim->URecord->ot_salary_exception=="X")
                                         Yes
                                     @else
                                         No
                                     @endif
-                                </b></div>
+                                </b></div>--}}
+                                <div class="col-md-4">Salary Capping for OT</div><div class="col-md-8">: <b>{{$claim->salary_exception}} </b></div>
                                 <div class="col-md-4">Verifier</div><div class="col-md-8">: <b>{{$claim->verifier->name}} @if($claim->verifier_id!="")  ({{$claim->verifier->staff_no}}) @endif</b></div>
                                 <div class="col-md-4">Approver</div><div class="col-md-8">: <b>{{$claim->approver->name}} ({{$claim->approver->staff_no}})</b></div>
                                 <div class="col-md-4">Estimated Amount</div><div class="col-md-8">: <b>RM {{$claim->amount}}</b></div>

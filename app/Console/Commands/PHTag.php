@@ -50,19 +50,19 @@ class PHTag extends Command
      */
     public function handle()
     {
-        // $user = User::all();
+        // $user = User::all(); //set user
         // $tagPH = new DayTag;
         // $tagPH->user_id = 1;
         // $tagPH->date = date("Y-m-d")." 00:00:00";
         // $tagPH->status = "ACTIVE";
         // $tagPH->save();
 
-        $user = User::where('id', 55326)->get();
-        $today = date("Y-m-d");
+        // $user = User::where('id', 45614)->get();    //set all users
+        $user = User::where('staff_no', 'TM32434')->orWhere('staff_no', 'TM33115')->orWhere('staff_no', 'TM34407')->orWhere('staff_no', 'B14882')->get();
+        $today = date("Y-m-d"); 
         $startdate = date("Y-m-d", strtotime($today. "-90 days"));
         foreach($user as $us){
             for($i = 0; $i <= 180; $i++){
-                
                 $ph = null;
                 $hc = null;
                 $hcc = null;
@@ -77,8 +77,8 @@ class PHTag extends Command
                     if($wd){
                         $sp = ShiftPlan::where("id", $wd->shift_plan_id)->first();
                         if($sp){
-                            if($sp->status=="Rejected"){
-                                $status = true;
+                            if($sp->status=="Revert"){
+                                $statuschange = true;
                             }else if($sp->status!="Approved"){
                                 $wd = null;
                             }
@@ -113,29 +113,31 @@ class PHTag extends Command
                         }
                     }
                 }
-                if($hc){
-                    if($dy!="O"){
+                if($hc){  //if public holiday exzist
+                    if($dy->day_type!="O"){
                         $existTag = DayTag::where('user_id', $us->id)->where('date', $date)->first();
                         if(!($existTag)){
                             $tagPH = new DayTag;
                             $tagPH->user_id = $us->id;
                             $tagPH->date = $date;
+                            $tagPH->phdate = $date;
                             $tagPH->status = "ACTIVE";
                             $tagPH->save();
                         }else{
-                            if($status){
-                                $existTag->status = "INACTIVE";
-                                $existTag->save();
+                            $tagPH = DayTag::find($existTag->id);
+                            if($statuschange){
+                                $tagPH->status = "INACTIVE";
+                                $tagPH->save();
                             }else{
-                                $existTag->status = "ACTIVE";
-                                $existTag->save();
+                                $tagPH->status = "ACTIVE";
+                                $tagPH->save();
                             }
                         }
                     }else{
-                        $dt = $dy;
+                        $dt = $dy->day_type;
                         $x = 1;
                         $existTag = null;
-                        while(($dt=="O")||($existTag)){
+                        while(($dt=="O")||($dt=="R")||($dt=="PH")||($existTag)){
                             $existTag = null;
                             $wd2 = null;
                             $date2 = date("Y-m-d", strtotime($date. "+".$x." days"));
@@ -147,7 +149,7 @@ class PHTag extends Command
                                 if($wd2){
                                     $sp2 = ShiftPlan::where("id", $wd2->shift_plan_id)->first();
                                     if($sp2){
-                                        if($sp->status=="Rejected"){
+                                        if($sp->status=="Revert"){
                                         }else if($sp->status!="Approved"){
                                             $wd2 = null;
                                         }
@@ -163,17 +165,29 @@ class PHTag extends Command
                                 // then get that day
                                 $wd2 = $currwsr->ListDays->where('day_seq', $day)->first();
                             };
-                            $dt = $wd2->day_type_id;
-                            $existTag = DayTag::where('user_id', $us->id)->where('date', $date2)->first();
+                            
+                            $dx = DayType::where('id', $wd2->day_type_id)->first();
+                            $dt = $dx->day_type;
+                            $existTag = DayTag::where('user_id', $us->id)->where('phdate', $date)->first();
                             $x++;
                         }
                         if(!($existTag)){
                             $tagPH = new DayTag;
                             $tagPH->user_id = $us->id;
                             $tagPH->date = $date2;
+                            $tagPH->phdate = $date;
+                            // $tagPH->status = $dt;
                             $tagPH->status = "ACTIVE";
                             $tagPH->save();
                         }
+                    }
+                }else{  //if public holiday cancel
+                    
+                    $existTag = DayTag::where('user_id', $us->id)->where('phdate', $date)->first();
+                    if($existTag){
+                        $tagPH = DayTag::find($existTag->id);
+                        $tagPH->status = "INACTIVE";
+                        $tagPH->save();
                     }
                 }
             }

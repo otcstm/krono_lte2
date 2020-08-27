@@ -18,6 +18,7 @@ class CreateDayTagsTable extends Migration
             $table->timestamps();
             $table->integer('user_id');
             $table->date('date');
+            $table->date('phdate');
             $table->string('status');
         });
     }
