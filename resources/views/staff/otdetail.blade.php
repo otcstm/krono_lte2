@@ -28,7 +28,8 @@
                                 @endif</b></div>
                                 <div class="col-md-4">OT Date</div><div class="col-md-8">: <b>{{date('d.m.Y', strtotime($claim->date))}}</b></div>
                                 <div class="col-md-4">Total Hours/Minute</div><div class="col-md-8">: <b>@if($claim->eligible_day==0){{$claim->total_hour}}h {{$claim->total_minute}}m @else @php($total = $claim->eligible_total_hours_minutes*60) {{(int)($total/60)}}h {{$total%60}}m @endif</b></div>
-                                <div class="col-md-4">Total Day</div><div class="col-md-8">: <b>{{$claim->eligible_day}}</b></div>
+                                {{--<div class="col-md-4">Total Day</div><div class="col-md-8">: <b>{{$claim->eligible_day}}</b></div>--}}
+                                <div class="col-md-4">Total Day</div><div class="col-md-8">: <b>@if($claim->daycode->rate==0.5) 0.5 @else 1 @endif</b></div>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -126,11 +127,13 @@
                             <tbody>
                                 @if(count($claim->detail))
                                     @php($nox = 0)
+                                    @php($nod = 0)
                                     @foreach($claim->detail as $no => $details)
                                         @php(++$nox)
                                         @if($details->checked=="Y")
+                                        @php(++$nox)
                                         <tr>
-                                            <td>{{++$no}}</td>
+                                            <td>{{++$nod}}</td>
                                             <td>{{ date('Hi', strtotime($details->start_time)) }}</td>
                                             <td>{{ date('Hi', strtotime($details->end_time)) }}</td>
                                             <td>{{ $details->hour }}h {{$details->minute}}m</td>

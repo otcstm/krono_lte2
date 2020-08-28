@@ -221,22 +221,22 @@
                             <b>Applicable Time Range:</b>
                             {{$start}} 
                             @if($c ?? '')  
-                                {{date('d.m.Y', strtotime($claim->date))}} 
+                                <b>({{date('d.m.Y', strtotime($claim->date))}})</b>
                             @elseif($d ?? '')  
-                                {{date("d.m.Y", strtotime($draft[4]))}}
+                                <b>{{date("d.m.Y", strtotime($draft[4]))}})</b>
                             @endif
                                 -  {{$end}}
                             @if($c ?? '') 
                                 @if($shift == "Yes") 
-                                    {{date('d.m.Y', strtotime($claim->date. ' + 1 days'))}}
+                                    <b>({{date('d.m.Y', strtotime($claim->date. ' + 1 days'))}})</b>
                                 @else 
-                                    {{date('d.m.Y', strtotime($claim->date))}} 
+                                    <b>({{date('d.m.Y', strtotime($claim->date))}})</b>
                                 @endif
                             @elseif($d ?? '')
                                 @if($shift == "Yes") 
-                                    {{date('d.m.Y', strtotime($draft[4]. ' + 1 days'))}} 
+                                    <b>({{date('d.m.Y', strtotime($draft[4]. ' + 1 days'))}})</b>
                                 @else
-                                    {{date("d.m.Y", strtotime($draft[4]))}}
+                                    <b>({{date("d.m.Y", strtotime($draft[4]))}})</b>
                                 @endif
                             @endif
                                     
@@ -257,22 +257,22 @@
 
                             <b>Working Time Range:</b> {{$day[0]}} 
                                 @if($c ?? '')  
-                                    {{date('d.m.Y', strtotime($claim->date))}} 
+                                <b>({{date('d.m.Y', strtotime($claim->date))}})</b>
                                 @elseif($d ?? '')  
-                                    {{date("d.m.Y", strtotime($draft[4]))}}
+                                <b>({{date("d.m.Y", strtotime($draft[4]))}})</b>
                                 @endif
                                 - {{$day[1]}}
                                 @if($day[6])
                                     @if($c ?? '')  
-                                        {{date('d.m.Y', strtotime($claim->date))}} 
+                                    <b>({{date('d.m.Y', strtotime($claim->date))}})</b>
                                     @elseif($d ?? '')  
-                                        {{date("d.m.Y", strtotime($draft[4]))}}
+                                    <b>({{date("d.m.Y", strtotime($draft[4]))}})</b>
                                     @endif
                                 @else
                                     @if($c ?? '')  
-                                        {{date('d.m.Y', strtotime($claim->date. ' + 1 days'))}}
+                                    <b>({{date('d.m.Y', strtotime($claim->date. ' + 1 days'))}})</b>
                                     @elseif($d ?? '')  
-                                        {{date('d.m.Y', strtotime($draft[4]. ' + 1 days'))}} 
+                                    <b>({{date('d.m.Y', strtotime($draft[4]. ' + 1 days'))}})</b> 
                                     @endif
                                 @endif
                             </span></p>
@@ -392,6 +392,7 @@
                                                 @if($shift=="Yes")
                                                     <td>
                                                        {{date('d.m.Y', strtotime($singleuser->start_time))}}
+                                                       <input class="hidden" id="inputdate-{{$no}}" value="{{date('d.m.Y', strtotime($singleuser->start_time))}}">
                                                     </td>
                                                 @endif
                                                 <td>
@@ -910,7 +911,7 @@
                         </div>
                     @endif
                 </form>
-                <form id="delete" class="hidden" action="{{route('ot.formdelete')}}" method="POST">
+                <form id="delete" class="hidden" action="{{route('ot.formdelete')}}" method="POST" onsubmit="return deletes()">
                     @csrf
                     <input type="text" id="delid" name="delid" value="">
                 </form>
@@ -1157,9 +1158,9 @@
                 // console.log(st);
                 @if($shift=="Yes")
                     @if($claim ?? '')
-                        if($("#inputdate-0").val()=="{{date('d.m.Y', strtotime($claim->date))}}"){
+                        if($("#inputdate-"+i).val()=="{{date('d.m.Y', strtotime($claim->date))}}"){
                     @elseif($draft ?? '')
-                        if($("#inputdate-0").val()=="{{date('d.m.Y', strtotime($draft[4]))}}"){
+                        if($("#inputdate-"+i).val()=="{{date('d.m.Y', strtotime($draft[4]))}}"){
                     @endif
                             var min = "{{$day[0]}}";
                             var sc = "{{$day[0]}}"; 
@@ -1383,6 +1384,7 @@
                 }
                 $("#formtype").val("save");
                 $("#form").submit();
+                return saves();
                 // if ($('#inputcheck-'+i).is(':checked')){
                 //     $('#inputcheckdata-'+i).val("Y");
                 //     calshowtime(i, (parseInt($("#olddh-"+i).text()*60)+parseInt($("#olddm-"+i).text())), 0, 0, $("#oldth").text(), $("#oldtm").text());
@@ -1697,6 +1699,7 @@
             // $("#formsubmit").val("no");
             $("#formtype").val("save");
             $("#form").submit();
+            return saves();
         });  
 
         $("#inputfile").on("change", function(){
@@ -1757,9 +1760,11 @@
                             if(i==0){
                                 $("#formtype").val("add");
                                 $("#form").submit();
+                                return saves();
                             }else{
                                 $("#formtype").val("save");
                                 $("#form").submit();
+                                return saves();
                             }
                         }
                     // }
@@ -1844,6 +1849,7 @@
                                 $("#inputend-0").val(null);
                                 $("#inputremark-0").val(null);
                                 $("#form").submit();
+                                return submits();
                             }else{
                                 
                             @if(($c ?? '')||($d ?? '')||($q ?? ''))
@@ -1881,21 +1887,25 @@
     $("#chargetype").change(function(){
         $("#formtype").val("save");
         $("#form").submit();
+        return saves();
     });   
 
     $("#costc").change(function(){
         $("#formtype").val("save");
         $("#form").submit();
+        return saves();
     });    
     
     $("#compn").change(function(){
         $("#formtype").val("save");
         $("#form").submit();
+        return saves();
     });    
 
     $("#type").change(function(){
         $("#formtype").val("save");
         $("#form").submit();
+        return saves();
     });    
     // $("#orderno").change(function(){
     //     $("#formtype").val("save");
@@ -2001,6 +2011,7 @@
 
                                     $("#formtype").val("save");
                                     $("#form").submit();
+                                    return saves();
                                 }else{
                                     
                                     $('#sel').css('display','block');
@@ -2152,15 +2163,77 @@
     $("#networkh").change(function(){
         $("#formtype").val("save");
         $("#form").submit();
+        return saves();
     });    
     $("#networkn").change(function(){
         $("#formtype").val("save");
         $("#form").submit();
+        return saves();
     });    
     $("#approvern").change(function(){
         $("#formtype").val("save");
         $("#form").submit();
+        return saves();
     });    
+
+    function saves(){
+        // $('input[name="inputact[]"').eq(2).val("A");
+            // alert($('#action-3').val());
+            // return false;
+        Swal.fire({
+            title: 'Auto-save form',
+            html: 'Please wait while we save your claim. <b>DO NOT RELOAD/CLOSE THIS TAB!</b>',
+            timerProgressBar: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            showConfirmButton: false,
+            showCancelButton: false,
+            customClass: "load",
+            onBeforeOpen: () => {
+            Swal.showLoading()}
+        })
+        // return false;
+    }
+
+    function submits(){
+        // $('input[name="inputact[]"').eq(2).val("A");
+            // alert($('#action-3').val());
+            // return false;
+        Swal.fire({
+            title: 'Submitting form',
+            html: 'Please wait while we process your submission. <b>DO NOT RELOAD/CLOSE THIS TAB!</b>',
+            timerProgressBar: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            showConfirmButton: false,
+            showCancelButton: false,
+            customClass: "load",
+            onBeforeOpen: () => {
+            Swal.showLoading()}
+        })
+        // return false;
+    }
+function deletes(){
+        // $('input[name="inputact[]"').eq(2).val("A");
+            // alert($('#action-3').val());
+            // return false;
+        Swal.fire({
+            title: 'Deleting time',
+            html: 'Please wait while we delete your time. <b>DO NOT RELOAD/CLOSE THIS TAB!</b>',
+            timerProgressBar: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            showConfirmButton: false,
+            showCancelButton: false,
+            customClass: "load",
+            onBeforeOpen: () => {
+            Swal.showLoading()}
+        })
+        // return false;
+    }
 
     @if(session()->has('feedback'))
     Swal.fire({

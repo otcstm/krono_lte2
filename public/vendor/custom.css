@@ -1302,11 +1302,21 @@ select[disabled] { background-color: #EBEBE4; }
     align-items: center;
     font-size: 12pt;
     color: #fff;
-    background: #EF7202 !important;
+    /* background: #EF7202 !important; */
     display: flex; 
     justify-content: center;
     transition: 0.25s ease-in-out;
+    /* animation: annouce 5s; */
+    animation-name: annouce;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
 } 
+
+@keyframes annouce {
+    0% {background: #ED8F3D ;}
+    50% {background: #EF7202 ;}
+    100% {background: #ED8F3D ;}
+  }
 
 .announcement p{
     margin-top: 8px;

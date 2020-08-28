@@ -71,7 +71,8 @@ class PHTag extends Command
                 $date = date("Y-m-d", strtotime($startdate. "+". $i. " days"));
                 $day = date('N', strtotime($date));
                 $ushiftp = UserHelper::GetUserShiftPatternSAP($us->id, date('Y-m-d', strtotime($date." 00:00:00")));
-                if(($ushiftp!="OFF1")&&($ushiftp!="OFF2")){
+                $shiftpattern = ShiftPattern::where('code', $ushiftp)->first();
+                if($shiftpattern->is_weekly != 1){
                     $wd = ShiftPlanStaffDay::where('user_id', $us->id)
                     ->whereDate('work_date', $date)->first();
                     if($wd){
@@ -143,7 +144,8 @@ class PHTag extends Command
                             $date2 = date("Y-m-d", strtotime($date. "+".$x." days"));
                             $day = date('N', strtotime($date2));
                             $ushiftp = UserHelper::GetUserShiftPatternSAP($us->id, date('Y-m-d', strtotime($date2." 00:00:00")));
-                            if(($ushiftp!="OFF1")&&($ushiftp!="OFF2")){
+                            $shiftpattern = ShiftPattern::where('code', $ushiftp)->first();
+                            if($shiftpattern->is_weekly != 1){
                                 $wd2 = ShiftPlanStaffDay::where('user_id', $us->id)
                                 ->whereDate('work_date', $date2)->first();
                                 if($wd2){
