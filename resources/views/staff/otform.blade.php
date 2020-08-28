@@ -1567,13 +1567,7 @@
             for(j=1; j<{{count($claim->detail)}}+1;j++){
                 if($(".check-"+j+"-0").prop("checked") == true){
                     // alert(yes);
-                    for(m=1; m<
-                    @if($shift=="Yes")
-                        5;
-                    @else
-                        4;
-                    @endif
-                    m++){
+                    for(m=1; m<4; m++){
                         if($('.check-'+j+"-"+m).get(0).checkValidity()==false){
                             $('.check-'+j+"-"+m).get(0).reportValidity();
                             canadd = false;

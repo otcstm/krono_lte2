@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDayTag extends Migration
+class CreateDayTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateDayTag extends Migration
      */
     public function up()
     {
-        Schema::create('day_tag', function (Blueprint $table) {
+        Schema::create('day_tags', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
             $table->integer('user_id');
             $table->date('date');
-            $table->integer('day_type_id');
-            $table->string('day_type_code');
+            $table->date('phdate');
             $table->string('status');
         });
     }
@@ -31,6 +30,6 @@ class CreateDayTag extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('day_tag');
+        Schema::dropIfExists('day_tags');
     }
 }

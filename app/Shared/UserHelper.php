@@ -19,6 +19,7 @@ use App\ShiftPlan;
 use App\ShiftPlanStaffDay;
 use App\ShiftPattern;
 use App\DayType;
+use App\DayTag;
 use App\Salary;
 use App\SapPersdata;
 use App\UserRecord;
@@ -405,8 +406,10 @@ class UserHelper {
             if(26*$dt->working_hour==0){
               $amount = 0;
             }else{
-              $amount2= $lg2->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*($whmax);
-              $amount= $amount2 + ($lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*(((($otd->hour*60)+$otd->minute)-($whmax*60))/60));
+              // $amount2= $lg2->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*($whmax);
+              $amount2= $lg2->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*(7);
+              $amount= $amount2 + ($lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*(((($otd->hour*60)+$otd->minute)-(7*60))/60));
+              // $amount= $amount2 + ($lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*(((($otd->hour*60)+$otd->minute)-($whmax*60))/60));
             }
           }else{
             $lg = $lg->where('min_minute', 0)
@@ -425,7 +428,8 @@ class UserHelper {
               $amount = 0;
             }else{ 
               $amount2= 1*(($salary+$ur->allowance)/26);
-              $amount= $amount2+(2*(($salary+$ur->allowance)/(26*$dt->working_hour))*(((($otd->hour*60)+$otd->minute)-($whmax*60))/60));
+              $amount= $amount2+(2*(($salary+$ur->allowance)/(26*$dt->working_hour))*(((($otd->hour*60)+$otd->minute)-(7*60))/60));
+              // $amount= $amount2+(2*(($salary+$ur->allowance)/(26*$dt->working_hour))*(((($otd->hour*60)+$otd->minute)-($whmax*60))/60));
             }
   
           }else{
@@ -485,8 +489,12 @@ class UserHelper {
           ->whereDate('work_date', $date)->first();
         if($wd){
           $sp = ShiftPlan::where("id", $wd->shift_plan_id)->first();
-          if($sp->status=="Approved"){
-            $shift = "Yes";
+          if($sp){
+            if($sp->status=="Approved"){
+              $shift = "Yes";
+            }else{
+              $wd = null;
+            }
           }else{
             $wd = null;
           }
@@ -507,30 +515,32 @@ class UserHelper {
       $idday = $wd->day_type_id;
       // $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->first();
       // dd($ph);
-      if($ph!=null){
-        $hcc = HolidayCalendar::where('holiday_id', $ph->id)->get();
-      }
-      // dd($hcc);
-      if($hcc){
-        if(count($hcc)!=0){
-        //   // $userstate = UserRecord::where('user_id', $user)->where('upd_sap','<=',$date)->first();
-          $userstate = URHelper::getUserRecordByDate($user,$date);
-          // dd($userstate);
-        //   // $hcal =  HolidayCalendar::where('state_id', $userstate->state_id)->get();
-        //   $hc = HolidayCalendar::where('holiday_id', $ph->id)->where('state_id', $userstate->state_id)->first();
-          foreach($hcc as $phol){
-            $hc = HolidayCalendar::where('id', $phol->id)->first();
-            // dd($phol->id);
-            // dd($hc);
-            if($hc->state_id == $userstate->state_id){
-              break;
-            }else{
-              $hc = null;
-            }
-          }
-        }
-      }
-      if($hc!=null){
+      // if($ph!=null){
+      //   $hcc = HolidayCalendar::where('holiday_id', $ph->id)->get();
+      // }
+      // // dd($hcc);
+      // if($hcc){
+      //   if(count($hcc)!=0){
+      //   //   // $userstate = UserRecord::where('user_id', $user)->where('upd_sap','<=',$date)->first();
+      //     $userstate = URHelper::getUserRecordByDate($user,$date);
+      //     // dd($userstate);
+      //   //   // $hcal =  HolidayCalendar::where('state_id', $userstate->state_id)->get();
+      //   //   $hc = HolidayCalendar::where('holiday_id', $ph->id)->where('state_id', $userstate->state_id)->first();
+      //     foreach($hcc as $phol){
+      //       $hc = HolidayCalendar::where('id', $phol->id)->first();
+      //       // dd($phol->id);
+      //       // dd($hc);
+      //       if($hc->state_id == $userstate->state_id){
+      //         break;
+      //       }else{
+      //         $hc = null;
+      //       }
+      //     }
+      //   }
+      // }
+      $checkphday = DayTag::where('user_id', $user)->where("date", date("Y-m-d", strtotime($date)))->where('status', 'ACTIVE')->first();
+      // dd($user);
+      if($checkphday!=null){
         $start = "00:00";
         $end =  "00:00";
         $day_type = 'Public Holiday';
@@ -667,7 +677,12 @@ class UserHelper {
     $ushiftp = UserShiftPattern::where('user_id', $otid)
             ->whereDate('start_date','<=', $otdate)
             ->whereDate('end_date','>=', $otdate)->first();
-    return $ushiftp->sap_code; 
+    if($ushiftp){
+      $sapc = $ushiftp->sap_code;
+    }else{
+      $sapc = "OFF1";
+    }
+    return $sapc; 
   }    
 
   public static function GetWageLegacyAmount($otid){
