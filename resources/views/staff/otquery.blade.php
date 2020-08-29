@@ -1440,7 +1440,7 @@
             // return false;
         Swal.fire({
             title: 'Submitting form',
-            html: 'Please wait while we process your submission. DO NOT RELOAD/CLOSE THIS TAB!',
+            html: 'Please wait while we process your submission. <b>DO NOT RELOAD/CLOSE THIS TAB!</b>',
             timerProgressBar: true,
             allowOutsideClick: false,
             allowEscapeKey: false,

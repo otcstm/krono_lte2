@@ -484,7 +484,8 @@ class UserHelper {
       $usp = UserShiftPattern::where("user_id", $user)
         ->whereDate('start_date','<=', $date)
         ->whereDate('end_date','>=', $date)->first();
-      if(($usp!="OFF1")&&($usp!="OFF2")){
+      $shiftpattern = ShiftPattern::where('code', $usp->sap_code)->first();
+      if($shiftpattern->is_weekly != 1){
         $wd = ShiftPlanStaffDay::where('user_id', $user)
           ->whereDate('work_date', $date)->first();
         if($wd){

@@ -24,6 +24,7 @@ use App\Psubarea;
 use App\DayType;
 use App\Costcenter;
 use App\ShiftPlan;
+use App\ShiftPattern;
 use App\ShiftPlanStaffDay;
 use App\Project;
 use App\InternalOrder;
@@ -75,7 +76,8 @@ class OvertimeController extends Controller
         if ($req->session()->get('claim')!=null) {
             $day = UserHelper::CheckDay($req->user()->id, $req->session()->get('claim')->date);
             $ushiftp = UserHelper::GetUserShiftPatternSAP($req->user()->id, date('Y-m-d', strtotime($req->session()->get('claim')->date))." 00:00:00");
-            if(($ushiftp!="OFF1")&&($ushiftp!="OFF2")){
+            $shiftpattern = ShiftPattern::where('code', $ushiftp)->first();
+            if($shiftpattern->is_weekly != 1){
                 
                 $wd = ShiftPlanStaffDay::where('user_id', $req->user()->id)
                 ->whereDate('work_date', $req->session()->get('claim')->date)->first();
@@ -181,7 +183,8 @@ class OvertimeController extends Controller
             $draft = $req->session()->get('draft');
             $day = UserHelper::CheckDay($req->user()->id, date('Y-m-d', strtotime($draft[4])));
             $ushiftp = UserHelper::GetUserShiftPatternSAP($req->user()->id, date('Y-m-d', strtotime($draft[4]))." 00:00:00");
-            if(($ushiftp!="OFF1")&&($ushiftp!="OFF2")){
+            $shiftpattern = ShiftPattern::where('code', $ushiftp)->first();
+            if($shiftpattern->is_weekly != 1){
                 $wd = ShiftPlanStaffDay::where('user_id', $req->user()->id)
                 ->whereDate('work_date', date('Y-m-d', strtotime($draft[4])))->first();
                 $sp = ShiftPlan::where("id", $wd->shift_plan_id)->first();
@@ -413,7 +416,8 @@ class OvertimeController extends Controller
         $wd = null;
         $ushiftp = UserHelper::GetUserShiftPatternSAP($req->user()->id, date('Y-m-d', strtotime($otdate))." 00:00:00");
         // dd($ushiftp);
-        if(($ushiftp!="OFF1")&&($ushiftp!="OFF2")){
+        $shiftpattern = ShiftPattern::where('code', $ushiftp)->first();
+            if($shiftpattern->is_weekly != 1){
             $wd = ShiftPlanStaffDay::where('user_id', $req->user()->id)
             ->whereDate('work_date', date('Y-m-d', strtotime($otdate)))->first();
             if($wd){
@@ -789,7 +793,7 @@ class OvertimeController extends Controller
             $salary = $salarycap->salary_cap;
         }
 
-        //if adding new time
+        //if add new time
         if ($req->formtype=="add") {
             //check if existion 0:00~24:00
             $check = OvertimeDetail::where('ot_id', $claim->id)->get();
@@ -841,6 +845,8 @@ class OvertimeController extends Controller
                         $newdetail->end_time = $claim->date." ".$req->inputendnew.":00";
                     }
                 }
+
+                // dd($newdetail->end_time);
                 // dd($newdetail);
                 $newdetail->hour = $hour;
                 $newdetail->minute = $minute;
@@ -904,7 +910,7 @@ class OvertimeController extends Controller
             for ($i=0; $i<count($claimdetail); $i++) {
 
                 //check claim hour detail form is complete
-                if(($req->inputstart)&&($req->inputend)){
+                if(($req->inputstart[$i])&&($req->inputend[$i])){
                     if (($req->inputstart[$i]!="")&&$req->inputend[$i]!="") {
                         $operation = null;
 
@@ -912,13 +918,13 @@ class OvertimeController extends Controller
                         if (($req->inputremark[$i]=="")||($req->inputstart[$i]=="")||($req->inputend[$i]=="")) {
                             $status = false;
                         }
-                        $end = $req->inputend[$i];
-                        $end2 = $end;
-                        if ($end=="0:00") {
-                            // dd($req->inputend[$i]);
-                            $end2="24:00";
-                        }
-                        $dif = (strtotime($end2) - strtotime($req->inputstart[$i]))/60;
+                        // $end = $req->inputend[$i];
+                        // $end2 = $end;
+                        // if ($end=="0:00") {
+                        //     // dd($req->inputend[$i]);
+                        //     $end2="24:00";
+                        // }
+                        $dif = (strtotime($req->inputend[$i]) - strtotime($req->inputstart[$i]))/60;
                         $hour = (int) ($dif/60);
                         $minute = $dif%60;
                         // $pay = UserHelper::CalOT($salary, $hour, $minute);
@@ -930,12 +936,41 @@ class OvertimeController extends Controller
                         $updatedetail= $claimdetail[$i];
                         $pay = UserHelper::CalOT($updatedetail->id);
                         $updatedetail->amount = $pay;
-                        $updatedetail->start_time = $claim->date." ".$req->inputstart[$i].":00";
-                        if ($end=="00:00") {
-                            $newdetail->end_time = date('Y-m-d', strtotime($claim->date . "+1 days"))." ".$end.":00";
+                        $updatedetail->start_time = date('Y-m-d', strtotime($updatedetail->start_time))." ".$req->inputstart[$i].":00";
+                        
+                        if ($req->inputend[$i]=="24:00") {
+                            // dd("x");
+                            if(date('Y-m-d', strtotime($updatedetail->end_time))==$claim->date){
+                                $updatedetail->end_time = date('Y-m-d', strtotime($updatedetail->end_time . "+1 days"))." 00:00:00";
+                            }else{
+                                $updatedetail->end_time = date('Y-m-d', strtotime($updatedetail->end_time))." 00:00:00";
+                            }
+                            // dd($updateclaim->end_time);
                         } else {
-                            $updatedetail->end_time = $claim->date." ".$end.":00";
+                            
+                            if(date('Y-m-d', strtotime($updatedetail->start_time))==$claim->date){
+                                $updatedetail->end_time = date('Y-m-d', strtotime($claim->date))." ".$req->inputend[$i].":00";
+                            }else{
+// dd($updatedetail->start_date. " ". $claim->date);
+                                $updatedetail->end_time = date('Y-m-d', strtotime($updatedetail->end_time))." ".$req->inputend[$i].":00";
+                            }
                         }
+                        // dd($updatedetail->end_time);
+                        // if($req->usertype=="Shift"){
+                        //     $newdetail->start_time = date("Y-m-d", strtotime($req->inputdatenew))." ".$req->inputstartnew.":00";
+                        // }else{
+                        //     $newdetail->start_time = $claim->date." ".$req->inputstartnew.":00";
+                        // }
+                        // if ($inputendnew2=="24:00") {
+                        //     $newdetail->end_time = date('Y-m-d', strtotime($claim->date . "+1 days"))." 00:00";
+                        // } else {
+                        //     if($req->usertype=="Shift"){
+                        //         $newdetail->end_time = date("Y-m-d", strtotime($req->inputdatenew))." ".$req->inputendnew.":00";
+                        //     }else{
+                        //         $newdetail->end_time = $claim->date." ".$req->inputendnew.":00";
+                        //     }
+                        // }
+
 
                         //check if checkbox changed or not
                         if ($updatedetail->checked != $req->inputcheck[$i]) {
@@ -1542,11 +1577,14 @@ class OvertimeController extends Controller
         $updateclaim->legacy_code = $wla[0];
         $updateclaim->amount = $wla[1];
         $updateclaim->save();
+        if($end=="00:00"){
+            $end = "24:00";
+        }
         $claim = Overtime::where('id', $claim->id)->first();
         Session::put(['claim' => $claim]);
         return redirect(route('ot.form', [], false))->with([
             'feedback' => true,
-            'feedback_text' => "Your time ranged from ".date("Hi", strtotime($start))." to ".date("Hi", strtotime($end))." has deleted.",
+            'feedback_text' => "Your time ranged from ".date("Hi", strtotime($start))." to ".date("Hi", strtotime($end))." has been deleted.",
             'feedback_title' => "Successfully Deleted"
         ]);
     }

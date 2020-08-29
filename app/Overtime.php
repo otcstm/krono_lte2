@@ -66,6 +66,10 @@ class Overtime extends Model
     {
         return $this->belongsTo(State::class, 'state_id');
     }
+    public function daycode()
+    {
+        return $this->belongsTo(OvertimeFormula::class,  'eligible_day_code', 'legacy_codes')->withDefault(['rate' => '0']);
+    }
 
     public function log()
     {
