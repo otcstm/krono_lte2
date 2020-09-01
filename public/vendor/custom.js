@@ -591,10 +591,7 @@ function timer(psecond, pminute, phour, dsecond, dminute, dhour, now, swtime, st
         stdates = stdatex.split(":");
         ctime = Date.parse(cnow).toString("HH:mm");
         ctimes = ctime.split(":");
-        // alert(stdate);
-        // Date.parse(now).addDays(1)
-        // alert((cnow.getTime() - new Date(stdate).getTime())/ (1000 * 3600 * 24));
-        // console.log(cnow+" "+enddate+" "+parseInt(ctimes[0]*60)+parseInt(ctimes[1])+" >= "+(parseInt(swtimes[0]*60)+parseInt(swtimes[1])));
+        
         if((Date.parse(cnow).toString("dd.MM.yyyy")==enddate)||(((cnow.getTime() - new Date(stdate).getTime())/ (1000 * 3600 * 24))>1)){
             
             if((((cnow.getTime() - new Date(stdate).getTime())/ (1000 * 3600 * 24))<2)){
@@ -606,13 +603,8 @@ function timer(psecond, pminute, phour, dsecond, dminute, dhour, now, swtime, st
                 }
             }else{
                 nework = true;
-                // endclock = Date.parse(new Date(stdate).setDate(stdate.getDate()+1)).toString("yyyy-MM-dd")+" "+swtime+":00";
-                // dt = new Date(stdate);
-                // edt = dt.setDate(dt.getDate()+1);
-                // alert(edt);
                 endclock = Date.parse(stdate).addDays(1).toString("yyyy-MM-dd")+" "+swtime+":00";
                 future = Date.parse(stdate).addDays(1).toString("yyyy-MM-dd")+" "+swtime+":00";
-                // alert(endclock);
                 navigator.geolocation.getCurrentPosition(getPosition,showError2);
             }
         }

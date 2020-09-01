@@ -138,8 +138,10 @@
                                     {{ date('Hi', strtotime($details->end_time))}}<br>
                                 @endforeach
                             </td>
-                            <td>{{ $singleuser->eligible_day }}</td>
-                            <td>@if($singleuser->eligible_day==0){{$singleuser->total_hour}}h {{$singleuser->total_minute}}m @else @php($total = $singleuser->eligible_total_hours_minutes*60) {{(int)($total/60)}}h {{$total%60}}m @endif</td>
+                            {{--<td>{{ $singleuser->eligible_day }}</td>--}}
+                            <td>@if($singleuser->daycode->rate==0.5) 0.5   @elseif($singleuser->daycode->rate==0) {{$singleuser->daycode->rate}}  @else 1 @endif</td>
+                            <td>{{$singleuser->eligible_total_hours_minutes}}</td>
+                           {{-- <td>@if($singleuser->eligible_day==0){{$singleuser->total_hour}}h {{$singleuser->total_minute}}m @else @php($total = $singleuser->eligible_total_hours_minutes*60) {{(int)($total/60)}}h {{$total%60}}m @endif</td>--}}
                             <td>@if(($singleuser->eligible_day_code)&&($singleuser->eligible_total_hours_minutes_code)) {{$singleuser->eligible_day_code}}, {{$singleuser->eligible_total_hours_minutes_code}} @elseif($singleuser->eligible_total_hours_minutes_code) {{$singleuser->eligible_total_hours_minutes_code}} @else {{$singleuser->eligible_day_code}} @endif</td>
                             
                             <td>RM{{$singleuser->amount}}</td>
