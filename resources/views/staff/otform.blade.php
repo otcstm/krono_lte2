@@ -212,7 +212,7 @@
                 @endif
                 </div>
             </div>
-
+            {{$claim->amount}}
             <div class="row" style="display: flex; margin-top: 50px">
                 <div class="col-xs-6">
                     <p><b>TIME LIST</b> </p>

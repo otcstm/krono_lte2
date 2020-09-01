@@ -356,12 +356,14 @@ class UserHelper {
     }
 
     public static function CalOT($otdid){
+      // dd("s");
       $otd = OvertimeDetail::where('id', $otdid)->first();
       $ot = Overtime::where('id', $otd->ot_id)->first();
       $ur = URHelper::getUserRecordByDate($ot->user_id, $ot->date);
       $cd = UserHelper::CheckDay($ot->user_id, $ot->date);
       $dt = DayType::where("id", $cd[4])->first();
       $salary=$ur->salary;
+      dd($ur);
       if($ur->ot_salary_exception == "N"){
         $oe = URHelper::getUserEligibility($ot->user_id, $ot->date);
         // $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->empgroup)->where('empsgroup', $ur->empsgroup)->where('psgroup', $ur->psgroup)->where('region', $ot->region)->first();
@@ -379,6 +381,7 @@ class UserHelper {
         $whmax = 7;
         $whmin = 3.5;
       }
+
       if($dt->day_type=="N"){ //=================================================NORMAL
         $dayt = "NOR";
         $lg = OvertimeFormula::where('company_id',$ur->company_id)->where('region',$ot->region)
@@ -386,7 +389,8 @@ class UserHelper {
         if(26*$dt->working_hour==0){
           $amount = 0;
         }else{
-          $amount= $lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*((($otd->hour*60)+$otd->minute)/60);
+          $amount= $lg->rate*(($salary+$ur->allowance)/(26*7))*((($otd->hour*60)+$otd->minute)/60);
+          dd($salary+$ur->allowance);
         }
       }else{
         if($dt->day_type=="PH"){ //=================================================PUBLIC HOLIDAY
@@ -407,8 +411,8 @@ class UserHelper {
               $amount = 0;
             }else{
               // $amount2= $lg2->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*($whmax);
-              $amount2= $lg2->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*(7);
-              $amount= $amount2 + ($lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*(((($otd->hour*60)+$otd->minute)-(7*60))/60));
+              $amount2= $lg2->rate*(($salary+$ur->allowance)/(26*7))*(7);
+              $amount= $amount2 + ($lg->rate*(($salary+$ur->allowance)/(26*7))*(((($otd->hour*60)+$otd->minute)-(7*60))/60));
               // $amount= $amount2 + ($lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*(((($otd->hour*60)+$otd->minute)-($whmax*60))/60));
             }
           }else{
@@ -428,7 +432,7 @@ class UserHelper {
               $amount = 0;
             }else{ 
               $amount2= 1*(($salary+$ur->allowance)/26);
-              $amount= $amount2+(2*(($salary+$ur->allowance)/(26*$dt->working_hour))*(((($otd->hour*60)+$otd->minute)-(7*60))/60));
+              $amount= $amount2+(2*(($salary+$ur->allowance)/(26*7))*(((($otd->hour*60)+$otd->minute)-(7*60))/60));
               // $amount= $amount2+(2*(($salary+$ur->allowance)/(26*$dt->working_hour))*(((($otd->hour*60)+$otd->minute)-($whmax*60))/60));
             }
   
@@ -444,7 +448,7 @@ class UserHelper {
           if(26*$dt->working_hour==0){
             $amount = 0;
           }else{
-            $amount= 1.5*(($salary+$ur->allowance)/(26*$dt->working_hour))*((($otd->hour*60)+$otd->minute)/60);
+            $amount= 1.5*(($salary+$ur->allowance)/(26*7))*((($otd->hour*60)+$otd->minute)/60);
           }
         }
         
@@ -717,7 +721,7 @@ class UserHelper {
       if(26*$dt->working_hour==0){
         $amount = 0;
       }else{
-        $amount= $lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes);
+        $amount= $lg->rate*(($salary+$ur->allowance)/(26*7))*($ot->total_hours_minutes);
       }
 
     }else{
@@ -738,8 +742,8 @@ class UserHelper {
           if(26*$dt->working_hour==0){
             $amount = 0;
           }else{
-            $amount2= $lg2->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*($whmax);
-            $amount= $amount2 + ($lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes - $whmax));
+            $amount2= $lg2->rate*(($salary+$ur->allowance)/(26*7))*($whmax);
+            $amount= $amount2 + ($lg->rate*(($salary+$ur->allowance)/(26*7))*($ot->total_hours_minutes - $whmax));
           }
         }else{
           $lg = $lg->where('min_minute', 0)
@@ -773,7 +777,7 @@ class UserHelper {
             $amount = 0;
           }else{ 
             $amount2= 1*(($salary+$ur->allowance)/26);
-            $amount= $amount2+(2*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes-$whmax));
+            $amount= $amount2+(2*(($salary+$ur->allowance)/(26*7))*($ot->total_hours_minutes-$whmax));
           }
           // dd($ot->total_hours_minutes." ss");
         }else{
@@ -790,7 +794,6 @@ class UserHelper {
         
         // $lg = $lg->first();
         // $legacy = $lg->legacy_codes;
-
       }else{
         $dayt = "OFF";
         $lg = OvertimeFormula::where('company_id',$ur->company_id)->where('region',$ot->region)->where("day_type", $dayt)->first();
@@ -802,7 +805,7 @@ class UserHelper {
         if(26*$dt->working_hour==0){
           $amount = 0;
         }else{
-          $amount= 1.5*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes);
+          $amount= 1.5*(($salary+$ur->allowance)/(26*7))*($ot->total_hours_minutes);
         }
       }
       
