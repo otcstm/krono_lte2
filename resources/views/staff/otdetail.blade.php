@@ -27,9 +27,10 @@
                                     Off Day
                                 @endif</b></div>
                                 <div class="col-md-4">OT Date</div><div class="col-md-8">: <b>{{date('d.m.Y', strtotime($claim->date))}}</b></div>
-                                <div class="col-md-4">Total Hours/Minute</div><div class="col-md-8">: <b>@if($claim->eligible_day==0){{$claim->total_hour}}h {{$claim->total_minute}}m @else @php($total = $claim->eligible_total_hours_minutes*60) {{(int)($total/60)}}h {{$total%60}}m @endif</b></div>
+                                {{--<div class="col-md-4">Total Hours/Minute</div><div class="col-md-8">: <b>@if($claim->eligible_day==0){{$claim->total_hour}}h {{$claim->total_minute}}m @else @php($total = $claim->eligible_total_hours_minutes*60) {{(int)($total/60)}}h {{$total%60}}m @endif</b></div>--}}
                                 {{--<div class="col-md-4">Total Day</div><div class="col-md-8">: <b>{{$claim->eligible_day}}</b></div>--}}
-                                <div class="col-md-4">Total Day</div><div class="col-md-8">: <b>@if($claim->daycode->rate==0.5) 0.5 @else 1 @endif</b></div>
+                                <div class="col-md-4">Total Day</div><div class="col-md-8">: <b>@if($claim->daycode->rate==0.5) 0.5 @elseif($claim->daycode->rate==null) @else 1 @endif</b></div>
+                                <div class="col-md-4">Total Hours/Minutes</div><div class="col-md-8">: <b><td>{{$claim->eligible_total_hours_minutes}}</td></b></div>
                             </div>
                         </div>
                         <div class="col-md-6">

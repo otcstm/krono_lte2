@@ -36,7 +36,7 @@
                             @elseif ($claim->status=="PV")
                                 Pending Verification  
                             @elseif ($claim->status=="A")
-                                Aproved 
+                                Approved 
                             @else 
                                 {{ $claim->status }} 
                             @endif  
@@ -1760,11 +1760,11 @@
                             if(i==0){
                                 $("#formtype").val("add");
                                 $("#form").submit();
-                                return saves();
+                                // return saves();
                             }else{
                                 $("#formtype").val("save");
                                 $("#form").submit();
-                                return saves();
+                                // return saves();
                             }
                         }
                     // }
@@ -2234,6 +2234,11 @@ function deletes(){
         })
         // return false;
     }
+
+
+        $('#inputremark-0').keypress(function(e){
+    console.log("Enter");
+});
 
     @if(session()->has('feedback'))
     Swal.fire({

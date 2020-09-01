@@ -480,6 +480,7 @@ class UserHelper {
       $sp = null;
       $sameday = true;
       $ed = "24:00";
+      $wd = null;
       // first, check if there's any shift planned for this person
       $usp = UserShiftPattern::where("user_id", $user)
         ->whereDate('start_date','<=', $date)
