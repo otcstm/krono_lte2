@@ -362,14 +362,15 @@ class UserHelper {
       $ur = URHelper::getUserRecordByDate($ot->user_id, $ot->date);
       $cd = UserHelper::CheckDay($ot->user_id, $ot->date);
       $dt = DayType::where("id", $cd[4])->first();
-      $salary=$ur->salary;
-      dd($ur);
-      if($ur->ot_salary_exception == "N"){
+      $salary=$ur->salary+$ur->allowance;
+      if($ur->ot_salary_exception == "Y"){
+        $salary=$ur->salary+$ur->allowance;
+      }else{
         $oe = URHelper::getUserEligibility($ot->user_id, $ot->date);
-        // $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->empgroup)->where('empsgroup', $ur->empsgroup)->where('psgroup', $ur->psgroup)->where('region', $ot->region)->first();
-        // dd($oe);
         if($oe){
-          $salary = $oe->salary_cap;
+          if($salary>$oe->salary_cap){
+            $salary = $oe->salary_cap;
+          }
         }
       }
       //check if there's any shift planned for this person
@@ -389,9 +390,9 @@ class UserHelper {
         if(26*$dt->working_hour==0){
           $amount = 0;
         }else{
-          $amount= $lg->rate*(($salary+$ur->allowance)/(26*7))*((($otd->hour*60)+$otd->minute)/60);
-          dd($salary+$ur->allowance);
+          $amount= $lg->rate*(($salary)/(26*7))*((($otd->hour*60)+$otd->minute)/60);
         }
+
       }else{
         if($dt->day_type=="PH"){ //=================================================PUBLIC HOLIDAY
           $dayt = "PHD";
@@ -411,33 +412,33 @@ class UserHelper {
               $amount = 0;
             }else{
               // $amount2= $lg2->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*($whmax);
-              $amount2= $lg2->rate*(($salary+$ur->allowance)/(26*7))*(7);
-              $amount= $amount2 + ($lg->rate*(($salary+$ur->allowance)/(26*7))*(((($otd->hour*60)+$otd->minute)-(7*60))/60));
+              $amount2= $lg2->rate*(($salary)/(26*7))*(7);
+              $amount= $amount2 + ($lg->rate*(($salary)/(26*7))*(((($otd->hour*60)+$otd->minute)-(7*60))/60));
               // $amount= $amount2 + ($lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*(((($otd->hour*60)+$otd->minute)-($whmax*60))/60));
             }
           }else{
             $lg = $lg->where('min_minute', 0)
             ->orderby('id')->first();
-            $amount= $lg->rate*(($salary+$ur->allowance)/26);
+            $amount= $lg->rate*(($salary)/26);
           }
   
         }else if($dt->day_type=="R"){ //=================================================RESTDAY
           $dayt = "RST";
           if((($otd->hour*60)+$otd->minute)<=($whmin*60)){
-            $amount= 0.5*(($salary+$ur->allowance)/26);
+            $amount= 0.5*(($salary)/26);
   
   
           }else if((($otd->hour*60)+$otd->minute)>($whmax*60)){
             if(26*$dt->working_hour==0){
               $amount = 0;
             }else{ 
-              $amount2= 1*(($salary+$ur->allowance)/26);
-              $amount= $amount2+(2*(($salary+$ur->allowance)/(26*7))*(((($otd->hour*60)+$otd->minute)-(7*60))/60));
+              $amount2= 1*(($salary)/26);
+              $amount= $amount2+(2*(($salary)/(26*7))*(((($otd->hour*60)+$otd->minute)-(7*60))/60));
               // $amount= $amount2+(2*(($salary+$ur->allowance)/(26*$dt->working_hour))*(((($otd->hour*60)+$otd->minute)-($whmax*60))/60));
             }
   
           }else{
-            $amount= 1*(($salary+$ur->allowance)/26);
+            $amount= 1*(($salary)/26);
           }
           
           // $lg = $lg->first();
@@ -448,7 +449,7 @@ class UserHelper {
           if(26*$dt->working_hour==0){
             $amount = 0;
           }else{
-            $amount= 1.5*(($salary+$ur->allowance)/(26*7))*((($otd->hour*60)+$otd->minute)/60);
+            $amount= 1.5*(($salary)/(26*7))*((($otd->hour*60)+$otd->minute)/60);
           }
         }
         
@@ -696,14 +697,15 @@ class UserHelper {
     $ur = URHelper::getUserRecordByDate($ot->user_id, $ot->date);
     $cd = UserHelper::CheckDay($ot->user_id, $ot->date);
     $dt = DayType::where("id", $cd[4])->first();
-    $salary=$ur->salary;
-    if($ur->ot_salary_exception == "N"){
-      $oe = URHelper::getUserEligibility($ot->user_id, $ot->date);
-      // $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->empgroup)->where('empsgroup', $ur->empsgroup)->where('psgroup', $ur->psgroup)->where('region', $ot->region)->first();
-      if($oe){
-        $salary = $oe->salary_cap;
+    $salary=$ur->salary+$ur->allowance;
+      if($ur->ot_salary_exception == "N"){
+        $oe = URHelper::getUserEligibility($ot->user_id, $ot->date);
+        if($oe){
+          if($salary>$oe->salary_cap){
+            $salary = $oe->salary_cap;
+          }
+        }
       }
-    }
     //check if there's any shift planned for this person
     $wd = ShiftPlanStaffDay::where('user_id', $ot->user_id)->whereDate('work_date', $ot->date)->first();
     if($wd){
@@ -721,7 +723,7 @@ class UserHelper {
       if(26*$dt->working_hour==0){
         $amount = 0;
       }else{
-        $amount= $lg->rate*(($salary+$ur->allowance)/(26*7))*($ot->total_hours_minutes);
+        $amount= $lg->rate*(($salary)/(26*7))*($ot->total_hours_minutes);
       }
 
     }else{
@@ -742,13 +744,13 @@ class UserHelper {
           if(26*$dt->working_hour==0){
             $amount = 0;
           }else{
-            $amount2= $lg2->rate*(($salary+$ur->allowance)/(26*7))*($whmax);
-            $amount= $amount2 + ($lg->rate*(($salary+$ur->allowance)/(26*7))*($ot->total_hours_minutes - $whmax));
+            $amount2= $lg2->rate*(($salary)/(26*7))*($whmax);
+            $amount= $amount2 + ($lg->rate*(($salary)/(26*7))*($ot->total_hours_minutes - $whmax));
           }
         }else{
           $lg = $lg->where('min_minute', 0)
           ->orderby('id')->first();
-          $amount= $lg->rate*(($salary+$ur->allowance)/26);
+          $amount= $lg->rate*(($salary)/26);
         }
         $legacy = $lg->legacy_codes;
 
@@ -762,7 +764,7 @@ class UserHelper {
           }else{
             $legacy = '252';
           }
-          $amount= 0.5*(($salary+$ur->allowance)/26);
+          $amount= 0.5*(($salary)/26);
           // dd($ot->total_hours_minutes." s");
 
         }else if($ot->total_hours_minutes>$whmax){
@@ -776,8 +778,8 @@ class UserHelper {
           if(26*$dt->working_hour==0){
             $amount = 0;
           }else{ 
-            $amount2= 1*(($salary+$ur->allowance)/26);
-            $amount= $amount2+(2*(($salary+$ur->allowance)/(26*7))*($ot->total_hours_minutes-$whmax));
+            $amount2= 1*(($salary)/26);
+            $amount= $amount2+(2*(($salary)/(26*7))*($ot->total_hours_minutes-$whmax));
           }
           // dd($ot->total_hours_minutes." ss");
         }else{
@@ -789,7 +791,7 @@ class UserHelper {
           }else{
             $legacy = '253';
           }
-          $amount= 1*(($salary+$ur->allowance)/26);
+          $amount= 1*(($salary)/26);
         }
         
         // $lg = $lg->first();
@@ -805,7 +807,7 @@ class UserHelper {
         if(26*$dt->working_hour==0){
           $amount = 0;
         }else{
-          $amount= 1.5*(($salary+$ur->allowance)/(26*7))*($ot->total_hours_minutes);
+          $amount= 1.5*(($salary)/(26*7))*($ot->total_hours_minutes);
         }
       }
       

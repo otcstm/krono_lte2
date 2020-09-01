@@ -212,7 +212,6 @@
                 @endif
                 </div>
             </div>
-            {{$claim->amount}}
             <div class="row" style="display: flex; margin-top: 50px">
                 <div class="col-xs-6">
                     <p><b>TIME LIST</b> </p>
@@ -1808,12 +1807,12 @@
         }
     })
 
-  $(window).keydown(function(event){
-    if(event.keyCode == 13) {
-      event.preventDefault();
-      return false;
-    }
-  });
+//   $(window).keydown(function(event){
+//     if(event.keyCode == 13) {
+//       event.preventDefault();
+//       return false;
+//     }
+//   });
 
     function submission(){
         if(($("#formtype").val()=="submit")){          
@@ -2235,10 +2234,6 @@ function deletes(){
         // return false;
     }
 
-
-        $('#inputremark-0').keypress(function(e){
-    console.log("Enter");
-});
 
     @if(session()->has('feedback'))
     Swal.fire({

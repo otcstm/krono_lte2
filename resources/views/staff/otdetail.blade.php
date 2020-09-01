@@ -136,7 +136,7 @@
                                         <tr>
                                             <td>{{++$nod}}</td>
                                             <td>{{ date('Hi', strtotime($details->start_time)) }}</td>
-                                            <td>{{ date('Hi', strtotime($details->end_time)) }}</td>
+                                            <td>@if(date('Hi', strtotime($details->end_time))=="0000") 2400 @else {{ date('Hi', strtotime($details->end_time))  }} @endif</td>
                                             <td>{{ $details->hour }}h {{$details->minute}}m</td>
                                             <td>
                                                 @if($details->clock_in!="")

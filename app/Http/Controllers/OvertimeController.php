@@ -467,10 +467,10 @@ class OvertimeController extends Controller
             $employtype = "Normal";
         }
         if($staffr){
-            if($staffr->ot_salary_exception == "N"){
-                $salexcep = "RM".$elig->salary_cap;
-            }else{
+            if($staffr->ot_salary_exception == "Y"){
                 $salexcep = 'Actual';
+            }else{
+                $salexcep = "RM".$elig->salary_cap;
             }
         }
 
@@ -905,7 +905,6 @@ class OvertimeController extends Controller
         if (($req->formtype=="save")||($req->formtype=="submit")||($req->formtype=="delete")) {
             $claim = Overtime::where('id', $claim->id)->first();
             $claimdetail = OvertimeDetail::where('ot_id', $claim->id)->get();
-
             //operation for all claim hour details
             for ($i=0; $i<count($claimdetail); $i++) {
 
@@ -935,7 +934,6 @@ class OvertimeController extends Controller
                         $updatedetail->save();
                         $updatedetail= $claimdetail[$i];
                         $pay = UserHelper::CalOT($updatedetail->id);
-                        $updatedetail->amount = $pay;
                         $updatedetail->start_time = date('Y-m-d', strtotime($updatedetail->start_time))." ".$req->inputstart[$i].":00";
                         
                         if ($req->inputend[$i]=="24:00") {
@@ -1035,6 +1033,7 @@ class OvertimeController extends Controller
 
                         if ($updatedetail->checked=="Y") {
                             $havecheckedclaim = true;
+                        
                         }
                     }
                     
@@ -1264,6 +1263,19 @@ class OvertimeController extends Controller
         $wla = UserHelper::GetWageLegacyAmount($claim->id);
         $updateclaim->legacy_code = $wla[0];
         $updateclaim->amount = $wla[1];
+        
+        $claimdetail = OvertimeDetail::where('ot_id', $claim->id)->get();
+        $amount = 0;
+        foreach($claimdetail as $dt){
+            $updt = OvertimeDetail::find($dt->id);
+            if ($updt->checked=="Y") {
+                $updateclaim->amount = $amount+$updt->amount;
+                $amount = $updateclaim->amount;
+            
+            }
+        }
+
+
         $updateclaim->save();
 
         //check if delete time/file
@@ -1576,6 +1588,21 @@ class OvertimeController extends Controller
         $wla = UserHelper::GetWageLegacyAmount($claim->id);
         $updateclaim->legacy_code = $wla[0];
         $updateclaim->amount = $wla[1];
+
+        $claimdetail = OvertimeDetail::where('ot_id', $claim->id)->get();
+        $amount = 0;
+        foreach($claimdetail as $dt){
+            $updt = OvertimeDetail::find($dt->id);
+            if ($updt->checked=="Y") {
+                $updateclaim->amount = $amount+$updt->amount;
+                $amount = $updateclaim->amount;
+            
+            }
+        }
+
+
+        $updateclaim->save();
+
         $updateclaim->save();
         if($end=="00:00"){
             $end = "24:00";
