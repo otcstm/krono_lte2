@@ -2015,8 +2015,8 @@ class OvertimeController extends Controller
             $costc = $ot->other_costcenter;
         }
         if ($req->type=="normal") {
-            $staff = UserRecord::where('name', 'LIKE', '%' .$req->name. '%')->where("costcentr", $costc)->where('id', '!=', $approver)->where('id', '!=', $verifier)->where('upd_sap', '<=', $date)->orderBy('name', 'ASC')->get();
-        // $staff = UserRecord::where('name', 'LIKE', '%' .$req->name. '%')->where('name', '!=', $req->user()->name)->where('upd_sap','<=',$date)->orderBy('name', 'ASC')->get();
+            // $staff = UserRecord::where('name', 'LIKE', '%' .$req->name. '%')->where("costcentr", $costc)->where('id', '!=', $approver)->where('id', '!=', $verifier)->where('upd_sap', '<=', $date)->orderBy('name', 'ASC')->get();
+        $staff = UserRecord::where('name', 'LIKE', '%' .$req->name. '%')->where('name', '!=', $req->user()->name)->where('upd_sap','<=',$date)->orderBy('name', 'ASC')->get();
         } else {
             $staff = UserRecord::query();
             if ($req->name!="") {
@@ -2037,7 +2037,8 @@ class OvertimeController extends Controller
             // if($req->office!=""){
             //     $staff = $staff->orWhere('name', 'LIKE', '%' .$req->office. '%');
             // }
-            $staff = $staff->where("costcentr", $costc)->where('id', '!=', $approver)->where('id', '!=', $verifier)->where('upd_sap', '<=', $date)->orderBy('name', 'ASC')->get();
+            $staff = $staff->where('id', '!=', $approver)->where('id', '!=', $verifier)->where('upd_sap', '<=', $date)->orderBy('name', 'ASC')->get();
+            // $staff = $staff->where("costcentr", $costc)->where('id', '!=', $approver)->where('id', '!=', $verifier)->where('upd_sap', '<=', $date)->orderBy('name', 'ASC')->get();
         }
         $arr = [];
         foreach ($staff as $s) {
