@@ -115,7 +115,7 @@ class PHTag extends Command
                     }
                 }
                 if($hc){  //if public holiday exzist
-                    if($dy->day_type!="O"){
+                    if($dy->day_type!="R"){
                         $existTag = DayTag::where('user_id', $us->id)->where('date', $date)->first();
                         if(!($existTag)){
                             $tagPH = new DayTag;
