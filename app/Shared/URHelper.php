@@ -289,6 +289,18 @@ class URHelper
       //   return $applyOT;
       // }
 
-
+      public static function isValidEmail($email) {
+        $condition = true;
+        // dd($email);
+        foreach($email as $a){
+          if(!(filter_var($a, FILTER_VALIDATE_EMAIL) && preg_match('/@.+\./', $a))){
+            $condition = false;
+          }
+        }
+        return $condition;
+        // dd($email);
+        // return filter_var($email, FILTER_VALIDATE_EMAIL) 
+        //     && preg_match('/@.+\./', $email);
+    }
 
 }

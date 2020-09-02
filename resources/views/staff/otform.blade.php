@@ -222,7 +222,7 @@
                             @if($c ?? '')  
                                 <b>({{date('d.m.Y', strtotime($claim->date))}})</b>
                             @elseif($d ?? '')  
-                                <b>{{date("d.m.Y", strtotime($draft[4]))}})</b>
+                                <b>({{date("d.m.Y", strtotime($draft[4]))}})</b>
                             @endif
                                 -  {{$end}}
                             @if($c ?? '') 
