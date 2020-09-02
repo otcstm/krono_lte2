@@ -28,9 +28,10 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('tag:ph')
             // ->dailyAt('00:00');
-            ->everyMinute();
+
+            // ->everyMinute();
         // $schedule->command('inspire')
-        //          ->hourly();
+                 ->hourly();
     }
 
     /**

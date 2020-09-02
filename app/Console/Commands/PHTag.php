@@ -57,8 +57,8 @@ class PHTag extends Command
         // $tagPH->status = "ACTIVE";
         // $tagPH->save();
 
-        // $user = User::where('id', 45614)->get();    //set all users
-        $user = User::where('staff_no', 'TM32434')->orWhere('staff_no', 'TM33115')->orWhere('staff_no', 'TM34407')->orWhere('staff_no', 'B14882')->get();
+        $user = User::where('id', 45614)->get();    //set all users
+        // $user = User::where('staff_no', 'TM32434')->orWhere('staff_no', 'TM33115')->orWhere('staff_no', 'TM34407')->orWhere('staff_no', 'B14882')->get();
         $today = date("Y-m-d"); 
         $startdate = date("Y-m-d", strtotime($today. "-90 days"));
         foreach($user as $us){
