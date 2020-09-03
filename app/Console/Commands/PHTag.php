@@ -50,14 +50,14 @@ class PHTag extends Command
      */
     public function handle()
     {
-        // $user = User::all(); //set user
+        $user = User::all(); //set user
         // $tagPH = new DayTag;
         // $tagPH->user_id = 1;
         // $tagPH->date = date("Y-m-d")." 00:00:00";
         // $tagPH->status = "ACTIVE";
         // $tagPH->save();
         // $user = User::where('id', 45614)->get();    //set all users
-        $user = User::where('staff_no', 'TM32434')->orWhere('staff_no', 'TM34193')->orWhere('staff_no', 'TM32381')->orWhere('staff_no', 'TM32326')->orWhere('staff_no', 'A15844')->orWhere('staff_no', 'TM33115')->orWhere('staff_no', 'TM34407')->orWhere('staff_no', 'TM32293')->orWhere('staff_no', 'B14882')->get();
+        // $user = User::where('staff_no', 'TM32434')->orWhere('staff_no', 'TM34193')->orWhere('staff_no', 'TM32381')->orWhere('staff_no', 'TM32326')->orWhere('staff_no', 'A15844')->orWhere('staff_no', 'TM33115')->orWhere('staff_no', 'TM34407')->orWhere('staff_no', 'TM32293')->orWhere('staff_no', 'B14882')->get();
         $today = date("Y-m-d"); 
         $startdate = date("Y-m-d", strtotime($today. "-90 days"));
         foreach($user as $us){
