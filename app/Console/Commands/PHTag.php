@@ -50,7 +50,8 @@ class PHTag extends Command
      */
     public function handle()
     {
-        $user = User::all(); //set user
+        //$user = User::all(); //set user
+        $user = User::where('empsgroup','Non Executive')->get(); 
         // $tagPH = new DayTag;
         // $tagPH->user_id = 1;
         // $tagPH->date = date("Y-m-d")." 00:00:00";
