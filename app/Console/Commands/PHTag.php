@@ -52,7 +52,9 @@ class PHTag extends Command
     {
         //$user = User::all(); //set user
         $user = User::where('empsgroup','Non Executive')
-        ->where('empstats',3)->get(); 
+        ->where('empstats',3)
+        ->orderby('id','asc')
+        ->get(); 
         // $tagPH = new DayTag;
         // $tagPH->user_id = 1;
         // $tagPH->date = date("Y-m-d")." 00:00:00";
@@ -75,7 +77,9 @@ class PHTag extends Command
                 $shiftpattern = ShiftPattern::where('code', $ushiftp)->first();
                 if($shiftpattern->is_weekly != 1){
                     $wd = ShiftPlanStaffDay::where('user_id', $us->id)
-                    ->whereDate('work_date', $date)->first();
+                    ->whereDate('work_date', $date)
+                    ->orderby('id','desc')
+                    ->first();
                     if($wd){
                         $sp = ShiftPlan::where("id", $wd->shift_plan_id)->first();
                         if($sp){
@@ -93,8 +97,14 @@ class PHTag extends Command
                 } else {
                     // not a shift staff. get based on the wsr
                     $currwsr = UserHelper::GetWorkSchedRule($us->id, $date);
-                    // then get that day
-                    $wd = $currwsr->ListDays->where('day_seq', $day)->first();
+
+                    //if wsr no record
+                    if($currwsr){
+                        // then get that day
+                        $wd = $currwsr->ListDays->where('day_seq', $day)->first();
+                    } else {
+                        $wd = null;
+                    }
                 };
                 $idday = $wd->day_type_id;
                 $dy = DayType::where('id', $idday)->first();
