@@ -53,7 +53,6 @@ class PHTag extends Command
         //$user = User::all(); //set user
         $user = User::where('empsgroup','Non Executive')
         ->where('empstats',3)
-        ->orderby('id','asc')
         ->get(); 
         // $tagPH = new DayTag;
         // $tagPH->user_id = 1;
