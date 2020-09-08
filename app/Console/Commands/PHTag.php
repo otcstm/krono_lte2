@@ -105,7 +105,8 @@ class PHTag extends Command
                         $wd = null;
                     }
                 };
-                if($wd->day_type_id){
+                //if($wd->day_type_id){                    
+                if($wd){
                     $idday = $wd->day_type_id;
                     $dy = DayType::where('id', $idday)->first();
                     $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->first();

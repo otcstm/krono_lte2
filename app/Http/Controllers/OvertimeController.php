@@ -475,7 +475,18 @@ class OvertimeController extends Controller
             if($staffr->ot_salary_exception == "Y"){
                 $salexcep = 'Actual';
             }else{
-                $salexcep = "RM".$elig->salary_cap;
+                //check if overtime_eligibilty record 0
+                if($elig){
+                    $salexcep = "RM".$elig->salary_cap;
+                } else {
+                    //E101 - table overtime_eligiblity no record for this user
+                    Session::put(['draft' => [], 'claim' => []]);
+                    return redirect(route('ot.form', [], false))->with([
+                        'feedback' => true,
+                        'feedback_text' => "You are not eligible to apply overtime claim on this date! [E101]",
+                        'feedback_title' => "Warning"
+                    ]);
+                }
             }
         }
 
