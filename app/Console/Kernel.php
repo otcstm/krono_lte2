@@ -27,11 +27,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('tag:ph')
-            ->dailyAt('12:00')
+        //->dailyAt('12:00')
 
             // ->everyMinute();
         // $schedule->command('inspire')
-        // ->hourly()        
+        ->hourly()        
         ->withoutOverlapping();
     }
 
