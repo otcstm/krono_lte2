@@ -475,7 +475,7 @@ class UserHelper {
       return null;
     }
 
-    public static function CheckDay($user, $date)
+    public static function CheckDay($user, $date, $req)
     {
       $day = date('N', strtotime($date));
       $shift = null;
@@ -486,10 +486,12 @@ class UserHelper {
       $sameday = true;
       $ed = "24:00";
       $wd = null;
+      
       // first, check if there's any shift planned for this person
       $usp = UserShiftPattern::where("user_id", $user)
         ->whereDate('start_date','<=', $date)
-        ->whereDate('end_date','>=', $date)->first();
+        ->whereDate('end_date','>=', $date)->first();        
+
       $shiftpattern = ShiftPattern::where('code', $usp->sap_code)->first();
       if($shiftpattern->is_weekly != 1){
         $wd = ShiftPlanStaffDay::where('user_id', $user)
@@ -517,6 +519,7 @@ class UserHelper {
         // then get that day
         $wd = $currwsr->ListDays->where('day_seq', $day)->first();
       };
+
       // get the day info
       $theday = $wd->Day;
       $idday = $wd->day_type_id;
@@ -545,13 +548,32 @@ class UserHelper {
       //     }
       //   }
       // }
-      $checkphday = DayTag::where('user_id', $user)->where("date", date("Y-m-d", strtotime($date)))->where('status', 'ACTIVE')->first();
-      // dd($user);
+      
+        //check if exist in day_tags table
+        // $checkDayTagsExist = DayTag::where('user_id', $user)
+        // ->where('status', 'ACTIVE')
+        // ->where('phdate', date("Y-m-d", strtotime($date)))
+        // ->orWhere('date', date("Y-m-d", strtotime($date)))
+        // ->first();
+        // //dd($checkDayTagsExist);
+        // //must check also if existing overtime is exist, else the wd2 + date2 problem
+
+        // //if not exist then populate PH tagging
+        // if(!$checkDayTagsExist){
+          $populate_phtagging = UserHelper::populatePhTag($user, $date, $req);
+        // }
+
+      $checkphday = DayTag::where('user_id', $user)
+      ->where('date', date("Y-m-d", strtotime($date)))
+      ->where('status', 'ACTIVE')
+      ->first(); 
+
       if($checkphday!=null){
         $start = "00:00";
         $end =  "00:00";
         $day_type = 'Public Holiday';
-        $dy = DayType::where('description', 'Public Holiday')->first();
+        //$dy = DayType::where('description', 'Public Holiday')->first();
+        $dy = DayType::where('code', 'PH')->first();
         $idday = $dy->id;
       }else{
         if($theday->is_work_day == true){
@@ -816,6 +838,190 @@ class UserHelper {
     // dd($lg);
     // $legacy = $lg->legacy_code;
     return [$legacy, $amount];
+  }
+
+
+  
+  public static function populatePhTag($uid, $otdate, $req){
+
+    $us = User::find($uid);
+    // ->where('empsgroup','Non Executive')
+    // ->where('empstats',3)
+    // ->get(); 
+
+    $prev_daytocheck = 3;    
+
+    $startdate = date("Y-m-d", strtotime($otdate. "-".$prev_daytocheck." days"));    
+    //dd($startdate, $prev_daytocheck);
+    // foreach($user as $us){
+    //ini_set('max_execution_time', 60);
+    $logPhTagAct = UserHelper::LogUserAct(
+      $req, "OVERTIME-PHTAG", "866, START uid:".$uid." Selected:".$otdate." SDateLoop".$startdate); 
+        for($i = 1; $i <= $prev_daytocheck; $i++){
+            $ph = null;
+            $hc = null;
+            $hcc = null;
+            $wd = null;
+            $statuschange = false;
+            $date = date("Y-m-d", strtotime($startdate. "+". $i. " days"));
+            $day = date('N', strtotime($date));
+            $logPhTagAct = UserHelper::LogUserAct(
+              $req, "OVERTIME-PHTAG", "866, FOR(".$i.") uid:".$uid." date:".$date." Selected:".$otdate." SDateLoop".$startdate); 
+            $ushiftp = UserHelper::GetUserShiftPatternSAP($us->id, date('Y-m-d', strtotime($date." 00:00:00")));
+            $shiftpattern = ShiftPattern::where('code', $ushiftp)->first();
+            if($shiftpattern->is_weekly != 1){
+                $wd = ShiftPlanStaffDay::where('user_id', $us->id)
+                ->whereDate('work_date', $date)
+                ->orderby('id','desc')
+                ->first();
+                if($wd){
+                    $sp = ShiftPlan::where("id", $wd->shift_plan_id)->first();
+                    if($sp){
+                        if($sp->status=="Revert"){
+                            $statuschange = true;
+                        }else if($sp->status!="Approved"){
+                            $wd = null;
+                        }
+                    }else{
+                        $wd = null;
+                    }
+                }
+            }
+            
+            if($wd){
+            } else {              
+                // not a shift staff. get based on the wsr
+                $currwsr = UserHelper::GetWorkSchedRule($us->id, $date);
+
+                //if wsr no record
+                if($currwsr){
+                    // then get that day
+                    $wd = $currwsr->ListDays->where('day_seq', $day)->first();
+                } else {
+                    $wd = null;
+                }
+            };
+            //if($wd->day_type_id){  
+
+            if($wd){              
+                $idday = $wd->day_type_id;
+                $dy = DayType::where('id', $idday)->first();
+                $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->first();
+                if($ph!=null){
+                    $hcc = HolidayCalendar::where('holiday_id', $ph->id)->get();
+                }
+                if($hcc){
+                    if(count($hcc)!=0){
+                        $userstate = URHelper::getUserRecordByDate($us->id,$date);
+                        foreach($hcc as $phol){
+                            $hc = HolidayCalendar::where('id', $phol->id)->first();
+                            if($hc->state_id == $userstate->state_id){
+                                break;
+                            }else{
+                                $hc = null;
+                            }
+                        }
+                    }
+                }
+                
+          $logPhTagAct = UserHelper::LogUserAct(
+            $req, "OVERTIME-PHTAG", "927, hc?:".$hc." date:".$date." Selected:".$otdate." SDateLoop".$startdate);  
+                if($hc){  //if public holiday exist
+                    if($dy->day_type!="R"){
+                        $existTag = DayTag::where('user_id', $us->id)->where('date', $date)->first();                        
+                        if(!($existTag)){
+                            $tagPH = new DayTag;
+                            $tagPH->user_id = $us->id;
+                            $tagPH->date = $date;
+                            $tagPH->phdate = $date;
+                            $tagPH->status = "ACTIVE";
+                            $tagPH->save();
+                        }else{
+                            $tagPH = DayTag::find($existTag->id);
+                            if($statuschange){
+                                $tagPH->status = "INACTIVE";
+                                $tagPH->save();
+                            }else{
+                                $tagPH->status = "ACTIVE";
+                                $tagPH->save();
+                            }
+                        }
+                    }else{
+                      
+                        $dt = $dy->day_type;
+                        $x = 1;
+                        $existTag = null; 
+                        ini_set('max_execution_time', 3);
+                        while(($dt=="O")||($dt=="R")||($dt=="PH")||($existTag)){                          
+                            $existTag = null;
+                            $wd2 = null;
+                            $date2 = date("Y-m-d", strtotime($date. "+".$x." days"));
+                            $day = date('N', strtotime($date2));
+                            $logPhTagAct = UserHelper::LogUserAct($req, "OVERTIME-PHTAG", 
+                            "950, WHILE(".$x.") dt2:".$date2." dt:".$dt." day:".$day." existag:".$existTag." wd2:".$wd2." Selected:".$otdate." RunDate".$startdate);
+                            
+                            $ushiftp = UserHelper::GetUserShiftPatternSAP($us->id, date('Y-m-d', strtotime($date2." 00:00:00")));
+                            $shiftpattern = ShiftPattern::where('code', $ushiftp)->first();
+                            if($shiftpattern->is_weekly != 1){
+                                $wd2 = ShiftPlanStaffDay::where('user_id', $us->id)
+                                ->whereDate('work_date', $date2)->first();
+                                if($wd2){
+                                    $sp2 = ShiftPlan::where("id", $wd2->shift_plan_id)->first();
+                                    if($sp2){
+                                        if($sp->status=="Revert"){
+                                        }else if($sp->status!="Approved"){
+                                            $wd2 = null;
+                                        }
+                                    }else{
+                                        $wd = null;
+                                    }
+                                }
+                            }
+                            if($wd2){
+                            } else {
+                                // not a shift staff. get based on the wsr
+                                $currwsr = UserHelper::GetWorkSchedRule($us->id, $date2);
+                                // then get that day
+                                $wd2 = $currwsr->ListDays->where('day_seq', $day)->first();
+                            };
+                            
+                            $dx = DayType::where('id', $wd2->day_type_id)->first();
+                            $dt = $dx->day_type;
+                            $existTag = DayTag::where('user_id', $us->id)->where('phdate', $date)->first();
+                            $x++;
+
+                            //added this because infinite loop
+                            if($dt=='N'){
+                              break;
+                            }
+                        }
+                        if(!($existTag)){
+                            $tagPH = new DayTag;
+                            $tagPH->user_id = $us->id;
+                            $tagPH->date = $date2;
+                            $tagPH->phdate = $date;
+                            // $tagPH->status = $dt;
+                            $tagPH->status = "ACTIVE";
+                            $tagPH->save();
+                        }
+                    }
+                }else{  //if public holiday cancel
+                  
+          $logPhTagAct = UserHelper::LogUserAct(
+            $req, "OVERTIME-PHTAG", "998, xhc:".$hc." date:".$date." Selected:".$otdate." SDateLoop".$startdate);  
+
+                    $existTag = DayTag::where('user_id', $us->id)->where('phdate', $date)->first();
+                    if($existTag){
+                        $tagPH = DayTag::find($existTag->id);
+                        $tagPH->status = "INACTIVE";
+                        $tagPH->save();
+                    }
+                }
+            }
+        }
+        $logPhTagAct = UserHelper::LogUserAct(
+          $req, "OVERTIME-PHTAG", "998, END date:".$date." Selected:".$otdate." SDateLoop".$startdate); 
+    
   }
 
 }
