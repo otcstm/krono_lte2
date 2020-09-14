@@ -107,7 +107,7 @@ class UserHelper {
     return StaffPunch::where('user_id', $staff_id)->get();
   }
 
-  public static function StaffPunchIn($staff_id, $in_time, $in_lat = 0.0, $in_long = 0.0){
+  public static function StaffPunchIn($staff_id, $in_time, $in_lat = 0.0, $in_long = 0.0){    
     $currentp = UserHelper::GetCurrentPunch($staff_id);
     $msg = 'OK';
     $date = new Carbon($in_time->format('Y-m-d'));
@@ -135,6 +135,7 @@ class UserHelper {
   }
 
   public static function StaffPunchOut($staff_id, $out_time, $out_lat = 0.0, $out_long = 0.0){
+    $req = Request::all();
     $currentp = UserHelper::GetCurrentPunch($staff_id);
     $date = new Carbon($out_time->format('Y-m-d'));
     $day = UserHelper::CheckDay($staff_id, $date);
@@ -475,7 +476,7 @@ class UserHelper {
       return null;
     }
 
-    public static function CheckDay($user, $date, $req)
+    public static function CheckDay($user, $date)
     {
       $day = date('N', strtotime($date));
       $shift = null;
@@ -560,7 +561,7 @@ class UserHelper {
 
         // //if not exist then populate PH tagging
         // if(!$checkDayTagsExist){
-          $populate_phtagging = UserHelper::populatePhTag($user, $date, $req);
+          $populate_phtagging = UserHelper::populatePhTag($user, $date);
         // }
 
       $checkphday = DayTag::where('user_id', $user)
@@ -842,7 +843,7 @@ class UserHelper {
 
 
   
-  public static function populatePhTag($uid, $otdate, $req){
+  public static function populatePhTag($uid, $otdate){
 
     $us = User::find($uid);
     // ->where('empsgroup','Non Executive')
@@ -855,8 +856,8 @@ class UserHelper {
     //dd($startdate, $prev_daytocheck);
     // foreach($user as $us){
     //ini_set('max_execution_time', 60);
-    $logPhTagAct = UserHelper::LogUserAct(
-      $req, "OVERTIME-PHTAG", "866, START uid:".$uid." Selected:".$otdate." SDateLoop".$startdate); 
+    // $logPhTagAct = UserHelper::LogUserAct(
+    //   $req, "OVERTIME-PHTAG", "866, START uid:".$uid." Selected:".$otdate." SDateLoop".$startdate); 
         for($i = 1; $i <= $prev_daytocheck; $i++){
             $ph = null;
             $hc = null;
@@ -865,8 +866,8 @@ class UserHelper {
             $statuschange = false;
             $date = date("Y-m-d", strtotime($startdate. "+". $i. " days"));
             $day = date('N', strtotime($date));
-            $logPhTagAct = UserHelper::LogUserAct(
-              $req, "OVERTIME-PHTAG", "866, FOR(".$i.") uid:".$uid." date:".$date." Selected:".$otdate." SDateLoop".$startdate); 
+            //$logPhTagAct = UserHelper::LogUserAct(
+            //  $req, "OVERTIME-PHTAG", "866, FOR(".$i.") uid:".$uid." date:".$date." Selected:".$otdate." SDateLoop".$startdate); 
             $ushiftp = UserHelper::GetUserShiftPatternSAP($us->id, date('Y-m-d', strtotime($date." 00:00:00")));
             $shiftpattern = ShiftPattern::where('code', $ushiftp)->first();
             if($shiftpattern->is_weekly != 1){
@@ -924,8 +925,8 @@ class UserHelper {
                     }
                 }
                 
-          $logPhTagAct = UserHelper::LogUserAct(
-            $req, "OVERTIME-PHTAG", "927, hc?:".$hc." date:".$date." Selected:".$otdate." SDateLoop".$startdate);  
+          //$logPhTagAct = UserHelper::LogUserAct(
+          //  $req, "OVERTIME-PHTAG", "927, hc?:".$hc." date:".$date." Selected:".$otdate." SDateLoop".$startdate);  
                 if($hc){  //if public holiday exist
                     if($dy->day_type!="R"){
                         $existTag = DayTag::where('user_id', $us->id)->where('date', $date)->first();                        
@@ -957,8 +958,8 @@ class UserHelper {
                             $wd2 = null;
                             $date2 = date("Y-m-d", strtotime($date. "+".$x." days"));
                             $day = date('N', strtotime($date2));
-                            $logPhTagAct = UserHelper::LogUserAct($req, "OVERTIME-PHTAG", 
-                            "950, WHILE(".$x.") dt2:".$date2." dt:".$dt." day:".$day." existag:".$existTag." wd2:".$wd2." Selected:".$otdate." RunDate".$startdate);
+                            //$logPhTagAct = UserHelper::LogUserAct($req, "OVERTIME-PHTAG", 
+                            //"950, WHILE(".$x.") dt2:".$date2." dt:".$dt." day:".$day." existag:".$existTag." wd2:".$wd2." Selected:".$otdate." RunDate".$startdate);
                             
                             $ushiftp = UserHelper::GetUserShiftPatternSAP($us->id, date('Y-m-d', strtotime($date2." 00:00:00")));
                             $shiftpattern = ShiftPattern::where('code', $ushiftp)->first();
@@ -1007,8 +1008,8 @@ class UserHelper {
                     }
                 }else{  //if public holiday cancel
                   
-          $logPhTagAct = UserHelper::LogUserAct(
-            $req, "OVERTIME-PHTAG", "998, xhc:".$hc." date:".$date." Selected:".$otdate." SDateLoop".$startdate);  
+          // = UserHelper::LogUserAct(
+          //  $req, "OVERTIME-PHTAG", "998, xhc:".$hc." date:".$date." Selected:".$otdate." SDateLoop".$startdate);  
 
                     $existTag = DayTag::where('user_id', $us->id)->where('phdate', $date)->first();
                     if($existTag){
@@ -1019,8 +1020,8 @@ class UserHelper {
                 }
             }
         }
-        $logPhTagAct = UserHelper::LogUserAct(
-          $req, "OVERTIME-PHTAG", "998, END date:".$date." Selected:".$otdate." SDateLoop".$startdate); 
+        //$logPhTagAct = UserHelper::LogUserAct(
+        //  $req, "OVERTIME-PHTAG", "998, END date:".$date." Selected:".$otdate." SDateLoop".$startdate); 
     
   }
 

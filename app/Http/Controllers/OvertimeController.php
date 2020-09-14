@@ -79,7 +79,7 @@ class OvertimeController extends Controller
         $sp = null;
         //if claim exist
         if ($req->session()->get('claim')!=null) {
-            $day = UserHelper::CheckDay($req->user()->id, $req->session()->get('claim')->date, $req);
+            $day = UserHelper::CheckDay($req->user()->id, $req->session()->get('claim')->date);
             $ushiftp = UserHelper::GetUserShiftPatternSAP($req->user()->id, date('Y-m-d', strtotime($req->session()->get('claim')->date))." 00:00:00");
             $shiftpattern = ShiftPattern::where('code', $ushiftp)->first();
             if($shiftpattern->is_weekly != 1){
@@ -186,7 +186,7 @@ class OvertimeController extends Controller
         //if new claim after choose date
         } elseif ($req->session()->get('draft')!=null) {
             $draft = $req->session()->get('draft');
-            $day = UserHelper::CheckDay($req->user()->id, date('Y-m-d', strtotime($draft[4])), $req);
+            $day = UserHelper::CheckDay($req->user()->id, date('Y-m-d', strtotime($draft[4])));
             $ushiftp = UserHelper::GetUserShiftPatternSAP($req->user()->id, date('Y-m-d', strtotime($draft[4]))." 00:00:00");
             $shiftpattern = ShiftPattern::where('code', $ushiftp)->first();
             if($shiftpattern->is_weekly != 1){
@@ -411,7 +411,7 @@ class OvertimeController extends Controller
         $staffr = URHelper::getUserRecordByDate($req->user()->id, $otdate);
         // $staffr = UserRecord::where('user_id', $req->user()->id)->where('upd_sap','<=',date('Y-m-d'))->first();
         $region = URHelper::getRegion($req->user()->perssubarea);
-        $day= UserHelper::CheckDay($req->user()->id, $otdate, $req);
+        $day= UserHelper::CheckDay($req->user()->id, $otdate);
         $dy = DayType::where('id', $day[4])->first();
         // dd($day[4]);
         $day_type=$dy->day_type;
@@ -747,7 +747,7 @@ class OvertimeController extends Controller
                 $draftclaim->total_hour = 0;
                 $draftclaim->total_minute = 0;
                 $draftclaim->amount = 0;
-                $day= UserHelper::CheckDay($req->user()->id, $req->session()->get('draft')[4], $req);
+                $day= UserHelper::CheckDay($req->user()->id, $req->session()->get('draft')[4]);
                 $day_type=$day[2];
                 $dy = DayType::where('id', $day[4])->first();
                 // dd($day[4]);
