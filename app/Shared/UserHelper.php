@@ -952,7 +952,7 @@ class UserHelper {
                         $dt = $dy->day_type;
                         $x = 1;
                         $existTag = null; 
-                        ini_set('max_execution_time', 3);
+                        //ini_set('max_execution_time', 3);
                         while(($dt=="O")||($dt=="R")||($dt=="PH")||($existTag)){                          
                             $existTag = null;
                             $wd2 = null;
@@ -1008,8 +1008,8 @@ class UserHelper {
                     }
                 }else{  //if public holiday cancel
                   
-          // = UserHelper::LogUserAct(
-          //  $req, "OVERTIME-PHTAG", "998, xhc:".$hc." date:".$date." Selected:".$otdate." SDateLoop".$startdate);  
+            //UserHelper::LogUserAct(
+            //$req, "OVERTIME-PHTAG", "1012, xhc:".$hc." date:".$date." Selected:".$otdate." SDateLoop".$startdate);  
 
                     $existTag = DayTag::where('user_id', $us->id)->where('phdate', $date)->first();
                     if($existTag){
@@ -1021,7 +1021,7 @@ class UserHelper {
             }
         }
         //$logPhTagAct = UserHelper::LogUserAct(
-        //  $req, "OVERTIME-PHTAG", "998, END date:".$date." Selected:".$otdate." SDateLoop".$startdate); 
+        //  $req, "OVERTIME-PHTAG", "1024, END date:".$date." Selected:".$otdate." SDateLoop".$startdate); 
     
   }
 
