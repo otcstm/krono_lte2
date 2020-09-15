@@ -359,6 +359,8 @@ class MiscController extends Controller
 
     $date = date("Y-m-d", strtotime($req->time));
     $checkdate = StaffPunch::whereDate('punch_in_time', $date)->where('status', 'in')->first();
+    // dd("dd");
+    // dd($checkdate);
     if($checkdate){
     }else{
       $day = UserHelper::CheckDay($req->user()->id, $date);
@@ -381,6 +383,7 @@ class MiscController extends Controller
 
   public function checkPunch(Request $req){
     $currentp = StaffPunch::where("user_id", $req->user()->id)->where("punch_out_time", NULL)->first();
+    // dd($currentp);
     if($currentp!=NULL){
       return ['result'=> true, 'time'=>date('Y/m/d/H/i/s', strtotime($currentp->punch_in_time)), 'stime'=>date('Y-m-d H:i:s', strtotime($currentp->punch_in_time))];
     }else{
@@ -424,7 +427,7 @@ class MiscController extends Controller
       $stime = explode(":", $check[0]);
       $etime = explode(":", $check[1]);
       $sstime = $stime[0]*60+$stime[1];
-      $eetime = $etime[0]*60+$etime[1];
+      $eetime = ($etime[0]*60+$etime[1]);
       $time=date("G", strtotime($req->date))*60+date("i", strtotime($req->date));
 
       if(($time<$sstime)||($time>=$eetime)){

@@ -138,8 +138,10 @@
                                     {{ date('Hi', strtotime($details->end_time))}}<br>
                                 @endforeach
                             </td>
-                            <td>{{ $singleuser->eligible_day }}</td>
-                            <td>@if($singleuser->eligible_day==0){{$singleuser->total_hour}}h {{$singleuser->total_minute}}m @else @php($total = $singleuser->eligible_total_hours_minutes*60) {{(int)($total/60)}}h {{$total%60}}m @endif</td>
+                            {{--<td>{{ $singleuser->eligible_day }}</td>--}}
+                            <td>@if($singleuser->daycode->rate==0.5) 0.5   @elseif($singleuser->daycode->rate==0) {{$singleuser->daycode->rate}}  @else 1 @endif</td>
+                            <td>{{$singleuser->eligible_total_hours_minutes}}</td>
+                           {{-- <td>@if($singleuser->eligible_day==0){{$singleuser->total_hour}}h {{$singleuser->total_minute}}m @else @php($total = $singleuser->eligible_total_hours_minutes*60) {{(int)($total/60)}}h {{$total%60}}m @endif</td>--}}
                             <td>@if(($singleuser->eligible_day_code)&&($singleuser->eligible_total_hours_minutes_code)) {{$singleuser->eligible_day_code}}, {{$singleuser->eligible_total_hours_minutes_code}} @elseif($singleuser->eligible_total_hours_minutes_code) {{$singleuser->eligible_total_hours_minutes_code}} @else {{$singleuser->eligible_day_code}} @endif</td>
                             
                             <td>RM{{$singleuser->amount}}</td>
@@ -218,7 +220,7 @@
                 @if($otlist ?? '')
                 <div id="submitbtn" class="panel-footer">
                     <div class="text-right">  
-                    <input type="hidden" name="pagenumber" id="pagenumber" value="0" />  
+                    <!-- <input type="hidden" name="pagenumber" id="pagenumber" value="0" />   -->
                         <button type="submit" class="btn btn-primary btn-p">SUBMIT</button>
                     </div>
                 </div>
@@ -310,12 +312,12 @@
                 'csv', 'excel', 'pdf'
             ]
         });
-        $('#pagenumber').val(tot.page.info().page + 1);
+        // $('#pagenumber').val(tot.page.info().page + 1);
 
-            $('#tOTList').on( 'page.dt', function () {
-            var info = tot.page.info();
-            $('#pagenumber').val(info.page + 1);
-        } );
+        //     $('#tOTList').on( 'page.dt', function () {
+        //     var info = tot.page.info();
+        //     $('#pagenumber').val(info.page + 1);
+        // } );
 
         // var ts = tot.rows().data();
         // alert(ts.length);
@@ -1440,7 +1442,7 @@
             // return false;
         Swal.fire({
             title: 'Submitting form',
-            html: 'Please wait while we process your submission. DO NOT RELOAD/CLOSE THIS TAB!',
+            html: 'Please wait while we process your submission. <b>DO NOT RELOAD/CLOSE THIS TAB!</b>',
             timerProgressBar: true,
             allowOutsideClick: false,
             allowEscapeKey: false,

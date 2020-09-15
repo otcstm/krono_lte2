@@ -27,19 +27,22 @@
                                     Off Day
                                 @endif</b></div>
                                 <div class="col-md-4">OT Date</div><div class="col-md-8">: <b>{{date('d.m.Y', strtotime($claim->date))}}</b></div>
-                                <div class="col-md-4">Total Hours/Minute</div><div class="col-md-8">: <b>@if($claim->eligible_day==0){{$claim->total_hour}}h {{$claim->total_minute}}m @else @php($total = $claim->eligible_total_hours_minutes*60) {{(int)($total/60)}}h {{$total%60}}m @endif</b></div>
-                                <div class="col-md-4">Total Day</div><div class="col-md-8">: <b>{{$claim->eligible_day}}</b></div>
+                                {{--<div class="col-md-4">Total Hours/Minute</div><div class="col-md-8">: <b>@if($claim->eligible_day==0){{$claim->total_hour}}h {{$claim->total_minute}}m @else @php($total = $claim->eligible_total_hours_minutes*60) {{(int)($total/60)}}h {{$total%60}}m @endif</b></div>--}}
+                                {{--<div class="col-md-4">Total Day</div><div class="col-md-8">: <b>{{$claim->eligible_day}}</b></div>--}}
+                                <div class="col-md-4">Total Day</div><div class="col-md-8">: <b>@if($claim->daycode->rate==0.5) 0.5  @elseif($claim->daycode->rate==0) {{$claim->daycode->rate}} @else 1 @endif</b></div>
+                                <div class="col-md-4">Total Hours/Minutes</div><div class="col-md-8">: <b><td>{{$claim->eligible_total_hours_minutes}}</td></b></div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="row">
-                                <div class="col-md-4">Salary Exception</div><div class="col-md-8">: <b>
+                                {{--<div class="col-md-4">Salary Exception</div><div class="col-md-8">: <b>
                                     @if($claim->URecord->ot_salary_exception=="X")
                                         Yes
                                     @else
                                         No
                                     @endif
-                                </b></div>
+                                </b></div>--}}
+                                <div class="col-md-4">Salary Capping for OT</div><div class="col-md-8">: <b>{{$claim->salary_exception}} </b></div>
                                 <div class="col-md-4">Verifier</div><div class="col-md-8">: <b>{{$claim->verifier->name}} @if($claim->verifier_id!="")  ({{$claim->verifier->staff_no}}) @endif</b></div>
                                 <div class="col-md-4">Approver</div><div class="col-md-8">: <b>{{$claim->approver->name}} ({{$claim->approver->staff_no}})</b></div>
                                 <div class="col-md-4">Estimated Amount</div><div class="col-md-8">: <b>RM {{$claim->amount}}</b></div>
@@ -125,13 +128,15 @@
                             <tbody>
                                 @if(count($claim->detail))
                                     @php($nox = 0)
+                                    @php($nod = 0)
                                     @foreach($claim->detail as $no => $details)
                                         @php(++$nox)
                                         @if($details->checked=="Y")
+                                        @php(++$nox)
                                         <tr>
-                                            <td>{{++$no}}</td>
+                                            <td>{{++$nod}}</td>
                                             <td>{{ date('Hi', strtotime($details->start_time)) }}</td>
-                                            <td>{{ date('Hi', strtotime($details->end_time)) }}</td>
+                                            <td>@if(date('Hi', strtotime($details->end_time))=="0000") 2400 @else {{ date('Hi', strtotime($details->end_time))  }} @endif</td>
                                             <td>{{ $details->hour }}h {{$details->minute}}m</td>
                                             <td>
                                                 @if($details->clock_in!="")

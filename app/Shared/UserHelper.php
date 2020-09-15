@@ -19,6 +19,7 @@ use App\ShiftPlan;
 use App\ShiftPlanStaffDay;
 use App\ShiftPattern;
 use App\DayType;
+use App\DayTag;
 use App\Salary;
 use App\SapPersdata;
 use App\UserRecord;
@@ -106,7 +107,7 @@ class UserHelper {
     return StaffPunch::where('user_id', $staff_id)->get();
   }
 
-  public static function StaffPunchIn($staff_id, $in_time, $in_lat = 0.0, $in_long = 0.0){
+  public static function StaffPunchIn($staff_id, $in_time, $in_lat = 0.0, $in_long = 0.0){    
     $currentp = UserHelper::GetCurrentPunch($staff_id);
     $msg = 'OK';
     $date = new Carbon($in_time->format('Y-m-d'));
@@ -134,6 +135,7 @@ class UserHelper {
   }
 
   public static function StaffPunchOut($staff_id, $out_time, $out_lat = 0.0, $out_long = 0.0){
+    $req = Request::all();
     $currentp = UserHelper::GetCurrentPunch($staff_id);
     $date = new Carbon($out_time->format('Y-m-d'));
     $day = UserHelper::CheckDay($staff_id, $date);
@@ -355,17 +357,21 @@ class UserHelper {
     }
 
     public static function CalOT($otdid){
+      // dd("s");
       $otd = OvertimeDetail::where('id', $otdid)->first();
       $ot = Overtime::where('id', $otd->ot_id)->first();
       $ur = URHelper::getUserRecordByDate($ot->user_id, $ot->date);
       $cd = UserHelper::CheckDay($ot->user_id, $ot->date);
       $dt = DayType::where("id", $cd[4])->first();
-      $salary=$ur->salary;
-      if($ur->ot_salary_exception == "N"){
+      $salary=$ur->salary+$ur->allowance;
+      if($ur->ot_salary_exception == "Y"){
+        $salary=$ur->salary+$ur->allowance;
+      }else{
         $oe = URHelper::getUserEligibility($ot->user_id, $ot->date);
-        // $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->empgroup)->where('empsgroup', $ur->empsgroup)->where('psgroup', $ur->psgroup)->where('region', $ot->region)->first();
         if($oe){
-          $salary = $oe->salary_cap;
+          if($salary>$oe->salary_cap){
+            $salary = $oe->salary_cap;
+          }
         }
       }
       //check if there's any shift planned for this person
@@ -377,6 +383,7 @@ class UserHelper {
         $whmax = 7;
         $whmin = 3.5;
       }
+
       if($dt->day_type=="N"){ //=================================================NORMAL
         $dayt = "NOR";
         $lg = OvertimeFormula::where('company_id',$ur->company_id)->where('region',$ot->region)
@@ -384,8 +391,9 @@ class UserHelper {
         if(26*$dt->working_hour==0){
           $amount = 0;
         }else{
-          $amount= $lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*((($otd->hour*60)+$otd->minute)/60);
+          $amount= $lg->rate*(($salary)/(26*7))*((($otd->hour*60)+$otd->minute)/60);
         }
+
       }else{
         if($dt->day_type=="PH"){ //=================================================PUBLIC HOLIDAY
           $dayt = "PHD";
@@ -404,31 +412,34 @@ class UserHelper {
             if(26*$dt->working_hour==0){
               $amount = 0;
             }else{
-              $amount2= $lg2->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*($whmax);
-              $amount= $amount2 + ($lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*(((($otd->hour*60)+$otd->minute)-($whmax*60))/60));
+              // $amount2= $lg2->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*($whmax);
+              $amount2= $lg2->rate*(($salary)/(26*7))*(7);
+              $amount= $amount2 + ($lg->rate*(($salary)/(26*7))*(((($otd->hour*60)+$otd->minute)-(7*60))/60));
+              // $amount= $amount2 + ($lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*(((($otd->hour*60)+$otd->minute)-($whmax*60))/60));
             }
           }else{
             $lg = $lg->where('min_minute', 0)
             ->orderby('id')->first();
-            $amount= $lg->rate*(($salary+$ur->allowance)/26);
+            $amount= $lg->rate*(($salary)/26);
           }
   
         }else if($dt->day_type=="R"){ //=================================================RESTDAY
           $dayt = "RST";
           if((($otd->hour*60)+$otd->minute)<=($whmin*60)){
-            $amount= 0.5*(($salary+$ur->allowance)/26);
+            $amount= 0.5*(($salary)/26);
   
   
           }else if((($otd->hour*60)+$otd->minute)>($whmax*60)){
             if(26*$dt->working_hour==0){
               $amount = 0;
             }else{ 
-              $amount2= 1*(($salary+$ur->allowance)/26);
-              $amount= $amount2+(2*(($salary+$ur->allowance)/(26*$dt->working_hour))*(((($otd->hour*60)+$otd->minute)-($whmax*60))/60));
+              $amount2= 1*(($salary)/26);
+              $amount= $amount2+(2*(($salary)/(26*7))*(((($otd->hour*60)+$otd->minute)-(7*60))/60));
+              // $amount= $amount2+(2*(($salary+$ur->allowance)/(26*$dt->working_hour))*(((($otd->hour*60)+$otd->minute)-($whmax*60))/60));
             }
   
           }else{
-            $amount= 1*(($salary+$ur->allowance)/26);
+            $amount= 1*(($salary)/26);
           }
           
           // $lg = $lg->first();
@@ -439,7 +450,7 @@ class UserHelper {
           if(26*$dt->working_hour==0){
             $amount = 0;
           }else{
-            $amount= 1.5*(($salary+$ur->allowance)/(26*$dt->working_hour))*((($otd->hour*60)+$otd->minute)/60);
+            $amount= 1.5*(($salary)/(26*7))*((($otd->hour*60)+$otd->minute)/60);
           }
         }
         
@@ -465,32 +476,41 @@ class UserHelper {
       return null;
     }
 
-    // temp=====================================================
     public static function CheckDay($user, $date)
     {
       $day = date('N', strtotime($date));
-      $sameday = true;
+      $shift = null;
+      $ph = null;
+      $hc = null;
+      $hcc = null;
       $sp = null;
+      $sameday = true;
+      $ed = "24:00";
+      $wd = null;
+      
       // first, check if there's any shift planned for this person
       $usp = UserShiftPattern::where("user_id", $user)
         ->whereDate('start_date','<=', $date)
-        ->whereDate('end_date','>=', $date)->first();
-      if(($usp!="OFF1")&&($usp!="OFF2")){
+        ->whereDate('end_date','>=', $date)->first();        
+
+      $shiftpattern = ShiftPattern::where('code', $usp->sap_code)->first();
+      if($shiftpattern->is_weekly != 1){
         $wd = ShiftPlanStaffDay::where('user_id', $user)
           ->whereDate('work_date', $date)->first();
         if($wd){
           $sp = ShiftPlan::where("id", $wd->shift_plan_id)->first();
-          if($sp->status=="Approved"){
-            
+          if($sp){
+            if($sp->status=="Approved"){
+              $shift = "Yes";
+            }else{
+              $wd = null;
+            }
           }else{
             $wd = null;
           }
         }
       }
-// dd($wd);
-      $ph = null;
-      $hc = null;
-      $hcc = null;
+
       if($wd){
         $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->first();
       } else {
@@ -498,43 +518,63 @@ class UserHelper {
         $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->first();
         $currwsr = UserHelper::GetWorkSchedRule($user, $date);
         // then get that day
-        // dd($currwsr);
         $wd = $currwsr->ListDays->where('day_seq', $day)->first();
       };
+
       // get the day info
       $theday = $wd->Day;
       $idday = $wd->day_type_id;
       // $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->first();
       // dd($ph);
-      if($ph!=null){
-        $hcc = HolidayCalendar::where('holiday_id', $ph->id)->get();
-      }
-      // dd($hcc);
-      if($hcc){
-        if(count($hcc)!=0){
-        //   // $userstate = UserRecord::where('user_id', $user)->where('upd_sap','<=',$date)->first();
-          $userstate = URHelper::getUserRecordByDate($user,$date);
-          // dd($userstate);
-        //   // $hcal =  HolidayCalendar::where('state_id', $userstate->state_id)->get();
-  // dd($userstate);
-        //   $hc = HolidayCalendar::where('holiday_id', $ph->id)->where('state_id', $userstate->state_id)->first();
-          foreach($hcc as $phol){
-            $hc = HolidayCalendar::where('id', $phol->id)->first();
-            // dd($phol->id);
-            // dd($hc);
-            if($hc->state_id == $userstate->state_id){
-              break;
-            }else{
-              $hc = null;
-            }
-          }
-        }
-      }
-      if($hc){
+      // if($ph!=null){
+      //   $hcc = HolidayCalendar::where('holiday_id', $ph->id)->get();
+      // }
+      // // dd($hcc);
+      // if($hcc){
+      //   if(count($hcc)!=0){
+      //   //   // $userstate = UserRecord::where('user_id', $user)->where('upd_sap','<=',$date)->first();
+      //     $userstate = URHelper::getUserRecordByDate($user,$date);
+      //     // dd($userstate);
+      //   //   // $hcal =  HolidayCalendar::where('state_id', $userstate->state_id)->get();
+      //   //   $hc = HolidayCalendar::where('holiday_id', $ph->id)->where('state_id', $userstate->state_id)->first();
+      //     foreach($hcc as $phol){
+      //       $hc = HolidayCalendar::where('id', $phol->id)->first();
+      //       // dd($phol->id);
+      //       // dd($hc);
+      //       if($hc->state_id == $userstate->state_id){
+      //         break;
+      //       }else{
+      //         $hc = null;
+      //       }
+      //     }
+      //   }
+      // }
+      
+        //check if exist in day_tags table
+        // $checkDayTagsExist = DayTag::where('user_id', $user)
+        // ->where('status', 'ACTIVE')
+        // ->where('phdate', date("Y-m-d", strtotime($date)))
+        // ->orWhere('date', date("Y-m-d", strtotime($date)))
+        // ->first();
+        // //dd($checkDayTagsExist);
+        // //must check also if existing overtime is exist, else the wd2 + date2 problem
+
+        // //if not exist then populate PH tagging
+        // if(!$checkDayTagsExist){
+          $populate_phtagging = UserHelper::populatePhTag($user, $date);
+        // }
+
+      $checkphday = DayTag::where('user_id', $user)
+      ->where('date', date("Y-m-d", strtotime($date)))
+      ->where('status', 'ACTIVE')
+      ->first(); 
+
+      if($checkphday!=null){
         $start = "00:00";
         $end =  "00:00";
         $day_type = 'Public Holiday';
-        $dy = DayType::where('description', 'Public Holiday')->first();
+        //$dy = DayType::where('description', 'Public Holiday')->first();
+        $dy = DayType::where('code', 'PH')->first();
         $idday = $dy->id;
       }else{
         if($theday->is_work_day == true){
@@ -542,47 +582,53 @@ class UserHelper {
           $stime = new Carbon($theday->start_time);
           $etime = new Carbon($theday->start_time);
           $etime->addMinutes($theday->total_minute);
-          if( $start = $stime->format('Y-MM-DD')!=$start = $stime->format('Y-MM-DD')){
+
+          if( $stime->format('Y-MM-DD') != $etime->format('Y-MM-DD')){
             $sameday = false;
           }
           $start = $stime->format('H:i');
           $end =  $etime->format('H:i');
         } else {
-          $start = "00:00";
-          $end =  "00:00";
-          $day_type = $theday->description;
+          
+          if($shift=="Yes"){
+          
+            $stime = new Carbon($theday->start_time);
+            $etime = new Carbon($theday->start_time);
+            $etime->addMinutes($theday->total_minute);
+            if( $stime->format('Y-MM-DD') != $etime->format('Y-MM-DD')){
+              $sameday = false;
+            }
+            $start = $stime->format('H:i');
+            $end =  $etime->format('H:i');
+            $day_type = $theday->description;
+          }else{
+            $start = "00:00";
+            $end =  "00:00";
+            $day_type = $theday->description;
+          }
+        }
+        
+        if($shift=="Yes"){
+          $wd = ShiftPlanStaffDay::where('user_id', $user)
+          ->whereDate('work_date', date("Y-m-d", strtotime($date."+1 day")))->first();
+          $theday = $wd->Day;
+          $stime = new Carbon($theday->start_time);
+          $ed =  $stime->format('H:i');
+          
         }
       }
       $day_type_id = "";
       // return ["09:43", "00:00", $day_type, $day, $wd->day_type_id];
-      return [$start, $end, $day_type, $day, $idday, $sameday];
-
-      // below is the original temp
-
-      // $day = 6;
-      // dd($day);
-      // $start = "00:00";
-      // $end =  "00:00";
-
-      // // $day_type = 'Off Day'; //temp
-      // if($day==6){
-      //   $day_type = 'Off Day';
-      // }elseif($day>6){
-      //   $day_type = 'Rest Day';
-      // }else{
-      //   $start = "08:30";
-      //   $end = "17:30";
-      //   // $end = "22:30";
-      //   $day_type = 'Normal Day';
-      // }
-
-      // $daytpe = DayType::where()->first();
-
-
-
-      // return [$start, $end, $day_type, $day];
+      return [$start, $end, $day_type, $day, $idday, $ed, $sameday, $date];
+      //[0] Start work time
+      //[1] End work time
+      //[2] Day type
+      //[3] Day name
+      //[4] Day id
+      //[5] End of day cycle
+      //[6] Is same day or not
+      //[7] Date
     }
-     // temp=====================================================
 
   public static function GetMySubords($persno, $recursive = false){
     $retval = [];
@@ -661,7 +707,12 @@ class UserHelper {
     $ushiftp = UserShiftPattern::where('user_id', $otid)
             ->whereDate('start_date','<=', $otdate)
             ->whereDate('end_date','>=', $otdate)->first();
-    return $ushiftp->sap_code; 
+    if($ushiftp){
+      $sapc = $ushiftp->sap_code;
+    }else{
+      $sapc = "OFF1";
+    }
+    return $sapc; 
   }    
 
   public static function GetWageLegacyAmount($otid){
@@ -669,14 +720,15 @@ class UserHelper {
     $ur = URHelper::getUserRecordByDate($ot->user_id, $ot->date);
     $cd = UserHelper::CheckDay($ot->user_id, $ot->date);
     $dt = DayType::where("id", $cd[4])->first();
-    $salary=$ur->salary;
-    if($ur->ot_salary_exception == "N"){
-      $oe = URHelper::getUserEligibility($ot->user_id, $ot->date);
-      // $oe = OvertimeEligibility::where('company_id', $ur->company_id)->where('empgroup', $ur->empgroup)->where('empsgroup', $ur->empsgroup)->where('psgroup', $ur->psgroup)->where('region', $ot->region)->first();
-      if($oe){
-        $salary = $oe->salary_cap;
+    $salary=$ur->salary+$ur->allowance;
+      if($ur->ot_salary_exception == "N"){
+        $oe = URHelper::getUserEligibility($ot->user_id, $ot->date);
+        if($oe){
+          if($salary>$oe->salary_cap){
+            $salary = $oe->salary_cap;
+          }
+        }
       }
-    }
     //check if there's any shift planned for this person
     $wd = ShiftPlanStaffDay::where('user_id', $ot->user_id)->whereDate('work_date', $ot->date)->first();
     if($wd){
@@ -694,7 +746,7 @@ class UserHelper {
       if(26*$dt->working_hour==0){
         $amount = 0;
       }else{
-        $amount= $lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes);
+        $amount= $lg->rate*(($salary)/(26*7))*($ot->total_hours_minutes);
       }
 
     }else{
@@ -715,13 +767,13 @@ class UserHelper {
           if(26*$dt->working_hour==0){
             $amount = 0;
           }else{
-            $amount2= $lg2->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*($whmax);
-            $amount= $amount2 + ($lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes - $whmax));
+            $amount2= $lg2->rate*(($salary)/(26*7))*($whmax);
+            $amount= $amount2 + ($lg->rate*(($salary)/(26*7))*($ot->total_hours_minutes - $whmax));
           }
         }else{
           $lg = $lg->where('min_minute', 0)
           ->orderby('id')->first();
-          $amount= $lg->rate*(($salary+$ur->allowance)/26);
+          $amount= $lg->rate*(($salary)/26);
         }
         $legacy = $lg->legacy_codes;
 
@@ -735,7 +787,7 @@ class UserHelper {
           }else{
             $legacy = '252';
           }
-          $amount= 0.5*(($salary+$ur->allowance)/26);
+          $amount= 0.5*(($salary)/26);
           // dd($ot->total_hours_minutes." s");
 
         }else if($ot->total_hours_minutes>$whmax){
@@ -749,8 +801,8 @@ class UserHelper {
           if(26*$dt->working_hour==0){
             $amount = 0;
           }else{ 
-            $amount2= 1*(($salary+$ur->allowance)/26);
-            $amount= $amount2+(2*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes-$whmax));
+            $amount2= 1*(($salary)/26);
+            $amount= $amount2+(2*(($salary)/(26*7))*($ot->total_hours_minutes-$whmax));
           }
           // dd($ot->total_hours_minutes." ss");
         }else{
@@ -762,12 +814,11 @@ class UserHelper {
           }else{
             $legacy = '253';
           }
-          $amount= 1*(($salary+$ur->allowance)/26);
+          $amount= 1*(($salary)/26);
         }
         
         // $lg = $lg->first();
         // $legacy = $lg->legacy_codes;
-
       }else{
         $dayt = "OFF";
         $lg = OvertimeFormula::where('company_id',$ur->company_id)->where('region',$ot->region)->where("day_type", $dayt)->first();
@@ -779,7 +830,7 @@ class UserHelper {
         if(26*$dt->working_hour==0){
           $amount = 0;
         }else{
-          $amount= 1.5*(($salary+$ur->allowance)/(26*$dt->working_hour))*($ot->total_hours_minutes);
+          $amount= 1.5*(($salary)/(26*7))*($ot->total_hours_minutes);
         }
       }
       
@@ -788,6 +839,190 @@ class UserHelper {
     // dd($lg);
     // $legacy = $lg->legacy_code;
     return [$legacy, $amount];
+  }
+
+
+  
+  public static function populatePhTag($uid, $otdate){
+
+    $us = User::find($uid);
+    // ->where('empsgroup','Non Executive')
+    // ->where('empstats',3)
+    // ->get(); 
+
+    $prev_daytocheck = 3;    
+
+    $startdate = date("Y-m-d", strtotime($otdate. "-".$prev_daytocheck." days"));    
+    //dd($startdate, $prev_daytocheck);
+    // foreach($user as $us){
+    //ini_set('max_execution_time', 60);
+    // $logPhTagAct = UserHelper::LogUserAct(
+    //   $req, "OVERTIME-PHTAG", "866, START uid:".$uid." Selected:".$otdate." SDateLoop".$startdate); 
+        for($i = 1; $i <= $prev_daytocheck; $i++){
+            $ph = null;
+            $hc = null;
+            $hcc = null;
+            $wd = null;
+            $statuschange = false;
+            $date = date("Y-m-d", strtotime($startdate. "+". $i. " days"));
+            $day = date('N', strtotime($date));
+            //$logPhTagAct = UserHelper::LogUserAct(
+            //  $req, "OVERTIME-PHTAG", "866, FOR(".$i.") uid:".$uid." date:".$date." Selected:".$otdate." SDateLoop".$startdate); 
+            $ushiftp = UserHelper::GetUserShiftPatternSAP($us->id, date('Y-m-d', strtotime($date." 00:00:00")));
+            $shiftpattern = ShiftPattern::where('code', $ushiftp)->first();
+            if($shiftpattern->is_weekly != 1){
+                $wd = ShiftPlanStaffDay::where('user_id', $us->id)
+                ->whereDate('work_date', $date)
+                ->orderby('id','desc')
+                ->first();
+                if($wd){
+                    $sp = ShiftPlan::where("id", $wd->shift_plan_id)->first();
+                    if($sp){
+                        if($sp->status=="Revert"){
+                            $statuschange = true;
+                        }else if($sp->status!="Approved"){
+                            $wd = null;
+                        }
+                    }else{
+                        $wd = null;
+                    }
+                }
+            }
+            
+            if($wd){
+            } else {              
+                // not a shift staff. get based on the wsr
+                $currwsr = UserHelper::GetWorkSchedRule($us->id, $date);
+
+                //if wsr no record
+                if($currwsr){
+                    // then get that day
+                    $wd = $currwsr->ListDays->where('day_seq', $day)->first();
+                } else {
+                    $wd = null;
+                }
+            };
+            //if($wd->day_type_id){  
+
+            if($wd){              
+                $idday = $wd->day_type_id;
+                $dy = DayType::where('id', $idday)->first();
+                $ph = Holiday::where("dt", date("Y-m-d", strtotime($date)))->first();
+                if($ph!=null){
+                    $hcc = HolidayCalendar::where('holiday_id', $ph->id)->get();
+                }
+                if($hcc){
+                    if(count($hcc)!=0){
+                        $userstate = URHelper::getUserRecordByDate($us->id,$date);
+                        foreach($hcc as $phol){
+                            $hc = HolidayCalendar::where('id', $phol->id)->first();
+                            if($hc->state_id == $userstate->state_id){
+                                break;
+                            }else{
+                                $hc = null;
+                            }
+                        }
+                    }
+                }
+                
+          //$logPhTagAct = UserHelper::LogUserAct(
+          //  $req, "OVERTIME-PHTAG", "927, hc?:".$hc." date:".$date." Selected:".$otdate." SDateLoop".$startdate);  
+                if($hc){  //if public holiday exist
+                    if($dy->day_type!="R"){
+                        $existTag = DayTag::where('user_id', $us->id)->where('date', $date)->first();                        
+                        if(!($existTag)){
+                            $tagPH = new DayTag;
+                            $tagPH->user_id = $us->id;
+                            $tagPH->date = $date;
+                            $tagPH->phdate = $date;
+                            $tagPH->status = "ACTIVE";
+                            $tagPH->save();
+                        }else{
+                            $tagPH = DayTag::find($existTag->id);
+                            if($statuschange){
+                                $tagPH->status = "INACTIVE";
+                                $tagPH->save();
+                            }else{
+                                $tagPH->status = "ACTIVE";
+                                $tagPH->save();
+                            }
+                        }
+                    }else{
+                      
+                        $dt = $dy->day_type;
+                        $x = 1;
+                        $existTag = null; 
+                        //ini_set('max_execution_time', 3);
+                        while(($dt=="O")||($dt=="R")||($dt=="PH")||($existTag)){                          
+                            $existTag = null;
+                            $wd2 = null;
+                            $date2 = date("Y-m-d", strtotime($date. "+".$x." days"));
+                            $day = date('N', strtotime($date2));
+                            //$logPhTagAct = UserHelper::LogUserAct($req, "OVERTIME-PHTAG", 
+                            //"950, WHILE(".$x.") dt2:".$date2." dt:".$dt." day:".$day." existag:".$existTag." wd2:".$wd2." Selected:".$otdate." RunDate".$startdate);
+                            
+                            $ushiftp = UserHelper::GetUserShiftPatternSAP($us->id, date('Y-m-d', strtotime($date2." 00:00:00")));
+                            $shiftpattern = ShiftPattern::where('code', $ushiftp)->first();
+                            if($shiftpattern->is_weekly != 1){
+                                $wd2 = ShiftPlanStaffDay::where('user_id', $us->id)
+                                ->whereDate('work_date', $date2)->first();
+                                if($wd2){
+                                    $sp2 = ShiftPlan::where("id", $wd2->shift_plan_id)->first();
+                                    if($sp2){
+                                        if($sp->status=="Revert"){
+                                        }else if($sp->status!="Approved"){
+                                            $wd2 = null;
+                                        }
+                                    }else{
+                                        $wd = null;
+                                    }
+                                }
+                            }
+                            if($wd2){
+                            } else {
+                                // not a shift staff. get based on the wsr
+                                $currwsr = UserHelper::GetWorkSchedRule($us->id, $date2);
+                                // then get that day
+                                $wd2 = $currwsr->ListDays->where('day_seq', $day)->first();
+                            };
+                            
+                            $dx = DayType::where('id', $wd2->day_type_id)->first();
+                            $dt = $dx->day_type;
+                            $existTag = DayTag::where('user_id', $us->id)->where('phdate', $date)->first();
+                            $x++;
+
+                            //added this because infinite loop
+                            if($dt=='N'){
+                              break;
+                            }
+                        }
+                        if(!($existTag)){
+                            $tagPH = new DayTag;
+                            $tagPH->user_id = $us->id;
+                            $tagPH->date = $date2;
+                            $tagPH->phdate = $date;
+                            // $tagPH->status = $dt;
+                            $tagPH->status = "ACTIVE";
+                            $tagPH->save();
+                        }
+                    }
+                }else{  //if public holiday cancel
+                  
+            //UserHelper::LogUserAct(
+            //$req, "OVERTIME-PHTAG", "1012, xhc:".$hc." date:".$date." Selected:".$otdate." SDateLoop".$startdate);  
+
+                    $existTag = DayTag::where('user_id', $us->id)->where('phdate', $date)->first();
+                    if($existTag){
+                        $tagPH = DayTag::find($existTag->id);
+                        $tagPH->status = "INACTIVE";
+                        $tagPH->save();
+                    }
+                }
+            }
+        }
+        //$logPhTagAct = UserHelper::LogUserAct(
+        //  $req, "OVERTIME-PHTAG", "1024, END date:".$date." Selected:".$otdate." SDateLoop".$startdate); 
+    
   }
 
 }
