@@ -108,6 +108,7 @@ class OvertimeController extends Controller
                 $start = "00:00";
                 $end = $day[5];
             }
+            // dd($day);
             // dd($shift);
             // $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $region->region)->where('start_date','<=', $req->session()->get('claim')->date)->where('end_date','>', $req->session()->get('claim')->date)->first();
             $eligiblehour = URHelper::getUserEligibility($req->user()->id, $req->session()->get('claim')->date);

@@ -520,7 +520,6 @@ class UserHelper {
         // then get that day
         $wd = $currwsr->ListDays->where('day_seq', $day)->first();
       };
-
       // get the day info
       $theday = $wd->Day;
       $idday = $wd->day_type_id;
@@ -568,15 +567,24 @@ class UserHelper {
       ->where('date', date("Y-m-d", strtotime($date)))
       ->where('status', 'ACTIVE')
       ->first(); 
-
-      if($checkphday!=null){
-        $start = "00:00";
-        $end =  "00:00";
-        $day_type = 'Public Holiday';
-        //$dy = DayType::where('description', 'Public Holiday')->first();
-        $dy = DayType::where('code', 'PH')->first();
-        $idday = $dy->id;
-      }else{
+      // dd($shift);
+      // if($checkphday!=null){
+      //   if($shift=="Yes"){
+      //     $wd = ShiftPlanStaffDay::where('user_id', $user)
+      //     ->whereDate('work_date', date("Y-m-d", strtotime($date."+1 day")))->first();
+      //     $theday = $wd->Day;
+      //     $stime = new Carbon($theday->start_time);
+      //     $ed =  $stime->format('H:i');
+          
+      //   }else{
+      //     $start = "00:00";
+      //     $end =  "00:00";
+      //   }
+      //   $day_type = 'Public Holiday';
+      //   //$dy = DayType::where('description', 'Public Holiday')->first();
+      //   $dy = DayType::where('code', 'PH')->first();
+      //   $idday = $dy->id;
+      // }else{
         if($theday->is_work_day == true){
           $day_type = 'Normal Day';
           $stime = new Carbon($theday->start_time);
@@ -616,7 +624,7 @@ class UserHelper {
           $ed =  $stime->format('H:i');
           
         }
-      }
+      // }
       $day_type_id = "";
       // return ["09:43", "00:00", $day_type, $day, $wd->day_type_id];
       return [$start, $end, $day_type, $day, $idday, $ed, $sameday, $date];
