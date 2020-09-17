@@ -82,6 +82,7 @@ class OvertimeController extends Controller
             $day = UserHelper::CheckDay($req->user()->id, $req->session()->get('claim')->date);
             $ushiftp = UserHelper::GetUserShiftPatternSAP($req->user()->id, date('Y-m-d', strtotime($req->session()->get('claim')->date))." 00:00:00");
             $shiftpattern = ShiftPattern::where('code', $ushiftp)->first();
+            // dd($day);
             if($shiftpattern->is_weekly != 1){
                 
                 $wd = ShiftPlanStaffDay::where('user_id', $req->user()->id)
@@ -99,7 +100,7 @@ class OvertimeController extends Controller
             }
             if($wd){
                 $shift = "Yes";
-                $start = $day[0];
+                $start = $day[8];
                 $end = $day[5];
                 // $start = $day[0];
                 // $end = $day[0];
@@ -207,7 +208,7 @@ class OvertimeController extends Controller
             }
             if($wd){
                 $shift = "Yes";
-                $start = $day[0];
+                $start = $day[8];
                 $end = $day[5];
                 // $start = $day[0];
                 // $end = $day[0];
@@ -216,6 +217,8 @@ class OvertimeController extends Controller
                 $start = "00:00";
                 $end = $day[5];
             }
+            // dd($day);
+            // dd($start. " ". $end);
             // $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $region->region)->where('start_date','<=', $draft[4])->where('end_date','>', $draft[4])->first();
             $eligiblehour = URHelper::getUserEligibility($req->user()->id, $draft[4]);
             // dd($req->session()->get('draft'));

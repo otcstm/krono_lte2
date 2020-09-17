@@ -567,7 +567,7 @@ class UserHelper {
       ->where('date', date("Y-m-d", strtotime($date)))
       ->where('status', 'ACTIVE')
       ->first(); 
-      // dd($shift);
+      // dd($checkphday);
       // if($checkphday!=null){
       //   if($shift=="Yes"){
       //     $wd = ShiftPlanStaffDay::where('user_id', $user)
@@ -580,54 +580,69 @@ class UserHelper {
       //     $start = "00:00";
       //     $end =  "00:00";
       //   }
-      //   $day_type = 'Public Holiday';
+      // $day_type = 'Public Holiday';
       //   //$dy = DayType::where('description', 'Public Holiday')->first();
       //   $dy = DayType::where('code', 'PH')->first();
       //   $idday = $dy->id;
       // }else{
-        if($theday->is_work_day == true){
-          $day_type = 'Normal Day';
+      if($theday->is_work_day == true){
+        $day_type = 'Normal Day';
+        $stime = new Carbon($theday->start_time);
+        $etime = new Carbon($theday->start_time);
+        $etime->addMinutes($theday->total_minute);
+
+        if( $stime->format('Y-MM-DD') != $etime->format('Y-MM-DD')){
+          $sameday = false;
+        }
+        $start = $stime->format('H:i');
+        $end =  $etime->format('H:i');
+        $sd = $start;
+        
+        if($checkphday!=null){
+          $day_type = 'Public Holiday';
+          $start = $stime->format('H:i');
+          $end = $stime->format('H:i');
+        }
+      } else {
+        
+        if($shift=="Yes"){
+        
           $stime = new Carbon($theday->start_time);
           $etime = new Carbon($theday->start_time);
           $etime->addMinutes($theday->total_minute);
-
           if( $stime->format('Y-MM-DD') != $etime->format('Y-MM-DD')){
             $sameday = false;
           }
           $start = $stime->format('H:i');
+          $sd = $start;
           $end =  $etime->format('H:i');
-        } else {
-          
-          if($shift=="Yes"){
-          
-            $stime = new Carbon($theday->start_time);
-            $etime = new Carbon($theday->start_time);
-            $etime->addMinutes($theday->total_minute);
-            if( $stime->format('Y-MM-DD') != $etime->format('Y-MM-DD')){
-              $sameday = false;
-            }
+          $day_type = $theday->description;
+          if($checkphday!=null){
+            $day_type = 'Public Holiday';
             $start = $stime->format('H:i');
-            $end =  $etime->format('H:i');
-            $day_type = $theday->description;
-          }else{
-            $start = "00:00";
-            $end =  "00:00";
-            $day_type = $theday->description;
+            $end = $stime->format('H:i');
+          }
+        }else{
+          $start = "00:00";
+          $end =  "00:00";
+          $day_type = $theday->description;
+          $sd = $start;
+          if($checkphday!=null){
+            $day_type = 'Public Holiday';
           }
         }
+      }
+      
+      if($shift=="Yes"){
+        $wd = ShiftPlanStaffDay::where('user_id', $user)
+        ->whereDate('work_date', date("Y-m-d", strtotime($date."+1 day")))->first();
+        $theday = $wd->Day;
+        $stime = new Carbon($theday->start_time);
+        $ed =  $stime->format('H:i');
         
-        if($shift=="Yes"){
-          $wd = ShiftPlanStaffDay::where('user_id', $user)
-          ->whereDate('work_date', date("Y-m-d", strtotime($date."+1 day")))->first();
-          $theday = $wd->Day;
-          $stime = new Carbon($theday->start_time);
-          $ed =  $stime->format('H:i');
-          
-        }
-      // }
-      $day_type_id = "";
+      }
       // return ["09:43", "00:00", $day_type, $day, $wd->day_type_id];
-      return [$start, $end, $day_type, $day, $idday, $ed, $sameday, $date];
+      return [$start, $end, $day_type, $day, $idday, $ed, $sameday, $date , $sd];
       //[0] Start work time
       //[1] End work time
       //[2] Day type
@@ -636,6 +651,7 @@ class UserHelper {
       //[5] End of day cycle
       //[6] Is same day or not
       //[7] Date
+      //[8] Start day
     }
 
   public static function GetMySubords($persno, $recursive = false){
