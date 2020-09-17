@@ -792,7 +792,7 @@
                                                         <option value="" @if($claim->company_id==NULL) selected @endif hidden>Select company code</option>
                                                         @if($compn!=null)
                                                             @foreach($compn as $singlecompn)
-                                                                <option value="{{$singlecompn->company_id}}" @if($claim->company_id==$singlecompn->company_id) selected @endif>{{$singlecompn->company_id}}</option>
+                                                                <option value="{{$singlecompn->company_id}}" @if($claim->company_id==$singlecompn->company_id) selected @endif>{{$singlecompn->company_id}} - {{$singlecompn->company->company_descr}}</option>
                                                             @endforeach
                                                         @endif
                                                     </select>
