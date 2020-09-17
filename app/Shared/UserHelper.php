@@ -568,7 +568,7 @@ class UserHelper {
       ->where('status', 'ACTIVE')
       ->first(); 
       // dd($checkphday);
-      // if($checkphday!=null){
+      if($checkphday!=null){
       //   if($shift=="Yes"){
       //     $wd = ShiftPlanStaffDay::where('user_id', $user)
       //     ->whereDate('work_date', date("Y-m-d", strtotime($date."+1 day")))->first();
@@ -582,8 +582,9 @@ class UserHelper {
       //   }
       // $day_type = 'Public Holiday';
       //   //$dy = DayType::where('description', 'Public Holiday')->first();
-      //   $dy = DayType::where('code', 'PH')->first();
-      //   $idday = $dy->id;
+        $dy = DayType::where('code', 'PH')->first();
+        $idday = $dy->id;
+      }
       // }else{
       if($theday->is_work_day == true){
         $day_type = 'Normal Day';

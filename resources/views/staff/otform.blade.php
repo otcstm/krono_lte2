@@ -1187,8 +1187,13 @@
                             @endif
                         }
                 @else
-                    var min = "{{$day[0]}}";
-                    var max = "{{$day[1]}}";
+                    @if($day[2]=="Public Holiday")
+                        var min = "00:00";
+                        var max = "00:00";
+                    @else
+                        var min = "{{$day[0]}}";
+                        var max = "{{$day[1]}}";
+                    @endif
                     var sc = "00:00"; 
                     var ec = "24:00"; 
                 @endif

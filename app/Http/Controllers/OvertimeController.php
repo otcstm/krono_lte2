@@ -416,6 +416,7 @@ class OvertimeController extends Controller
         // $staffr = UserRecord::where('user_id', $req->user()->id)->where('upd_sap','<=',date('Y-m-d'))->first();
         $region = URHelper::getRegion($req->user()->perssubarea);
         $day= UserHelper::CheckDay($req->user()->id, $otdate);
+        // dd($day);
         $dy = DayType::where('id', $day[4])->first();
         // dd($day[4]);
         $day_type=$dy->day_type;
