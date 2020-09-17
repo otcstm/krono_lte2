@@ -1232,23 +1232,23 @@ class OvertimeController extends Controller
 
                                 
                                 //check if ot is more than 3 months from system date
-                                if ($gm) { //if more than 3 months
-                                    $updateclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($updateclaim->date)));
-                                    $updateclaim->verifier_id = $data->approver_id;
-                                    if ($data->approve_id==0) {
-                                        $updateclaim->verifier_id = null;
-                                    }
-                                } else {
-                                    $updateclaim->approver_id = $data->approver_id;
-                                    if ($data->approve_id==0) {
-                                        $updateclaim->verifier_id = null;
-                                    }
-                                    $vgm = VerifierGroupMember::where('user_id', $req->user()->id)->first();
-                                    if ($vgm) {
-                                        $vg = VerifierGroup::where('id', $vgm->user_verifier_groups_id)->first();
-                                        $updateclaim->verifier_id =  $vg->verifier_id;
-                                    }
-                                }
+                                // if ($gm) { //if more than 3 months
+                                //     $updateclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($updateclaim->date)));
+                                //     $updateclaim->verifier_id = $data->approver_id;
+                                //     if ($data->approve_id==0) {
+                                //         $updateclaim->verifier_id = null;
+                                //     }
+                                // } else {
+                                //     $updateclaim->approver_id = $data->approver_id;
+                                //     if ($data->approve_id==0) {
+                                //         $updateclaim->verifier_id = null;
+                                //     }
+                                //     $vgm = VerifierGroupMember::where('user_id', $req->user()->id)->first();
+                                //     if ($vgm) {
+                                //         $vg = VerifierGroup::where('id', $vgm->user_verifier_groups_id)->first();
+                                //         $updateclaim->verifier_id =  $vg->verifier_id;
+                                //     }
+                                // }
                                 $updateclaim->company_id = $data->company_code;
                             }
                         }
@@ -1979,7 +1979,7 @@ class OvertimeController extends Controller
         // dd($req->type);
         $arr = [];
         if ($req->type=="project") {
-            $no = Project::where("project_no", 'LIKE', '%'.$req->order. '%')->get();
+            $no = Project::where("project_no", 'LIKE', '%'.$req->order. '%')->groupBy("project_no")->get();
             foreach ($no as $o) {
                 array_push($arr, [
                     'id'=>$o->project_no,

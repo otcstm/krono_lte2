@@ -843,7 +843,7 @@
                                 @if($claim ?? '')   
                                 <!-- approver id-->
                                 <div
-                                    @if($claim->charge_type=="Own Cost Center")
+                                    @if(($claim->charge_type=="Own Cost Center")||($claim->charge_type=="Project"))
                                         style="display: none"
                                     @endif
                                 >
@@ -1297,7 +1297,7 @@
                         @endif
                         //check if within working time or not
                         // if(check){
-                            console.log(start+" "+nstart+" "+nend+" "+min+" "+max);
+                            // console.log(start+" "+nstart+" "+nend+" "+min+" "+max);
                             if(start > nstart && start < nend){
                                 // check = killview(i, "Time input cannot be between {{$day[0]}} and {{$day[1]}}!", start_time, end_time);
                                 calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
@@ -2125,7 +2125,7 @@
                     "</div>"+
                     "<div class='w-50 m-15'>"+
                         "<div class='approval-search-item'>"+
-                            "<div class='w-30'>Company Code<span class='dmx'>:</span></div>"+
+                            "<div class='w-30'>Cost Center<span class='dmx'>:</span></div>"+
                             "<div class='w-70'><span class='dm'>: </span><b>"+item.costc+"</b></div>"+
                         "</div>"+
                         "<div class='approval-search-item'>"+
