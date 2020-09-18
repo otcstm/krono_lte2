@@ -93,7 +93,7 @@
                             <th>Total Day</th>
                             <th>Total Hours/Minutes</th>
                             <th>Transaction Code</th>
-                            <th>Amount (Estimated)</th>
+                            {{-- <th>Amount (Estimated)</th> --}}
                             <th>Status</th>
                             @if(($view=='verifier')||($view=='approver')||($view=='admin'))
                                 @if(($view=='approver')||($view=='admin'))
@@ -144,7 +144,7 @@
                            {{-- <td>@if($singleuser->eligible_day==0){{$singleuser->total_hour}}h {{$singleuser->total_minute}}m @else @php($total = $singleuser->eligible_total_hours_minutes*60) {{(int)($total/60)}}h {{$total%60}}m @endif</td>--}}
                             <td>@if(($singleuser->eligible_day_code)&&($singleuser->eligible_total_hours_minutes_code)) {{$singleuser->eligible_day_code}}, {{$singleuser->eligible_total_hours_minutes_code}} @elseif($singleuser->eligible_total_hours_minutes_code) {{$singleuser->eligible_total_hours_minutes_code}} @else {{$singleuser->eligible_day_code}} @endif</td>
                             
-                            <td>RM{{$singleuser->amount}}</td>
+                            {{-- <td>RM{{$singleuser->amount}}</td> --}}
                             <td>@if($singleuser->status=="PA")
                                     <span>Pending Approval</span>
                                 @elseif($singleuser->status=="PV")

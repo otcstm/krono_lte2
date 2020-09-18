@@ -115,4 +115,11 @@ echo("error <br/>");
     $collection = collect(['user'=>$u,'user_records'=>$ur]);
     return $collection;
     }
+
+    public function gU($persno){
+    //  echo("here");
+    $u = URHelper::getUser($persno);
+    
+    return $u;
+    }
 }

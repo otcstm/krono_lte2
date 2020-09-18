@@ -181,7 +181,6 @@ class URHelper
         $u->allowance            = $otiu->allowance;
         $u->salary               = $salu->salary;
 
-
         return $u;
       }
 

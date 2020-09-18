@@ -792,7 +792,7 @@
                                                         <option value="" @if($claim->company_id==NULL) selected @endif hidden>Select company code</option>
                                                         @if($compn!=null)
                                                             @foreach($compn as $singlecompn)
-                                                                <option value="{{$singlecompn->company_id}}" @if($claim->company_id==$singlecompn->company_id) selected @endif>{{$singlecompn->company_id}}</option>
+                                                                <option value="{{$singlecompn->company_id}}" @if($claim->company_id==$singlecompn->company_id) selected @endif>{{$singlecompn->company_id}} - {{$singlecompn->company->company_descr}}</option>
                                                             @endforeach
                                                         @endif
                                                     </select>
@@ -843,7 +843,7 @@
                                 @if($claim ?? '')   
                                 <!-- approver id-->
                                 <div
-                                    @if($claim->charge_type=="Own Cost Center")
+                                    @if(($claim->charge_type=="Own Cost Center")||($claim->charge_type=="Project"))
                                         style="display: none"
                                     @endif
                                 >
@@ -1154,7 +1154,6 @@
                 // console.log(i);
                 var st = ($("#inputstart-"+i).val()).split(":");
                 var et = ($("#inputend-"+i).val()).split(":");
-                // console.log(st);
                 @if($shift=="Yes")
                     @if($claim ?? '')
                         if($("#inputdate-"+i).val()=="{{date('d.m.Y', strtotime($claim->date))}}"){
@@ -1167,7 +1166,11 @@
                             @if($day[6])
                                 var max = "{{$day[1]}}";
                             @else
-                                var max = "24:00";
+                                @if($day[2]=="Public Holiday")
+                                    var max = "{{$day[1]}}";
+                                @else
+                                    var max = "24:00";
+                                @endif
                             @endif
                         }else{
                             var min = "00:00"; 
@@ -1176,12 +1179,21 @@
                             @if($day[6])
                                 var max = "00:00"; 
                             @else
-                                var max = "{{$day[1]}}"; 
+                                @if($day[2]=="Public Holiday")
+                                    var max = "00:00";
+                                @else
+                                    var max = "{{$day[1]}}";
+                                @endif
                             @endif
                         }
                 @else
-                    var min = "{{$day[0]}}";
-                    var max = "{{$day[1]}}";
+                    @if($day[2]=="Public Holiday")
+                        var min = "00:00";
+                        var max = "00:00";
+                    @else
+                        var min = "{{$day[0]}}";
+                        var max = "{{$day[1]}}";
+                    @endif
                     var sc = "00:00"; 
                     var ec = "24:00"; 
                 @endif
@@ -1290,12 +1302,13 @@
                         @endif
                         //check if within working time or not
                         // if(check){
+                            // console.log(start+" "+nstart+" "+nend+" "+min+" "+max);
                             if(start > nstart && start < nend){
                                 // check = killview(i, "Time input cannot be between {{$day[0]}} and {{$day[1]}}!", start_time, end_time);
                                 calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
                                 
                                 @if($day[6])
-                                    killview(i, "Time input cannot be between {{$day[0]}} and {{$day[1]}}!", start_time, end_time);
+                                    killview(i, "Time input cannot be between {{$day[0]}} and @if($day[1]=='00:00') 24:00 @else {{$day[1]}} @endif!", start_time, end_time);
                                 @else
                                     killview(i, "Time input cannot be between {{$day[0]}} {{date("d.m.Y", strtotime($day[7]))}} and {{$day[1]}} {{date("d.m.Y", strtotime($day[7]."+1 day"))}}!", start_time, end_time);
                                 @endif
@@ -1403,6 +1416,9 @@
                 var id = $("#delete-"+i).data('id');
                 var ss = $("#delete-"+i).data('start');
                 var ee = $("#delete-"+i).data('end');
+                if(ee=="00:00"){
+                    ee = "24:00";
+                }
                 $("#delid").val(id);
                 Swal.fire({
                     title: 'Are you sure?',
@@ -1759,11 +1775,11 @@
                             if(i==0){
                                 $("#formtype").val("add");
                                 $("#form").submit();
-                                // return saves();
+                                return saves();
                             }else{
                                 $("#formtype").val("save");
                                 $("#form").submit();
-                                // return saves();
+                                return saves();
                             }
                         }
                     // }
@@ -2114,7 +2130,7 @@
                     "</div>"+
                     "<div class='w-50 m-15'>"+
                         "<div class='approval-search-item'>"+
-                            "<div class='w-30'>Company Code<span class='dmx'>:</span></div>"+
+                            "<div class='w-30'>Cost Center<span class='dmx'>:</span></div>"+
                             "<div class='w-70'><span class='dm'>: </span><b>"+item.costc+"</b></div>"+
                         "</div>"+
                         "<div class='approval-search-item'>"+
