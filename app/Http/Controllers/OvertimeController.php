@@ -82,6 +82,7 @@ class OvertimeController extends Controller
             $day = UserHelper::CheckDay($req->user()->id, $req->session()->get('claim')->date);
             $ushiftp = UserHelper::GetUserShiftPatternSAP($req->user()->id, date('Y-m-d', strtotime($req->session()->get('claim')->date))." 00:00:00");
             $shiftpattern = ShiftPattern::where('code', $ushiftp)->first();
+            // dd($day);
             if($shiftpattern->is_weekly != 1){
                 
                 $wd = ShiftPlanStaffDay::where('user_id', $req->user()->id)
@@ -99,7 +100,7 @@ class OvertimeController extends Controller
             }
             if($wd){
                 $shift = "Yes";
-                $start = $day[0];
+                $start = $day[8];
                 $end = $day[5];
                 // $start = $day[0];
                 // $end = $day[0];
@@ -108,6 +109,7 @@ class OvertimeController extends Controller
                 $start = "00:00";
                 $end = $day[5];
             }
+            // dd($day);
             // dd($shift);
             // $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $region->region)->where('start_date','<=', $req->session()->get('claim')->date)->where('end_date','>', $req->session()->get('claim')->date)->first();
             $eligiblehour = URHelper::getUserEligibility($req->user()->id, $req->session()->get('claim')->date);
@@ -206,7 +208,7 @@ class OvertimeController extends Controller
             }
             if($wd){
                 $shift = "Yes";
-                $start = $day[0];
+                $start = $day[8];
                 $end = $day[5];
                 // $start = $day[0];
                 // $end = $day[0];
@@ -215,6 +217,8 @@ class OvertimeController extends Controller
                 $start = "00:00";
                 $end = $day[5];
             }
+            // dd($day);
+            // dd($start. " ". $end);
             // $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $region->region)->where('start_date','<=', $draft[4])->where('end_date','>', $draft[4])->first();
             $eligiblehour = URHelper::getUserEligibility($req->user()->id, $draft[4]);
             // dd($req->session()->get('draft'));
@@ -412,6 +416,7 @@ class OvertimeController extends Controller
         // $staffr = UserRecord::where('user_id', $req->user()->id)->where('upd_sap','<=',date('Y-m-d'))->first();
         $region = URHelper::getRegion($req->user()->perssubarea);
         $day= UserHelper::CheckDay($req->user()->id, $otdate);
+        // dd($day);
         $dy = DayType::where('id', $day[4])->first();
         // dd($day[4]);
         $day_type=$dy->day_type;
@@ -1228,23 +1233,23 @@ class OvertimeController extends Controller
 
                                 
                                 //check if ot is more than 3 months from system date
-                                if ($gm) { //if more than 3 months
-                                    $updateclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($updateclaim->date)));
-                                    $updateclaim->verifier_id = $data->approver_id;
-                                    if ($data->approve_id==0) {
-                                        $updateclaim->verifier_id = null;
-                                    }
-                                } else {
-                                    $updateclaim->approver_id = $data->approver_id;
-                                    if ($data->approve_id==0) {
-                                        $updateclaim->verifier_id = null;
-                                    }
-                                    $vgm = VerifierGroupMember::where('user_id', $req->user()->id)->first();
-                                    if ($vgm) {
-                                        $vg = VerifierGroup::where('id', $vgm->user_verifier_groups_id)->first();
-                                        $updateclaim->verifier_id =  $vg->verifier_id;
-                                    }
-                                }
+                                // if ($gm) { //if more than 3 months
+                                //     $updateclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($updateclaim->date)));
+                                //     $updateclaim->verifier_id = $data->approver_id;
+                                //     if ($data->approve_id==0) {
+                                //         $updateclaim->verifier_id = null;
+                                //     }
+                                // } else {
+                                //     $updateclaim->approver_id = $data->approver_id;
+                                //     if ($data->approve_id==0) {
+                                //         $updateclaim->verifier_id = null;
+                                //     }
+                                //     $vgm = VerifierGroupMember::where('user_id', $req->user()->id)->first();
+                                //     if ($vgm) {
+                                //         $vg = VerifierGroup::where('id', $vgm->user_verifier_groups_id)->first();
+                                //         $updateclaim->verifier_id =  $vg->verifier_id;
+                                //     }
+                                // }
                                 $updateclaim->company_id = $data->company_code;
                             }
                         }
@@ -1975,7 +1980,7 @@ class OvertimeController extends Controller
         // dd($req->type);
         $arr = [];
         if ($req->type=="project") {
-            $no = Project::where("project_no", 'LIKE', '%'.$req->order. '%')->get();
+            $no = Project::where("project_no", 'LIKE', '%'.$req->order. '%')->groupBy("project_no")->get();
             foreach ($no as $o) {
                 array_push($arr, [
                     'id'=>$o->project_no,

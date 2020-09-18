@@ -21,6 +21,7 @@ Route::get('/ur/popbyid/{id}', 'URController@popById')->name('ur.popbyid');
 Route::get('/ur/show/{persno}', 'URController@show')->name('ur.show');
 Route::get('/ur/listAll', 'URController@listAll')->name('ur.listAll');
 Route::get('/ur/show/{persno}/{dt}', 'URController@gUR')->name('ur.listAll');
+Route::get('/ur/get/{persno}', 'URController@gU')->name('ur.listU');
 
 // temp playground
 Route::get('/pg/sendnotify', 'DemoController@sendnotify')->name('demo.sendnotify');
@@ -351,5 +352,8 @@ Route::group(['middleware' => ['auth','can:7-rpt-ot-sa']], function () {
   Route::post('/report/otlog', 'Admin\OtReport2Controller@viewLC')->name('rep.viewOTLog');
 
 });
+
+//testing
+Route::get('/test/cronjob', 'MiscController@cronjob')->name('cron.cronjob');
 
 //-----------------------------------------------------------------------------------------------------------------------------------
