@@ -21,6 +21,7 @@ return [
     'paymentsch' => 'Payment Schedule',
     'payrollgroup' => 'Payroll Grouping',
     'admin_shift_group'   => 'Shift Groups',
+    'admin_shift_planning'   => 'Shift Planning',
     'maintenance_order'   => 'Listing of Maintenance Order',
     'project_list'   => 'Listing of Project',
 
