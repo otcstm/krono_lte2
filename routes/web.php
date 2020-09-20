@@ -121,8 +121,13 @@ Route::group(['middleware' => ['auth']], function () {
 
   //view all shift group
   Route::get('/admin/shiftgroup', 'ShiftGroupController@showall')->name('admin.shiftgroup');
+  Route::post('/admin/shiftgroup', 'ShiftGroupController@showall')->name('admin.shiftgroup');
+  //Route::get('/admin/shiftgroup', 'ShiftGroupController@showall')->name('admin.shiftgroup');
+  Route::get('/admin/dwallsg', 'ShiftGroupController@downloadAllSg')->name('admin.downloadAllSp');
+
   Route::get('/admin/shiftplanning', 'ShiftPlanController@showall')->name('admin.shiftplanning');
   Route::post('/admin/shiftplanning', 'ShiftPlanController@showall')->name('admin.shiftplanning');
+  //Route::get('/admin/shiftplanning', 'ShiftPlanController@showall')->name('admin.shiftplanning');
   Route::get('/admin/dwallsp', 'ShiftPlanController@downloadAllSp')->name('admin.downloadAllSp');
   
   //OT activity - User

@@ -285,6 +285,12 @@ return [
               'can' => '5-user-mngmt',
           ],
           [
+              'text' => 'admin_shift_planning',
+              'route' => 'admin.shiftplanning',
+              'icon' => '',
+              'can' => '5-user-mngmt',
+          ],
+          [
               'text' => 'maintenance_order',
               'route' => 'mo.list',
               'icon' => '',
@@ -647,7 +653,8 @@ return [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js',
+                    //'location' => '//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js',
+                    'location' => 'public/otcdn/Chart.bundle.min.js',
                 ],
             ],
         ],
