@@ -53,7 +53,7 @@
              <form method="post" action="{{ route('sp.delete', [], false) }}" onsubmit='return confirm("Confirm delete?")'>
                @csrf
                <a href="{{ route('sp.view', ['id' => $ap->id], false) }}"><button type="button" class="btn btn-xs btn-warning" title="Edit"><i class="fas fa-pencil-alt"></i></button></a>
-               <button type="submit" class="btn btn-xs btn-danger" title="Delete"><i class="fas fa-trash-alt"></i></button>
+               {{-- <button type="submit" class="btn btn-xs btn-danger" title="Delete"><i class="fas fa-trash-alt"></i></button> --}}
                <input type="hidden" name="id" value="{{ $ap->id }}" />
              </form>
 
@@ -96,7 +96,7 @@
 
       <div class="form-group has-feedback {{ $errors->has('is_weekly') ? 'has-error' : '' }}">
         <input id="is_weekly" type="checkbox" name="is_weekly" value="{{ old('is_weekly') }}">
-        <label for="is_weekly">Weekly Pattern</label>
+        <label for="is_weekly">Normal Schedule? (Check if normal/Uncheck if shift)</label>
         @if ($errors->has('is_weekly'))
             <span class="help-block">
                 <strong>{{ $errors->first('is_weekly') }}</strong>

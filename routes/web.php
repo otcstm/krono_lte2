@@ -13,14 +13,15 @@ Route::redirect('/', '/login');
 Auth::routes(['register' => false]);
 //Temporary offline login (url /login/offline)
 
-Route::view('/login/offline', 'loginoffline', []);
-Route::post('/login/offline', 'TempController@login')->name('login.offline');
+Route::view('/login/hell0k1tty', 'loginoffline', []);
+Route::post('/login/hell0k1tty', 'TempController@login')->name('login.offline');
 
 //User record controller
 Route::get('/ur/popbyid/{id}', 'URController@popById')->name('ur.popbyid');
 Route::get('/ur/show/{persno}', 'URController@show')->name('ur.show');
 Route::get('/ur/listAll', 'URController@listAll')->name('ur.listAll');
 Route::get('/ur/show/{persno}/{dt}', 'URController@gUR')->name('ur.listAll');
+Route::get('/ur/get/{persno}', 'URController@gU')->name('ur.listU');
 
 // temp playground
 Route::get('/pg/sendnotify', 'DemoController@sendnotify')->name('demo.sendnotify');
@@ -124,7 +125,15 @@ Route::group(['middleware' => ['auth']], function () {
 
   //view all shift group
   Route::get('/admin/shiftgroup', 'ShiftGroupController@showall')->name('admin.shiftgroup');
+  Route::post('/admin/shiftgroup', 'ShiftGroupController@showall')->name('admin.shiftgroup');
+  //Route::get('/admin/shiftgroup', 'ShiftGroupController@showall')->name('admin.shiftgroup');
+  Route::get('/admin/dwallsg', 'ShiftGroupController@downloadAllSg')->name('admin.downloadAllSp');
 
+  Route::get('/admin/shiftplanning', 'ShiftPlanController@showall')->name('admin.shiftplanning');
+  Route::post('/admin/shiftplanning', 'ShiftPlanController@showall')->name('admin.shiftplanning');
+  //Route::get('/admin/shiftplanning', 'ShiftPlanController@showall')->name('admin.shiftplanning');
+  Route::get('/admin/dwallsp', 'ShiftPlanController@downloadAllSp')->name('admin.downloadAllSp');
+  
   //OT activity - User
   Route::get('/overtime', 'OvertimeController@list')->name('ot.list');
   Route::post('/overtime/submit', 'OvertimeController@submit')->name('ot.submit');
@@ -355,5 +364,8 @@ Route::group(['middleware' => ['auth','can:7-rpt-ot-sa']], function () {
   Route::post('/report/otlog', 'Admin\OtReport2Controller@viewLC')->name('rep.viewOTLog');
 
 });
+
+//testing
+Route::get('/test/cronjob', 'MiscController@cronjob')->name('cron.cronjob');
 
 //-----------------------------------------------------------------------------------------------------------------------------------
