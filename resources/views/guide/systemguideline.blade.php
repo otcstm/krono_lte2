@@ -37,6 +37,7 @@
                         <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideUser_02ApplyClaim.pdf")}}" target="_blank">• Apply new overtime claim and submit for approval</a></p>
                         <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideUser_03ChangeWsc.pdf")}}" target="_blank">• Change current work schedule (Not applicable for shift employee)</a></p>
                         <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideUser_04ViewCalendar.pdf")}}" target="_blank">• View own calendar and work team calendar (For shift employee only)</a></p>
+                        <p style=" margin: 0"><a href="{{asset("/vendor/docs/GuideUser_05Tatacara_syif.pdf")}}" target="_blank">• Tatacara memohon tuntutan kerja lebih masa bagi pekerja syif</a></p>
 
                 </div>
                 <!-- <div class="col-md-2 col-md-offset-1 guide-system-inside text-center flex">
