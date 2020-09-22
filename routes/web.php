@@ -87,6 +87,10 @@ Route::group(['middleware' => ['auth']], function () {
 
   //Listing of maintenance order
   Route::get('/admin/maintncorder', 'Admin\MaintenanceOrderController@index')->name('mo.list');
+  // Route::get('/admin/mosearch', 'Admin\MaintenanceOrderController@mosearch')->name('mo.mosearch');
+  Route::get('/admin/csearch', 'Admin\MaintenanceOrderController@csearch')->name('mo.csearch');
+  Route::get('/admin/tpsearch', 'Admin\MaintenanceOrderController@tpsearch')->name('mo.tpsearch');
+  Route::get('/admin/cocdsearch', 'Admin\MaintenanceOrderController@cocdsearch')->name('mo.cocdsearch');
   Route::post('/admin/maintncorder', 'Admin\MaintenanceOrderController@index')->name('mo.list');
 
   //User management

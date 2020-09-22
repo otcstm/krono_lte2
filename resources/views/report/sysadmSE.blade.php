@@ -44,13 +44,13 @@
              <label for="fdate">Overtime Date</label>
           </div>
           <div class="col-md-4">
-            <input type="date" class="form-control" id="fdate" name="fdate" required autofocus>
+            <input type="date" class="form-control" id="fdate" name="fdate"  autofocus>
           </div>
           <div class="col-md-1">
              <label for="fdate">To</label>
           </div>
           <div class="col-md-4">
-            <input type="date" class="form-control"  id="tdate" name="tdate"  required autofocus>
+            <input type="date" class="form-control"  id="tdate" name="tdate"   autofocus>
           </div>
         </div>
 

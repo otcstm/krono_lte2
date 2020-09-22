@@ -26,30 +26,47 @@
                     <div class="row">
                         <div class="col-md-4">ID</div>
                         <!-- <input type="text" style="position: relative; z-index: 8; width: 100%" id="inputstaff" name="inputstaff" placeholder="{{ __('adminlte::adminlte.input_staff') }}" value="{{ old('inputstaff') }}" autofocus> -->
-                        <div class="col-md-8"><input type="text" id="inputid"  name="inputid" style="width: 100%; " value="{{ old('inputid') }}"></div>
+                        <div class="col-md-8">
+
+
+                          <input type="text" class="form-control" id="inputid"  name="inputid" style="width: 100%; " value="{{ old('inputid') }}">
+                        </div>
                     </div>
                     <div class="row" style="margin-top: 5px">
                         <div class="col-md-4">Type</div>
-                        <div class="col-md-8"><input type="text" id="inputType"  name="inputType" style="width: 100%; " value="{{ old('inputType') }}"></div>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" id="inputType"  name="inputType" style="width: 100%; " value="{{ old('inputType') }}">
+                          <!-- <select id="inputType" class="moTp form-control" name="inputType[]" multiple="multiple"></select> -->
+
+                        </div>
                     </div>
                     <div class="row" style="margin-top: 5px">
                         <div class="col-md-4">Status</div>
-                        <div class="col-md-8"><input type="text" id="inputStatus"  name="inputStatus" style="width: 100%; " value="{{ old('inputStatus') }}"></div>
+                        <div class="col-md-8"><input type="text" class="form-control" id="inputStatus"  name="inputStatus" style="width: 100%; " value="{{ old('inputStatus') }}"></div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-4">Cost Center</div>
                         <!-- <input type="text" style="position: relative; z-index: 8; width: 100%" id="inputstaff" name="inputstaff" placeholder="{{ __('adminlte::adminlte.input_staff') }}" value="{{ old('inputstaff') }}" autofocus> -->
-                        <div class="col-md-8"><input type="text" id="inputcc"  name="inputcc" style="width: 100%; " value="{{ old('inputcc') }}"></div>
+                        <div class="col-md-8">
+                          <input class="form-control" type="text" id="inputcc"  name="inputcc" style="width: 100%; " value="{{ old('inputcc') }}">
+                          <!-- <select id="inputcc" class="moCS form-control" name="inputcc[]" multiple="multiple"></select> -->
+
+                        </div>
+
                     </div>
                     <div class="row" style="margin-top: 5px">
                         <div class="col-md-4">Company Code</div>
-                        <div class="col-md-8"><input type="text" id="inputcocd"  name="inputcocd" style="width: 100%; " value="{{ old('inputcocd') }}"></div>
+                        <div class="col-md-8">
+                          <input class="form-control" type="text" id="inputcocd"  name="inputcocd" style="width: 100%; " value="{{ old('inputcocd') }}">
+                          <!-- <select id="inputcocd" class="moCC form-control" name="inputcocd[]" multiple="multiple"></select> -->
+
+                        </div>
                     </div>
                     <div class="row" style="margin-top: 5px">
                         <div class="col-md-4">Approver ID</div>
-                        <div class="col-md-8"><input type="text" id="inputapprver"  name="inputapprver" style="width: 100%; " value="{{ old('inputapprver') }}"></div>
+                        <div class="col-md-8"><input type="text" class="form-control" id="inputapprver"  name="inputapprver" style="width: 100%; " value="{{ old('inputapprver') }}"></div>
                     </div>
                 </div>
 
@@ -118,6 +135,66 @@
 
   @section('js')
   <script type="text/javascript">
+
+
+
+    $('.moCS').select2({
+        placeholder: '',
+        minimumInputLength: 4,
+        ajax: {
+          url: '/admin/csearch',
+          dataType: 'json',
+          delay: 250,
+          processResults: function (data) {
+            return {
+              results:  $.map(data, function (item) {
+                    return {
+                      text: item.cost_center,
+                      id: item.cost_center                  }
+                })
+            };
+          },
+          cache: true
+        }
+      });
+    $('.moTp').select2({
+        placeholder: '',
+        minimumInputLength: 3,
+        ajax: {
+          url: '/admin/tpsearch',
+          dataType: 'json',
+          delay: 250,
+          processResults: function (data) {
+            return {
+              results:  $.map(data, function (item) {
+                    return {
+                      text: item.type,
+                      id: item.type                  }
+                })
+            };
+          },
+          cache: true
+        }
+      });
+    $('.moCC').select2({
+        placeholder: '',
+        minimumInputLength: 1,
+        ajax: {
+          url: '/admin/cocdsearch',
+          dataType: 'json',
+          delay: 250,
+          processResults: function (data) {
+            return {
+              results:  $.map(data, function (item) {
+                    return {
+                      text: item.company_code,
+                      id: item.company_code                  }
+                })
+            };
+          },
+          cache: true
+        }
+      });
     /*$(document).ready(function() {
       $('#tmoList').DataTable({
               "responsive": "true",
@@ -135,7 +212,7 @@
             language: {
                     buttons: {
                         colvis : 'show / hide', // label button show / hide
-                        colvisRestore: "Reset Kolom" //lael untuk reset kolom ke default
+                        colvisRestore: "Reset column" //lael untuk reset kolom ke default
                     }
             },
 

@@ -21,19 +21,23 @@ class ProjectController extends Controller
   }
 
   public function fetch(Request $req){
-    $fpno = explode(",", str_replace(' ','',$req->inputpno));
+    // $fpno = explode(",", str_replace(' ','',$req->inputpno));
+    $fpno = $req->inputpno;
     $fstatus = explode(",", str_replace(' ','',$req->inputStatus));
     $ftype = explode(",", str_replace(' ','',$req->inputType));
     $fcc = explode(",", str_replace(' ','',$req->inputcc));
     $fcocd = explode(",", str_replace(' ','',$req->inputcocd));
-    $fNetheader = explode(",", str_replace(' ','',$req->inputNetheader));
-    $fActno = explode(",", str_replace(' ','',$req->inputActno));
+    $fNetheader = $req->inputNetheader;
+    // $fNetheader = explode(",", str_replace(' ','',$req->inputNetheader));
+    $fActno = $req->inputActno;
+    // $fActno = explode(",", str_replace(' ','',$req->inputActno));
     $fapprover = explode(",", str_replace(' ','',$req->inputApprver));
 
 
     $projectlist = Project::query();
     if(isset($req->inputpno)){
-      $projectlist = $projectlist->whereIn('project_no',$fpno);
+      // $projectlist = $projectlist->whereIn('project_no',$fpno);
+      $projectlist = $projectlist->where('project_no','LIKE','%' .$fpno. '%');
     }
     if(isset($req->inputStatus)){
       $projectlist = $projectlist->whereIn('status',$fstatus );
@@ -48,10 +52,10 @@ class ProjectController extends Controller
       $projectlist = $projectlist->whereIn('company_code',$fcocd);
     }
     if(isset($req->inputNetheader)){
-      $projectlist = $projectlist->whereIn('network_header',$fNetheader);
+      $projectlist = $projectlist->where('network_header','LIKE','%' .$fNetheader. '%');
     }
     if(isset($req->inputActno)){
-      $projectlist = $projectlist->whereIn('network_act_no',$fActno);
+      $projectlist = $projectlist->where('network_act_no','LIKE','%' .$fActno. '%');
     }
     if(isset($req->inputApprver)){
       $projectlist = $projectlist->whereIn('approver_id',$fapprover);
