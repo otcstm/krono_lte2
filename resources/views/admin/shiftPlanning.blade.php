@@ -98,6 +98,35 @@
                     <th>day_dur_minute</th>
                 </tr>
             </thead>
+            <tfoot>
+                <tr>
+                  <th></th>
+                    <th>User</th>
+                    <th>Plan Month</th>
+                    <th>Group</th>
+                    <th>Group Owner</th>
+                    <th>Shift Planner</th>
+                    {{-- <th>creator_id</th> --}}
+                    <th>Plan Approver</th>
+                    <th>Status</th>
+                    <th>Approved Date</th>
+                    <th>start_date</th>
+                    <th>end_date</th>
+                    <th>total_minutes</th>
+                    <th>total_days</th>
+                    <th>code</th>
+                    <th>description</th>
+                    <th>work_date</th>
+                    <th>work_start_time</th>
+                    <th>work_end_time</th>
+                    <th>is_work_day</th>
+                    <th>day_code</th>
+                    <th>day_type</th>
+                    <th>day_start_time</th>
+                    <th>day_dur_hour</th>
+                    <th>day_dur_minute</th>
+                </tr>
+              </tfoot>
             <tbody>
             @php $counter = 0 @endphp
             @foreach($gresult as $row_splist)
@@ -141,18 +170,85 @@
 @stop
 
 @section('js')
+<style>
+   tfoot {
+    display: table-header-group;
+}
+</style>
 <script type="text/javascript">
 $(document).ready(function() {
     $('.slctgcode').select2();
-    $('#tList').DataTable({
+
+    // $('#tList tfoot th').each( function () {
+    //     var title = $(this).text();
+    //     $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    // } );// Setup - add a text input to each header cell with header name
+    // $('#tList tfoot th').each( function () {
+    //     var title = $(this).text();
+    //     $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    // } );    
+
+    var otable = $('#tList').DataTable({
+      
         //dom: '<"html5buttons">Bfrtip',        
         //dom: 'lBfrtip',
         dom: '<"flext"lf><"flext"B>rtip',
         buttons: [
             'csv', 'excel', 'pdf'
-        ],
-        "responsive": "true"   
+        ],        
+        "responsive": "true",
+        initComplete: function() {
+          // for column text search input
+          this.api().columns().every(function() {
+             var that = this;
+             var input = $('')
+               .appendTo($(this.footer()).empty())
+
+               .on('keyup change', function() {
+                 if (that.search() !== this.value) {
+                   that
+                     .search(this.value)
+                     .draw();
+                 }
+               });
+           });
+
+          this.api().columns([1, 2]).every(function() {
+            var column = this;
+            var select = $('<select><option value=""></option></select>')
+              .appendTo($(column.footer()).empty())
+              .on('change', function() {
+                var val = $.fn.dataTable.util.escapeRegex(
+                  $(this).val()
+                );
+
+                column
+                  .search(val ? '^' + val + '$' : '', true, false)
+                  .draw();
+              });
+
+            column.data().unique().sort().each(function(d, j) {
+              select.append('<option value="' + d + '">' + d + '</option>');
+            });
+          });
+
+         
+        }   
     });
+
+    // Apply the search
+    // otable.columns([2, 3]).every( function () {
+    //     var that = this;
+    //     $( 'input', this.footer() ).on( 'keyup change clear', function () {
+    //         if ( that.search() !== this.value ) {
+    //             that
+    //                 .search( this.value )
+    //                 .draw();
+    //         }
+    //     } );
+    // } );
+
+    
     // $('.slctspgc').select2({
     //     placeholder: 'Select an item',
     //     minimumInputLength: 3,
