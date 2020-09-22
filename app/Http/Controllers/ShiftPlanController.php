@@ -12,11 +12,15 @@ use App\ShiftGroup;
 use App\ShiftPattern;
 use App\StaffAdditionalInfo;
 use App\User;
+use App\ViewShiftPlanning;
 use App\Shared\UserHelper;
 use App\Shared\ColorHelper;
 use \Carbon\Carbon;
 use \Calendar;
 use DB;
+use Schema;
+use Response;
+use App\ExcelHandler;
 
 use App\Notifications\ShiftPlanSubmitted;
 use App\Notifications\ShiftPlanApproved;
@@ -672,12 +676,13 @@ class ShiftPlanController extends Controller
         $stime_prev = date('H:i:s',strtotime($sdtm_prev));
         //new create date time
         $sdtm_prev = new Carbon($sdate_prev.' '.$stime_prev);
-        $timestamp1 = strtotime($sdtm_prev);
+        //$timestamp1 = strtotime($sdtm_prev);
+        $timestamp1 = strtotime($spsdall->end_time);
         $timestamp2 = strtotime($sdtm_add);
 
-        $diff_hour = abs($timestamp2 - $timestamp1)/(60*60);
+        $diff_hour = (abs($timestamp2 - $timestamp1)/(60*60));
         $min_nextdatetime = date('Y-m-d H:i:s',strtotime('+'.$hour_gap.' hour',strtotime($sdtm_prev)));
-        //dd(date('Y-m-d H:i:s',$timestamp1), date('Y-m-d H:i:s',$timestamp2), $timestamp1, $timestamp2, (int)$diff_hour, (int)$hour_gap);
+        dd($spsdall,date('Y-m-d H:i:s',$timestamp1), date('Y-m-d H:i:s',$timestamp2), $timestamp1, $timestamp2, (int)$diff_hour, (int)$hour_gap);
 
         //if gap between shift pattern less than 30 hour return error
         if((int)$diff_hour < (int)$hour_gap){
@@ -866,6 +871,155 @@ class ShiftPlanController extends Controller
 
         return redirect()->back()->with(['alert' => 'Selected template no longer exist for this staff', 'a_type' => 'danger']);
       }
+    }
+
+    public function showall(Request $req){
+      
+      $gcode = null;
+      if($req->has('gcode')){
+        $gcode = $req->gcode;       
+        $gresult = ViewShiftPlanning::where('group_code',$req->gcode)->get();
+      } else {
+        $gresult = ViewShiftPlanning::take(0)->get();
+      }
+      $gclist =  ViewShiftPlanning::select('group_code','group_name')->distinct()->get();
+
+      return view('admin.shiftPlanning',
+      [
+        'gcode' => $gcode,
+        'gclist' => $gclist,
+        'gresult' => $gresult,
+      ]);
+
+      // return view('shiftplan.shift_group', [
+      //   'sglist' => $sglist        
+      // ]);
+    }
+
+    public function downloadAllSp(Request $req){
+      
+      ini_set('max_execution_time', 300);
+      ini_set('memory_limit', '1024M');
+      $dtnow = new Carbon();
+      $fn ='ShiftPlanning';
+      $listcolumns = Schema::getColumnListing('v_shift_planning');
+
+      $splist = [];
+      $splist = ViewShiftPlanning::all();
+      $splist_count = $splist->count();
+      $splist_data = $splist->toArray();
+
+      $fname = $fn.'_'.$dtnow->format('YmdHis').'_'.$splist_count.'.csv';
+
+      $handle = fopen($fname, 'w+');
+
+      // write header
+      fputcsv($handle, $listcolumns);
+
+      // write data
+      ViewShiftPlanning::chunk(5000, function($splist) use($handle) {
+        foreach ($splist as $row) {
+            // Add a new row with data
+            fputcsv($handle, [
+              $row->id,
+              $row->user_persno,
+              $row->user_name,
+              $row->user_staffno,
+              $row->plan_month,
+              $row->group_code,
+              $row->group_name,
+              $row->go_persno,
+              $row->go_name,
+              $row->go_staffno,
+              $row->sp_persno,
+              $row->sp_name,
+              $row->sp_staffno,
+              $row->creator_id,
+              $row->sp_appr_persno,
+              $row->sp_appr_name,
+              $row->sp_appr_staffno,
+              $row->status,
+              $row->approved_date,
+              $row->start_date,
+              $row->end_date,
+              $row->total_minutes,
+              $row->total_days,
+              $row->code,
+              $row->description,
+              $row->work_date,
+              $row->work_start_time,
+              $row->work_end_time,
+              $row->is_work_day,
+              $row->day_code,
+              $row->day_type,
+              $row->day_start_time,
+              $row->day_dur_hour,
+              $row->day_dur_minute,
+            ]);
+        }
+      });
+
+      // method direct no chunk - will eat server memory
+
+      // fputcsv($handle, $listcolumns);
+      // foreach($splist as $row) {
+      //     fputcsv($handle, 
+      //     array(
+      //       $row['user_persno'],
+      //       $row['user_name'],
+      //       $row['user_staffno'],
+      //       $row['plan_month'],
+      //       $row['group_code'],
+      //       $row['group_name'],
+      //       $row['go_persno'], 
+      //       $row['go_name'],
+      //       $row['go_staffno'],
+      //       $row['sp_persno'],
+      //       $row['sp_name'],
+      //       $row['sp_staffno'],
+      //       $row['creator_id'],
+      //       $row['sp_appr_persno'],
+      //       $row['sp_appr_name'],
+      //       $row['sp_appr_staffno'],
+      //       $row['status'],
+      //       $row['approved_date'],
+      //       $row['start_date'],
+      //       $row['end_date'],
+      //       $row['total_minutes'],
+      //       $row['total_days'],
+      //       $row['code'],
+      //       $row['description'],
+      //       $row['work_date'],
+      //       $row['work_start_time'],
+      //       $row['work_end_time'],
+      //       $row['is_work_day'],
+      //       $row['day_code'],
+      //       $row['day_type'],
+      //       $row['day_start_time'],
+      //       $row['day_dur_hour'],
+      //       $row['day_dur_minute']
+      //       )
+      //     );
+      // }
+
+      fclose($handle);
+
+      $headers->set('Content-type: text/csv');
+      $headers->set('Content-Disposition', 'attachment;filename="'.$fname.'"');
+      $headers->set('Cache-Control','max-age=0');
+      // $headers = array(
+      //   'Content-Type' => 'text/csv',
+      //   //'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      // );
+
+      return Response::download($fname, $fname, $headers);
+
+      // $eksel = new ExcelHandler($fname);      
+      // //dd($splist);
+
+      // $eksel->addSheet($fn, $splist_data, $listcolumns);
+      // $eksel->removesheet();
+      // return $eksel->download();
     }
 
 }

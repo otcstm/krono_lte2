@@ -47,7 +47,7 @@
            <td>{{ $ap->dur_hour }} h, {{ $ap->dur_minute }} m</td>
            <td>
 
-             <form method="post" action="{{ route('wd.delete', [], false) }}">
+             <form method="post" action="{{ route('wd.delete', [], false) }}" onsubmit='return confirm("Confirm delete?")'>
                @csrf
                <button type="button" class="btn btn-xs btn-warning" title="Edit"
                   data-toggle="modal"
