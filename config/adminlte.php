@@ -591,11 +591,13 @@ return [
                   'type' => 'js',
                   'asset' => false,
                   'location' => '//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.62/pdfmake.min.js',
+                  //'location' => secure_asset('vendor/otcdn/pdfmake.min.js'),
               ],
               [
                   'type' => 'js',
                   'asset' => false,
                   'location' => '//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.62/vfs_fonts.js',
+                  //'location' => secure_asset('vendor/otcdn/vfs_fonts.js'),
               ],
           ],
         ],
@@ -606,26 +608,16 @@ return [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    // 'location' => '//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js',
-                    'location' => '//cdn.datatables.net/v/bs/dt-1.10.20/b-1.6.0/b-html5-1.6.0/fh-3.1.6/datatables.min.js',
-                ],
-                [
-                    'type' => 'js',
-                    'asset' => false,
-                    // 'location' => '//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js',
-                    'location' => '//cdn.datatables.net/v/bs/dt-1.10.20/b-1.6.0/b-html5-1.6.0/fh-3.1.6/datatables.min.js',
+                    //'location' => '//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js',
+                    //'location' => '//cdn.datatables.net/v/bs/dt-1.10.20/b-1.6.0/b-html5-1.6.0/fh-3.1.6/datatables.min.js',
+                    'location' => secure_asset('vendor/otcdn/datatables.min.js'),
                 ],
                 [
                     'type' => 'css',
                     'asset' => false,
-                    // 'location' => '//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css',
-                    'location' => '//cdn.datatables.net/v/bs/dt-1.10.20/b-1.6.0/b-html5-1.6.0/fh-3.1.6/datatables.min.css',
-                ],
-                [
-                    'type' => 'css',
-                    'asset' => false,
-                    // 'location' => '//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css',
-                    'location' => '//cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css',
+                    //'location' => '//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css',
+                    //'location' => '//cdn.datatables.net/v/bs/dt-1.10.20/b-1.6.0/b-html5-1.6.0/fh-3.1.6/datatables.min.css',
+                    'location' => secure_asset('vendor/otcdn/datatables.min.css'),
                 ],
 
             ],
@@ -637,12 +629,14 @@ return [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js',
+                    //'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js',
+                    'location' => secure_asset('vendor/otcdn/select2.min.js'),
                 ],
                 [
                     'type' => 'css',
                     'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css',
+                    //'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css',
+                    'location' => secure_asset('vendor/otcdn/select2.css'),
                 ],
             ],
         ],
@@ -652,9 +646,9 @@ return [
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     //'location' => '//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js',
-                    'location' => 'public/otcdn/Chart.bundle.min.js',
+                    'location' => secure_asset('vendor/otcdn/Chart.bundle.min.js'),
                 ],
             ],
         ],
@@ -666,6 +660,7 @@ return [
                     'type' => 'js',
                     'asset' => false,
                     'location' => '//cdn.jsdelivr.net/npm/sweetalert2@9',
+                    //'location' => secure_asset('vendor/otcdn/sweetalert2@9'),
                 ],
             ],
         ],
@@ -676,12 +671,14 @@ return [
                 [
                     'type' => 'css',
                     'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-center-radar.min.css',
+                    //'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-center-radar.min.css',
+                    'location' => secure_asset('vendor/otcdn/pace-theme-center-radar.min.css'),
                 ],
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+                    //'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+                    'location' => secure_asset('vendor/otcdn/pace.min.js'),
                 ],
             ],
         ],
@@ -691,8 +688,8 @@ return [
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => true,
-                    'location' => '/vendor/datejs/build/date.js',
+                    'asset' => false,
+                    'location' => secure_asset('/vendor/datejs/build/date.js'),
                 ],
                 // [
                 //     'type' => 'js',
