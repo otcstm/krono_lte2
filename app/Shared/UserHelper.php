@@ -681,12 +681,13 @@ class UserHelper {
         if($difdatem<0){
             $difdatem=$difdatem+12;
         }
-
-        // dd($otdate);
+        //nanti betulkan balik
         $gm = true;
-        if(($difdatem<4)){
+        // if(($difdatem<4)){
+        if(($difdatem<5)){
             $gm = false;
-            if($difdatem==3){
+            // if($difdatem==3){
+            if($difdatem==4){
                 if($difdated>=0){
                   $gm = true;
                 }

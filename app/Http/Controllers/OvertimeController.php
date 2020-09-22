@@ -562,7 +562,10 @@ class OvertimeController extends Controller
                         if ($vgm) {
                             $vg = VerifierGroup::where('id', $vgm->id)->first();
                             // dd($vgm);
-                            $draftclaim->verifier_id =  $vg->verifier_id;
+                            if($vg->approver_id == $req->user()->reptto){
+                                $draftclaim->verifier_id =  $vg->verifier_id;
+                            }
+                                
                         }
                         $draftclaim->date_expiry = date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d', strtotime("+3 months", strtotime($req->inputdate))))));
                     }
@@ -671,11 +674,13 @@ class OvertimeController extends Controller
                         $vgm = VerifierGroupMember::where('user_id', $req->user()->id)->first();
                         if ($vgm) {
                             $vg = VerifierGroup::where('id', $vgm->user_verifier_groups_id)->first();
-                            $verify =  $vg->verifier_id;
-                            if ($verify) {
-                                if ($verify!="") {
-                                    $verifyn = $vg->name->name;
-                                    $verifyno = $vg->name->staff_no;
+                            if($vg->approver_id == $req->user()->reptto){
+                                $verify =  $vg->verifier_id;
+                                if ($verify) {
+                                    if ($verify!="") {
+                                        $verifyn = $vg->name->name;
+                                        $verifyno = $vg->name->staff_no;
+                                    }
                                 }
                             }
                         }
@@ -767,8 +772,10 @@ class OvertimeController extends Controller
                     if ($vgm) {
                         $vg = VerifierGroup::where('id', $vgm->user_verifier_groups_id)->first();
                         if ($vg) {
-                            if ($vg!="") {
-                                $draftclaim->verifier_id =  $vg->verifier_id;
+                            if($vg->approver_id == $req->user()->reptto){
+                                if ($vg!="") {
+                                    $draftclaim->verifier_id =  $vg->verifier_id;
+                                }
                             }
                         }
                     }
@@ -1129,7 +1136,9 @@ class OvertimeController extends Controller
                 $vgm = VerifierGroupMember::where('user_id', $req->user()->id)->first();
                 if ($vgm) {
                     $vg = VerifierGroup::where('id', $vgm->user_verifier_groups_id)->first();
-                    $updateclaim->verifier_id =  $vg->verifier_id;
+                    if($vg->approver_id == $req->user()->reptto){
+                        $updateclaim->verifier_id =  $vg->verifier_id;
+                    }
                 }
             }
         }
@@ -1162,7 +1171,9 @@ class OvertimeController extends Controller
                                     $vgm = VerifierGroupMember::where('user_id', $req->user()->id)->first();
                                     if ($vgm) {
                                         $vg = VerifierGroup::where('id', $vgm->user_verifier_groups_id)->first();
-                                        $updateclaim->verifier_id =  $vg->verifier_id;
+                                        if($vg->approver_id == $req->user()->reptto){
+                                            $updateclaim->verifier_id =  $vg->verifier_id;
+                                        }
                                     }
                                 }
                             }
@@ -1194,7 +1205,9 @@ class OvertimeController extends Controller
                                     $vgm = VerifierGroupMember::where('user_id', $req->user()->id)->first();
                                     if ($vgm) {
                                         $vg = VerifierGroup::where('id', $vgm->user_verifier_groups_id)->first();
-                                        $updateclaim->verifier_id =  $vg->verifier_id;
+                                        if($vg->approver_id == $req->user()->reptto){
+                                            $updateclaim->verifier_id =  $vg->verifier_id;
+                                        }
                                     }
                                 }
                             }
@@ -1273,7 +1286,9 @@ class OvertimeController extends Controller
                         $vgm = VerifierGroupMember::where('user_id', $req->user()->id)->first();
                         if ($vgm) {
                             $vg = VerifierGroup::where('id', $vgm->user_verifier_groups_id)->first();
-                            $updateclaim->verifier_id =  $vg->verifier_id;
+                            if($vg->approver_id == $req->user()->reptto){
+                                $updateclaim->verifier_id =  $vg->verifier_id;
+                            }
                         }
                     }
                 }
