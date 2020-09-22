@@ -663,7 +663,7 @@ class ShiftPlanController extends Controller
       {      
         $sdtm_prev = $spsdall->start_time;
 
-        $sd_add = $startdate;  
+        //$sd_add = $startdate;  
         $std1 = $stemplate->ListDays->where('day_seq','1');
         foreach($stemplate->ListDays->where('day_seq','1') as $aDay){
           $dtype = $aDay->Day;
@@ -680,9 +680,12 @@ class ShiftPlanController extends Controller
         $timestamp1 = strtotime($spsdall->end_time);
         $timestamp2 = strtotime($sdtm_add);
 
-        $diff_hour = (abs($timestamp2 - $timestamp1)/(60*60));
-        $min_nextdatetime = date('Y-m-d H:i:s',strtotime('+'.$hour_gap.' hour',strtotime($sdtm_prev)));
-        dd($spsdall,date('Y-m-d H:i:s',$timestamp1), date('Y-m-d H:i:s',$timestamp2), $timestamp1, $timestamp2, (int)$diff_hour, (int)$hour_gap);
+        //minus 24 hour because business comfirm all shift must atleast have RestDay (24hour) in one cycle shift week
+        $diff_hour = (abs($timestamp2 - $timestamp1)/(60*60)-24);
+
+        //$min_nextdatetime = date('Y-m-d H:i:s',strtotime('+'.$hour_gap.' hour',strtotime($sdtm_prev)));
+        
+        //dd(date('Y-m-d H:i:s',$timestamp1), date('Y-m-d H:i:s',$timestamp2), $timestamp1, $timestamp2, (int)$diff_hour, (int)$hour_gap, $spsdall);
 
         //if gap between shift pattern less than 30 hour return error
         if((int)$diff_hour < (int)$hour_gap){
