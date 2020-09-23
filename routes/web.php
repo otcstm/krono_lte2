@@ -9,7 +9,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::redirect('/', '/login');
+Route::group(['middleware' => ['noie']], function () {
+  Route::redirect('/', '/login');
+});
+
+Route::view('/browser-fail', 'browser-fail',[]);
 Auth::routes(['register' => false]);
 //Temporary offline login (url /login/offline)
 
