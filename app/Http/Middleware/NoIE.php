@@ -31,13 +31,13 @@ class NoIE
 	{
 	    try {
 		    /* @var $result \UserAgentParser\Model\UserAgent */
-		    $result = $_SERVER['HTTP_USER_AGENT'];
+		    $result = strtolower($_SERVER['HTTP_USER_AGENT']);
 	    } catch (NoResultFoundException $ex){
 		    return $next($request);
 
 	    }
 
-	    if( false !== strpos( $result, 'Internet Explorer' ) ) {
+	    if( false !== strpos( $result, 'internet explorer' ) ) {
 			return redirect( '/browser-fail' );
 	    }
 
