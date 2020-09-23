@@ -27,18 +27,23 @@ class NoIE
 	* @param  \Closure  $next
 	* @return mixed
 	*/
+
+
+	
 	public function handle($request, Closure $next)
 	{
 	    try {
-		    /* @var $result \UserAgentParser\Model\UserAgent */
-		    $result = strtolower($_SERVER['HTTP_USER_AGENT']);
+			/* @var $result \UserAgentParser\Model\UserAgent */
+			
+			$result = strtolower($request->userAgent());
+			//dd($result);
 	    } catch (NoResultFoundException $ex){
 		    return $next($request);
 
 	    }
 
-	    if( false !== strpos( $result, 'internet explorer' ) ) {
-			return redirect( '/browser-fail' );
+	    if( false !== strpos( $result, 'chrome' ) ) {
+			return redirect( 'browser-fail' );
 	    }
 
 		return $next($request);
