@@ -67,7 +67,21 @@
             <!-- <input type="date" class="form-control"  id="tdate" name="tdate"  required autofocus> -->
           </div>
         </div>
-
+        <div class="row" style="margin-top: 15px;">
+        <div class="col-md-3">
+          <label for="fstatus">Status</label>
+        </div>
+        <div class="col-md-9">
+          <select class="selectReport form-control" name="fstatus">
+            @if($status ?? '')
+            <option value="All">All</option>
+                @foreach($status as $no=>$stat)
+          <option value="{{$stat->item4}}">{{$stat->item4}}</option>
+                @endforeach
+            @endif
+          </select>
+        </div>
+      </div>
         </div>
         <div class="col-md-6">
           <div class="row" style="margin-top: 15px;">
@@ -108,8 +122,8 @@
             </select>
           </div>
         </div>
-
         </div>
+
       </div>
       <div class="hidden">
         <div class="col-sm-3">

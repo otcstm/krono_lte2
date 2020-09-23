@@ -36,6 +36,7 @@ class OtReport2Controller extends Controller
     $company = Company::all();
     $state = State::all();
     $region = SetupCode::where('item1', 'region')->get();
+    $status = SetupCode::select("item4")->where('item1', 'ot_status')->distinct()->get();
 
     if($req->filled('searching')){
       //view
@@ -51,7 +52,7 @@ class OtReport2Controller extends Controller
       }
     }
     //index
-      return view('report.otr',['companies'=>$company,'states'=>$state,'regions'=>$region ]);
+      return view('report.otr',['companies'=>$company,'states'=>$state,'regions'=>$region,'status'=>$status ]);
   }
 
   public function viewOTd(Request $req)//OT Detail
@@ -63,6 +64,8 @@ class OtReport2Controller extends Controller
     $company = Company::all();
     $state = State::all();
     $region = SetupCode::where('item1', 'region')->get();
+    $status = SetupCode::select("item4")->where('item1', 'ot_status')->distinct()->get();
+
     if($req->filled('searching')){
       if($req->searching == 'detail'){
       $pilihcol = $req->cbcol;
@@ -73,7 +76,7 @@ class OtReport2Controller extends Controller
         return $this->doOTExcel($req);
       }
     }
-    return view('report.otrdetails',[ 'companies'=>$company, 'states'=>$state,'regions'=>$region]);
+    return view('report.otrdetails',[ 'companies'=>$company, 'states'=>$state,'regions'=>$region,'status'=>$status ]);
   }
 
   public function viewStEd(Request $req)//List of Start/End OT Time (Punch)
@@ -163,10 +166,23 @@ class OtReport2Controller extends Controller
       if(isset($req->fapprover_id)){
         $otr = $otr->where('approver_id', 'LIKE', '%' .$approver_id. '%');
       }
-      $otr = $otr->where('status','not like',"%D%")->get();
+
+      if(isset($req->fstatus)){
+        $statuss = $req->fstatus;
+        if($statuss == 'All'){
+        }elseif($statuss == 'Submitted'){
+          $otr = $otr->whereIn('status',['Q1','Q2','PA','PV','A', 'Assign','IP','PAID' ]);
+        }elseif($statuss == 'Draft'){
+          $otr = $otr->whereIn('status',['D1','D2']);
+        }
+      }
+
+      // $otr = $otr->where('status','not like',"%D%")->get();
+      $otr = $otr->get();
 
     if($jenisrep == 'detail'){
         $list_of_id = $otr->pluck('id');
+        // $otdetail = OvertimeDetail::whereIn('ot_id', $list_of_id)->get();
         $otdetail = OvertimeDetail::whereIn('ot_id', $list_of_id)->where('checked','Y')->get();
         return $otdetail;
       }
@@ -578,7 +594,17 @@ class OtReport2Controller extends Controller
       if(isset($req->fapprover_id)){
         $otr = $otr->where('approver_id', 'LIKE', '%' .$approver_id. '%');
       }
-      $otr = $otr->where('status','not like',"%D%")->get();
+      if(isset($req->fstatus)){
+        $statuss = $req->fstatus;
+        if($statuss == 'All'){
+        }elseif($statuss == 'Submitted'){
+          $otr = $otr->whereIn('status',[Q1,Q2,PA,PV,A, Assign,IP,PAID ]);
+        }elseif($statuss == 'Draft'){
+          $otr = $otr->whereIn('status',[D1,D2]);
+        }
+      }
+      // $otr = $otr->where('status','not like',"%D%")->get();
+      $otr = $otr->get();
 
       // dd($otr);
       // Log::info('get otr');
