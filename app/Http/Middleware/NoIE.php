@@ -43,7 +43,15 @@ class NoIE
 	    }
 
 	    if( false !== strpos( $result, 'internet explorer' ) ) {
-			return redirect( 'browser-fail' );
+			return redirect( '/browser-fail' );
+	    }
+
+	    if( false !== strpos( $result, 'trident' ) ) {
+			return redirect( '/browser-fail' );
+		}
+		
+		if( false !== strpos( $result, 'msie' ) ) {
+			return redirect( '/browser-fail' );
 	    }
 
 		return $next($request);
