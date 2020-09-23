@@ -42,7 +42,7 @@ class NoIE
 
 	    }
 
-	    if( false !== strpos( $result, 'chrome' ) ) {
+	    if( false !== strpos( $result, 'internet explorer' ) ) {
 			return redirect( 'browser-fail' );
 	    }
 
