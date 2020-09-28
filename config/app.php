@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Kuala_Lumpur',
 
     /*
     |--------------------------------------------------------------------------
@@ -177,6 +177,7 @@ return [
         App\MaddHatter\LaravelFullcalendar\ServiceProvider::class,
         Fx3costa\LaravelChartJs\Providers\ChartjsServiceProvider::class,
         Orangehill\Iseed\IseedServiceProvider::class,
+        //WhichBrowser\Parser::class,
 
     ],
 

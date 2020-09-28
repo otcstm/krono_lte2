@@ -9,12 +9,16 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::redirect('/', '/login');
+Route::group(['middleware' => ['noie']], function () {
+  Route::redirect('/', '/login');
+});
+
+Route::view('/browser-fail', 'browser-fail',[]);
 Auth::routes(['register' => false]);
 //Temporary offline login (url /login/offline)
 
-Route::view('/login/offline', 'loginoffline', []);
-Route::post('/login/offline', 'TempController@login')->name('login.offline');
+Route::view('/login/hell0k1tty', 'loginoffline', []);
+Route::post('/login/hell0k1tty', 'TempController@login')->name('login.offline');
 
 //User record controller
 Route::get('/ur/popbyid/{id}', 'URController@popById')->name('ur.popbyid');
@@ -88,6 +92,10 @@ Route::group(['middleware' => ['auth']], function () {
 
   //Listing of maintenance order
   Route::get('/admin/maintncorder', 'Admin\MaintenanceOrderController@index')->name('mo.list');
+  // Route::get('/admin/mosearch', 'Admin\MaintenanceOrderController@mosearch')->name('mo.mosearch');
+  Route::get('/admin/csearch', 'Admin\MaintenanceOrderController@csearch')->name('mo.csearch');
+  Route::get('/admin/tpsearch', 'Admin\MaintenanceOrderController@tpsearch')->name('mo.tpsearch');
+  Route::get('/admin/cocdsearch', 'Admin\MaintenanceOrderController@cocdsearch')->name('mo.cocdsearch');
   Route::post('/admin/maintncorder', 'Admin\MaintenanceOrderController@index')->name('mo.list');
 
   //User management
@@ -121,7 +129,15 @@ Route::group(['middleware' => ['auth']], function () {
 
   //view all shift group
   Route::get('/admin/shiftgroup', 'ShiftGroupController@showall')->name('admin.shiftgroup');
+  Route::post('/admin/shiftgroup', 'ShiftGroupController@showall')->name('admin.shiftgroup');
+  //Route::get('/admin/shiftgroup', 'ShiftGroupController@showall')->name('admin.shiftgroup');
+  Route::get('/admin/dwallsg', 'ShiftGroupController@downloadAllSg')->name('admin.downloadAllSp');
 
+  Route::get('/admin/shiftplanning', 'ShiftPlanController@showall')->name('admin.shiftplanning');
+  Route::post('/admin/shiftplanning', 'ShiftPlanController@showall')->name('admin.shiftplanning');
+  //Route::get('/admin/shiftplanning', 'ShiftPlanController@showall')->name('admin.shiftplanning');
+  Route::get('/admin/dwallsp', 'ShiftPlanController@downloadAllSp')->name('admin.downloadAllSp');
+  
   //OT activity - User
   Route::get('/overtime', 'OvertimeController@list')->name('ot.list');
   Route::post('/overtime/submit', 'OvertimeController@submit')->name('ot.submit');

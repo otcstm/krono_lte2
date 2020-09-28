@@ -35,11 +35,12 @@ class ReportOT implements ShouldQueue
     protected $region;
     protected $pilihcol;
     protected $btnsrh;
+    protected $fstatus;
 
     public $tries = 1;
     public $timeout = 7200;
 
-    public function __construct($sdt,$edt,$aid,$vid,$rno,$per,$co,$st,$re,$col,$btn)
+    public function __construct($sdt,$edt,$aid,$vid,$rno,$per,$co,$st,$re,$col,$btn,$status)
     {
       $this->start_date = $sdt;
       $this->end_date = $edt;
@@ -53,6 +54,7 @@ class ReportOT implements ShouldQueue
       $this->region = $re;
       $this->pilihcol = $col;
       $this->btnsrh = $btn;
+      $this->fstatus = $status;
 
 // dd($this->pilihcol);
       if($this->btnsrh == 'gexcelm'){
@@ -314,7 +316,20 @@ class ReportOT implements ShouldQueue
            if(isset($this->ver_id)){
              $otr = $otr->where('verifier_id', 'LIKE', '%' .$this->ver_id. '%');
            }
-           $otr = $otr->where('status','not like',"%D%")->get();
+
+           if(isset($this->fstatus)){
+             $statuss = $this->fstatus;
+             if($statuss == 'All'){
+             }elseif($statuss == 'Submitted'){
+               $otr = $otr->whereIn('status',['Q1','Q2','PA','PV','A', 'Assign','IP','PAID' ]);
+             }elseif($statuss == 'Draft'){
+               $otr = $otr->whereIn('status',['D1','D2']);
+             }
+           }
+
+           // $otr = $otr->where('status','not like',"%D%")->get();
+           $otr = $otr->get();
+
            // ->get();
 
            // Log::info($otr->toSql());
@@ -603,7 +618,7 @@ class ReportOT implements ShouldQueue
                     }
                     array_push($info, $sal_exception);
                   }
-                
+
                   if(in_array( 'capsal',$sltcol))
                   {
                     if($mainOT->sal_exception=='Y'){

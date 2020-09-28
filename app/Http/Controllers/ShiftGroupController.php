@@ -53,6 +53,7 @@ class ShiftGroupController extends Controller
     $nugrup->manager_id = $req->group_owner_id;
     $nugrup->group_name = $req->group_name;
     $nugrup->group_code = $req->group_code;
+    $nugrup->created_by = $req->user()->id;
     $nugrup->save();
 
 
@@ -169,7 +170,7 @@ class ShiftGroupController extends Controller
 
     $grup = ShiftGroup::find($req->group_id);
     if($grup){
-      $grup->shiftpatterns()->attach($req->sp_id);
+      $grup->shiftpatterns()->attach($req->sp_id, ['created_by'=> $req->user()->id]);
       return redirect(route('shift.group.view', ['id' => $grup->id], false))
         ->with([
           'alert' => 'Shift template added to group', 'a_type' => 'success disabled'
@@ -686,14 +687,21 @@ class ShiftGroupController extends Controller
     }
 
     public function showall(Request $req){
-
-      $sglist = ViewShiftGroup::all();
-   
-      return view('admin.shiftGroup',compact('sglist'));
-
-      // return view('shiftplan.shift_group', [
-      //   'sglist' => $sglist        
-      // ]);
+      
+      $gcode = null;
+      if($req->has('gcode')){
+        $gcode = $req->gcode;        
+        $gresult = ViewShiftGroup::where('group_code',$req->gcode)->get();
+      } else {
+        $gresult = ViewShiftGroup::take(0)->get();
+      }
+      $gclist =  ViewShiftGroup::select('group_code','group_name')->distinct()->get();
+      return view('admin.shiftGroup',
+      [        
+        'gcode' => $gcode,
+        'gclist' => $gclist,
+        'gresult' => $gresult,
+      ]);
     }
 
 }

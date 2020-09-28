@@ -46,6 +46,7 @@ class OtSaRepController extends Controller
     $company = Company::all();
     $state = State::all();
     $region = SetupCode::where('item1', 'region')->get();
+    $status = SetupCode::select("item4")->where('item1', 'ot_status')->distinct()->get();
 
     $rpthis = BatchJob::where('job_type', 'SummaryOTReport')
       ->orderBy('created_at', 'DESC')
@@ -56,7 +57,8 @@ class OtSaRepController extends Controller
       'companies'=>$company,
       'states'=>$state,
       'regions'=>$region,
-      'history'=>$rpthis
+      'history'=>$rpthis,
+      'status'=>$status
     ]);
   }
 
@@ -71,6 +73,8 @@ class OtSaRepController extends Controller
     $company = Company::all();
     $state = State::all();
     $region = SetupCode::where('item1', 'region')->get();
+    $status = SetupCode::select("item4")->where('item1', 'ot_status')->distinct()->get();
+
 
     $rpthis = BatchJob::where('job_type', 'OvertimeDetailsReport')
       ->orderBy('created_at', 'DESC')
@@ -81,7 +85,8 @@ class OtSaRepController extends Controller
       'companies'=>$company,
       'states'=>$state,
       'regions'=>$region,
-      'history'=>$rpthis
+      'history'=>$rpthis,
+      'status'=>$status
     ]);
   }
 
@@ -155,7 +160,7 @@ class OtSaRepController extends Controller
     }else {
       ReportOT::dispatch($req->fdate,$req->tdate,$req->fapprover_id,
       $req->fverifier_id,$req->frefno,$persno,$req->fcompany,$req->fstate,
-      $req->fregion,$req->cbcol,$req->searching);
+      $req->fregion,$req->cbcol,$req->searching,$req->fstatus);
 
         if($req->searching == 'gexcelm'){
           return redirect(route('rep.sa.OT', [], false))->with([
@@ -192,7 +197,7 @@ class OtSaRepController extends Controller
               'a_type' => 'danger'
               ]);
             }
-            
+
         }
 
       } else {
