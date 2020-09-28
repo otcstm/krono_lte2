@@ -906,7 +906,7 @@ class OvertimeController extends Controller
                 }else{
                     $updateclaim->eligible_day = 1;
                     $updateclaim->eligible_day_code = $code[0];
-                    if($totaltime >= 420){
+                    if($totaltime > 420){
                         $totaltime = $totaltime - 420;
                         $updateclaim->eligible_total_hours_minutes = $totaltime/60;
                         $updateclaim->eligible_total_hours_minutes_code =  $code[1];
