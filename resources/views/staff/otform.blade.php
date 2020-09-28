@@ -77,7 +77,7 @@
                         </p>
                         <form id="formdate" action="{{route('ot.formdate')}}" method="POST">
                             @csrf
-                            <p>OT Date: <input type="text" data-language='en' data-date-format="dd.mm.yyyy" id="inputdate" name="inputdate" 
+                            <p>OT Date: <input type="text" data-language='en' data-date-format="dd.mm.yyyy" id="inputdate" name="inputdate"  autocomplete="off"
                                 style ="width: 100px"
                                 @if($claim ?? '')
                                     value="{{date('d.m.Y', strtotime($claim->date))}}"
