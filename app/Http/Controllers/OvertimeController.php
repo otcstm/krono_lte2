@@ -1803,6 +1803,9 @@ class OvertimeController extends Controller
                     $expiry = OvertimeExpiry::where('company_id', $otlist[$i]->name->company_id)->where('region', $reg->region)->where('start_date', '<=', $otlist[$i]->date)->where('end_date', '>', $otlist[$i]->date)->first();
                     // dd($expiry);
                     $claim = Overtime::where('id', $req->inputid[$i])->first();
+                    $day= UserHelper::CheckDay($req->user()->id, $claim->date);
+                    $dt = DayType::where('id', $day[4])->first();
+                    $working_minutes = $dt->working_hour*60;
                     $updateclaim = Overtime::find($req->inputid[$i]);
                     if (($updateclaim->status=="PV")&&($updateclaim->verifier_id==null)) {
                         $updateclaim->status=="PA";
@@ -1857,8 +1860,8 @@ class OvertimeController extends Controller
                     } elseif ($req->inputact[$i]=="Q2") {
                         $updatemonth = OvertimeMonth::find($updateclaim->month_id);
                         $time = ($updateclaim->total_hour*60)+$updateclaim->total_minute;
-                        if($time >= 420){
-                            $time = $time - 420;
+                        if($time >= $working_minutes){
+                            $time = $time - $working_minutes;
                         }
                         $totaltime = (($updatemonth->total_hour*60)+$updatemonth->total_minute) - $time;
                         $updatemonth->total_hour = (int)($totaltime/60);
