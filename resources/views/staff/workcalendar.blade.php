@@ -129,7 +129,7 @@
             <td>
               {{-- 20200930 disable due tu mismatch description & time --}}
               {{-- <b>{{ $h['type'] }}</b><br /> --}}
-              <b>@if($h['dtype']=="N") Normal Day @elseif($h['dtype']=="O") Off Day @elseif($h['dtype']=="R") Rest Day @endif</b><br />
+              <b>@if($h['dtype']=="N") Normal Day<br /> @elseif($h['dtype']=="O") Off Day<br /> @elseif($h['dtype']=="R") Rest Day<br /> @endif</b>
               {{ $h['time'] }}</td>
             @endforeach
           </tr>
