@@ -125,8 +125,8 @@
               <div  id="baten_form">
                 <div class="row">
                   <div class="col-md-8 text-center">
-                    <button type="button" class="btn btn-sm btn-primary btn-outline" onclick="cancelEdit()">Cancel</button>
-                    <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                    <button type="button" style="display:none" class="btn btn-sm btn-primary btn-outline" onclick="cancelEdit()">Cancel</button>
+                    <button type="submit" style="display:none" class="btn btn-sm btn-primary">Submit</button>
                   </div>
                 </div>
               </div>
@@ -134,7 +134,7 @@
               <div id="baten_edit">
                 <div class="row" id="baten_edit">
                   <div class="col-md-8 text-center">
-                    <button type="button" class="btn btn-sm btn-primary btn-outline" onclick="showEditForm()">Edit</button>
+                    <button type="button" style="display:none" class="btn btn-sm btn-primary btn-outline" onclick="showEditForm()">Edit</button>
                   </div>
                 </div>
               </div>
