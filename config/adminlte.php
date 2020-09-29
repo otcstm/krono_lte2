@@ -285,6 +285,12 @@ return [
               'can' => '5-user-mngmt',
           ],
           [
+              'text' => 'admin_shift_group_pattern',
+              'route' => 'admin.shiftGroupPattern',
+              'icon' => '',
+              'can' => '5-user-mngmt',
+          ],
+          [
               'text' => 'admin_shift_planning',
               'route' => 'admin.shiftplanning',
               'icon' => '',
@@ -505,16 +511,16 @@ return [
       [
           'header' => 'INFO',
       ],
+      [//Holiday calendar
+        'text' => 'guideline_calendar',
+        'url'  => 'guide/calendar',
+        'icon' => 'fa fa-calendar',
+        'guide' => '',
+      ],
       [//GUIDELINE
           'text' => 'user_guide',
           'icon' => 'fas fa-info-circle',
           'submenu' => [
-            [
-              'text' => 'guideline_calendar',
-              'url'  => 'guide/calendar',
-              'icon' => '',
-              'guide' => '',
-            ],
             [
               'text' => 'guideline_system',
               'url'  => 'guide/system',

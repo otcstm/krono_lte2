@@ -135,8 +135,8 @@
                                         @php(++$nox)
                                         <tr>
                                             <td>{{++$nod}}</td>
-                                            <td>{{ date('Hi', strtotime($details->start_time)) }}</td>
-                                            <td>@if(date('Hi', strtotime($details->end_time))=="0000") 2400 @else {{ date('Hi', strtotime($details->end_time))  }} @endif</td>
+                                            <td>{{ date('d.m.Y (H:i)', strtotime($details->start_time)) }}</td>
+                                            <td>@if(date('d.m.Y (H:i)', strtotime($details->end_time))=="0000") 2400 @else {{ date('d.m.Y (H:i)', strtotime($details->end_time))  }} @endif</td>
                                             <td>{{ $details->hour }}h {{$details->minute}}m</td>
                                             <td>
                                                 @if($details->clock_in!="")

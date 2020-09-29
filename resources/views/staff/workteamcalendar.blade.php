@@ -113,7 +113,7 @@
   </div>
   <div class="panel-body p-3">
     <div class="table-responsive">
-      <table id="tbltwsc" class="table table-bordered table-condensed cell-border" style="white-space: nowrap;">
+      <table id="tbltwsc" class="table table-bordered table-condensed table-striped table-hover cell-border" style="white-space: nowrap;">
         <thead>
           <tr>
             @foreach($header as $h)
@@ -127,7 +127,8 @@
             <td>{{ $s['staffno'] }}</td>
             <td style="text-align: left !important;">{{ $s['name'] }}</td>
             @foreach($s['data'] as $h)
-            <td ><b>{{ $h['type'] }}</b><br />{{ $h['time'] }}</td>
+            <td><b>@if($h['dtype']=="N") Normal Day @elseif($h['dtype']=="O") Off Day @elseif($h['dtype']=="R") Rest Day @endif</b><br />
+              {{ $h['time'] }}</td>
             @endforeach
           </tr>
           @endforeach
