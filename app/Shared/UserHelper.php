@@ -57,7 +57,7 @@ class UserHelper {
         array_push($rv, [
           'dtype' => 'N/A',
           'type' => 'N/A',
-          'time' => '',
+          'time' => 'N/A',
           'bg' => 'pink',
           'dateWork' => ''
         ]);
