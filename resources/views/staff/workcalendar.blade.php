@@ -124,8 +124,13 @@
         </thead>
         <tbody>
           <tr>
+            
             @foreach($data as $h)
-            <td><b>{{ $h['type'] }}</b><br />{{ $h['time'] }}</td>
+            <td>
+              {{-- 20200930 disable due tu mismatch description & time --}}
+              {{-- <b>{{ $h['type'] }}</b><br /> --}}
+              <b>@if($h['dtype']=="N") Normal Day @elseif($h['dtype']=="O") Off Day @elseif($h['dtype']=="R") Rest Day @endif</b><br />
+              {{ $h['time'] }}</td>
             @endforeach
           </tr>
         </tbody>
