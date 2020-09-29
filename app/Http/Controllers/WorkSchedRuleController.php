@@ -296,7 +296,7 @@ class WorkSchedRuleController extends Controller
           'dtype' => 'N/A',
           'type' => 'N/A',
           'type_descr' => 'N/A',
-          'time' => ''
+          'time' => 'N/A'
         ]);
       }
     }
