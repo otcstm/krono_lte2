@@ -127,7 +127,7 @@
             <td>{{ $s['staffno'] }}</td>
             <td style="text-align: left !important;">{{ $s['name'] }}</td>
             @foreach($s['data'] as $h)
-            <td><b>@if($h['dtype']=="N") Normal Day @elseif($h['dtype']=="O") Off Day @elseif($h['dtype']=="R") Rest Day @endif</b><br />
+            <td><b>@if($h['dtype']=="N") Normal Day<br /> @elseif($h['dtype']=="O") Off Day<br /> @elseif($h['dtype']=="R") Rest Day<br /> @endif</b>
               {{ $h['time'] }}</td>
             @endforeach
           </tr>
