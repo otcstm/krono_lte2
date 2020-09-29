@@ -85,6 +85,8 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/staffidx', 'Admin\StaffController@idxStaff')->name('staff.idx');
   Route::post('/staffidx', 'Admin\StaffController@idxStaff')->name('staff.idx');
   Route::post('/staff/searchst', 'Admin\StaffController@cariStaff')->name('staff.cari');
+  
+  Route::get('/staff/search', 'Admin\StaffController@searchUser')->name('staff.find');
 
   //Listing of project
   Route::get('/admin/project', 'Admin\ProjectController@index')->name('project.list');
@@ -130,13 +132,18 @@ Route::group(['middleware' => ['auth']], function () {
   //view all shift group
   Route::get('/admin/shiftgroup', 'ShiftGroupController@showall')->name('admin.shiftgroup');
   Route::post('/admin/shiftgroup', 'ShiftGroupController@showall')->name('admin.shiftgroup');
-  //Route::get('/admin/shiftgroup', 'ShiftGroupController@showall')->name('admin.shiftgroup');
-  Route::get('/admin/dwallsg', 'ShiftGroupController@downloadAllSg')->name('admin.downloadAllSp');
+  Route::get('/admin/dwallsg', 'ShiftGroupController@downloadAllSg')->name('admin.downloadAllSg');
 
+  //View all shift planning
   Route::get('/admin/shiftplanning', 'ShiftPlanController@showall')->name('admin.shiftplanning');
   Route::post('/admin/shiftplanning', 'ShiftPlanController@showall')->name('admin.shiftplanning');
-  //Route::get('/admin/shiftplanning', 'ShiftPlanController@showall')->name('admin.shiftplanning');
   Route::get('/admin/dwallsp', 'ShiftPlanController@downloadAllSp')->name('admin.downloadAllSp');
+
+  //View all shift pattern assigned to shift group
+  Route::get('/admin/shiftgrouppattern', 'Admin\ShiftPatternController@showall')->name('admin.shiftGroupPattern');
+  Route::post('/admin/shiftgrouppattern', 'Admin\ShiftPatternController@showall')->name('admin.shiftGroupPattern');
+  Route::get('/admin/dwallsgp', 'Admin\ShiftPatternController@downloadAllSgp')->name('admin.downloadAllSgp');
+  
   
   //OT activity - User
   Route::get('/overtime', 'OvertimeController@list')->name('ot.list');
