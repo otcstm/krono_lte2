@@ -158,9 +158,11 @@ class OtSaRepController extends Controller
 
 
     }else {
+
+
       ReportOT::dispatch($req->fdate,$req->tdate,$req->fapprover_id,
       $req->fverifier_id,$req->frefno,$persno,$req->fcompany,$req->fstate,
-      $req->fregion,$req->cbcol,$req->searching,$req->fstatus);
+      $req->fregion,$req->cbcol,$req->searching,$req->fstatus,$req->user()->id);
 
         if($req->searching == 'gexcelm'){
           return redirect(route('rep.sa.OT', [], false))->with([

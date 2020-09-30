@@ -54,12 +54,12 @@ class URHelper
             $u->id = $persno;
         };
 
-        $excomp = Company::find($comp); 
+        $excomp = Company::find($comp);
         if($excomp){      }
 
         else{
         $company_var = new Company;
-        
+
         $company_var->company_descr = '';
         $company_var->source  = 'OT';
         $company_var->save();
@@ -149,7 +149,7 @@ class URHelper
           // dd($reg);
           if(!$reg){
             $reg = new Psubarea();
-    
+
           }
           $ur->region = $reg->region;
         }
@@ -205,9 +205,9 @@ class URHelper
       // public static function getUserEligibity( $comp, $region, $date)
       {
         $staffr = URHelper::getUserRecordByDate($id, $date);
-        // dd($staffr); 
+        // dd($staffr);
         $eligibity = OvertimeEligibility::where('company_id', $staffr->company_id)->where('empgroup', $staffr->empgroup)->where('empsgroup', $staffr->empsgroup)->where('psgroup', $staffr->psgroup)->where('region', $staffr->region)->where('start_date','<=', $date)->where('end_date','>', $date)->first();
-                           
+
         // $eligibity = OvertimeEligibility::where('company_id',$comp)->where('region',$region)->where('start_date','<=', $date)->where('end_date','>', $date)->first();
         return $eligibity;
       }
@@ -298,8 +298,15 @@ class URHelper
         }
         return $condition;
         // dd($email);
-        // return filter_var($email, FILTER_VALIDATE_EMAIL) 
+        // return filter_var($email, FILTER_VALIDATE_EMAIL)
         //     && preg_match('/@.+\./', $email);
+    }
+
+    public static function getDaytypeDesc( $dtcode)
+    {
+      $dtdesc = SetupCode::select('item3')->where('item2',$dtcode)->where('item1','day_type_code')->first();
+      return $dtdesc;
+
     }
 
 }

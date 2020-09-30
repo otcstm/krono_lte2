@@ -19,8 +19,7 @@
       <th>Company Code</th>
       <th>Reference Number</th>
       <th>OT Date</th>
-      <th>Start Time</th>
-      <th>End Time</th>
+
       @if($cbcolumn ?? '')
       @foreach($cbcolumn as $col)
       @if( $col == 'psarea')
@@ -35,18 +34,28 @@
       <th>Employee Group</th>
       @elseif( $col == 'empsubgrp')
       <th>Employee Subgroup</th>
-      @elseif( $col == 'salexp')
-      <th>Salary Exception</th>
+      {{--@elseif( $col == 'salexp')
+      <th>Salary Exception</th>--}}
       @elseif( $col == 'capsal')
-      <th>Capping Salary (RM)</th>
+      <th>Salary Capping for OT</th>
       @elseif( $col == 'empst')
       <th>Employment Status</th>
+      @elseif( $col == 'st')
+      <th>Start Time</th>
+      @elseif( $col == 'et')
+      <th>End Time</th>
       @elseif( $col == 'mflag')
       <th>Manual Flag</th>
       @elseif( $col == 'loc')
       <th>Location</th>
-      @elseif( $col == 'estamnt')
-      <th>Estimated Amount(RM)</th>
+      @elseif( $col == 'noh')
+      <th>Number of Hours</th>
+      @elseif( $col == 'nom')
+      <th>Number of Minutes</th>
+      @elseif( $col == 'jst')
+      <th>Justification</th>
+      {{--@elseif( $col == 'estamnt')
+      <th>Estimated Amount(RM)</th>--}}
       @elseif( $col == 'clmstatus')
       <th>Claim Status</th>
       @elseif( $col == 'chrtype')
@@ -65,12 +74,8 @@
       <th>Network Activity</th>
       @elseif( $col == 'ordnum')
       <th>Order Number</th>
-      @elseif( $col == 'noh')
-      <th>Number of Hours</th>
-      @elseif( $col == 'nom')
-      <th>Number of Minutes</th>
-      @elseif( $col == 'jst')
-      <th>Justification</th>
+      @elseif( $col == 'cascomp')
+      <th>Charging Company</th>
       @elseif( $col == 'appdate')
       <th>Application Date</th>
       @elseif( $col == 'verdate')
@@ -96,12 +101,16 @@
       <th>Queried Date</th>
       @elseif( $col == 'qrdby')
       <th>Queried By</th>
+      {{--
       @elseif( $col == 'pydate')
       <th>Payment Date</th>
       @elseif( $col == 'trnscd')
       <th>Transaction Code</th>
       @elseif( $col == 'dytype')
       <th>Day Type</th>
+      --}}
+      @elseif( $col == 'emptype')
+      <th>Employee Type</th>
       @endif
       @endforeach
       @endif
@@ -111,43 +120,45 @@
       @foreach($otrep as $otr)
       <tr>
         <td>{{ $otr->mainOT->user_id }}</td>
-        <td>{{ $otr->mainOT->URecord->name }}</td>
-        <td>{{ $otr->mainOT->URecord->new_ic }}</td>
-        <td>{{ $otr->mainOT->URecord->staffno }}</td>
+        <td>{{ $otr->mainOT->URecord2()->name }}</td>
+        <td>{{ $otr->mainOT->URecord2()->new_ic }}</td>
+        <td>{{ $otr->mainOT->URecord2()->staffno }}</td>
         <td>{{ $otr->mainOT->company_id }}</td>
         <td>{{ $otr->mainOT->refno }}</td>
         <td>{{ date('d-m-Y', strtotime($otr->mainOT->date)) }}</td>
-        <td>{{ date('H:i:s', strtotime($otr->start_time)) }}</td>
-        <td>{{ date('H:i:s', strtotime($otr->end_time)) }}</td>
+
         @if($cbcolumn ?? '')
         @foreach($cbcolumn as $col)
           @if( $col == 'psarea')
-          <td>{{ $otr->mainOT->URecord->persarea ?? 'N/A' }}</td>
+          <td>{{ $otr->mainOT->persarea ?? 'N/A' }}</td>
           @elseif( $col == 'psbarea')
-          <td>{{ $otr->mainOT->URecord->perssubarea ?? 'N/A' }}</td>
+          <td>{{ $otr->mainOT->perssubarea ?? 'N/A' }}</td>
           @elseif( $col == 'state')
           <td>{{ $otr->mainOT->state_id ?? 'N/A'}}</td>
           @elseif( $col == 'region')
           <td>{{ $otr->mainOT->region ?? 'N/A'}}</td>
           @elseif( $col == 'empgrp')
-          <td>{{ $otr->mainOT->URecord->empgroup ?? 'N/A'}}</td>
+          <td>{{ $otr->mainOT->URecord2()->empgroup ?? 'N/A'}}</td>
           @elseif( $col == 'empsubgrp')
-          <td>{{ $otr->mainOT->URecord->empsgroup ?? 'N/A'}}</td>
-            @elseif( $col == 'salexp')
+          <td>{{ $otr->mainOT->URecord2()->empsgroup ?? 'N/A'}}</td>
+          {{--  @elseif( $col == 'salexp')
           <td>
           @if( $otr->mainOT->sal_exception == 'Y')
           Yes
           @else
           No
           @endif
-          </td>
+          </td>--}}
           @elseif( $col == 'capsal')
           <td>
-          @if( $otr->mainOT->sal_exception == 'Y')
+          {{ $otr->mainOT->salary_exception ?? 'N/A'}}
+
+          {{--@if( $otr->mainOT->salary_exception == 'Y')
           N/A
           @else
           {{ $otr->mainOT->SalCap()->salary_cap ?? 'Overtime Eligibility Error' }}
-          @endif
+          @endif--}}
+
           </td>
           @elseif( $col == 'empst')
           <td>
@@ -162,16 +173,25 @@
             @else
             {{ $otr->mainOT->URecord->empstat ?? 'N/A'}}
             @endif -->
-            {{ $otr->mainOT->URecord->empstats ?? 'N/A'}}
+            {{ $otr->mainOT->URecord2()->empstats ?? 'N/A'}}
 
           </td>
-
+          @elseif( $col == 'st')
+          <td>{{ date('H:i:s', strtotime($otr->start_time)) }}</td>
+          @elseif( $col == 'et')
+          <td>{{ date('H:i:s', strtotime($otr->end_time)) }}</td>
           @elseif( $col == 'mflag')
           <td>{{ $otr->is_manual }}</td>
           @elseif( $col == 'loc')
           <td>({{ $otr->in_latitude }}, {{ $otr->in_longitude }})</td>
-          @elseif( $col == 'estamnt')
-          <td>{{ $otr->amount ?? 'N/A'}}</td>
+          @elseif( $col == 'noh')
+          <td>{{ $otr->hour }}</td>
+          @elseif( $col == 'nom')
+          <td>{{ $otr->minute }}</td>
+          @elseif( $col == 'jst')
+          <td>{{ $otr->justification ?? 'N/A'}}</td>
+          {{--@elseif( $col == 'estamnt')
+          <td>{{ $otr->amount ?? 'N/A'}}</td>--}}
           @elseif( $col == 'clmstatus')
           <td>{{ $otr->mainOT->OTStatus()->item3 ?? $otr->mainOT->status }}</td>
           @elseif( $col == 'chrtype')
@@ -190,12 +210,8 @@
           <td>{{ $otr->mainOT->network_act_no ?? 'N/A'}}</td>
           @elseif( $col == 'ordnum')
           <td>{{ $otr->mainOT->order_no ?? 'N/A'}}</td>
-          @elseif( $col == 'noh')
-          <td>{{ $otr->hour }}</td>
-          @elseif( $col == 'nom')
-          <td>{{ $otr->minute }}</td>
-          @elseif( $col == 'jst')
-          <td>{{ $otr->justification ?? 'N/A'}}</td>
+          @elseif( $col == 'cascomp')
+          <td>{{ $otr->mainOT->company_id ?? 'N/A'}}</td>
           @elseif( $col == 'appdate')
           <td>
           @if( $otr->mainOT->submitted_date == '')
@@ -244,7 +260,8 @@
           </td>
           @elseif( $col == 'qrdby')
           <td>{{ $otr->mainOT->querier_id ?? 'N/A'}}</td>
-          @elseif( $col == 'pydate')
+          {{--
+            @elseif( $col == 'pydate')
           <td>
           @if( $otr->mainOT->payment_date == '')
           N/A
@@ -257,6 +274,9 @@
           @elseif( $col == 'dytype')
           <!-- <td>{{ $otr->mainOT->daytype->description ?? $otr->mainOT->daytype_id}}</td> -->
           <td>{{ $otr->mainOT->daytype->code ?? $otr->mainOT->daytype_id}}</td>
+          --}}
+          @elseif( $col == 'emptype')
+          <td>{{ $otr->mainOT->employee_type ?? 'N/A'}}</td>
           @endif
         @endforeach
         @endif
