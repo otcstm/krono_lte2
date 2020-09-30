@@ -637,7 +637,9 @@
                                             </div>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-select" style="position: relative; z-index: 8;" id="orderno" name="orderno" placeholder="@if($claim->charge_type=="Project") Search project no" @if($claim->project_no!=null) value="{{$claim->project_no}}"@endif @else Search order no" @if($claim->order_no!=null) value="{{$claim->order_no}}" @endif @endif @if(in_array($claim->charge_type, $array = array("Project", "Internal Order", "Maintenance Order"))) required @endif data-readonly >
-                                                <i id="ordernosearch" style="position: relative; z-index: 9; margin-left: -25px" class="fas fa-search"></i>
+                                                <i style="position: relative; z-index: 9; margin-left: -25px" class="fas fa-search"></i>
+                                                <div id="ordernosearch"  class="form-select" style="position: absolute; z-index: 10; height: 25px; top: 0px; min-width: calc(40% - 10px);"></div>
+                                                
                                                 <!-- <div class="aaaa" style="position: fixed;   z-index: 9999; width: 100%; border: red;">a</div> -->
                                                 {{-- <!-- <select class="form-select" name="orderno" id="orderno" required 
                                                 @if($claim->charge_type=="Project") 
@@ -1921,16 +1923,9 @@
         $("#formtype").val("save");
         $("#form").submit();
         return saves();
-    });    
-    // $("#orderno").change(function(){
-    //     $("#formtype").val("save");
-    //     $("#form").submit();
-    // });    
+    });       
     $("#ordernosearch").on('click', function(){
-        // alert("x"+$("#orderno").val());
         search($("#orderno").val());
-        // $("#formtype").val("save");
-        // $("#form").submit();
     });    
     var htmlstring;
     var searchtml;
@@ -1956,10 +1951,10 @@
                         "<button type='button' id='namex' onclick='return cleart()' class='approval-search-x btn-no'>"+
                             "<i class='far fa-times-circle'></i>"+
                         "</button>"+
-                        "<button type='button' id='namex' onclick=\"if(($('#namet').val().length)>3){ if($('#namet').val()==''){ $('#checker').css('display','block'); }else{ return search($('#namet').val())}}else{ $('#namex').css('visibility','hidden'); $('#3more').css('display','block'); $('#margin').css('margin-left','0');}\" class='approval-search-icon btn-no'>"+
+                        "<button type='button' id='namex' onclick=\"if(($('#namet').val().length)>1){ if($('#namet').val()==''){ $('#checker').css('display','block'); }else{ return search($('#namet').val())}}else{ $('#namex').css('visibility','hidden'); $('#3more').css('display','block'); $('#margin').css('margin-left','0');}\" class='approval-search-icon btn-no'>"+
                             "<i class='fas fa-search'></i>"+
                         "</button>"+
-                        "<p id='3more' style=' margin-top: -15px; color: #F00000; display: none'>Search input must be more than 3 alphabets!</p>"+
+                        "<p id='3more' style=' margin-top: -15px; color: #F00000; display: none'>Search input must be more than 2 alphabets!</p>"+
                         "<p id='checker' style=' margin-top: -15px; color: #F00000; display: none'>Please fill in"+
                         @if($claim ?? '')
                             @if($claim->charge_type=="Project")
@@ -2032,7 +2027,7 @@
                                     $('#sel').css('display','block');
                                 }
                             }else{
-                                if(($('#namet').val().length)>3){
+                                if(($('#namet').val().length)>1){
                                     if($('#namet').val()==''){ 
                                         $('#checker').css('display','block');
                                         return false;
@@ -2080,7 +2075,7 @@
                 showCancelButton: true,
                 cancelButtonText: 'CANCEL',
                 preConfirm: function() {
-                    if(($('#namet').val().length)>3){
+                    if(($('#namet').val().length)>1){
                         if($('#namet').val()==''){ 
                             $('#checker').css('display','block');
                             return false;
@@ -2164,7 +2159,7 @@
 
     function checkstring(){
         $('#checker').css('display', 'none');
-        if(($('#namet').val().length)>3){
+        if(($('#namet').val().length)>1){
             $('#namex').css('visibility', 'visible');
             $('#3more').css('display', 'none');
             $('#margin').css('margin-left', '-20px');
