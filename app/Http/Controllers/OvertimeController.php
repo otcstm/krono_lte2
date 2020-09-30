@@ -1139,7 +1139,7 @@ class OvertimeController extends Controller
                     if ($req->chargetype == "Internal Order") {
                         $data=InternalOrder::where('id', $req->orderno)->first();
                         if ($data!=null) {
-                            $updateclaim->project_type = $data->type;
+                            $updateclaim->project_type = $data->order_type;
                             if ($req->approvern!=null) {
 
                                 //check if ot is more than 3 months from system date
@@ -1173,7 +1173,7 @@ class OvertimeController extends Controller
                     } else {
                         $data=MaintenanceOrder::where('id', $req->orderno)->first();
                         if ($data!=null) {
-                            $updateclaim->project_type = $data->order_type;
+                            $updateclaim->project_type = $data->type;
                             if ($data->approver_id!="") {
 
                                 //check if ot is more than 3 months from system date
