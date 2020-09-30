@@ -245,6 +245,14 @@ class OvertimeController extends Controller
         Session::put(['draft' => [], 'claim' => $claim]);
         Session::put(['back' => $req->type]);
         return view('staff.otdetail', ['claim' => $req->session()->get('claim')]);
+    }//--------------------------------------------------show overtime form when click view--------------------------------------------------
+    public function detailview(Request $req)
+    {   
+        $claim = Overtime::where('id', $req->detailid)->first();
+        //dd($req, $claim);
+        Session::put(['draft' => [], 'claim' => $claim]);
+        Session::put(['back' => $req->type]);
+        return view('staff.otdetailview', ['claim' => $claim]);
     }
 
     //--------------------------------------------------delete overtime claim--------------------------------------------------
@@ -1656,6 +1664,8 @@ class OvertimeController extends Controller
         ->where(function ($q) {
             $q->where('status', 'PV')->orWhere('status', 'PA');
         })
+        ->orderBy('submitted_date','asc')
+        ->orderBy('date','asc')
         ->get();
         $view = "approver";
         return view('staff.otquery', ['otlist' => $otlist, 'view' => $view]);
