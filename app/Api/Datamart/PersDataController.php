@@ -87,7 +87,7 @@ class PersDataController extends Controller
         # id, name, email, remember_token, staff_no,
         #persno, new_ic, company_id, orgunit, persarea, perssubarea, state_id, empsgroup, empgroup, reptto, empstats, created_at, updated_at
         
-        if ( $u->upd_sap > $upd_sap ) {
+        if ( $u->upd_sap <= $upd_sap ) {
         
         $u->name        = $name;
         $u->email       = $email;

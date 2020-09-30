@@ -33,7 +33,7 @@ Route::get('/todo/list', 'ToDoController@show')->name('todo.list');
 Route::get('/todo/notify', 'ToDoController@notifyTodo')->name('todo.notify');
 
 // Route::get('/', 'MiscController@index')->name('misc.index');
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth','noie']], function () {
   Route::get('/home', 'MiscController@home')->name('misc.home');
   Route::get('/role', 'Admin\RoleController@index')->name('role.index');
   Route::get('/readnotify', 'NotiMenuController@read')->name('notify.read');
