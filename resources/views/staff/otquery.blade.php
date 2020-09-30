@@ -81,7 +81,7 @@
             <input type="text" class="hidden" name="typef" value="admin" required>
             @endif
             <div class="table-responsive">
-                <table id="tOTList" class="table table-bordered">
+                <table id="tOTList" class="table table-bordered table-striped table-hover">
                     <thead style="background: grey">
                         <tr>
                             <th>No</th>
@@ -117,7 +117,13 @@
                             <input type="text" class="form-control hidden" name="inputrem[]" value="">
                             <td>{{++$no}}</td>
                             <td>{{ $singleuser->name->name }}</td>
-                            <td><a href="" id="a-{{$no}}" style="font-weight: bold; color: #143A8C" data-id="{{$singleuser->id}}">{{ date("d.m.Y", strtotime($singleuser->date)) }} ({{$singleuser->employee_type}})</a></td>
+                            <td>
+                                <span style="display: none">{{ date("Ymd", strtotime($singleuser->date)) }}</span>
+                                {{-- <a href="" id="a-{{$no}}" style="font-weight: bold; color: #143A8C" data-id="{{$singleuser->id}}">{{ date("d.m.Y", strtotime($singleuser->date)) }} ({{$singleuser->employee_type}})</a> --}}
+                                <a href="" style="font-weight: bold; color: #143A8C" data-id="{{$singleuser->id}}"
+                                data-toggle="modal" data-target="#otDetailView" onclick="viewDetailOT({{$singleuser->id}})">{{ date("d.m.Y", strtotime($singleuser->date)) }} ({{$singleuser->employee_type}})</a>
+                                
+                            </td>
                             <td>@if($singleuser->daytype->day_type == "N")
                                     Normal Day
                                 @elseif($singleuser->daytype->day_type == "PH")
@@ -175,6 +181,9 @@
                                 </td>
                                 @endif
                             <td class="border-right" id="borderman-{{$no}}">
+                                <a href="#" id="btnOtDetailView" style="margin-bottom: 2px" data-toggle="modal" data-target="#otDetailView" 
+                                data-keyboard="false" class="btn btn-default buttons-csv buttons-html5 btn-xs" onclick="viewDetailOT({{$singleuser->id}})">
+                                <i class="glyphicon glyphicon-search"></i> View Detail</a>
                                 <input type="text" class="hidden"  id="verifier-cache-{{$no}}" value="{{$singleuser->verifier_id}}">
                                 <input type="text" class="hidden"  id="approver-cache-{{$no}}" value="{{$singleuser->approver_id}}">
                                 <input type="text" class="hidden"  id="verifier-{{$no}}" name="verifier[]" value="{{$singleuser->verifier_id}}">
@@ -271,6 +280,26 @@
     <input type="text" class="hidden" name="type" value="approverrept" required>
     @endif
 </form>
+
+<!-- Modal -->
+<div id="otDetailView" class="modal fade" role="dialog">
+    <!-- Modal dialog-->
+    <div class="modal-dialog modal-lg">  
+      <!-- Modal content-->
+      <div class="modal-content">          
+        <!-- Modal header-->
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">View OT Detail</h4>
+        </div><!-- Modal header-->       
+        <!-- Modal body-->
+        <div id="modal-body-ot" class="modal-body">
+
+        </div><!-- Modal body-->
+      </div><!-- Modal content-->
+    </div><!-- Modal dialog-->
+</div><!-- Modal -->
+            
 @stop
 
 @section('js')
@@ -292,6 +321,19 @@
     $("#search-date-1").attr("max", y+"-"+m+"-"+d);
     $("#search-date-2").attr("max", y+"-"+m+"-"+d);
     
+    // $("#btnOtDetailView").click(function(otid){
+    //         $("#modal-body").load("{{ route('ot.detail',['detailid'=>'".otid."'],false) }}");
+    // });
+    
+    function viewDetailOT(otid){
+        $("#modal-body-ot").load("/overtime/detail/view?detailid="+otid, function(responseTxt, statusTxt, xhr){
+            if(statusTxt == "success")
+            //alert("External content loaded successfully!");
+            if(statusTxt == "error")
+            alert("Error: " + xhr.status + ": " + xhr.statusText);
+        });
+    };
+    
     $(document).ready(function() {
 
         // var inputact = [];
@@ -305,9 +347,10 @@
         var tot = $('#tOTList').DataTable({
             "responsive": "true",
             // "order" : [[1, "asc"]],
-            "searching": false,
-            "bSort": false,
-            dom: '<"flext"lB>rtip',
+            "searching": true,
+            "bSort": true,
+            //dom: '<"flext"lB>rtip',
+            dom: '<"flext"lf><"flext"iB>rtip',
             buttons: [
                 'csv', 'excel', 'pdf'
             ]

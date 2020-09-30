@@ -161,7 +161,8 @@ Route::group(['middleware' => ['auth','noie']], function () {
   Route::get('/overtime/form/getthumbnail', 'OvertimeController@getthumbnail')->name('ot.thumbnail');
   Route::get('/overtime/form/getfile', 'OvertimeController@getfile')->name('ot.file');
   Route::get('/overtime/form/search', 'OvertimeController@searchorder')->name('ot.searchod');
-
+  Route::get('/overtime/detail/view', 'OvertimeController@detailview')->name('ot.detailview');
+  
   //OT activity - Verifier
   Route::get('/overtime/verify', 'OvertimeController@verify')->name('ot.verify');
   Route::post('/overtime/verify', 'OvertimeController@verify')->name('ot.verify');
