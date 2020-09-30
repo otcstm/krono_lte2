@@ -54,7 +54,7 @@
   </a>
   </div>
   {{-- 0-{{$usrWorkSche}} --}}
-  @if(isset($usrWorkSche) && $usrWorkSche == 1)
+  {{-- @if(isset($usrWorkSche) && $usrWorkSche == 1)
   <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
   <a href="{{route('staff.worksched', ['page' => 'reqs'])}}">
     <div class="box box-solid box-primary">
@@ -71,7 +71,7 @@
     </div>
   </a>
   </div>
-  @endif
+  @endif --}}
 </div>
 
 <div class="panel panel-primary">
