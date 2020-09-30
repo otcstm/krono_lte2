@@ -33,10 +33,10 @@
       <th>Employee Group</th>
       @elseif( $col == 'empsubgrp')
       <th>Employee Subgroup</th>
-      @elseif( $col == 'salexp')
-      <th>Salary Exception</th>
+      {{-- @elseif( $col == 'salexp')
+      <th>Salary Exception</th>--}}
       @elseif( $col == 'capsal')
-      <th>Capping Salary (RM)</th>
+      <th>Salary Capping for OT</th>
       @elseif( $col == 'empst')
       <th>Employment Status</th>
       @elseif( $col == 'tthour')
@@ -44,7 +44,7 @@
       @elseif( $col == 'ttlmin')
       <th>Total Minutes</th>
       @elseif( $col == 'estamnt')
-      <th>Total Estimated Amount</th>
+      <th>Estimated Amount</th>
       @elseif( $col == 'clmstatus')
       <th>Claim Status</th>
       @elseif( $col == 'chrtype')
@@ -63,6 +63,8 @@
       <th>Network Activity</th>
       @elseif( $col == 'ordnum')
       <th>Order Number</th>
+      @elseif( $col == 'cascomp')
+      <th>Charging Company</th>
       @elseif( $col == 'appdate')
       <th>Application Date</th>
       @elseif( $col == 'verdate')
@@ -87,10 +89,20 @@
       <th>Queried By</th>
       @elseif( $col == 'pydate')
       <th>Payment Date</th>
-      @elseif( $col == 'trnscd')
-      <th>Transaction Code</th>
+      {{--@elseif( $col == 'trnscd')
+      <th>Transaction Code</th>--}}
       @elseif( $col == 'dytype')
       <th>Day Type</th>
+      @elseif( $col == 'eligday')
+      <th>Elig Day</th>
+      @elseif( $col == 'eligdaycode')
+      <th>Elig Day Code</th>
+      @elseif( $col == 'elighm')
+      <th>Elig Total Min/Hours</th>
+      @elseif( $col == 'elighmcode')
+      <th>Elig Total Min/Hours Code</th>
+      @elseif( $col == 'emptype')
+      <th>Employee Type</th>
       @endif
       @endforeach
       @endif
@@ -101,9 +113,9 @@
       @foreach($otrep as $otr)
       <tr>
         <td>{{ $otr->user_id }}</td>
-        <td>{{ $otr->URecord->name }}</td>
-        <td>{{ $otr->URecord->new_ic }}</td>
-        <td>{{ $otr->URecord->staffno }}</td>
+        <td>{{ $otr->URecord2()->name }}</td>
+        <td>{{ $otr->URecord2()->new_ic }}</td>
+        <td>{{ $otr->URecord2()->staff_no }}</td>
         <td>{{ $otr->company_id }}</td>
         <td>{{ $otr->refno }}</td>
         <td>{{ date('d-m-Y', strtotime($otr->date)) }}</td>
@@ -111,32 +123,28 @@
         @foreach($cbcolumn as $col)
 
           @if( $col == 'psarea')
-          <td>{{ $otr->URecord->persarea ?? 'N/A' }}</td>
+          <td>{{ $otr->persarea ?? 'N/A' }}</td>
           @elseif( $col == 'psbarea')
-          <td>{{ $otr->URecord->perssubarea ?? 'N/A' }}</td>
+          <td>{{ $otr->perssubarea ?? 'N/A' }}</td>
           @elseif( $col == 'state')
           <td>{{ $otr->state_id ?? 'N/A' }}</td>
           @elseif( $col == 'region')
           <td>{{ $otr->region ?? 'N/A' }}</td>
           @elseif( $col == 'empgrp')
-          <td>{{ $otr->URecord->empgroup ?? 'N/A' }}</td>
+          <td>{{ $otr->URecord2()->empgroup ?? 'N/A' }}</td>
           @elseif( $col == 'empsubgrp')
-          <td>{{ $otr->URecord->empsgroup ?? 'N/A' }}</td>
-          @elseif( $col == 'salexp')
+          <td>{{ $otr->URecord2()->empsgroup ?? 'N/A' }}</td>
+          {{--@elseif( $col == 'salexp')
           <td>
             @if( $otr->sal_exception == 'Y')
             Yes
             @else
             No
             @endif
-          </td>
+          </td>--}}
           @elseif( $col == 'capsal')
           <td>
-          @if( $otr->sal_exception == 'Y')
-          N/A
-          @else
-          {{ $otr->SalCap()->salary_cap ?? 'Overtime Eligibility Error'}}
-          @endif
+          {{ $otr->salary_exception ?? 'N/A'}}
           </td>
           @elseif( $col == 'empst')
           <td>
@@ -151,8 +159,7 @@
             @else
             {{ $otr->URecord->empstats ?? 'N/A'}}
             @endif -->
-            {{ $otr->URecord->empstats ?? 'N/A'}}
-
+            {{ $otr->URecord2()->empstats ?? 'N/A'}}
           </td>
           @elseif( $col == 'tthour')
           <td>{{ $otr->total_hour }}</td>
@@ -178,6 +185,8 @@
           <td>{{ $otr->network_act_no ?? 'N/A'}}</td>
           @elseif( $col == 'ordnum')
           <td>{{ $otr->order_no ?? 'N/A'}}</td>
+          @elseif( $col == 'cascomp')
+          <td>{{ $otr->company_id ?? 'N/A'}}</td>
           @elseif( $col == 'appdate')
           <td>
             @if( $otr->submitted_date == '')
@@ -196,6 +205,7 @@
           </td>
           @elseif( $col == 'verid')
           <td>{{ $otr->verifier_id ?? 'N/A'}}</td>
+
           @elseif( $col == 'vername')
           <td>{{ $otr->verifier->name ?? 'N/A'}}</td>
           @elseif( $col == 'vercocd')
@@ -233,11 +243,22 @@
           {{ date('d-m-Y', strtotime($otr->payment_date)) }}
           @endif
           </td>
-           @elseif( $col == 'trnscd')
-          <td>{{ $otr->legacy_code ?? 'N/A'}}</td>
+           {{--@elseif( $col == 'trnscd')
+          <td>{{ $otr->legacy_code ?? 'N/A'}}</td>--}}
             @elseif( $col == 'dytype')
-          <!-- <td>{{ $otr->daytype->description ?? $otr->daytype_id}}</td> -->
-          <td>{{ $otr->daytype->code ?? $otr->daytype_id}}</td>
+          {{-- <td>{{ $otr->daytype->description ?? $otr->daytype_id}}</td> --}}
+          <td>{{ $otr->DaytypeDesc()->item3 ?? $otr->day_type_code}}</td>
+
+          @elseif( $col == 'eligday')
+          <td>{{ $otr->eligible_day ?? 'N/A'}}</td>
+          @elseif( $col == 'eligdaycode')
+          <td>{{ $otr->eligible_day_code ?? 'N/A'}}</td>
+          @elseif( $col == 'elighm')
+          <td>{{ $otr->eligible_total_hours_minutes ?? 'N/A'}}</td>
+          @elseif( $col == 'elighmcode')
+          <td>{{ $otr->eligible_total_hours_minutes_code ?? 'N/A'}}</td>
+          @elseif( $col == 'emptype')
+          <td>{{ $otr->employee_type ?? 'N/A'}}</td>
 
         @endif
         @endforeach

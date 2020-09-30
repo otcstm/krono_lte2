@@ -598,9 +598,9 @@ class OtReport2Controller extends Controller
         $statuss = $req->fstatus;
         if($statuss == 'All'){
         }elseif($statuss == 'Submitted'){
-          $otr = $otr->whereIn('status',[Q1,Q2,PA,PV,A, Assign,IP,PAID ]);
+          $otr = $otr->whereIn('status',['Q1','Q2','PA','PV','A', 'Assign','IP','PAID' ]);
         }elseif($statuss == 'Draft'){
-          $otr = $otr->whereIn('status',[D1,D2]);
+          $otr = $otr->whereIn('status',['D1','D2']);
         }
       }
       // $otr = $otr->where('status','not like',"%D%")->get();
@@ -625,178 +625,332 @@ class OtReport2Controller extends Controller
       $fname = $fn.'_'.$fdt->format('Ymd').'to'
       .$tdt->format('Ymd'). '.xlsx';
 
-      if($req->searching == 'exceld'){
-        $headers = ['Personnel Number','Employee Name','IC Number','Staff ID',
-        'Company Code','Reference Number','OT Date','Start Time','End Time'];
-      }else {
+
+      //header
+      if($req->searching == 'excelm'){
         $headers = ['Personnel Number','Employee Name','IC Number','Staff ID',
         'Company Code','Reference Number','OT Date'];
-      }
-      //header
-      if(isset($pilihcol)){
-        if(in_array('psarea',$pilihcol ))
-          {
-            array_push($headers, 'Personnel Area');
-          }
-          if(in_array( 'psbarea',$pilihcol))
-          {
-            array_push($headers, 'Personnel Subarea');
-          }
-          if(in_array( 'state',$pilihcol))
-          {
-            array_push($headers, 'State');
-          }
-          if(in_array( 'region',$pilihcol))
-          {
-            array_push($headers, 'Region');
-          }
-          if(in_array( 'empgrp',$pilihcol))
-          {
-            array_push($headers, 'Employee Group');
-          }
-          if(in_array( 'empsubgrp',$pilihcol))
-          {
-            array_push($headers, 'Employee Subgroup');
-          }
-          if(in_array( 'salexp',$pilihcol))
-          {
-            array_push($headers, 'Salary Exception');
-          }
-          if(in_array( 'capsal',$pilihcol))
-          {
-            array_push($headers, 'Capping Salary (RM)');
-          }
-          if(in_array( 'empst',$pilihcol))
-          {
-            array_push($headers, 'Employment Status');
-          }
-          if(in_array( 'mflag',$pilihcol))
-          {
-            array_push($headers, 'Manual Flag');
-          }
-          if(in_array( 'loc',$pilihcol))
-          {
-            array_push($headers, 'Location');
-          }
-          if(in_array( 'tthour',$pilihcol))
-          {
-            array_push($headers, 'Total Hours');
-          }
-          if(in_array( 'ttlmin',$pilihcol))
-          {
-            array_push($headers, 'Total Minutes');
-          }
-          if(in_array( 'estamnt',$pilihcol))
-          {
-            array_push($headers, 'Estimated Amount');
-          }
-          if(in_array( 'clmstatus',$pilihcol))
-          {
-            array_push($headers, 'Claim Status');
-          }
-          if(in_array( 'chrtype',$pilihcol))
-          {
-            array_push($headers, 'Charge Type');
-          }
-          if(in_array( 'bodycc',$pilihcol))
-          {
-            array_push($headers, 'Body Cost Center');
-          }
-          if(in_array( 'othrcc',$pilihcol))
-          {
-            array_push($headers, 'Other Cost Center');
-          }
-          if(in_array( 'prtype',$pilihcol))
-          {
-            array_push($headers, 'Project Type');
-          }
-          if(in_array( 'pnumbr',$pilihcol))
-          {
-            array_push($headers, 'Project Number');
-          }
-          if(in_array( 'ntheadr',$pilihcol))
-          {
-            array_push($headers, 'Network Header');
-          }
-          if(in_array( 'ntact',$pilihcol))
-          {
-            array_push($headers, 'Network Activity');
-          }
-          if(in_array( 'ordnum',$pilihcol))
-          {
-            array_push($headers, 'Order Number');
-          }
-          if(in_array( 'noh',$pilihcol))
-          {
-            array_push($headers, 'Number of Hours');
-          }
-          if(in_array( 'nom',$pilihcol))
-          {
-            array_push($headers, 'Number of Minutes');
-          }
-          if(in_array( 'jst',$pilihcol))
-          {
-            array_push($headers, 'Justification');
-          }
-          if(in_array( 'appdate',$pilihcol))
-          {
-            array_push($headers, 'Application Date');
-          }
-          if(in_array( 'verdate',$pilihcol))
-          {
-            array_push($headers, 'Verification Date');
-          }
-          if(in_array( 'verid',$pilihcol))
-          {
-            array_push($headers, 'Verifier ID');
-          }
-          if(in_array( 'vername',$pilihcol))
-          {
-            array_push($headers, 'Verifier Name');
-          }
-          if(in_array( 'vercocd',$pilihcol))
-          {
-            array_push($headers, 'Verifier Cocd');
-          }
-          if(in_array( 'aprvdate',$pilihcol))
-          {
-            array_push($headers, 'Approval Date');
-          }
-          if(in_array( 'apprvrid',$pilihcol))
-          {
-            array_push($headers, 'Approver ID');
-          }
-          if(in_array( 'apprvrname',$pilihcol))
-          {
-            array_push($headers, 'Approver Name');
-          }
-          if(in_array( 'apprvrcocd',$pilihcol))
-          {
-            array_push($headers, 'Approver Cocd');
-          }
-          if(in_array( 'qrdate',$pilihcol))
-          {
-            array_push($headers, 'Queried Date');
-          }
-          if(in_array( 'qrdby',$pilihcol))
-          {
-            array_push($headers, 'Queried By');
-          }
-          if(in_array( 'pydate',$pilihcol))
-          {
-            array_push($headers, 'Payment Date');
-          }
-          if(in_array( 'trnscd',$pilihcol))
-          {
-            array_push($headers, 'Transaction Code');
-          }
-          if(in_array( 'dytype',$pilihcol))
-          {
-            array_push($headers, 'Day Type');
-          }
+
+        if(isset($pilihcol)){
+          if(in_array('psarea',$pilihcol ))
+            {
+              array_push($headers, 'Personnel Area');
+            }
+            if(in_array( 'psbarea',$pilihcol))
+            {
+              array_push($headers, 'Personnel Subarea');
+            }
+            if(in_array( 'state',$pilihcol))
+            {
+              array_push($headers, 'State');
+            }
+            if(in_array( 'region',$pilihcol))
+            {
+              array_push($headers, 'Region');
+            }
+            if(in_array( 'empgrp',$pilihcol))
+            {
+              array_push($headers, 'Employee Group');
+            }
+            if(in_array( 'empsubgrp',$pilihcol))
+            {
+              array_push($headers, 'Employee Subgroup');
+            }
+            if(in_array( 'capsal',$pilihcol))
+            {
+              array_push($headers, 'Salary Capping for OT');
+            }
+            if(in_array( 'empst',$pilihcol))
+            {
+              array_push($headers, 'Employment Status');
+            }
+
+            if(in_array( 'tthour',$pilihcol))
+            {
+              array_push($headers, 'Total Hours');
+            }
+            if(in_array( 'ttlmin',$pilihcol))
+            {
+              array_push($headers, 'Total Minutes');
+            }
+            if(in_array( 'estamnt',$pilihcol))
+            {
+              array_push($headers, 'Estimated Amount');
+            }
+            if(in_array( 'clmstatus',$pilihcol))
+            {
+              array_push($headers, 'Claim Status');
+            }
+            if(in_array( 'chrtype',$pilihcol))
+            {
+              array_push($headers, 'Charge Type');
+            }
+            if(in_array( 'bodycc',$pilihcol))
+            {
+              array_push($headers, 'Body Cost Center');
+            }
+            if(in_array( 'othrcc',$pilihcol))
+            {
+              array_push($headers, 'Other Cost Center');
+            }
+            if(in_array( 'prtype',$pilihcol))
+            {
+              array_push($headers, 'Project Type');
+            }
+            if(in_array( 'pnumbr',$pilihcol))
+            {
+              array_push($headers, 'Project Number');
+            }
+            if(in_array( 'ntheadr',$pilihcol))
+            {
+              array_push($headers, 'Network Header');
+            }
+            if(in_array( 'ntact',$pilihcol))
+            {
+              array_push($headers, 'Network Activity');
+            }
+            if(in_array( 'ordnum',$pilihcol))
+            {
+              array_push($headers, 'Order Number');
+            }
+            if(in_array( 'cascomp',$pilihcol))
+            {
+              array_push($headers, 'Charging Company');
+            }
+            if(in_array( 'appdate',$pilihcol))
+            {
+              array_push($headers, 'Application Date');
+            }
+            if(in_array( 'verdate',$pilihcol))
+            {
+              array_push($headers, 'Verification Date');
+            }
+            if(in_array( 'verid',$pilihcol))
+            {
+              array_push($headers, 'Verifier ID');
+            }
+            if(in_array( 'vername',$pilihcol))
+            {
+              array_push($headers, 'Verifier Name');
+            }
+            if(in_array( 'vercocd',$pilihcol))
+            {
+              array_push($headers, 'Verifier Cocd');
+            }
+            if(in_array( 'aprvdate',$pilihcol))
+            {
+              array_push($headers, 'Approval Date');
+            }
+            if(in_array( 'apprvrid',$pilihcol))
+            {
+              array_push($headers, 'Approver ID');
+            }
+            if(in_array( 'apprvrname',$pilihcol))
+            {
+              array_push($headers, 'Approver Name');
+            }
+            if(in_array( 'apprvrcocd',$pilihcol))
+            {
+              array_push($headers, 'Approver Cocd');
+            }
+            if(in_array( 'qrdate',$pilihcol))
+            {
+              array_push($headers, 'Queried Date');
+            }
+            if(in_array( 'qrdby',$pilihcol))
+            {
+              array_push($headers, 'Queried By');
+            }
+            if(in_array( 'pydate',$pilihcol))
+            {
+              array_push($headers, 'Payment Date');
+            }
+            if(in_array( 'dytype',$pilihcol))
+            {
+              array_push($headers, 'Day Type');
+            }
+            if(in_array( 'eligday',$pilihcol))
+            {
+              array_push($headers, 'Eligible Day');
+            }
+            if(in_array( 'eligdaycode',$pilihcol))
+            {
+              array_push($headers, 'Eligible Day Code');
+            }
+            if(in_array( 'elighm',$pilihcol))
+            {
+              array_push($headers, 'Eligible Total Minutes/Hours');
+            }
+            if(in_array( 'elighmcode',$pilihcol))
+            {
+              array_push($headers, 'Eligible Total Minutes/Hours Code');
+            }
+            if(in_array( 'emptype',$pilihcol))
+            {
+              array_push($headers, 'Employee Type');
+            }
+
+        }
+      }elseif ($req->searching == 'exceld'){
+        $headers = ['Personnel Number','Employee Name','IC Number','Staff ID',
+        'Company Code','Reference Number','OT Date'];
+
+        if(isset($pilihcol)){
+          if(in_array('psarea',$pilihcol ))
+            {
+              array_push($headers, 'Personnel Area');
+            }
+            if(in_array( 'psbarea',$pilihcol))
+            {
+              array_push($headers, 'Personnel Subarea');
+            }
+            if(in_array( 'state',$pilihcol))
+            {
+              array_push($headers, 'State');
+            }
+            if(in_array( 'region',$pilihcol))
+            {
+              array_push($headers, 'Region');
+            }
+            if(in_array( 'empgrp',$pilihcol))
+            {
+              array_push($headers, 'Employee Group');
+            }
+            if(in_array( 'empsubgrp',$pilihcol))
+            {
+              array_push($headers, 'Employee Subgroup');
+            }
+
+            if(in_array( 'capsal',$pilihcol))
+            {
+              array_push($headers, 'Salary Capping for OT');
+            }
+            if(in_array( 'empst',$pilihcol))
+            {
+              array_push($headers, 'Employment Status');
+            }
+            if(in_array( 'st',$pilihcol))
+            {
+              array_push($headers, 'Start Time');
+            }
+            if(in_array( 'et',$pilihcol))
+            {
+              array_push($headers, 'End Time');
+            }
+            if(in_array( 'mflag',$pilihcol))
+            {
+              array_push($headers, 'Manual Flag');
+            }
+            if(in_array( 'loc',$pilihcol))
+            {
+              array_push($headers, 'Location');
+            }
+            if(in_array( 'noh',$pilihcol))
+            {
+              array_push($headers, 'Number of Hours');
+            }
+            if(in_array( 'nom',$pilihcol))
+            {
+              array_push($headers, 'Number of Minutes');
+            }
+            if(in_array( 'jst',$pilihcol))
+            {
+              array_push($headers, 'Justification');
+            }
+
+            if(in_array( 'clmstatus',$pilihcol))
+            {
+              array_push($headers, 'Claim Status');
+            }
+            if(in_array( 'chrtype',$pilihcol))
+            {
+              array_push($headers, 'Charge Type');
+            }
+            if(in_array( 'bodycc',$pilihcol))
+            {
+              array_push($headers, 'Body Cost Center');
+            }
+            if(in_array( 'othrcc',$pilihcol))
+            {
+              array_push($headers, 'Other Cost Center');
+            }
+            if(in_array( 'prtype',$pilihcol))
+            {
+              array_push($headers, 'Project Type');
+            }
+            if(in_array( 'pnumbr',$pilihcol))
+            {
+              array_push($headers, 'Project Number');
+            }
+            if(in_array( 'ntheadr',$pilihcol))
+            {
+              array_push($headers, 'Network Header');
+            }
+            if(in_array( 'ntact',$pilihcol))
+            {
+              array_push($headers, 'Network Activity');
+            }
+            if(in_array( 'ordnum',$pilihcol))
+            {
+              array_push($headers, 'Order Number');
+            }
+            if(in_array( 'cascomp',$pilihcol))
+            {
+              array_push($headers, 'Charging Company');
+            }
+            if(in_array( 'appdate',$pilihcol))
+            {
+              array_push($headers, 'Application Date');
+            }
+            if(in_array( 'verdate',$pilihcol))
+            {
+              array_push($headers, 'Verification Date');
+            }
+            if(in_array( 'verid',$pilihcol))
+            {
+              array_push($headers, 'Verifier ID');
+            }
+            if(in_array( 'vername',$pilihcol))
+            {
+              array_push($headers, 'Verifier Name');
+            }
+            if(in_array( 'vercocd',$pilihcol))
+            {
+              array_push($headers, 'Verifier Cocd');
+            }
+            if(in_array( 'aprvdate',$pilihcol))
+            {
+              array_push($headers, 'Approval Date');
+            }
+            if(in_array( 'apprvrid',$pilihcol))
+            {
+              array_push($headers, 'Approver ID');
+            }
+            if(in_array( 'apprvrname',$pilihcol))
+            {
+              array_push($headers, 'Approver Name');
+            }
+            if(in_array( 'apprvrcocd',$pilihcol))
+            {
+              array_push($headers, 'Approver Cocd');
+            }
+            if(in_array( 'qrdate',$pilihcol))
+            {
+              array_push($headers, 'Queried Date');
+            }
+            if(in_array( 'qrdby',$pilihcol))
+            {
+              array_push($headers, 'Queried By');
+            }
+            if(in_array( 'emptype',$pilihcol))
+            {
+              array_push($headers, 'Employee Type');
+            }
 
 
+        }
       }
+
       // dd($headers);
       // Log::info('siap buat header');
       $otdata = [];
@@ -806,7 +960,7 @@ class OtReport2Controller extends Controller
     if($req->searching == 'excelm'){
       foreach($otr as $value){
 
-        $urekod = $value->URecord;
+        $urekod = $value->URecord2();
 
         $otdt = new Carbon($value->date);
         $otdt = $otdt->format('d.m.Y');
@@ -816,11 +970,11 @@ class OtReport2Controller extends Controller
         if(isset($pilihcol)){
           if(in_array('psarea',$pilihcol ))
           {
-            array_push($info, $urekod->persarea);
+            array_push($info, $value->persarea);
           }
           if(in_array( 'psbarea',$pilihcol))
           {
-            array_push($info, $urekod->perssubarea);
+            array_push($info, $value->perssubarea);
           }
           if(in_array( 'state',$pilihcol))
           {
@@ -838,29 +992,30 @@ class OtReport2Controller extends Controller
           {
             array_push($info, $urekod->empsgroup);
           }
-          if(in_array( 'salexp',$pilihcol))
-          {
-            if($value->sal_exception=='Y'){
-              // $value->ot_hour_exception='Yes';
-              $sal_exception='Yes';
-            }else{
-              // $value->ot_hour_exception='No';
-              $sal_exception='No';
-            }
-
-            array_push($info, $sal_exception);
-          }
+          // if(in_array( 'salexp',$pilihcol))
+          // {
+          //   if($value->sal_exception=='Y'){
+          //     // $value->ot_hour_exception='Yes';
+          //     $sal_exception='Yes';
+          //   }else{
+          //     // $value->ot_hour_exception='No';
+          //     $sal_exception='No';
+          //   }
+          //
+          //   array_push($info, $sal_exception);
+          // }
           if(in_array( 'capsal',$pilihcol))
           {
-            if($value->sal_exception=='Y'){
-              $salarycap='';
-            }else{
-              try {
-              $salarycap=$value->SalCap()->salary_cap;
-              } catch (\Exception $e) {
-                $salarycap='Overtime Eligibility Error';
-              }
-            }
+            // if($value->sal_exception=='Y'){
+            //   $salarycap='';
+            // }else{
+            //   try {
+            //   $salarycap=$value->SalCap()->salary_cap;
+            //   } catch (\Exception $e) {
+            //     $salarycap='Overtime Eligibility Error';
+            //   }
+            // }
+              $salarycap=$value->salary_exception;
 
             array_push($info, $salarycap);
           }
@@ -933,6 +1088,10 @@ class OtReport2Controller extends Controller
           {
             array_push($info, $value->order_no);
           }
+          if(in_array( 'cascomp',$pilihcol))
+          {
+            array_push($info, $value->company_id);
+          }
           if(in_array( 'appdate',$pilihcol))
           {
             $cdt = new Carbon($value->submitted_date);
@@ -997,6 +1156,7 @@ class OtReport2Controller extends Controller
           {
             array_push($info, $value->querier_id);
           }
+
           if(in_array( 'pydate',$pilihcol))
           {
             if( $value->payment_date == ''){
@@ -1007,19 +1167,45 @@ class OtReport2Controller extends Controller
 
             array_push($info, $payment_date);
           }
-          if(in_array( 'trnscd',$pilihcol))
-          {
-            array_push($info, $value->legacy_code);
-          }
+          // if(in_array( 'trnscd',$pilihcol))
+          // {
+          //   array_push($info, $value->legacy_code);
+          // }
           if(in_array( 'dytype',$pilihcol))
           {
+            // try {
+            //   // $dtype = $value->daytype->description;
+            //   $dtype = $value->daytype->code;
+            // } catch (\Exception $e) {
+            //   $dtype = $value->daytype_id;
+            // }
             try {
               // $dtype = $value->daytype->description;
-              $dtype = $value->daytype->code;
+              $dtype = $value->DaytypeDesc()->item3;
             } catch (\Exception $e) {
-              $dtype = $value->daytype_id;
+              $dtype = $value->day_type_code;
             }
             array_push($info, $dtype);
+          }
+          if(in_array( 'eligday',$pilihcol))
+          {
+            array_push($info, $value->eligible_day);
+          }
+          if(in_array( 'eligdaycode',$pilihcol))
+          {
+            array_push($info, $value->eligible_day_code);
+          }
+          if(in_array( 'elighm',$pilihcol))
+          {
+            array_push($info, $value->eligible_total_hours_minutes);
+          }
+          if(in_array( 'elighmcode',$pilihcol))
+          {
+            array_push($info, $value->eligible_total_hours_minutes_code);
+          }
+          if(in_array( 'emptype',$pilihcol))
+          {
+            array_push($info, $value->employee_type);
           }
 
         }
@@ -1034,7 +1220,7 @@ class OtReport2Controller extends Controller
     elseif($req->searching == 'exceld'){
       foreach($otdetail as $value){
 
-        $urekod = $value->mainOT->URecord;
+        $urekod = $value->mainOT->URecord2();
         $mainOT = $value->mainOT;
 
           $otdt = new Carbon($mainOT->date);
@@ -1045,16 +1231,16 @@ class OtReport2Controller extends Controller
           $et = $et->format('H:i:s');
 
 
-          $info = [$mainOT->user_id,$urekod->name,$urekod->new_ic,$urekod->staffno,$mainOT->company_id,$mainOT->refno,$otdt,$st,$et];
+          $info = [$mainOT->user_id,$urekod->name,$urekod->new_ic,$urekod->staffno,$mainOT->company_id,$mainOT->refno,$otdt];
           // dd($pilihcol);
           if(isset($pilihcol)){
           if(in_array('psarea',$pilihcol ))
             {
-              array_push($info, $urekod->persarea);
+              array_push($info, $mainOT->persarea);
             }
             if(in_array( 'psbarea',$pilihcol))
             {
-              array_push($info, $urekod->perssubarea);
+              array_push($info, $mainOT->perssubarea);
             }
             if(in_array( 'state',$pilihcol))
             {
@@ -1072,30 +1258,30 @@ class OtReport2Controller extends Controller
             {
               array_push($info, $urekod->empsgroup);
             }
-            if(in_array( 'salexp',$pilihcol))
-            {
-              if($mainOT->sal_exception=='Y'){
-                  // $mainOT->ot_hour_exception='Yes';
-                  $sal_exception='Yes';
-                }else{
-                  // $mainOT->ot_hour_exception='No';
-                  $sal_exception='No';
-                }
-
-              array_push($info, $sal_exception);
-            }
+            // if(in_array( 'salexp',$pilihcol))
+            // {
+            //   if($mainOT->sal_exception=='Y'){
+            //       // $mainOT->ot_hour_exception='Yes';
+            //       $sal_exception='Yes';
+            //     }else{
+            //       // $mainOT->ot_hour_exception='No';
+            //       $sal_exception='No';
+            //     }
+            //
+            //   array_push($info, $sal_exception);
+            // }
             if(in_array( 'capsal',$pilihcol))
             {
-              if($mainOT->sal_exception=='Y'){
-                  $salarycap='';
-                }else{
-                  try {
-                    $salarycap=$mainOT->SalCap()->salary_cap;
-                    } catch (\Exception $e) {
-                      $salarycap='Overtime Eligibility Error';
-                    }
-                }
-
+              // if($mainOT->sal_exception=='Y'){
+              //     $salarycap='';
+              //   }else{
+              //     try {
+              //       $salarycap=$mainOT->SalCap()->salary_cap;
+              //       } catch (\Exception $e) {
+              //         $salarycap='Overtime Eligibility Error';
+              //       }
+              //   }
+              $salarycap=$mainOT->salary_exception;
               array_push($info, $salarycap);
             }
             if(in_array( 'empst',$pilihcol))
@@ -1115,6 +1301,14 @@ class OtReport2Controller extends Controller
 
               array_push($info, $urekod->empstats);
             }
+            if(in_array( 'st',$pilihcol))
+            {
+              array_push($info, $st);
+            }
+            if(in_array( 'et',$pilihcol))
+            {
+              array_push($info, $et);
+            }
             if(in_array( 'mflag',$pilihcol))
             {
               array_push($info, $value->is_manual);
@@ -1123,10 +1317,23 @@ class OtReport2Controller extends Controller
             {
               array_push($info, '('.$value->in_latitude.','.$value->in_longitude.')');
             }
-            if(in_array( 'estamnt',$pilihcol))
+            // if(in_array( 'estamnt',$pilihcol))
+            // {
+            //   array_push($info, $value->amount);
+            // }
+            if(in_array( 'noh',$pilihcol))
             {
-              array_push($info, $value->amount);
+              array_push($info, $value->hour);
             }
+            if(in_array( 'nom',$pilihcol))
+            {
+              array_push($info, $value->minute);
+            }
+            if(in_array( 'jst',$pilihcol))
+            {
+              array_push($info, $value->justification);
+            }
+
             if(in_array( 'clmstatus',$pilihcol))
             {
               try {
@@ -1168,18 +1375,9 @@ class OtReport2Controller extends Controller
             {
               array_push($info, $mainOT->order_no);
             }
-
-            if(in_array( 'noh',$pilihcol))
+            if(in_array( 'cascomp',$pilihcol))
             {
-              array_push($info, $value->hour);
-            }
-            if(in_array( 'nom',$pilihcol))
-            {
-              array_push($info, $value->minute);
-            }
-            if(in_array( 'jst',$pilihcol))
-            {
-              array_push($info, $value->justification);
+              array_push($info, $mainOT->company_id);
             }
             if(in_array( 'appdate',$pilihcol))
             {
@@ -1249,31 +1447,36 @@ class OtReport2Controller extends Controller
             {
               array_push($info, $mainOT->querier_id);
             }
-            if(in_array( 'pydate',$pilihcol))
+            // if(in_array( 'pydate',$pilihcol))
+            // {
+            //   if( $mainOT->payment_date == ''){
+            //     $payment_date ='';
+            //   }
+            //   else{
+            //     $payment_date =date('d.m.Y', strtotime($mainOT->payment_date));
+            //   }
+            //
+            //   array_push($info, $payment_date);
+            // }
+            // if(in_array( 'trnscd',$pilihcol))
+            // {
+            //   array_push($info, $mainOT->legacy_code);
+            // }
+            // if(in_array( 'dytype',$pilihcol))
+            // {
+            //   try {
+            //     // $dtype = $mainOT->daytype->description;
+            //     $dtype = $mainOT->daytype->code;
+            //   } catch (\Exception $e) {
+            //     $dtype = $mainOT->daytype_id;
+            //   }
+            //   array_push($info, $dtype);
+            // }
+            if(in_array( 'emptype',$pilihcol))
             {
-              if( $mainOT->payment_date == ''){
-                $payment_date ='';
-              }
-              else{
-                $payment_date =date('d.m.Y', strtotime($mainOT->payment_date));
-              }
+              array_push($info, $mainOT->employee_type);
+            }
 
-              array_push($info, $payment_date);
-            }
-            if(in_array( 'trnscd',$pilihcol))
-            {
-              array_push($info, $mainOT->legacy_code);
-            }
-            if(in_array( 'dytype',$pilihcol))
-            {
-              try {
-                // $dtype = $mainOT->daytype->description;
-                $dtype = $mainOT->daytype->code;
-              } catch (\Exception $e) {
-                $dtype = $mainOT->daytype_id;
-              }
-              array_push($info, $dtype);
-            }
       }
       array_push($otdata, $info);
     }

@@ -131,7 +131,7 @@
         </div>
         <div class="form-check">
           <input class="form-check-input-inline" type="checkbox" value="state" id="choose-3" name="cbcol[]"  checked>
-          <label class="form-check-label" for="st"> State  </label>
+          <label class="form-check-label" for="st"> State </label>
         </div>
         <div class="form-check">
           <input class="form-check-input-inline" type="checkbox" value="region" id="choose-4" name="cbcol[]"  checked>
@@ -145,21 +145,28 @@
           <input class="form-check-input-inline" type="checkbox" value="empsubgrp" id="choose-6" name="cbcol[]"  checked>
           <label class="form-check-label" for="emsubgrp"> Employee Subgroup  </label>
         </div>
-        <div class="form-check">
+        {{--<div class="form-check">
           <input class="form-check-input-inline" type="checkbox" value="salexp" id="choose-7" name="cbcol[]"  checked>
           <label class="form-check-label" for="salexcp"> Salary Exception  </label>
-        </div>
+        </div>--}}
       </div>
       <div class="col-sm-3">
         <div class="form-check">
           <input class="form-check-input-inline" type="checkbox" value="capsal" id="choose-8" name="cbcol[]"  checked>
-          <label class="form-check-label" for="capsalry"> Capping Salary (RM)  </label>
+          <label class="form-check-label" for="capsalry">Salary Capping for OT</label>
         </div>
         <div class="form-check">
           <input class="form-check-input-inline" type="checkbox" value="empst" id="choose-9" name="cbcol[]"  checked>
           <label class="form-check-label" for="empstt"> Employment Status  </label>
         </div>
-
+        <div class="form-check">
+          <input class="form-check-input-inline" type="checkbox" value="st" id="choose-39" name="cbcol[]"  checked>
+          <label class="form-check-label" for="st"> Start Time </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input-inline" type="checkbox" value="et" id="choose-40" name="cbcol[]"  checked>
+          <label class="form-check-label" for="et"> End Time </label>
+        </div>
         <div class="form-check">
           <input class="form-check-input-inline" type="checkbox" value="mflag" id="choose-10" name="cbcol[]"  checked>
           <label class="form-check-label" for="mflg"> Manual Flag </label>
@@ -170,10 +177,10 @@
            <label class="form-check-label" for="loctn"> Location</label>
          </div>
 
-        <div class="form-check">
+        {{--<div class="form-check">
           <input class="form-check-input-inline" type="checkbox" value="estamnt" id="choose-12" name="cbcol[]"  checked>
           <label class="form-check-label" for="estamt"> Estimated Amount  </label>
-        </div>
+        </div>--}}
         <div class="form-check">
           <input class="form-check-input-inline" type="checkbox" value="clmstatus" id="choose-13" name="cbcol[]" checked >
           <label class="form-check-label" for="clmst"> Claim Status  </label>
@@ -211,6 +218,10 @@
         <div class="form-check">
           <input class="form-check-input-inline" type="checkbox" value="ordnum" id="choose-21" name="cbcol[]"  checked>
           <label class="form-check-label" for="trncd"> Order Number</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input-inline" type="checkbox" value="cascomp" id="choose-42" name="cbcol[]" checked>
+          <label class="form-check-label" for="trncd"> Charging Company</label>
         </div>
         <div class="form-check">
           <input class="form-check-input-inline" type="checkbox" value="noh" id="choose-22" name="cbcol[]"  checked>
@@ -270,7 +281,7 @@
           <input class="form-check-input-inline" type="checkbox" value="qrdby" id="choose-35" name="cbcol[]"  checked>
           <label class="form-check-label" for="qrby"> Queried By </label>
         </div>
-        <div class="form-check">
+        {{--<div class="form-check">
           <input class="form-check-input-inline" type="checkbox" value="pydate" id="choose-36" name="cbcol[]"  checked>
           <label class="form-check-label" for="pydt"> Payment Date </label>
         </div>
@@ -282,11 +293,17 @@
         <div class="form-check">
           <input class="form-check-input-inline" type="checkbox" value="dytype" id="choose-38" name="cbcol[]"  checked>
           <label class="form-check-label" for="dyty"> Day Type  </label>
+        </div>--}}
+
+        <div class="form-check">
+          <input class="form-check-input-inline" type="checkbox" value="emptype" id="choose-41" name="cbcol[]"  checked>
+          <label class="form-check-label" for="emptype"> Employee Type </label>
         </div>
       </div>
 
     </div>
-  </div>
+      </div>
+
 <br>
 <div class="flexd">
   <div class="col-mx-5">
@@ -297,12 +314,14 @@
         <p id="reportn-4" class="hidden">Region</p>
         <p id="reportn-5" class="hidden">Employee Group</p>
         <p id="reportn-6" class="hidden">Employee Subgroup</p>
-        <p id="reportn-7" class="hidden">Salary Exception</p>
-        <p id="reportn-8" class="hidden">Capping Salary (RM)</p>
+        {{--<p id="reportn-7" class="hidden">Salary Exception</p>--}}
+        <p id="reportn-8" class="hidden">Salary Capping for OT</p>
         <p id="reportn-9" class="hidden">Employment Status</p>
+        <p id="reportn-39" class="hidden">Start Time</p>
+        <p id="reportn-40" class="hidden">End Time</p>
         <p id="reportn-10" class="hidden">Manual Flag</p>
         <p id="reportn-11" class="hidden">Location</p>
-        <p id="reportn-12" class="hidden">Estimated Amount</p>
+        {{--<p id="reportn-12" class="hidden">Estimated Amount</p>--}}
         <p id="reportn-13" class="hidden">Claim Status</p>
         <p id="reportn-14" class="hidden">Charge Type</p>
         <p id="reportn-15" class="hidden">Body Cost Center</p>
@@ -312,6 +331,7 @@
         <p id="reportn-19" class="hidden">Network Header</p>
         <p id="reportn-20" class="hidden">Network Activity</p>
         <p id="reportn-21" class="hidden">Order Number</p>
+        <p id="reportn-42" class="hidden">Charging Company</p>
         <p id="reportn-22" class="hidden">Number of Hours</p>
         <p id="reportn-23" class="hidden">Number of Minutes</p>
         <p id="reportn-24" class="hidden">Justification</p>
@@ -326,10 +346,11 @@
         <p id="reportn-33" class="hidden">Approver Cocd</p>
         <p id="reportn-34" class="hidden">Queried Date</p>
         <p id="reportn-35" class="hidden">Queried By</p>
-        <p id="reportn-36" class="hidden">Payment Date</p>
+        {{--<p id="reportn-36" class="hidden">Payment Date</p>
         <p id="reportn-37" class="hidden">Transaction Code</p>
-        <p id="reportn-38" class="hidden">Day Type</p>
+        <p id="reportn-38" class="hidden">Day Type</p>--}}
 
+        <p id="reportn-41" class="hidden">Employee Type</p>
     </div>
   </div>
   <div class="col-mx-2">
@@ -349,12 +370,15 @@
       <p id="reporty-4" >Region</p>
       <p id="reporty-5" >Employee Group</p>
       <p id="reporty-6" >Employee Subgroup</p>
-      <p id="reporty-7" >Salary Exception</p>
-      <p id="reporty-8" >Capping Salary (RM)</p>
+      {{--<p id="reporty-7" >Salary Exception</p>--}}
+      <p id="reporty-8" >Salary Capping for OT</p>
       <p id="reporty-9" >Employment Status</p>
+      <p id="reporty-39" >Start Time</p>
+      <p id="reporty-40" >End Time</p>
+
       <p id="reporty-10" >Manual Flag</p>
       <p id="reporty-11" >Location</p>
-      <p id="reporty-12" >Estimated Amount</p>
+      {{--<p id="reporty-12" >Estimated Amount</p>--}}
       <p id="reporty-13" >Claim Status</p>
       <p id="reporty-14" >Charge Type</p>
       <p id="reporty-15" >Body Cost Center</p>
@@ -364,6 +388,7 @@
       <p id="reporty-19" >Network Header</p>
       <p id="reporty-20" >Network Activity</p>
       <p id="reporty-21" >Order Number</p>
+      <p id="reporty-42" >Charging Company</p>
       <p id="reporty-22" >Number of Hours</p>
       <p id="reporty-23" >Number of Minutes</p>
       <p id="reporty-24" >Justification</p>
@@ -378,9 +403,10 @@
       <p id="reporty-33" >Approver Cocd</p>
       <p id="reporty-34" >Queried Date</p>
       <p id="reporty-35" >Queried By</p>
-      <p id="reporty-36" >Payment Date</p>
+      {{--<p id="reporty-36" >Payment Date</p>
       <p id="reporty-37" >Transaction Code</p>
-      <p id="reporty-38" >Day Type</p>
+      <p id="reporty-38" >Day Type</p>--}}
+      <p id="reporty-41" >Employee Type</p>
     </div>
   </div>
 </div>
@@ -456,7 +482,7 @@ $(document).ready(function() {
 });
 
 var checkno = 0;
-for(var i=0; i<39; i++){
+for(var i=0; i<42; i++){
   $("#reportn-"+i).on("click", clicked(i, "n"));
   $("#reporty-"+i).on("click", clicked(i, "y"));
 }
@@ -464,7 +490,7 @@ for(var i=0; i<39; i++){
 function clicked(i, t){
   return function(){
     checkno = i;
-    for(var n=0; n<39; n++){
+    for(var n=0; n<42; n++){
       $("#reportn-"+n).removeClass("click");
       $("#reporty-"+n).removeClass("click");
     }
@@ -485,7 +511,7 @@ function add(){
 }
 
 function addall(){
-  for(var n=0; n<39; n++){
+  for(var n=0; n<42; n++){
     $("#reportn-"+n).addClass("hidden");
     $("#reporty-"+n).removeClass("hidden");
     $("#choose-"+n).prop('checked', true);
@@ -501,7 +527,7 @@ function remove(){
 }
 
 function removeall(){
-  for(var n=0; n<39; n++){
+  for(var n=0; n<42; n++){
     $("#reportn-"+n).removeClass("hidden");
     $("#reporty-"+n).addClass("hidden");
     $("#choose-"+n).prop('checked', false);

@@ -36,11 +36,12 @@ class ReportOT implements ShouldQueue
     protected $pilihcol;
     protected $btnsrh;
     protected $fstatus;
+    protected $userid;
 
     public $tries = 1;
     public $timeout = 7200;
 
-    public function __construct($sdt,$edt,$aid,$vid,$rno,$per,$co,$st,$re,$col,$btn,$status)
+    public function __construct($sdt,$edt,$aid,$vid,$rno,$per,$co,$st,$re,$col,$btn,$status,$uid)
     {
       $this->start_date = $sdt;
       $this->end_date = $edt;
@@ -55,6 +56,7 @@ class ReportOT implements ShouldQueue
       $this->pilihcol = $col;
       $this->btnsrh = $btn;
       $this->fstatus = $status;
+      $this->userid = $uid;
 
 // dd($this->pilihcol);
       if($this->btnsrh == 'gexcelm'){
@@ -71,6 +73,7 @@ class ReportOT implements ShouldQueue
       $bjob->from_date = $sdt;
       $bjob->to_date = $edt;
       $bjob->remark = $r;
+      $bjob->action_by = $uid ;
       // dd('here');
       $bjob->save();
 
@@ -113,11 +116,13 @@ class ReportOT implements ShouldQueue
          $cdate->addSecond();
 
          // Log::info('prep header');
-         if($this->btnsrh == 'gexcelm'){
-           $headers = ['Personnel Number','Employee Name','IC Number','Staff ID','Company Code','Reference Number','OT Date'];
-         }elseif ($this->btnsrh == 'gexceld') {
-           $headers = ['Personnel Number','Employee Name','IC Number','Staff ID','Company Code','Reference Number','OT Date','Start Time','End Time'];
-         }
+         // if($this->btnsrh == 'gexcelm'){
+         //   $headers = ['Personnel Number','Employee Name','IC Number','Staff ID','Company Code','Reference Number','OT Date'];
+         // }elseif ($this->btnsrh == 'gexceld') {
+         //   $headers = ['Personnel Number','Employee Name','IC Number','Staff ID','Company Code','Reference Number','OT Date','Start Time','End Time'];
+         // }
+
+         $headers = ['Personnel Number','Employee Name','IC Number','Staff ID','Company Code','Reference Number','OT Date'];
 
          $sltcol = $this->pilihcol;
 
@@ -146,141 +151,282 @@ class ReportOT implements ShouldQueue
              {
                array_push($headers, 'Employee Subgroup');
              }
-             if(in_array( 'salexp',$sltcol))
-             {
-               array_push($headers, 'Salary Exception');
-             }
+             // if(in_array( 'salexp',$sltcol))
+             // {
+             //   array_push($headers, 'Salary Exception');
+             // }
              if(in_array( 'capsal',$sltcol))
              {
-               array_push($headers, 'Capping Salary (RM)');
+               array_push($headers, 'Salary Capping for OT');
              }
              if(in_array( 'empst',$sltcol))
              {
                array_push($headers, 'Employment Status');
              }
-             if(in_array( 'mflag',$sltcol))
-             {
-               array_push($headers, 'Manual Flag');
-             }
-             if(in_array( 'loc',$sltcol))
-             {
-               array_push($headers, 'Location');
-             }
-             if(in_array( 'tthour',$sltcol))
-             {
-               array_push($headers, 'Total Hours');
-             }
-             if(in_array( 'ttlmin',$sltcol))
-             {
-               array_push($headers, 'Total Minutes');
-             }
-             if(in_array( 'estamnt',$sltcol))
-             {
-               array_push($headers, 'Estimated Amount');
-             }
-             if(in_array( 'clmstatus',$sltcol))
-             {
-               array_push($headers, 'Claim Status');
-             }
-             if(in_array( 'chrtype',$sltcol))
-             {
-               array_push($headers, 'Charge Type');
-             }
-             if(in_array( 'bodycc',$sltcol))
-             {
-               array_push($headers, 'Body Cost Center');
-             }
-             if(in_array( 'othrcc',$sltcol))
-             {
-               array_push($headers, 'Other Cost Center');
-             }
-             if(in_array( 'prtype',$sltcol))
-             {
-               array_push($headers, 'Project Type');
-             }
-             if(in_array( 'pnumbr',$sltcol))
-             {
-               array_push($headers, 'Project Number');
-             }
-             if(in_array( 'ntheadr',$sltcol))
-             {
-               array_push($headers, 'Network Header');
-             }
-             if(in_array( 'ntact',$sltcol))
-             {
-               array_push($headers, 'Network Activity');
-             }
-             if(in_array( 'ordnum',$sltcol))
-             {
-               array_push($headers, 'Order Number');
-             }
-             if(in_array( 'noh',$sltcol))
-             {
-               array_push($headers, 'Number of Hours');
-             }
-             if(in_array( 'nom',$sltcol))
-             {
-               array_push($headers, 'Number of Minutes');
-             }
-             if(in_array( 'jst',$sltcol))
-             {
-               array_push($headers, 'Justification');
-             }
-             if(in_array( 'appdate',$sltcol))
-             {
-               array_push($headers, 'Application Date');
-             }
-             if(in_array( 'verdate',$sltcol))
-             {
-               array_push($headers, 'Verification Date');
-             }
-             if(in_array( 'verid',$sltcol))
-             {
-               array_push($headers, 'Verifier ID');
-             }
-             if(in_array( 'vername',$sltcol))
-             {
-               array_push($headers, 'Verifier Name');
-             }
-             if(in_array( 'vercocd',$sltcol))
-             {
-               array_push($headers, 'Verifier Cocd');
-             }
-             if(in_array( 'aprvdate',$sltcol))
-             {
-               array_push($headers, 'Approval Date');
-             }
-             if(in_array( 'apprvrid',$sltcol))
-             {
-               array_push($headers, 'Approver ID');
-             }
-             if(in_array( 'apprvrname',$sltcol))
-             {
-               array_push($headers, 'Approver Name');
-             }
-             if(in_array( 'apprvrcocd',$sltcol))
-             {
-               array_push($headers, 'Approver Cocd');
-             }
-             if(in_array( 'qrdate',$sltcol))
-             {
-               array_push($headers, 'Queried Date');
-             }
-             if(in_array( 'qrdby',$sltcol))
-             {
-               array_push($headers, 'Queried By');
-             }
-             if(in_array( 'pydate',$sltcol))
-             {
-               array_push($headers, 'Payment Date');
-             }
-             if(in_array( 'trnscd',$sltcol))
-             {
-               array_push($headers, 'Transaction Code');
-             }
-             if(in_array( 'dytype',$sltcol))
-             {
-               array_push($headers, 'Day Type');
+
+             if($this->btnsrh == 'gexcelm'){
+
+               if(in_array( 'tthour',$sltcol))
+               {
+                 array_push($headers, 'Total Hours');
+               }
+               if(in_array( 'ttlmin',$sltcol))
+               {
+                 array_push($headers, 'Total Minutes');
+               }
+               if(in_array( 'estamnt',$sltcol))
+               {
+                 array_push($headers, 'Estimated Amount');
+               }
+               if(in_array( 'clmstatus',$sltcol))
+               {
+                 array_push($headers, 'Claim Status');
+               }
+               if(in_array( 'chrtype',$sltcol))
+               {
+                 array_push($headers, 'Charge Type');
+               }
+               if(in_array( 'bodycc',$sltcol))
+               {
+                 array_push($headers, 'Body Cost Center');
+               }
+               if(in_array( 'othrcc',$sltcol))
+               {
+                 array_push($headers, 'Other Cost Center');
+               }
+               if(in_array( 'prtype',$sltcol))
+               {
+                 array_push($headers, 'Project Type');
+               }
+               if(in_array( 'pnumbr',$sltcol))
+               {
+                 array_push($headers, 'Project Number');
+               }
+               if(in_array( 'ntheadr',$sltcol))
+               {
+                 array_push($headers, 'Network Header');
+               }
+               if(in_array( 'ntact',$sltcol))
+               {
+                 array_push($headers, 'Network Activity');
+               }
+               if(in_array( 'ordnum',$sltcol))
+               {
+                 array_push($headers, 'Order Number');
+               }
+               if(in_array( 'cascomp',$sltcol))
+               {
+                 array_push($headers, 'Charging Company');
+               }
+
+               if(in_array( 'appdate',$sltcol))
+               {
+                 array_push($headers, 'Application Date');
+               }
+               if(in_array( 'verdate',$sltcol))
+               {
+                 array_push($headers, 'Verification Date');
+               }
+               if(in_array( 'verid',$sltcol))
+               {
+                 array_push($headers, 'Verifier ID');
+               }
+               if(in_array( 'vername',$sltcol))
+               {
+                 array_push($headers, 'Verifier Name');
+               }
+               if(in_array( 'vercocd',$sltcol))
+               {
+                 array_push($headers, 'Verifier Cocd');
+               }
+               if(in_array( 'aprvdate',$sltcol))
+               {
+                 array_push($headers, 'Approval Date');
+               }
+               if(in_array( 'apprvrid',$sltcol))
+               {
+                 array_push($headers, 'Approver ID');
+               }
+               if(in_array( 'apprvrname',$sltcol))
+               {
+                 array_push($headers, 'Approver Name');
+               }
+               if(in_array( 'apprvrcocd',$sltcol))
+               {
+                 array_push($headers, 'Approver Cocd');
+               }
+               if(in_array( 'qrdate',$sltcol))
+               {
+                 array_push($headers, 'Queried Date');
+               }
+               if(in_array( 'qrdby',$sltcol))
+               {
+                 array_push($headers, 'Queried By');
+               }
+               if(in_array( 'pydate',$sltcol))
+               {
+                 array_push($headers, 'Payment Date');
+               }
+               // if(in_array( 'trnscd',$sltcol))
+               // {
+               //   array_push($headers, 'Transaction Code');
+               // }
+               if(in_array( 'dytype',$sltcol))
+               {
+                 array_push($headers, 'Day Type');
+               }
+               if(in_array( 'eligday',$sltcol))
+               {
+                 array_push($headers, 'Elig Day');
+               }
+               if(in_array( 'eligdaycode',$sltcol))
+               {
+                 array_push($headers, 'Elig Day Code');
+               }
+               if(in_array( 'elighm',$sltcol))
+               {
+                 array_push($headers, 'Elig Total Min/Hours');
+               }
+               if(in_array( 'elighmcode',$sltcol))
+               {
+                 array_push($headers, 'Elig Total Min/Hours Code');
+               }
+               if(in_array( 'emptype',$sltcol))
+               {
+                 array_push($headers, 'Employee Type');
+               }
+
+             }elseif ($this->btnsrh == 'gexceld') {
+
+               if(in_array( 'st',$sltcol))
+               {
+                 array_push($headers, 'Start Time');
+               }
+               if(in_array( 'et',$sltcol))
+               {
+                 array_push($headers, 'End Time');
+               }
+               if(in_array( 'mflag',$sltcol))
+               {
+                 array_push($headers, 'Manual Flag');
+               }
+               if(in_array( 'loc',$sltcol))
+               {
+                 array_push($headers, 'Location');
+               }
+               if(in_array( 'noh',$sltcol))
+               {
+                 array_push($headers, 'Number of Hours');
+               }
+               if(in_array( 'nom',$sltcol))
+               {
+                 array_push($headers, 'Number of Minutes');
+               }
+               if(in_array( 'jst',$sltcol))
+               {
+                 array_push($headers, 'Justification');
+               }
+
+               if(in_array( 'clmstatus',$sltcol))
+               {
+                 array_push($headers, 'Claim Status');
+               }
+               if(in_array( 'chrtype',$sltcol))
+               {
+                 array_push($headers, 'Charge Type');
+               }
+               if(in_array( 'bodycc',$sltcol))
+               {
+                 array_push($headers, 'Body Cost Center');
+               }
+               if(in_array( 'othrcc',$sltcol))
+               {
+                 array_push($headers, 'Other Cost Center');
+               }
+               if(in_array( 'prtype',$sltcol))
+               {
+                 array_push($headers, 'Project Type');
+               }
+               if(in_array( 'pnumbr',$sltcol))
+               {
+                 array_push($headers, 'Project Number');
+               }
+               if(in_array( 'ntheadr',$sltcol))
+               {
+                 array_push($headers, 'Network Header');
+               }
+               if(in_array( 'ntact',$sltcol))
+               {
+                 array_push($headers, 'Network Activity');
+               }
+               if(in_array( 'ordnum',$sltcol))
+               {
+                 array_push($headers, 'Order Number');
+               }
+               if(in_array( 'cascomp',$sltcol))
+               {
+                 array_push($headers, 'Charging Company');
+               }
+               if(in_array( 'appdate',$sltcol))
+               {
+                 array_push($headers, 'Application Date');
+               }
+               if(in_array( 'verdate',$sltcol))
+               {
+                 array_push($headers, 'Verification Date');
+               }
+               if(in_array( 'verid',$sltcol))
+               {
+                 array_push($headers, 'Verifier ID');
+               }
+               if(in_array( 'vername',$sltcol))
+               {
+                 array_push($headers, 'Verifier Name');
+               }
+               if(in_array( 'vercocd',$sltcol))
+               {
+                 array_push($headers, 'Verifier Cocd');
+               }
+               if(in_array( 'aprvdate',$sltcol))
+               {
+                 array_push($headers, 'Approval Date');
+               }
+               if(in_array( 'apprvrid',$sltcol))
+               {
+                 array_push($headers, 'Approver ID');
+               }
+               if(in_array( 'apprvrname',$sltcol))
+               {
+                 array_push($headers, 'Approver Name');
+               }
+               if(in_array( 'apprvrcocd',$sltcol))
+               {
+                 array_push($headers, 'Approver Cocd');
+               }
+               if(in_array( 'qrdate',$sltcol))
+               {
+                 array_push($headers, 'Queried Date');
+               }
+               if(in_array( 'qrdby',$sltcol))
+               {
+                 array_push($headers, 'Queried By');
+               }
+               // if(in_array( 'pydate',$sltcol))
+               // {
+               //   array_push($headers, 'Payment Date');
+               // }
+               // if(in_array( 'trnscd',$sltcol))
+               // {
+               //   array_push($headers, 'Transaction Code');
+               // }
+               // if(in_array( 'dytype',$sltcol))
+               // {
+               //   array_push($headers, 'Day Type');
+               // }
+               if(in_array( 'emptype',$sltcol))
+               {
+                 array_push($headers, 'Employee Type');
+               }
              }
 
            }
@@ -351,7 +497,7 @@ class ReportOT implements ShouldQueue
            if($this->btnsrh == 'gexcelm') {
              foreach($otr as $value){
 
-                 $urekod = $value->URecord;
+                 $urekod = $value->URecord2();
 
                  $otdt = new Carbon($value->date);
                  $otdt = $otdt->format('d.m.Y');
@@ -361,11 +507,11 @@ class ReportOT implements ShouldQueue
               if(isset($sltcol)){
                 if(in_array('psarea',$sltcol))
                 {
-                  array_push($info, $urekod->persarea);
+                  array_push($info, $value->persarea);
                 }
                 if(in_array( 'psbarea',$sltcol))
                 {
-                  array_push($info, $urekod->perssubarea);
+                  array_push($info, $value->perssubarea);
                 }
                 if(in_array( 'state',$sltcol))
                 {
@@ -383,34 +529,35 @@ class ReportOT implements ShouldQueue
                 {
                   array_push($info, $urekod->empsgroup);
                 }
-                if(in_array( 'salexp',$sltcol))
-                {
-                  if($value->sal_exception=='Y'){
-                    // $value->ot_hour_exception='Yes';
-                    $sal_exception='Yes';
-                    // $salarycap='';
-                  }else{
-                    // $value->ot_hour_exception='No';
-                    $sal_exception='No';
-                    // $salarycap=$value->SalCap()->salary_cap;
-                  }
-                  array_push($info, $sal_exception);
-                }
+                // if(in_array( 'salexp',$sltcol))
+                // {
+                //   if($value->sal_exception=='Y'){
+                //     // $value->ot_hour_exception='Yes';
+                //     $sal_exception='Yes';
+                //     // $salarycap='';
+                //   }else{
+                //     // $value->ot_hour_exception='No';
+                //     $sal_exception='No';
+                //     // $salarycap=$value->SalCap()->salary_cap;
+                //   }
+                //   array_push($info, $sal_exception);
+                // }
                 if(in_array( 'capsal',$sltcol))
                 {
-                  if($value->sal_exception=='Y'){
-                    // $value->ot_hour_exception='Yes';
-                    // $sal_exception='Yes';
-                    $salarycap='';
-                  }else{
-                    // $value->ot_hour_exception='No';
-                    // $sal_exception='No';
-                    try {
-                      $salarycap=$value->SalCap()->salary_cap;
-                    } catch (\Exception $e) {
-                      $salarycap='Overtime Eligibility Error';
-                    }
-                  }
+                  // if($value->sal_exception=='Y'){
+                  //   // $value->ot_hour_exception='Yes';
+                  //   // $sal_exception='Yes';
+                  //   $salarycap='';
+                  // }else{
+                  //   // $value->ot_hour_exception='No';
+                  //   // $sal_exception='No';
+                  //   try {
+                  //     $salarycap=$value->SalCap()->salary_cap;
+                  //   } catch (\Exception $e) {
+                  //     $salarycap='Overtime Eligibility Error';
+                  //   }
+                  // }
+                  $salarycap=$value->salary_exception;
                   array_push($info, $salarycap);
                 }
                 if(in_array( 'empst',$sltcol))
@@ -469,6 +616,10 @@ class ReportOT implements ShouldQueue
                 if(in_array( 'ordnum',$sltcol))
                 {
                   array_push($info, $value->order_no);
+                }
+                if(in_array( 'cascomp',$sltcol))
+                {
+                  array_push($info, $value->company_id);
                 }
                 if(in_array( 'appdate',$sltcol))
                 {
@@ -544,19 +695,39 @@ class ReportOT implements ShouldQueue
                   }
                   array_push($info, $payment_date);
                 }
-                if(in_array( 'trnscd',$sltcol))
-                {
-                  array_push($info, $value->legacy_code);
-                }
+                // if(in_array( 'trnscd',$sltcol))
+                // {
+                //   array_push($info, $value->legacy_code);
+                // }
                 if(in_array( 'dytype',$sltcol))
                 {
                   try {
                     // $dtype = $value->daytype->description;
-                    $dtype = $value->daytype->code;
+                    $dtype = $value->DaytypeDesc()->item3;
                   } catch (\Exception $e) {
-                    $dtype = $value->daytype_id;
+                    $dtype = $value->day_type_code;
                   }
                   array_push($info, $dtype);
+                }
+                if(in_array( 'eligday',$sltcol))
+                {
+                  array_push($info, $value->eligible_day);
+                }
+                if(in_array( 'eligdaycode',$sltcol))
+                {
+                  array_push($info, $value->eligible_day_code);
+                }
+                if(in_array( 'elighm',$sltcol))
+                {
+                  array_push($info, $value->eligible_total_hours_minutes);
+                }
+                if(in_array( 'elighmcode',$sltcol))
+                {
+                  array_push($info, $value->eligible_total_hours_minutes_code);
+                }
+                if(in_array( 'emptype',$sltcol))
+                {
+                  array_push($info, $value->employee_type);
                 }
 
               }
@@ -568,7 +739,7 @@ class ReportOT implements ShouldQueue
           elseif($this->btnsrh == 'gexceld'){
             foreach($otdetail as $value){
 
-              $urekod = $value->mainOT->URecord;
+              $urekod = $value->mainOT->URecord2();
               $mainOT = $value->mainOT;
               $otdt = new Carbon($mainOT->date);
               $otdt = $otdt->format('d.m.Y');
@@ -577,17 +748,18 @@ class ReportOT implements ShouldQueue
               $et = new Carbon($value->end_time);
               $et = $et->format('H:i:s');
 
-              $info = [$mainOT->user_id,$urekod->name,$urekod->new_ic,$urekod->staffno,$mainOT->company_id,$mainOT->refno,$otdt,$st,$et];
+              // $info = [$mainOT->user_id,$urekod->name,$urekod->new_ic,$urekod->staffno,$mainOT->company_id,$mainOT->refno,$otdt,$st,$et];
+              $info = [$mainOT->user_id,$urekod->name,$urekod->new_ic,$urekod->staffno,$mainOT->company_id,$mainOT->refno,$otdt];
                 // dd($pilihcol);
                 $sltcol = $this->pilihcol;
                 if(isset($sltcol)){
                 if(in_array('psarea',$sltcol ))
                   {
-                    array_push($info, $urekod->persarea);
+                    array_push($info, $mainOT->persarea);
                   }
                   if(in_array( 'psbarea',$sltcol))
                   {
-                    array_push($info, $urekod->perssubarea);
+                    array_push($info, $mainOT->perssubarea);
                   }
                   if(in_array( 'state',$sltcol))
                   {
@@ -605,41 +777,50 @@ class ReportOT implements ShouldQueue
                   {
                     array_push($info, $urekod->empsgroup);
                   }
-                  if(in_array( 'salexp',$sltcol))
-                  {
-                    if($mainOT->sal_exception=='Y'){
-                      // $mainOT->ot_hour_exception='Yes';
-                      $sal_exception='Yes';
-                      // $salarycap='';
-                    }else{
-                      // $mainOT->ot_hour_exception='No';
-                      $sal_exception='No';
-                      // $salarycap=$mainOT->SalCap()->salary_cap;
-                    }
-                    array_push($info, $sal_exception);
-                  }
+                  // if(in_array( 'salexp',$sltcol))
+                  // {
+                  //   if($mainOT->sal_exception=='Y'){
+                  //     // $mainOT->ot_hour_exception='Yes';
+                  //     $sal_exception='Yes';
+                  //     // $salarycap='';
+                  //   }else{
+                  //     // $mainOT->ot_hour_exception='No';
+                  //     $sal_exception='No';
+                  //     // $salarycap=$mainOT->SalCap()->salary_cap;
+                  //   }
+                  //   array_push($info, $sal_exception);
+                  // }
 
                   if(in_array( 'capsal',$sltcol))
                   {
-                    if($mainOT->sal_exception=='Y'){
-                      // $mainOT->ot_hour_exception='Yes';
-                      // $sal_exception='Yes';
-                      $salarycap='';
-                    }else{
-                      // $mainOT->ot_hour_exception='No';
-                      // $sal_exception='No';
-                      try {
-                        $salarycap=$mainOT->SalCap()->salary_cap;
-                      } catch (\Exception $e) {
-                        $salarycap='Overtime Eligibility Error';
-                      }
-                    }
+                    // if($mainOT->sal_exception=='Y'){
+                    //   // $mainOT->ot_hour_exception='Yes';
+                    //   // $sal_exception='Yes';
+                    //   $salarycap='';
+                    // }else{
+                    //   // $mainOT->ot_hour_exception='No';
+                    //   // $sal_exception='No';
+                    //   try {
+                    //     $salarycap=$mainOT->SalCap()->salary_cap;
+                    //   } catch (\Exception $e) {
+                    //     $salarycap='Overtime Eligibility Error';
+                    //   }
+                    // }
+                        $salarycap=$mainOT->salary_exception;
                     array_push($info, $salarycap);
                   }
 
                   if(in_array( 'empst',$sltcol))
                   {
                     array_push($info, $urekod->empstats);
+                  }
+                  if(in_array( 'st',$sltcol))
+                  {
+                    array_push($info, $st);
+                  }
+                  if(in_array( 'et',$sltcol))
+                  {
+                    array_push($info, $et);
                   }
                   if(in_array( 'mflag',$sltcol))
                   {
@@ -649,9 +830,17 @@ class ReportOT implements ShouldQueue
                   {
                     array_push($info, '('.$value->in_latitude.','.$value->in_longitude.')');
                   }
-                  if(in_array( 'estamnt',$sltcol))
+                  if(in_array( 'noh',$sltcol))
                   {
-                    array_push($info, $value->amount);
+                    array_push($info, $value->hour);
+                  }
+                  if(in_array( 'nom',$sltcol))
+                  {
+                    array_push($info, $value->minute);
+                  }
+                  if(in_array( 'jst',$sltcol))
+                  {
+                    array_push($info, $value->justification);
                   }
                   if(in_array( 'clmstatus',$sltcol))
                   {
@@ -695,18 +884,9 @@ class ReportOT implements ShouldQueue
                   {
                     array_push($info, $mainOT->order_no);
                   }
-
-                  if(in_array( 'noh',$sltcol))
+                  if(in_array( 'cascomp',$sltcol))
                   {
-                    array_push($info, $value->hour);
-                  }
-                  if(in_array( 'nom',$sltcol))
-                  {
-                    array_push($info, $value->minute);
-                  }
-                  if(in_array( 'jst',$sltcol))
-                  {
-                    array_push($info, $value->justification);
+                    array_push($info, $mainOT->company_id);
                   }
                   if(in_array( 'appdate',$sltcol))
                   {
@@ -772,29 +952,33 @@ class ReportOT implements ShouldQueue
                   {
                     array_push($info, $mainOT->querier_id);
                   }
-                  if(in_array( 'pydate',$sltcol))
+                  // if(in_array( 'pydate',$sltcol))
+                  // {
+                  //   if( $mainOT->payment_date == ''){
+                  //     $payment_date ='';
+                  //   }
+                  //   else{
+                  //     $payment_date =date('d.m.Y', strtotime($mainOT->payment_date));
+                  //   }
+                  //   array_push($info, $payment_date);
+                  // }
+                  // if(in_array( 'trnscd',$sltcol))
+                  // {
+                  //   array_push($info, $mainOT->legacy_code);
+                  // }
+                  // if(in_array( 'dytype',$sltcol))
+                  // {
+                  //   try {
+                  //     // $dtype = $mainOT->daytype->description;
+                  //     $dtype = $mainOT->daytype->code;
+                  //   } catch (\Exception $e) {
+                  //     $dtype = $mainOT->daytype_id;
+                  //   }
+                  //   array_push($info, $dtype);
+                  // }
+                  if(in_array( 'emptype',$sltcol))
                   {
-                    if( $mainOT->payment_date == ''){
-                      $payment_date ='';
-                    }
-                    else{
-                      $payment_date =date('d.m.Y', strtotime($mainOT->payment_date));
-                    }
-                    array_push($info, $payment_date);
-                  }
-                  if(in_array( 'trnscd',$sltcol))
-                  {
-                    array_push($info, $mainOT->legacy_code);
-                  }
-                  if(in_array( 'dytype',$sltcol))
-                  {
-                    try {
-                      // $dtype = $mainOT->daytype->description;
-                      $dtype = $mainOT->daytype->code;
-                    } catch (\Exception $e) {
-                      $dtype = $mainOT->daytype_id;
-                    }
-                    array_push($info, $dtype);
+                    array_push($info, $mainOT->employee_type);
                   }
 
             }
