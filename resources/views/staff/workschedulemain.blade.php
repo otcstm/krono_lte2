@@ -14,7 +14,7 @@
         <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px;height:50px">
       </div>
       <div class="media-body">
-        <p>My Work Schedule</p>
+        <p>My Work Schedule<Br>(Normal Employee)</p>
       </div>
     </div>
     </div><!-- /.box-body -->
@@ -30,7 +30,7 @@
         <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px;height:50px">
       </div>
       <div class="media-body">
-        <p>View My Monthly Work Schedule</p>
+        <p>View My Monthly Work Schedule<Br>(Shift Employee)</p>
       </div>
     </div>
     </div><!-- /.box-body -->
@@ -46,7 +46,7 @@
         <img src="vendor/ot-assets/wsr-team-sched.png" class="media-object" style="width:50px;height:50px">
       </div>
       <div class="media-body">
-        <p>View Team Work Schedule</p>
+        <p>View Team Work Schedule<Br>(Shift Employee)</p>
       </div>
     </div>
     </div><!-- /.box-body -->
