@@ -27,8 +27,8 @@
 
         <div class="panel panel-default text-justify w-100" style="font-family: Arial, Helvetica, sans-serif;">
   <div class="panel-heading w-100">Oh snap! We don't support this version of your browser, and neither should you!</div>
-  <div class="panel-body w-100">You are prompt this because we detected an unsupported browser. Your browser does not support security features that we require. 
-  We highly recommend that you update your browser to the latest version of <span class="nobr">Microsoft Edge </span>, Chrome, Firefox, Safari</div>
+  <div class="panel-body w-100">You are prompted this because your browser does not support security features that we require. 
+We highly recommend that you update your browser to the latest version of <span class="nobr">Microsoft Edge </span>, Chrome, Firefox, Safari <p>-NEO</p></div>
 </div>
         
         
