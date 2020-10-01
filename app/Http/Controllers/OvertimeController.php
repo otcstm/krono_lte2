@@ -1869,11 +1869,21 @@ class OvertimeController extends Controller
                     //queried
                     } elseif ($req->inputact[$i]=="Q2") {
                         $updatemonth = OvertimeMonth::find($updateclaim->month_id);
+
                         $time = ($updateclaim->total_hour*60)+$updateclaim->total_minute;
-                        if($time >= $working_minutes){
-                            $time = $time - $working_minutes;
+                        if(($updateclaim->day_type_code=="N")||($updateclaim->day_type_code=="O")){
+                            
+                        }else{
+                            if($totaltime >= $working_minutes){
+                                $totaltime = $totaltime - $working_minutes;
+                            }
                         }
-                        $totaltime = (($updatemonth->total_hour*60)+$updatemonth->total_minute) - $time;
+
+                        // $time = ($updateclaim->total_hour*60)+$updateclaim->total_minute;
+                        // if($time >= $working_minutes){
+                        //     $time = $time - $working_minutes;
+                        // }
+                        // $totaltime = (($updatemonth->total_hour*60)+$updatemonth->total_minute) - $time;
                         $updatemonth->total_hour = (int)($totaltime/60);
                         $updatemonth->total_minute = ($totaltime%60);
                         $updatemonth->save();

@@ -734,7 +734,7 @@ class UserHelper {
         $lg = $lg->where('company_id',$ur->company_id)
         ->where('region',$ot->region)->where("day_type", $dayt)
         ->where('min_hour','<=',$ot->total_hour)
-        ->where('max_hour','>=',$ot->total_hour);
+        ->where('max_hour','>',$ot->total_hour);
         if($ot->total_hours_minutes>$whmax){
           $lg = $lg->where('min_minute', 1)
           ->orderby('id')->first();
@@ -749,7 +749,7 @@ class UserHelper {
             $amount= $amount2 + ($lg->rate*(($salary)/(26*7))*($ot->total_hours_minutes - $whmax));
           }
         }else{
-          $lg = $lg->where('min_minute', 0)
+          $lg = $lg->where('min_minute', 1)
           ->orderby('id')->first();
           $lgrate = $lg->rate;
           $amount= $lgrate*(($salary)/26);
