@@ -21,6 +21,7 @@ return [
     'paymentsch' => 'Payment Schedule',
     'payrollgroup' => 'Payroll Grouping',
     'admin_shift_group'   => 'Shift Groups',
+    'admin_shift_group_pattern'   => 'Shift Group Pattern',
     'admin_shift_planning'   => 'Shift Planning',
     'maintenance_order'   => 'Listing of Maintenance Order',
     'project_list'   => 'Listing of Project',
@@ -90,7 +91,7 @@ return [
     // 'user_guideline'  => 'User',
     // 'admin_guideline' => 'Admin',
 
-    'guideline_calendar' => 'Holiday Calendar',
+    'guideline_calendar' => 'HOLIDAY CALENDAR',
     'guideline_system' => 'System Guideline',
     'guideline_payment' => 'Payment Calendar',
     'week_remind' => 'Weekly Reminders'

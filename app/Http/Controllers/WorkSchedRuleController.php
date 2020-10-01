@@ -286,15 +286,17 @@ class WorkSchedRuleController extends Controller
 
       if($sd){
         array_push($rv, [
+          'dtype' => $sd->Day->day_type,
           'type' => $sd->Day->code,
           'type_descr' => $sd->Day->description,
           'time' => $sd->Day->getTimeRange()
         ]);
       } else {
         array_push($rv, [
+          'dtype' => 'N/A',
           'type' => 'N/A',
           'type_descr' => 'N/A',
-          'time' => ''
+          'time' => 'N/A'
         ]);
       }
     }

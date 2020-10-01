@@ -62,7 +62,21 @@
           <input type="date" class="form-control"  id="tdate" name="tdate"  autofocus>
         </div>
       </div>
-
+      <div class="row" style="margin-top: 15px;">
+      <div class="col-md-3">
+        <label for="fstatus">Status</label>
+      </div>
+      <div class="col-md-9">
+        <select class="selectReport form-control" name="fstatus">
+          @if($status ?? '')
+          <option value="All">All</option>
+              @foreach($status as $no=>$stat)
+        <option value="{{$stat->item4}}">{{$stat->item4}}</option>
+              @endforeach
+          @endif
+        </select>
+      </div>
+    </div>
       </div>
       <div class="col-md-6">
         <div class="row" style="margin-top: 15px;">
@@ -132,69 +146,70 @@
           <input class="form-check-input-inline" type="checkbox" value="empsubgrp" id="choose-6" name="cbcol[]" checked>
           <label class="form-check-label" for="emsubgrp"> Employee Subgroup  </label>
         </div>
-        <div class="form-check">
-          <input class="form-check-input-inline" type="checkbox" value="salexp" id="choose-7" name="cbcol[]" checked>
-          <label class="form-check-label" for="salexcp"> Salary Exception  </label>
-        </div>
+
       </div>
       <div class="col-sm-3">
         <div class="form-check">
-          <input class="form-check-input-inline" type="checkbox" value="capsal" id="choose-8" name="cbcol[]" checked>
+          <input class="form-check-input-inline" type="checkbox" value="capsal" id="choose-7" name="cbcol[]" checked>
           <label class="form-check-label" for="capsalry"> Capping Salary (RM)  </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input-inline" type="checkbox" value="empst" id="choose-9" name="cbcol[]" checked>
+          <input class="form-check-input-inline" type="checkbox" value="empst" id="choose-8" name="cbcol[]" checked>
           <label class="form-check-label" for="empstt"> Employment Status  </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input-inline" type="checkbox" value="tthour" id="choose-10" name="cbcol[]" checked>
+          <input class="form-check-input-inline" type="checkbox" value="tthour" id="choose-9" name="cbcol[]" checked>
           <label class="form-check-label" for="numoh"> Total Hours </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input-inline" type="checkbox" value="ttlmin" id="choose-11" name="cbcol[]" checked>
+          <input class="form-check-input-inline" type="checkbox" value="ttlmin" id="choose-10" name="cbcol[]" checked>
           <label class="form-check-label" for="numom"> Total Minutes </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input-inline" type="checkbox" value="estamnt" id="choose-12" name="cbcol[]" checked>
+          <input class="form-check-input-inline" type="checkbox" value="estamnt" id="choose-11" name="cbcol[]" checked>
           <label class="form-check-label" for="estamt"> Total Estimated Amount  </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input-inline" type="checkbox" value="clmstatus" id="choose-13" name="cbcol[]" checked>
+          <input class="form-check-input-inline" type="checkbox" value="clmstatus" id="choose-12" name="cbcol[]" checked>
           <label class="form-check-label" for="clmst"> Claim Status  </label>
         </div>
       </div>
       <div class="col-sm-3">
         <div class="form-check">
-          <input class="form-check-input-inline" type="checkbox" value="chrtype" id="choose-14" name="cbcol[]" checked>
+          <input class="form-check-input-inline" type="checkbox" value="chrtype" id="choose-13" name="cbcol[]" checked>
           <label class="form-check-label" for="chtype"> Charge Type </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input-inline" type="checkbox" value="bodycc" id="choose-15" name="cbcol[]" checked>
+          <input class="form-check-input-inline" type="checkbox" value="bodycc" id="choose-14" name="cbcol[]" checked>
           <label class="form-check-label" for="dyty"> Body Cost Center </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input-inline" type="checkbox" value="othrcc" id="choose-16" name="cbcol[]" checked>
+          <input class="form-check-input-inline" type="checkbox" value="othrcc" id="choose-15" name="cbcol[]" checked>
           <label class="form-check-label" for="trncd"> Other Cost Center </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input-inline" type="checkbox" value="prtype" id="choose-17" name="cbcol[]" checked>
+          <input class="form-check-input-inline" type="checkbox" value="prtype" id="choose-16" name="cbcol[]" checked>
           <label class="form-check-label" for="dyty"> Project Type </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input-inline" type="checkbox" value="pnumbr" id="choose-18" name="cbcol[]" checked>
+          <input class="form-check-input-inline" type="checkbox" value="pnumbr" id="choose-17" name="cbcol[]" checked>
           <label class="form-check-label" for="dyty"> Project Number </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input-inline" type="checkbox" value="ntheadr" id="choose-19" name="cbcol[]" checked>
+          <input class="form-check-input-inline" type="checkbox" value="ntheadr" id="choose-18" name="cbcol[]" checked>
           <label class="form-check-label" for="trncd"> Network Header </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input-inline" type="checkbox" value="ntact" id="choose-20" name="cbcol[]" checked>
+          <input class="form-check-input-inline" type="checkbox" value="ntact" id="choose-19" name="cbcol[]" checked>
           <label class="form-check-label" for="trncd"> Network Activity</label>
         </div>
         <div class="form-check">
-          <input class="form-check-input-inline" type="checkbox" value="ordnum" id="choose-21" name="cbcol[]" checked>
+          <input class="form-check-input-inline" type="checkbox" value="ordnum" id="choose-20" name="cbcol[]" checked>
           <label class="form-check-label" for="trncd"> Order Number</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input-inline" type="checkbox" value="cascomp" id="choose-21" name="cbcol[]" checked>
+          <label class="form-check-label" for="trncd"> Charging Company</label>
         </div>
         <div class="form-check">
           <input class="form-check-input-inline" type="checkbox" value="appdate" id="choose-22" name="cbcol[]" checked>
@@ -244,13 +259,30 @@
           <input class="form-check-input-inline" type="checkbox" value="pydate" id="choose-33" name="cbcol[]" checked>
           <label class="form-check-label" for="pydt"> Payment Date </label>
         </div>
+
         <div class="form-check">
-          <input class="form-check-input-inline" type="checkbox" value="trnscd" id="choose-34" name="cbcol[]" checked>
-          <label class="form-check-label" for="trncd"> Transaction Code  </label>
+          <input class="form-check-input-inline" type="checkbox" value="dytype" id="choose-34" name="cbcol[]" checked>
+          <label class="form-check-label" for="dyty"> Day Type  </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input-inline" type="checkbox" value="dytype" id="choose-35" name="cbcol[]" checked>
-          <label class="form-check-label" for="dyty"> Day Type  </label>
+          <input class="form-check-input-inline" type="checkbox" value="eligday" id="choose-35" name="cbcol[]" checked>
+          <label class="form-check-label" for="dyty"> Eligible Day </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input-inline" type="checkbox" value="eligdaycode" id="choose-36" name="cbcol[]" checked>
+          <label class="form-check-label" for="dyty"> Eligible Day Code </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input-inline" type="checkbox" value="elighm" id="choose-37" name="cbcol[]" checked>
+          <label class="form-check-label" for="dyty"> Eligible Total Minutes/Hours </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input-inline" type="checkbox" value="elighmcode" id="choose-38" name="cbcol[]" checked>
+          <label class="form-check-label" for="dyty"> Eligible Total Minutes/Hours Code </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input-inline" type="checkbox" value="emptype" id="choose-39" name="cbcol[]" checked>
+          <label class="form-check-label" for="dyty"> Employee Type </label>
         </div>
         <!-- <div class="form-check">
           <input class="form-check-input-inline" type="checkbox" value="jst" id="choose-19" name="cbcol[]" >
@@ -273,21 +305,22 @@
       <p id="reportn-4" class="hidden">Region</p>
       <p id="reportn-5" class="hidden">Employee Group</p>
       <p id="reportn-6" class="hidden">Employee Subgroup</p>
-      <p id="reportn-7" class="hidden">Salary Exception</p>
-      <p id="reportn-8" class="hidden">Capping Salary (RM)</p>
-      <p id="reportn-9" class="hidden">Employment Status</p>
-      <p id="reportn-10" class="hidden">Total Hours</p>
-      <p id="reportn-11" class="hidden">Total Minutes</p>
-      <p id="reportn-12" class="hidden">Total Estimated Amount</p>
-      <p id="reportn-13" class="hidden">Claim Status</p>
-      <p id="reportn-14" class="hidden">Charge Type</p>
-      <p id="reportn-15" class="hidden">Body Cost Center</p>
-      <p id="reportn-16" class="hidden">Other Cost Center</p>
-      <p id="reportn-17" class="hidden">Project Type</p>
-      <p id="reportn-18" class="hidden">Project Number</p>
-      <p id="reportn-19" class="hidden">Network Header</p>
-      <p id="reportn-20" class="hidden">Network Activity</p>
-      <p id="reportn-21" class="hidden">Order Number</p>
+
+      <p id="reportn-7" class="hidden">Capping Salary (RM)</p>
+      <p id="reportn-8" class="hidden">Employment Status</p>
+      <p id="reportn-9" class="hidden">Total Hours</p>
+      <p id="reportn-10" class="hidden">Total Minutes</p>
+      <p id="reportn-11" class="hidden">Total Estimated Amount</p>
+      <p id="reportn-12" class="hidden">Claim Status</p>
+      <p id="reportn-13" class="hidden">Charge Type</p>
+      <p id="reportn-14" class="hidden">Body Cost Center</p>
+      <p id="reportn-15" class="hidden">Other Cost Center</p>
+      <p id="reportn-16" class="hidden">Project Type</p>
+      <p id="reportn-17" class="hidden">Project Number</p>
+      <p id="reportn-18" class="hidden">Network Header</p>
+      <p id="reportn-19" class="hidden">Network Activity</p>
+      <p id="reportn-20" class="hidden">Order Number</p>
+      <p id="reportn-21" class="hidden">Charging Company</p>
       <p id="reportn-22" class="hidden">Application Date</p>
       <p id="reportn-23" class="hidden">Verification Date</p>
       <p id="reportn-24" class="hidden">Verifier ID</p>
@@ -300,8 +333,13 @@
       <p id="reportn-31" class="hidden">Queried Date</p>
       <p id="reportn-32" class="hidden">Queried By</p>
       <p id="reportn-33" class="hidden">Payment Date </p>
-      <p id="reportn-34" class="hidden">Transaction Code</p>
-      <p id="reportn-35" class="hidden">Day Type</p>
+
+      <p id="reportn-34" class="hidden">Day Type</p>
+      <p id="reportn-35" class="hidden">Eligible Day</p>
+      <p id="reportn-36" class="hidden">Eligible Day Code</p>
+      <p id="reportn-37" class="hidden">Eligible Total Minutes/Hours</p>
+      <p id="reportn-38" class="hidden">Eligible Total Minutes/Hours Code</p>
+      <p id="reportn-39" class="hidden">Employee Type</p>
     </div>
   </div>
 
@@ -322,21 +360,22 @@
       <p id="reporty-4">Region</p>
       <p id="reporty-5">Employee Group</p>
       <p id="reporty-6">Employee Subgroup</p>
-      <p id="reporty-7">Salary Exception</p>
-      <p id="reporty-8">Capping Salary (RM)</p>
-      <p id="reporty-9">Employment Status</p>
-      <p id="reporty-10">Total Hours</p>
-      <p id="reporty-11">Total Minutes</p>
-      <p id="reporty-12">Total Estimated Amount</p>
-      <p id="reporty-13">Claim Status</p>
-      <p id="reporty-14">Charge Type</p>
-      <p id="reporty-15">Body Cost Center</p>
-      <p id="reporty-16">Other Cost Center</p>
-      <p id="reporty-17">Project Type</p>
-      <p id="reporty-18">Project Number</p>
-      <p id="reporty-19">Network Header</p>
-      <p id="reporty-20">Network Activity</p>
-      <p id="reporty-21">Order Number</p>
+
+      <p id="reporty-7">Capping Salary (RM)</p>
+      <p id="reporty-8">Employment Status</p>
+      <p id="reporty-9">Total Hours</p>
+      <p id="reporty-10">Total Minutes</p>
+      <p id="reporty-11">Total Estimated Amount</p>
+      <p id="reporty-12">Claim Status</p>
+      <p id="reporty-13">Charge Type</p>
+      <p id="reporty-14">Body Cost Center</p>
+      <p id="reporty-15">Other Cost Center</p>
+      <p id="reporty-16">Project Type</p>
+      <p id="reporty-17">Project Number</p>
+      <p id="reporty-18">Network Header</p>
+      <p id="reporty-19">Network Activity</p>
+      <p id="reporty-20">Order Number</p>
+      <p id="reporty-21">Charging Company</p>
       <p id="reporty-22">Application Date</p>
       <p id="reporty-23">Verification Date</p>
       <p id="reporty-24">Verifier ID</p>
@@ -349,8 +388,13 @@
       <p id="reporty-31">Queried Date</p>
       <p id="reporty-32">Queried By</p>
       <p id="reporty-33">Payment Date </p>
-      <p id="reporty-34">Transaction Code</p>
-      <p id="reporty-35">Day Type</p>
+
+      <p id="reporty-34">Day Type</p>
+      <p id="reporty-35"  >Eligible Day</p>
+      <p id="reporty-36"  >Eligible Day Code</p>
+      <p id="reporty-37"  >Eligible Total Minutes/Hours</p>
+      <p id="reporty-38"  >Eligible Total Minutes/Hours Code</p>
+      <p id="reporty-39"  >Employee Type</p>
     </div>
   </div>
 
@@ -427,7 +471,7 @@ $(document).ready(function() {
 });
 
 var checkno = 0;
-for(var i=0; i<36; i++){
+for(var i=0; i<40; i++){
   $("#reportn-"+i).on("click", clicked(i, "n"));
   $("#reporty-"+i).on("click", clicked(i, "y"));
 }
@@ -435,7 +479,7 @@ for(var i=0; i<36; i++){
 function clicked(i, t){
   return function(){
     checkno = i;
-    for(var n=0; n<36; n++){
+    for(var n=0; n<40; n++){
       $("#reportn-"+n).removeClass("click");
       $("#reporty-"+n).removeClass("click");
     }
@@ -456,7 +500,7 @@ function add(){
 }
 
 function addall(){
-  for(var n=0; n<36; n++){
+  for(var n=0; n<40; n++){
     $("#reportn-"+n).addClass("hidden");
     $("#reporty-"+n).removeClass("hidden");
     $("#choose-"+n).prop('checked', true);
@@ -472,7 +516,7 @@ function remove(){
 }
 
 function removeall(){
-  for(var n=0; n<36; n++){
+  for(var n=0; n<40; n++){
     $("#reportn-"+n).removeClass("hidden");
     $("#reporty-"+n).addClass("hidden");
     $("#choose-"+n).prop('checked', false);

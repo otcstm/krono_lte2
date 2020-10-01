@@ -1,9 +1,7 @@
-@extends('adminlte::page')
+@extends('adminlte::clean')
 
-@section('title', 'Overtime List')
+@section('title', 'Details of Overtime Claim')
 
-@section('content')
-<h1>Details of Overtime Claim</h1>
 <div class="panel panel-default ">
     <div class="panel-body panel-main">
         <p style="margin: 15px 0 35px"><b>Reference No: <span style="color: #143A8C">{{$claim->refno}} ({{$claim->employee_type}})</span></b></p>
@@ -238,7 +236,6 @@
         </div>
     </div>
 </div>
-@stop
 
 @section('js')
 

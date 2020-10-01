@@ -44,7 +44,8 @@ class PersDataController extends Controller
         $empstats,
         $position,
         $costcentr,
-        $upd_sap
+        $upd_sap,
+        $upd_dm
     ) {
 
         //User data for current state employee
@@ -85,6 +86,9 @@ class PersDataController extends Controller
 
         # id, name, email, remember_token, staff_no,
         #persno, new_ic, company_id, orgunit, persarea, perssubarea, state_id, empsgroup, empgroup, reptto, empstats, created_at, updated_at
+        
+        if ( $u->upd_sap <= $upd_sap ) {
+        
         $u->name        = $name;
         $u->email       = $email;
         $u->staff_no    = $staffno;
@@ -97,8 +101,11 @@ class PersDataController extends Controller
         $u->perssubarea = $perssubarea;
         $u->reptto = $reptto;
         $u->state_id = $state_id_val;
+        $u->upd_sap      = $upd_sap;
+        $u->upd_dm      = $upd_dm;
 
         $u->save();
+        }
 
         //User records for hsitorical data
         $ur = new UserRecord;
@@ -123,6 +130,7 @@ class PersDataController extends Controller
         $ur->position     = $position;
         $ur->costcentr    = $costcentr;
         $ur->upd_sap      = $upd_sap;
+        $ur->upd_dm      = $upd_dm;
         $ur->state_id = $state_id_val;
         $ur->save();
 
@@ -156,7 +164,8 @@ class PersDataController extends Controller
             $req->position,
             $req->cost_centre,   //costcentr
             //$req->last_upd_dt,    //upd_sap
-            $upd_sap
+            $upd_sap,
+            $req->last_upd_dt
 
         ) ;
 

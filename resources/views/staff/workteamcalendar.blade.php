@@ -14,7 +14,7 @@
         <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px;height:50px">
       </div>
       <div class="media-body">
-        <p>My Work Schedule</p>
+        <p>My Work Schedule<Br>(Normal Employee)</p>
       </div>
     </div>
     </div><!-- /.box-body -->
@@ -30,7 +30,7 @@
         <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px;height:50px">
       </div>
       <div class="media-body">
-        <p>View My Monthly Work Schedule</p>
+        <p>View My Monthly Work Schedule<Br>(Shift Employee)</p>
       </div>
     </div>
     </div><!-- /.box-body -->
@@ -46,7 +46,7 @@
         <img src="vendor/ot-assets/wsr-team-sched.png" class="media-object" style="width:50px;height:50px">
       </div>
       <div class="media-body">
-        <p>View Team Work Schedule</p>
+        <p>View Team Work Schedule<Br>(Shift Employee)</p>
       </div>
     </div>
     </div><!-- /.box-body -->
@@ -54,7 +54,7 @@
   </a>
   </div>
   {{-- 2-{{$usrWorkSche}} --}}
-  @if(isset($usrWorkSche) && $usrWorkSche == 1)
+  {{-- @if(isset($usrWorkSche) && $usrWorkSche == 1)
   <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
   <a href="{{route('staff.worksched', ['page' => 'reqs'])}}">
     <div class="box box-solid box-primary">
@@ -71,7 +71,7 @@
     </div>
   </a>
   </div>
-  @endif
+  @endif --}}
 </div>
 
 <div class="panel panel-primary">
@@ -113,7 +113,7 @@
   </div>
   <div class="panel-body p-3">
     <div class="table-responsive">
-      <table id="tbltwsc" class="table table-bordered table-condensed cell-border" style="white-space: nowrap;">
+      <table id="tbltwsc" class="table table-bordered table-condensed table-striped table-hover cell-border" style="white-space: nowrap;">
         <thead>
           <tr>
             @foreach($header as $h)
@@ -127,7 +127,8 @@
             <td>{{ $s['staffno'] }}</td>
             <td style="text-align: left !important;">{{ $s['name'] }}</td>
             @foreach($s['data'] as $h)
-            <td ><b>{{ $h['type'] }}</b><br />{{ $h['time'] }}</td>
+            <td><b>@if($h['dtype']=="N") Normal Day<br /> @elseif($h['dtype']=="O") Off Day<br /> @elseif($h['dtype']=="R") Rest Day<br /> @endif</b>
+              {{ $h['time'] }}</td>
             @endforeach
           </tr>
           @endforeach

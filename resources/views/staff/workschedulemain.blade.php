@@ -14,7 +14,7 @@
         <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px;height:50px">
       </div>
       <div class="media-body">
-        <p>My Work Schedule</p>
+        <p>My Work Schedule<Br>(Normal Employee)</p>
       </div>
     </div>
     </div><!-- /.box-body -->
@@ -30,7 +30,7 @@
         <img src="vendor/ot-assets/calendar.jpg" class="media-object" style="width:50px;height:50px">
       </div>
       <div class="media-body">
-        <p>View My Monthly Work Schedule</p>
+        <p>View My Monthly Work Schedule<Br>(Shift Employee)</p>
       </div>
     </div>
     </div><!-- /.box-body -->
@@ -46,7 +46,7 @@
         <img src="vendor/ot-assets/wsr-team-sched.png" class="media-object" style="width:50px;height:50px">
       </div>
       <div class="media-body">
-        <p>View Team Work Schedule</p>
+        <p>View Team Work Schedule<Br>(Shift Employee)</p>
       </div>
     </div>
     </div><!-- /.box-body -->
@@ -54,7 +54,7 @@
   </a>
   </div>
   {{-- 0-{{$usrWorkSche}} --}}
-  @if(isset($usrWorkSche) && $usrWorkSche == 1)
+  {{-- @if(isset($usrWorkSche) && $usrWorkSche == 1)
   <div class="col-md-3 col-sm-6 col-xs-12 noPaddingLeft">
   <a href="{{route('staff.worksched', ['page' => 'reqs'])}}">
     <div class="box box-solid box-primary">
@@ -71,7 +71,7 @@
     </div>
   </a>
   </div>
-  @endif
+  @endif --}}
 </div>
 
 <div class="panel panel-primary">
@@ -125,8 +125,8 @@
               <div  id="baten_form">
                 <div class="row">
                   <div class="col-md-8 text-center">
-                    <button type="button" class="btn btn-sm btn-primary btn-outline" onclick="cancelEdit()">Cancel</button>
-                    <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                    <button type="button" style="display:none" class="btn btn-sm btn-primary btn-outline" onclick="cancelEdit()">Cancel</button>
+                    <button type="submit" style="display:none" class="btn btn-sm btn-primary">Submit</button>
                   </div>
                 </div>
               </div>
@@ -134,7 +134,7 @@
               <div id="baten_edit">
                 <div class="row" id="baten_edit">
                   <div class="col-md-8 text-center">
-                    <button type="button" class="btn btn-sm btn-primary btn-outline" onclick="showEditForm()">Edit</button>
+                    <button type="button" style="display:none" class="btn btn-sm btn-primary btn-outline" onclick="showEditForm()">Edit</button>
                   </div>
                 </div>
               </div>
