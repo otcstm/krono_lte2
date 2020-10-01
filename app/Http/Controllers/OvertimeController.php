@@ -109,7 +109,6 @@ class OvertimeController extends Controller
                 $start = "00:00";
                 $end = $day[5];
             }
-            // dd($day);
             // dd($shift);
             // $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $region->region)->where('start_date','<=', $req->session()->get('claim')->date)->where('end_date','>', $req->session()->get('claim')->date)->first();
             $eligiblehour = URHelper::getUserEligibility($req->user()->id, $req->session()->get('claim')->date);
@@ -217,11 +216,13 @@ class OvertimeController extends Controller
                 $start = "00:00";
                 $end = $day[5];
             }
+            
             // dd($day);
             // dd($start. " ". $end);
             // $eligiblehour = OvertimeEligibility::where('company_id', $req->user()->company_id)->where('region', $region->region)->where('start_date','<=', $draft[4])->where('end_date','>', $draft[4])->first();
             $eligiblehour = URHelper::getUserEligibility($req->user()->id, $draft[4]);
             // dd($req->session()->get('draft'));
+            
             return view('staff.otform', ['draft' => $req->session()->get('draft'), 'day' => $day, 'eligiblehour' => $eligiblehour->hourpermonth, 'costc' => $costc, 'shift' => $shift, 'start' => $start,'end' => $end]);
             
         //if apply new claim
@@ -584,12 +585,14 @@ class OvertimeController extends Controller
                         }
                         $draftclaim->date_expiry = date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d', strtotime("+3 months", strtotime($req->inputdate))))));
                     }
+                    $company_id_user = Psubarea::where('persarea',$staffr->persarea)->where('perssubarea',$staffr->perssubarea)->first();
                     // $draftclaim->state_id =  $req->user()->state_id;
                     $draftclaim->state_id =  $staffr->state_id;
                     $draftclaim->daytype_id =  $day[4];
                     $draftclaim->day_type_code =  $day_type;
                     $draftclaim->profile_id =  $staffr->id;
                     $draftclaim->company_id =  $staffr->company_id;
+                    $draftclaim->company_id_user =  $company_id_user;
                     $draftclaim->persarea =  $staffr->persarea;
                     $draftclaim->perssubarea =  $staffr->perssubarea;
                     $draftclaim->punch_id =  $punch[0]->punch_id;
@@ -635,7 +638,6 @@ class OvertimeController extends Controller
                         $updateclaim = OvertimeDetail::latest()->first(); 
                         $pay = UserHelper::CalOT($updateclaim->id);
                         // $pay = UserHelper::CalOT($salary, $punches->hour, $punches->minute);
-                        $updateclaim->amount = $pay;
                         $draftclaim->amount = $draftclaim->amount + $pay;
                         $newclaim->save();
                         $draftclaim->save();
@@ -789,10 +791,13 @@ class OvertimeController extends Controller
                         }
                     }
                 }
+                $company_id_user = Psubarea::where('persarea',$staffr->persarea)->where('perssubarea',$staffr->perssubarea)->first();
+                    
                 $draftclaim->daytype_id =  $day[4];
                 $draftclaim->day_type_code =  $day_typed;
                 $draftclaim->state_id =  ($req->session()->get('draft'))[6];
                 $draftclaim->company_id =  $staffr->company_id;
+                $draftclaim->company_id_user =  $company_id_user;
                 $draftclaim->employee_type =  ($req->session()->get('draft'))[14];
                 $draftclaim->salary_exception =  ($req->session()->get('draft'))[15];
                 $draftclaim->persarea =  $staffr->persarea;
@@ -1287,7 +1292,6 @@ class OvertimeController extends Controller
         $updateclaim->save();
         $updateclaim = Overtime::find($claim->id);
         $wla = UserHelper::GetWageLegacyAmount($claim->id);
-        $updateclaim->legacy_code = $wla[0];
         $updateclaim->amount = $wla[1];
         
         $claimdetail = OvertimeDetail::where('ot_id', $claim->id)->get();
@@ -1623,7 +1627,6 @@ class OvertimeController extends Controller
         $updatemonth->hour = (int)($totaltime/60);
         $updatemonth->minute = ($totaltime%60);
         $wla = UserHelper::GetWageLegacyAmount($claim->id);
-        $updateclaim->legacy_code = $wla[0];
         $updateclaim->amount = $wla[1];
 
         // dd($totaltime, $updateclaim->eligible_total_hours_minutes, $updateclaim->total_hour, $updatemonth->hour);

@@ -1199,6 +1199,7 @@
                     var sc = "00:00"; 
                     var ec = "24:00"; 
                 @endif
+                // console.log(max);
                 var mt = min.split(":");
                 var mxt = max.split(":");
                 var sdt = sc.split(":");
@@ -1213,21 +1214,6 @@
                 while(sm.length<2){
                     sm = "0"+sm;
                 }
-                // var me = "AM";
-                // if(h>12){
-                //     h = h-12;
-                //     me = "PM"
-                // }else if(h==0){
-                //     h = 12;
-                // }
-                // sh = h.toString();
-                // while(sh.length<2){
-                //     sh = "0"+sh;
-                // }
-                // sm = m.toString();
-                // while(sm.length<2){
-                //     sm = "0"+sm;
-                // }
                 var sd = ((parseInt(sdt[0]))*60)+(parseInt(sdt[1]));
                 var ed = ((parseInt(edt[0]))*60)+(parseInt(edt[1]));
                 var start = ((parseInt(st[0]))*60)+(parseInt(st[1]));
@@ -1253,16 +1239,6 @@
                     }
                 }
                 if(cont){
-                    if($("#inputend-"+i).val()!=""){
-                        // if($("#inputend-"+i).val()=="00:00"){
-                        //     var entime = "24:00";
-                        // }else{
-                        var entime = $("#inputend-"+i).val();
-                        // }
-                        var et = entime.split(":");
-                        // var et = ($("#inputend-"+i).val()).split(":");
-                        var end = ((parseInt(et[0]))*60)+(parseInt(et[1]));
-                    }
                     if(clocker!=undefined){
                         time = timemaster(clock_in, clock_out);
                         // if(check){
@@ -1345,7 +1321,14 @@
                                     @endif
                                 @endif
                                 // if(check){
+                                    // if(!((end>nstart && end<nend)||(nstart<end && nend>start))){
                                     if((end>nstart && end<nend)||(nstart<end && nend>start)){
+                                        // console.log(
+                                        //     "start: "+start+
+                                        //     "| end: "+end+
+                                        //     "| nstart: "+nstart+
+                                        //     "| nend: "+nend
+                                        // )
                                         calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
                                         killview(i, "Time input cannot be between {{$day[0]}} {{date("d.m.Y", strtotime($day[7]))}} and {{$day[1]}} {{date("d.m.Y", strtotime($day[7]."+1 day"))}}!");
                                         // check = killview(i, "Time input cannot be between {{$day[0]}} and {{$day[1]}}!");
