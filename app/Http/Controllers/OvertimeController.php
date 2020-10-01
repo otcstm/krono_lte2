@@ -311,8 +311,10 @@ class OvertimeController extends Controller
             $claim = Overtime::find($id[$i]);
             $leave = UserHelper::CheckLeave($req->user()->id, $claim->date);
             if ($leave) {
-                if (($leave->opr == "INS")&&($leave->leave_status == "APPROVED"))  {
-                    $cansubmit = false;
+                if(!(($leave->leave_type!="HP1")||($leave->leave_type!="HP2"))){
+                    if (($leave->opr == "INS")&&($leave->leave_status == "APPROVED"))  {
+                        $cansubmit = false;
+                    }
                 }
             }
         }
@@ -1404,8 +1406,10 @@ class OvertimeController extends Controller
             //check for leave
             $leave = UserHelper::CheckLeave($req->user()->id, $claim->date);
             if ($leave) {
-                if (($leave->opr == "INS")&&($leave->leave_status == "APPROVED"))  {
-                    $cansubmit = false;
+                if(!(($leave->leave_type!="HP1")||($leave->leave_type!="HP2"))){
+                    if (($leave->opr == "INS")&&($leave->leave_status == "APPROVED"))  {
+                        $cansubmit = false;
+                    }
                 }
             }
 
