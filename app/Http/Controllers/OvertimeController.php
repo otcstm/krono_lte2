@@ -894,20 +894,27 @@ class OvertimeController extends Controller
                 $updateclaim->eligible_total_hours_minutes_code =  null;
                 $updateclaim->eligible_total_hours_minutes = null;
                 $updateclaim->eligible_total_hours_minutes_code =  null;
-                $code = URHelper::getDayCode($updateclaim->user_id, $updateclaim->date, $updateclaim->day_type_code, $totaltime);
+                $code = URHelper::getDayCode($updateclaim->id, $totaltime);
                 if(($updateclaim->day_type_code=="N")||($updateclaim->day_type_code=="O")){
+                    $updateclaim->eligible_total_hours_minutes = $totaltime/60;
+                    if($totaltime/60!=0){
+                        $updateclaim->eligible_total_hours_minutes_code =  $code[1];
+                    }
                 }else{
                     $updateclaim->eligible_day = 1;
                     $updateclaim->eligible_day_code = $code[0];
-                    if($totaltime > $working_minutes){
-                        $totaltime = $totaltime - $working_minutes;
-                    } 
+                    $totaltime = $totaltime - $working_minutes;
+                    if($totaltime/60>0){
+                        $updateclaim->eligible_total_hours_minutes = $totaltime/60;
+                        $updateclaim->eligible_total_hours_minutes_code =  $code[1];
+                    }else{                        
+                        $updateclaim->eligible_total_hours_minutes = 0;
+                        $updateclaim->eligible_total_hours_minutes_code = null;
+                    }
+                    // dd($updateclaim->eligible_total_hours_minutes, $updateclaim->eligible_total_hours_minutes_code);
                 }
+
                 
-                $updateclaim->eligible_total_hours_minutes = $totaltime/60;
-                if($totaltime/60!=0){
-                    $updateclaim->eligible_total_hours_minutes_code =  $code[1];
-                }
 
                 $newdetail->save();
                 // dd($pay);
@@ -1027,20 +1034,25 @@ class OvertimeController extends Controller
                         $updateclaim->total_hour = (int)($totaltime/60);
                         $updateclaim->total_minute = ($totaltime%60);
                         $updateclaim->total_hours_minutes = ($totaltime/60);
-                        $code = URHelper::getDayCode($updateclaim->user_id, $updateclaim->date, $updateclaim->day_type_code, $totaltime);
+                        $code = URHelper::getDayCode($updateclaim->id, $totaltime);
                         if(($updateclaim->day_type_code=="N")||($updateclaim->day_type_code=="O")){
                             $updateclaim->eligible_total_hours_minutes = $totaltime/60;
                             if($totaltime/60!=0){
                                 $updateclaim->eligible_total_hours_minutes_code =  $code[1];
+                            }else{
+                                $updateclaim->eligible_total_hours_minutes_code = null;
                             }
                         }else{
                             $updateclaim->eligible_day = 1;
                             $updateclaim->eligible_day_code = $code[0];
                             if($totaltime >= $working_minutes){
                                 $totaltime = $totaltime - $working_minutes;
-                                $updateclaim->eligible_total_hours_minutes = $totaltime/60;
-                                if($totaltime/60!=0){
+                                if($totaltime/60>0){
+                                    $updateclaim->eligible_total_hours_minutes = $totaltime/60;
                                     $updateclaim->eligible_total_hours_minutes_code =  $code[1];
+                                }else{                        
+                                    $updateclaim->eligible_total_hours_minutes = 0;
+                                    $updateclaim->eligible_total_hours_minutes_code = null;
                                 }
                             }else{
                                 $updateclaim->eligible_total_hours_minutes = 0;
@@ -1571,9 +1583,9 @@ class OvertimeController extends Controller
         $start = $claimdetail->start_time;
         $end = $claimdetail->end_time;
         $updatemonth = OvertimeMonth::find($claim->month_id);
+        
         $updateclaim = Overtime::find($claim->id);
         $time = ($updateclaim->total_hour*60)+$updateclaim->total_minute;
-        // dd($time);
         if($time >= $working_minutes){
             $time = $time - $working_minutes;
         }
@@ -1600,14 +1612,30 @@ class OvertimeController extends Controller
         if (count($claimdetail)==0) {
             $updateclaim->status = 'D1';
         }
-        $code = URHelper::getDayCode($updateclaim->user_id, $updateclaim->date, $updateclaim->day_type_code, $totaltime);
+        $code = URHelper::getDayCode($updateclaim->id, $totaltime);
         if(($updateclaim->day_type_code=="N")||($updateclaim->day_type_code=="O")){
+            $updateclaim->eligible_total_hours_minutes = $totaltime/60;
+            if($totaltime/60!=0){
+                $updateclaim->eligible_total_hours_minutes_code =  $code[1];
+            }
         }else{
-            $updateclaim->eligible_day = 1;
-            $updateclaim->eligible_day_code = $code[0];
+            if($totaltime/60!=0){
+                $updateclaim->eligible_day = 1;
+                $updateclaim->eligible_day_code = $code[0];
+            }else{
+                $updateclaim->eligible_day = 0;
+                $updateclaim->eligible_day_code = null;
+            }
             if($totaltime >= $working_minutes){
                 $totaltime = $totaltime - $working_minutes;
             } 
+            if($totaltime/60>0){
+                $updateclaim->eligible_total_hours_minutes = $totaltime/60;
+                $updateclaim->eligible_total_hours_minutes_code =  $code[1];
+            }else{                        
+                $updateclaim->eligible_total_hours_minutes = 0;
+                $updateclaim->eligible_total_hours_minutes_code = null;
+            }
         }
 
         $updateclaim->eligible_total_hours_minutes = $totaltime/60;
