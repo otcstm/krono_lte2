@@ -594,7 +594,7 @@ class OvertimeController extends Controller
                     $draftclaim->day_type_code =  $day_type;
                     $draftclaim->profile_id =  $staffr->id;
                     $draftclaim->company_id =  $staffr->company_id;
-                    $draftclaim->company_id_user =  $company_id_user;
+                    $draftclaim->company_id_user =  $company_id_user->id;
                     $draftclaim->persarea =  $staffr->persarea;
                     $draftclaim->perssubarea =  $staffr->perssubarea;
                     $draftclaim->punch_id =  $punch[0]->punch_id;
@@ -770,6 +770,7 @@ class OvertimeController extends Controller
                 $draftclaim->date_expiry = ($req->session()->get('draft'))[1];
                 $draftclaim->total_hour = 0;
                 $draftclaim->total_minute = 0;
+                $draftclaim->total_hours_minutes = 0;
                 $draftclaim->amount = 0;
                 $day= UserHelper::CheckDay($req->user()->id, $req->session()->get('draft')[4]);
                 $day_type=$day[2];
@@ -799,7 +800,7 @@ class OvertimeController extends Controller
                 $draftclaim->day_type_code =  $day_typed;
                 $draftclaim->state_id =  ($req->session()->get('draft'))[6];
                 $draftclaim->company_id =  $staffr->company_id;
-                $draftclaim->company_id_user =  $company_id_user;
+                $draftclaim->company_id_user =  $company_id_user->id;
                 $draftclaim->employee_type =  ($req->session()->get('draft'))[14];
                 $draftclaim->salary_exception =  ($req->session()->get('draft'))[15];
                 $draftclaim->persarea =  $staffr->persarea;
@@ -888,11 +889,11 @@ class OvertimeController extends Controller
                 $newdetail->checked = "Y";
                 $newdetail->justification = $req->inputremarknew;
                 $newdetail->is_manual = "X";
-
                 $updateclaim = Overtime::find($claim->id);
                 $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)+(($hour*60)+$minute);
                 $updateclaim->total_hour = (int)($totaltime/60);
                 $updateclaim->total_minute = ($totaltime%60);
+                $updateclaim->total_hours_minutes = $totaltime/60;
                 // if($updateclaim->day_type_code=="PH"){
                 $updateclaim->eligible_day = 0;
                 $updateclaim->eligible_total_hours_minutes_code =  null;
@@ -905,6 +906,18 @@ class OvertimeController extends Controller
                         $updateclaim->eligible_total_hours_minutes_code =  $code[1];
                     }
                 }else{
+                    if($updateclaim->day_type_code=="PH"){
+                        $wd = ShiftPlanStaffDay::where('user_id', $updateclaim->user_id)->whereDate('work_date', $updateclaim->date)->first();
+                        if($wd){
+                           $working_minutes = $wd->Day->working_hour*60; 
+                        }
+                    }
+                    if($updateclaim->day_type_code=="PH"){
+                        $wd = ShiftPlanStaffDay::where('user_id', $updateclaim->user_id)->whereDate('work_date', $updateclaim->date)->first();
+                        if($wd){
+                           $working_minutes = $wd->Day->working_hour*60; 
+                        }
+                    }
                     $updateclaim->eligible_day = 1;
                     $updateclaim->eligible_day_code = $code[0];
                     $totaltime = $totaltime - $working_minutes;
@@ -1025,6 +1038,7 @@ class OvertimeController extends Controller
                         }
                         $updateclaim->total_hour = (int)($totaltime/60);
                         $updateclaim->total_minute = ($totaltime%60);
+                        $updateclaim->total_hours_minutes = $totaltime/60;
                         $code = URHelper::getDayCode($updateclaim->id, $totaltime);
                         if(($updateclaim->day_type_code=="N")||($updateclaim->day_type_code=="O")){
                             $updateclaim->eligible_total_hours_minutes = $totaltime/60;
@@ -1034,6 +1048,12 @@ class OvertimeController extends Controller
                                 $updateclaim->eligible_total_hours_minutes_code = null;
                             }
                         }else{
+                            if($updateclaim->day_type_code=="PH"){
+                                $wd = ShiftPlanStaffDay::where('user_id', $updateclaim->user_id)->whereDate('work_date', $updateclaim->date)->first();
+                                if($wd){
+                                   $working_minutes = $wd->Day->working_hour*60; 
+                                }
+                            }
                             $updateclaim->eligible_day = 1;
                             $updateclaim->eligible_day_code = $code[0];
                             if($totaltime >= $working_minutes){
@@ -1585,6 +1605,7 @@ class OvertimeController extends Controller
             $totaltime = (($updateclaim->total_hour*60)+$updateclaim->total_minute)-((($claimdetail->hour)*60)+$claimdetail->minute);
             $updateclaim->total_hour = (int)($totaltime/60);
             $updateclaim->total_minute = ($totaltime%60);
+            $updateclaim->total_hours_minutes = $totaltime/60;
             $updateclaim->amount = $updateclaim->amount - $claimdetail->amount;
         }else{
             $totaltime = 0;
@@ -1605,6 +1626,12 @@ class OvertimeController extends Controller
                 $updateclaim->eligible_total_hours_minutes_code =  $code[1];
             }
         }else{
+            if($updateclaim->day_type_code=="PH"){
+                $wd = ShiftPlanStaffDay::where('user_id', $updateclaim->user_id)->whereDate('work_date', $updateclaim->date)->first();
+                if($wd){
+                   $working_minutes = $wd->Day->working_hour*60; 
+                }
+            }
             if($totaltime/60!=0){
                 $updateclaim->eligible_day = 1;
                 $updateclaim->eligible_day_code = $code[0];
