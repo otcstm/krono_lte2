@@ -482,7 +482,7 @@ $(document).ready(function() {
 });
 
 var checkno = 0;
-for(var i=0; i<42; i++){
+for(var i=0; i<43; i++){
   $("#reportn-"+i).on("click", clicked(i, "n"));
   $("#reporty-"+i).on("click", clicked(i, "y"));
 }
@@ -490,7 +490,7 @@ for(var i=0; i<42; i++){
 function clicked(i, t){
   return function(){
     checkno = i;
-    for(var n=0; n<42; n++){
+    for(var n=0; n<43; n++){
       $("#reportn-"+n).removeClass("click");
       $("#reporty-"+n).removeClass("click");
     }
@@ -511,7 +511,7 @@ function add(){
 }
 
 function addall(){
-  for(var n=0; n<42; n++){
+  for(var n=0; n<43; n++){
     $("#reportn-"+n).addClass("hidden");
     $("#reporty-"+n).removeClass("hidden");
     $("#choose-"+n).prop('checked', true);
@@ -527,7 +527,7 @@ function remove(){
 }
 
 function removeall(){
-  for(var n=0; n<42; n++){
+  for(var n=0; n<43; n++){
     $("#reportn-"+n).removeClass("hidden");
     $("#reporty-"+n).addClass("hidden");
     $("#choose-"+n).prop('checked', false);
