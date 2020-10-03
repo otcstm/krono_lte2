@@ -257,7 +257,7 @@ class URHelper
         $hourc = null;
         //check if there's any shift planned for this person
         $wd = ShiftPlanStaffDay::where('user_id', $claim->user_id)->whereDate('work_date', $claim->date)->first();
-        
+        // dd($wd);
         if($wd){
           $whmax = $wd->Day->working_hour*60;
           $whmin = $wd->Day->working_hour/2*60;

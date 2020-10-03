@@ -290,7 +290,7 @@
                         <button type="button" class="btn-up" id="add" style="margin-bottom: 5px;">
                         <i class="fas fa-plus-circle"></i> ADD TIME
                         </button>
-                        <p>Total time: 
+                        <p class="hidden">Total time: 
                                 @if($claim ?? "")
                                     <span id="oldth" class="hidden">{{$claim->time->hour}}</span>
                                     <span id="oldtm" class="hidden">{{$claim->time->minute}}</span>
