@@ -10,7 +10,11 @@ use App\ShiftGroup;
 use App\ShiftPattern;
 use App\CompanyShiftPattern;
 use App\ViewShiftGroup;
+use \Carbon\Carbon;
+use \Calendar;
 use DB;
+use Schema;
+use Response;
 
 use App\Notifications\GroupOwnerAssigned;
 use App\Notifications\GroupPlannerAssigned;
@@ -687,21 +691,117 @@ class ShiftGroupController extends Controller
     }
 
     public function showall(Request $req){
-      
+
+      $slctUserId = null;
+      $slctUserIdText = null;
       $gcode = null;
+
       if($req->has('gcode')){
-        $gcode = $req->gcode;        
-        $gresult = ViewShiftGroup::where('group_code',$req->gcode)->get();
-      } else {
-        $gresult = ViewShiftGroup::take(0)->get();
-      }
+        $gcode = $req->gcode;
+      };
+      if($req->has('userId')){
+        $slctUserId = $req->userId;
+      };
+
+      $gresult = [];
+      
       $gclist =  ViewShiftGroup::select('group_code','group_name')->distinct()->get();
+
+      if(($gcode) || ($slctUserId) ){
+        if($req->userId!=0){
+        $qUser = User::where('id',$slctUserId)->first();
+        $slctUserId = $qUser->id;
+        $slctUserIdText = $qUser->name.' ('.$qUser->staff_no.')';
+        }
+
+        $data = ViewShiftGroup::query();
+        //$data = $data->select("user_id","name","staffno","email","company_id","costcentr","persarea","perssubarea","empgroup","empsgroup");
+        if(strlen(trim($gcode))>0){
+            $data = $data->orwherein('group_code',$req->gcode);
+        }
+        if($req->userId!=0 ){
+            $data = $data->orwherein('u_persno',$slctUserId);
+        }
+        $data = $data->take(50);
+        $data = $data->get();
+        $gresult = $data;
+      }
+      //dd($req);
+
+      // if($req->has('gcode')){
+      //   $gcode = $req->gcode;        
+      //   $gresult = ViewShiftGroup::where('group_code',$req->gcode)
+      //   ->orwhere('u_persno',$slctUserId)
+      //   ->take(50)
+      //   ->get();
+      // } else {
+      //   $gresult = ViewShiftGroup::take(0)->get();
+      // }
+
       return view('admin.shiftGroup',
-      [        
+      [
+        'slctUserId' => $slctUserId,   
+        'slctUserIdText' => $slctUserIdText,         
         'gcode' => $gcode,
         'gclist' => $gclist,
         'gresult' => $gresult,
       ]);
+    }
+
+    public function downloadAllSg(Request $req){
+      
+      ini_set('max_execution_time', 300);
+      ini_set('memory_limit', '1024M');
+      // .csv -> text/csv
+      $content_type = 'text/csv';
+      $file_ext = 'csv';
+
+      $dtnow = new Carbon();
+      $fn ='ShiftGroup';
+      $listcolumns = Schema::getColumnListing('v_shift_group');
+
+      $qlist = [];
+      $qlist = ViewShiftGroup::all();
+      $qlist_count = $qlist->count();
+      $qlist_data = $qlist->toArray();
+
+      $fname = $fn.'_'.$dtnow->format('YmdHis').'_'.$qlist_count.'.'.$file_ext;
+
+      $handle = fopen($fname, 'w+');
+
+      // write header
+      fputcsv($handle, $listcolumns);
+
+      // write data
+      ViewShiftGroup::chunk(5000, function($qlist) use($handle) {
+        foreach ($qlist as $row) {
+            // Add a new row with data
+            fputcsv($handle, [
+              $row->group_code,
+              $row->group_name,
+              $row->go_name,
+              $row->go_staffno,
+              $row->go_persno,
+              $row->sp_name,
+              $row->sp_staffno,
+              $row->sp_persno,
+              $row->u_name,
+              $row->u_staffno,
+              $row->u_persno,
+            ]);
+        }
+      });
+
+      fclose($handle);
+
+      $headers = [ 
+        'Content-Type' => $content_type,
+        'Content-Disposition' => 'attachment;filename="'.$fname.'"',
+        'Cache-Control' => 'max-age=0',       
+      ];
+
+      return Response::download($fname, $fname, $headers);
+      
     }
 
 }

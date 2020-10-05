@@ -3,13 +3,14 @@
 @section('title', 'All Shift Planning')
 
 @section('content')
+<h1>Shift Planning</h1>
 <div class="row">
     <div class="col-md-12">
     
       <div class="panel panel-default">
                 <div class="panel-heading clearfix">            
              <h3 class="panel-title">Search Group Planning
-              <div class="pull-right"><a target="_blank" class="btn btn-primary btn-outline btn-sm" href="{{ route('admin.downloadAllSp',[],false) }}">Download All SP</a></div>
+              <div class="pull-right"><a target="_blank" class="btn btn-primary btn-outline btn-sm" href="{{ route('admin.downloadAllSp',[],false) }}">Download All Shift Planning</a></div>
              </h3>
              
                 </div>
@@ -136,7 +137,7 @@
                     <td>{{$row_splist->plan_month}}</td>
                     <td>{{$row_splist->group_name}} ({{$row_splist->group_code}})</td>
                     <td>{{$row_splist->go_name}} ({{$row_splist->go_staffno}})</td>
-                    <td>{{$row_splist->sp_name}} ({{$row_splist->sp_staffno}})</td>
+                    <td>@if($row_splist->sp_name) {{$row_splist->sp_name}} ({{$row_splist->sp_staffno}})@else N/A @endif</td>
                     {{-- <td>{{$row_splist->creator_id}}</td> --}}
                     <td>{{$row_splist->sp_appr_name}} ({{$row_splist->sp_appr_staffno}})</td>
                     <td>{{$row_splist->status}}</td>
@@ -194,7 +195,8 @@ $(document).ready(function() {
         //dom: 'lBfrtip',
         dom: '<"flext"lf><"flext"B>rtip',
         buttons: [
-            'csv', 'excel', 'pdf'
+            'csv', 'excel'
+            //, 'pdf'
         ],        
         "responsive": "true",
         initComplete: function() {
