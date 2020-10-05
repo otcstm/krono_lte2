@@ -635,13 +635,13 @@ return [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    //'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js',
+                    //'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js',
                     'location' => '/vendor/otcdn/select2.min.js',
                 ],
                 [
                     'type' => 'css',
                     'asset' => false,
-                    //'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css',
+                    //'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.css',
                     'location' => '/vendor/otcdn/select2.css',
                 ],
             ],

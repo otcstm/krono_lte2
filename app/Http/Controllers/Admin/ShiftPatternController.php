@@ -9,7 +9,12 @@ use App\ShiftPattern;
 use App\CompanyShiftPattern;
 use App\ShiftPatternDay;
 use App\DayType;
+use App\ViewShiftGroupPattern;
+use \Carbon\Carbon;
+use \Calendar;
 use DB;
+use Schema;
+use Response;
 
 class ShiftPatternController extends Controller
 {
@@ -217,6 +222,122 @@ class ShiftPatternController extends Controller
       dd('here');
       return redirect(route('sp.index', [], false))->with(['alert' => 'Shift pattern not found', 'a_type' => 'warning']);
     }
+  }
+
+  public function showall(Request $req){
+      
+    $gcode = null;
+    $gspcode = null;
+    if($req->has('gcode')){
+      $gcode = $req->gcode;     
+      $gspcode = $req->gspcode;       
+
+      $gresult = UserRecord::query();
+      if($gcode != 0){
+          $data = $data->orWhere('group_code',$gcode);
+      }  
+      if($gcode != 0){
+          $data = $data->orWhere('sp_code',$gspcode);
+      }  
+      $gresult = $data->get();      
+
+    } else {
+      $gresult = ViewShiftGroupPattern::take(0)->get();
+    }
+    $gclist =  ViewShiftGroupPattern::select('group_code','group_name')->distinct()->get();
+    $gsplist =  ViewShiftGroupPattern::select('sp_code','sp_desc')->distinct()->get();
+
+    return view('admin.shiftGroupPattern',
+    [
+      'gcode' => $gcode,
+      'gclist' => $gclist,
+      'gspcode' => $gspcode,
+      'gsplist' => $gsplist,
+      'gresult' => $gresult,
+    ]);
+
+    // return view('shiftplan.shift_group', [
+    //   'sglist' => $sglist        
+    // ]);
+  }
+
+  public function downloadAllSgp(Request $req){
+    
+    ini_set('max_execution_time', 300);
+    ini_set('memory_limit', '1024M');
+    // .csv -> text/csv
+    $content_type = 'text/csv';
+    $file_ext = 'csv';
+
+    $dtnow = new Carbon();
+    $fn ='ShiftGroup';
+    $listcolumns = Schema::getColumnListing('v_shift_group_assign_pattern');
+
+    $qlist = [];
+    $qlist = ViewShiftGroupPattern::all();
+    $qlist_count = $qlist->count();
+    $qlist_data = $qlist->toArray();
+
+    $fname = $fn.'_'.$dtnow->format('YmdHis').'_'.$qlist_count.'.'.$file_ext;
+
+    $handle = fopen($fname, 'w+');
+
+    // write header
+    fputcsv($handle, $listcolumns);
+
+    // write data
+    ViewShiftGroupPattern::chunk(5000, function($qlist) use($handle) {
+      foreach ($qlist as $row) {
+          // Add a new row with data
+          fputcsv($handle, [
+            $row->id,
+            $row->user_persno,
+            $row->user_name,
+            $row->user_staffno,
+            $row->plan_month,
+            $row->group_code,
+            $row->group_name,
+            $row->go_persno,
+            $row->go_name,
+            $row->go_staffno,
+            $row->sp_persno,
+            $row->sp_name,
+            $row->sp_staffno,
+            $row->creator_id,
+            $row->sp_appr_persno,
+            $row->sp_appr_name,
+            $row->sp_appr_staffno,
+            $row->status,
+            $row->approved_date,
+            $row->start_date,
+            $row->end_date,
+            $row->total_minutes,
+            $row->total_days,
+            $row->code,
+            $row->description,
+            $row->work_date,
+            $row->work_start_time,
+            $row->work_end_time,
+            $row->is_work_day,
+            $row->day_code,
+            $row->day_type,
+            $row->day_start_time,
+            $row->day_dur_hour,
+            $row->day_dur_minute,
+          ]);
+      }
+    });
+
+    fclose($handle);
+
+    $headers = [ 
+      'Content-Type' => $content_type,
+      'Content-Disposition' => 'attachment;filename="'.$fname.'"',
+      'Cache-Control' => 'max-age=0',       
+    ];
+
+    return Response::download($fname, $fname, $headers);
+    
   }
 
 }
