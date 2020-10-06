@@ -717,10 +717,10 @@ class ShiftGroupController extends Controller
         $data = ViewShiftGroup::query();
         //$data = $data->select("user_id","name","staffno","email","company_id","costcentr","persarea","perssubarea","empgroup","empsgroup");
         if(strlen(trim($gcode))>0){
-            $data = $data->orwherein('group_code',$req->gcode);
+            $data = $data->orwhere('group_code',$req->gcode);
         }
         if($req->userId!=0 ){
-            $data = $data->orwherein('u_persno',$slctUserId);
+            $data = $data->orwhere('u_persno',$slctUserId);
         }
         $data = $data->take(50);
         $data = $data->get();

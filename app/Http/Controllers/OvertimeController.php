@@ -738,16 +738,8 @@ class OvertimeController extends Controller
             //item no 54
             //20201005 fix unstable update overtimemonth table. 
             //update every selection date
-            if($claim){
-                $upd_total_min_hour = Overtime::where('month_id',$claim->month_id)->sum('total_minute')/60;
-                $upd_total_hour = Overtime::where('month_id',$claim->month_id)->sum('total_hour');     
-                $upd_total_hour = $upd_total_hour+$upd_total_min_hour;         
-                $upd_total_min = Overtime::where('month_id',$claim->month_id)->sum('total_minute')%60;
-
-                $updatemonth = OvertimeMonth::find($claim->month_id);
-                $updatemonth->total_hour = $upd_total_hour;
-                $updatemonth->total_minute = $upd_total_min;
-                $updatemonth->save();
+            if(isset($claim->id)){
+                $execute_upd =  UserHelper::updOtMonthTotalHourMinute($claim->id);
             }
 
             return redirect(route('ot.form', [], false));
