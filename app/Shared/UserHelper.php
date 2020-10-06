@@ -8,6 +8,7 @@ use App\User;
 use App\UserLog;
 use App\Overtime;
 use App\OvertimeDetail;
+use App\OvertimeMonth;
 use App\OvertimeLog;
 use App\OvertimeFormula;
 use App\OvertimeEligibility;
@@ -386,6 +387,11 @@ class UserHelper {
         $whmin = 3.5;
       }
 
+      //20201006 update sync OT Month total hour minute
+      if($ot->id){
+        $execute_upd = UserHelper::updOtMonthTotalHourMinute($ot->id);
+      }
+
       if($dt->day_type=="N"){ //=================================================NORMAL
         $dayt = "NOR";
         $lg = OvertimeFormula::where('company_id',$ur->company_id)->where('region',$ot->region)
@@ -749,7 +755,7 @@ class UserHelper {
             $amount= $amount2 + ($lg->rate*(($salary)/(26*7))*($ot->total_hours_minutes - $whmax));
           }
         }else{
-          $lg = $lg->where('min_minute', 1)
+          $lg = $lg->where('min_minute', 0)
           ->orderby('id')->first();
           $lgrate = $lg->rate;
           $amount= $lgrate*(($salary)/26);
@@ -1005,5 +1011,21 @@ class UserHelper {
         //  $req, "OVERTIME-PHTAG", "1024, END date:".$date." Selected:".$otdate." SDateLoop".$startdate); 
     
   }  
+
+  public static function updOtMonthTotalHourMinute($cid){
+
+    $clm = Overtime::find($cid);
+    $upd_total_min_hour = Overtime::where('month_id',$clm->month_id)->sum('total_minute')/60;
+    $upd_total_hour = Overtime::where('month_id',$clm->month_id)->sum('total_hour');     
+    $upd_total_hour = $upd_total_hour+$upd_total_min_hour;         
+    $upd_total_min = Overtime::where('month_id',$clm->month_id)->sum('total_minute')%60;
+
+    $updatemonth = OvertimeMonth::find($clm->month_id);
+    $updatemonth->total_hour = $upd_total_hour;
+    $updatemonth->total_minute = $upd_total_min;
+    $updatemonth->save();
+
+    return $updatemonth;   
+  }
 
 }
