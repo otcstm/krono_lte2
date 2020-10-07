@@ -755,8 +755,9 @@ class UserHelper {
             $amount= $amount2 + ($lg->rate*(($salary)/(26*7))*($ot->total_hours_minutes - $whmax));
           }
         }else{
-          $lg = $lg->where('min_minute', 0)
-          ->orderby('id')->first();
+          //$lg = $lg->where('min_minute', 0)
+          //20201007 remove clause min_minute
+          $lg = $lg->orderby('id')->first();
           $lgrate = $lg->rate;
           $amount= $lgrate*(($salary)/26);
         }
@@ -1015,14 +1016,26 @@ class UserHelper {
   public static function updOtMonthTotalHourMinute($cid){
 
     $clm = Overtime::find($cid);
-    $upd_total_min_hour = Overtime::where('month_id',$clm->month_id)->sum('total_minute')/60;
-    $upd_total_hour = Overtime::where('month_id',$clm->month_id)->sum('total_hour');     
-    $upd_total_hour = $upd_total_hour+$upd_total_min_hour;         
-    $upd_total_min = Overtime::where('month_id',$clm->month_id)->sum('total_minute')%60;
-
+    //all status
+    $eligible_hours_minutes = Overtime::where('month_id',$clm->month_id)
+    ->sum('eligible_total_hours_minutes');
+    //status !=D1/D2/Q1/Q2
+    $eligible_total_hours_minutes = Overtime::where('month_id',$clm->month_id)
+    ->whereNotIn('status',['D1','D2','Q1','Q2'])
+    ->sum('eligible_total_hours_minutes');
+    
+    $hour = intval($eligible_hours_minutes);
+    $minute = ($eligible_hours_minutes - floor($eligible_hours_minutes))*60;
+    $totalhour = intval($eligible_total_hours_minutes);
+    $totalminute = ($eligible_total_hours_minutes - floor($eligible_total_hours_minutes))*60;
+    
     $updatemonth = OvertimeMonth::find($clm->month_id);
-    $updatemonth->total_hour = $upd_total_hour;
-    $updatemonth->total_minute = $upd_total_min;
+    //upd otmonth hour minute - all status from ot.eligible_total_hours_minutes
+    $updatemonth->hour = $hour;
+    $updatemonth->minute = $minute;
+    //upd otmonth totalhour - totalmin - status: !=D1/D2/Q1/Q2 from ot.eligible_total_hours_minutes
+    $updatemonth->total_hour = $totalhour;
+    $updatemonth->total_minute = $totalminute;
     $updatemonth->save();
 
     return $updatemonth;   
