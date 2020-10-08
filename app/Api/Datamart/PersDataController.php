@@ -130,6 +130,7 @@ class PersDataController extends Controller
         $ur->position     = $position;
         $ur->costcentr    = $costcentr;
         $ur->upd_sap      = $upd_sap;
+        $ur->upd_dm      = $upd_dm;
         $ur->state_id = $state_id_val;
         $ur->save();
 

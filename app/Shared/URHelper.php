@@ -3,8 +3,10 @@
 namespace App\Shared;
 use App\User;
 use App\UserRecord;
+use App\Overtime;
 use App\OvertimeEligibility;
 use App\OvertimeExpiry;
+use App\ShiftPlanStaffDay;
 use App\OvertimeFormula;
 use App\StaffPunch;
 use App\SetupCode;
@@ -245,10 +247,24 @@ class URHelper
 
       }
 
-      public static function getDayCode($persno, $dt, $dc, $total){
+      public static function getDayCode($otid, $total){
+        $claim = Overtime::where('id', $otid)->first();
+        $persno = $claim->user_id;
+        $dt = $claim->date;
+        $dc = $claim->day_type_code;
         $ur = URHelper::getUserRecordByDate($persno, $dt);
         $dayc = null;
         $hourc = null;
+        //check if there's any shift planned for this person
+        $wd = ShiftPlanStaffDay::where('user_id', $claim->user_id)->whereDate('work_date', $claim->date)->first();
+        // dd($wd);
+        if($wd){
+          $whmax = $wd->Day->working_hour*60;
+          $whmin = $wd->Day->working_hour/2*60;
+        } else {
+          $whmax = 7*60;
+          $whmin = 3.5*60;
+        }
         if($dc=="N"){
           $dcc = "NOR";
           $dyh = OvertimeFormula::where('company_id', $ur->company_id)->where('region', $ur->region)->where('day_type', $dcc)->first();
@@ -259,10 +275,10 @@ class URHelper
           $hourc = $dyh->legacy_codes;
         }else if($dc=="R"){
           $dcc = "RST";
-          if($total>=210){
+          if($total>=$whmin){
             $dyd = OvertimeFormula::where('company_id', $ur->company_id)->where('region', $ur->region)->where('day_type', $dcc)->where('min_hour', 3)->first();
             $dayc = $dyd->legacy_codes;
-            if($total>=420){
+            if($total>=$whmax){
               $dyh = OvertimeFormula::where('company_id', $ur->company_id)->where('region', $ur->region)->where('day_type', $dcc)->where('min_hour', 7)->first();
               $hourc = $dyh->legacy_codes;
             }

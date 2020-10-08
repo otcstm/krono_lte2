@@ -15,8 +15,8 @@ use App\User;
 use App\ViewShiftPlanning;
 use App\Shared\UserHelper;
 use App\Shared\ColorHelper;
-use \Carbon\Carbon;
 use \Calendar;
+use \Carbon\Carbon;
 use DB;
 use Schema;
 use Response;
@@ -602,7 +602,11 @@ class ShiftPlanController extends Controller
       $staffExtra = UserHelper::GetUserInfo($sps->user_id)['extra'];
       $stemplate = ShiftPattern::find($req->spattern_id);
       $startdate = new Carbon($req->sdate);
-      $hour_gap = intVal(30);
+
+      $hour_gap = DB::table('setup_codes')->select('item2')
+      ->where('item1','shift_cycle_gap')->first();
+      
+      $hour_gap = intVal($hour_gap->item2);
       $warning_msg = "";
       
       // disable for backdated 20200811
@@ -903,16 +907,20 @@ class ShiftPlanController extends Controller
       
       ini_set('max_execution_time', 300);
       ini_set('memory_limit', '1024M');
+      // .csv -> text/csv
+      $content_type = 'text/csv';
+      $file_ext = 'csv';
+
       $dtnow = new Carbon();
-      $fn ='ShiftPlanning';
+      $fn ='ShiftGroup';
       $listcolumns = Schema::getColumnListing('v_shift_planning');
 
-      $splist = [];
-      $splist = ViewShiftPlanning::all();
-      $splist_count = $splist->count();
-      $splist_data = $splist->toArray();
+      $qlist = [];
+      $qlist = ViewShiftPlanning::all();
+      $qlist_count = $qlist->count();
+      $qlist_data = $qlist->toArray();
 
-      $fname = $fn.'_'.$dtnow->format('YmdHis').'_'.$splist_count.'.csv';
+      $fname = $fn.'_'.$dtnow->format('YmdHis').'_'.$qlist_count.'.'.$file_ext;
 
       $handle = fopen($fname, 'w+');
 
@@ -962,67 +970,16 @@ class ShiftPlanController extends Controller
         }
       });
 
-      // method direct no chunk - will eat server memory
-
-      // fputcsv($handle, $listcolumns);
-      // foreach($splist as $row) {
-      //     fputcsv($handle, 
-      //     array(
-      //       $row['user_persno'],
-      //       $row['user_name'],
-      //       $row['user_staffno'],
-      //       $row['plan_month'],
-      //       $row['group_code'],
-      //       $row['group_name'],
-      //       $row['go_persno'], 
-      //       $row['go_name'],
-      //       $row['go_staffno'],
-      //       $row['sp_persno'],
-      //       $row['sp_name'],
-      //       $row['sp_staffno'],
-      //       $row['creator_id'],
-      //       $row['sp_appr_persno'],
-      //       $row['sp_appr_name'],
-      //       $row['sp_appr_staffno'],
-      //       $row['status'],
-      //       $row['approved_date'],
-      //       $row['start_date'],
-      //       $row['end_date'],
-      //       $row['total_minutes'],
-      //       $row['total_days'],
-      //       $row['code'],
-      //       $row['description'],
-      //       $row['work_date'],
-      //       $row['work_start_time'],
-      //       $row['work_end_time'],
-      //       $row['is_work_day'],
-      //       $row['day_code'],
-      //       $row['day_type'],
-      //       $row['day_start_time'],
-      //       $row['day_dur_hour'],
-      //       $row['day_dur_minute']
-      //       )
-      //     );
-      // }
-
       fclose($handle);
 
-      $headers->set('Content-type: text/csv');
-      $headers->set('Content-Disposition', 'attachment;filename="'.$fname.'"');
-      $headers->set('Cache-Control','max-age=0');
-      // $headers = array(
-      //   'Content-Type' => 'text/csv',
-      //   //'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      // );
+      $headers = [ 
+        'Content-Type' => $content_type,
+        'Content-Disposition' => 'attachment;filename="'.$fname.'"',
+        'Cache-Control' => 'max-age=0',       
+      ];
 
       return Response::download($fname, $fname, $headers);
-
-      // $eksel = new ExcelHandler($fname);      
-      // //dd($splist);
-
-      // $eksel->addSheet($fn, $splist_data, $listcolumns);
-      // $eksel->removesheet();
-      // return $eksel->download();
+      
     }
 
 }

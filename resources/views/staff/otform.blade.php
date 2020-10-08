@@ -290,7 +290,7 @@
                         <button type="button" class="btn-up" id="add" style="margin-bottom: 5px;">
                         <i class="fas fa-plus-circle"></i> ADD TIME
                         </button>
-                        <p>Total time: 
+                        <p class="hidden">Total time: 
                                 @if($claim ?? "")
                                     <span id="oldth" class="hidden">{{$claim->time->hour}}</span>
                                     <span id="oldtm" class="hidden">{{$claim->time->minute}}</span>
@@ -637,7 +637,9 @@
                                             </div>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-select" style="position: relative; z-index: 8;" id="orderno" name="orderno" placeholder="@if($claim->charge_type=="Project") Search project no" @if($claim->project_no!=null) value="{{$claim->project_no}}"@endif @else Search order no" @if($claim->order_no!=null) value="{{$claim->order_no}}" @endif @endif @if(in_array($claim->charge_type, $array = array("Project", "Internal Order", "Maintenance Order"))) required @endif data-readonly >
-                                                <i id="ordernosearch" style="position: relative; z-index: 9; margin-left: -25px" class="fas fa-search"></i>
+                                                <i style="position: relative; z-index: 9; margin-left: -25px" class="fas fa-search"></i>
+                                                <div id="ordernosearch"  class="form-select" style="position: absolute; z-index: 10; height: 25px; top: 0px; min-width: calc(40% - 10px);"></div>
+                                                
                                                 <!-- <div class="aaaa" style="position: fixed;   z-index: 9999; width: 100%; border: red;">a</div> -->
                                                 {{-- <!-- <select class="form-select" name="orderno" id="orderno" required 
                                                 @if($claim->charge_type=="Project") 
@@ -1166,7 +1168,7 @@
                             @if($day[6])
                                 var max = "{{$day[1]}}";
                             @else
-                                @if($day[2]=="Public Holiday")
+                                @if(!($day[9]))
                                     var max = "{{$day[1]}}";
                                 @else
                                     var max = "24:00";
@@ -1179,7 +1181,7 @@
                             @if($day[6])
                                 var max = "00:00"; 
                             @else
-                                @if($day[2]=="Public Holiday")
+                                @if(!($day[9]))
                                     var max = "00:00";
                                 @else
                                     var max = "{{$day[1]}}";
@@ -1187,7 +1189,7 @@
                             @endif
                         }
                 @else
-                    @if($day[2]=="Public Holiday")
+                    @if(!($day[9]))
                         var min = "00:00";
                         var max = "00:00";
                     @else
@@ -1197,6 +1199,7 @@
                     var sc = "00:00"; 
                     var ec = "24:00"; 
                 @endif
+                // console.log(max);
                 var mt = min.split(":");
                 var mxt = max.split(":");
                 var sdt = sc.split(":");
@@ -1211,21 +1214,6 @@
                 while(sm.length<2){
                     sm = "0"+sm;
                 }
-                // var me = "AM";
-                // if(h>12){
-                //     h = h-12;
-                //     me = "PM"
-                // }else if(h==0){
-                //     h = 12;
-                // }
-                // sh = h.toString();
-                // while(sh.length<2){
-                //     sh = "0"+sh;
-                // }
-                // sm = m.toString();
-                // while(sm.length<2){
-                //     sm = "0"+sm;
-                // }
                 var sd = ((parseInt(sdt[0]))*60)+(parseInt(sdt[1]));
                 var ed = ((parseInt(edt[0]))*60)+(parseInt(edt[1]));
                 var start = ((parseInt(st[0]))*60)+(parseInt(st[1]));
@@ -1251,16 +1239,6 @@
                     }
                 }
                 if(cont){
-                    if($("#inputend-"+i).val()!=""){
-                        // if($("#inputend-"+i).val()=="00:00"){
-                        //     var entime = "24:00";
-                        // }else{
-                        var entime = $("#inputend-"+i).val();
-                        // }
-                        var et = entime.split(":");
-                        // var et = ($("#inputend-"+i).val()).split(":");
-                        var end = ((parseInt(et[0]))*60)+(parseInt(et[1]));
-                    }
                     if(clocker!=undefined){
                         time = timemaster(clock_in, clock_out);
                         // if(check){
@@ -1284,16 +1262,24 @@
                                     // if(check){
                                         if(start > time[0] && start < time[1]){
                                             if(i!=0){
+                                                
                                                 if(!($('#oldds-'+n).text()==start_time)){
                                                     calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());   
                                                     killview(i, "Time input cannot be within inserted time range!", start_time, end_time);
-                                                    // check = killview(i, "Time input cannot be within inserted time range!", start_time, end_time);
                                                 }
                                             }
                                             else if(n!=0){
-                                                calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());  
-                                                killview(i, "Time input cannot be within inserted time range!", start_time, end_time);  
-                                                // check = killview(i, "Time input cannot be within inserted time range!", start_time, end_time);  
+                                                var error = true
+                                                @if($day[6])
+                                                @else
+                                                    if($("#inputdate-"+i).val()!=$("#inputdate-"+n).val()){
+                                                        error = false;
+                                                    }
+                                                @endif
+                                                if(error){
+                                                    calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());  
+                                                    killview(i, "Time input cannot be within inserted time range!", start_time, end_time);  
+                                                }
                                             }
                                         }
                                     // }
@@ -1301,19 +1287,20 @@
                                 @endif
                         @endif
                         //check if within working time or not
-                        // if(check){
-                            // console.log(start+" "+nstart+" "+nend+" "+min+" "+max);
-                            if(start > nstart && start < nend){
-                                // check = killview(i, "Time input cannot be between {{$day[0]}} and {{$day[1]}}!", start_time, end_time);
+                        if(start > nstart && start < nend){
                                 calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
-                                
+                                // console.log(
+                                //             "start: "+start+
+                                //             "| end: "+end+
+                                //             "| nstart: "+nstart+
+                                //             "| nend: "+nend
+                                //         )
                                 @if($day[6])
                                     killview(i, "Time input cannot be between {{$day[0]}} and @if($day[1]=='00:00') 24:00 @else {{$day[1]}} @endif!", start_time, end_time);
                                 @else
                                     killview(i, "Time input cannot be between {{$day[0]}} {{date("d.m.Y", strtotime($day[7]))}} and {{$day[1]}} {{date("d.m.Y", strtotime($day[7]."+1 day"))}}!", start_time, end_time);
                                 @endif
                             }
-                        // }
                         if($("#inputstart-"+i).val()!="" && $("#inputend-"+i).val()!=""){
                             // alert(start+" "+end);
                             if(start<end){
@@ -1324,18 +1311,29 @@
                                             // if(check){
                                                 if((time[0]<end&&time[1]>start)){
                                                     if(i!=0){
+                                                        
                                                         if(!($('#oldds-'+n).text()==start_time)){
                                                             if(n!=i){
                                                                 calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
                                                                 killview(i, "Time input cannot be within inserted time range!", start_time, end_time);
-                                                                // check = killview(i, "Time input cannot be within inserted time range!", start_time, end_time);
                                                             }
                                                         }
                                                     }
                                                     else if(n!=0){
-                                                        calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
-                                                        killview(i, "Time input cannot be within inserted time range!", start_time, end_time);
-                                                        // check = killview(i, "Time input cannot be within inserted time range!", start_time, end_time);
+                                                        
+                                                    
+                                                        var error = true
+                                                        @if($day[6])
+                                                        @else
+                                                        
+                                                            if($("#inputdate-"+i).val()!=$("#inputdate-"+n).val()){
+                                                                error = false;
+                                                            }
+                                                        @endif
+                                                        if(error){
+                                                            calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
+                                                            killview(i, "Time input cannot be within inserted time range!", start_time, end_time);
+                                                        }
                                                     }
                                                 }
                                             // }
@@ -1343,10 +1341,16 @@
                                     @endif
                                 @endif
                                 // if(check){
+                                    // if(!((end>nstart && end<nend)||(nstart<end && nend>start))){
                                     if((end>nstart && end<nend)||(nstart<end && nend>start)){
+                                        console.log(
+                                            "start: "+start+
+                                            "| end: "+end+
+                                            "| nstart: "+nstart+
+                                            "| nend: "+nend
+                                        )
                                         calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
                                         killview(i, "Time input cannot be between {{$day[0]}} {{date("d.m.Y", strtotime($day[7]))}} and {{$day[1]}} {{date("d.m.Y", strtotime($day[7]."+1 day"))}}!");
-                                        // check = killview(i, "Time input cannot be between {{$day[0]}} and {{$day[1]}}!");
                                     }
                                     else{
                                         calshowtime(i, end-start, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
@@ -1921,16 +1925,9 @@
         $("#formtype").val("save");
         $("#form").submit();
         return saves();
-    });    
-    // $("#orderno").change(function(){
-    //     $("#formtype").val("save");
-    //     $("#form").submit();
-    // });    
+    });       
     $("#ordernosearch").on('click', function(){
-        // alert("x"+$("#orderno").val());
         search($("#orderno").val());
-        // $("#formtype").val("save");
-        // $("#form").submit();
     });    
     var htmlstring;
     var searchtml;
@@ -1956,10 +1953,10 @@
                         "<button type='button' id='namex' onclick='return cleart()' class='approval-search-x btn-no'>"+
                             "<i class='far fa-times-circle'></i>"+
                         "</button>"+
-                        "<button type='button' id='namex' onclick=\"if(($('#namet').val().length)>3){ if($('#namet').val()==''){ $('#checker').css('display','block'); }else{ return search($('#namet').val())}}else{ $('#namex').css('visibility','hidden'); $('#3more').css('display','block'); $('#margin').css('margin-left','0');}\" class='approval-search-icon btn-no'>"+
+                        "<button type='button' id='namex' onclick=\"if(($('#namet').val().length)>1){ if($('#namet').val()==''){ $('#checker').css('display','block'); }else{ return search($('#namet').val())}}else{ $('#namex').css('visibility','hidden'); $('#3more').css('display','block'); $('#margin').css('margin-left','0');}\" class='approval-search-icon btn-no'>"+
                             "<i class='fas fa-search'></i>"+
                         "</button>"+
-                        "<p id='3more' style=' margin-top: -15px; color: #F00000; display: none'>Search input must be more than 3 alphabets!</p>"+
+                        "<p id='3more' style=' margin-top: -15px; color: #F00000; display: none'>Search input must be more than 2 alphabets!</p>"+
                         "<p id='checker' style=' margin-top: -15px; color: #F00000; display: none'>Please fill in"+
                         @if($claim ?? '')
                             @if($claim->charge_type=="Project")
@@ -2032,7 +2029,7 @@
                                     $('#sel').css('display','block');
                                 }
                             }else{
-                                if(($('#namet').val().length)>3){
+                                if(($('#namet').val().length)>1){
                                     if($('#namet').val()==''){ 
                                         $('#checker').css('display','block');
                                         return false;
@@ -2080,7 +2077,7 @@
                 showCancelButton: true,
                 cancelButtonText: 'CANCEL',
                 preConfirm: function() {
-                    if(($('#namet').val().length)>3){
+                    if(($('#namet').val().length)>1){
                         if($('#namet').val()==''){ 
                             $('#checker').css('display','block');
                             return false;
@@ -2164,7 +2161,7 @@
 
     function checkstring(){
         $('#checker').css('display', 'none');
-        if(($('#namet').val().length)>3){
+        if(($('#namet').val().length)>1){
             $('#namex').css('visibility', 'visible');
             $('#3more').css('display', 'none');
             $('#margin').css('margin-left', '-20px');
