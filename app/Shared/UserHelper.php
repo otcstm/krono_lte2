@@ -568,10 +568,12 @@ class UserHelper {
           $day_type = 'Public Holiday';
           $start = $stime->format('H:i');
           $end = $stime->format('H:i');
+          
+          $sameday = false;
         }
       } else {
         
-      $work =false;
+        $work =false;
         if($shift=="Yes"){
           $stime = new Carbon($theday->start_time);
           $etime = new Carbon($theday->start_time);
@@ -592,7 +594,6 @@ class UserHelper {
           $day_type = 'Public Holiday';
         }
       }
-      
       if($shift=="Yes"){
         $wd = ShiftPlanStaffDay::where('user_id', $user)
                                 ->whereDate('work_date', date("Y-m-d", strtotime($date."+1 day")))
