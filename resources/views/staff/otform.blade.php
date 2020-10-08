@@ -1168,7 +1168,7 @@
                             @if($day[6])
                                 var max = "{{$day[1]}}";
                             @else
-                                @if($day[2]=="Public Holiday")
+                                @if(!($day[9]))
                                     var max = "{{$day[1]}}";
                                 @else
                                     var max = "24:00";
@@ -1181,7 +1181,7 @@
                             @if($day[6])
                                 var max = "00:00"; 
                             @else
-                                @if($day[2]=="Public Holiday")
+                                @if(!($day[9]))
                                     var max = "00:00";
                                 @else
                                     var max = "{{$day[1]}}";
@@ -1189,7 +1189,7 @@
                             @endif
                         }
                 @else
-                    @if($day[2]=="Public Holiday")
+                    @if(!($day[9]))
                         var min = "00:00";
                         var max = "00:00";
                     @else
@@ -1262,16 +1262,24 @@
                                     // if(check){
                                         if(start > time[0] && start < time[1]){
                                             if(i!=0){
+                                                
                                                 if(!($('#oldds-'+n).text()==start_time)){
                                                     calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());   
                                                     killview(i, "Time input cannot be within inserted time range!", start_time, end_time);
-                                                    // check = killview(i, "Time input cannot be within inserted time range!", start_time, end_time);
                                                 }
                                             }
                                             else if(n!=0){
-                                                calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());  
-                                                killview(i, "Time input cannot be within inserted time range!", start_time, end_time);  
-                                                // check = killview(i, "Time input cannot be within inserted time range!", start_time, end_time);  
+                                                var error = true
+                                                @if($day[6])
+                                                @else
+                                                    if($("#inputdate-"+i).val()!=$("#inputdate-"+n).val()){
+                                                        error = false;
+                                                    }
+                                                @endif
+                                                if(error){
+                                                    calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());  
+                                                    killview(i, "Time input cannot be within inserted time range!", start_time, end_time);  
+                                                }
                                             }
                                         }
                                     // }
@@ -1279,19 +1287,20 @@
                                 @endif
                         @endif
                         //check if within working time or not
-                        // if(check){
-                            // console.log(start+" "+nstart+" "+nend+" "+min+" "+max);
-                            if(start > nstart && start < nend){
-                                // check = killview(i, "Time input cannot be between {{$day[0]}} and {{$day[1]}}!", start_time, end_time);
+                        if(start > nstart && start < nend){
                                 calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
-                                
+                                // console.log(
+                                //             "start: "+start+
+                                //             "| end: "+end+
+                                //             "| nstart: "+nstart+
+                                //             "| nend: "+nend
+                                //         )
                                 @if($day[6])
                                     killview(i, "Time input cannot be between {{$day[0]}} and @if($day[1]=='00:00') 24:00 @else {{$day[1]}} @endif!", start_time, end_time);
                                 @else
                                     killview(i, "Time input cannot be between {{$day[0]}} {{date("d.m.Y", strtotime($day[7]))}} and {{$day[1]}} {{date("d.m.Y", strtotime($day[7]."+1 day"))}}!", start_time, end_time);
                                 @endif
                             }
-                        // }
                         if($("#inputstart-"+i).val()!="" && $("#inputend-"+i).val()!=""){
                             // alert(start+" "+end);
                             if(start<end){
@@ -1302,18 +1311,29 @@
                                             // if(check){
                                                 if((time[0]<end&&time[1]>start)){
                                                     if(i!=0){
+                                                        
                                                         if(!($('#oldds-'+n).text()==start_time)){
                                                             if(n!=i){
                                                                 calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
                                                                 killview(i, "Time input cannot be within inserted time range!", start_time, end_time);
-                                                                // check = killview(i, "Time input cannot be within inserted time range!", start_time, end_time);
                                                             }
                                                         }
                                                     }
                                                     else if(n!=0){
-                                                        calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
-                                                        killview(i, "Time input cannot be within inserted time range!", start_time, end_time);
-                                                        // check = killview(i, "Time input cannot be within inserted time range!", start_time, end_time);
+                                                        
+                                                    
+                                                        var error = true
+                                                        @if($day[6])
+                                                        @else
+                                                        
+                                                            if($("#inputdate-"+i).val()!=$("#inputdate-"+n).val()){
+                                                                error = false;
+                                                            }
+                                                        @endif
+                                                        if(error){
+                                                            calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
+                                                            killview(i, "Time input cannot be within inserted time range!", start_time, end_time);
+                                                        }
                                                     }
                                                 }
                                             // }
@@ -1323,15 +1343,14 @@
                                 // if(check){
                                     // if(!((end>nstart && end<nend)||(nstart<end && nend>start))){
                                     if((end>nstart && end<nend)||(nstart<end && nend>start)){
-                                        // console.log(
-                                        //     "start: "+start+
-                                        //     "| end: "+end+
-                                        //     "| nstart: "+nstart+
-                                        //     "| nend: "+nend
-                                        // )
+                                        console.log(
+                                            "start: "+start+
+                                            "| end: "+end+
+                                            "| nstart: "+nstart+
+                                            "| nend: "+nend
+                                        )
                                         calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
                                         killview(i, "Time input cannot be between {{$day[0]}} {{date("d.m.Y", strtotime($day[7]))}} and {{$day[1]}} {{date("d.m.Y", strtotime($day[7]."+1 day"))}}!");
-                                        // check = killview(i, "Time input cannot be between {{$day[0]}} and {{$day[1]}}!");
                                     }
                                     else{
                                         calshowtime(i, end-start, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());

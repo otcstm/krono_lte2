@@ -169,6 +169,7 @@ class OvertimeController extends Controller
                 }
             }
 
+            // dd($start. " ". $end);
             return view('staff.otform', ['draft' =>[],
                                          'claim' => $req->session()->get('claim'),
                                          'day' => $day,

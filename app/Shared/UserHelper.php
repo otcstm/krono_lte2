@@ -499,6 +499,7 @@ class UserHelper {
       $sameday = true;
       $ed = "24:00";
       $wd = null;
+      $work =true;
       
       // first, check if there's any shift planned for this person
       $usp = UserShiftPattern::where("user_id", $user)
@@ -569,13 +570,13 @@ class UserHelper {
           $end = $stime->format('H:i');
         }
       } else {
+        
+      $work =false;
         if($shift=="Yes"){
           $stime = new Carbon($theday->start_time);
           $etime = new Carbon($theday->start_time);
           $etime->addMinutes($theday->total_minute);
-          if( $stime->format('Y-MM-DD') != $etime->format('Y-MM-DD')){
-            $sameday = false;
-          }
+          $sameday = false;
           $start = $stime->format('H:i');
           $sd = $start;
           $end =  $etime->format('H:i');
@@ -600,7 +601,7 @@ class UserHelper {
         $stime = new Carbon($theday->start_time);
         $ed =  $stime->format('H:i');
       }
-      return [$start, $end, $day_type, $day, $idday, $ed, $sameday, $date , $sd];
+      return [$start, $end, $day_type, $day, $idday, $ed, $sameday, $date , $sd, $work];
       //[0] Start work time
       //[1] End work time
       //[2] Day type
@@ -610,6 +611,7 @@ class UserHelper {
       //[6] Is same day or not
       //[7] Date
       //[8] Start day
+      //[9] Work day
     }
 
   public static function GetMySubords($persno, $recursive = false){
