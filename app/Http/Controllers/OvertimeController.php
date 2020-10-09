@@ -941,14 +941,17 @@ class OvertimeController extends Controller
                     // dd($updateclaim->eligible_total_hours_minutes, $updateclaim->eligible_total_hours_minutes_code);
                 }
                 // dd($working_minutes);
-                $updatemonth = OvertimeMonth::find($claim->month_id);
+                // $updatemonth = OvertimeMonth::find($claim->month_id);
                 // $time = ($claimdetail->hour*60)+$claimdetail->minute;
                 // $totaltime = (($updatemonth->hour*60)+$updatemonth->minute)+($time);
-                $updatemonth->hour = (int)($totaltime/60);
-                $updatemonth->minute = ($totaltime%60);
+                // $updatemonth->hour = (int)($totaltime/60);
+                // $updatemonth->minute = ($totaltime%60);
                 $newdetail->save();
-                $updatemonth->save();
+                // $updatemonth->save();
                 $updateclaim->save();
+
+                // 20201009 add to sync updOTMonth table
+                $updOTMonth = UserHelper::updOtMonthTotalHourMinute($claim->id);
             }
             // dd($newdetail);
         }
@@ -1913,7 +1916,9 @@ class OvertimeController extends Controller
                     } elseif ($req->inputact[$i]=="Q2") {
                         $updatemonth = OvertimeMonth::find($updateclaim->month_id);
 
-                        $time = ($updateclaim->total_hour*60)+$updateclaim->total_minute;
+                        $time = ($updateclaim->total_hour*60)+$updateclaim->total_minute;                        
+                        $totaltime = (($updatemonth->total_hour*60)+$updatemonth->total_minute) - $time;
+
                         if(($updateclaim->day_type_code=="N")||($updateclaim->day_type_code=="O")){
                             
                         }else{
@@ -1927,9 +1932,12 @@ class OvertimeController extends Controller
                         //     $time = $time - $working_minutes;
                         // }
                         // $totaltime = (($updatemonth->total_hour*60)+$updatemonth->total_minute) - $time;
-                        $updatemonth->total_hour = (int)($totaltime/60);
-                        $updatemonth->total_minute = ($totaltime%60);
-                        $updatemonth->save();
+                        // $updatemonth->total_hour = (int)($totaltime/60);
+                        // $updatemonth->total_minute = ($totaltime%60);
+                        // $updatemonth->save();
+                        // 20201009 add to sync updOTMonth table
+                        $updOTMonth = UserHelper::updOtMonthTotalHourMinute($claim->id);
+
                         $updateclaim->date_expiry = date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d', strtotime("+1 months", strtotime(date("Y-m-d")))))));
                         $updateclaim->queried_date = date("Y-m-d H:i:s");
                         // dd($updatemonth->total_hour);
@@ -2008,24 +2016,28 @@ class OvertimeController extends Controller
             if ($req->typef=="verifier") {
                 return redirect(route('ot.verify', [], false))->with([
                     'feedback' => true,
-                    'feedback_text' => "Your pending overtime claim has successfully submitted.",
+                    'feedback_text' => "Your pending overtime claim has been successfully submitted.",
                     'feedback_title' => "Successfully Submitted"
                 ]);
             } elseif ($req->typef=="approver") {
                 return redirect(route('ot.approval', [], false))->with([
                     'feedback' => true,
-                    'feedback_text' => "Your pending overtime claim has successfully submitted.",
+                    'feedback_text' => "Your pending overtime claim has been successfully submitted.",
                     'feedback_title' => "Successfully Submitted"
                 ]);
             } elseif ($req->typef=="admin") {
                 return redirect(route('ot.adminsearch', [], false))->with([
                     'feedback' => true,
-                    'feedback_text' => "Your pending overtime claim has successfully submitted.",
+                    'feedback_text' => "Your pending overtime claim has been successfully submitted.",
                     'feedback_title' => "Successfully Submitted"
                 ]);
             }
         } else {
-            return redirect(route('ot.approval', [], false))->with([]);
+            return redirect(route('ot.approval', [], false))->with([
+                'feedback' => true,
+                    'feedback_text' => "Ohh man! The code is breakoff. Kindly drop us a postcard, we will roger you ASAP. xoxo!",
+                    'feedback_title' => "Not Successfully Submitted"
+            ]);
         }
     }
 
