@@ -1288,17 +1288,15 @@
                         @endif
                         //check if within working time or not
                         if(start > nstart && start < nend){
-                                calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
-                                // console.log(
-                                //             "start: "+start+
-                                //             "| end: "+end+
-                                //             "| nstart: "+nstart+
-                                //             "| nend: "+nend
-                                //         )
-                                @if($day[6])
-                                    killview(i, "Time input cannot be between {{$day[0]}} and @if($day[1]=='00:00') 24:00 @else {{$day[1]}} @endif!", start_time, end_time);
-                                @else
-                                    killview(i, "Time input cannot be between {{$day[0]}} {{date("d.m.Y", strtotime($day[7]))}} and {{$day[1]}} {{date("d.m.Y", strtotime($day[7]."+1 day"))}}!", start_time, end_time);
+                                
+                                @if($day[9])
+                                    calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
+
+                                    @if($day[6])
+                                        killview(i, "Time input cannot be between {{$day[0]}} and @if($day[1]=='00:00') 24:00 @else {{$day[1]}} @endif!", start_time, end_time);
+                                    @else
+                                        killview(i, "Time input cannot be between {{$day[0]}} {{date("d.m.Y", strtotime($day[7]))}} and {{$day[1]}} {{date("d.m.Y", strtotime($day[7]."+1 day"))}}!", start_time, end_time);
+                                    @endif
                                 @endif
                             }
                         if($("#inputstart-"+i).val()!="" && $("#inputend-"+i).val()!=""){
