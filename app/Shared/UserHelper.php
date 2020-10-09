@@ -570,6 +570,8 @@ class UserHelper {
           $end = $stime->format('H:i');
           
           $sameday = false;
+        
+          $work =false;
         }
       } else {
         
