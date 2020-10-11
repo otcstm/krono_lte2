@@ -427,8 +427,9 @@ class UserHelper {
               // $amount= $amount2 + ($lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*(((($otd->hour*60)+$otd->minute)-($whmax*60))/60));
             }
           }else{
-            $lg = $lg->where('min_minute', 0)
-            ->orderby('id')->first();
+            //$lg = $lg->where('min_minute', 1)
+            //20201007 remove clause min_minute
+            $lg = $lg->orderby('id')->first();
             $lgrate = $lg->rate;
             $amount= $lgrate*(($salary)/26);
           }
