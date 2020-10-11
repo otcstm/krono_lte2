@@ -390,6 +390,7 @@ class UserHelper {
       //20201006 update sync OT Month total hour minute
       if($ot->id){
         $execute_upd = UserHelper::updOtMonthTotalHourMinute($ot->id);
+        $updOThourmin = UserHelper::updOtHourMinute($ot->id);
       }
 
       if($dt->day_type=="N"){ //=================================================NORMAL
@@ -1028,11 +1029,16 @@ class UserHelper {
     $eligible_total_hours_minutes = Overtime::where('month_id',$clm->month_id)
     ->whereNotIn('status',['D1','D2','Q1','Q2'])
     ->sum('eligible_total_hours_minutes');
+    +$total_minute_m;
     
-    $hour = intval($eligible_hours_minutes);
-    $minute = ($eligible_hours_minutes - floor($eligible_hours_minutes))*60;
-    $totalhour = intval($eligible_total_hours_minutes);
-    $totalminute = ($eligible_total_hours_minutes - floor($eligible_total_hours_minutes))*60;
+    //eg: eligible_hours_minutes format 1.5 = 1hour 30min
+    // $totalhour = floor($eligible_hours_minutes);      // 1
+    // $totalminute = ($eligible_hours_minutes - $hour)*60; // .5
+
+    $hour = floor($eligible_hours_minutes);
+    $minute = ($eligible_hours_minutes - $hour)*60; 
+    $totalhour = floor($eligible_total_hours_minutes);
+    $totalminute = ($eligible_total_hours_minutes - $totalhour)*60; 
     
     $updatemonth = OvertimeMonth::find($clm->month_id);
     //upd otmonth hour minute - all status from ot.eligible_total_hours_minutes
@@ -1044,6 +1050,32 @@ class UserHelper {
     $updatemonth->save();
 
     return $updatemonth;   
+  }
+  
+  public static function updOtHourMinute($cid){
+
+    $updateot = Overtime::find($cid);
+
+    $total_hour_minute = OvertimeDetail::where('ot_id',$updateot->$id)
+    ->where('checked','Y')
+    ->sum('hour')
+    ->sum('minute');
+
+    //hour 6hour 80min
+    $total_minute = $total_hour_minute->minute; //80min
+    $total_minute_h = intval($total_minute/60); //1.33 = 1 hour
+    $total_minute_m = floor($total_minute%60); //20min
+
+    $total_hour = $total_hour_minute->hour+$total_minute_h; //7hour
+    $total_minute = $total_minute_m; //20min
+    $total_hours_minutes = $total_hour+(round(($total_minute/60),2)); //7+0.33
+    
+    $updateot->total_hour = $total_hour;
+    $updateot->total_minute = $total_minute;
+    $updateot->total_hours_minutes = $total_hours_minutes;    
+    $updateot->save();
+
+    return $updateot;   
   }
 
 }
