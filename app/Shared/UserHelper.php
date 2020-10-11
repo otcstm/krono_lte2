@@ -1029,7 +1029,6 @@ class UserHelper {
     $eligible_total_hours_minutes = Overtime::where('month_id',$clm->month_id)
     ->whereNotIn('status',['D1','D2','Q1','Q2'])
     ->sum('eligible_total_hours_minutes');
-    +$total_minute_m;
     
     //eg: eligible_hours_minutes format 1.5 = 1hour 30min
     // $totalhour = floor($eligible_hours_minutes);      // 1
