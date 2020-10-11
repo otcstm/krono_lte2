@@ -952,7 +952,7 @@ class OvertimeController extends Controller
 
                 // 20201009 add to sync updOTMonth table
                 $updOTMonth = UserHelper::updOtMonthTotalHourMinute($claim->id);
-                $updOThourmin = UserHelper::updOtHourMinute($ot->id);
+                $updOThourmin = UserHelper::updOtHourMinute($claim->id);
             }
             // dd($newdetail);
         }
@@ -1938,7 +1938,7 @@ class OvertimeController extends Controller
                         // $updatemonth->save();
                         // 20201009 add to sync updOTMonth table
                         $updOTMonth = UserHelper::updOtMonthTotalHourMinute($claim->id);
-                        $updOThourmin = UserHelper::updOtHourMinute($ot->id);
+                        $updOThourmin = UserHelper::updOtHourMinute($claim->id);
 
                         $updateclaim->date_expiry = date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d', strtotime("+1 months", strtotime(date("Y-m-d")))))));
                         $updateclaim->queried_date = date("Y-m-d H:i:s");

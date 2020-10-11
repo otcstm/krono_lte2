@@ -1063,11 +1063,11 @@ class UserHelper {
     ->sum('minute');
 
     //hour 6hour 80min
-    $total_minute = $od_minute->minute; //80min
+    $total_minute = $od_minute; //80min
     $total_minute_h = intval($total_minute/60); //1.33 = 1 hour
     $total_minute_m = floor($total_minute%60); //20min
 
-    $total_hour = $od_hour->hour+$total_minute_h; //7hour
+    $total_hour = $od_hour+$total_minute_h; //7hour
     $total_minute = $total_minute_m; //20min
     $total_hours_minutes = $total_hour+(round(($total_minute/60),2)); //7+0.33
     
