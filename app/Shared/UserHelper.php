@@ -427,8 +427,9 @@ class UserHelper {
               // $amount= $amount2 + ($lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*(((($otd->hour*60)+$otd->minute)-($whmax*60))/60));
             }
           }else{
-            $lg = $lg->where('min_minute', 0)
-            ->orderby('id')->first();
+            //$lg = $lg->where('min_minute', 1)
+            //20201007 remove clause min_minute
+            $lg = $lg->orderby('id')->first();
             $lgrate = $lg->rate;
             $amount= $lgrate*(($salary)/26);
           }
@@ -1053,9 +1054,7 @@ class UserHelper {
   
   public static function updOtHourMinute($cid){
 
-    $updateot = Overtime::find($cid);
-
-    $total_hour_minute = OvertimeDetail::where('ot_id',$updateot->$id)
+    $total_hour_minute = OvertimeDetail::where('ot_id',$cid)
     ->where('checked','Y')
     ->sum('hour')
     ->sum('minute');
@@ -1068,6 +1067,8 @@ class UserHelper {
     $total_hour = $total_hour_minute->hour+$total_minute_h; //7hour
     $total_minute = $total_minute_m; //20min
     $total_hours_minutes = $total_hour+(round(($total_minute/60),2)); //7+0.33
+    
+    $updateot = Overtime::find($cid);
     
     $updateot->total_hour = $total_hour;
     $updateot->total_minute = $total_minute;
