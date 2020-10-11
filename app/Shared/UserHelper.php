@@ -1053,9 +1053,7 @@ class UserHelper {
   
   public static function updOtHourMinute($cid){
 
-    $updateot = Overtime::find($cid);
-
-    $total_hour_minute = OvertimeDetail::where('ot_id',$updateot->$id)
+    $total_hour_minute = OvertimeDetail::where('ot_id',$cid)
     ->where('checked','Y')
     ->sum('hour')
     ->sum('minute');
@@ -1068,6 +1066,8 @@ class UserHelper {
     $total_hour = $total_hour_minute->hour+$total_minute_h; //7hour
     $total_minute = $total_minute_m; //20min
     $total_hours_minutes = $total_hour+(round(($total_minute/60),2)); //7+0.33
+    
+    $updateot = Overtime::find($cid);
     
     $updateot->total_hour = $total_hour;
     $updateot->total_minute = $total_minute;
