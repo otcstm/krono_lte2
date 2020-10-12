@@ -477,6 +477,26 @@ class StaffController extends Controller
       'adm' => $adm
       ]
       );
-}
+  }
+
+  public function searchUser(Request $req)
+    {
+        //    	        
+        $data = [];
+        if($req->has('q')){
+
+            $search = $req->q;
+            $data = User::select("id","name","staff_no")
+                    //->where('reptto','=',$req->user()->id)
+                    ->where('name','LIKE',"%$search%")
+                    ->orWhere('staff_no','LIKE',"%$search%")
+                    ->orWhere('persno','LIKE',"%$search%")
+                    //->orWhere('id', $req->user()->id)
+                    ->take(100)
+                    ->get();
+        }              
+
+        return response()->json($data);
+    }
 
 }

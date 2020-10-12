@@ -8,6 +8,7 @@ use App\User;
 use App\UserLog;
 use App\Overtime;
 use App\OvertimeDetail;
+use App\OvertimeMonth;
 use App\OvertimeLog;
 use App\OvertimeFormula;
 use App\OvertimeEligibility;
@@ -386,6 +387,12 @@ class UserHelper {
         $whmin = 3.5;
       }
 
+      //20201006 update sync OT Month total hour minute
+      if($ot->id){
+        $execute_upd = UserHelper::updOtMonthTotalHourMinute($ot->id);
+        $updOThourmin = UserHelper::updOtHourMinute($ot->id);
+      }
+
       if($dt->day_type=="N"){ //=================================================NORMAL
         $dayt = "NOR";
         $lg = OvertimeFormula::where('company_id',$ur->company_id)->where('region',$ot->region)
@@ -420,8 +427,9 @@ class UserHelper {
               // $amount= $amount2 + ($lg->rate*(($salary+$ur->allowance)/(26*$dt->working_hour))*(((($otd->hour*60)+$otd->minute)-($whmax*60))/60));
             }
           }else{
-            $lg = $lg->where('min_minute', 0)
-            ->orderby('id')->first();
+            //$lg = $lg->where('min_minute', 1)
+            //20201007 remove clause min_minute
+            $lg = $lg->orderby('id')->first();
             $lgrate = $lg->rate;
             $amount= $lgrate*(($salary)/26);
           }
@@ -493,6 +501,7 @@ class UserHelper {
       $sameday = true;
       $ed = "24:00";
       $wd = null;
+      $work =true;
       
       // first, check if there's any shift planned for this person
       $usp = UserShiftPattern::where("user_id", $user)
@@ -561,15 +570,19 @@ class UserHelper {
           $day_type = 'Public Holiday';
           $start = $stime->format('H:i');
           $end = $stime->format('H:i');
+          
+          $sameday = false;
+        
+          $work =false;
         }
       } else {
+        
+        $work =false;
         if($shift=="Yes"){
           $stime = new Carbon($theday->start_time);
           $etime = new Carbon($theday->start_time);
           $etime->addMinutes($theday->total_minute);
-          if( $stime->format('Y-MM-DD') != $etime->format('Y-MM-DD')){
-            $sameday = false;
-          }
+          $sameday = false;
           $start = $stime->format('H:i');
           $sd = $start;
           $end =  $etime->format('H:i');
@@ -585,7 +598,6 @@ class UserHelper {
           $day_type = 'Public Holiday';
         }
       }
-      
       if($shift=="Yes"){
         $wd = ShiftPlanStaffDay::where('user_id', $user)
                                 ->whereDate('work_date', date("Y-m-d", strtotime($date."+1 day")))
@@ -594,7 +606,7 @@ class UserHelper {
         $stime = new Carbon($theday->start_time);
         $ed =  $stime->format('H:i');
       }
-      return [$start, $end, $day_type, $day, $idday, $ed, $sameday, $date , $sd];
+      return [$start, $end, $day_type, $day, $idday, $ed, $sameday, $date , $sd, $work];
       //[0] Start work time
       //[1] End work time
       //[2] Day type
@@ -604,6 +616,7 @@ class UserHelper {
       //[6] Is same day or not
       //[7] Date
       //[8] Start day
+      //[9] Work day
     }
 
   public static function GetMySubords($persno, $recursive = false){
@@ -749,8 +762,9 @@ class UserHelper {
             $amount= $amount2 + ($lg->rate*(($salary)/(26*7))*($ot->total_hours_minutes - $whmax));
           }
         }else{
-          $lg = $lg->where('min_minute', 1)
-          ->orderby('id')->first();
+          //$lg = $lg->where('min_minute', 0)
+          //20201007 remove clause min_minute
+          $lg = $lg->orderby('id')->first();
           $lgrate = $lg->rate;
           $amount= $lgrate*(($salary)/26);
         }
@@ -1005,5 +1019,66 @@ class UserHelper {
         //  $req, "OVERTIME-PHTAG", "1024, END date:".$date." Selected:".$otdate." SDateLoop".$startdate); 
     
   }  
+
+  public static function updOtMonthTotalHourMinute($cid){
+
+    $clm = Overtime::find($cid);
+    //all status
+    $eligible_hours_minutes = Overtime::where('month_id',$clm->month_id)
+    ->sum('eligible_total_hours_minutes');
+    //status !=D1/D2/Q1/Q2
+    $eligible_total_hours_minutes = Overtime::where('month_id',$clm->month_id)
+    ->whereNotIn('status',['D1','D2','Q1','Q2'])
+    ->sum('eligible_total_hours_minutes');
+    
+    //eg: eligible_hours_minutes format 1.5 = 1hour 30min
+    // $totalhour = floor($eligible_hours_minutes);      // 1
+    // $totalminute = ($eligible_hours_minutes - $hour)*60; // .5
+
+    $hour = floor($eligible_hours_minutes);
+    $minute = ($eligible_hours_minutes - $hour)*60; 
+    $totalhour = floor($eligible_total_hours_minutes);
+    $totalminute = ($eligible_total_hours_minutes - $totalhour)*60; 
+    
+    $updatemonth = OvertimeMonth::find($clm->month_id);
+    //upd otmonth hour minute - all status from ot.eligible_total_hours_minutes
+    $updatemonth->hour = $hour;
+    $updatemonth->minute = $minute;
+    //upd otmonth totalhour - totalmin - status: !=D1/D2/Q1/Q2 from ot.eligible_total_hours_minutes
+    $updatemonth->total_hour = $totalhour;
+    $updatemonth->total_minute = $totalminute;
+    $updatemonth->save();
+
+    return $updatemonth;   
+  }
+  
+  public static function updOtHourMinute($cid){
+
+    $od_hour = OvertimeDetail::where('ot_id',$cid)
+    ->where('checked','Y')
+    ->sum('hour'); 
+
+    $od_minute = OvertimeDetail::where('ot_id',$cid)
+    ->where('checked','Y')
+    ->sum('minute');
+
+    //hour 6hour 80min
+    $total_minute = $od_minute; //80min
+    $total_minute_h = intval($total_minute/60); //1.33 = 1 hour
+    $total_minute_m = floor($total_minute%60); //20min
+
+    $total_hour = $od_hour+$total_minute_h; //7hour
+    $total_minute = $total_minute_m; //20min
+    $total_hours_minutes = $total_hour+(round(($total_minute/60),2)); //7+0.33
+    
+    $updateot = Overtime::find($cid);
+    
+    $updateot->total_hour = $total_hour;
+    $updateot->total_minute = $total_minute;
+    $updateot->total_hours_minutes = $total_hours_minutes;    
+    $updateot->save();
+
+    return $updateot;   
+  }
 
 }
