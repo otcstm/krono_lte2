@@ -321,13 +321,13 @@ class OvertimeController extends Controller
             //check if checked ot date have leave
             $claim = Overtime::find($id[$i]);
             $leave = UserHelper::CheckLeave($req->user()->id, $claim->date);
-            // if ($leave) {
-            //     if (($leave->opr == "INS")&&($leave->leave_status == "APPROVED")){
-            //         if(!(($leave->leave_type!="HP1")&&($leave->leave_type!="HP2"))){
-            //             $cansubmit = false;
-            //         }
-            //     }
-            // }
+            if ($leave) {
+                if (($leave->opr == "INS")&&($leave->leave_status == "APPROVED")){
+                    if(!(($leave->leave_type!="HP1")&&($leave->leave_type!="HP2"))){
+                        $cansubmit = false;
+                    }
+                }
+            }
         }
 
         //check if can submit or not
@@ -1434,13 +1434,13 @@ class OvertimeController extends Controller
             $haveprojecttype = true;
             //check for leave
             $leave = UserHelper::CheckLeave($req->user()->id, $claim->date);
-            // if ($leave) {
-            //     if (($leave->opr == "INS")&&($leave->leave_status == "APPROVED"))  {
-            //         if(!(($leave->leave_type!="HP1")||($leave->leave_type!="HP2"))){
-            //             $cansubmit = false;
-            //         }
-            //     }
-            // }
+            if ($leave) {
+                if (($leave->opr == "INS")&&($leave->leave_status == "APPROVED"))  {
+                    if(!(($leave->leave_type!="HP1")||($leave->leave_type!="HP2"))){
+                        $cansubmit = false;
+                    }
+                }
+            }
 
 
             //check for approver
