@@ -15,7 +15,12 @@ class DayType extends Model
       $st = Carbon::create($this->start_time);
       $st->addHours($this->dur_hour);
       $st->addMinutes($this->dur_minute);
-      return $st->toTimeString();
+
+      $endtime=$st->toTimeString();
+      if($st->toTimeString()=='23:59:00'){
+        $endtime = '24:00';
+      }
+      return $endtime;
     //}
     //return null;
   }

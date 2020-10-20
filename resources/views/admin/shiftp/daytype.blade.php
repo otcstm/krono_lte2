@@ -43,7 +43,8 @@
            <td>{{ $ap->day_type }}</td>
            <td>{{ $ap->working_hour }}</td>
            <td>{{ date('H:i',strtotime($ap->start_time)) }}</td>
-           <td>{{ date('H:i',strtotime($ap->showEndTime())) }}</td>
+           {{-- <td>{{ date('H:i',strtotime($ap->showEndTime())) }}</td> --}}
+           <td>{{ $ap->showEndTime() }}</td>
            <td>{{ $ap->dur_hour }} h, {{ $ap->dur_minute }} m</td>
            <td>
 
