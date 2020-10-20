@@ -83,12 +83,16 @@
                                 {{$claim->order_no}}
                             @endif</b></div>
                             <div class="col-md-4">Description</div>
-                            @if($claim->charge_type=="Project")
-                                <div class="col-md-8">: <b>{{$claim->project->descr}}</b></div>
-                            @elseif($claim->charge_type=="Internal Order")
-                                <div class="col-md-8">: <b>{{$claim->iorder->descr}}</b></div>
+                            @if($claim->project->descr!="")
+                                @if($claim->charge_type=="Project")
+                                    <div class="col-md-8">: <b>{{$claim->project->descr}}</b></div>
+                                @elseif($claim->charge_type=="Internal Order")
+                                    <div class="col-md-8">: <b>{{$claim->iorder->descr}}</b></div>
+                                @else
+                                    <div class="col-md-8">: <b>{{$claim->morder->descr}}</b></div>
+                                @endif
                             @else
-                                <div class="col-md-8">: <b>{{$claim->morder->descr}}</b></div>
+                                <div class="col-md-8">: <b>-</b></div>
                             @endif
                         @endif
                     </div>
@@ -96,10 +100,10 @@
                 @if($claim->charge_type=="Project")
                     <div class="col-md-6">
                         <div class="row">
-                            <div class="col-md-4">Network Header</div><div class="col-md-8">: <b>{{$claim->project->network_header}}</b></div>
-                            <div class="col-md-4">Network Header Desc</div><div class="col-md-8">: <b>{{$claim->project->network_headerdescr}}</b></div>
-                            <div class="col-md-4">Network Activity</div><div class="col-md-8">: <b>{{$claim->project->network_act_no}}</b></div>
-                            <div class="col-md-4">Network Activity Desc</div><div class="col-md-8">: <b>{{$claim->project->network_act_descr}}</b></div>
+                            <div class="col-md-4">Network Header</div><div class="col-md-8">: <b>{{$claim->network_header}}</b></div>
+                            <div class="col-md-4">Network Header Desc</div><div class="col-md-8">: <b>{{$headerdesc}}</b></div>
+                            <div class="col-md-4">Network Activity</div><div class="col-md-8">: <b>{{$claim->network_act_no}}</b></div>
+                            <div class="col-md-4">Network Activity Desc</div><div class="col-md-8">: <b>{{$activitydesc}}</b></div>
                         </div>
                     </div>
                 @endif
