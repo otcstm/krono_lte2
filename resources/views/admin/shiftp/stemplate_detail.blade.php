@@ -145,7 +145,7 @@
              @endif
            </td>
            <td>{{ $ap->Day->start_time }}</td>
-           <td>{{ $ap->Day->showEndTime() }}</td>
+           <td>{{ $ap->Day->showEndTime24format() }}</td>
            <td>{{ $ap->Day->dur_hour }} h, {{ $ap->Day->dur_minute }} m</td>
            <td>
              @if($ap->day_seq == $daycount)
