@@ -244,9 +244,19 @@ class OvertimeController extends Controller
     public function detail(Request $req)
     {
         $claim = Overtime::where('id', $req->detailid)->first();
+        $headerdesc = null;
+        $activitydesc = null;
         Session::put(['draft' => [], 'claim' => $claim]);
         Session::put(['back' => $req->type]);
-        return view('staff.otdetail', ['claim' => $req->session()->get('claim')]);
+        if($claim->charge_type=="Project"){
+            $desc = Project::where('project_no', $claim->project_no)
+                            ->where('network_header', $claim->network_header)
+                            ->where('network_act_no', $claim->network_act_no)
+                            ->first();
+            $headerdesc = $desc->network_headerdescr;
+            $activitydesc = $desc->network_act_descr;
+        }
+        return view('staff.otdetail', ['claim' => $req->session()->get('claim'), 'headerdesc' => $headerdesc, 'activitydesc' => $activitydesc]);
     }//--------------------------------------------------show overtime form when click view--------------------------------------------------
     public function detailview(Request $req)
     {   
@@ -311,13 +321,13 @@ class OvertimeController extends Controller
             //check if checked ot date have leave
             $claim = Overtime::find($id[$i]);
             $leave = UserHelper::CheckLeave($req->user()->id, $claim->date);
-            if ($leave) {
-                if(!(($leave->leave_type!="HP1")||($leave->leave_type!="HP2"))){
-                    if (($leave->opr == "INS")&&($leave->leave_status == "APPROVED"))  {
-                        $cansubmit = false;
-                    }
-                }
-            }
+            // if ($leave) {
+            //     if (($leave->opr == "INS")&&($leave->leave_status == "APPROVED")){
+            //         if(!(($leave->leave_type!="HP1")&&($leave->leave_type!="HP2"))){
+            //             $cansubmit = false;
+            //         }
+            //     }
+            // }
         }
 
         //check if can submit or not
@@ -480,16 +490,6 @@ class OvertimeController extends Controller
                 ]);
             }
         }
-        
-        // $wd = ShiftPlanStaffDay::where('user_id', $req->user()->id)
-        // ->whereDate('work_date', date("Y-m-d", strtotime($req->inputdate)))->first();
-        // // dd($wd);
-        // $sp = ShiftPlan::where("id", $wd->shift_plan_id)->first();
-        // if($sp->status=="Approved"){
-            
-        // }else{
-        //     $wd = null;
-        // }
         if($wd){
             $employtype = "Shift";
         }else{
@@ -514,236 +514,232 @@ class OvertimeController extends Controller
             }
         }
 
-        if ($elig) {
-            Session::put(['draft' => []]);
-            $claim = Overtime::where('user_id', $req->user()->id)->where('date', $otdate)->first();
+        if ($elig) {            
+            $leave = UserHelper::CheckLeave($req->user()->id, $otdate);
+            $canApply = true;
+            if($leave){
+                if (($leave->opr == "INS")&&($leave->leave_status == "APPROVED"))  {
+                    if(!(($leave->leave_type!="HP1")||($leave->leave_type!="HP2"))){
+                        $canApply = false;
+                    }
+                }
+            }
+            if($canApply){
+                Session::put(['draft' => []]);
+                $claim = Overtime::where('user_id', $req->user()->id)->where('date', $otdate)->first();
 
-            //check if selected ot date have data or not (if not exist exist)
-            if (empty($claim)) {
-                $claimdate = $otdate ;
-                $claimmonth = date("m", strtotime($claimdate));
-                $claimyear = date("y", strtotime($claimdate));
-                $claimday = date("l", strtotime($claimdate));
-                $claimtime = OvertimeMonth::where('user_id', $req->user()->id)->where('year', $claimyear)->where('month', $claimmonth)->first();
-
-                //check if selected ot date's month have data or not, if empty create ot month
-                if (empty($claimtime)) {
-                    $newmonth = new OvertimeMonth;   
-                    $newmonth->user_id = $req->user()->id;
-                    $newmonth->year = $claimyear;
-                    $newmonth->month = $claimmonth;
-                    $newmonth->save();
+                //check if selected ot date have data or not (if not exist exist)
+                if (empty($claim)) {
+                    $claimdate = $otdate ;
+                    $claimmonth = date("m", strtotime($claimdate));
+                    $claimyear = date("y", strtotime($claimdate));
+                    $claimday = date("l", strtotime($claimdate));
                     $claimtime = OvertimeMonth::where('user_id', $req->user()->id)->where('year', $claimyear)->where('month', $claimmonth)->first();
-                }
-                // dd($day[0]);
-                if($shift){
-                    $punch = OvertimePunch::where('user_id', $req->user()->id)
-                    // ->where('date', $otdate)->orWhere('date', date("Y-m-d", strtotime($otdate."+1 day")))
-                    ->where('start_time',"<=", date("Y-m-d", strtotime($otdate."+1 day"))." ".$day[5].":00")
-                    ->where('end_time',">=", $otdate." ".$day[0].":00")->get();
-                }else{
-                    $punch = OvertimePunch::where('user_id', $req->user()->id)->where('date', $otdate)->get();
-                   
-                }
 
-                // dd($punch);
-                //check if selected ot date's have punch in data or not, if empty create ot month
-                if (count($punch)!=0) {
-                    $totalhour = 0;
-                    $totalminute = 0;
-                    $wage = OvertimeFormula::where('company_id', $req->user()->company_id)->where('region', $region->region)->where('start_date', '<=', $claimdate)->where('end_date', '>', $claimdate)->first();   //temp
-                    // $expiry = OvertimeExpiry::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $claimdate)->where('end_date','>', $claimdate)->first();
-                    $draftclaim = new Overtime;
-                    $draftclaim->refno = "OT".date("Ymd", strtotime($claimdate))."-".sprintf("%08d", $req->user()->id);
-                    $draftclaim->user_id = $req->user()->id;
-                    $draftclaim->month_id = $claimtime->id;
-                    $draftclaim->date = $otdate;
-                    $draftclaim->employee_type = $employtype;
-                    $draftclaim->salary_exception = $salexcep;
-                    $draftclaim->date_created = date("Y-m-d");
-                    // if($expiry->status == "ACTIVE"){
-                    //     if($expiry->based_date == "Request Date"){
-                    //         $draftclaim->date_expiry = date('Y-m-d', strtotime("+".$expiry->noofmonth." months"));
-                    //     }elseif($expiry->based_date == "Overtime Date"){
-                    //         $draftclaim->date_expiry = date('Y-m-d', strtotime("+".$expiry->noofmonth." months", strtotime($claimdate)));
-                    //     }
-                    // }
+                    //check if selected ot date's month have data or not, if empty create ot month
+                    if (empty($claimtime)) {
+                        $newmonth = new OvertimeMonth;   
+                        $newmonth->user_id = $req->user()->id;
+                        $newmonth->year = $claimyear;
+                        $newmonth->month = $claimmonth;
+                        $newmonth->save();
+                        $claimtime = OvertimeMonth::where('user_id', $req->user()->id)->where('year', $claimyear)->where('month', $claimmonth)->first();
+                    }
+                    // dd($day[0]);
+                    if($shift){
+                        $punch = OvertimePunch::where('user_id', $req->user()->id)
+                        // ->where('date', $otdate)->orWhere('date', date("Y-m-d", strtotime($otdate."+1 day")))
+                        ->where('start_time',"<=", date("Y-m-d", strtotime($otdate."+1 day"))." ".$day[5].":00")
+                        ->where('end_time',">=", $otdate." ".$day[0].":00")->get();
+                    }else{
+                        $punch = OvertimePunch::where('user_id', $req->user()->id)->where('date', $otdate)->get();
+                    
+                    }
 
-                    //check if ot is more than 3 months from system date
-                    if ($gm) { //if more than 3 months
-                        $draftclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($claimdate)));
-                        $draftclaim->date_expiry = date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d', strtotime("+1 months", strtotime(date("Y-m-d")))))));
-                    } else {
-                        $draftclaim->approver_id = $req->user()->reptto;
+                    // dd($punch);
+                    //check if selected ot date's have punch in data or not, if empty create ot month
+                    if (count($punch)!=0) {
+                        $totalhour = 0;
+                        $totalminute = 0;
+                        $wage = OvertimeFormula::where('company_id', $req->user()->company_id)->where('region', $region->region)->where('start_date', '<=', $claimdate)->where('end_date', '>', $claimdate)->first();   //temp
+                        // $expiry = OvertimeExpiry::where('company_id', $req->user()->company_id)->where('region', $reg->region)->where('start_date','<=', $claimdate)->where('end_date','>', $claimdate)->first();
+                        $draftclaim = new Overtime;
+                        $draftclaim->refno = "OT".date("Ymd", strtotime($claimdate))."-".sprintf("%08d", $req->user()->id);
+                        $draftclaim->user_id = $req->user()->id;
+                        $draftclaim->month_id = $claimtime->id;
+                        $draftclaim->date = $otdate;
+                        $draftclaim->employee_type = $employtype;
+                        $draftclaim->salary_exception = $salexcep;
+                        $draftclaim->date_created = date("Y-m-d");
 
-                        //check if user have default verifier or not
-                        $vgm = VerifierGroupMember::where('user_id', $req->user()->id)->first();
-                        if ($vgm) {
-                            $vg = VerifierGroup::where('id', $vgm->user_verifier_groups_id)->first();
-                            // dd($vgm);
-                            if($vg->approver_id == $req->user()->reptto){
-                                $draftclaim->verifier_id =  $vg->verifier_id;
+                        //check if ot is more than 3 months from system date
+                        if ($gm) { //if more than 3 months
+                            $draftclaim->approver_id = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($claimdate)));
+                            $draftclaim->date_expiry = date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d', strtotime("+1 months", strtotime(date("Y-m-d")))))));
+                        } else {
+                            $draftclaim->approver_id = $req->user()->reptto;
+
+                            //check if user have default verifier or not
+                            $vgm = VerifierGroupMember::where('user_id', $req->user()->id)->first();
+                            if ($vgm) {
+                                $vg = VerifierGroup::where('id', $vgm->user_verifier_groups_id)->first();
+                                // dd($vgm);
+                                if($vg->approver_id == $req->user()->reptto){
+                                    $draftclaim->verifier_id =  $vg->verifier_id;
+                                }
+                                    
                             }
-                                
+                            $draftclaim->date_expiry = date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d', strtotime("+3 months", strtotime($req->inputdate))))));
                         }
-                        $draftclaim->date_expiry = date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d', strtotime("+3 months", strtotime($req->inputdate))))));
-                    }
-                    $company_id_user = Psubarea::where('persarea',$staffr->persarea)->where('perssubarea',$staffr->perssubarea)->first();
-                    // $draftclaim->state_id =  $req->user()->state_id;
-                    $draftclaim->state_id =  $staffr->state_id;
-                    $draftclaim->daytype_id =  $day[4];
-                    $draftclaim->day_type_code =  $day_type;
-                    $draftclaim->profile_id =  $staffr->id;
-                    $draftclaim->company_id =  $staffr->company_id;
-                    $draftclaim->company_id_user =  $company_id_user->id;
-                    $draftclaim->persarea =  $staffr->persarea;
-                    $draftclaim->perssubarea =  $staffr->perssubarea;
-                    $draftclaim->punch_id =  $punch[0]->punch_id;
-                    $draftclaim->region =  $region->region;
-                    $draftclaim->charge_type =  "Own Cost Center";
-                    $draftclaim->costcenter =  $staffr->costcentr;
-                    $draftclaim->sal_exception =  $staffr->ot_salary_exception;
-                    // $userrecid = URHelper::getUserRecordByDate($req->user()->persno, date('Y-m-d', strtotime($claimdate)));
-                    $draftclaim->user_records_id =  $staffr->id;
-                    $draftclaim->save();
-                    $claim = Overtime::where('user_id', $req->user()->id)->where('date', $otdate)->first();
-
-                    //register user clock in time if have clock in data;
-                    foreach ($punch as $punches) {
-                        $staffpunch = StaffPunch::find($punches->punch_id);
-                        $staffpunch->apply_ot = "X";
-                        $newclaim = new OvertimeDetail;
-                        $newclaim->ot_id = $claim->id;
-                        $newclaim->clock_in = $punches->start_time;
-                        $newclaim->clock_out= $punches->end_time;
-                        $newclaim->start_time = $punches->start_time;
-                        $newclaim->end_time = $punches->end_time;
-                        $newclaim->hour = $punches->hour;
-                        $newclaim->minute = $punches->minute;
-                        $newclaim->checked = "N";
-                        $salary = $staffr->salary;
-                        
-                        //check user ot salary exception
-                        if ($staffr->ot_salary_exception=="Y") {
-                            // $salarycap = URHelper::getUserEligibility($staffr->company_id, $region->region, $claim->date);
-                            $salarycap = URHelper::getUserEligibility($claim->user_id, $claim->date);
-                            
-                            $salary = $salarycap->salary_cap;
-                        }
-                        
-                        $newclaim->justification = "";
-                        $newclaim->in_latitude = $punches->in_latitude;
-                        $newclaim->in_longitude = $punches->in_longitude;
-                        $newclaim->out_latitude = $punches->out_latitude;
-                        $newclaim->out_longitude = $punches->out_longitude;
-                        $newclaim->save();
-                        $staffpunch->save();
-                        $updateclaim = OvertimeDetail::latest()->first(); 
-                        $pay = UserHelper::CalOT($updateclaim->id);
-                        // $pay = UserHelper::CalOT($salary, $punches->hour, $punches->minute);
-                        $draftclaim->amount = $draftclaim->amount + $pay;
-                        $newclaim->save();
+                        $company_id_user = Psubarea::where('persarea',$staffr->persarea)->where('perssubarea',$staffr->perssubarea)->first();
+                        // $draftclaim->state_id =  $req->user()->state_id;
+                        $draftclaim->state_id =  $staffr->state_id;
+                        $draftclaim->daytype_id =  $day[4];
+                        $draftclaim->day_type_code =  $day_type;
+                        $draftclaim->profile_id =  $staffr->id;
+                        $draftclaim->company_id =  $staffr->company_id;
+                        $draftclaim->company_id_user =  $company_id_user->company_id;
+                        $draftclaim->persarea =  $staffr->persarea;
+                        $draftclaim->perssubarea =  $staffr->perssubarea;
+                        $draftclaim->punch_id =  $punch[0]->punch_id;
+                        $draftclaim->region =  $region->region;
+                        $draftclaim->charge_type =  "Own Cost Center";
+                        $draftclaim->costcenter =  $staffr->costcentr;
+                        $draftclaim->sal_exception =  $staffr->ot_salary_exception;
+                        // $userrecid = URHelper::getUserRecordByDate($req->user()->persno, date('Y-m-d', strtotime($claimdate)));
+                        $draftclaim->user_records_id =  $staffr->id;
                         $draftclaim->save();
-                    }
-                    $execute = UserHelper::LogOT($claim->id, $req->user()->id, "Created draft", "Created draft for ".$claim->refno);
-                    $claim = Overtime::where('user_id', $req->user()->id)->where('date', $otdate)->first();
-                    Session::put(['draft' => []]);
-                }
+                        $claim = Overtime::where('user_id', $req->user()->id)->where('date', $otdate)->first();
 
-                //if dont have OT Punch
-                else {
-                    // $expiry = URHelper::getUserExpiry($staffr->company_id, $region->region, $claimdate);
-                    // $dt = DayType::where('id', $day_type)->first();
-                    $date_expiry = null;
-                    // if(($expiry->based_date = "Request Date")&&($expiry->status = "ACTIVE")){
-                    //     $date_expiry = date('Y-m-d', strtotime("+90 days"));
-                    // }
-                    // if($expiry->status == "ACTIVE"){
-                    //     if($expiry->based_date == "Request Date"){
-                    //         $date_expiry = date('Y-m-d', strtotime("+".$expiry->noofmonth." months"));
-                    //     }elseif($expiry->based_date == "Overtime Date"){
-                    //         $date_expiry = date('Y-m-d', strtotime("+".$expiry->noofmonth." months", strtotime($claimdate)));
-                    //     }
-                    // }
-                    // $verify = User::where('id', $req->user()->id)->first();
-                    // $verify = null;
-
-                    $verifyn = "N/A";
-                    $verifyno = "";
-                    $approver = "N/A";
-                    //check if ot is more than 3 month from system date
-                    if ($gm) {
-                        $gmid = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($claimdate)));
-                        if ($gmid) {
-                            $approve = User::where('id', $gmid)->first();
-                            $approver = $approve->name;
+                        //register user clock in time if have clock in data;
+                        foreach ($punch as $punches) {
+                            $staffpunch = StaffPunch::find($punches->punch_id);
+                            $staffpunch->apply_ot = "X";
+                            $newclaim = new OvertimeDetail;
+                            $newclaim->ot_id = $claim->id;
+                            $newclaim->clock_in = $punches->start_time;
+                            $newclaim->clock_out= $punches->end_time;
+                            $newclaim->start_time = $punches->start_time;
+                            $newclaim->end_time = $punches->end_time;
+                            $newclaim->hour = $punches->hour;
+                            $newclaim->minute = $punches->minute;
+                            $newclaim->checked = "N";
+                            $salary = $staffr->salary;
+                            
+                            //check user ot salary exception
+                            if ($staffr->ot_salary_exception=="Y") {
+                                // $salarycap = URHelper::getUserEligibility($staffr->company_id, $region->region, $claim->date);
+                                $salarycap = URHelper::getUserEligibility($claim->user_id, $claim->date);
+                                
+                                $salary = $salarycap->salary_cap;
+                            }
+                            
+                            $newclaim->justification = "";
+                            $newclaim->in_latitude = $punches->in_latitude;
+                            $newclaim->in_longitude = $punches->in_longitude;
+                            $newclaim->out_latitude = $punches->out_latitude;
+                            $newclaim->out_longitude = $punches->out_longitude;
+                            $newclaim->save();
+                            $staffpunch->save();
+                            $updateclaim = OvertimeDetail::latest()->first(); 
+                            $pay = UserHelper::CalOT($updateclaim->id);
+                            // $pay = UserHelper::CalOT($salary, $punches->hour, $punches->minute);
+                            $draftclaim->amount = $draftclaim->amount + $pay;
+                            $newclaim->save();
+                            $draftclaim->save();
                         }
-                        $verify = User::where('id', $req->user()->reptto)->first();
-                        $verifyn = $verify->name;
-                        $verifyno = $verify->staff_no;
-                        $date_expiry = date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d', strtotime("+1 months", strtotime(date("Y-m-d")))))));
-                    } else {
-                        $approve = User::where('id', $req->user()->reptto)->first();
-                        $approver = $approve->name;
-                        $approverno = $approve->staff_no;
+                        $execute = UserHelper::LogOT($claim->id, $req->user()->id, "Created draft", "Created draft for ".$claim->refno);
+                        $claim = Overtime::where('user_id', $req->user()->id)->where('date', $otdate)->first();
+                        Session::put(['draft' => []]);
+                    }
 
-                        //check if user have default verifier or not
-                        $vgm = VerifierGroupMember::where('user_id', $req->user()->id)->first();
-                        if ($vgm) {
-                            $vg = VerifierGroup::where('id', $vgm->user_verifier_groups_id)->first();
-                            if($vg->approver_id == $req->user()->reptto){
-                                $verify =  $vg->verifier_id;
-                                if ($verify) {
-                                    if ($verify!="") {
-                                        $verifyn = $vg->name->name;
-                                        $verifyno = $vg->name->staff_no;
+                    //if dont have OT Punch
+                    else {
+                        $date_expiry = null;
+                        $verifyn = "N/A";
+                        $verifyno = "";
+                        $approver = "N/A";
+                        //check if ot is more than 3 month from system date
+                        if ($gm) {
+                            $gmid = URHelper::getGM($req->user()->persno, date('Y-m-d', strtotime($claimdate)));
+                            if ($gmid) {
+                                $approve = User::where('id', $gmid)->first();
+                                $approver = $approve->name;
+                            }
+                            $verify = User::where('id', $req->user()->reptto)->first();
+                            $verifyn = $verify->name;
+                            $verifyno = $verify->staff_no;
+                            $date_expiry = date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d', strtotime("+1 months", strtotime(date("Y-m-d")))))));
+                        } else {
+                            $approve = User::where('id', $req->user()->reptto)->first();
+                            $approver = $approve->name;
+                            $approverno = $approve->staff_no;
+
+                            //check if user have default verifier or not
+                            $vgm = VerifierGroupMember::where('user_id', $req->user()->id)->first();
+                            if ($vgm) {
+                                $vg = VerifierGroup::where('id', $vgm->user_verifier_groups_id)->first();
+                                if($vg->approver_id == $req->user()->reptto){
+                                    $verify =  $vg->verifier_id;
+                                    if ($verify) {
+                                        if ($verify!="") {
+                                            $verifyn = $vg->name->name;
+                                            $verifyno = $vg->name->staff_no;
+                                        }
                                     }
                                 }
                             }
+                            $date_expiry = date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d', strtotime("+3 months", strtotime($otdate))))));
                         }
-                        $date_expiry = date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d', strtotime("+3 months", strtotime($otdate))))));
+                        //get verifier name
+                        // if($verify!=null){
+                        //     if($verify!=""){
+                        //         $verifyn = $vg->name->name;
+                        //     }
+                        // }
+                        $state = UserRecord::where('user_id', $req->user()->persno)->where('upd_sap', '<=', $claimdate)->first();
+                        $refno = "OT".date("Ymd", strtotime($claimdate))."-".sprintf("%08d", $req->user()->id);
+                        $draft = array($refno,                          //[0] - refno
+                                        $date_expiry,                   //[1] - expiry
+                                        date("Y-m-d H:i:s"),            //[2] - datetime created
+                                        $claimtime,                     //[3] - month
+                                        $otdate,                //[4] - date
+                                        $req->user()->name,             //[5] - user name
+                                        // $state->state_id,               //[6] - stateid
+                                        $staffr->state_id,
+                                        $staffr->statet->state_descr,
+                                        // $state->statet->state_descr,    //[7] - statedescr
+                                        $day_type,                      //[8] - day type
+                                        $verifyn,                       //[9] - verifier name
+                                        $approver,                 //[10] - approver name
+                                        $staffr->costcentr,        //[11] - cost center
+                                        $verifyno,                 //[12] - approver name
+                                        $approverno,            //[13] - cost center
+                                        $employtype,            //[14] - employee type
+                                        $salexcep);            //[15] - salary exception
+                        Session::put(['draft' => $draft]);
                     }
-                    //get verifier name
-                    // if($verify!=null){
-                    //     if($verify!=""){
-                    //         $verifyn = $vg->name->name;
-                    //     }
-                    // }
-                    $state = UserRecord::where('user_id', $req->user()->persno)->where('upd_sap', '<=', $claimdate)->first();
-                    $refno = "OT".date("Ymd", strtotime($claimdate))."-".sprintf("%08d", $req->user()->id);
-                    $draft = array($refno,                          //[0] - refno
-                                    $date_expiry,                   //[1] - expiry
-                                    date("Y-m-d H:i:s"),            //[2] - datetime created
-                                    $claimtime,                     //[3] - month
-                                    $otdate,                //[4] - date
-                                    $req->user()->name,             //[5] - user name
-                                    // $state->state_id,               //[6] - stateid
-                                    $staffr->state_id,
-                                    $staffr->statet->state_descr,
-                                    // $state->statet->state_descr,    //[7] - statedescr
-                                    $day_type,                      //[8] - day type
-                                    $verifyn,                       //[9] - verifier name
-                                    $approver,                 //[10] - approver name
-                                    $staffr->costcentr,        //[11] - cost center
-                                    $verifyno,                 //[12] - approver name
-                                    $approverno,            //[13] - cost center
-                                    $employtype,            //[14] - employee type
-                                    $salexcep);            //[15] - salary exception
-                    Session::put(['draft' => $draft]);
+                } else {
+                    Session::put(['draft' => []]);
                 }
+                Session::put(['claim' => $claim]);      
+
+                //item no 54
+                //20201005 fix unstable update overtimemonth table. 
+                //update every selection date
+                if(isset($claim->id)){
+                    $execute_upd =  UserHelper::updOtMonthTotalHourMinute($claim->id);
+                }
+
+                return redirect(route('ot.form', [], false));
             } else {
-                Session::put(['draft' => []]);
+                Session::put(['draft' => [], 'claim' => []]);
+                return redirect(route('ot.form', [], false))->with([
+                    'feedback' => true,
+                    'feedback_text' => "You are on leave on this date!",
+                    'feedback_title' => "Warning"
+                ]);
             }
-            Session::put(['claim' => $claim]);      
-
-            //item no 54
-            //20201005 fix unstable update overtimemonth table. 
-            //update every selection date
-            if(isset($claim->id)){
-                $execute_upd =  UserHelper::updOtMonthTotalHourMinute($claim->id);
-            }
-
-            return redirect(route('ot.form', [], false));
         } else {
             Session::put(['draft' => [], 'claim' => []]);
             return redirect(route('ot.form', [], false))->with([
@@ -809,7 +805,7 @@ class OvertimeController extends Controller
                 $draftclaim->day_type_code =  $day_typed;
                 $draftclaim->state_id =  ($req->session()->get('draft'))[6];
                 $draftclaim->company_id =  $staffr->company_id;
-                $draftclaim->company_id_user =  $company_id_user->id;
+                $draftclaim->company_id_user =  $company_id_user->company_id;
                 $draftclaim->employee_type =  ($req->session()->get('draft'))[14];
                 $draftclaim->salary_exception =  ($req->session()->get('draft'))[15];
                 $draftclaim->persarea =  $staffr->persarea;
@@ -1438,13 +1434,13 @@ class OvertimeController extends Controller
             $haveprojecttype = true;
             //check for leave
             $leave = UserHelper::CheckLeave($req->user()->id, $claim->date);
-            if ($leave) {
-                if(!(($leave->leave_type!="HP1")||($leave->leave_type!="HP2"))){
-                    if (($leave->opr == "INS")&&($leave->leave_status == "APPROVED"))  {
-                        $cansubmit = false;
-                    }
-                }
-            }
+            // if ($leave) {
+            //     if (($leave->opr == "INS")&&($leave->leave_status == "APPROVED"))  {
+            //         if(!(($leave->leave_type!="HP1")||($leave->leave_type!="HP2"))){
+            //             $cansubmit = false;
+            //         }
+            //     }
+            // }
 
 
             //check for approver
