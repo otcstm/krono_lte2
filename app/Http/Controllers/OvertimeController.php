@@ -2031,9 +2031,14 @@ class OvertimeController extends Controller
                 ]);
             }
         } else {
+            
+            $msg = "Your pending overtime claim not successfully submitted. ".env('APP_ENV');
+            if(isset($e)) {
+                $msg = "Kindly contact system admin for assistant. Error ".env('APP_ENV').": ".$e->getMessage()." on ".date('d-m-Y H:i:s', strtotime(now()));
+            }
             return redirect(route('ot.approval', [], false))->with([
                 'feedback' => true,
-                    'feedback_text' => "Ohh man! The code is breakoff. Kindly drop us a postcard, we will roger you ASAP. xoxo!",
+                    'feedback_text' => $msg,
                     'feedback_title' => "Not Successfully Submitted"
             ]);
         }
