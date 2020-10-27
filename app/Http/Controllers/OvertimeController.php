@@ -2034,7 +2034,7 @@ class OvertimeController extends Controller
             
             $msg = "Your pending overtime claim not successfully submitted. ".env('APP_ENV');
             if(isset($e)) {
-                $msg = "Kindly contact system admin for assistant. Error ".env('APP_ENV').": ".$e->getMessage()." on ".date('d-m-Y H:i:s', strtotime(now()));
+                $msg = "Kindly refresh and try again. If still persist, kindly contact system admin for assistant. Error ".env('APP_ENV').": ".$e->getMessage()." on ".date('d-m-Y H:i:s', strtotime(now()));
             }
             return redirect(route('ot.approval', [], false))->with([
                 'feedback' => true,
