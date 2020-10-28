@@ -321,13 +321,13 @@ class OvertimeController extends Controller
             //check if checked ot date have leave
             $claim = Overtime::find($id[$i]);
             $leave = UserHelper::CheckLeave($req->user()->id, $claim->date);
-            // if ($leave) {
-            //     if (($leave->opr == "INS")&&($leave->leave_status == "APPROVED")){
-            //         if(!(($leave->leave_type!="HP1")&&($leave->leave_type!="HP2"))){
-            //             $cansubmit = false;
-            //         }
-            //     }
-            // }
+            if ($leave) {
+                if (($leave->opr == "INS")&&($leave->leave_status == "APPROVED")){
+                    if(!(($leave->leave_type!="HP1")&&($leave->leave_type!="HP2"))){
+                        $cansubmit = false;
+                    }
+                }
+            }
         }
 
         //check if can submit or not
@@ -1434,13 +1434,13 @@ class OvertimeController extends Controller
             $haveprojecttype = true;
             //check for leave
             $leave = UserHelper::CheckLeave($req->user()->id, $claim->date);
-            // if ($leave) {
-            //     if (($leave->opr == "INS")&&($leave->leave_status == "APPROVED"))  {
-            //         if(!(($leave->leave_type!="HP1")||($leave->leave_type!="HP2"))){
-            //             $cansubmit = false;
-            //         }
-            //     }
-            // }
+            if ($leave) {
+                if (($leave->opr == "INS")&&($leave->leave_status == "APPROVED"))  {
+                    if(!(($leave->leave_type!="HP1")||($leave->leave_type!="HP2"))){
+                        $cansubmit = false;
+                    }
+                }
+            }
 
 
             //check for approver
@@ -2031,9 +2031,14 @@ class OvertimeController extends Controller
                 ]);
             }
         } else {
+            
+            $msg = "Your pending overtime claim not successfully submitted. ".env('APP_ENV');
+            if(isset($e)) {
+                $msg = "Kindly contact system admin for assistant. Error ".env('APP_ENV').": ".$e->getMessage()." on ".date('d-m-Y H:i:s', strtotime(now()));
+            }
             return redirect(route('ot.approval', [], false))->with([
                 'feedback' => true,
-                    'feedback_text' => "Ohh man! The code is breakoff. Kindly drop us a postcard, we will roger you ASAP. xoxo!",
+                    'feedback_text' => $msg,
                     'feedback_title' => "Not Successfully Submitted"
             ]);
         }
