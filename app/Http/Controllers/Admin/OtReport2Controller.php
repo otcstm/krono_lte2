@@ -58,8 +58,8 @@ class OtReport2Controller extends Controller
   public function viewOTd(Request $req)//OT Detail
   {
     // dd('here');
-    ini_set("memory_limit","256M");
-    ini_set('max_execution_time', 3000); // 300 seconds = 5 minutes
+    ini_set("memory_limit","512");
+    ini_set('max_execution_time', 6000); // 300 seconds = 5 minutes
     set_time_limit(0);
     $company = Company::all();
     $state = State::all();
@@ -551,8 +551,8 @@ class OtReport2Controller extends Controller
 
   public function doOTExcel(Request $req)
   {
-    ini_set("memory_limit","256M");
-    ini_set('max_execution_time', 3000); // 300 seconds = 5 minutes
+    ini_set("memory_limit","512M");
+    ini_set('max_execution_time', 6000); // 300 seconds = 5 minutes
     set_time_limit(0);
     $fdate = $req->fdate;
     $tdate = $req->tdate;
