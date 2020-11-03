@@ -875,7 +875,7 @@
                                         <label>Document:</label>
                                     </div>
                                     <div class="col-md-9 maxfilef">
-                                        <input type="file" name="inputfile" id="inputfile" accept="image/*, .pdf, .jpeg, .jpg, .bmp, .png, .tiff" style="position:absolute; right:-100vw;">
+                                        <input type="file" name="inputfile" id="inputfile" accept="image/*, .pdf, .jpeg, .jpg, .bmp, .png, .tiff" style="position:absolute; right:-100vw; display:none">
                                         <span id="inputfiletext" style="height: 25px; border-radius: 3px; border: 1px solid #707070;">File: .bmp, .pdf, .png, .jpg, .jpeg, .tiff</span>
                                         <a href="#" id="btn-file-2"><i class="fas fa-times-circle"></i></a>
                                         <button type="button" class="btn-up" id="btn-file-1" style="min-width: 80px">BROWSE</button>
