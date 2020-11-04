@@ -33,7 +33,7 @@
             @else 
                 <option value="{{$row_gclist['group_code']}}">
             @endif        
-                    {{$row_gclist['group_code']}} - {{ $row_gclist['group_name'] }}
+            {{$row_gclist['id']}} {{$row_gclist['group_code']}} - {{ $row_gclist['group_name'] }}
                 </option>
             @endforeach
             </select>
