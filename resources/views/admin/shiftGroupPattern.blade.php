@@ -23,8 +23,8 @@
       <div class="form-group">
         <label class="control-label col-sm-2" for="groupname">Group Name:</label>
         <div class="col-sm-4">
-            <select id="slctgcode" class="slctgcode form-control" name="gcode" required>   
-                <option value="0" selected="selected">N/A</option>  
+            <select id="slctgcode" class="slctgcode form-control" name="gcode">   
+                <option value="" selected="selected"></option>
             @foreach($gclist as $row_gclist)
             @if($row_gclist['group_code']==$gcode)
                 <option value="{{$row_gclist['group_code']}}" selected="selected">
@@ -41,8 +41,8 @@
       <div class="form-group">
         <label class="control-label col-sm-2" for="gshiftpattern">Shift Pattern:</label>        
         <div class="col-sm-4">
-            <select id="slctgspattern" class="slctgspattern form-control" name="gshiftpattern" required>   
-                <option value="0" selected="selected">N/A</option>  
+            <select id="slctgspattern" class="slctgspattern form-control" name="gshiftpattern">
+                <option value="" selected="selected"></option>
             @foreach($gsplist as $row_gsplist)
             @if($row_gsplist['sp_code']==$gspcode)
                 <option value="{{$row_gsplist['sp_code']}}" selected="selected">
@@ -50,7 +50,7 @@
             @else 
                 <option value="{{$row_gsplist['sp_code']}}">
             @endif        
-                    {{$row_gclist['sp_code']}} - {{ $row_gsplist['sp_desc'] }}
+                    {{$row_gsplist['sp_code']}} - {{ $row_gsplist['sp_desc'] }}
                 </option>
             @endforeach
             </select>
@@ -153,7 +153,14 @@
 @section('js')
 <script type="text/javascript">
 $(document).ready(function() {    
-    $('.slctgcode').select2();
+    $('.slctgcode').select2({         
+        placeholder: 'Type a group code',
+        allowClear: true,
+    }); 
+    $('.slctgspattern').select2({                
+        placeholder: 'Type a shift pattern',
+        allowClear: true,
+    });
     $('#tList').DataTable({
         //dom: '<"html5buttons">Bfrtip',        
         //dom: 'lBfrtip',

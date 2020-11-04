@@ -750,8 +750,8 @@ class ShiftGroupController extends Controller
 
     public function downloadAllSg(Request $req){
       
-      ini_set('max_execution_time', 300);
-      ini_set('memory_limit', '1024M');
+      ini_set('max_execution_time', 1800); //300 = 5min
+      ini_set('memory_limit', '256M');
       // .csv -> text/csv
       $content_type = 'text/csv';
       $file_ext = 'csv';
@@ -771,24 +771,15 @@ class ShiftGroupController extends Controller
 
       // write header
       fputcsv($handle, $listcolumns);
-
       // write data
-      ViewShiftGroup::chunk(5000, function($qlist) use($handle) {
+      ViewShiftGroup::chunk(5000, function($qlist) use($handle,$listcolumns) {
         foreach ($qlist as $row) {
+            $dataToWrite = [];
+            foreach ($listcolumns as $rowcol) {
+                array_push($dataToWrite, $row->{$rowcol});
+            }  
             // Add a new row with data
-            fputcsv($handle, [
-              $row->group_code,
-              $row->group_name,
-              $row->go_name,
-              $row->go_staffno,
-              $row->go_persno,
-              $row->sp_name,
-              $row->sp_staffno,
-              $row->sp_persno,
-              $row->u_name,
-              $row->u_staffno,
-              $row->u_persno,
-            ]);
+            fputcsv($handle, $dataToWrite);
         }
       });
 
@@ -799,8 +790,8 @@ class ShiftGroupController extends Controller
         'Content-Disposition' => 'attachment;filename="'.$fname.'"',
         'Cache-Control' => 'max-age=0',       
       ];
-
-      return Response::download($fname, $fname, $headers);
+      
+      return Response::download($fname, $fname, $headers)->deleteFileAfterSend(true);
       
     }
 
