@@ -1848,7 +1848,7 @@ class OvertimeController extends Controller
         }
         // dd($otlist);
         $yes = false;
-        // dd($req);
+        // dd($req); 
         for ($i=0; $i<count($otlist); $i++) {
             try {
                 if ($req->inputact[$i]!="") {
@@ -1856,7 +1856,8 @@ class OvertimeController extends Controller
                     $expiry = OvertimeExpiry::where('company_id', $otlist[$i]->name->company_id)->where('region', $reg->region)->where('start_date', '<=', $otlist[$i]->date)->where('end_date', '>', $otlist[$i]->date)->first();
                     // dd($expiry);
                     $claim = Overtime::where('id', $req->inputid[$i])->first();
-                    $day= UserHelper::CheckDay($req->user()->id, $claim->date);
+                    //$day= UserHelper::CheckDay($req->user()->id, $claim->date);
+                    $day= UserHelper::CheckDay($otlist[$i]->name->id, $claim->date);
                     $dt = DayType::where('id', $day[4])->first();
                     $working_minutes = $dt->working_hour*60;
                     $updateclaim = Overtime::find($req->inputid[$i]);
@@ -2031,10 +2032,10 @@ class OvertimeController extends Controller
                 ]);
             }
         } else {
-            
+            $lastservip = substr($_SERVER['SERVER_ADDR'],strlen($_SERVER['SERVER_ADDR'])-2);            
             $msg = "Your pending overtime claim not successfully submitted. ".env('APP_ENV');
             if(isset($e)) {
-                $msg = "Kindly refresh and try again. If still persist, kindly contact system admin for assistant. Error ".env('APP_ENV').": ".$e->getMessage()." on ".date('d-m-Y H:i:s', strtotime(now()));
+                $msg = "Kindly refresh and try again. If still persist, kindly contact system admin for assistant. Error ".env('APP_ENV').$lastservip.": ".$e->getMessage()." on ".date('d-m-Y H:i:s', strtotime(now()));
             }
             return redirect(route('ot.approval', [], false))->with([
                 'feedback' => true,

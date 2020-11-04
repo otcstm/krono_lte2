@@ -75,7 +75,7 @@
                                 {{str_replace(')', '', str_replace('Malaysia (', '', Auth::user()->stateid->state_descr))}} {{--draft{{Auth::user()->stateid->state_descr}}--}}
                             @endif
                         </p>
-                        <form id="formdate" action="{{route('ot.formdate')}}" method="POST">
+                        <form id="formdate" action="{{route('ot.formdate')}}" method="POST"  autocomplete="off">
                             @csrf
                             <p>OT Date: <input type="text" data-language='en' data-date-format="dd.mm.yyyy" id="inputdate" name="inputdate"  autocomplete="off"
                                 style ="width: 100px"
@@ -1563,6 +1563,7 @@
                         $("#inputremark-0").prop('required',false);
                         $("#formtype").val("delete");
                         $("#form").submit();
+                        return saves();
                     }
                 })
                 return false;  
