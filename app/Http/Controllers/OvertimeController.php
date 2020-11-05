@@ -1325,18 +1325,18 @@ class OvertimeController extends Controller
         $wla = UserHelper::GetWageLegacyAmount($claim->id);
         $updateclaim->amount = $wla[1];
         
-        $claimdetail = OvertimeDetail::where('ot_id', $claim->id)->get();
-        $amount = 0;
-        foreach($claimdetail as $dt){
-            $updt = OvertimeDetail::find($dt->id);
-            if ($updt->checked=="Y") {
-                $updateclaim->amount = $amount+$updt->amount;
-                $amount = $updateclaim->amount;
+        // 20201105 removed due to change structure amount at main only
+        // $claimdetail = OvertimeDetail::where('ot_id', $claim->id)->get();
+        // $amount = 0;
+        // foreach($claimdetail as $dt){
+        //     $updt = OvertimeDetail::find($dt->id);
+        //     if ($updt->checked=="Y") {
+        //         $updateclaim->amount = $amount+$updt->amount;
+        //         $amount = $updateclaim->amount;
             
-            }
-        }
-
-
+        //     }
+        // }
+        
         $updateclaim->save();
 
         //check if delete time/file
@@ -1477,6 +1477,14 @@ class OvertimeController extends Controller
                     } else {
                         $updateclaim->status = 'PV';
                     }
+                   
+                    //check no 0 amount 20201104     
+                    //$wla = UserHelper::GetWageLegacyAmount($claim->id);           
+                    //$pay = UserHelper::CalOT($claim->id);   
+                    //dd($wla,$amount,$pay,$updateclaim);
+                    //$updateclaim->amount = round($pay,2)+$pay;
+                    //$updateclaim->save();
+
 
                     $updateclaim->save();
                     
@@ -1522,21 +1530,21 @@ class OvertimeController extends Controller
                             } else {
                                 return redirect(route('ot.list', [], false))->with([
                                     'feedback' => true,
-                                    'feedback_text' => "Your overtime claim has successfully submitted.",
+                                    'feedback_text' => "Your overtime claim has successfully submitted.1",
                                     'feedback_title' => "Successfully Submitted"
                                 ]);
                             }
                         } else {
                             return redirect(route('ot.list', [], false))->with([
                                 'feedback' => true,
-                                'feedback_text' => "Your overtime claim has successfully submitted.",
+                                'feedback_text' => "Your overtime claim has successfully submitted.2",
                                 'feedback_title' => "Successfully Submitted"
                             ]);
                         }
                     } else {
                         return redirect(route('ot.list', [], false))->with([
                             'feedback' => true,
-                            'feedback_text' => "Your overtime claim has successfully submitted.",
+                            'feedback_text' => "Your overtime claim has successfully submitted.3",
                             'feedback_title' => "Successfully Submitted"
                         ]);
                     }
