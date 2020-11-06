@@ -1325,18 +1325,18 @@ class OvertimeController extends Controller
         $wla = UserHelper::GetWageLegacyAmount($claim->id);
         $updateclaim->amount = $wla[1];
         
-        $claimdetail = OvertimeDetail::where('ot_id', $claim->id)->get();
-        $amount = 0;
-        foreach($claimdetail as $dt){
-            $updt = OvertimeDetail::find($dt->id);
-            if ($updt->checked=="Y") {
-                $updateclaim->amount = $amount+$updt->amount;
-                $amount = $updateclaim->amount;
+        // 20201105 removed due to change structure amount at main only
+        // $claimdetail = OvertimeDetail::where('ot_id', $claim->id)->get();
+        // $amount = 0;
+        // foreach($claimdetail as $dt){
+        //     $updt = OvertimeDetail::find($dt->id);
+        //     if ($updt->checked=="Y") {
+        //         $updateclaim->amount = $amount+$updt->amount;
+        //         $amount = $updateclaim->amount;
             
-            }
-        }
-
-
+        //     }
+        // }
+        
         $updateclaim->save();
 
         //check if delete time/file
@@ -1477,6 +1477,14 @@ class OvertimeController extends Controller
                     } else {
                         $updateclaim->status = 'PV';
                     }
+                   
+                    //check no 0 amount 20201104     
+                    //$wla = UserHelper::GetWageLegacyAmount($claim->id);           
+                    //$pay = UserHelper::CalOT($claim->id);   
+                    //dd($wla,$amount,$pay,$updateclaim);
+                    //$updateclaim->amount = round($pay,2)+$pay;
+                    //$updateclaim->save();
+
 
                     $updateclaim->save();
                     
@@ -1522,21 +1530,21 @@ class OvertimeController extends Controller
                             } else {
                                 return redirect(route('ot.list', [], false))->with([
                                     'feedback' => true,
-                                    'feedback_text' => "Your overtime claim has successfully submitted.",
+                                    'feedback_text' => "Your overtime claim has successfully submitted.1",
                                     'feedback_title' => "Successfully Submitted"
                                 ]);
                             }
                         } else {
                             return redirect(route('ot.list', [], false))->with([
                                 'feedback' => true,
-                                'feedback_text' => "Your overtime claim has successfully submitted.",
+                                'feedback_text' => "Your overtime claim has successfully submitted.2",
                                 'feedback_title' => "Successfully Submitted"
                             ]);
                         }
                     } else {
                         return redirect(route('ot.list', [], false))->with([
                             'feedback' => true,
-                            'feedback_text' => "Your overtime claim has successfully submitted.",
+                            'feedback_text' => "Your overtime claim has successfully submitted.3",
                             'feedback_title' => "Successfully Submitted"
                         ]);
                     }
@@ -1848,7 +1856,7 @@ class OvertimeController extends Controller
         }
         // dd($otlist);
         $yes = false;
-        // dd($req);
+        // dd($req); 
         for ($i=0; $i<count($otlist); $i++) {
             try {
                 if ($req->inputact[$i]!="") {
@@ -1856,7 +1864,8 @@ class OvertimeController extends Controller
                     $expiry = OvertimeExpiry::where('company_id', $otlist[$i]->name->company_id)->where('region', $reg->region)->where('start_date', '<=', $otlist[$i]->date)->where('end_date', '>', $otlist[$i]->date)->first();
                     // dd($expiry);
                     $claim = Overtime::where('id', $req->inputid[$i])->first();
-                    $day= UserHelper::CheckDay($req->user()->id, $claim->date);
+                    //$day= UserHelper::CheckDay($req->user()->id, $claim->date);
+                    $day= UserHelper::CheckDay($otlist[$i]->name->id, $claim->date);
                     $dt = DayType::where('id', $day[4])->first();
                     $working_minutes = $dt->working_hour*60;
                     $updateclaim = Overtime::find($req->inputid[$i]);
@@ -2031,10 +2040,10 @@ class OvertimeController extends Controller
                 ]);
             }
         } else {
-            
+            $lastservip = substr($_SERVER['SERVER_ADDR'],strlen($_SERVER['SERVER_ADDR'])-2);            
             $msg = "Your pending overtime claim not successfully submitted. ".env('APP_ENV');
             if(isset($e)) {
-                $msg = "Kindly refresh and try again. If still persist, kindly contact system admin for assistant. Error ".env('APP_ENV').": ".$e->getMessage()." on ".date('d-m-Y H:i:s', strtotime(now()));
+                $msg = "Kindly refresh and try again. If still persist, kindly contact system admin for assistant. Error ".env('APP_ENV').$lastservip.": ".$e->getMessage()." on ".date('d-m-Y H:i:s', strtotime(now()));
             }
             return redirect(route('ot.approval', [], false))->with([
                 'feedback' => true,

@@ -232,11 +232,11 @@ class ShiftPatternController extends Controller
       $gcode = $req->gcode;     
       $gspcode = $req->gspcode;       
 
-      $gresult = UserRecord::query();
-      if($gcode != 0){
+      $data = ViewShiftGroupPattern::query();
+      if(strlen(trim($gcode))>0){
           $data = $data->orWhere('group_code',$gcode);
       }  
-      if($gcode != 0){
+      if(strlen(trim($gspcode))>0){
           $data = $data->orWhere('sp_code',$gspcode);
       }  
       $gresult = $data->get();      
@@ -244,8 +244,9 @@ class ShiftPatternController extends Controller
     } else {
       $gresult = ViewShiftGroupPattern::take(0)->get();
     }
-    $gclist =  ViewShiftGroupPattern::select('group_code','group_name')->distinct()->get();
-    $gsplist =  ViewShiftGroupPattern::select('sp_code','sp_desc')->distinct()->get();
+    $gclist =  ViewShiftGroupPattern::distinct('group_code','group_name')->get();
+    $gsplist =  ViewShiftGroupPattern::select('id','sp_code','sp_desc')->groupby('sp_code','sp_desc')->orderby('sp_code','asc')->get();
+    //dd($gsplist);
 
     return view('admin.shiftGroupPattern',
     [
@@ -263,14 +264,14 @@ class ShiftPatternController extends Controller
 
   public function downloadAllSgp(Request $req){
     
-    ini_set('max_execution_time', 300);
-    ini_set('memory_limit', '1024M');
+    ini_set('max_execution_time', 1800); //300 = 5min
+    ini_set('memory_limit', '256M');
     // .csv -> text/csv
     $content_type = 'text/csv';
     $file_ext = 'csv';
 
     $dtnow = new Carbon();
-    $fn ='ShiftGroup';
+    $fn ='ShiftGroupAssignedPattern';
     $listcolumns = Schema::getColumnListing('v_shift_group_assign_pattern');
 
     $qlist = [];
@@ -286,45 +287,14 @@ class ShiftPatternController extends Controller
     fputcsv($handle, $listcolumns);
 
     // write data
-    ViewShiftGroupPattern::chunk(5000, function($qlist) use($handle) {
+    ViewShiftGroupPattern::chunk(5000, function($qlist) use($handle,$listcolumns) {
       foreach ($qlist as $row) {
+          $dataToWrite = [];
+          foreach ($listcolumns as $rowcol) {
+              array_push($dataToWrite, $row->{$rowcol});
+          }  
           // Add a new row with data
-          fputcsv($handle, [
-            $row->id,
-            $row->user_persno,
-            $row->user_name,
-            $row->user_staffno,
-            $row->plan_month,
-            $row->group_code,
-            $row->group_name,
-            $row->go_persno,
-            $row->go_name,
-            $row->go_staffno,
-            $row->sp_persno,
-            $row->sp_name,
-            $row->sp_staffno,
-            $row->creator_id,
-            $row->sp_appr_persno,
-            $row->sp_appr_name,
-            $row->sp_appr_staffno,
-            $row->status,
-            $row->approved_date,
-            $row->start_date,
-            $row->end_date,
-            $row->total_minutes,
-            $row->total_days,
-            $row->code,
-            $row->description,
-            $row->work_date,
-            $row->work_start_time,
-            $row->work_end_time,
-            $row->is_work_day,
-            $row->day_code,
-            $row->day_type,
-            $row->day_start_time,
-            $row->day_dur_hour,
-            $row->day_dur_minute,
-          ]);
+          fputcsv($handle, $dataToWrite);
       }
     });
 
@@ -336,7 +306,7 @@ class ShiftPatternController extends Controller
       'Cache-Control' => 'max-age=0',       
     ];
 
-    return Response::download($fname, $fname, $headers);
+    return Response::download($fname, $fname, $headers)->deleteFileAfterSend(true);
     
   }
 
