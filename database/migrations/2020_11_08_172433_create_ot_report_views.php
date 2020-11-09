@@ -127,15 +127,6 @@ class CreateOtReportViews extends Migration
             AND `ps`.`state_id` = `u`.`state_id`))
         LEFT JOIN `setup_codes` `st` ON (`st`.`item1` = 'ot_status'
             AND `st`.`item2` = `ot`.`status`))
-    ORDER BY `ot`.`date` , `ot`.`user_id`
-
-
-
-
-
-
-
-
 
       ");
 
