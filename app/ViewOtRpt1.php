@@ -25,5 +25,10 @@ class ViewOtRpt1 extends Model
 
     }
 
+    public function detail()
+    {
+        return $this->hasMany(OvertimeDetail::class, 'ot_id')->get();
+    }
+
    
 }
