@@ -75,7 +75,7 @@
                                 {{str_replace(')', '', str_replace('Malaysia (', '', Auth::user()->stateid->state_descr))}} {{--draft{{Auth::user()->stateid->state_descr}}--}}
                             @endif
                         </p>
-                        <form id="formdate" action="{{route('ot.formdate')}}" method="POST">
+                        <form id="formdate" action="{{route('ot.formdate')}}" method="POST"  autocomplete="off">
                             @csrf
                             <p>OT Date: <input type="text" data-language='en' data-date-format="dd.mm.yyyy" id="inputdate" name="inputdate"  autocomplete="off"
                                 style ="width: 100px"
@@ -875,7 +875,7 @@
                                         <label>Document:</label>
                                     </div>
                                     <div class="col-md-9 maxfilef">
-                                        <input type="file" name="inputfile" id="inputfile" accept="image/*, .pdf, .jpeg, .jpg, .bmp, .png, .tiff" style="position:absolute; right:-100vw;">
+                                        <input type="file" name="inputfile" id="inputfile" accept="image/*, .pdf, .jpeg, .jpg, .bmp, .png, .tiff" style="position:absolute; right:-100vw; display:none">
                                         <span id="inputfiletext" style="height: 25px; border-radius: 3px; border: 1px solid #707070;">File: .bmp, .pdf, .png, .jpg, .jpeg, .tiff</span>
                                         <a href="#" id="btn-file-2"><i class="fas fa-times-circle"></i></a>
                                         <button type="button" class="btn-up" id="btn-file-1" style="min-width: 80px">BROWSE</button>
@@ -1288,17 +1288,15 @@
                         @endif
                         //check if within working time or not
                         if(start > nstart && start < nend){
-                                calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
-                                // console.log(
-                                //             "start: "+start+
-                                //             "| end: "+end+
-                                //             "| nstart: "+nstart+
-                                //             "| nend: "+nend
-                                //         )
-                                @if($day[6])
-                                    killview(i, "Time input cannot be between {{$day[0]}} and @if($day[1]=='00:00') 24:00 @else {{$day[1]}} @endif!", start_time, end_time);
-                                @else
-                                    killview(i, "Time input cannot be between {{$day[0]}} {{date("d.m.Y", strtotime($day[7]))}} and {{$day[1]}} {{date("d.m.Y", strtotime($day[7]."+1 day"))}}!", start_time, end_time);
+                                
+                                @if($day[9])
+                                    calshowtime(i, 0, $("#olddh-"+i).text(), $("#olddm-"+i).text(), $("#oldth").text(), $("#oldtm").text());
+
+                                    @if($day[6])
+                                        killview(i, "Time input cannot be between {{$day[0]}} and @if($day[1]=='00:00') 24:00 @else {{$day[1]}} @endif!", start_time, end_time);
+                                    @else
+                                        killview(i, "Time input cannot be between {{$day[0]}} {{date("d.m.Y", strtotime($day[7]))}} and {{$day[1]}} {{date("d.m.Y", strtotime($day[7]."+1 day"))}}!", start_time, end_time);
+                                    @endif
                                 @endif
                             }
                         if($("#inputstart-"+i).val()!="" && $("#inputend-"+i).val()!=""){
@@ -1565,6 +1563,7 @@
                         $("#inputremark-0").prop('required',false);
                         $("#formtype").val("delete");
                         $("#form").submit();
+                        return saves();
                     }
                 })
                 return false;  
