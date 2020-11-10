@@ -140,6 +140,6 @@ class CreateOtReportViews extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ot_report_views');
+        Schema::dropIfExists('v_ot_rpt1');
     }
 }
