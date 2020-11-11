@@ -752,7 +752,7 @@ class OtReport2Controller extends Controller
             }
         } elseif ($req->searching == 'exceld') {
             $headers = ['Personnel Number','Employee Name','IC Number','Staff ID',
-        'Company Code','Reference Number','OT Date'];
+        'Company Code','Reference Number','OT Date','OTD id'];
      
             if (isset($pilihcol)) {
                 if (in_array('psarea', $pilihcol)) {
@@ -1139,7 +1139,8 @@ class OtReport2Controller extends Controller
                         $value->staffno,
                         $value->company_id,
                         $value->refno,
-                        $otdt];
+                        $otdt,
+                        $otd->id];
 
               
                     if (isset($pilihcol)) {
