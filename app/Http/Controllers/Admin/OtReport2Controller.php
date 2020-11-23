@@ -1309,7 +1309,7 @@ class OtReport2Controller extends Controller
         $endTime = microtime(true);
         $total_time = $endTime-$startTime;
         print_r("total time:".$total_time);
-        dd($otdata);
+       // dd($otdata);
     
         //$eksel->addSheet($sh, $otdata, $headers);
         $eksel->openToBrowser($fname);
