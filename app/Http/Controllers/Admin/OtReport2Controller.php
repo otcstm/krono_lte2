@@ -19,6 +19,7 @@ use App\StaffPunch;
 use \Carbon\Carbon;
 use App\ExcelHandler;
 use App\ViewOtRpt1;
+use App\ViewOtRpt2;
 
 class OtReport2Controller extends Controller
 {
@@ -550,20 +551,27 @@ class OtReport2Controller extends Controller
         $region = $req->fregion;
         $download_as = $req->download_as;
 
-       // dd($download_as);
-        if($download_as == 'csv') {
+        // dd($download_as);
+        if ($download_as == 'csv') {
             $eksel = WriterEntityFactory::createCSVWriter();
-        }else{
+        } else {
             $eksel = WriterEntityFactory::createXLSXWriter();
-        
         }
         
         // Log::info('sebelum query');
 
-        $otr = ViewOtRpt1::query();
-        $otr = $otr->with('approver', 'verifier');
-    
+        
+        
 
+        
+        if ($req->searching == 'exceld') {
+            $otr = ViewOtRpt2::query();
+        }
+        if ($req->searching != 'exceld') {
+            $otr = ViewOtRpt1::query();
+        }
+
+        $otr = $otr->with('approver', 'verifier');
         if (isset($req->fdate)) {
             $otr = $otr->whereBetween('date', array($fdate, $tdate));
         }
@@ -600,12 +608,16 @@ class OtReport2Controller extends Controller
                 $otr = $otr->whereIn('status', ['D1','D2']);
             }
         }
+
+ 
    
         $otr = $otr->orderBy('date')->orderBy('user_id');
         $otr = $otr->get();
+        
         Log::info('get otr');
         
         if ($req->searching == 'exceld') {
+            
             
            // $list_of_id = $otr->pluck('id');
             
@@ -1114,25 +1126,25 @@ class OtReport2Controller extends Controller
         elseif ($req->searching == 'exceld') {
             //dd($otr);
             foreach ($otr as $value) {
-                
                 $otdt = new Carbon($value->date);
                 $otdt = $otdt->format('d.m.Y');
                 //var_dump("reach here");
-                $otds = $value->detail();
-               // dd($otds);
+                //$otds = $value->detail();
+                // dd($otds);
+             
             
-                foreach ($otds as $otd) {
+              
                     
-                    //$urekod = $value->mainOT->URecord2();
-                    //$mainOT = $value->mainOT;
-
-                    $st = new Carbon($otd->start_time);
-                    $st = $st->format('H:i:s');
-                    $et = new Carbon($otd->end_time);
-                    $et = $et->format('H:i:s');
+                //$urekod = $value->mainOT->URecord2();
+                //$mainOT = $value->mainOT;
+                    
+                $st = new Carbon($value->otd_start_time);
+                $st = $st->format('H:i:s');
+                $et = new Carbon($value->otd_end_time);
+                $et = $et->format('H:i:s');
 
                
-                    $info = [
+                $info = [
                         $value->user_id,
                         $value->name,
                         $value->new_ic,
@@ -1140,167 +1152,164 @@ class OtReport2Controller extends Controller
                         $value->company_id,
                         $value->refno,
                         $otdt,
-                        $otd->id];
+                        $value->otd_id];
 
               
-                    if (isset($pilihcol)) {
-                        if (in_array('psarea', $pilihcol)) {
-                            array_push($info, $value->persarea);
-                        }
-                        if (in_array('psbarea', $pilihcol)) {
-                            array_push($info, $value->perssubarea);
-                        }
-                        if (in_array('state', $pilihcol)) {
-                            array_push($info, $value->state_id);
-                        }
-                        if (in_array('region', $pilihcol)) {
-                            array_push($info, $value->region);
-                        }
-                        if (in_array('empgrp', $pilihcol)) {
-                            array_push($info, $value->empgroup);
-                        }
-                        if (in_array('empsubgrp', $pilihcol)) {
-                            array_push($info, $value->empsgroup);
-                        }
-                        if (in_array('capsal', $pilihcol)) {
-                            $salarycap=$value->salary_exception;
-                            array_push($info, $salarycap);
-                        }
-                        if (in_array('empst', $pilihcol)) {
-                            array_push($info, $value->empstats);
-                        }
-                        if (in_array('st', $pilihcol)) {
-                            array_push($info, $st);
-                        }
-                        if (in_array('et', $pilihcol)) {
-                            array_push($info, $et);
-                        }
-                        if (in_array('mflag', $pilihcol)) {
-                            array_push($info, $otd->is_manual);
-                        }
-                        if (in_array('loc', $pilihcol)) {
-                            array_push($info, '('.$otd->in_latitude.','.$otd->in_longitude.')');
-                        }
-                        // if(in_array( 'estamnt',$pilihcol))
-                        // {
-                        //   array_push($info, $value->amount);
-                        // }
-                        if (in_array('noh', $pilihcol)) {
-                            array_push($info, $otd->hour);
-                        }
-                        if (in_array('nom', $pilihcol)) {
-                            array_push($info, $otd->minute);
-                        }
-                        if (in_array('jst', $pilihcol)) {
-                            array_push($info, $otd->justification);
-                        }
-
-                        if (in_array('clmstatus', $pilihcol)) {
-                            try {
-                                $statusOT=$value->status_desc;
-                            } catch (\Exception $e) {
-                                $statusOT=$value->status;
-                            }
-                            array_push($info, $statusOT);
-                        }
-                        if (in_array('chrtype', $pilihcol)) {
-                            array_push($info, $value->charge_type);
-                        }
-                        if (in_array('bodycc', $pilihcol)) {
-                            array_push($info, $value->costcenter);
-                        }
-                        if (in_array('othrcc', $pilihcol)) {
-                            array_push($info, $value->other_costcenter);
-                        }
-                        if (in_array('prtype', $pilihcol)) {
-                            array_push($info, $value->project_type);
-                        }
-                        if (in_array('pnumbr', $pilihcol)) {
-                            array_push($info, $value->project_no);
-                        }
-                        if (in_array('ntheadr', $pilihcol)) {
-                            array_push($info, $value->network_header);
-                        }
-                        if (in_array('ntact', $pilihcol)) {
-                            array_push($info, $value->network_act_no);
-                        }
-                        if (in_array('ordnum', $pilihcol)) {
-                            array_push($info, $value->order_no);
-                        }
-                        if (in_array('cascomp', $pilihcol)) {
-                            array_push($info, $value->company_id);
-                        }
-                        if (in_array('appdate', $pilihcol)) {
-                            $cdt = new Carbon($value->submitted_date);
-                            $cdt = $cdt->format('d.m.Y');
-
-                            array_push($info, $cdt);
-                        }
-                        if (in_array('verdate', $pilihcol)) {
-                            if ($value->verification_date == '') {
-                                $ver_date = '';
-                            } else {
-                                $ver_date = date('d.m.Y', strtotime($value->verification_date));
-                            }
-
-                            array_push($info, $ver_date);
-                        }
-                        if (in_array('verid', $pilihcol)) {
-                            array_push($info, $value->verifier_id);
-                        }
-                        if (in_array('vername', $pilihcol)) {
-                            array_push($info, $value->verifier->name);
-                        }
-                        if (in_array('vercocd', $pilihcol)) {
-                            array_push($info, $value->verifier->company_id);
-                        }
-                        if (in_array('aprvdate', $pilihcol)) {
-                            if ($value->approved_date == '') {
-                                $appvl_date = '';
-                            } else {
-                                $appvl_date = date('d.m.Y', strtotime($value->approved_date));
-                            }
-
-                            array_push($info, $appvl_date);
-                        }
-                        if (in_array('apprvrid', $pilihcol)) {
-                            array_push($info, $value->approver_id);
-                        }
-                        if (in_array('apprvrname', $pilihcol)) {
-                            array_push($info, $value->approver->name);
-                        }
-                        if (in_array('apprvrcocd', $pilihcol)) {
-                            array_push($info, $value->approver->company_id);
-                        }
-                        if (in_array('qrdate', $pilihcol)) {
-                            if ($value->queried_date == '') {
-                                $queried_date ='';
-                            } else {
-                                $queried_date =date('d.m.Y', strtotime($value->queried_date));
-                            }
-
-                            array_push($info, $queried_date);
-                        }
-                        if (in_array('qrdby', $pilihcol)) {
-                            array_push($info, $value->querier_id);
-                        }
-                       
-                        if (in_array('emptype', $pilihcol)) {
-                            array_push($info, $value->employee_type);
-                        }
-              
+                if (isset($pilihcol)) {
+                    if (in_array('psarea', $pilihcol)) {
+                        array_push($info, $value->persarea);
                     }
-                    array_push($otdata, $info);
+                    if (in_array('psbarea', $pilihcol)) {
+                        array_push($info, $value->perssubarea);
+                    }
+                    if (in_array('state', $pilihcol)) {
+                        array_push($info, $value->state_id);
+                    }
+                    if (in_array('region', $pilihcol)) {
+                        array_push($info, $value->region);
+                    }
+                    if (in_array('empgrp', $pilihcol)) {
+                        array_push($info, $value->empgroup);
+                    }
+                    if (in_array('empsubgrp', $pilihcol)) {
+                        array_push($info, $value->empsgroup);
+                    }
+                    if (in_array('capsal', $pilihcol)) {
+                        $salarycap=$value->salary_exception;
+                        array_push($info, $salarycap);
+                    }
+                    if (in_array('empst', $pilihcol)) {
+                        array_push($info, $value->empstats);
+                    }
+                    if (in_array('st', $pilihcol)) {
+                        array_push($info, $st);
+                    }
+                    if (in_array('et', $pilihcol)) {
+                        array_push($info, $et);
+                    }
+                    if (in_array('mflag', $pilihcol)) {
+                        array_push($info, $value->otd_is_manual);
+                    }
+                    if (in_array('loc', $pilihcol)) {
+                        array_push($info, '('.$value->otd_in_latitude.','.$value->otd_in_longitude.')');
+                    }
+                    // if(in_array( 'estamnt',$pilihcol))
+                    // {
+                    //   array_push($info, $value->amount);
+                    // }
+                    if (in_array('noh', $pilihcol)) {
+                        array_push($info, $value->otd_hour);
+                    }
+                    if (in_array('nom', $pilihcol)) {
+                        array_push($info, $value->otd_minute);
+                    }
+                    if (in_array('jst', $pilihcol)) {
+                        array_push($info, $value->otd_justification);
+                    }
 
-                } 
+                    if (in_array('clmstatus', $pilihcol)) {
+                        try {
+                            $statusOT=$value->status_desc;
+                        } catch (\Exception $e) {
+                            $statusOT=$value->status;
+                        }
+                        array_push($info, $statusOT);
+                    }
+                    if (in_array('chrtype', $pilihcol)) {
+                        array_push($info, $value->charge_type);
+                    }
+                    if (in_array('bodycc', $pilihcol)) {
+                        array_push($info, $value->costcenter);
+                    }
+                    if (in_array('othrcc', $pilihcol)) {
+                        array_push($info, $value->other_costcenter);
+                    }
+                    if (in_array('prtype', $pilihcol)) {
+                        array_push($info, $value->project_type);
+                    }
+                    if (in_array('pnumbr', $pilihcol)) {
+                        array_push($info, $value->project_no);
+                    }
+                    if (in_array('ntheadr', $pilihcol)) {
+                        array_push($info, $value->network_header);
+                    }
+                    if (in_array('ntact', $pilihcol)) {
+                        array_push($info, $value->network_act_no);
+                    }
+                    if (in_array('ordnum', $pilihcol)) {
+                        array_push($info, $value->order_no);
+                    }
+                    if (in_array('cascomp', $pilihcol)) {
+                        array_push($info, $value->company_id);
+                    }
+                    if (in_array('appdate', $pilihcol)) {
+                        $cdt = new Carbon($value->submitted_date);
+                        $cdt = $cdt->format('d.m.Y');
+
+                        array_push($info, $cdt);
+                    }
+                    if (in_array('verdate', $pilihcol)) {
+                        if ($value->verification_date == '') {
+                            $ver_date = '';
+                        } else {
+                            $ver_date = date('d.m.Y', strtotime($value->verification_date));
+                        }
+
+                        array_push($info, $ver_date);
+                    }
+                    if (in_array('verid', $pilihcol)) {
+                        array_push($info, $value->verifier_id);
+                    }
+                    if (in_array('vername', $pilihcol)) {
+                        array_push($info, $value->verifier->name);
+                    }
+                    if (in_array('vercocd', $pilihcol)) {
+                        array_push($info, $value->verifier->company_id);
+                    }
+                    if (in_array('aprvdate', $pilihcol)) {
+                        if ($value->approved_date == '') {
+                            $appvl_date = '';
+                        } else {
+                            $appvl_date = date('d.m.Y', strtotime($value->approved_date));
+                        }
+
+                        array_push($info, $appvl_date);
+                    }
+                    if (in_array('apprvrid', $pilihcol)) {
+                        array_push($info, $value->approver_id);
+                    }
+                    if (in_array('apprvrname', $pilihcol)) {
+                        array_push($info, $value->approver->name);
+                    }
+                    if (in_array('apprvrcocd', $pilihcol)) {
+                        array_push($info, $value->approver->company_id);
+                    }
+                    if (in_array('qrdate', $pilihcol)) {
+                        if ($value->queried_date == '') {
+                            $queried_date ='';
+                        } else {
+                            $queried_date =date('d.m.Y', strtotime($value->queried_date));
+                        }
+
+                        array_push($info, $queried_date);
+                    }
+                    if (in_array('qrdby', $pilihcol)) {
+                        array_push($info, $value->querier_id);
+                    }
+                       
+                    if (in_array('emptype', $pilihcol)) {
+                        array_push($info, $value->employee_type);
+                    }
+                }
+                array_push($otdata, $info);
             }
             $sh = 'OvertimeDetails';
         }
       
         $endTime = microtime(true);
         $total_time = $endTime-$startTime;
-        //print_r("total time:".$total_time);
-        //dd($otdata);
+        print_r("total time:".$total_time);
+        dd($otdata);
     
         //$eksel->addSheet($sh, $otdata, $headers);
         $eksel->openToBrowser($fname);
