@@ -460,18 +460,18 @@
 
         <div class="btn-group " data-toggle="buttons">
         <label class="btn btn-info btn-outline disabled" aria-disabled="true" style="cursor:default;pointer-events: none">Download As:</label>
-            <label class="btn btn-primary active">
-                <input type="radio" name="download_as" id="option1" value="csv" checked>CSV
+            <label class="btn btn-primary">
+                <input type="radio" name="download_as" id="csvOption" value="csv">CSV
             </label>
             <label class="btn btn-primary">
-                <input type="radio" name="download_as" id="option2" value="xls">XLS
+                <input type="radio" name="download_as" id="excelOption" value="xls">XLS
             </label>
         </div>
 
 
 
 
-        <button type="submit" name="searching" value="excelm" class="btn btn-primary btn-outline">DOWNLOAD</button>
+        <button id="downloadButton" type="submit" name="searching" value="excelm" class="hidden">DOWNLOAD</button>
         <button type="submit" name="searching" value="main" class="btn btn-primary">DISPLAY</button>
         </form>
     </div>
@@ -480,13 +480,21 @@
 @stop
 @section('js')
 <script type="text/javascript">
-$("input[name='download_as']").change(){alert('yeay')}
+
 
 $(document).ready(function() {
     $('.selectReport').select2({
         closeOnSelect: false
     });
 });
+
+
+function downloadAs(){
+    $("#downloadButton").click();
+}
+
+$("#csvOption").change(function(){downloadAs();})
+$("#excelOption").change(function(){downloadAs();})
 
 
 var checkno = 0;
