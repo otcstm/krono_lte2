@@ -470,10 +470,10 @@
 
         <div class="panel-footer text-right ">
 
-            <div class="btn-group " data-toggle="buttons">
-                <label class="btn btn-info btn-outline">Download As:</label>
+            <div class="btn-group " data-toggle="buttons" id="checkbox_div">
+                <label class="btn btn-info btn-outline disabled" aria-disabled="true" style="cursor:default;pointer-events: none">Download As:</label>
                 <label class="btn btn-primary active">
-                    <input type="radio" name="download_as" id="option1" value="csv" checked>CSV
+                    <input type="radio" name="download_as" id="option1" value="csv" checked >CSV
                 </label>
                 <label class="btn btn-primary">
                     <input type="radio" name="download_as" id="option2" value="xls">XLS
@@ -496,6 +496,12 @@
 @stop
 @section('js')
 <script type="text/javascript">
+function downloadAs(){
+alert("s");
+
+}
+
+
 $(document).ready(function() {
     $('.selectReport').select2();
 });

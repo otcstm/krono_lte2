@@ -550,12 +550,15 @@ class OtReport2Controller extends Controller
         $state = $req->fstate;
         $region = $req->fregion;
         $download_as = $req->download_as;
+        $ext = 'csv';
 
         // dd($download_as);
         if ($download_as == 'csv') {
             $eksel = WriterEntityFactory::createCSVWriter();
+            $ext = 'csv';
         } else {
             $eksel = WriterEntityFactory::createXLSXWriter();
+            $ext = 'xls';
         }
         
         // Log::info('sebelum query');
@@ -633,7 +636,7 @@ class OtReport2Controller extends Controller
         $fdt = new Carbon($req->fdate);
         $tdt = new Carbon($req->tdate);
         $fname = $fn.'_'.$fdt->format('Ymd').'to'
-      .$tdt->format('Ymd'). '.xlsx';
+      .$tdt->format('Ymd').'.'.$ext;
 
 
         //header
@@ -990,6 +993,7 @@ class OtReport2Controller extends Controller
                         } catch (\Exception $e) {
                             $statusOT=$value->status;
                         }
+                        //dd($statusOT);
                         array_push($info, $statusOT);
                     }
                     if (in_array('chrtype', $pilihcol)) {
@@ -1209,7 +1213,7 @@ class OtReport2Controller extends Controller
 
                     if (in_array('clmstatus', $pilihcol)) {
                         try {
-                            $statusOT=$value->status_desc;
+                            $statusOT=$value->status_descr;
                         } catch (\Exception $e) {
                             $statusOT=$value->status;
                         }
@@ -1326,7 +1330,6 @@ class OtReport2Controller extends Controller
         $endTime2 = microtime(true);
         $total_time2 = $endTime2-$endTime;
         //print_r("total time2:".$total_time2);
-        //dd("jj");
         //Log::info('excel loaded');
         $eksel->close();
         //return $eksel;

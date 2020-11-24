@@ -459,7 +459,7 @@
 
 
         <div class="btn-group " data-toggle="buttons">
-            <label class="btn btn-info btn-outline">Download As:</label>
+        <label class="btn btn-info btn-outline disabled" aria-disabled="true" style="cursor:default;pointer-events: none">Download As:</label>
             <label class="btn btn-primary active">
                 <input type="radio" name="download_as" id="option1" value="csv" checked>CSV
             </label>
@@ -480,6 +480,8 @@
 @stop
 @section('js')
 <script type="text/javascript">
+$("input[name='download_as']").change(){alert('yeay')}
+
 $(document).ready(function() {
     $('.selectReport').select2({
         closeOnSelect: false
