@@ -535,7 +535,7 @@ class OtReport2Controller extends Controller
         ini_set('max_execution_time', 6000); // 300 seconds = 5 minutes
         set_time_limit(0);
 
-        dd($req);
+        //dd($req);
         
         $startTime = microtime(true);
         
