@@ -470,35 +470,55 @@
 
         <div class="panel-footer text-right ">
 
-            <div class="btn-group " data-toggle="buttons">
-                <label class="btn btn-info btn-outline">Download As:</label>
-                <label class="btn btn-primary active">
-                    <input type="radio" name="download_as" id="option1" value="csv" checked>CSV
+            <div class="btn-group btn-group-toggle" data-toggle="buttons"  id="checkbox_div">
+                <label class="btn btn-info btn-outline disabled" aria-disabled="true" style="cursor:default;pointer-events: none">Download As:</label>
+                <label class="btn btn-primary ">
+                    <input type="radio"   name="download_as" id="csvOption" value="csv"  >CSV
                 </label>
                 <label class="btn btn-primary">
-                    <input type="radio" name="download_as" id="option2" value="xls">XLS
+                    <input type="radio" name="download_as" id="excelOption" value="xls" checked >XLS
                 </label>
             </div>
 
 
 
-            <button type="submit" name="searching" value="exceld" class="btn btn-primary btn-outline d-inline">DOWNLOAD
+            <button type="submit" name="searching" value="exceld" id="downloadButton" class="hidden">DOWNLOAD
                 REPORT</button>
             <button type="submit" name="searching" value="detail" class="btn btn-primary">DISPLAY REPORT</button>
 
 
-
+            
 
         </div>
     </div>
     </div>
+    
 </form>
+
 @stop
 @section('js')
 <script type="text/javascript">
+
+
 $(document).ready(function() {
-    $('.selectReport').select2();
+
+    $('.selectReport').select2({
+        closeOnSelect: false
+    });
+
+
+
 });
+
+function downloadAs(){
+    $("#downloadButton").click();
+}
+
+$("#csvOption").change(function(){downloadAs();})
+$("#excelOption").change(function(){downloadAs();})
+
+
+
 
 var checkno = 0;
 
