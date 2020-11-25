@@ -536,11 +536,11 @@ class OtReport2Controller extends Controller
         set_time_limit(0);
 
         //dd($req);
-        
-        $startTime = microtime(true);
-        
 
-        
+        $startTime = microtime(true);
+
+
+
         $fdate = $req->fdate;
         $tdate = $req->tdate;
         $approver_id = $req->fapprover_id;
@@ -562,13 +562,13 @@ class OtReport2Controller extends Controller
             $eksel = WriterEntityFactory::createXLSXWriter();
             $ext = 'xls';
         }
-        
+
         // Log::info('sebelum query');
 
-        
-        
 
-        
+
+
+
         if ($req->searching == 'exceld') {
             $otr = ViewOtRpt2::query();
         }
@@ -614,27 +614,27 @@ class OtReport2Controller extends Controller
             }
         }
 
- 
-   
+
+
         $otr = $otr->orderBy('date')->orderBy('user_id');
         $otr = $otr->get();
-        
+
         Log::info('get otr');
-        
+
         if ($req->searching == 'exceld') {
-            
-            
+
+
            // $list_of_id = $otr->pluck('id');
-            
+
             //  $otdetail = OvertimeDetail::whereIn('ot_id', $list_of_id)->where('checked', 'Y')->get();
-           
+
             $fn ='OTDetails';
         } elseif ($req->searching == 'excelm') {
             $fn ='OTSummary';
         }
-    
+
         // Log::info('lepas OTD/S');
-       
+
         $fdt = new Carbon($req->fdate);
         $tdt = new Carbon($req->tdate);
         $fname = $fn.'_'.$fdt->format('Ymd').'to'
@@ -645,12 +645,12 @@ class OtReport2Controller extends Controller
         if ($req->searching == 'excelm') {
             $headers = ['Personnel Number','Employee Name','IC Number','Staff ID',
         'Company Code','Reference Number','OT Date'];
-       
+
             if (isset($pilihcol)) {
                 if (in_array('psarea', $pilihcol)) {
                     array_push($headers, 'Personnel Area');
                 }
-             
+
                 if (in_array('psbarea', $pilihcol)) {
                     array_push($headers, 'Personnel Subarea');
                 }
@@ -770,7 +770,7 @@ class OtReport2Controller extends Controller
         } elseif ($req->searching == 'exceld') {
             $headers = ['Personnel Number','Employee Name','IC Number','Staff ID',
         'Company Code','Reference Number','OT Date','OTD id'];
-     
+
             if (isset($pilihcol)) {
                 if (in_array('psarea', $pilihcol)) {
                     array_push($headers, 'Personnel Area');
@@ -887,29 +887,29 @@ class OtReport2Controller extends Controller
                 }
             }
         }
-      
+
         // dd($headers);
         // Log::info('siap buat header');
-      
+
         $otdata = [];
-     
+
         //$eksel = new ExcelHandler($fname);
-        
+
         // Log::info('init file excel');
         //start slow kat sini
-       
+
         if ($req->searching == 'excelm') {
             foreach ($otr as $value) {
                 // dd($value);
-              
-                
+
+
                 //$value->load('URecord2');
                 //dd($value->URecord2());
                 //$urekod = $value->URecord2();
-                
+
                 $otdt = new Carbon($value->date);
                 $otdt = $otdt->format('d.m.Y');
-             
+
                 $info = [
                     $value->user_id,
                     $value->name,
@@ -938,7 +938,7 @@ class OtReport2Controller extends Controller
                     if (in_array('empsubgrp', $pilihcol)) {
                         array_push($info, $value->empsgroup);
                     }
-                   
+
                     // if(in_array( 'salexp',$pilihcol))
                     // {
                     //   if($value->sal_exception=='Y'){
@@ -1100,8 +1100,8 @@ class OtReport2Controller extends Controller
                         //   $dtype = $value->daytype_id;
                         // }
                         try {
-                            // $dtype = $value->daytype->description;
-                            $dtype = $value->DaytypeDesc()->item3;
+                            $dtype = $value->day_type_descr;
+                            // $dtype = $value->DaytypeDesc()->item3;
                         } catch (\Exception $e) {
                             $dtype = $value->day_type_code;
                         }
@@ -1137,19 +1137,19 @@ class OtReport2Controller extends Controller
                 //var_dump("reach here");
                 //$otds = $value->detail();
                 // dd($otds);
-             
-            
-              
-                    
+
+
+
+
                 //$urekod = $value->mainOT->URecord2();
                 //$mainOT = $value->mainOT;
-                    
+
                 $st = new Carbon($value->otd_start_time);
                 $st = $st->format('H:i:s');
                 $et = new Carbon($value->otd_end_time);
                 $et = $et->format('H:i:s');
 
-               
+
                 $info = [
                         $value->user_id,
                         $value->name,
@@ -1160,7 +1160,7 @@ class OtReport2Controller extends Controller
                         $otdt,
                         $value->otd_id];
 
-              
+
                 if (isset($pilihcol)) {
                     if (in_array('psarea', $pilihcol)) {
                         array_push($info, $value->persarea);
@@ -1302,7 +1302,7 @@ class OtReport2Controller extends Controller
                     if (in_array('qrdby', $pilihcol)) {
                         array_push($info, $value->querier_id);
                     }
-                       
+
                     if (in_array('emptype', $pilihcol)) {
                         array_push($info, $value->employee_type);
                     }
@@ -1311,12 +1311,12 @@ class OtReport2Controller extends Controller
             }
             $sh = 'OvertimeDetails';
         }
-      
+
         $endTime = microtime(true);
         $total_time = $endTime-$startTime;
         print_r("total time:".$total_time);
        // dd($otdata);
-    
+
         //$eksel->addSheet($sh, $otdata, $headers);
         $eksel->openToBrowser($fname);
         $xlsHeader = WriterEntityFactory::createRowFromArray($headers);
@@ -1327,7 +1327,7 @@ class OtReport2Controller extends Controller
             $eksel->addRow($rowFromValues);
         }
 
-        
+
         //$eksel->removesheet();
         $endTime2 = microtime(true);
         $total_time2 = $endTime2-$endTime;
