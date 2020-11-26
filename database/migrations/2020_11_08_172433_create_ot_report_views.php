@@ -15,9 +15,9 @@ class CreateOtReportViews extends Migration
     {
 
         DB::statement("
-    CREATE 
+    CREATE
     VIEW `v_ot_rpt1` AS
-    SELECT 
+    SELECT
         `ot`.`id` AS `id`,
         `ot`.`created_at` AS `created_at`,
         `ot`.`updated_at` AS `updated_at`,
@@ -73,18 +73,19 @@ class CreateOtReportViews extends Migration
         `u`.`empgroup` AS `empgroup`,
         `u`.`empsgroup` AS `empsgroup`,
         `u`.`empstats` AS `empstats`,
-        `st`.`item3` AS `status_descr`
+        `st`.`item3` AS `status_descr`,
+        `st2`.`item3` AS `day_type_descr`
     FROM
-        (((((`overtimes` `ot`
+        ((((((`overtimes` `ot`
         LEFT JOIN `user_records` `u` ON (`u`.`user_id` = `ot`.`user_id`
-            AND `u`.`upd_sap` = (SELECT 
+            AND `u`.`upd_sap` = (SELECT
                 MAX(`u2`.`upd_sap`)
             FROM
                 `user_records` `u2`
             WHERE
                 `u2`.`user_id` = `ot`.`user_id`
                     AND `u2`.`upd_sap` <= `ot`.`date`)
-            AND `u`.`id` = (SELECT 
+            AND `u`.`id` = (SELECT
                 MAX(`u3`.`id`)
             FROM
                 `user_records` `u3`
@@ -92,14 +93,14 @@ class CreateOtReportViews extends Migration
                 `u3`.`user_id` = `u`.`user_id`
                     AND `u3`.`upd_sap` = `u`.`upd_sap`)))
         LEFT JOIN `salaries` `s` ON (`s`.`user_id` = `ot`.`user_id`
-            AND `s`.`upd_sap` = (SELECT 
+            AND `s`.`upd_sap` = (SELECT
                 MAX(`s2`.`upd_sap`)
             FROM
                 `salaries` `s2`
             WHERE
                 `s2`.`user_id` = `ot`.`user_id`
                     AND `s2`.`upd_sap` <= `ot`.`date`)
-            AND `s`.`id` = (SELECT 
+            AND `s`.`id` = (SELECT
                 MAX(`s3`.`id`)
             FROM
                 `salaries` `s3`
@@ -107,14 +108,14 @@ class CreateOtReportViews extends Migration
                 `s3`.`user_id` = `s`.`user_id`
                     AND `s3`.`upd_sap` = `s`.`upd_sap`)))
         LEFT JOIN `ot_indicators` `oti` ON (`oti`.`user_id` = `ot`.`user_id`
-            AND `oti`.`upd_sap` = (SELECT 
+            AND `oti`.`upd_sap` = (SELECT
                 MAX(`oti2`.`upd_sap`)
             FROM
                 `ot_indicators` `oti2`
             WHERE
                 `oti2`.`user_id` = `ot`.`user_id`
                     AND `oti2`.`upd_sap` <= `ot`.`date`)
-            AND `oti`.`id` = (SELECT 
+            AND `oti`.`id` = (SELECT
                 MAX(`oti3`.`id`)
             FROM
                 `ot_indicators` `oti3`
@@ -127,6 +128,8 @@ class CreateOtReportViews extends Migration
             AND `ps`.`state_id` = `u`.`state_id`))
         LEFT JOIN `setup_codes` `st` ON (`st`.`item1` = 'ot_status'
             AND `st`.`item2` = `ot`.`status`))
+        LEFT JOIN `setup_codes` `st2` ON (`st2`.`item1` = 'day_type_code'
+        AND `st2`.`item2` = `ot`.`day_type_code`))
 
       ");
 
