@@ -15,7 +15,7 @@ class CreateOtReportViews extends Migration
     {
 
         DB::statement("
-    CREATE
+    CREATE OR REPLACE 
     VIEW `v_ot_rpt1` AS
     SELECT
         `ot`.`id` AS `id`,
