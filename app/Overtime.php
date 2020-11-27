@@ -68,7 +68,7 @@ class Overtime extends Model
     }
     public function daycode()
     {
-        return $this->belongsTo(OvertimeFormula::class,  'eligible_day_code', 'legacy_codes')->withDefault(['rate' => '0']);
+        return $this->belongsTo(OvertimeFormula::class, 'eligible_day_code', 'legacy_codes')->withDefault(['rate' => '0']);
     }
 
     public function log()
@@ -86,13 +86,17 @@ class Overtime extends Model
         return $this->hasMany(OvertimeLog::class, 'ot_id');
     }
 
-    public function URecord(){//based on OT date
-      return $this->belongsTo(UserRecord::class, 'user_records_id');
+    public function URecord()
+    {//based on OT date
+        return $this->belongsTo(UserRecord::class, 'user_records_id');
     }
+  
+        public function URecord2(){//based on OT date
+          return URHelper::getUserRecordByDate($this->user_id,$this->date);
+        }
+       
 
-    public function URecord2(){//based on OT date
-      return URHelper::getUserRecordByDate($this->user_id,$this->date);
-    }
+
 
     public function User()
     {
@@ -103,23 +107,22 @@ class Overtime extends Model
     //   return URHelper::getUserRecordByDate($this->user_id,$this->date_created);
     // }
 
-    public function SalCap(){//guna untk report
-      return URHelper::getUserEligibility($this->user_id,$this->date);
+    public function SalCap()
+    {//guna untk report
+        return URHelper::getUserEligibility($this->user_id, $this->date);
     }
 
     public function DaytypeDesc()
     {
-      return URHelper::getDaytypeDesc($this->day_type_code);
+        return URHelper::getDaytypeDesc($this->day_type_code);
     }
 
-    public function OTStatus(){
-      return URHelper::getOTStatus($this->status);
+    public function OTStatus()
+    {
+        return URHelper::getOTStatus($this->status);
     }
-    public function OTLog(){
-      return URHelper::getOTLog($this->id);
+    public function OTLog()
+    {
+        return URHelper::getOTLog($this->id);
     }
-
-
-
-
 }
