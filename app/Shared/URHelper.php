@@ -135,11 +135,18 @@ class URHelper
 
         }
 
+        //fixes 20201130 due to $dt condition return null query - convert $dt to known dbtype date
+        $dt= date('Y-m-d',strtotime($dt));
 
         $urMaxDate = UserRecord::where('user_id',$persno)->where('upd_sap','<=',$dt)->max('upd_sap');
         $ur = UserRecord::where('user_id',$persno)->where('upd_sap','=',$urMaxDate)->get()->first();
-        if(!($ur)){
-          $ur = UserRecord::where('user_id',$persno)->orderBy('upd_sap','asc')->first();
+        //dd($persno, $dt, $urMaxDate, $ur);
+        
+        //fixes 20201130 remove bracket !($ur)
+        if(!$ur){
+          //fixes 20201130 asc to desc and add clause upd_sap <= now()
+          $ur = UserRecord::where('user_id',$persno)->where('upd_sap','<=',now())
+          ->orderBy('upd_sap','desc')->first();
         }
         if($ur){
           $ur->ot_hour_exception    = $oti->ot_hour_exception;
