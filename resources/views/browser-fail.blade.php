@@ -31,25 +31,27 @@
 We highly recommend that you update your browser to the latest version of <span class="nobr">Microsoft Edge </span>, Chrome, Firefox, Safari <p>-NEO</p>
 
 @if(Session::get('ua'))
-{{-- @php 
+@php 
 $ua = Session::get('ua');
-@endphp --}}
-<br />
-{{-- <small>{{$ua}}</small> --}}
-<img src="http://www.wieistmeineip.de/ip-address/?size=125x125" border="0" width="125" height="125" alt="Browser Info" />
+@endphp
+<div class="media">
+    <div class="media-left">
+        <img src="http://www.wieistmeineip.de/ip-address/?size=125x125" border="0" 
+        width="110" height="110" alt="Browser Info" class="media-object"/>
+    </div>
+    <div class="media-body">
+      <h4 class="media-heading">Browser Info</h4>
+      <small>{{$ua}}</small>
+    </div>
+  </div>
+@else
+<img src="http://www.wieistmeineip.de/ip-address/?size=125x125" border="0" 
+width="125" height="125" alt="Browser Info"/>
 @endif
 </div>
 </div>
-        
-        
-            <br class="d-none"><br class="d-none">
-
-            
-            
-            <small>
-
-            
-            If you have any queries or problems regarding your ID & password for this system, please log into 
+<small>
+If you have any queries or problems regarding your ID & password for this system, please log into 
             <a href="https://iris2.tm.com.my/" target="_blank">IRIS Self Service System</a></small>
             {{-- <br>
             <span style="color: white">Mode: {{ $_ENV['APP_ENV'] }}</span> --}}

@@ -53,7 +53,7 @@ class NoIE
 		if( false !== strpos( $result, 'msie' ) ) {
 			return redirect( '/browser-fail' )->with( ['ua' => $result] );
 	    }
-		//return redirect( '/browser-fail')->with( ['ua' => $result] );
+		return redirect( '/browser-fail')->with( ['ua' => $result] );
 
 		return $next($request);
 	}
