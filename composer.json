@@ -19,6 +19,7 @@
         "guzzlehttp/guzzle": "^6.5",
         "jeroennoten/laravel-adminlte": "^2.0",
         "laravel/framework": "^6.0",
+        "laravel/passport": "9.0",
         "laravel/tinker": "^1.0",
         "orangehill/iseed": "^2.6",
         "phpoffice/phpspreadsheet": "^1.10"
