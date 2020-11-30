@@ -83,8 +83,8 @@ class MiscController extends Controller
     $total_hour_ot_curr_month =
     OvertimeMonth::where('user_id','=',$req->user()->id)
     //->where('status','=','PAID')
-    ->whereYear('date','=', $curr_date)
-    ->whereMonth('date','=', $curr_date)
+    ->whereYear('year','=', $curr_date)
+    ->whereMonth('month','=', $curr_date)
     ->sum('total_hour');
 
     //next payment schedule
