@@ -10,6 +10,7 @@ use App\OvertimePunch;
 use App\OvertimeEligibility;
 use App\User;
 use App\Overtime;
+use App\OvertimeMonth;
 use App\UserLog;
 use App\PaymentSchedule;
 use App\ShiftGroup;
@@ -80,10 +81,10 @@ class MiscController extends Controller
 
     //total hour OT from current month
     $total_hour_ot_curr_month =
-    Overtime::where('user_id','=',$req->user()->id)
+    OvertimeMonth::where('user_id','=',$req->user()->id)
     //->where('status','=','PAID')
-    ->whereYear('date','=', $curr_date)
-    ->whereMonth('date','=', $curr_date)
+    ->whereYear('year','=', $curr_date)
+    ->whereMonth('month','=', $curr_date)
     ->sum('total_hour');
 
     //next payment schedule
