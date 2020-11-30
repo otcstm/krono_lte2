@@ -1035,10 +1035,13 @@ class UserHelper {
     // $totalhour = floor($eligible_hours_minutes);      // 1
     // $totalminute = ($eligible_hours_minutes - $hour)*60; // .5
 
+    //all status from ot.eligible_total_hours_minutes
     $hour = floor($eligible_hours_minutes);
-    $minute = ($eligible_hours_minutes - $hour)*60; 
+    $minute = floor(($eligible_hours_minutes - $hour)*60); 
+
+    //status: !=D1/D2/Q1/Q2 from ot.eligible_total_hours_minutes
     $totalhour = floor($eligible_total_hours_minutes);
-    $totalminute = ($eligible_total_hours_minutes - $totalhour)*60; 
+    $totalminute = floor(($eligible_total_hours_minutes - $totalhour)*60); 
     
     $updatemonth = OvertimeMonth::find($clm->month_id);
     //upd otmonth hour minute - all status from ot.eligible_total_hours_minutes
