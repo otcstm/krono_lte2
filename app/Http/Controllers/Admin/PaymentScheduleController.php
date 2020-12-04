@@ -17,23 +17,22 @@ class PaymentScheduleController extends Controller
   {
       $pygroup = Payrollgroup::all();
       // $defdate = $req ->int_date->format('M');
-      $defyear= date('Y');
-      $slctyr= $req->slctyr ? $req->slctyr : $defyear;
+      $defyear = date('Y');
+      $slctyr = $req->slctyr ? $req->slctyr : $defyear;
       $slctyr = Session('slctyr') ? Session('slctyr') : $slctyr;
 
       $list_year = PaymentSchedule::select(DB::raw('YEAR(payment_date) as year'))
       ->distinct()->orderBy('year','desc')->get()
       ->pluck('year')->toArray();
-      array_push($list_year,'all');
+      array_push($list_year,'All');
 
       // dd($slctyr);
 
-      if($slctyr=='all'){
-        $ps = PaymentSchedule::all();
+      if($slctyr=='All'){
+        $ps = PaymentSchedule::orderBy('payment_date','asc')->get();
       }else{
         $ps = PaymentSchedule::whereRaw("YEAR(payment_date)= '".$slctyr."'")->orderBy('payment_date','asc')->get();
       }
-
 
       return view('admin.paymentschedule',
       ['ps_list' => $ps, 'pygroups' =>$pygroup, 'slctyr' => $slctyr, 'list_year' => $list_year]);
