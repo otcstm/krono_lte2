@@ -161,7 +161,13 @@
   </div>
   <div class="media-body">
     <h4 class="media-heading">Next Payment Date</h4>
-    <p>{{ date('d F Y', strtotime($next_payment_sch)) }}</p>
+    <p>
+      @if($next_payment_sch==0) 
+      N/A 
+      @else 
+      {{ date('d F Y', strtotime($next_payment_sch)) }}
+    @endif
+  </p>
   </div>
 </div>
     </div><!-- /.box-body -->
