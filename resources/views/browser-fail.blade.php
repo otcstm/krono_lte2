@@ -37,7 +37,7 @@ $ua = Session::get('ua');
 <div class="media">
     <div class="media-left">
         <img src="http://www.wieistmeineip.de/ip-address/?size=125x125" border="0" 
-        width="110" height="110" alt="Browser Info" class="media-object"/>
+        width="120" height="120" alt="Browser Info" class="media-object"/>
     </div>
     <div class="media-body">
       <h4 class="media-heading">Browser Info</h4>

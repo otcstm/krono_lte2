@@ -12,22 +12,20 @@
 <div class="panel panel-default panel-main">
 	<div class="panel panel-default">
 		<div class="panel-heading"><strong>Payment Schedule Management</strong></div>
-		<!-- <div class="panel-body">
+		 <div class="panel-body">
 			<div>
 				<input type="hidden" name="slctyr" id="slctyr_hidden" value="{{$slctyr}}" />
-				<form  method="post" class="form-horizontal" id="fselectyear" >
+				<form  method="post" class="form-inline" id="fselectyear" >
 					@csrf
-					<table width="200px"><tr><td width="100px"><strong>Select Year</strong></td>
-						<td width="100px">
-							<select name="slctyr" id="slctyr_id" class="form-control">
+					<label for="email">Select Year :</label>
+					<select name="slctyr" id="slctyr_id" class="form-control">
 									@foreach ($list_year as $yr)
 									<option>{{$yr}}</option>
 									@endforeach
 							</select>
-						</td></tr></table>
 				</form>
 			</div>
-		</div> -->
+		</div> 
 		<div class="panel-body">
 			<div class="table-responsive" >
 				<table id="tpayment_sche" class="table table-hover table-bordered" >
@@ -46,7 +44,9 @@
 					<tbody>
 						@foreach($ps_list as $no => $ps)
 						<tr>
-							<td>{{ date("F", strtotime($ps->payment_date)) }}</td>
+							<td>
+								<span style="display:none">{{ $ps->interface_date->format('Ymd') }}</span>
+								{{ date("F", strtotime($ps->payment_date)) }}</td>
 							<td>{{ $ps->payrollgroupid->pygroup }}</td>
 							<td>{{ $ps->last_sub_date->format('d/m/Y') }}</td>
 							<td>{{ $ps->last_approval_date->format('d/m/Y') }}</td>
@@ -148,8 +148,9 @@ $("#slctyr_id").val('{{$slctyr}}');
 
 $(document).ready(function() {
     $('#tpayment_sche').DataTable({
+		"lengthMenu": [[12, 24, 36, -1], [12, 24, 36, "All"]],
         "responsive": "true",
-				"order" : [[5, "desc"]],
+				"order" : [[0, "asc"]],
 				"columnDefs": [
 					 { "width": "4%", "targets": 6 }
 				 ]
