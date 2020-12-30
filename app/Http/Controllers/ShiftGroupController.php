@@ -720,7 +720,7 @@ class ShiftGroupController extends Controller
             $data = $data->orwhere('group_code',$req->gcode);
         }
         if($req->userId!=0 ){
-            $data = $data->orwhere('u_persno',$slctUserId);
+            $data = $data->orwhere('member_name',$slctUserId);
         }
         $data = $data->take(50);
         $data = $data->get();
@@ -731,7 +731,7 @@ class ShiftGroupController extends Controller
       // if($req->has('gcode')){
       //   $gcode = $req->gcode;        
       //   $gresult = ViewShiftGroup::where('group_code',$req->gcode)
-      //   ->orwhere('u_persno',$slctUserId)
+      //   ->orwhere('member_name',$slctUserId)
       //   ->take(50)
       //   ->get();
       // } else {
