@@ -606,7 +606,7 @@ class UserHelper {
         $stime = new Carbon($theday->start_time);
         $ed =  $stime->format('H:i');
       }
-      return [$start, $end, $day_type, $day, $idday, $ed, $sameday, $date , $sd, $work];
+      return [$start, $end, $day_type, $day, $idday, $ed, $sameday, $date , $sd, $work,$ph];
       //[0] Start work time
       //[1] End work time
       //[2] Day type
