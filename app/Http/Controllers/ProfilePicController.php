@@ -27,6 +27,7 @@ class ProfilePicController extends Controller
 
   public function getStaffImage($staffno)
   {
+  // dd("j");
     $user = User::where('staff_no', $staffno)->first();
     $uid = 0;
     if ($user) {
@@ -66,7 +67,7 @@ class ProfilePicController extends Controller
         $request = $reclient->request('GET', $staff_no, $options)->getBody()->getContents();
         $response = response()->make($request, 200);
         $response->header('Content-Type', 'image/jpeg'); // change this to the download content type.
-        
+       // dd($userid);
         if($userid != 0){
         $pp = new ProfilePic();
         $pp->user_id = $userid;
@@ -79,12 +80,13 @@ class ProfilePicController extends Controller
         $blankPicUrl = 'empty.png';
         $contents = file_get_contents($blankPicUrl);
         $response = response($contents)->header('Content-type', 'image/png');
-
+        $response->headers->set('Cache-Control','max-age=10');
       }
     } else {
 
     $i = $expp->data;
     $response = response($i)->header('Content-type', 'image/png');
+    $response->headers->set('Cache-Control','max-age=10');
 
     }
 

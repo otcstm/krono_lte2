@@ -16,7 +16,7 @@ class UserShiftPatternController extends Controller
 {
   public function insert(Request $req)
   {
-      $usp = new UserShiftPattern;
+      
 
       $shift_pattern_code = $req->work_schedule;
       //check existing sp
@@ -44,9 +44,9 @@ class UserShiftPatternController extends Controller
       $endDate = DateTime::createFromFormat('Ymd H:i:s', $req->end_date .' 00:00:00');
       $upd_sap = DateTime::createFromFormat('Ymd H:i:s', $req->change_on .' 00:00:00');
 
-
-
-
+      
+      $exusp = UserShiftPattern::where('user_id',$req->pers_no)->where('start_date',$startDate);
+      $usp = new UserShiftPattern;
       $usp->user_id           = $req->pers_no;
       $usp->shift_pattern_id  = $sp->id;
 
