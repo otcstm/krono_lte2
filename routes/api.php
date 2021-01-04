@@ -53,6 +53,10 @@ $api->version('v1', function ($api) {
   // for batch thingy
   $api->get('batch/reminder', 'App\Api\Batch\ReminderController@process');
 
+  // for user_shift and daytypes
+  $api->get('usp/get/{persno}/{dt}', 'App\Api\USPController@getUserShiftPattern');
+
+
 });
 /**
 Route::group(['middleware' => ['auth:api']], function () {
