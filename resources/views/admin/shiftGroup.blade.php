@@ -99,10 +99,10 @@
                         {{$row_sglist->sp_name}} ({{$row_sglist->sp_persno}})
                     @endif</td>
                     <td>{{$row_sglist->sp_staffno}}</td>
-                    <td>@if($row_sglist->u_name ?? '')
-                        {{$row_sglist->u_name}} ({{$row_sglist->u_persno}})
+                    <td>@if($row_sglist->member_name ?? '')
+                        {{$row_sglist->member_name}} ({{$row_sglist->member_name}})
                         @endif</td>
-                    <td>{{$row_sglist->u_staffno}}</td>
+                    <td>{{$row_sglist->member_staffno}}</td>
                 </tr>
             @endforeach
             </tbody>
