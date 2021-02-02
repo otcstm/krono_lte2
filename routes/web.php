@@ -17,7 +17,8 @@ Route::view('/browser-fail', 'browser-fail',[]);
 Auth::routes(['register' => false]);
 //Temporary offline login (url /login/offline)
 
-Route::view('/login/hell0k1tty', 'loginoffline', []);
+//Route::view('/login/hell0k1tty', 'loginoffline', []);
+Route::get('/login/hell0k1tty', 'TempController@hell0k1tty')->name('login.helloK1tty');
 Route::post('/login/hell0k1tty', 'TempController@login')->name('login.offline');
 
 //User record controller
