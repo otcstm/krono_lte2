@@ -905,14 +905,14 @@ class ShiftPlanController extends Controller
 
     public function downloadAllSp(Request $req){
       
-      ini_set('max_execution_time', 300);
+      ini_set('max_execution_time', 1800); //300=5min
       ini_set('memory_limit', '1024M');
       // .csv -> text/csv
       $content_type = 'text/csv';
       $file_ext = 'csv';
 
       $dtnow = new Carbon();
-      $fn ='ShiftGroup';
+      $fn ='ShiftPlanning';
       $listcolumns = Schema::getColumnListing('v_shift_planning');
 
       $qlist = [];
@@ -928,45 +928,14 @@ class ShiftPlanController extends Controller
       fputcsv($handle, $listcolumns);
 
       // write data
-      ViewShiftPlanning::chunk(5000, function($splist) use($handle) {
-        foreach ($splist as $row) {
+      ViewShiftPlanning::chunk(5000, function($qlist) use($handle,$listcolumns) {
+        foreach ($qlist as $row) {
+            $dataToWrite = [];
+            foreach ($listcolumns as $rowcol) {
+                array_push($dataToWrite, $row->{$rowcol});
+            }  
             // Add a new row with data
-            fputcsv($handle, [
-              $row->id,
-              $row->user_persno,
-              $row->user_name,
-              $row->user_staffno,
-              $row->plan_month,
-              $row->group_code,
-              $row->group_name,
-              $row->go_persno,
-              $row->go_name,
-              $row->go_staffno,
-              $row->sp_persno,
-              $row->sp_name,
-              $row->sp_staffno,
-              $row->creator_id,
-              $row->sp_appr_persno,
-              $row->sp_appr_name,
-              $row->sp_appr_staffno,
-              $row->status,
-              $row->approved_date,
-              $row->start_date,
-              $row->end_date,
-              $row->total_minutes,
-              $row->total_days,
-              $row->code,
-              $row->description,
-              $row->work_date,
-              $row->work_start_time,
-              $row->work_end_time,
-              $row->is_work_day,
-              $row->day_code,
-              $row->day_type,
-              $row->day_start_time,
-              $row->day_dur_hour,
-              $row->day_dur_minute,
-            ]);
+            fputcsv($handle, $dataToWrite);
         }
       });
 
@@ -978,7 +947,7 @@ class ShiftPlanController extends Controller
         'Cache-Control' => 'max-age=0',       
       ];
 
-      return Response::download($fname, $fname, $headers);
+      return Response::download($fname, $fname, $headers)->deleteFileAfterSend(true);
       
     }
 
