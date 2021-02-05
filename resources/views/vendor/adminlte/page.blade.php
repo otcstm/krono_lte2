@@ -86,6 +86,7 @@
                           <i class="{{ $nitem->data['icon'] }}"></i> {{ $nitem->data['text'] }}
                         </a>
                       </li>
+                      
                       @endforeach
                     </ul>
                   </li>
