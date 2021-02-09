@@ -86,7 +86,7 @@ Route::group(['middleware' => ['auth','noie']], function () {
   Route::get('/staffidx', 'Admin\StaffController@idxStaff')->name('staff.idx');
   Route::post('/staffidx', 'Admin\StaffController@idxStaff')->name('staff.idx');
   Route::post('/staff/searchst', 'Admin\StaffController@cariStaff')->name('staff.cari');
-  
+
   Route::get('/staff/search', 'Admin\StaffController@searchUser')->name('staff.find');
 
   //Listing of project
@@ -144,8 +144,8 @@ Route::group(['middleware' => ['auth','noie']], function () {
   Route::get('/admin/shiftgrouppattern', 'Admin\ShiftPatternController@showall')->name('admin.shiftGroupPattern');
   Route::post('/admin/shiftgrouppattern', 'Admin\ShiftPatternController@showall')->name('admin.shiftGroupPattern');
   Route::get('/admin/dwallsgp', 'Admin\ShiftPatternController@downloadAllSgp')->name('admin.downloadAllSgp');
-  
-  
+
+
   //OT activity - User
   Route::get('/overtime', 'OvertimeController@list')->name('ot.list');
   Route::post('/overtime/submit', 'OvertimeController@submit')->name('ot.submit');
@@ -163,7 +163,7 @@ Route::group(['middleware' => ['auth','noie']], function () {
   Route::get('/overtime/form/getfile', 'OvertimeController@getfile')->name('ot.file');
   Route::get('/overtime/form/search', 'OvertimeController@searchorder')->name('ot.searchod');
   Route::get('/overtime/detail/view', 'OvertimeController@detailview')->name('ot.detailview');
-  
+
   //OT activity - Verifier
   Route::get('/overtime/verify', 'OvertimeController@verify')->name('ot.verify');
   Route::post('/overtime/verify', 'OvertimeController@verify')->name('ot.verify');
@@ -358,8 +358,10 @@ Route::group(['middleware' => ['auth', 'can:6-rpt-ot']], function () {
   Route::get('/report', 'Admin\OtReport2Controller@main')->name('rep.main'); //mainpage
   Route::get('/report/ot', 'Admin\OtReport2Controller@viewOT')->name('rep.viewOT'); //dowload rep1
   Route::post('/report/ot', 'Admin\OtReport2Controller@viewOT')->name('rep.viewOT');
-  Route::get('/report/otd', 'Admin\OtReport2Controller@viewOTd')->name('rep.viewOTd'); //dowload rep2
-  Route::post('/report/otd', 'Admin\OtReport2Controller@viewOTd')->name('rep.viewOTd');
+  // Route::get('/report/otd', 'Admin\OtReport2Controller@viewOTd')->name('rep.viewOTd'); //dowload rep2
+  // Route::post('/report/otd', 'Admin\OtReport2Controller@viewOTd')->name('rep.viewOTd');
+  Route::get('/report/otdt', 'Admin\OtReport2Controller@viewOTd')->name('rep.viewOTd'); //dowload rep2
+  Route::post('/report/otdt', 'Admin\OtReport2Controller@viewOTd')->name('rep.viewOTd');
   Route::get('/report/StEdOt', 'Admin\OtReport2Controller@viewStEd')->name('rep.viewStEd'); //dowload rep4
   Route::post('/report/StEdOt', 'Admin\OtReport2Controller@viewStEd')->name('rep.viewStEd');
   Route::get('/report/otlog', 'Admin\OtReport2Controller@viewLC')->name('rep.viewOTLog'); //dowload rep3
