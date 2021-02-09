@@ -7,8 +7,10 @@ namespace app\Api;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Routing\Controller as BaseController;
 use App\UserShiftPattern;
+use App\ShiftPattern;
 use App\Shared\UserHelper;
 use App\DayTag;
+use App\DayType;
 
 
 
@@ -24,15 +26,22 @@ class USPController extends BaseController
         ->orderBy('upd_sap', 'desc')
         ->first();
       
+ 
+
         $dayTag = DayTag::where('user_id', $persno)
         ->where('date', $dt)
         ->get();
 
         $checkDay = null;
         $cd = null;
+        $dayType = null;
 
         try {
             $checkDay = UserHelper::CheckDay($persno, $dt);
+            if($checkDay){
+                $dayType = DayType::find($checkDay[3]);
+            }
+
             //[0] Start work time
             //[1] End work time
             //[2] Day type
@@ -46,6 +55,7 @@ class USPController extends BaseController
 
             $cd = [
             "dayType" => $checkDay[2],
+            "is_work_day" => $checkDay[9],
             "dayId" => $checkDay[4],
             "start_work_time"=>$checkDay[0],
             "end_work_time"=>$checkDay[1],
@@ -66,6 +76,9 @@ class USPController extends BaseController
             "persno"=> $persno,] ;
         if ($checkDay) {
             $result = $result + [  "checkDay"=> $cd];
+            $result = $result + [  "checkDay2"=> $checkDay];
+            $result = $result + [  "daytype"=> $dayType];
+
         };
 
         if ($usp) {
