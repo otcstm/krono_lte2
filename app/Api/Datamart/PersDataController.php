@@ -47,7 +47,7 @@ class PersDataController extends Controller
         $upd_sap,
         $upd_dm
     ) {
-
+       //dd( [$empsgroup, $psgroup]);
         //User data for current state employee
         //Use in session handling
         $u = User::find( $persno );
@@ -99,6 +99,9 @@ class PersDataController extends Controller
         $u->orgunit     = $ou;
         $u->persarea    = $persarea;
         $u->perssubarea = $perssubarea;
+        $u->empsgroup    = $empsgroup;
+        $u->empgroup     = $empgroup;
+
         $u->reptto = $reptto;
         $u->state_id = $state_id_val;
         $u->upd_sap      = $upd_sap;
