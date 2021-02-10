@@ -83,10 +83,17 @@ function checkOTClocked(){
 
 //when click start OT;
 $("#punchb").on('mousedown', function() {
+
+    if (navigator.geolocation){
+
     n=0;
     once=true;
     timeoutId = setTimeout(function(){ n=n+1;}, 500);
+    }
+
 }).on('mouseup', function() {
+
+    if (navigator.geolocation){
     if(n<1){
         if(once){
             // puncho();
@@ -94,6 +101,9 @@ $("#punchb").on('mousedown', function() {
         }
     }
     clearTimeout(timeoutId);
+}
+
+
 });
 
 function checkeligible(){
