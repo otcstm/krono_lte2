@@ -462,9 +462,15 @@ return [
         'icon' => 'fas fa-print',
         'can' => '6-rpt-ot-menu',
         'submenu' => [
+          // [
+          //   'text' => 'otr_details',
+          //   'url'  => '/report/otd',
+          //   'icon' => '',
+          //   'can' => '6-rpt-ot',
+          // ],
           [
             'text' => 'otr_details',
-            'url'  => '/report/otd',
+            'url'  => '/report/otdt',
             'icon' => '',
             'can' => '6-rpt-ot',
           ],
