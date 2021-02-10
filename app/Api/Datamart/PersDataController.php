@@ -103,10 +103,11 @@ class PersDataController extends Controller
         $u->empgroup     = $empgroup;
 
         $u->reptto = $reptto;
+        $u->empstats     = $empstats;
         $u->state_id = $state_id_val;
         $u->upd_sap      = $upd_sap;
         $u->upd_dm      = $upd_dm;
-
+        
         $u->save();
         }
 
