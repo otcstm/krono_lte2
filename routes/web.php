@@ -358,10 +358,8 @@ Route::group(['middleware' => ['auth', 'can:6-rpt-ot']], function () {
   Route::get('/report', 'Admin\OtReport2Controller@main')->name('rep.main'); //mainpage
   Route::get('/report/ot', 'Admin\OtReport2Controller@viewOT')->name('rep.viewOT'); //dowload rep1
   Route::post('/report/ot', 'Admin\OtReport2Controller@viewOT')->name('rep.viewOT');
-  // Route::get('/report/otd', 'Admin\OtReport2Controller@viewOTd')->name('rep.viewOTd'); //dowload rep2
-  // Route::post('/report/otd', 'Admin\OtReport2Controller@viewOTd')->name('rep.viewOTd');
-  Route::get('/report/otdt', 'Admin\OtReport2Controller@viewOTd')->name('rep.viewOTd'); //dowload rep2
-  Route::post('/report/otdt', 'Admin\OtReport2Controller@viewOTd')->name('rep.viewOTd');
+  Route::get('/report/otd', 'Admin\OtReport2Controller@viewOTd')->name('rep.viewOTd'); //dowload rep2
+  Route::post('/report/otd', 'Admin\OtReport2Controller@viewOTd')->name('rep.viewOTd');
   Route::get('/report/StEdOt', 'Admin\OtReport2Controller@viewStEd')->name('rep.viewStEd'); //dowload rep4
   Route::post('/report/StEdOt', 'Admin\OtReport2Controller@viewStEd')->name('rep.viewStEd');
   Route::get('/report/otlog', 'Admin\OtReport2Controller@viewLC')->name('rep.viewOTLog'); //dowload rep3
