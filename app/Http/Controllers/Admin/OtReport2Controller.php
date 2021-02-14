@@ -61,9 +61,6 @@ class OtReport2Controller extends Controller
 
     public function viewOTd(Request $req)//OT Detail
     {
-        // dd('here');
-        ini_set("memory_limit", "512");
-        ini_set('max_execution_time', 6000); // 300 seconds = 5 minutes
         set_time_limit(0);
         $company = Company::all();
         $state = State::all();
@@ -79,13 +76,15 @@ class OtReport2Controller extends Controller
                 return $this->doOTExcel($req);
             }
         }
+
+
         return view('report.otrdetails', [ 'companies'=>$company, 'states'=>$state,'regions'=>$region,'status'=>$status ]);
     }
 
     public function viewStEd(Request $req)//List of Start/End OT Time (Punch)
     {
-        ini_set("memory_limit", "256M");
-        ini_set('max_execution_time', 3000); // 300 seconds = 5 minutes
+        // ini_set("memory_limit", "256M");
+        // ini_set('max_execution_time', 3000); // 300 seconds = 5 minutes
         set_time_limit(0);
         $company = Company::all();
         $state = State::all();
@@ -105,8 +104,8 @@ class OtReport2Controller extends Controller
 
     public function viewLC(Request $req)
     {
-        ini_set("memory_limit", "256M");
-        ini_set('max_execution_time', 3000); // 300 seconds = 5 minutes
+        // ini_set("memory_limit", "256M");
+        // ini_set('max_execution_time', 3000); // 300 seconds = 5 minutes
         set_time_limit(0);
 
         if ($req->filled('searching')) {
