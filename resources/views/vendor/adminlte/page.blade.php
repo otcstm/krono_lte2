@@ -77,7 +77,7 @@
                   <span class="label label-danger">{{ session('notifycount') }}</span>
                 </a>
                 <ul class="dropdown-menu">
-                  <li class="header">You have {{ session('notifycount') }} notification(s)</li>
+                  <li class="header">You have {{ session('notifycount') }} notification(s) for the past 30 days.</li>
                   <li>
                     <ul class="menu">
                       @foreach(session('notifylist') as $nitem)

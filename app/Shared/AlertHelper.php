@@ -4,6 +4,8 @@ namespace App\Shared;
 
 use App\Overtime;
 use App\ShiftPlan;
+use \Carbon\Carbon;
+use DateTime;
 
 
 use Illuminate\Support\Facades\Auth;
@@ -23,9 +25,12 @@ sgc - App\Notifications\ShiftGroupCreated - my list of shift group
   public static function LoadNotifyList()
   {
     // dd(Auth::user());
+    $current = Carbon::now();
     if (Auth::check()) {
-      $nitofylist = Auth::user()->unreadNotifications;
+      $nitofylist = Auth::user()->unreadNotifications
+      ->where('created_at','>',Carbon::now()->subDays(30));
 
+      /*
       foreach($nitofylist as $nit){
        $id = $nit->data['id'];
        $route_name = $nit->data['route_name'];
@@ -34,6 +39,8 @@ sgc - App\Notifications\ShiftGroupCreated - my list of shift group
 
 
       };
+*/
+      
       
      // dd($nitofylist);
 

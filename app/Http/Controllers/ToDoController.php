@@ -8,6 +8,7 @@ use App\Overtime;
 use App\User;
 use App\Notifications\TodoDraft;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class ToDoController extends Controller
 {
@@ -51,5 +52,14 @@ class ToDoController extends Controller
         $user->notify(new TodoDraft($todoObj));
 
         return view('todo.list', $todoObj);
+    }
+
+    public function notification(Request $req)
+    {$nitofylist="";
+
+        if (Auth::check()) {
+            $nitofylist = Auth::user()->unreadNotifications ;
+        }
+        return view('staff.notification', ['noti' => $nitofylist]);
     }
 }
