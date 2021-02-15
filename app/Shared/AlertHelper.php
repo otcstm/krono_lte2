@@ -28,7 +28,12 @@ sgc - App\Notifications\ShiftGroupCreated - my list of shift group
     $current = Carbon::now();
     if (Auth::check()) {
       $nitofylist = Auth::user()->unreadNotifications
-      ->where('created_at','>',Carbon::now()->subDays(30));
+      ->where('created_at','>',Carbon::now()->subDays(30))
+      ->sortBy('created_at')->take(25);
+
+      $nitofyCount = Auth::user()->unreadNotifications
+      ->where('created_at','>',Carbon::now()->subDays(30))
+      ->count();
 
       /*
       foreach($nitofylist as $nit){
@@ -46,7 +51,7 @@ sgc - App\Notifications\ShiftGroupCreated - my list of shift group
 
       session([
         'notifylist' => $nitofylist,
-        'notifycount' => $nitofylist->count()
+        'notifycount' => $nitofyCount
       ]);
 
       // dd(session()->all());
