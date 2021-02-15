@@ -54,7 +54,7 @@ class UserShiftPatternController extends Controller
       $usp->end_date          = $endDate;
       $usp->sap_code          = $shift_pattern_code;
       $usp->upd_sap           = $upd_sap;
-
+      $usp->upd_dm            = $req->last_upd_dt;
       $usp->created_by        = 0;
       $usp->source            = 'SAP' ;
 
