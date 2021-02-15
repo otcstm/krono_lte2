@@ -40,7 +40,8 @@ Route::group(['middleware' => ['auth','noie']], function () {
   Route::get('/readnotify', 'NotiMenuController@read')->name('notify.read');
   Route::get('/announcement/close', 'Admin\AnnouncementController@close')->name('announce.close');
   Route::get('/notification/clear', 'Admin\AnnouncementController@noticlear')->name('noti.clear');
-
+  Route::get('/notification/list', 'ToDoController@notification')->name('noti.list');
+  
   // work schedule rule
   Route::get('/workschedule', 'WorkSchedRuleController@wsrPage')->name('staff.worksched');
   Route::post('/workschedule/edit', 'WorkSchedRuleController@doEditWsr')->name('staff.worksched.edit');
