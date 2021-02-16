@@ -85,7 +85,7 @@
                     <ul class="menu">
                     <li>
                     <a style="padding: 10px 10px; text-align: center" href="{{route('noti.list',[])}}">
-                      <b class="info">View All Notifications</b>
+                      <b>View All Notifications</b>
                     </a>
                   </li>
                       @foreach(session('notifylist') as $nitem)

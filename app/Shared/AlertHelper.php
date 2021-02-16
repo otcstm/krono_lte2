@@ -28,7 +28,7 @@ sgc - App\Notifications\ShiftGroupCreated - my list of shift group
     $current = Carbon::now();
     if (Auth::check()) {
       $nitofylist = Auth::user()->unreadNotifications
-      ->where('created_at','>',Carbon::now()->subDays(30))
+  
       ->sortBy('created_at')->take(10);
 
       $nitofyCount = Auth::user()->unreadNotifications
