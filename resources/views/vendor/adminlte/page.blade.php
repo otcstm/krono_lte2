@@ -81,12 +81,7 @@
                   <li>
                     <ul class="menu">
                       @foreach(session('notifylist') as $nitem)
-                      <li>
-                        <a href="{{ route('notify.read', ['nid' => $nitem->id]) }}">
-                          <i class="{{ $nitem->data['icon'] }}"></i> {{ $nitem->data['text'] }}
-                        </a>
-                      </li>
-                      
+                      <li><a href="{{ route('notify.read', ['nid' => $nitem->id]) }}"><i class="{{ $nitem->data['icon'] }}"></i>{{ $nitem->data['text'] }}</a></li>
                       @endforeach
                     </ul>
                   </li>
@@ -314,6 +309,8 @@
 
 @section('adminlte_js')
 
+
+
 <script src="{{ secure_asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
 <script src="{{ secure_asset('vendor/bootstrap-timepicker/js/bootstrap-timepicker.js') }}"></script>
 @stack('js')
@@ -321,6 +318,7 @@
 
 
 <script type="text/javascript">
+  $('.dropdown-toggle').dropdown();
   function openannouncement() {
     var title = $("#announcement").data('title');
     var announcement = $("#announcement").data('announcement');

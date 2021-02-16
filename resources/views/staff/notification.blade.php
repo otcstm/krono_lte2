@@ -10,6 +10,7 @@
     <table id="tOTList" class="table table-bordered tbot">
         <thead>
             <tr>
+                <th>No</th>
                 <th></th>
                 <th>ID</th>
 
@@ -20,8 +21,11 @@
             </tr>
         </thead>
         <tbody>
+            @php($count1 = 0)
             @foreach($noti as $nt)
+            @php($count1 = $count1+1)
             <tr>
+                <td>{{$count1}}</td>
                 <td>
 
                     <icon class="{{$nt->data['icon']}}">
