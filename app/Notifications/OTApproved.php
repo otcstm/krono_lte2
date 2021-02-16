@@ -73,7 +73,7 @@ class OTApproved extends Notification
             'id' => $this->claim->id,
             'param' => '',
             'route_name' => 'ot.list',
-            'text' => 'Your claim ' . $this->claim->refno.' has been approved.',
+            'text' => 'Claim '.$this->claim->refno.' has been approved.',
             'icon' => 'far fa-clock'
           ];
     }
