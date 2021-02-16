@@ -77,14 +77,27 @@
                   <span class="label label-danger">{{ session('notifycount') }}</span>
                 </a>
                 <ul class="dropdown-menu">
-                  <li class="header">You have {{ session('notifycount') }} notification(s) for the past 30 days.</li>
+                  <li class="header">You have {{ session('notifycount') }} notification(s).</li>
+                  
+
+                  
                   <li>
                     <ul class="menu">
+                    <li>
+                    <a style="padding: 10px 10px; text-align: center" href="{{route('noti.list',[])}}">
+                      <b class="info">View All Notifications</b>
+                    </a>
+                  </li>
                       @foreach(session('notifylist') as $nitem)
-                      <li><a href="{{ route('notify.read', ['nid' => $nitem->id]) }}"><i class="{{ $nitem->data['icon'] }}"></i>{{ $nitem->data['text'] }}</a></li>
+                      <li><a href="{{ route('notify.read', ['nid' => $nitem->id]) }}"><i class="{{ $nitem->data['icon'] }}"></i> {{ $nitem->data['text'] }}</a></li>
                       @endforeach
                     </ul>
                   </li>
+
+
+
+
+
                   <li>
                     <a style="padding: 10px 10px; text-align: center" onclick="return clearnoti();">
                       <b style="color: #FF4949">Clear Notification</b>

@@ -85,7 +85,7 @@ class OTSubmittedNoti extends Notification
             'id' => $this->claim->id,
             'param' => '',
             'route_name' => $route,
-            'text' => 'Claim ' . $this->claim->refno.' has been submitted for your '.$process,
+            'text' => 'Claim ' .$this->claim->refno.' has been submitted for your '.$process,
             'icon' => 'far fa-clock'
           ];
     }
