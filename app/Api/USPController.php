@@ -8,9 +8,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Routing\Controller as BaseController;
 use App\UserShiftPattern;
 use App\ShiftPattern;
+use App\ShiftPlanStaffDay;
 use App\Shared\UserHelper;
 use App\DayTag;
 use App\DayType;
+use App\HolidayCalendar;
+use App\User;
+use App\Holiday;
+
 
 
 
@@ -18,7 +23,67 @@ use Illuminate\Http\Request;
 
 class USPController extends BaseController
 {
-    public function getUserShiftPattern($persno, $dt)
+
+    public function getUserShiftPattern($persno, $dt){
+        $spsd = ShiftPlanStaffDay::with('Day')->where('user_id', $persno)
+        ->where('work_date', '=', $dt)->first();
+        $usr=User::find($persno);
+        $ph=HolidayCalendar::with('holiday')
+        ->where('state_id',$usr->state_id)
+
+        ->get();
+        $hol = Holiday::where('dt',$dt)
+        ->whereHas('holCal', function ($query) use ($usr) {
+            $query->where('state_id',$usr->state_id);
+        })->get();
+        
+       // has('holCal.state_id',$usr->state_id)
+       // ->get();
+       //dd($ph);
+
+
+
+
+
+
+        $check ="";
+        $day_code="";
+        $is_work_day ="1";
+        $expected_work_hour = "";
+
+        if($spsd) {
+            $is_work_day = $spsd->is_work_day ;
+            $day_code = $spsd->Day->code ;
+            $expected_hour = $spsd->Day->working_hour ;
+            
+
+        }
+
+        $check = [
+            "persno"=>$persno,
+            "is_work_day" => $is_work_day,
+            "day_code" => $day_code,
+            "expected_hour"=>$expected_hour
+        ] ;
+
+        
+
+        $result = [
+            "check"=>$check,
+            "spsd"=>$spsd,
+            "hol"=>$hol,
+            "ph"=>$ph,
+            
+        ];
+
+        
+
+        return $result;
+
+
+    }
+
+    public function getUserShiftPatternBak($persno, $dt)
     {
         $usp = UserShiftPattern::with('shiftpattern')
         ->where('user_id', $persno)
