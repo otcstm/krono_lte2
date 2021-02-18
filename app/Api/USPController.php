@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Routing\Controller as BaseController;
 use App\UserShiftPattern;
 use App\ShiftPattern;
+use App\ShiftPatternDay;
 use App\ShiftPlanStaffDay;
 use App\Shared\UserHelper;
 use App\DayTag;
@@ -23,64 +24,104 @@ use Illuminate\Http\Request;
 
 class USPController extends BaseController
 {
+    public function getUserShiftPattern($persno, $dt)
+    {
+        $check ="";
+        $day_code="";
+        $day_id="";
+        $day_descr="";
+        $is_work_day ="1";
+        $expected_hour = "";
+        $wsr=null;
+        $hol= null;
+        $dayType=null;
+        $shift_code=null;
+        $shift_descr=null;
 
-    public function getUserShiftPattern($persno, $dt){
+        /*
+        1) if exist in shift plan staff day evaluate and exit
+        2) if not exist in spsd evaluate public holiday
+        3) if not public holiday evaluate wsr
+        */
+   
+        /*check shift plan staff day if the day is recorded for this staff*/
         $spsd = ShiftPlanStaffDay::with('Day')->where('user_id', $persno)
         ->where('work_date', '=', $dt)->first();
         $usr=User::find($persno);
-        $ph=HolidayCalendar::with('holiday')
-        ->where('state_id',$usr->state_id)
-
-        ->get();
-        $hol = Holiday::where('dt',$dt)
-        ->whereHas('holCal', function ($query) use ($usr) {
-            $query->where('state_id',$usr->state_id);
-        })->get();
         
-       // has('holCal.state_id',$usr->state_id)
-       // ->get();
-       //dd($ph);
 
-
-
-
-
-
-        $check ="";
-        $day_code="";
-        $is_work_day ="1";
-        $expected_work_hour = "";
-
-        if($spsd) {
-            $is_work_day = $spsd->is_work_day ;
-            $day_code = $spsd->Day->code ;
-            $expected_hour = $spsd->Day->working_hour ;
+        if ($spsd) {
+            $is_work_day = $spsd->is_work_day ;         
             
+        } else {
+            $hol = Holiday::where('dt', $dt)
+            ->whereHas('holCal', function ($query) use ($usr) {
+                $query->where('state_id', $usr->state_id);
+            })
+            ->with(['holCal' => function ($query) use ($usr) {
+                $query->where('state_id', $usr->state_id);
+            }])->first();            
+            
+        }
+
+        if($hol){
+            $dayType = DayType::where('code','PH')->first();
+        }else {
+            $wsr = UserHelper::GetWorkSchedRule($persno, $dt);
+            //dd($dayType);
 
         }
 
+        if($wsr){
+            $dayType = DayType::where('code',$wsr->code)->first();
+            $day = date('N', strtotime($dt));
+            $spd = ShiftPatternDay::where('shift_pattern_id',$wsr->id)
+            ->where('day_seq',$day)->first();
+
+            $dayType = DayType::find($spd->day_type_id);
+
+            //dd($wsr);
+        }
+
+        
+
+        if ($dayType) {
+            $day_id = $dayType->id ;
+            $day_code = $dayType->code ;
+            $day_descr= $dayType->description ;
+            $expected_hour = $dayType->expected_hour ;
+            $is_work_day = $dayType->is_work_day ;
+        }
+
+
         $check = [
             "persno"=>$persno,
+            "date"=>$dt,
             "is_work_day" => $is_work_day,
+            "day_id"=>$day_id,
+            "day_descr" => $day_descr,
             "day_code" => $day_code,
-            "expected_hour"=>$expected_hour
+            "expected_hour"=>$expected_hour,
+            
         ] ;
 
         
 
         $result = [
             "check"=>$check,
+            "wsr"=>$wsr,
+            "daytype"=>$dayType,
             "spsd"=>$spsd,
             "hol"=>$hol,
-            "ph"=>$ph,
+
+
+
             
         ];
 
         
 
         return $result;
-
-
     }
 
     public function getUserShiftPatternBak($persno, $dt)
@@ -103,7 +144,7 @@ class USPController extends BaseController
 
         try {
             $checkDay = UserHelper::CheckDay($persno, $dt);
-            if($checkDay){
+            if ($checkDay) {
                 $dayType = DayType::find($checkDay[3]);
             }
 
@@ -143,7 +184,6 @@ class USPController extends BaseController
             $result = $result + [  "checkDay"=> $cd];
             $result = $result + [  "checkDay2"=> $checkDay];
             $result = $result + [  "daytype"=> $dayType];
-
         };
 
         if ($usp) {
@@ -152,7 +192,7 @@ class USPController extends BaseController
            
         if ($dayTag) {
             $result = $result + ["day_tag" => $dayTag];
-        }   
+        }
        
         return $result ;
     }

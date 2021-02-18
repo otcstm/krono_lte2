@@ -61,9 +61,11 @@
                   data-dtype="{{ $ap->day_type }}"
                   @endif
                   data-wh="{{ $ap->working_hour }}"
+                  
                   {{-- data-desc="{{ $ap->day_type }}" --}}
                   data-fontc="{{ $ap->font_color }}"
                   data-bgc="{{ $ap->bg_color }}"
+                  data-expectedhour="{{ $ap->expected_hour }}"
                ><i class="fas fa-pencil-alt"></i></button>
                <button type="submit" class="btn btn-xs btn-danger" title="Delete"><i class="fas fa-trash-alt"></i></button>
                <input type="hidden" name="id" value="{{ $ap->id }}" />
@@ -153,13 +155,25 @@
         <input id="dur_hour" type="number" name="dur_hour" value="{{ old('dur_hour') }}"
                placeholder="Hour" required min="0" max="23" step="1">
         <input id="dur_minute" type="number" name="dur_minute" value="{{ old('dur_minute') }}"
-               placeholder="Minute" required min="0" max="59" step="1">
+               placeholder="Minute" required min="0" max="24" step="1">
         @if ($errors->has('duration'))
             <span class="help-block">
                 <strong>{{ $errors->first('duration') }}</strong>
             </span>
         @endif
       </div>
+      <div class="form-group has-feedback {{ $errors->has('expected_hour') ? 'has-error' : '' }}">
+        <label for="dur_hour">Expected Hour</label>
+        <input id="expected_hour" type="number" name="expected_hour" value="{{ old('expected_hour') }}"
+               placeholder="Expected_Hour" required min="0" max="23" step="1">
+       
+        @if ($errors->has('duration'))
+            <span class="help-block">
+                <strong>{{ $errors->first('duration') }}</strong>
+            </span>
+        @endif
+      </div>
+
       <div class="form-group has-feedback {{ $errors->has('bgcolor') ? 'has-error' : '' }}">
         <label for="bgcolor">Background color in calendar</label>
         <input id="bgcolor" type="color" name="bgcolor" value="{{ old('bgcolor', '#ffffff') }}">
@@ -229,6 +243,10 @@
               <input type="text" class="form-control" id="inputdesc" name="description" value="" required>
           </div>
           <div class="form-group">
+              <label for="inputexpectedhour">Expected Hour:</label>
+              <input type="text" class="form-control" id="inputexpectedhour" name="expected_hour" value="" required>
+          </div>
+          <div class="form-group">
               <label for="inputbgc">Background Color:</label>
               <input type="color" id="inputbgc" name="bgcolor" value="" required>
           </div>
@@ -272,11 +290,13 @@ function populate(e){
     var wd_id = $(e.relatedTarget).data('id');
     var wd_code = $(e.relatedTarget).data('code')
     var wd_desc = $(e.relatedTarget).data('desc')
+    var wd_expectedhour = $(e.relatedTarget).data('expectedhour')
     var wd_bgc = $(e.relatedTarget).data('bgc')
     var wd_fontc = $(e.relatedTarget).data('fontc')
     $('input[id=inputid]').val(wd_id);
     $('input[id=inputname]').val(wd_code);
     $('input[id=inputdesc]').val(wd_desc);
+    $('input[id=inputexpectedhour]').val(wd_expectedhour);
     $('input[id=inputbgc]').val(wd_bgc);
     $('input[id=inputfc]').val(wd_fontc);
 }

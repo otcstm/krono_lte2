@@ -62,6 +62,7 @@ class DayTypeController extends Controller
       $dt->last_edited_by = $r->user()->id;
       $dt->bg_color = $r->bgcolor;
       $dt->font_color = $r->fontcolor;
+      $dt->expected_hour = $r->expected_hour;
       $dt->save();
 
       return redirect(route('wd.index', [], false))->with(['alert' => $dt->code . ' updated', 'a_type' => 'success']);
