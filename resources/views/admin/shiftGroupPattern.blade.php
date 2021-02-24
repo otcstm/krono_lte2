@@ -25,16 +25,16 @@
         <div class="col-sm-4">
             <select id="slctgcode" class="slctgcode form-control" name="gcode">   
                 <option value="" selected="selected"></option>
-            @foreach($gclist as $row_gclist)
-            @if($row_gclist['group_code']==$gcode)
-                <option value="{{$row_gclist['group_code']}}" selected="selected">
-                @php $gc_name = $row_gclist['group_code']." - ".$row_gclist['group_name']; @endphp 
-            @else 
-                <option value="{{$row_gclist['group_code']}}">
-            @endif        
-                    {{$row_gclist['group_code']}} - {{ $row_gclist['group_name'] }}
-                </option>
-            @endforeach
+                @foreach($gclist as $row_gclist)
+                @if($row_gclist['group_code']==$gcode)
+                    <option value="{{$row_gclist['group_code']}}" selected="selected">
+                    @php $gc_name = $row_gclist['group_code']." - ".$row_gclist['group_name']; @endphp 
+                @else 
+                    <option value="{{$row_gclist['group_code']}}">
+                @endif        
+                        {{$row_gclist['group_code']}} - {{ $row_gclist['group_name'] }}
+                    </option>
+                @endforeach
             </select>
         </div>
       </div>
