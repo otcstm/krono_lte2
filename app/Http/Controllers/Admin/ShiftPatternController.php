@@ -228,9 +228,17 @@ class ShiftPatternController extends Controller
       
     $gcode = null;
     $gspcode = null;
+
     if($req->has('gcode')){
-      $gcode = $req->gcode;     
-      $gspcode = $req->gspcode;       
+      $gcode = $req->gcode;
+    }
+    if($req->has('gshiftpattern')){
+      $gspcode = $req->gshiftpattern;
+    }
+
+    $gresult = [];
+
+    if(($gcode) || ($gspcode) ){
 
       $data = ViewShiftGroupPattern::query();
       if(strlen(trim($gcode))>0){
@@ -239,14 +247,15 @@ class ShiftPatternController extends Controller
       if(strlen(trim($gspcode))>0){
           $data = $data->orWhere('sp_code',$gspcode);
       }  
-      $gresult = $data->get();      
-
-    } else {
-      $gresult = ViewShiftGroupPattern::take(0)->get();
+      $data = $data->take(50);
+      $data = $data->get();
+      $gresult = $data;
     }
+
     $gclist =  ViewShiftGroupPattern::distinct('group_code','group_name')->get();
     $gsplist =  ViewShiftGroupPattern::select('id','sp_code','sp_desc')->groupby('sp_code','sp_desc')->orderby('sp_code','asc')->get();
     //dd($gsplist);
+    //dd($req);
 
     return view('admin.shiftGroupPattern',
     [
