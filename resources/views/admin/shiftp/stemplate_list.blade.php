@@ -156,7 +156,13 @@
 $(document).ready(function() {
 
   $('#tPunchHIstory').DataTable({
-    "responsive": "true"
+    //dom: '<"html5buttons">Bfrtip',        
+        //dom: 'lBfrtip',
+        dom: '<"flext"lf><"flext"B>rtip',
+        buttons: [
+            'csv', 'excel', 'pdf'
+        ],
+        "responsive": "true"   
   });
   
   $('.selectReport').select2({

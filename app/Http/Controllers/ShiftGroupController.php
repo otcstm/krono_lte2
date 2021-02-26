@@ -720,7 +720,7 @@ class ShiftGroupController extends Controller
             $data = $data->orwhere('group_code',$req->gcode);
         }
         if($req->userId!=0 ){
-            $data = $data->orwhere('member_name',$slctUserId);
+            $data = $data->orwhere('member_persno',$slctUserId);
         }
         $data = $data->take(50);
         $data = $data->get();

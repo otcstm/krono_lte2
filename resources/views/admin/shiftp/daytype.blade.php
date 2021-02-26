@@ -14,7 +14,7 @@
     </div>
     @endif
     <div class="table-responsive">
-      <table id="tPunchHIstory" class="table table-hover table-bordered">
+      <table id="tTypeWorkDay" class="table table-hover table-bordered">
        <thead>
          <tr>
            <th>Code</th>
@@ -281,8 +281,12 @@ $(document).ready(function() {
 
   checkIsFullDay();
 
-  $('#tPunchHIstory').DataTable({
-    "responsive": "true"
+  $('#tTypeWorkDay').DataTable({
+    dom: '<"flext"lf><"flext"B>rtip',
+        buttons: [
+            'csv', 'excel'
+        ],
+        "responsive": "true"
   });
 } );
 
@@ -304,7 +308,6 @@ function populate(e){
 $('#editwd').on('show.bs.modal', function(e) {
     populate(e);
 });
-
 
 </script>
 @stop
