@@ -244,7 +244,7 @@
           </div>
           <div class="form-group">
               <label for="inputexpectedhour">Expected Hour:</label>
-              <input type="text" class="form-control" id="inputexpectedhour" name="expected_hour" value="" required>
+              <input type="number" class="form-control" id="inputexpectedhour" name="expected_hour" step="0.01" value="" required>
           </div>
           <div class="form-group">
               <label for="inputbgc">Background Color:</label>
