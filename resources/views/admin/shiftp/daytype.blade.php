@@ -14,7 +14,7 @@
     </div>
     @endif
     <div class="table-responsive">
-      <table id="tPunchHIstory" class="table table-hover table-bordered">
+      <table id="tTypeWorkDay" class="table table-hover table-bordered">
        <thead>
          <tr>
            <th>Code</th>
@@ -155,7 +155,7 @@
         <input id="dur_hour" type="number" name="dur_hour" value="{{ old('dur_hour') }}"
                placeholder="Hour" required min="0" max="23" step="1">
         <input id="dur_minute" type="number" name="dur_minute" value="{{ old('dur_minute') }}"
-               placeholder="Minute" required min="0" max="24" step="1">
+               placeholder="Minute" required min="0" max="59" step="1">
         @if ($errors->has('duration'))
             <span class="help-block">
                 <strong>{{ $errors->first('duration') }}</strong>
@@ -164,8 +164,8 @@
       </div>
       <div class="form-group has-feedback {{ $errors->has('expected_hour') ? 'has-error' : '' }}">
         <label for="dur_hour">Expected Hour</label>
-        <input id="expected_hour" type="number" name="expected_hour" value="{{ old('expected_hour') }}"
-               placeholder="Expected_Hour" required min="0" max="23" step="1">
+        <input id="expected_hour" type="" name="expected_hour" value="{{ old('expected_hour') }}"
+               placeholder="Expected_Hour" required min="0" max="23" step="0.01">
        
         @if ($errors->has('duration'))
             <span class="help-block">
@@ -281,8 +281,12 @@ $(document).ready(function() {
 
   checkIsFullDay();
 
-  $('#tPunchHIstory').DataTable({
-    "responsive": "true"
+  $('#tTypeWorkDay').DataTable({
+    dom: '<"flext"lf><"flext"B>rtip',
+        buttons: [
+            'csv', 'excel'
+        ],
+        "responsive": "true"
   });
 } );
 
@@ -304,7 +308,6 @@ function populate(e){
 $('#editwd').on('show.bs.modal', function(e) {
     populate(e);
 });
-
 
 </script>
 @stop
