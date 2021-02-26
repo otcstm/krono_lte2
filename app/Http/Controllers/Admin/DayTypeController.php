@@ -44,7 +44,8 @@ class DayTypeController extends Controller
     $dt->dur_hour = $r->dur_hour;
     $dt->dur_minute = $r->dur_minute;
     $dt->day_type = $r->daytype;
-    $dt->working_hour = (MathHelper::getTotalMinutes($r->working_hour_h, $r->working_hour_m)/60);    
+    $dt->working_hour = (MathHelper::getTotalMinutes($r->working_hour_h, $r->working_hour_m)/60);  
+    $dt->expected_hour = $r->expected_hour;
 
     $dt->bg_color = $r->bgcolor;
     $dt->font_color = $r->fontcolor;
