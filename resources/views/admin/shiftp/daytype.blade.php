@@ -164,7 +164,7 @@
       </div>
       <div class="form-group has-feedback {{ $errors->has('expected_hour') ? 'has-error' : '' }}">
         <label for="dur_hour">Expected Hour</label>
-        <input id="expected_hour" type="" name="expected_hour" value="{{ old('expected_hour') }}"
+        <input id="expected_hour" type="number" name="expected_hour" value="{{ old('expected_hour') }}"
                placeholder="Expected_Hour" required min="0" max="23" step="0.01">
        
         @if ($errors->has('duration'))
@@ -244,7 +244,7 @@
           </div>
           <div class="form-group">
               <label for="inputexpectedhour">Expected Hour:</label>
-              <input type="text" class="form-control" id="inputexpectedhour" name="expected_hour" value="" required>
+              <input type="number" class="form-control" id="inputexpectedhour" name="expected_hour" step="0.01" value="" required>
           </div>
           <div class="form-group">
               <label for="inputbgc">Background Color:</label>
