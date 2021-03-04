@@ -51,7 +51,8 @@ class USPController extends BaseController
         
 
         if ($spsd) {
-            $is_work_day = $spsd->is_work_day ;         
+            $is_work_day = $spsd->is_work_day ;      
+            $dayType = DayType::find($spsd->day_type_id);   
             
         } else {
             $hol = Holiday::where('dt', $dt)
@@ -64,7 +65,8 @@ class USPController extends BaseController
             
         }
 
-        if($hol){
+        if($hol && $dayType == null){
+            
             $dayType = DayType::where('code','PH')->first();
         }else {
             $wsr = UserHelper::GetWorkSchedRule($persno, $dt);
@@ -73,13 +75,13 @@ class USPController extends BaseController
         }
 
         if($wsr){
-            $dayType = DayType::where('code',$wsr->code)->first();
+            //$dayType = DayType::where('code',$wsr->code)->first();
             $day = date('N', strtotime($dt));
             $spd = ShiftPatternDay::where('shift_pattern_id',$wsr->id)
             ->where('day_seq',$day)->first();
-
-            $dayType = DayType::find($spd->day_type_id);
-
+            if ($dayType == null) {
+                $dayType = DayType::find($spd->day_type_id);
+            }
             //dd($wsr);
         }
 
@@ -109,14 +111,10 @@ class USPController extends BaseController
 
         $result = [
             "check"=>$check,
-            "wsr"=>$wsr,
-            "daytype"=>$dayType,
             "spsd"=>$spsd,
             "hol"=>$hol,
-
-
-
-            
+            "wsr"=>$wsr,
+            "daytype"=>$dayType,            
         ];
 
         

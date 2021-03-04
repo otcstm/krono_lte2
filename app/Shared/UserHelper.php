@@ -539,10 +539,12 @@ class UserHelper {
         // then get that day
         $wd = $currwsr->ListDays->where('day_seq', $day)->first();
       };
-
+      //dd($wd);
       // get the day info
       $theday = $wd->Day;
       $idday = $wd->day_type_id;
+      //dd($wd->day_type_id);
+      
       $populate_phtagging = UserHelper::populatePhTag($user, $date);
 
       $checkphday = DayTag::where('user_id', $user)
@@ -602,6 +604,8 @@ class UserHelper {
         $wd = ShiftPlanStaffDay::where('user_id', $user)
                                 ->whereDate('work_date', date("Y-m-d", strtotime($date."+1 day")))
                                 ->first();
+        dd($wd) ;                       
+
         $theday = $wd->Day;
         $stime = new Carbon($theday->start_time);
         $ed =  $stime->format('H:i');
