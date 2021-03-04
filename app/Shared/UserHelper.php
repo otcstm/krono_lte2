@@ -604,7 +604,7 @@ class UserHelper {
         $wd = ShiftPlanStaffDay::where('user_id', $user)
                                 ->whereDate('work_date', date("Y-m-d", strtotime($date."+1 day")))
                                 ->first();
-        dd($wd) ;                       
+        //dd($wd) ;                       
 
         $theday = $wd->Day;
         $stime = new Carbon($theday->start_time);
