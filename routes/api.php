@@ -56,6 +56,8 @@ $api->version('v1', function ($api) {
   // for user_shift and daytypes
   $api->get('usp/get/{persno}/{dt}', 'App\Api\USPController@getUserShiftPattern');
 
+  //delete USP by persno
+  $api->post('userShiftPattern/delByPersno', 'App\Api\Datamart\UserShiftPatternController@delUSPbyPersno');
 
 });
 /**

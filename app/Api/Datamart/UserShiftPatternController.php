@@ -66,9 +66,36 @@ class UserShiftPatternController extends Controller
       ;
   }
 
+  public function delUSPbyPersno(Request $req)
+  {
+      
+
+      $persno = $req->pers_no;
+  
+     
+      
+      //$affectedRows = 
+      UserShiftPattern::where('user_id',"=",$persno)->delete();
+      
+      
+      //dd($affectedRows->toSql());
+
+     // dd($$persno );
+
+      return [
+  
+        'msg' => "USP recorcds for pers_no ".$persno." deleted",
+        'ecode' => 200,
+        'data' => [$persno]
+      ];
+
+  }
+
   public function returnMaxDate()
   {
       $upd_sap = UserShiftPattern::max('upd_sap');
+
+      
 
       return $upd_sap;
 
