@@ -103,6 +103,8 @@
       <th>Queried By</th>
       @elseif( $col == 'pydate')
       <th>Payment Date</th>
+      @elseif( $col == 'intdate')
+      <th>Interface Date</th>
       {{--@elseif( $col == 'trnscd')
       <th>Transaction Code</th>
       @elseif( $col == 'dytype')
@@ -265,6 +267,14 @@
           N/A
           @else
           {{ date('d-m-Y', strtotime($otr->mainOT->payment_date)) }}
+          @endif
+          </td>
+          @elseif( $col == 'intdate')
+          <td>
+          @if( $otr->mainOT->interface_date == '')
+          N/A
+          @else
+          {{ date('d-m-Y', strtotime($otr->mainOT->interface_date)) }}
           @endif
           </td>
           {{--
