@@ -101,10 +101,9 @@
       <th>Queried Date</th>
       @elseif( $col == 'qrdby')
       <th>Queried By</th>
-      {{--
       @elseif( $col == 'pydate')
       <th>Payment Date</th>
-      @elseif( $col == 'trnscd')
+      {{--@elseif( $col == 'trnscd')
       <th>Transaction Code</th>
       @elseif( $col == 'dytype')
       <th>Day Type</th>
@@ -260,8 +259,7 @@
           </td>
           @elseif( $col == 'qrdby')
           <td>{{ $otr->mainOT->querier_id ?? 'N/A'}}</td>
-          {{--
-            @elseif( $col == 'pydate')
+          @elseif( $col == 'pydate')
           <td>
           @if( $otr->mainOT->payment_date == '')
           N/A
@@ -269,6 +267,7 @@
           {{ date('d-m-Y', strtotime($otr->mainOT->payment_date)) }}
           @endif
           </td>
+          {{--
           @elseif( $col == 'trnscd')
           <td>{{ $otr->mainOT->legacy_code ?? 'N/A'}}</td>
           @elseif( $col == 'dytype')

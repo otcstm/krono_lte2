@@ -881,6 +881,9 @@ class OtReport2Controller extends Controller
                 if (in_array('qrdby', $pilihcol)) {
                     array_push($headers, 'Queried By');
                 }
+                if (in_array('pydate', $pilihcol)) {
+                    array_push($headers, 'Payment Date');
+                }
                 if (in_array('emptype', $pilihcol)) {
                     array_push($headers, 'Employee Type');
                 }
@@ -1300,6 +1303,15 @@ class OtReport2Controller extends Controller
                     }
                     if (in_array('qrdby', $pilihcol)) {
                         array_push($info, $value->querier_id);
+                    }
+                    if (in_array('pydate', $pilihcol)) {
+                        if ($value->payment_date == '') {
+                            $payment_date ='';
+                        } else {
+                            $payment_date =date('d.m.Y', strtotime($value->payment_date));
+                        }
+
+                        array_push($info, $payment_date);
                     }
 
                     if (in_array('emptype', $pilihcol)) {
