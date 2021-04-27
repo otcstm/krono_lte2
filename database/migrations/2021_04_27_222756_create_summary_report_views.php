@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOtReportViews extends Migration
+class CreateSummaryReportViews extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,7 @@ class CreateOtReportViews extends Migration
     {
 
         DB::statement("
-    CREATE OR REPLACE 
+    CREATE OR REPLACE
     VIEW `v_ot_rpt1` AS
     SELECT
         `ot`.`id` AS `id`,
@@ -49,6 +49,7 @@ class CreateOtReportViews extends Migration
         `ot`.`queried_date` AS `queried_date`,
         `ot`.`queried_id` AS `queried_id`,
         `ot`.`payment_date` AS `payment_date`,
+        `ot`.`interface_date` AS `interface_date`,
         `ot`.`region` AS `region`,
         `ot`.`punch_id` AS `punch_id`,
         `ot`.`user_records_id` AS `user_records_id`,
