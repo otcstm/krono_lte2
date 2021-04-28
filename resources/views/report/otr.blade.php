@@ -302,6 +302,11 @@
                                 name="cbcol[]" checked>
                             <label class="form-check-label" for="pydt"> Payment Date </label>
                         </div>
+                        <div class="form-check">
+                            <input class="form-check-input-inline" type="checkbox" value="intdate" id="choose-35"
+                                name="cbcol[]" checked>
+                            <label class="form-check-label" for="intdt"> Interface Date </label>
+                        </div>
                         {{--<div class="form-check">
             <input class="form-check-input-inline" type="checkbox" value="trnscd" id="choose-35" name="cbcol[]" checked>
             <label class="form-check-label" for="trncd"> Transaction Code  </label>
@@ -383,6 +388,7 @@
                     <p id="reportn-32" class="hidden">Queried Date</p>
                     <p id="reportn-33" class="hidden">Queried By</p>
                     <p id="reportn-34" class="hidden">Payment Date </p>
+                    <p id="reportn-35" class="hidden">Interface Date </p>
                     {{--<p id="reportn-35" class="hidden">Transaction Code</p>--}}
                     <p id="reportn-36" class="hidden">Day Type</p>
                     <p id="reportn-37" class="hidden">Eligible Day</p>
@@ -441,7 +447,8 @@
                     <p id="reporty-31">Approver Cocd</p>
                     <p id="reporty-32">Queried Date</p>
                     <p id="reporty-33">Queried By</p>
-                    <p id="reporty-34">Payment Date </p>
+                    <p id="reporty-34">Payment Date</p>
+                    <p id="reporty-35">Interface Date</p>
                     {{--<p id="reporty-35"  >Transaction Code</p>--}}
                     <p id="reporty-36">Day Type</p>
                     <p id="reporty-37">Eligible Day</p>
@@ -498,7 +505,7 @@ $("#excelOption").change(function(){downloadAs();})
 
 
 var checkno = 0;
-for (var i = 0; i < 42; i++) {
+for (var i = 0; i < 43; i++) {
     $("#reportn-" + i).on("click", clicked(i, "n"));
     $("#reporty-" + i).on("click", clicked(i, "y"));
 }
@@ -506,7 +513,7 @@ for (var i = 0; i < 42; i++) {
 function clicked(i, t) {
     return function() {
         checkno = i;
-        for (var n = 0; n < 42; n++) {
+        for (var n = 0; n < 43; n++) {
             $("#reportn-" + n).removeClass("click");
             $("#reporty-" + n).removeClass("click");
         }
@@ -527,7 +534,7 @@ function add() {
 }
 
 function addall() {
-    for (var n = 0; n < 42; n++) {
+    for (var n = 0; n < 43; n++) {
         $("#reportn-" + n).addClass("hidden");
         $("#reporty-" + n).removeClass("hidden");
         $("#choose-" + n).prop('checked', true);
@@ -543,7 +550,7 @@ function remove() {
 }
 
 function removeall() {
-    for (var n = 0; n < 42; n++) {
+    for (var n = 0; n < 43; n++) {
         $("#reportn-" + n).removeClass("hidden");
         $("#reporty-" + n).addClass("hidden");
         $("#choose-" + n).prop('checked', false);

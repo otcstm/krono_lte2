@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ViewOtRpt2Mig extends Migration
+class CreateDetailsreportViews extends Migration
 {
     /**
      * Run the migrations.
@@ -15,9 +15,9 @@ class ViewOtRpt2Mig extends Migration
     {
         DB::statement("
         CREATE or REPLACE
-   
+
         VIEW `v_ot_rpt2` AS
-            SELECT 
+            SELECT
                 `ot`.`id` AS `ot_id`,
                 `ot`.`created_at` AS `created_at`,
                 `ot`.`updated_at` AS `updated_at`,
@@ -49,6 +49,7 @@ class ViewOtRpt2Mig extends Migration
                 `ot`.`queried_date` AS `queried_date`,
                 `ot`.`queried_id` AS `queried_id`,
                 `ot`.`payment_date` AS `payment_date`,
+                `ot`.`interface_date` AS `interface_date`,
                 `ot`.`region` AS `region`,
                 `ot`.`punch_id` AS `punch_id`,
                 `ot`.`user_records_id` AS `user_records_id`,
@@ -85,18 +86,18 @@ class ViewOtRpt2Mig extends Migration
                 `otd`.`hour` AS `otd_hour`,
                 `otd`.`hour` AS `otd_minute`,
                 `otd`.`justification` AS `otd_justification`
-                
+
             FROM
                 (((((((`overtimes` `ot`
                 LEFT JOIN `user_records` `u` ON (`u`.`user_id` = `ot`.`user_id`
-                    AND `u`.`upd_sap` = (SELECT 
+                    AND `u`.`upd_sap` = (SELECT
                         MAX(`u2`.`upd_sap`)
                     FROM
                         `user_records` `u2`
                     WHERE
                         `u2`.`user_id` = `ot`.`user_id`
                             AND `u2`.`upd_sap` <= `ot`.`date`)
-                    AND `u`.`id` = (SELECT 
+                    AND `u`.`id` = (SELECT
                         MAX(`u3`.`id`)
                     FROM
                         `user_records` `u3`
@@ -104,14 +105,14 @@ class ViewOtRpt2Mig extends Migration
                         `u3`.`user_id` = `u`.`user_id`
                             AND `u3`.`upd_sap` = `u`.`upd_sap`)))
                 LEFT JOIN `salaries` `s` ON (`s`.`user_id` = `ot`.`user_id`
-                    AND `s`.`upd_sap` = (SELECT 
+                    AND `s`.`upd_sap` = (SELECT
                         MAX(`s2`.`upd_sap`)
                     FROM
                         `salaries` `s2`
                     WHERE
                         `s2`.`user_id` = `ot`.`user_id`
                             AND `s2`.`upd_sap` <= `ot`.`date`)
-                    AND `s`.`id` = (SELECT 
+                    AND `s`.`id` = (SELECT
                         MAX(`s3`.`id`)
                     FROM
                         `salaries` `s3`
@@ -119,14 +120,14 @@ class ViewOtRpt2Mig extends Migration
                         `s3`.`user_id` = `s`.`user_id`
                             AND `s3`.`upd_sap` = `s`.`upd_sap`)))
                 LEFT JOIN `ot_indicators` `oti` ON (`oti`.`user_id` = `ot`.`user_id`
-                    AND `oti`.`upd_sap` = (SELECT 
+                    AND `oti`.`upd_sap` = (SELECT
                         MAX(`oti2`.`upd_sap`)
                     FROM
                         `ot_indicators` `oti2`
                     WHERE
                         `oti2`.`user_id` = `ot`.`user_id`
                             AND `oti2`.`upd_sap` <= `ot`.`date`)
-                    AND `oti`.`id` = (SELECT 
+                    AND `oti`.`id` = (SELECT
                         MAX(`oti3`.`id`)
                     FROM
                         `ot_indicators` `oti3`
