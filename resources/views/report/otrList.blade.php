@@ -87,10 +87,6 @@
       <th>Queried Date</th>
       @elseif( $col == 'qrdby')
       <th>Queried By</th>
-      @elseif( $col == 'pydate')
-      <th>Payment Date</th>
-      @elseif( $col == 'intdate')
-      <th>Interface Date</th>
       {{--@elseif( $col == 'trnscd')
       <th>Transaction Code</th>--}}
       @elseif( $col == 'dytype')
@@ -105,6 +101,10 @@
       <th>Elig Total Min/Hours Code</th>
       @elseif( $col == 'emptype')
       <th>Employee Type</th>
+      @elseif( $col == 'intdate')
+      <th>Interface Date</th>
+      @elseif( $col == 'pydate')
+      <th>Payment Date</th>
       @endif
       @endforeach
       @endif
@@ -237,22 +237,7 @@
           </td>
           @elseif( $col == 'qrdby')
           <td>{{ $otr->queried_id ?? 'N/A'}}</td>
-          @elseif( $col == 'pydate')
-          <td>
-          @if( $otr->payment_date == '')
-          N/A
-          @else
-          {{ date('d-m-Y', strtotime($otr->payment_date)) }}
-          @endif
-          </td>
-          @elseif( $col == 'intdate')
-          <td>
-          @if( $otr->interface_date == '')
-          N/A
-          @else
-          {{ date('d-m-Y', strtotime($otr->interface_date)) }}
-          @endif
-          </td>
+
            {{--@elseif( $col == 'trnscd')
           <td>{{ $otr->legacy_code ?? 'N/A'}}</td>--}}
             @elseif( $col == 'dytype')
@@ -270,6 +255,22 @@
           @elseif( $col == 'emptype')
           <td>{{ $otr->employee_type ?? 'N/A'}}</td>
 
+          @elseif( $col == 'intdate')
+          <td>
+          @if( $otr->interface_date == '')
+          N/A
+          @else
+          {{ date('d-m-Y', strtotime($otr->interface_date)) }}
+          @endif
+          </td>
+          @elseif( $col == 'pydate')
+          <td>
+          @if( $otr->payment_date == '')
+          N/A
+          @else
+          {{ date('d-m-Y', strtotime($otr->payment_date)) }}
+          @endif
+          </td>
         @endif
         @endforeach
         @endif

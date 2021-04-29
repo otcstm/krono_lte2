@@ -297,16 +297,7 @@
                                 name="cbcol[]" checked>
                             <label class="form-check-label" for="qrby"> Queried By </label>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input-inline" type="checkbox" value="pydate" id="choose-34"
-                                name="cbcol[]" checked>
-                            <label class="form-check-label" for="pydt"> Payment Date </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input-inline" type="checkbox" value="intdate" id="choose-35"
-                                name="cbcol[]" checked>
-                            <label class="form-check-label" for="intdt"> Interface Date </label>
-                        </div>
+
                         {{--<div class="form-check">
             <input class="form-check-input-inline" type="checkbox" value="trnscd" id="choose-35" name="cbcol[]" checked>
             <label class="form-check-label" for="trncd"> Transaction Code  </label>
@@ -341,6 +332,16 @@
                             <input class="form-check-input-inline" type="checkbox" value="emptype" id="choose-41"
                                 name="cbcol[]" checked>
                             <label class="form-check-label" for="emptype"> Employee Type </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input-inline" type="checkbox" value="intdate" id="choose-35"
+                                name="cbcol[]" checked>
+                            <label class="form-check-label" for="intdt"> Interface Date </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input-inline" type="checkbox" value="pydate" id="choose-34"
+                                name="cbcol[]" checked>
+                            <label class="form-check-label" for="pydt"> Payment Date </label>
                         </div>
 
                     </div>
@@ -387,8 +388,6 @@
                     <p id="reportn-31" class="hidden">Approver Cocd</p>
                     <p id="reportn-32" class="hidden">Queried Date</p>
                     <p id="reportn-33" class="hidden">Queried By</p>
-                    <p id="reportn-34" class="hidden">Payment Date </p>
-                    <p id="reportn-35" class="hidden">Interface Date </p>
                     {{--<p id="reportn-35" class="hidden">Transaction Code</p>--}}
                     <p id="reportn-36" class="hidden">Day Type</p>
                     <p id="reportn-37" class="hidden">Eligible Day</p>
@@ -396,6 +395,8 @@
                     <p id="reportn-39" class="hidden">Eligible Total Minutes/Hours</p>
                     <p id="reportn-40" class="hidden">Eligible Total Minutes/Hours Code</p>
                     <p id="reportn-41" class="hidden">Employee Type</p>
+                    <p id="reportn-35" class="hidden">Interface Date </p>
+                    <p id="reportn-34" class="hidden">Payment Date </p>
                 </div>
             </div>
 
@@ -447,8 +448,6 @@
                     <p id="reporty-31">Approver Cocd</p>
                     <p id="reporty-32">Queried Date</p>
                     <p id="reporty-33">Queried By</p>
-                    <p id="reporty-34">Payment Date</p>
-                    <p id="reporty-35">Interface Date</p>
                     {{--<p id="reporty-35"  >Transaction Code</p>--}}
                     <p id="reporty-36">Day Type</p>
                     <p id="reporty-37">Eligible Day</p>
@@ -456,6 +455,8 @@
                     <p id="reporty-39">Eligible Total Minutes/Hours</p>
                     <p id="reporty-40">Eligible Total Minutes/Hours Code</p>
                     <p id="reporty-41">Employee Type</p>
+                    <p id="reporty-35">Interface Date</p>
+                    <p id="reporty-34">Payment Date</p>
                 </div>
             </div>
 

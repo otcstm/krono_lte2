@@ -326,16 +326,8 @@
                                 name="cbcol[]" checked>
                             <label class="form-check-label" for="qrby"> Queried By </label>
                         </div>
-                        <div class="form-check">
-                          <input class="form-check-input-inline" type="checkbox" value="pydate" id="choose-36"
-                            name="cbcol[]"  checked>
-                          <label class="form-check-label" for="pydt"> Payment Date </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input-inline" type="checkbox" value="intdate" id="choose-37"
-                            name="cbcol[]"  checked>
-                          <label class="form-check-label" for="intdt"> Payment Date </label>
-                        </div>
+
+
             {{--
             <div class="form-check">
               <input class="form-check-input-inline" type="checkbox" value="trnscd" id="choose-37" name="cbcol[]" checked >
@@ -350,6 +342,16 @@
                             <input class="form-check-input-inline" type="checkbox" value="emptype" id="choose-41"
                                 name="cbcol[]" checked>
                             <label class="form-check-label" for="emptype"> Employee Type </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input-inline" type="checkbox" value="intdate" id="choose-37"
+                            name="cbcol[]"  checked>
+                          <label class="form-check-label" for="intdt"> Interface Date </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input-inline" type="checkbox" value="pydate" id="choose-36"
+                            name="cbcol[]"  checked>
+                          <label class="form-check-label" for="pydt"> Payment Date </label>
                         </div>
                     </div>
 
@@ -397,11 +399,11 @@
                         <p id="reportn-33" class="hidden">Approver Cocd</p>
                         <p id="reportn-34" class="hidden">Queried Date</p>
                         <p id="reportn-35" class="hidden">Queried By</p>
-                        <p id="reportn-36" class="hidden">Payment Date</p>
-                        <p id="reportn-37" class="hidden">Interface Date</p>
         {{--<p id="reportn-37" class="hidden">Transaction Code</p>
         <p id="reportn-38" class="hidden">Day Type</p>--}}
                         <p id="reportn-41" class="hidden">Employee Type</p>
+                        <p id="reportn-37" class="hidden">Interface Date</p>
+                        <p id="reportn-36" class="hidden">Payment Date</p>
                     </div>
                 </div>
                 <div class="col-mx-2">
@@ -458,11 +460,11 @@
                         <p id="reporty-33">Approver Cocd</p>
                         <p id="reporty-34">Queried Date</p>
                         <p id="reporty-35">Queried By</p>
-                        <p id="reporty-36" >Payment Date</p>
-                        <p id="reporty-37" >Interface Date</p>
       {{--<p id="reporty-37" >Transaction Code</p>
       <p id="reporty-38" >Day Type</p>--}}
                         <p id="reporty-41">Employee Type</p>
+                        <p id="reporty-37" >Interface Date</p>
+                        <p id="reporty-36" >Payment Date</p>
                     </div>
                 </div>
             </div>
