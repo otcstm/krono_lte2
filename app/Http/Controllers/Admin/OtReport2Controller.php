@@ -744,12 +744,6 @@ class OtReport2Controller extends Controller
                 if (in_array('qrdby', $pilihcol)) {
                     array_push($headers, 'Queried By');
                 }
-                if (in_array('pydate', $pilihcol)) {
-                    array_push($headers, 'Payment Date');
-                }
-                if (in_array('intdate', $pilihcol)) {
-                    array_push($headers, 'Interface Date');
-                }
                 if (in_array('dytype', $pilihcol)) {
                     array_push($headers, 'Day Type');
                 }
@@ -767,6 +761,12 @@ class OtReport2Controller extends Controller
                 }
                 if (in_array('emptype', $pilihcol)) {
                     array_push($headers, 'Employee Type');
+                }
+                if (in_array('intdate', $pilihcol)) {
+                  array_push($headers, 'Interface Date');
+                }
+                if (in_array('pydate', $pilihcol)) {
+                  array_push($headers, 'Payment Date');
                 }
             }
         } elseif ($req->searching == 'exceld') {
@@ -884,14 +884,14 @@ class OtReport2Controller extends Controller
                 if (in_array('qrdby', $pilihcol)) {
                     array_push($headers, 'Queried By');
                 }
-                if (in_array('pydate', $pilihcol)) {
-                    array_push($headers, 'Payment Date');
-                }
-                if (in_array('intdate', $pilihcol)) {
-                    array_push($headers, 'Interface Date');
-                }
                 if (in_array('emptype', $pilihcol)) {
                     array_push($headers, 'Employee Type');
+                }
+                if (in_array('intdate', $pilihcol)) {
+                  array_push($headers, 'Interface Date');
+                }
+                if (in_array('pydate', $pilihcol)) {
+                  array_push($headers, 'Payment Date');
                 }
             }
         }
@@ -1087,24 +1087,7 @@ class OtReport2Controller extends Controller
                         array_push($info, $value->querier_id);
                     }
 
-                    if (in_array('pydate', $pilihcol)) {
-                        if ($value->payment_date == '') {
-                            $payment_date ='N/A';
-                        } else {
-                            $payment_date =date('d.m.Y', strtotime($value->payment_date));
-                        }
 
-                        array_push($info, $payment_date);
-                    }
-                    if (in_array('intdate', $pilihcol)) {
-                        if ($value->interface_date == '') {
-                            $interface_date ='N/A';
-                        } else {
-                            $interface_date =date('d.m.Y', strtotime($value->interface_date));
-                        }
-
-                        array_push($info, $interface_date);
-                    }
                     // if(in_array( 'trnscd',$pilihcol))
                     // {
                     //   array_push($info, $value->legacy_code);
@@ -1138,6 +1121,25 @@ class OtReport2Controller extends Controller
                     }
                     if (in_array('emptype', $pilihcol)) {
                         array_push($info, $value->employee_type);
+                    }
+
+                    if (in_array('intdate', $pilihcol)) {
+                        if ($value->interface_date == '') {
+                            $interface_date ='N/A';
+                        } else {
+                            $interface_date =date('d.m.Y', strtotime($value->interface_date));
+                        }
+
+                        array_push($info, $interface_date);
+                    }
+                    if (in_array('pydate', $pilihcol)) {
+                        if ($value->payment_date == '') {
+                            $payment_date ='N/A';
+                        } else {
+                            $payment_date =date('d.m.Y', strtotime($value->payment_date));
+                        }
+
+                        array_push($info, $payment_date);
                     }
                 }
                 array_push($otdata, $info);
@@ -1319,15 +1321,11 @@ class OtReport2Controller extends Controller
                     if (in_array('qrdby', $pilihcol)) {
                         array_push($info, $value->querier_id);
                     }
-                    if (in_array('pydate', $pilihcol)) {
-                        if ($value->payment_date == '') {
-                            $payment_date ='';
-                        } else {
-                            $payment_date =date('d.m.Y', strtotime($value->payment_date));
-                        }
 
-                        array_push($info, $payment_date);
+                    if (in_array('emptype', $pilihcol)) {
+                        array_push($info, $value->employee_type);
                     }
+
                     if (in_array('intdate', $pilihcol)) {
                         if ($value->interface_date == '') {
                             $interface_date ='';
@@ -1337,10 +1335,16 @@ class OtReport2Controller extends Controller
 
                         array_push($info, $interface_date);
                     }
+                    if (in_array('pydate', $pilihcol)) {
+                        if ($value->payment_date == '') {
+                            $payment_date ='';
+                        } else {
+                            $payment_date =date('d.m.Y', strtotime($value->payment_date));
+                        }
 
-                    if (in_array('emptype', $pilihcol)) {
-                        array_push($info, $value->employee_type);
+                        array_push($info, $payment_date);
                     }
+
                 }
                 array_push($otdata, $info);
             }
