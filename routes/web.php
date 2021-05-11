@@ -11,6 +11,9 @@
 */
 Route::group(['middleware' => ['noie']], function () {
   Route::redirect('/', '/login');
+  Route::view('itado-raya2021','dummy/raya2021/workforce-itado-raya2021',[]);
+  
+
 });
 
 Route::view('/browser-fail', 'browser-fail',[]);
