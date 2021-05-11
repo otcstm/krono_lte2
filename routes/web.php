@@ -11,6 +11,9 @@
 */
 Route::group(['middleware' => ['noie']], function () {
   Route::redirect('/', '/login');
+  Route::view('itado-raya2021','dummy/raya2021/workforce-itado-raya2021',[]);
+  
+
 });
 
 Route::view('/browser-fail', 'browser-fail',[]);
@@ -140,6 +143,10 @@ Route::group(['middleware' => ['auth','noie']], function () {
   Route::get('/admin/shiftplanning', 'ShiftPlanController@showall')->name('admin.shiftplanning');
   Route::post('/admin/shiftplanning', 'ShiftPlanController@showall')->name('admin.shiftplanning');
   Route::get('/admin/dwallsp', 'ShiftPlanController@downloadAllSp')->name('admin.downloadAllSp');
+  
+  //Route::get('/admin/shiftplanning', 'Admin\ShiftPlanController@index')->name('index');
+  //Route::get('/admin/shiftplanning/detail', 'Admin\ShiftPlanController@viewDetail')->name('view');
+  //Route::post('/admin/shiftplanning/edit', 'Admin\ShiftPlanController@editPlan')->name('edit');
 
   //View all shift pattern assigned to shift group
   Route::get('/admin/shiftgrouppattern', 'Admin\ShiftPatternController@showall')->name('admin.shiftGroupPattern');
