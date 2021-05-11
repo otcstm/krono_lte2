@@ -721,6 +721,8 @@ class ShiftGroupController extends Controller
         }
         if($req->userId!=0 ){
             $data = $data->orwhere('member_persno',$slctUserId);
+            $data = $data->orwhere('sp_persno',$slctUserId);
+            $data = $data->orwhere('go_persno',$slctUserId);
         }
         $data = $data->take(50);
         $data = $data->get();
