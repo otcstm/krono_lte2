@@ -19,7 +19,8 @@ Route::group(['middleware' => ['noie']], function () {
 
 
 Route::view('/browser-fail', 'browser-fail',[]);
-Route::get('/pageCounter/{tag}', 'PageCounterController@index')->name('pageCounter.index');
+Route::get('/pageCounter/p/{tag}', 'PageCounterController@index')->name('pageCounter.page');
+Route::get('/pageCounter/c/{tag}', 'PageCounterController@visitor_count')->name('pageCounter.count');
 
 Auth::routes(['register' => false]);
 //Temporary offline login (url /login/offline)
