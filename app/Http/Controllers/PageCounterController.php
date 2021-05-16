@@ -36,7 +36,20 @@ class PageCounterController extends Controller
             'counter' => $counter
           ]);
     }
+    public function visitor_count(Request $req,$tag)
+    {
+        $ip_address = $req->ip();
+        $user_agent = $req->userAgent();
 
+
+        $counter = PageCounter::where('tag',$tag)->count();
+
+
+
+        
+
+        return $counter;
+    }
     /**
      * Show the form for creating a new resource.
      *
