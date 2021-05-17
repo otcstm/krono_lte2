@@ -23,35 +23,21 @@ class GeoLocHelper
   public static function getLocDescr($lat,$lon)
   {
 
-    $baseuri = env('GEO_URI', '');
-    $uri = $baseuri . "/search/reversegeocode";
-/*
+    $reclient = new Client(["base_uri" => env('GEO_URI')]);
     $options = [
+        'verify' => false,
+        'headers' => ['Authorization' => 'Bearer '.env('GEO_TOKEN')],
+        'query' => ['api_key' => env('GEO_KEY'),'lat' => $lat, 'lon' => $lon],
+        ];
 
-      'headers' => ['Custom' => env('GEO_TOKEN','')],
-      'query' => ['lat' => $lat, 'lon' => $lon]
-    ];
-    */
-    
-    $options = [
-      'verify' => false,
-      'headers' => ['Authorization' => 'Bearer '.env('GEO_TOKEN')],
-      'query' => ['api_key' => env('GEO_KEY'),'lat' => $lat, 'lon' => $lon],
-      ];
 
-  
- 
-    $reclient = new Client(["base_uri" => $uri]);
-  
-    $request = $reclient->request('GET', '',$options)->getBody();
+    $request = $reclient->request('GET', 'search/reversegeocode', $options)->getBody()->getContents();
+    $ret = json_decode($request);
 
-    $response = response()->make($request, 200);
-
-    $response->header('Content-Type', 'application/json'); 
-
-    $ret = json_decode($response->content());
-    
-    //$collection = collect($ret[0]);
-    return  $ret;
+    if (sizeof($ret) > 0) {
+        return $ret[0];
+    } else {
+        return "No result";
+    }
   }
 }
