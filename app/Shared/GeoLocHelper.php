@@ -34,10 +34,16 @@ class GeoLocHelper
     $request = $reclient->request('GET', 'search/reversegeocode', $options)->getBody()->getContents();
     $ret = json_decode($request);
 
-    if (sizeof($ret) > 0) {
-        return $ret[0];
-    } else {
-        return "No result";
-    }
+
+    $reclient = new Client(["base_uri" => $uri]);
+    $request = $reclient->request('GET', '',$options)->getBody();
+    $response = response()->make($request, 200);
+    $response->header('Content-Type', 'application/json'); 
+    $ret = json_decode($response->content());
+    $collection = collect($ret[0]);
+    return  $collection;
+
+
+
   }
 }
