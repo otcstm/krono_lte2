@@ -59,6 +59,9 @@ $api->version('v1', function ($api) {
   //delete USP by persno
   $api->post('userShiftPattern/delByPersno', 'App\Api\Datamart\UserShiftPatternController@delUSPbyPersno');
 
+
+  $api->get('demo/location/{lat}/{lon}', 'App\Api\DemoController@location');
+
 });
 /**
 Route::group(['middleware' => ['auth:api']], function () {
