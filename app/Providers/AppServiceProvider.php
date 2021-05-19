@@ -27,6 +27,12 @@ class AppServiceProvider extends ServiceProvider
           \URL::forceScheme('https');
       // }
 
+      $proxy_url    = getenv('APP_URL');
+
+      if (!empty($proxy_url)) {
+        \URL::forceRootUrl($proxy_url);
+      }
+
       \Response::macro('attachment', function ($content, $fname) {
           $headers = [
               'Content-type'        => 'text/csv',

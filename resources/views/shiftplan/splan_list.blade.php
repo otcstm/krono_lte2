@@ -49,7 +49,7 @@
   </div>
 </div>
 <div class="panel panel-default">
-  <div class="panel-heading">Created Plans</div>
+  <div class="panel-heading">Shift Planning Approval</div>
   <div class="panel-body">
     <div class="table-responsive">
       <table id="tPunchHIstory" class="table table-hover table-bordered">
@@ -75,7 +75,7 @@
            <td>
              <form method="post" action="{{ route('shift.delete', [], false) }}" onsubmit='return confirm("Confirm delete?")'>
                @csrf
-               <a href="{{ route('shift.view', ['id' => $ap->id], false) }}"><button type="button" class="btn btn-xs btn-warning" title="Edit"><i class="fas fa-pencil-alt"></i></button></a>
+               <a href="{{ route('shift.view', ['id' => $ap->id], false) }}"><button type="button" class="btn btn-xs btn-warning" title="Proceed"><i class="glyphicon glyphicon-check"></i></button></a>
                <button type="submit" class="btn btn-xs btn-danger" title="Delete"><i class="fas fa-trash-alt"></i></button>
                <input type="hidden" name="id" value="{{ $ap->id }}" />
              </form>

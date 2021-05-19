@@ -10,10 +10,23 @@ use App\ShiftPlanStaffTemplate;
 use App\ShiftPlanStaffDay;
 use App\ShiftGroup;
 use App\ShiftPattern;
+use App\StaffAdditionalInfo;
+use App\User;
+use App\ViewShiftPlanning;
 use App\Shared\UserHelper;
 use App\Shared\ColorHelper;
-use \Carbon\Carbon;
 use \Calendar;
+use \Carbon\Carbon;
+use DB;
+use Schema;
+use Response;
+use App\ExcelHandler;
+
+use App\Notifications\ShiftPlanSubmitted;
+use App\Notifications\ShiftPlanApproved;
+use App\Notifications\ShiftPlanMembersApproved;
+use App\Notifications\ShiftPlanReverted;
+use App\Notifications\ShiftPlanRejected;
 
 class ShiftPlanController extends Controller
 {
@@ -23,7 +36,7 @@ class ShiftPlanController extends Controller
       //       ->orWhere('approver_id', $req->user()->id)
       //       ->get();
       $grouplist = ShiftGroup::where('manager_id', $req->user()->id)
-            ->orWhere('planner_id', $req->user()->id)->get();
+            ->orWhere('planner_id', $req->user()->id)->orderby('id')->get();
 
       // dd($grouplist->ShiftPlans);
 
@@ -109,51 +122,29 @@ class ShiftPlanController extends Controller
 
         $slist = $sp->StaffList;
         $eventlist = [];
+        $startdate = new Carbon($sp->plan_month);
+        $startdate->firstOfMonth();
+        $enddate = new Carbon($startdate);
+        $enddate->addMonth();
 
-        foreach ($slist as $key => $value) {
-          $value->col = ColorHelper::GetRandColor();
+        $daterange = new \DatePeriod(
+          $startdate,
+          \DateInterval::createFromDateString('1 day'),
+          $enddate
+        );
 
-          if($sp->status == 'Planning'){
-            // get last planned for this staff
-            $staffExtra = UserHelper::GetUserInfo($value->user_id)['extra'];
-            if(isset($staffExtra->last_planned_day)){
-              $eventlist[] = Calendar::event(
-              $value->User->staff_no,
-              true,
-              $staffExtra->last_planned_day,
-              $staffExtra->last_planned_day,
-              $value->id,[
-                // 'url' => route('area.evdetail', ['id' => $value->id], false),
-                'textColor' => '#ffffff',
-                'backgroundColor' => '#000000',
-
-              ]);
-            }
-          }
-
-          // get the calendar for this staff
-          foreach ($value->Templates as $vt) {
-            $evdate = new Carbon($vt->end_date);
-            $evdate->addDay();
-            $eventlist[] = Calendar::event(
-            $vt->Pattern->code . '-> ' . $value->User->name,
-            true,
-            $vt->start_date,
-            $evdate,
-            $vt->id,[
-              // 'url' => route('area.evdetail', ['id' => $value->id], false),
-              'textColor' => $value->col['f'],
-              'backgroundColor' => $value->col['bg'],
-
-            ]);
-          }
+        $head = [];
+        foreach($daterange as $ad){
+          array_push($head, $ad->format('d-D'));
         }
 
-
-        $blankc = Calendar::addEvents($eventlist)->setOptions([
-          'defaultDate' => $sp->plan_month,
-          'eventLimit' => false
-        ]);
+        foreach ($slist as $key => $value) {
+          array_push($eventlist, [
+            'id' => $value->User->id,
+            'name' => $value->User->name,
+            'data' => UserHelper::GetShiftCal($value->User->id, $daterange)
+          ]);
+        }
 
         $myrole = 'noone';
         // decide next allowed action
@@ -165,7 +156,8 @@ class ShiftPlanController extends Controller
 
         return view('shiftplan.plan_detail', [
           'sp' => $sp,
-          'cal' => $blankc,
+          'header' => $head,
+          'cal' => $eventlist,
           'stafflist' => $slist,
           'role' => $myrole
         ]);
@@ -181,6 +173,7 @@ class ShiftPlanController extends Controller
 
     public function delPlan(Request $req){
       $sp = ShiftPlan::find($req->id);
+      $sps_stafflist = $sp->StaffList->pluck('user_id');
       $cuser = $req->user()->id;
       if($sp){
         // check plan ownership
@@ -191,10 +184,30 @@ class ShiftPlanController extends Controller
         // check the status of this plan
         if($sp->status != 'Planning'){
           return redirect()->back()->withInput()->with(['alert' => 'Can only delete shift plans that are in Planning stage', 'a_type' => 'danger']);
-        }
+        }       
+
+        // check existing plan already use for claim.
 
         // delete the plan
         $sp->delete();
+
+        //new update fix last_planning_day
+        $sps = ShiftPlanStaff::select('user_id','plan_month', DB::raw('max(end_date) as max_plan_enddate'))
+        ->whereIn('user_id',$sps_stafflist)
+        ->groupBy('user_id')
+        ->get();
+        //dd($sps);
+
+        foreach($sps as $asps){
+          
+          $upd_lastplanningdate = $asps->max_plan_enddate;
+
+          //update staff_additional_info
+          $staffExtra = UserHelper::GetUserInfo($asps->user_id)['extra'];          
+          $staffExtra->last_planning_day = $upd_lastplanningdate;
+          $staffExtra->save();
+        }
+
 
         return redirect(route('shift.index', [], false))->with([
           'alert' => 'Shift plan deleted',
@@ -268,12 +281,36 @@ class ShiftPlanController extends Controller
       $sphist->action = 'Approve';
       $sphist->save();
 
+      // E_0017
+      // php artisan make:notification ShiftPlanApproved
+      // Notification to Shift Planner once Group Owner approve Shift Planning.
+      // to: Group Planner
+      // cc: Group Owner
+
+      // user yang akan terima notification tu
+      $to_user = User::where('id',$theplan->Group->planner_id)->first();
+
+      // object yang nak dinotify / tengok bila penerima notify tekan link
+      $shift_grp = \App\ShiftGroup::where('id', $theplan->Group->id)->first();
+      try{
+        // hantar notification ke planner tu, untuk action yang berkaitan
+        $to_user->notify(new ShiftPlanApproved($shift_grp, $theplan));
+      } catch(\Exception $e){
+      }
       // also updatae the status for each of the staff plan
       foreach($theplan->StaffList as $asps){
         $asps->status = 'Approved';
         $asps->save();
+
         // todo: send alert
+        $to_user_member = User::where('id',$asps->user_id)->first();
+        try{
+          // hantar notification ke user tu, untuk action yang berkaitan
+            $to_user_member->notify(new ShiftPlanMembersApproved($shift_grp, $theplan, $asps));
+        } catch(\Exception $e){
+        }
       }
+
 
       return redirect(route('shift.view', ['id' => $theplan->id], false))
         ->with([
@@ -310,6 +347,24 @@ class ShiftPlanController extends Controller
         // todo: send alert
       }
 
+      // E_0019
+      // php artisan make:notification ShiftPlanReverted
+      // Notification to Shift Planner once Group Owner revert Shift Planning
+      // to: Group Planner
+      // cc: Group Owner
+
+      // user yang akan terima notification tu
+      $to_user = User::where('id',$theplan->Group->planner_id)->first();
+
+      // object yang nak dinotify / tengok bila penerima notify tekan link
+      $shift_grp = \App\ShiftGroup::where('id', $theplan->Group->id)->first();
+
+      try{
+        // hantar notification ke planner tu, untuk action yang berkaitan
+        $to_user->notify(new ShiftPlanReverted($shift_grp, $theplan, $reason));
+      } catch(\Exception $e){
+      }
+
       return redirect(route('shift.view', ['id' => $theplan->id], false))
         ->with([
           'alert' => 'Shift plan reverted to planning stage',
@@ -341,6 +396,25 @@ class ShiftPlanController extends Controller
         $asps->save();
         // todo: send alert
       }
+
+      // E_0016
+      // php artisan make:notification ShiftPlanSubmitted
+      // Notification to Group Owner once Shift Planner assign work schedule rule to Members (Shift Planning)
+      // to: Group Owner
+      // cc: Group Planner
+
+      // user yang akan terima notification tu
+      $to_user = User::where('id',$theplan->Group->manager_id)->first();
+
+      // object yang nak dinotify / tengok bila penerima notify tekan link
+      $shift_grp = \App\ShiftGroup::where('id', $theplan->Group->id)->first();
+
+  try{
+    // hantar notification ke user tu, untuk action yang berkaitan
+    $to_user->notify(new ShiftPlanSubmitted($shift_grp, $theplan));
+  } catch(\Exception $e){
+  }
+
 
       return redirect(route('shift.view', ['id' => $theplan->id], false))
         ->with([
@@ -376,6 +450,24 @@ class ShiftPlanController extends Controller
         // todo: send alert
       }
 
+       // E_0020
+      // php artisan make:notification ShiftPlanRejected
+      // Notification to Shift Planner once Group Owner revert Shift Planning
+      // to: Group Planner
+      // cc: Group Owner
+
+      // user yang akan terima notification tu
+      $to_user = User::where('id',$theplan->Group->planner_id)->first();
+
+      // object yang nak dinotify / tengok bila penerima notify tekan link
+      $shift_grp = \App\ShiftGroup::where('id', $theplan->Group->id)->first();
+
+      try{
+        // hantar notification ke planner tu, untuk action yang berkaitan
+        $to_user->notify(new ShiftPlanRejected($shift_grp, $theplan, $reason));
+      } catch(\Exception $e){
+      }
+
       return redirect(route('shift.view', ['id' => $theplan->id], false))
         ->with([
           'alert' => 'Shift plan rejected. Back to planning stage',
@@ -385,11 +477,10 @@ class ShiftPlanController extends Controller
 
     public function staffInfo(Request $req){
       $sps = ShiftPlanStaff::find($req->id);
-
       if($sps){
         $staffAddInfo = UserHelper::GetUserInfo($sps->user_id);
         $curmon = new Carbon($sps->plan_month);
-
+        
         // set the max date input
         $maxdate = new Carbon($sps->plan_month);
         $maxdate->addMonth();
@@ -416,59 +507,88 @@ class ShiftPlanController extends Controller
           $datelock = '';
         }
 
-        $spattern = ShiftPattern::all();
+        // $spattern = ShiftPattern::all();
 
         // populate the calendar
-        $lastmon = new Carbon($sps->plan_month);
-        $lastmon->addMonths(-1);
-        $worklists = ShiftPlanStaffDay::where('user_id', $sps->user_id)
-          ->whereDate('work_date', '>=', $lastmon)
-          ->get();
+        $startdate = new Carbon($sps->plan_month);
+        $startdate->firstOfMonth();
+        $enddate = new Carbon($startdate);
+        $enddate->addMonth();
 
-        $eventlist = [];
-        foreach ($worklists as $key => $value) {
-          $tday = $value->Day;
-          $display = $tday->code . ' (' . $value->StaffTemplate->Pattern->code . ')';
-          if($value->is_work_day){
-            $fullday = false;
-            $stime = $value->start_time;
-            $etime = $value->end_time;
-          } else {
-            $fullday = true;
-            $stime = $value->work_date;
-            $etime = $value->work_date;
-          }
+        $daterange = new \DatePeriod(
+          $startdate,
+          \DateInterval::createFromDateString('1 day'),
+          $enddate
+        );
 
-          $eventlist[] = Calendar::event(
-          $display,
-          $fullday,
-          $stime,
-          $etime,
-          $value->id,[
-            // 'url' => route('area.evdetail', ['id' => $value->id], false),
-            'textColor' => $tday->font_color,
-            'backgroundColor' => $tday->bg_color,
-
-          ]);
+        $head = [];
+        foreach($daterange as $ad){
+          array_push($head, $ad->format('d-D'));
         }
+
+        $blankc[] = [
+          'data' => UserHelper::GetShiftCal($sps->user_id, $daterange)
+        ];
 
         // check if already use all of this month
         $lastmon = new Carbon($sps->plan_month);
         $lastmon->addMonth();
 
+        //new changes enable backdated 20200811
+        //related need to add validation cant redundant date @ 
+        //method overwrite condition using staffadditioninfo->last_planning_day
+        //$filled = $lastplan->gte($lastmon); 
+        $filled = false;
 
-        $blankc = Calendar::addEvents($eventlist)->setOptions(['defaultDate' => $lastplan->format('Y-m-d')]);
+        $fd_planMonth = $sps->plan_month;
+        $ed_planMonth = $sps->plan_month->endOfMonth();
+
+        //check selceted month has plan or not
+        $spsd = ShiftPlanStaffDay::where('user_id',$sps->user_id)
+        //->where('shift_plan_id',$sps->id)
+        ->whereBetween('work_date', [$fd_planMonth, $ed_planMonth])
+        ->orderby('work_date','desc')
+        ->first();
+
+        //check record for selected month
+        if($sps->end_date){      
+            //has record. get max date -> add 1 day
+            $lastmon = new Carbon($sps->end_date);
+            $sdate_default = $lastmon->addDay();
+
+            if($sdate_default>$ed_planMonth){
+              $filled = true;
+            }
+            $datelock = 'readonly="readonly"';  
+            //dd(1);  
+        } else{
+          //no record sps, check spsd default it to min work_date         
+          if($spsd){  
+            $mindate_selectedmonth =   new Carbon($spsd->work_date);
+            $sdate_default = $mindate_selectedmonth->addDay();
+            //dd(2);  
+          } else{
+            $sdate_default = new Carbon($sps->plan_month);            
+            //$filled = true;
+            //dd(3);  
+          }  
+          $datelock = '';
+        }
+        // dd($sdate_default, $lastmon, $lastplan, $sps, $fd_planMonth, $ed_planMonth, $spsd);
 
         // dd($blankc->getOptionsJson());
         return view('shiftplan.staff_detail', [
           'sps' => $sps,
-          'patterns' => $spattern,
+          // 'patterns' => $spattern,
+          'header' => $head,
           'cal' => $blankc,
-          'sdate' => $lastplan->format('Y-m-d'),
+          'sdate' => $sdate_default->format('Y-m-d'),
           'mindate' => $mindate->format('Y-m-d'),
           'maxdate' => $maxdate->format('Y-m-d'),
-          'dlock' => $datelock,
-          'filled' => $lastplan->gte($lastmon)
+          'dlock' => $datelock,          
+          // disable this 
+          //'filled' => $lastplan->gte($lastmon)
+          'filled' => $filled
         ]);
 
       } else {
@@ -483,21 +603,105 @@ class ShiftPlanController extends Controller
       $stemplate = ShiftPattern::find($req->spattern_id);
       $startdate = new Carbon($req->sdate);
 
+      $hour_gap = DB::table('setup_codes')->select('item2')
+      ->where('item1','shift_cycle_gap')->first();
+      
+      $hour_gap = intVal($hour_gap->item2);
+      $warning_msg = "";
+      
+      // disable for backdated 20200811
       // double check if the start date is before the last planning date
-      if(isset($staffExtra->last_planning_day)){
-        $lpd = new Carbon($staffExtra->last_planning_day);
+      // if(isset($staffExtra->last_planning_day)){
+      //   $lpd = new Carbon($staffExtra->last_planning_day);
 
-        if($startdate->lt($lpd)) {
+      //   if($startdate->lt($lpd)) {
+      //     return redirect()->back()->withInput()->withErrors([
+      //       'sdate' => 'Already planned until ' . $staffExtra->last_planning_day
+      //     ])->with([
+      //       'alert' => 'Overlapping plan. Please refresh the page to get updated info ' . $startdate,
+      //       'a_type' => 'danger'
+      //     ]);
+      //   }
+
+      //   // check for gap -- todo?
+        
+      // }
+
+      // add checking cannot redundant template
+      $dayToAdd = (($stemplate->days_count)-1);
+
+      $fd_template = new Carbon($req->sdate);
+
+      $ed_template = new Carbon($req->sdate);
+      $ed_template = $ed_template->addDay($dayToAdd);
+
+      $spsd = ShiftPlanStaffDay::where('user_id',$sps->user_id)
+        ->whereBetween('work_date', [$fd_template, $ed_template])
+        ->orderby('work_date','asc')
+        ->first();
+      //dd($fd_template, $ed_template, $spsd, $spsd->ShiftPlan);
+
+      // if got template in between
+      if($spsd) {
+        $min_dt_overlap = new carbon($spsd->work_date);
+        $sf_planmonth_overlap = $spsd->ShiftPlan->plan_month->format('Ym').' ('.$spsd->ShiftPlan->plan_month->format('M Y').')';
+
           return redirect()->back()->withInput()->withErrors([
-            'sdate' => 'Already planned until ' . $staffExtra->last_planning_day
+            'sdate' => 'Already has plan between this template.'
           ])->with([
-            'alert' => 'Overlapping plan. Please refresh the page to get updated info ' . $startdate,
+            'alert' => 'Overlapping with other plan. ' . $sf_planmonth_overlap,
             'a_type' => 'danger'
           ]);
+      };        
+
+
+      //check gap 30hour from last working day in "shift pattern day"
+      $spsdall = ShiftPlanStaffDay::where('user_id',$sps->user_id)
+      ->whereDate('work_date','<',$req->sdate)
+      ->where('is_work_day', 1)
+      ->orderBy('work_date','desc')
+      ->first();
+
+      //2nd option get previous "shift pattern" and get column start time
+      if($spsdall)
+      {      
+        $sdtm_prev = $spsdall->start_time;
+
+        //$sd_add = $startdate;  
+        $std1 = $stemplate->ListDays->where('day_seq','1');
+        foreach($stemplate->ListDays->where('day_seq','1') as $aDay){
+          $dtype = $aDay->Day;
+          $sdtm_add = new Carbon($startdate->format('Y-m-d') . ' ' . $dtype->start_time);        
         }
 
-        // check for gap -- todo?
-      }
+        //fetch date -1 day from start selection shift pattern
+        $sdate_prev = date('Y-m-d',strtotime('-1 day',strtotime($sdtm_add)));
+        //fetch time working hour maximum date previous
+        $stime_prev = date('H:i:s',strtotime($sdtm_prev));
+        //new create date time
+        $sdtm_prev = new Carbon($sdate_prev.' '.$stime_prev);
+        //$timestamp1 = strtotime($sdtm_prev);
+        $timestamp1 = strtotime($spsdall->end_time);
+        $timestamp2 = strtotime($sdtm_add);
+
+        //minus 24 hour because business comfirm all shift must atleast have RestDay (24hour) in one cycle shift week
+        $diff_hour = (abs($timestamp2 - $timestamp1)/(60*60)-24);
+
+        //$min_nextdatetime = date('Y-m-d H:i:s',strtotime('+'.$hour_gap.' hour',strtotime($sdtm_prev)));
+        
+        //dd(date('Y-m-d H:i:s',$timestamp1), date('Y-m-d H:i:s',$timestamp2), $timestamp1, $timestamp2, (int)$diff_hour, (int)$hour_gap, $spsdall);
+
+        //if gap between shift pattern less than 30 hour return error
+        if((int)$diff_hour < (int)$hour_gap){
+          //RPM instruct just give message 25/6/2020
+          $warning_msg = 'Shift pattern’s for rest day does not meet the required minimum hours by Employment Act. Please contact your respective HCBD for further information.';
+          // return redirect(route('shift.staff', ['id' => $sps->id], false))
+          // ->with([
+          //   'alert' => 'Selected Shift Pattern less than '.$hour_gap.' hours from previous shift pattern. Please select shift pattern with first day start time atleast '.date('d-m-Y H:i',strtotime($min_nextdatetime)),
+          //   'a_type' => 'warning'
+          // ]);
+        }
+      }      
 
       // check if selected template exist
       if($stemplate){
@@ -527,9 +731,14 @@ class ShiftPlanController extends Controller
 
         // check if already crossed over the month date limit
         $nexmon = new Carbon($sps->plan_month);
-        $nexmon->addMonth()->firstOfMonth();
-        $endate = new Carbon($sps->end_date);
-
+        $nexmon = $nexmon->addMonth()->firstOfMonth();
+        //check if end_date is null - 20200804
+        if(empty($sps->end_date)){
+          $endate = $nexmon;    
+        }else{
+          $endate = new Carbon($sps->end_date);
+        }
+        //dd($nexmon, $endate, $sps);
         if($endate->gt($nexmon)){
           return redirect()->back()->with([
             'alert' => 'Already overflow to the following month',
@@ -581,7 +790,6 @@ class ShiftPlanController extends Controller
           $startdate->addDays(-1);
         }
 
-
         // update the end date
         $nustempl->end_date = $startdate->format('Y-m-d');
         $nustempl->save();
@@ -592,9 +800,12 @@ class ShiftPlanController extends Controller
         // update the staffplan sums
         ShiftPlanStaff::find($req->sps_id)->updateSums();
 
-        return redirect(route('shift.staff', ['id' => $sps->id], false))->with([
-          'alert' => $daycount . ' days added',
-          'a_type' => 'success'
+        return redirect(route('shift.staff', ['id' => $sps->id], false))
+        ->with([
+          //'alert' => $daycount . ' days added. ['.date('Y-m-d H:i:s',$timestamp1).' '.date('Y-m-d H:i:s',$timestamp2).' '. $timestamp1.' '.$timestamp2.' '.(int)$diff_hour.' '.(int)$hour_gap.']',
+          'alert' => $daycount . ' days added.',
+          'a_type' => 'success',
+          'warning_msg' => $warning_msg,
         ]);
 
       } else {
@@ -622,14 +833,13 @@ class ShiftPlanController extends Controller
           if($cuserid != $theGroup->manager_id && $cuserid != $theGroup->planner_id){
             return redirect()->back()->with(['alert' => 'You are not authorized to edit this shift group', 'a_type' => 'danger']);
           }
-          // no issues detected
 
-          // undo the last planning day
-          $lastpdate = new Carbon($spst->start_date);
-          $lastpdate->addDays(-1);
-          $staffExtra = UserHelper::GetUserInfo($theStaffPlan->user_id)['extra'];
-          $staffExtra->last_planning_day = $lastpdate;
-          $staffExtra->save();
+          // check if the plan already has claim. 20200811
+          // because the team agree can revert plan even has a claim on it
+          //dd($spst);
+          
+
+          // no issues detected
 
 
           // delete the days of that template
@@ -642,16 +852,103 @@ class ShiftPlanController extends Controller
 
           // if the total days is 0, just reset back the planning day to be the same as current planned day
           if($theStaffPlan->total_days == 0){
-            $staffExtra->last_planning_day = $staffExtra->last_planned_day;
-            $staffExtra->save();
-          }
+            $theStaffPlan->start_date = null;
+            $theStaffPlan->end_date = null;
+            $theStaffPlan->save();
+          }         
+
+            //new update fix last_planning_day
+            $lastmaxsps = ShiftPlanStaff::select('user_id','plan_month', DB::raw('max(end_date) as max_plan_enddate'))
+            ->where('user_id',$theStaffPlan->user_id)
+            ->groupBy('user_id')
+            ->first();
+            //dd($lastmaxsps);
+
+            $upd_lastplanningdate = $lastmaxsps->max_plan_enddate;
+
+            //update staff_additional_info
+            $staffExtra1 = UserHelper::GetUserInfo($theStaffPlan->user_id)['extra'];  
+            $staffExtra1->last_planning_day = $upd_lastplanningdate;
+            $staffExtra1->save();
 
           return redirect(route('shift.staff', ['id' => $req->sps_id], false))
             ->with(['alert' => 'Last template removed', 'a_type' => 'success']);
 
       } else {
+
         return redirect()->back()->with(['alert' => 'Selected template no longer exist for this staff', 'a_type' => 'danger']);
       }
+    }
+
+    public function showall(Request $req){
+      
+      $gcode = null;
+      if($req->has('gcode')){
+        $gcode = $req->gcode;       
+        $gresult = ViewShiftPlanning::where('group_code',$req->gcode)->get();
+      } else {
+        $gresult = ViewShiftPlanning::take(0)->get();
+      }
+      $gclist =  ViewShiftPlanning::select('group_code','group_name')->distinct()->get();
+
+      return view('admin.shiftPlanning',
+      [
+        'gcode' => $gcode,
+        'gclist' => $gclist,
+        'gresult' => $gresult,
+      ]);
+
+      // return view('shiftplan.shift_group', [
+      //   'sglist' => $sglist        
+      // ]);
+    }
+
+    public function downloadAllSp(Request $req){
+      
+      ini_set('max_execution_time', 1800); //300=5min
+      ini_set('memory_limit', '1024M');
+      // .csv -> text/csv
+      $content_type = 'text/csv';
+      $file_ext = 'csv';
+
+      $dtnow = new Carbon();
+      $fn ='ShiftPlanning';
+      $listcolumns = Schema::getColumnListing('v_shift_planning');
+
+      $qlist = [];
+      $qlist = ViewShiftPlanning::all();
+      $qlist_count = $qlist->count();
+      $qlist_data = $qlist->toArray();
+
+      $fname = $fn.'_'.$dtnow->format('YmdHis').'_'.$qlist_count.'.'.$file_ext;
+
+      $handle = fopen($fname, 'w+');
+
+      // write header
+      fputcsv($handle, $listcolumns);
+
+      // write data
+      ViewShiftPlanning::chunk(5000, function($qlist) use($handle,$listcolumns) {
+        foreach ($qlist as $row) {
+            $dataToWrite = [];
+            foreach ($listcolumns as $rowcol) {
+                array_push($dataToWrite, $row->{$rowcol});
+            }  
+            // Add a new row with data
+            fputcsv($handle, $dataToWrite);
+        }
+      });
+
+      fclose($handle);
+
+      $headers = [ 
+        'Content-Type' => $content_type,
+        'Content-Disposition' => 'attachment;filename="'.$fname.'"',
+        'Cache-Control' => 'max-age=0',       
+      ];
+
+      return Response::download($fname, $fname, $headers)->deleteFileAfterSend(true);
+      
     }
 
 }

@@ -14,9 +14,9 @@ class DatabaseSeeder extends Seeder
      ini_set("memory_limit","256M");
       ini_set('max_execution_time', 3000); // 300 seconds = 5 minutes
       set_time_limit(0);
-        $this->call(AmerPermissionSeeder::class);
+        // $this->call(AmerPermissionSeeder::class);
 
-        // $this->call(RolesTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
         // $this->call(RoleUserTableSeeder::class);
 
         $this->call(CompaniesTableSeeder::class);
@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserRecordsTableSeeder::class);
 
         $this->call(PsubareasTableSeeder::class);
-       $this->call(DayTypesTableSeeder::class);
+        $this->call(DayTypesTableSeeder::class);
         $this->call(ShiftPatternsTableSeeder::class);
         $this->call(OvertimeFormulasTableSeeder::class);
         $this->call(OvertimeEligibilitiesTableSeeder::class);
@@ -37,5 +37,20 @@ class DatabaseSeeder extends Seeder
         $this->call(HolidayLogsTableSeeder::class);
         $this->call(HolidaysTableSeeder::class);
         $this->call(SetupCodesTableSeeder::class);
+
+        // $this->call(PaymentSchedulesTableSeeder::class);
+        $this->call(ShiftPatternDaysTableSeeder::class);
+
+
+     $this->call(ProjectsTableSeeder::class);
+       $this->call(MaintenanceOrdersTableSeeder::class);
+       $this->call(InternalOrdersTableSeeder::class);
+      $this->call(PermissionsTableSeeder::class);
+        $this->call(PermissionRoleTableSeeder::class);
+        //$this->call(AnnouncementTableSeeder::class);
+        $this->call(PaidOtTableSeeder::class);
+        // $this->call(CompanyPayrollgroupsTableSeeder::class);
+        // $this->call(PayrollgroupsTableSeeder::class);
+
     }
 }

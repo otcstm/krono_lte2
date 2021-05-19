@@ -63,7 +63,7 @@ return [
 
   'from' => [
       'address' => env('MAIL_FROM_ADDRESS', 'noreply@tm.com.my'),
-      'name' => env('MAIL_FROM_NAME', 'OTJANGANREPLY'),
+      'name' => env('MAIL_FROM_NAME', 'TM Overtime Claim System'),
   ],
 
     /*

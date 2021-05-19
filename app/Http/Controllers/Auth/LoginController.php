@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Shared\LdapHelper;
 use App\User;
+use Session;
+use DB;
 class LoginController extends Controller
 {
     /*
@@ -32,38 +34,68 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware(['guest','noie'])->except('logout');
     }
     public function login(Request $req)
     {
       $this->validate($req, [
-            'staff_no' => 'required', 'password' => 'required',
+            'username' => 'required', 
+            'password' => 'required',
       ]);
-      $udata = LdapHelper::DoLogin($req->staff_no, $req->password);
-      if($udata['code'] == 200){
-        // session(['staffdata' => $logresp['user']]);
-        $cuser = User::where('staff_no', $req->staff_no)->first();
-        if($cuser){
-        } else {
-          // temporary: use ldap data to create user
-          // $udata = LdapHelper::FetchUser($req->staff_no, 'cn');
-          $persno_str = $udata['data']['PERSNO'];
-          $persno = substr($persno_str, -7);
-          $cuser = new User;
-          $cuser->id = $persno;
-          $cuser->staff_no = $udata['data']['STAFF_NO'];
-          $cuser->email = $udata['data']['EMAIL'];
-          $cuser->persno = $persno;
-          $cuser->name = $udata['data']['NAME'];
-          // $cuser->persno = $udata['data']['PERSNO'];
-          $cuser->new_ic = $udata['data']['NIRC'];
-          $cuser->save();
-          // also give the super admin role lol
-          // $cuser->roles()->attach(1);
+      
+      //echo "hye im before checking. mode:".$_ENV['APP_ENV'];
+
+      if ($_ENV['APP_ENV'] == 'local' || $_ENV['APP_ENV'] == 'development') {
+        //dd("hye im local/development",$_ENV['APP_ENV']);
+        //password same username
+        if($req->username == $req->password)
+        {          
+          $staff_no = str_replace(' ','',strtoupper(trim($req->username)));
+          $cuser = User::where(DB::raw('REPLACE(UPPER(TRIM(staff_no))," ","")'), $staff_no)->first();
+          if($cuser){            
+            Session::put(['announcementx' => true]);
+            // attach normal user
+            $cuser->roles()->attach(1);
+            Auth::loginUsingId($cuser->id, true);
+            return redirect(route('misc.home', [], false));
+          } 
+          else {
+            return redirect()->back()->withErrors(['username' => 'User not in OT system']);
+          }
         }
-        Auth::loginUsingId($cuser->id, true);
-        return redirect()->intended(route('misc.home', [], false), 302, [], true);
+        else{
+          return redirect()->back()->withErrors(['username' => 'Invalid credentials: '.$_ENV['APP_ENV']]);
+        }
       }
-      return redirect()->back()->with('message', $udata['msg']);
+      else{
+        //dd("hye im ELSE",$_ENV['APP_ENV']);
+        $udata = LdapHelper::DoLogin($req->username, $req->password);
+        if($udata['code'] == 200){
+          $staff_no = str_replace(' ','',strtoupper(trim($req->username)));
+          $cuser = User::where(DB::raw('REPLACE(UPPER(TRIM(staff_no))," ","")'), $staff_no)->first();
+          if($cuser){          
+            Session::put(['announcementx' => true]);
+          } else {
+            //no record in users table
+            return redirect()->back()->withErrors(['username' => 'User not in OT system']);
+          }
+          //dd("hye im LdapHelper 200",$_ENV['APP_ENV']);
+          //return to guess if auth not pass else authorized to homepage
+          // attach normal user
+          // try {
+          //   $cuser->roles()->attach(1);
+          // } catch(Throwable $e){
+          // }
+          $cuser->roles()->attach(1);
+          Auth::loginUsingId($cuser->id, true);
+          return redirect()->intended(route('misc.home', [], false), 302, [], true);
+        }
+        else{
+          //code other than 200
+          //dd("hye im LdapHelper !200",$_ENV['APP_ENV']);
+          return redirect()->back()->withErrors(['username' => $udata['msg'].$_ENV['APP_ENV']]);
+        }
+      }
+      //dd("Im after all clause",$_ENV['APP_ENV']); 
     }
 }

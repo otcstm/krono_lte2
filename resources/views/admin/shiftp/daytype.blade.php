@@ -14,12 +14,14 @@
     </div>
     @endif
     <div class="table-responsive">
-      <table id="tPunchHIstory" class="table table-hover table-bordered">
+      <table id="tTypeWorkDay" class="table table-hover table-bordered">
        <thead>
          <tr>
            <th>Code</th>
            <th>Description</th>
            <th>Is Working Day?</th>
+           <th>Day Type</th>
+           <th>Working Hour </th>
            <th>Start Time</th>
            <th>End Time</th>
            <th>Duration</th>
@@ -38,12 +40,14 @@
              &#10008;
              @endif
            </td>
-           <td>{{ $ap->start_time }}</td>
-           <td>{{ $ap->showEndTime() }}</td>
+           <td>{{ $ap->day_type }}</td>
+           <td>{{ $ap->working_hour }}</td>
+           <td>{{ date('Hi',strtotime($ap->start_time)) }}</td>
+           <td>{{ $ap->showEndTime24format('Hi') }}</td>
            <td>{{ $ap->dur_hour }} h, {{ $ap->dur_minute }} m</td>
            <td>
 
-             <form method="post" action="{{ route('wd.delete', [], false) }}">
+             <form method="post" action="{{ route('wd.delete', [], false) }}" onsubmit='return confirm("Confirm delete?")'>
                @csrf
                <button type="button" class="btn btn-xs btn-warning" title="Edit"
                   data-toggle="modal"
@@ -51,8 +55,17 @@
                   data-id="{{ $ap->id }}"
                   data-code="{{ $ap->code }}"
                   data-desc="{{ $ap->description }}"
+                  @if($ap->is_work_day)
+                  data-dtype="{{ $ap->day_type }}"
+                  @else
+                  data-dtype="{{ $ap->day_type }}"
+                  @endif
+                  data-wh="{{ $ap->working_hour }}"
+                  
+                  {{-- data-desc="{{ $ap->day_type }}" --}}
                   data-fontc="{{ $ap->font_color }}"
                   data-bgc="{{ $ap->bg_color }}"
+                  data-expectedhour="{{ $ap->expected_hour }}"
                ><i class="fas fa-pencil-alt"></i></button>
                <button type="submit" class="btn btn-xs btn-danger" title="Delete"><i class="fas fa-trash-alt"></i></button>
                <input type="hidden" name="id" value="{{ $ap->id }}" />
@@ -81,7 +94,7 @@
                 <strong>{{ $errors->first('code') }}</strong>
             </span>
         @endif
-      </div>
+      </div>      
       <div class="form-group has-feedback {{ $errors->has('description') ? 'has-error' : '' }}">
         <label for="description">Description</label>
         <input id="description" type="text" name="description" class="form-control" value="{{ old('description') }}"
@@ -91,13 +104,39 @@
                 <strong>{{ $errors->first('description') }}</strong>
             </span>
         @endif
-      </div>
+      </div> 
       <div class="form-group has-feedback {{ $errors->has('is_work_day') ? 'has-error' : '' }}">
         <input id="is_work_day" type="checkbox" name="is_work_day" value="{{ old('is_work_day') }}" onchange="checkIsFullDay()">
         <label for="is_work_day">Is a working day</label>
         @if ($errors->has('is_work_day'))
             <span class="help-block">
                 <strong>{{ $errors->first('is_work_day') }}</strong>
+            </span>
+        @endif
+      </div>
+      <div class="form-group has-feedback {{ $errors->has('daytype') ? 'has-error' : '' }}">
+        <label for="daytype">Day Type</label>
+        <select type="text" name="daytype" id="daytype" required>
+            <option value="N">Normal Day</option>
+            <option value="R">Rest Day</option>
+            <option value="O">Special Rest Day</option>
+            <option value="PH">Public Holiday</option>
+        </select>
+        @if ($errors->has('daytype'))
+            <span class="help-block">
+                <strong>{{ $errors->first('daytype') }}</strong>
+            </span>
+        @endif
+      </div>
+      <div class="form-group has-feedback {{ $errors->has('working_hour') ? 'has-error' : '' }}">
+        <label for="working_hour">Working Hour</label>        
+        <input id="working_hour_h" type="number" name="working_hour_h" value="{{ old('working_hour_h') }}"
+               placeholder="Hour" required min="0" max="23" step="1" value="6">
+        <input id="working_hour_m" type="number" name="working_hour_m" value="{{ old('working_hour_m') }}"
+               placeholder="Minute" required min="0" max="59" step="1" value="0">
+        @if ($errors->has('working_hour'))
+            <span class="help-block">
+                <strong>{{ $errors->first('working_hour') }}</strong>
             </span>
         @endif
       </div>
@@ -123,6 +162,18 @@
             </span>
         @endif
       </div>
+      <div class="form-group has-feedback {{ $errors->has('expected_hour') ? 'has-error' : '' }}">
+        <label for="dur_hour">Expected Hour</label>
+        <input id="expected_hour" type="number" name="expected_hour" value="{{ old('expected_hour') }}"
+               placeholder="Expected_Hour" required min="0" max="23" step="0.01">
+       
+        @if ($errors->has('duration'))
+            <span class="help-block">
+                <strong>{{ $errors->first('duration') }}</strong>
+            </span>
+        @endif
+      </div>
+
       <div class="form-group has-feedback {{ $errors->has('bgcolor') ? 'has-error' : '' }}">
         <label for="bgcolor">Background color in calendar</label>
         <input id="bgcolor" type="color" name="bgcolor" value="{{ old('bgcolor', '#ffffff') }}">
@@ -166,9 +217,34 @@
               <label for="inputname">Code:</label>
               <input type="text" class="form-control" id="inputname" name="code" value="" disabled>
           </div>
+          {{-- <div class="form-group">
+            <label for="inputdaytype">Day Type</label>
+            <select type="text" name="daytype" id="daytype" required>
+                <option value="N">Normal Day</option>
+                <option value="R">Rest Day</option>
+                <option value="SR">Special Rest Day</option>
+                <option value="PH">Public Holiday</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="working_hour">Working Hour</label>            
+            <input id="inputworking_hour_h" type="number" name="dur_hour" value="{{ old('working_hour_h') }}"
+                   placeholder="Hour" required min="0" max="23" step="1" value="6">
+            <input id="inputworking_hour_m" type="number" name="dur_minute" value="{{ old('working_hour_m') }}"
+                   placeholder="Minute" required min="0" max="59" step="1" value="0">
+            @if ($errors->has('working_hour'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('working_hour') }}</strong>
+                </span>
+            @endif
+          </div> --}}
           <div class="form-group">
               <label for="inputdesc">Description:</label>
               <input type="text" class="form-control" id="inputdesc" name="description" value="" required>
+          </div>
+          <div class="form-group">
+              <label for="inputexpectedhour">Expected Hour:</label>
+              <input type="number" class="form-control" id="inputexpectedhour" name="expected_hour" step="0.01" value="" required>
           </div>
           <div class="form-group">
               <label for="inputbgc">Background Color:</label>
@@ -205,8 +281,12 @@ $(document).ready(function() {
 
   checkIsFullDay();
 
-  $('#tPunchHIstory').DataTable({
-    "responsive": "true"
+  $('#tTypeWorkDay').DataTable({
+    dom: '<"flext"lf><"flext"B>rtip',
+        buttons: [
+            'csv', 'excel'
+        ],
+        "responsive": "true"
   });
 } );
 
@@ -214,11 +294,13 @@ function populate(e){
     var wd_id = $(e.relatedTarget).data('id');
     var wd_code = $(e.relatedTarget).data('code')
     var wd_desc = $(e.relatedTarget).data('desc')
+    var wd_expectedhour = $(e.relatedTarget).data('expectedhour')
     var wd_bgc = $(e.relatedTarget).data('bgc')
     var wd_fontc = $(e.relatedTarget).data('fontc')
     $('input[id=inputid]').val(wd_id);
     $('input[id=inputname]').val(wd_code);
     $('input[id=inputdesc]').val(wd_desc);
+    $('input[id=inputexpectedhour]').val(wd_expectedhour);
     $('input[id=inputbgc]').val(wd_bgc);
     $('input[id=inputfc]').val(wd_fontc);
 }
@@ -226,7 +308,6 @@ function populate(e){
 $('#editwd').on('show.bs.modal', function(e) {
     populate(e);
 });
-
 
 </script>
 @stop

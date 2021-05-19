@@ -107,12 +107,19 @@ echo("error <br/>");
     }
 
     public function gUR($persno,$dt){
-      echo("here");
+    //  echo("here");
     $ur = URHelper::getUserRecordByDate($persno,$dt);
     $u = URHelper::getUser($persno);
 
 
     $collection = collect(['user'=>$u,'user_records'=>$ur]);
     return $collection;
+    }
+
+    public function gU($persno){
+    //  echo("here");
+    $u = URHelper::getUser($persno);
+    
+    return $u;
     }
 }

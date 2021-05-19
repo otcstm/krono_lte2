@@ -49,9 +49,10 @@ return [
 
         'daily' => [
             'driver' => 'daily',
-            'path' => storage_path('logs/laravel.log'),
+            'path' => storage_path('logs/laravel-'.env('APP_HOSTNAME').'-'.get_current_user().'.log'),
             'level' => 'debug',
             'days' => 14,
+            'permission' => 0664,
         ],
 
         'slack' => [

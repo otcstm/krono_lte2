@@ -20,19 +20,32 @@ class DayTypeController extends Controller
     if($dupwd){
       return redirect()->back()->withInput()->withErrors(['code' => 'already exist']);
     }
-
+    
     $dt = new DayType;
     $dt->code = $r->code;
     $dt->description = $r->description;
     if($r->has('is_work_day') == true){
       $dt->is_work_day = true;
-      $dt->start_time = $r->start_time;
-      $dt->dur_hour = $r->dur_hour;
-      $dt->dur_minute = $r->dur_minute;
-      $dt->total_minute = MathHelper::getTotalMinutes($r->dur_hour, $r->dur_minute);
     } else {
-      $dt->is_work_day = false;
+      $dt->is_work_day = false; 
     }
+
+    if($r->daytype == 'O'){
+      $dt->total_minute = 0;
+    }
+    elseif($r->daytype == 'R'){
+      $dt->total_minute = 0;
+    }
+    else{      
+      $dt->total_minute = MathHelper::getTotalMinutes($r->dur_hour, $r->dur_minute);
+    }
+    
+    $dt->start_time = $r->start_time;
+    $dt->dur_hour = $r->dur_hour;
+    $dt->dur_minute = $r->dur_minute;
+    $dt->day_type = $r->daytype;
+    $dt->working_hour = (MathHelper::getTotalMinutes($r->working_hour_h, $r->working_hour_m)/60);  
+    $dt->expected_hour = $r->expected_hour;
 
     $dt->bg_color = $r->bgcolor;
     $dt->font_color = $r->fontcolor;
@@ -50,6 +63,7 @@ class DayTypeController extends Controller
       $dt->last_edited_by = $r->user()->id;
       $dt->bg_color = $r->bgcolor;
       $dt->font_color = $r->fontcolor;
+      $dt->expected_hour = $r->expected_hour;
       $dt->save();
 
       return redirect(route('wd.index', [], false))->with(['alert' => $dt->code . ' updated', 'a_type' => 'success']);

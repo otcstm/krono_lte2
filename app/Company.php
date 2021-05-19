@@ -27,5 +27,9 @@ public function users()
   {
       return $this->belongsTo(User::class,'updated_by');
   }
+  
+  public function shiftpatterns(){
+    return $this->belongsToMany('App/ShiftPattern');
+  }
 
 }

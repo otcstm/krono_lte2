@@ -11,6 +11,9 @@ use App\HolidayLog;
 use Illuminate\Http\Request;
 use DB;
 
+use function GuzzleHttp\json_decode;
+use function GuzzleHttp\json_encode;
+
 class HolidayController extends Controller
 {
     /**
@@ -86,12 +89,13 @@ class HolidayController extends Controller
 
 
         $this->log($a1->id,'INSERT');
-        $ac = 'info';
-        $alert = $a1->descr.' has been inserted';
+        $feedback_text = "Holiday ".$a1->descr." has been created";
+      $feedback_title = "Successfully Created";
         return redirect(route('holiday.show', [], false))->
         with([
-          'alert' => $alert,
-          'ac'=>$ac,
+          'feedback' => true,
+          'feedback_text' => $feedback_text,
+          'feedback_title' => $feedback_title,
           's_year'=>$s_year
         ]);
 
@@ -112,8 +116,9 @@ class HolidayController extends Controller
     public function show(Request $req)
     {
 
-      $alert = Session('alert') ? Session('alert') : 'rest';
-      $ac = Session('ac') ? Session('ac') : 'info';
+      $feedback = Session('feedback');
+      $feedback_text = Session('feedback_text');
+      $feedback_title = Session('feedback_title');
       $curYear = date('Y');
       $s_year = $req->s_year ? $req->s_year : $curYear;
       $s_year = Session('s_year') ? Session('s_year') : $s_year;
@@ -170,8 +175,9 @@ class HolidayController extends Controller
 
         $states = State::all();
         return view('admin.holiday.show', [
-          'alert'   =>$alert,
-          'ac'      =>$ac,
+          'feedback' => $feedback,
+        'feedback_text' => $feedback_text,
+        'feedback_title' => $feedback_title,
           'header'  => $header,
           'content' => $content,
           'states' => $states,
@@ -227,6 +233,9 @@ class HolidayController extends Controller
         echo json_encode($arr);
         echo('<br/>');
         //loop through DB data
+if(!$arr){$arr = [];}
+
+
         foreach ($currentStates as $cs) {
             echo('echoing cs');
             echo($cs->state_id);
@@ -262,12 +271,15 @@ class HolidayController extends Controller
 
 
   $this->log($holiday->id,'UPDATE');
-        $ac = 'info';
-        $alert = $holiday->descr.' has been updated';
+        // $ac = 'info';
+        $feedback_text = "Holiday ".$holiday->descr." has been updated";
+      $feedback_title = "Successfully Updated";
+        // $alert = $holiday->descr.' has been updated';
         return redirect(route('holiday.show', [], false))->
         with([
-          'alert' => $alert,
-          'ac'=>$ac,
+          'feedback' => true,
+          'feedback_text' => $feedback_text,
+          'feedback_title' => $feedback_title,
           's_year' => $s_year
         ]);
 
@@ -298,13 +310,13 @@ class HolidayController extends Controller
 
 
 
-
-      $ac = 'info';
-      $alert = $holiday->descr.' has been destroyed';
+      $feedback_text = "Holiday ".$holiday->descr." has been deleted";
+      $feedback_title = "Successfully Deleted";
       return redirect(route('holiday.show', [], false))->
       with([
-        'alert' => $alert,
-        'ac'=>$ac,
+        'feedback' => true,
+          'feedback_text' => $feedback_text,
+          'feedback_title' => $feedback_title,
         's_year'=>$s_year
       ]);
 

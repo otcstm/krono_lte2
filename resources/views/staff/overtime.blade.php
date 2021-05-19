@@ -7,9 +7,9 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="text-right" style="margin-bottom: 15px">
-            <form action="{{route('ot.formnew')}}" method="POST" style="display:inline">
+            <form action="{{route('ot.formnew',[],false)}}" method="POST" style="display:inline;">
                 @csrf
-                <button type="submit" class="btn btn-primary">CREATE NEW CLAIM</button>
+                <button type="submit" class="btn-up" style=" margin-top: 15px">APPLY NEW OVERTIME</button>
             </form>
         </div>
         {{--@if(session()->has('feedback'))
@@ -24,11 +24,13 @@
                     <tr>
                         <th></th>
                         <th></th>
-                        <th>Reference No</th>
+                        <!-- <th>Reference No</th> -->
                         <th>OT Date</th>
                         <th>Start OT</th>
                         <th>End OT</th>
+                        <th>Total Day</th>
                         <th>Total Hours/Minutes</th>
+                        <th>Transaction Code</th>
                         <th>Day Type</th>
                         <th>Charge Code</th>
                         <th>Location</th>
@@ -41,12 +43,24 @@
                         <tr>
                             <td>@if(($singleuser->status=="D2")||($singleuser->status=="Q2"))<input type="checkbox" id="checkbox-{{$no}}" value="{{$singleuser->id}}"> @endif</td>
                             <td></td>
-                            <td>{{ $singleuser->refno }}</td>
-                            <td>{{ date("d.m.Y", strtotime($singleuser->date)) }}</td>
-                            <td>@foreach($singleuser->detail as $details){{date('Hi', strtotime($details->start_time)) }}<br>@endforeach</td>
-                            <td>@foreach($singleuser->detail as $details){{ date('Hi', strtotime($details->end_time))}}<br>@endforeach</td>
-                            <td>{{ $singleuser->total_hour }}h/{{ $singleuser->total_minute }}m</td>
-                            <td>{{$singleuser->daytype->description}}</td> 
+                            <!-- <td>{{-- $singleuser->refno --}}</td> -->
+                            <td>{{ date("d.m.Y", strtotime($singleuser->date)) }} ({{$singleuser->employee_type}})</td>
+                            <td>@foreach($singleuser->detail as $details) @if($details->checked=="Y") {{date('Hi', strtotime($details->start_time)) }}<br> @endif @endforeach</td>
+                            <td>@foreach($singleuser->detail as $details) @if($details->checked=="Y") {{ date('Hi', strtotime($details->end_time))}}<br> @endif @endforeach</td>
+                            <td>@if($singleuser->daycode->rate==0.5) 0.5 @elseif($singleuser->daycode->rate==0) - @else 1 @endif</td>
+                            <td>@if($singleuser->eligible_total_hours_minutes==0) - @else {{$singleuser->eligible_total_hours_minutes}} @endif</td>
+                            {{--<td>@if($singleuser->eligible_day==0){{$singleuser->total_hour}}h {{$singleuser->total_minute}}m @else @php($total = $singleuser->eligible_total_hours_minutes*60) {{(int)($total/60)}}h {{$total%60}}m @endif</td>--}}
+                            <td>@if(($singleuser->eligible_day_code)&&($singleuser->eligible_total_hours_minutes_code)) {{$singleuser->eligible_day_code}}, {{$singleuser->eligible_total_hours_minutes_code}} @elseif($singleuser->eligible_total_hours_minutes_code) {{$singleuser->eligible_total_hours_minutes_code}} @else {{$singleuser->eligible_day_code}} @endif</td>
+                            <td>@if($singleuser->daytype->day_type == "N")
+                                    Normal Day
+                                @elseif($singleuser->daytype->day_type == "PH")
+                                    Public Holiday
+                                @elseif($singleuser->daytype->day_type == "R")
+                                    Rest Day
+                                @else
+                                    Off Day
+                                @endif
+                            </td> 
                             <td>
                                 @if($singleuser->charge_type!=null)
                                     {{ $singleuser->charge_type }}
@@ -54,7 +68,19 @@
                                     N/A
                                 @endif
                             </td> 
-                            <td>@foreach($singleuser->detail as $details){{$details->in_latitude}} {{$details->in_longitude}}<br>@endforeach</td> 
+                            <td>@if(count($singleuser->detail)) 
+                                    @foreach($singleuser->detail as $details) 
+                                        @if($details->clock_in=="")
+                                         - 
+                                        @else 
+                                            @if($details->checked=="Y")
+                                                <a href = "https://www.google.com/maps/search/?api=1&query={{$details->in_latitude}},{{$details->in_longitude}}" target="_blank" style="font-weight: bold; color: #143A8C"> {{$details->in_latitude}} {{$details->in_longitude}}</a><br> 
+                                            @endif 
+                                        @endif 
+                                    @endforeach 
+                                @else 
+                                    - 
+                                @endif</td> 
                             <td 
                                 @foreach($singleuser->log as $logs) 
                                     @if(strpos($logs->message,"Queried")!==false) 
@@ -65,7 +91,7 @@
                                     title = "{{str_replace('"', '', str_replace('Queried with message: "', '', $query))}}"
                                 @endif> 
                                 @if(($singleuser->status=="D2")||($singleuser->status=="D1"))
-                                    Draft <p style="color: red">Due: {{$singleuser->date_expiry}}</p> 
+                                    Draft @if($singleuser->date_expiry!="")<p style="color: red">Due: {{$singleuser->date_expiry}}</p> @endif
                                 @elseif(($singleuser->status=="Q2")||($singleuser->status=="Q1"))
                                     @php($query = "") <p>Query</p>
                                 @elseif($singleuser->status=="PA")
@@ -79,14 +105,14 @@
                                 @endif
                             </td>
                             <td class="td-btn">
-                                <form action="{{route('ot.detail')}}" method="POST" style="display:inline">
+                                <form action="{{route('ot.detail',[],false)}}" method="POST" style="display:inline">
                                     @csrf
                                     <input type="text" class="hidden" name="detailid" value="{{$singleuser->id}}" required>
                                     <input type="text" class="hidden" name="type" value="ot" required>
                                     <button type="submit" class="btn btn-np"><i class="fas fa-info-circle"></i></button>
                                 </form>
                                 @if(in_array($singleuser->status, $array = array("D1", "D2", "Q2", "Q1")))
-                                    <form action="{{route('ot.update')}}" method="POST" style="display:inline">
+                                    <form action="{{route('ot.update',[],false)}}" method="POST" style="display:inline">
                                         @csrf
                                         <input type="text" class="hidden"  name="inputid" value="{{$singleuser->id}}" required>
                                         <button type="submit" class="btn btn-np"><i class="fas fa-edit"></i></button>
@@ -95,7 +121,7 @@
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 {{--@else
-                                <form action="{{route('ot.detail')}}" method="POST" style="display:inline">
+                                <form action="{{route('ot.detail',[],false)}}" method="POST" style="display:inline">
                                     @csrf
                                     <input type="text" class="hidden" name="detailid" value="{{$singleuser->id}}" required>
                                     <input type="text" class="hidden" name="type" value="ot" required>
@@ -112,7 +138,7 @@
     </div>
     <div id="submitbtn" class="panel-footer" style="display: none">
         <div class="text-right">
-            <form id="submitform" action="{{route('ot.submit')}}" method="POST"  style="display:inline">
+            <form id="submitform" action="{{route('ot.submit',[],false)}}" method="POST" onsubmit="return submits()"  style="display:inline">
                 @csrf
                 <input type="text" class="hidden" id="submitid" name="submitid" value="" required>
                 <input type="text" class="hidden" id="multi" name="multi" value="yes" required>
@@ -145,7 +171,7 @@
     </div>
 </div> -->
 
-<form action="{{ route('ot.remove') }}" method="POST" class="hidden" id="form">
+<form action="{{ route('ot.remove',[],false) }}" method="POST" class="hidden" id="form">
     @csrf
     <input type="text" class="hidden" id="delid" name="delid" value="" required>
     <button type="submit" class="btn btn-primary">DELETE</button>
@@ -161,6 +187,10 @@ $(document).ready(function() {
     var t = $('#tOTList').DataTable({
         "responsive": "true",
         "order" : [[0, "desc"]],
+        dom: '<"flext"lB>rtip',
+        buttons: [
+            'csv', 'excel', 'pdf'
+        ]
     });
 
     t.on( 'order.dt search.dt', function () {
@@ -194,7 +224,6 @@ function deletec(i){
                                 cancelButtonText: 'NO',
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Delete'
             }).then((result) => {
             if (result.value) {
                 $("#form").submit();
@@ -273,5 +302,25 @@ function submission(){
     // }
 }
 
+function submits(){
+        // $('input[name="inputact[]"').eq(2).val("A");
+        
+            // alert($('#action-3').val());
+            // return false;
+        Swal.fire({
+            title: 'Submitting form',
+            html: 'Please wait while we process your submission. DO NOT RELOAD/CLOSE THIS TAB!',
+            timerProgressBar: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            showConfirmButton: false,
+            showCancelButton: false,
+            customClass: "load",
+            onBeforeOpen: () => {
+            Swal.showLoading()}
+        })
+        // return false;
+    }
 </script>
 @stop

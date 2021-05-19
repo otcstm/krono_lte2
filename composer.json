@@ -9,19 +9,25 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "box/spout": "^3.1",
+        "consoletvs/charts": "6.*",
         "davejamesmiller/laravel-breadcrumbs": "5.x",
         "dingo/api": "^2.4",
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.0",
+        "fx3costa/laravelchartjs": "^2.6",
         "guzzlehttp/guzzle": "^6.5",
         "jeroennoten/laravel-adminlte": "^2.0",
         "laravel/framework": "^6.0",
+        "laravel/passport": "9.0",
         "laravel/tinker": "^1.0",
-        "orangehill/iseed": "^2.6"
+        "orangehill/iseed": "^2.6",
+        "phpoffice/phpspreadsheet": "^1.10"
     },
     "require-dev": {
         "facade/ignition": "^1.4",
         "fzaninotto/faker": "^1.4",
+        "laracasts/generators": "^1.1",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^3.0",
         "phpunit/phpunit": "^8.0"
@@ -29,7 +35,8 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "disable-tls": true
     },
     "extra": {
         "laravel": {
