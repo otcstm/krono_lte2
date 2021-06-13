@@ -3,6 +3,13 @@
 @section('title', 'Overtime List')
 
 @section('content')
+<style>
+.modalsize {
+  width: 90%;
+  margin: auto;
+}
+</style>
+
 @if($view=='verifier')
 <h1>Pending Verification Claim</h1>
 @elseif($view=='verifierrept')
@@ -17,11 +24,11 @@
 @endif
 <div class="panel panel-default">
     <div class="panel-body">
-        
+
         @if($view=='admin')
-        
-        <form action="{{route('ot.adminsearch',[],false)}}" method="POST" onsubmit="return submitsearch()"> 
-            @csrf    
+
+        <form action="{{route('ot.adminsearch',[],false)}}" method="POST" onsubmit="return submitsearch()">
+            @csrf
             <h4><b>Search Parameter</b></h4>
             <div class="row">
                 <div class="col-md-6">
@@ -46,7 +53,7 @@
                     <div class="row">
                         <div class="col-md-4">Submission Date</div>
                         <div class="col-md-4"><input type="date" id="search-date-1" name="searchdate1" style="width: 100%; position: relative; z-index: 11; border: 1px solid #A9A9A9; background: transparent" data-text="Company Code"><i style="position: relative; margin-left: -20px; z-index: 10" class="far fa-calendar-alt"></i></div>
-                        <div class="col-md-4"><input type="date" id="search-date-2" name="searchdate2" style="width: 100%; position: relative; z-index: 11; border: 1px solid #A9A9A9; background: transparent" data-text="Company Code"><i style="position: relative; margin-left: -20px; z-index: 10" class="far fa-calendar-alt"></i></div>       
+                        <div class="col-md-4"><input type="date" id="search-date-2" name="searchdate2" style="width: 100%; position: relative; z-index: 11; border: 1px solid #A9A9A9; background: transparent" data-text="Company Code"><i style="position: relative; margin-left: -20px; z-index: 10" class="far fa-calendar-alt"></i></div>
                     </div>
                     <div class="row" style="margin-top: 5px">
                         <div class="col-md-4">Claim Status</div>
@@ -63,16 +70,16 @@
             </div>
             <br>
         </form>
-        
+
         <div class="line2"></div>
         <h4><b>Search Result</b></h4>
         <br>
         @endif
 
     @if(count($otlist)!=0)
-        
-        <form action="{{route('ot.query',[],false)}}" method="POST" style="display:inline" onsubmit="return submits()"> 
-            @csrf    
+
+        <form action="{{route('ot.query',[],false)}}" method="POST" style="display:inline" onsubmit="return submits()">
+            @csrf
             @if($view=='verifier')
             <input type="text" class="hidden" name="typef" value="verifier" required>
             @elseif($view=='approver')
@@ -122,7 +129,7 @@
                                 {{-- <a href="" id="a-{{$no}}" style="font-weight: bold; color: #143A8C" data-id="{{$singleuser->id}}">{{ date("d.m.Y", strtotime($singleuser->date)) }} ({{$singleuser->employee_type}})</a> --}}
                                 <a href="" style="font-weight: bold; color: #143A8C" data-id="{{$singleuser->id}}"
                                 data-toggle="modal" data-target="#otDetailView" onclick="viewDetailOT({{$singleuser->id}})">{{ date("d.m.Y", strtotime($singleuser->date)) }} ({{$singleuser->employee_type}})</a>
-                                
+
                             </td>
                             <td>@if($singleuser->daytype->day_type == "N")
                                     Normal Day
@@ -149,7 +156,7 @@
                             <td>{{$singleuser->eligible_total_hours_minutes}}</td>
                            {{-- <td>@if($singleuser->eligible_day==0){{$singleuser->total_hour}}h {{$singleuser->total_minute}}m @else @php($total = $singleuser->eligible_total_hours_minutes*60) {{(int)($total/60)}}h {{$total%60}}m @endif</td>--}}
                             <td>@if(($singleuser->eligible_day_code)&&($singleuser->eligible_total_hours_minutes_code)) {{$singleuser->eligible_day_code}}, {{$singleuser->eligible_total_hours_minutes_code}} @elseif($singleuser->eligible_total_hours_minutes_code) {{$singleuser->eligible_total_hours_minutes_code}} @else {{$singleuser->eligible_day_code}} @endif</td>
-                            
+
                             {{-- <td>RM{{$singleuser->amount}}</td> --}}
                             <td>@if($singleuser->status=="PA")
                                     <span>Pending Approval</span>
@@ -158,30 +165,30 @@
                                 @elseif($singleuser->status=="A")
                                     <span>Approved</span>
                                 @endif</td>
-                            
+
                             @if(($view=='verifier')||($view=='approver')||($view=='admin'))
                                 @if(($view=='approver')||($view=='admin'))
                                     <td>
                                         <span class='hidden' id="show-verifier-cache-{{$no}}">{{$singleuser->verifier->name}}</span>
-                                        
+
                                         <span id="show-verifier-na-{{$no}}" @if($singleuser->verifier->name!="N/A") class="hidden" @endif >{{$singleuser->verifier->name}}</span>
-                                        
+
                                         <a id="show-verifier-a-{{$no}}" href="#" style="font-weight: bold; color: #143A8C" @if($singleuser->verifier->name=="N/A") class="hidden" @endif onclick="showverifier({{$no}})" data-id="{{$singleuser->verifier_id}}" data-otid="{{$singleuser->id}}"><span id="show-verifier-{{$no}}">{{$singleuser->verifier->name}}</span></a>
-                                        
+
                                     </td>
                                 @endif
-                                
+
                                 @if(($view=='verifier')||($view=='admin'))
                                 <td>
                                     <span class='hidden' id="show-approver-cache-{{$no}}">{{$singleuser->approver->name}}</span>
                                     <!-- <span id="show-approver-na-{{$no}}" @if($singleuser->approver->name!="N/A") class="hidden" @endif >{{$singleuser->approver->name}}</span> -->
-                                     
+
                                      @if($singleuser->approver->name=="N/A")<a id="show-approver-a-{{$no}}" href="#" style="font-weight: bold; color: #143A8C" onclick="otid ={{$singleuser->id}}; return normal({{$no}}, 'none', 'Approver')" data-id="{{$singleuser->approver_id}}" data-otid="{{$singleuser->id}}"><span id="show-approver-{{$no}}">{{$singleuser->approver->name}}</span></a>
                                     @else<a id="show-approver-a-{{$no}}" href="#" style="font-weight: bold; color: #143A8C" @if($singleuser->approver->name=="N/A") class="hidden" @endif onclick="showapprover({{$no}})" data-id="{{$singleuser->approver_id}}" data-otid="{{$singleuser->id}}"><span id="show-approver-{{$no}}">{{$singleuser->approver->name}}</span></a>@endif
                                 </td>
                                 @endif
                             <td class="border-right" id="borderman-{{$no}}">
-                                <a href="#" id="btnOtDetailView" style="margin-bottom: 2px" data-toggle="modal" data-target="#otDetailView" 
+                                <a href="#" id="btnOtDetailView" style="margin-bottom: 2px" data-toggle="modal" data-target="#otDetailView"
                                 data-keyboard="false" class="btn btn-default buttons-csv buttons-html5 btn-xs" onclick="viewDetailOT({{$singleuser->id}})">
                                 <i class="glyphicon glyphicon-search"></i> View Detail</a>
                                 <input type="text" class="hidden"  id="verifier-cache-{{$no}}" value="{{$singleuser->verifier_id}}">
@@ -192,18 +199,18 @@
                                     <option selected value="">Select Action</option>
                                     <option hidden value="Remove">Remove Verifier</option>
                                     <!-- <option hidden disabled selected value="">Select Action</option> -->
-                                    @if($view=="verifier") 
+                                    @if($view=="verifier")
                                         <option value="PA">Verify</option>
                                     @endif
                                     @if($view=='approver')
                                         <option value="A">Approve</option>
-                                        <option 
-                                            @if($singleuser->verifier_id!=null) 
-                                                hidden 
-                                            @endif  
+                                        <option
+                                            @if($singleuser->verifier_id!=null)
+                                                hidden
+                                            @endif
                                             value="Assign" id="assign-{{$no}}" data-type="Verifier" data-otid="{{$singleuser->id}}">Assign Verifier</option>
                                     @endif
-                                    @if($view=='admin') 
+                                    @if($view=='admin')
                                         <option hidden value="Change">Change Approver</option>
                                     @endif
                                     <option value="Q2">Query</option>
@@ -228,7 +235,7 @@
             @if(($view=='verifier')||($view=='approver')||($view=='admin'))
                 @if($otlist ?? '')
                 <div id="submitbtn" class="panel-footer">
-                    <div class="text-right">  
+                    <div class="text-right">
                     <!-- <input type="hidden" name="pagenumber" id="pagenumber" value="0" />   -->
                         <button type="submit" class="btn btn-primary btn-p">SUBMIT</button>
                     </div>
@@ -261,10 +268,10 @@
         </div>
         @endif
     </div>
-    
+
 </div>
 
-        
+
 <form action="{{route('ot.detail',[],false)}}" method="POST" class="hidden" id="form">
     @csrf
     <input type="text" class="hidden" name="detailid" id="detailid" value="" required>
@@ -284,22 +291,22 @@
 <!-- Modal -->
 <div id="otDetailView" class="modal fade" role="dialog">
     <!-- Modal dialog-->
-    <div class="modal-dialog modal-lg">  
+    <div class="modal-dialog modalsize">
       <!-- Modal content-->
-      <div class="modal-content">          
+      <div class="modal-content">
         <!-- Modal header-->
-        <div class="modal-header">
+        <div class="modal-header ">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">View OT Detail</h4>
-        </div><!-- Modal header-->       
+        </div><!-- Modal header-->
         <!-- Modal body-->
-        <div id="modal-body-ot" class="modal-body">
+        <div id="modal-body-ot" class="modal-body ">
 
         </div><!-- Modal body-->
       </div><!-- Modal content-->
     </div><!-- Modal dialog-->
 </div><!-- Modal -->
-            
+
 @stop
 
 @section('js')
@@ -320,11 +327,11 @@
     }
     $("#search-date-1").attr("max", y+"-"+m+"-"+d);
     $("#search-date-2").attr("max", y+"-"+m+"-"+d);
-    
+
     // $("#btnOtDetailView").click(function(otid){
     //         $("#modal-body").load("{{ route('ot.detail',['detailid'=>'".otid."'],false) }}");
     // });
-    
+
     function viewDetailOT(otid){
         $("#modal-body-ot").load("/overtime/detail/view?detailid="+otid, function(responseTxt, statusTxt, xhr){
             if(statusTxt == "success")
@@ -333,7 +340,8 @@
             alert("Error: " + xhr.status + ": " + xhr.statusText);
         });
     };
-    
+
+
     $(document).ready(function() {
 
         // var inputact = [];
@@ -383,7 +391,7 @@
         // }).draw();
     });
 
-    
+
     function yes(i){
         return function(){
             var id = $("#a-"+i).data('id');
@@ -415,10 +423,10 @@
             $('#show-verifier-na-'+i).removeClass("hidden");
             $('#show-verifier-a-'+i).addClass("hidden");
         }
-        
+
         $("#approver-"+i).val($("#approver-cache-"+i).val());
         $("#show-approver-"+i).text($("#show-approver-cache-"+i).text());
-        @if(($view=='approver') || ($view=='admin')) 
+        @if(($view=='approver') || ($view=='admin'))
             $("#verifier-"+i).val($("#verifier-cache-"+i).val());
             $("#show-verifier-"+i).text($("#show-verifier-cache-"+i).text());
         @endif
@@ -442,7 +450,7 @@
     }
 
     function table(){
-        
+
         @if($otlist ?? '')
         var aremark = false;
         for(x=1; x<{{count($otlist)}}+1; x++){
@@ -450,7 +458,7 @@
                 aremark = true;
             }
         }
-        
+
         for(x=1; x<{{count($otlist)}}+1; x++){
             if(aremark){
                 $("#aremark").css("display","table-cell");
@@ -466,15 +474,15 @@
                 for(g=1; g<{{count($otlist)}}+1; g++){
                     $("#borderman-"+g).addClass("border-right");
                 }
-            }   
-        }   
+            }
+        }
         @endif
     }
 
     var sendtype;
     function remark(i){
         return function(){
-            
+
             $('input[name="inputact[]"').eq(i-1).val($('#action-'+i).val());
             @if($otlist ?? '')
                 table();
@@ -501,15 +509,15 @@
                                 $("#show-verifier-"+i).text($("#show-verifier-cache-"+i).text());
                             @endif
                             table();
-                            
+
                         }else{
-                            
-                            
+
+
                             reset(i);
                         }
                 })
             }else if($("#action-"+i).val()==""){
-                
+
                 // reset(i);
             }else if($("#action-"+i).val()=="Assign"){
                 // alert($(this).find(':selected').data('type'));
@@ -521,7 +529,7 @@
                 }else{
                     sendtype = "verify"
                 }
-                
+
                 // reset(i);
                 Swal.fire({
                     title: 'Terms and Conditions',
@@ -618,17 +626,17 @@
                 //         $("#show-verifier-"+i).text($("#show-verifier-cache-"+i).text());
                 //     }
                 // @endif--}}
-                
+
                 reset(i);
                 return searcho(i, titles);
             }else{
                 reset(i);
             }
         });
-    }    
+    }
 
     function updateResp(item, index){
-        htmlstring = htmlstring + 
+        htmlstring = htmlstring +
             "<button style='border: 1px solid #DDDDDD; min-height: 10vh; width: 100%; padding: 5px; text-align: left; background: transparent' onclick='addverifier(\""+item.persnoo+"\","+index+",\""+item.name+"\");' id='addv-"+index+"'>"+
                 "<div style='display: flex; align-items: center; flex-wrap: wrap; width: 95%; margin-left: 3%' padding: 15px>"+
                     "<div class='w-10 text-center'><img src='/user/image/"+item.staffno.replace(' ','')+"' class='approval-search-img'></div>"+
@@ -676,11 +684,11 @@
                     "</div>"+
                 "</div>"+
             "</button>";
-            
+
     }
 
     function updateRespA(item, index){
-        htmlstring = htmlstring + 
+        htmlstring = htmlstring +
             "<button style='border: 1px solid #DDDDDD; min-height: 10vh; width: 100%; padding: 5px; text-align: left; background: transparent' onclick='addapprover(\""+item.persnoo+"\","+index+",\""+item.name+"\");' id='addv-"+index+"'>"+
                 "<div style='display: flex; align-items: center; flex-wrap: wrap; width: 95%; margin-left: 3%' padding: 15px>"+
                     "<div class='w-10 text-center'><img src='/user/image/"+item.staffno.replace(' ','')+"' class='approval-search-img'></div>"+
@@ -728,7 +736,7 @@
                     "</div>"+
                 "</div>"+
             "</button>";
-            
+
     }
 
     function addverifier(id, num, name){
@@ -767,7 +775,7 @@
             }
         }
     }
-    
+
     function search(searchn, searchpn, searchsn, searchp, searchcc, searchct, searchpa, searchpsa, searchesg, searche, searchmn, searchon, type, block, i, titles){
         // alert(searchpn);
         const url='{{ route("ot.search", [], false)}}';
@@ -791,7 +799,7 @@
                     htmlstring = "<div style=' width: 100%; padding: 5px; text-align: center; vertical-align: middle'>"+
                                     "<p>No matching records found. Try to search again.</p>"+
                                     "</div>";
-                                    
+
                     cfm = 'NEXT';
                     yes = false;
                 }
@@ -821,22 +829,22 @@
                     cancelButtonText: 'CANCEL',
                 }).then((result) => {
                     if(yes){
-                        if (result.value) {   
+                        if (result.value) {
                             succeed = false;
-                            if(titles=="Verifier"){  
+                            if(titles=="Verifier"){
                                 // alert($('#verifier-'+i).val()+" "+$('#verifier-cache-'+i).val())
                                 if($('#verifier-'+i).val()!=$('#verifier-cache-'+i).val()){
                                     succeed = true;
                                 }
-                            } else{  
+                            } else{
                                 if($('#approver-'+i).val()!=$('#approver-cache-'+i).val()){
                                     succeed = true;
                                 }
                                 // console.log(($('#approver-'+i).val()+" "+$('#approver-cache-'+i).val()));
-                            }   
+                            }
                             // alert(succeed);
-                            if(succeed){                               
-                                if(titles=="Verifier"){         
+                            if(succeed){
+                                if(titles=="Verifier"){
                                     $("#action-"+i).val("Assign");
                                     $('input[name="inputver[]"').eq(i-1).val($('#verifier-'+i).val());
 
@@ -859,11 +867,11 @@
                                 //         }
                                 //     }).then((result) => {
                                 //             if (result.value) {
-                                                                        
+
                                                 $("#inputremark-"+i).attr("placeholder", "This is mandatory field. Please key in remarks here!");
                                                 $("#inputremark-"+i).prop('readonly',false);
                                                 $("#inputremark-"+i).prop('required',true);
-                                                // $("#inputremark-"+i).val($('#remark').val());  
+                                                // $("#inputremark-"+i).val($('#remark').val());
                                                 // $("#inputremark-"+i).val($('#remark').val());
                                                     // if(yes){
                                                     //     if($('#verifier').val()!=''){
@@ -875,8 +883,8 @@
                                                     //     return searcho(i);
                                                     // }
                                     //         }else{
-                                                
-                                                
+
+
                                     //             reset(i);
                                     //         }
                                     // })
@@ -890,10 +898,10 @@
                         normal(i, 'none', titles);
                     }
                 });
-                
+
             }
-        });   
-        
+        });
+
     }
 
     // advance(i);
@@ -903,7 +911,7 @@
         Swal.fire({
             title: "Advance Search",
             customClass: "test3",
-            html: 
+            html:
             "<div class='text-left'>"+
                         "<div class='row'>"+
                             "<div class='col-md-3'>"+
@@ -913,7 +921,7 @@
                                 "<input type='text' id='sname' style='width: 100%; box-sizing: border-box;'>"+
                             "</div>"+
                         "</div>"+
-                        
+
                         "<div class='row'>"+
                             "<div class='col-md-3'>"+
                                 "<p><b>Staff Number</b></p>"+
@@ -940,7 +948,7 @@
                         //     "<input type='text' id='semail' style='width: 100%; box-sizing: border-box;'>"+
                         //     "</div>"+
                         // "</div>"+
-                        
+
                     "</div>",
             confirmButtonText:
                 'SEARCH',
@@ -958,11 +966,11 @@
                     advance(i, titles);
                 }
             }else{
-                
-                reset(i); 
+
+                reset(i);
             }
         });
-        
+
         return false;
     }
 
@@ -976,7 +984,7 @@
     }
 
     function showverifier(id){
-        
+
         otid = $("#show-verifier-a-"+id).data("otid");
         const url='{{ route("ot.getverifier", [], false)}}';
         userid = $("#show-verifier-a-"+id).data("id");
@@ -1049,11 +1057,11 @@
                     }
                 });
             }
-        });   
+        });
     }
 
     function showapprover(id){
-        
+
         otid = $("#show-approver-a-"+id).data("otid");
         // alert(otid);
         const url='{{ route("ot.getverifier", [], false)}}';
@@ -1127,7 +1135,7 @@
                     }
                 });
             }
-        });   
+        });
     }
 
     function remark2(i){
@@ -1137,7 +1145,7 @@
                 if($("#action-"+i).val()=="Q2"){
                     tx = "Are you sure to query this claim application?";
                 }else{
-                    
+
                     tx = "Are you sure to assign new verifier to this claim application?";
                 }
                 var str = $("#inputremark-"+i).val();
@@ -1153,7 +1161,7 @@
                     }
                 }).then((result) => {
                         if (result.value) {
-                            
+
                             $("#inputremark-"+i).prop('readonly',false);
                             $("#inputremark-"+i).prop('required',true);
                             $("#inputremark-"+i).val($('#remark').val());
@@ -1164,9 +1172,9 @@
                                 @endif
                             }
                         }else{
-                            
+
                             // if($("#action-"+i).val()=="Q2"){
-                            //     reset(i);   
+                            //     reset(i);
                             // }
                             $("#inputremark-"+i).blur();
                         }
@@ -1182,7 +1190,7 @@
 
     for (i=1; i<7; i++) {
         if(i==5){
-            
+
             $("#search-"+i).on('click', roleparam(i));
         }else if(i==6){
             $("#search-"+i).on('click', searchparam(i, "date"));
@@ -1195,19 +1203,19 @@
     //     searchparam('Company Code');
     // });
     var html;
-    var text; 
+    var text;
     var type;
     function searchparam(i, types){
         return function(){
             type = types;
             $("#search-"+i).blur();
-            makeview(i, "");    
-           
+            makeview(i, "");
+
         }
     }
 
     function makeview(i, operation){
-    
+
         var value = "";
         if($("#search-"+i).val()!=""){
             value = $("#search-"+i).val().split(', ');
@@ -1238,7 +1246,7 @@
                                             "<span style='width: 10%'>"+
                                                 "<button onclick='return addsearch("+i+")' type='button' class='btn btn-plus' style='display: inline'><i class='fas fa-plus-circle'></i></button>"+
                                             "</span>"+
-                                        "</div>"; 
+                                        "</div>";
                         }
                     }
                 }else{
@@ -1256,7 +1264,7 @@
                                             "<span style='width: 10%'>"+
                                                 "<button onclick='return addsearch("+i+")' type='button' class='btn btn-plus' style='display: inline'><i class='fas fa-plus-circle'></i></button>"+
                                             "</span>"+
-                                        "</div>"; 
+                                        "</div>";
                         }else if(v<value.length){
                             html = html + "<div class='col-md-9 col-md-offset-3'>"+
                                             "<input id='value-"+v+"' class='countsearch' type='"+type+"' style='width: 90%' value='"+value[v]+"'>"+
@@ -1281,22 +1289,22 @@
                                 "<span style='width: 10%'>"+
                                     "<button onclick='removesearch("+i+",0)' type='button' class='btn btn-times' style='display: inline'><i class='fas fa-times-circle'></i></button>"+
                                 "</span>"+
-                            "</div>"+ 
+                            "</div>"+
                             "<div class='col-md-9 col-md-offset-3'>"+
                                 "<input id='value-1' class='countsearch' type='"+type+"' style='width: 90%'>"+
                                 "<span style='width: 10%'>"+
                                     "<button onclick='return addsearch("+i+")' type='button' class='btn btn-plus' style='display: inline'><i class='fas fa-plus-circle'></i></button>"+
                                 "</span>"+
-                            "</div>"; 
+                            "</div>";
         }
-        searchalert(i);        
+        searchalert(i);
     }
 
     function addsearch(i){
         $("#search-"+i).val("");
         for(n=0; n<$(".countsearch").length; n++){
             if(n==0){
-                $("#search-"+i).val($("#value-"+n).val()); 
+                $("#search-"+i).val($("#value-"+n).val());
             }else{
                 $("#search-"+i).val( $("#search-"+i).val()+", "+$("#value-"+n).val());
             }
@@ -1315,7 +1323,7 @@
             if(n!=v){
                 // if($("#value-"+n).val()!=""){
                     if(n==0){
-                        $("#search-"+i).val($("#value-"+n).val()); 
+                        $("#search-"+i).val($("#value-"+n).val());
                     }else if((n==1)&&(v==0)){
                         $("#search-"+i).val($("#value-"+n).val());
                     }
@@ -1327,7 +1335,7 @@
         }
         makeview(i, "remove");
     }
-    
+
     function searchalert(i){
         Swal.fire({
             title: 'Multiple Search Parameter',
@@ -1339,12 +1347,12 @@
             showCancelButton: true,
         }).then((result) => {
             if (result.value) {
-                
+
                 $("#search-"+i).val("");
                 for(n=0; n<$(".countsearch").length; n++){
                     if($("#value-"+n).val()!=""){
                         if(n==0){
-                            $("#search-"+i).val($("#value-"+n).val()); 
+                            $("#search-"+i).val($("#value-"+n).val());
                         }else{
                             $("#search-"+i).val( $("#search-"+i).val()+", "+$("#value-"+n).val());
                         }
@@ -1440,13 +1448,13 @@
                 showCancelButton: true,
             }).then((result) => {
                 if (result.value) {
-                    
+
                     $("#search-"+i).val("");
                     for(n=0; n<$(".countsearch").length + 1; n++){
                         if($("#value-"+n).is(":checked")){
                             if($("#search-"+i).val()==""){
                                 // alert( $("#value-"+n).val());
-                                $("#search-"+i).val($("#value-"+n).val()); 
+                                $("#search-"+i).val($("#value-"+n).val());
                             }else{
                                 $("#search-"+i).val( $("#search-"+i).val()+", "+$("#value-"+n).val());
                             }
@@ -1469,14 +1477,14 @@
         }
         if(!(status)){
             Swal.fire({
-                
+
                 icon: 'error',
                     title: 'Search Error',
             text: "Please input at least 1 search parameter!",
             confirmButtonText:'OK'
             })
             return false;
-        }        
+        }
     }
 
     function submits(){
