@@ -4,7 +4,12 @@
 
 <div class="panel panel-default ">
     <div class="panel-body panel-main">
-        <p style="margin: 15px 0 35px"><b>Reference No: <span style="color: #143A8C">{{$claim->refno}} ({{$claim->employee_type}})</span></b></p>
+        <p style="margin: 15px 0 35px">
+        <b>Status: <span style="color: #143A8C">
+          {{$claim->OTStatus()->item3}}
+        </span></b>
+        <br><b>Reference No: <span style="color: 	#143A8C">{{$claim->refno}} ({{$claim->employee_type}})</span></b>
+        <br><b>Staff Name: <span style="color: #143A8C">{{$claim->name->name}} ({{$claim->name->staff_no}})</span></b></p>
         <div class="panel panel-default">
                 <div class="panel-heading">
                     <a id="btn-1" data-toggle="collapse" href="#collapse1"><span>Overtime Information</span><i id="fas-1" class="fas fa-sort-up"></i></a>
@@ -41,21 +46,29 @@
                                     @endif
                                 </b></div>--}}
                                 <div class="col-md-4">Salary Capping for OT</div><div class="col-md-8">: <b>{{$claim->salary_exception}} </b></div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-4">Verifier</div><div class="col-md-8">: <b>{{$claim->verifier->name}} @if($claim->verifier_id!="")  ({{$claim->verifier->staff_no}}) @endif</b></div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-4">Approver</div><div class="col-md-8">: <b>{{$claim->approver->name}} ({{$claim->approver->staff_no}})</b></div>
                                 {{-- <div class="col-md-4">Estimated Amount</div><div class="col-md-8">: <b>RM {{$claim->amount}}</b></div> --}}
+                            </div>
+                            <div class="row">
                                 <div class="col-md-4">Transaction Code</div><div class="col-md-8">: <b>@if(($claim->eligible_day_code)&&($claim->eligible_total_hours_minutes_code)) {{$claim->eligible_day_code}}, {{$claim->eligible_total_hours_minutes_code}} @elseif($claim->eligible_total_hours_minutes_code) {{$claim->eligible_total_hours_minutes_code}} @else {{$claim->eligible_day_code}} @endif</b></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div><div class="panel panel-default">
+        </div>
+        <div class="panel panel-default">
                 <div class="panel-heading">
                     <a id="btn-5" data-toggle="collapse" href="#collapse5"><span>Overtime Charge Type</span><i id="fas-5" class="fas fa-sort-down"></i></a>
                 </div>
             <div id="collapse5" class="panel-collapse collapse">
-                <div class="panel-body"> 
+                <div class="panel-body">
+                  <div class="row">
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-4">Charge Type</div><div class="col-md-8">: <b>{{$claim->charge_type}}</b></div>
@@ -94,13 +107,20 @@
                 @if($claim->charge_type=="Project")
                     <div class="col-md-6">
                         <div class="row">
-                            <div class="col-md-4">Network Header</div><div class="col-md-8">: <b>{{$claim->project->network_header}}</b></div>
-                            <div class="col-md-4">Network Header Desc</div><div class="col-md-8">: <b>{{$claim->project->network_headerdescr}}</b></div>
-                            <div class="col-md-4">Network Activity</div><div class="col-md-8">: <b>{{$claim->project->network_act_no}}</b></div>
-                            <div class="col-md-4">Network Activity Desc</div><div class="col-md-8">: <b>{{$claim->project->network_act_descr}}</b></div>
+                            <div class="col-md-4">Network Header</div><div class="col-md-8">: <b>{{$claim->network_header}}</b></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">Network Header Desc</div><div class="col-md-8">: <b>{{$headerdesc}}</b></div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4">Network Activity</div><div class="col-md-8">: <b>{{$claim->network_act_no}}</b></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">Network Activity Desc</div><div class="col-md-8">: <b>{{$activitydesc}}</b></div>
                         </div>
                     </div>
                 @endif
+            </div>
             </div>
             </div>
         </div>
@@ -112,7 +132,7 @@
                 <div class="panel-body">
                     <div class="table-responsive">
                         <table class="table table-bordered table-blue">
-                            <thead>    
+                            <thead>
                                 <tr>
                                     <th>No</th>
                                     <th>Start OT</th>
@@ -139,7 +159,7 @@
                                             <td>
                                                 @if($details->clock_in!="")
                                                     System Input
-                                                @else 
+                                                @else
                                                     Manual Input
                                                 @endif
                                             </td>
@@ -152,12 +172,12 @@
                                     @endforeach
                                     @if($nox==0)
                                     <tr>
-                                        <td colspan="7"><i>Not Available</i></td> 
+                                        <td colspan="7"><i>Not Available</i></td>
                                     </tr>
                                     @endif
                                 @else
                                     <tr>
-                                        <td colspan="7"><i>Not Available</i></td> 
+                                        <td colspan="7"><i>Not Available</i></td>
                                     </tr>
                                 @endif
                             </tbody>
@@ -171,15 +191,15 @@
                     <a id="btn-3" data-toggle="collapse" href="#collapse3"><span>Overtime Attachment</span><i id="fas-3" class="fas fa-sort-down"></i></a>
                 </div>
             <div id="collapse3" class="panel-collapse collapse">
-                <div class="panel-body"> 
-                    
+                <div class="panel-body">
+
         @if(count($claim->file)!=0)
                     @foreach($claim->file as $f=>$singlefile)
                         @php(++$f)
                         <a href="{{ asset('storage/'.$singlefile->filename)}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9; margin-bottom: 10px;"></a>
                         <!-- <a href="{{--route('ot.file', ['tid'=>$singlefile->id], false)--}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9; margin-bottom: 10px;"></a> -->
                     @endforeach
-        @else <p>No attachment</p>            
+        @else <p>No attachment</p>
         @endif
 
                 </div>

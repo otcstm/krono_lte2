@@ -1,7 +1,5 @@
 @extends('adminlte::page')
 @section('css')
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"/>
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css"/>
 @stop
 
 
@@ -25,7 +23,7 @@
 							</select>
 				</form>
 			</div>
-		</div> 
+		</div>
 		<div class="panel-body">
 			<div class="table-responsive" >
 				<table id="tpayment_sche" class="table table-hover table-bordered" >
@@ -84,10 +82,15 @@
 			<h4><b>Add Payment Schedule</b></h4>
 			<form action="{{ route('paymentsc.store', [], false) }}" method="post" class="form-horizontal">
 			@csrf
-				<div class="form-group">
-					<label for="pyg" class="control-label col-sm-2">Payroll Group</label>
-					<div class="col-sm-10">
-						<select class="form-control" name="pyg" id="pyg" required >
+			<div class="row">
+				<div class="col-md-6">
+
+				<div class="row" style="margin-top: 15px;">
+					<div class="col-md-3">
+						<label for="pyg" >Payroll Group</label>
+					</div>
+					<div class="col-md-9">
+						<select name="pyg" id="pyg" required style="width: 70%">
 							<option value="" disabled selected>Select</option>
 							@foreach($pygroups as $pygroup)
 							<option value="{{$pygroup->id}}">{{$pygroup->pygroup}}</option>
@@ -95,30 +98,40 @@
 						</select>
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="last_sub" class="control-label col-sm-2">Last Submission Date</label>
-					<div class="col-sm-10">
+				<div class="row" style="margin-top: 15px;">
+					<div class="col-md-3">
+						<label for="last_sub">Last Submission Date</label>
+					</div>
+					<div class="col-md-9">
 						<input id="last_sub" type="date" name="last_sub" value="{{ old('last_sub') }}" required autofocus>
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="last_approval" class="control-label col-sm-2">Last Approval Date</label>
-					<div class="col-sm-10">
+				<div class="row" style="margin-top: 15px;">
+					<div class="col-md-3">
+						<label for="last_approval">Last Approval Date</label>
+					</div>
+					<div class="col-md-9">
 						<input id="last_approval" type="date" name="last_approval" value="{{ old('last_approval') }}" required autofocus>
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="int_date" class="control-label col-sm-2">Interface Date</label>
-					<div class="col-sm-10">
+				<div class="row" style="margin-top: 15px;">
+					<div class="col-md-3">
+						<label for="int_date">Interface Date</label>
+					</div>
+					<div class="col-md-9">
 						<input id="int_date" type="date" name="int_date" value="{{ old('int_date') }}" required autofocus>
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="pay_date" class="control-label col-sm-2">Payment Date</label>
-					<div class="col-sm-10">
+				<div class="row" style="margin-top: 15px;">
+					<div class="col-md-3">
+						<label for="pay_date">Payment Date</label>
+					</div>
+					<div class="col-md-9">
 						<input id="pay_date" type="date" name="pay_date" value="{{ old('pay_date') }}" required autofocus>
 					</div>
 				</div>
+			</div>
+			</div>
 			</div>
 			<div class="panel-footer">
 				<div class="text-right">
@@ -193,24 +206,32 @@ $(document).ready(function() {
 									@endforeach
 							html = html + "</select>"+
 							"</div>"+
+						"</div>"+
+        				"<div class='row' style='margin-top: 5px;'>"+
 							"<div class='col-md-4'>"+
 								"<p>Last Submission Date: </p>"+
 							"</div>"+
 							"<div class='col-md-8'>"+
 								"<input type='date' id='lss' class='check-1' value='"+ls+"' style='width: 100%' >"+
 							"</div>"+
+						"</div>"+
+        				"<div class='row' style='margin-top: 5px;'>"+
 							"<div class='col-md-4'>"+
 								"<p>Approval Date: </p>"+
 							"</div>"+
 							"<div class='col-md-8'>"+
 								"<input type='date' id='ads' class='check-2' value='"+ad+"' style='width: 100%' >"+
 							"</div>"+
+						"</div>"+
+        				"<div class='row' style='margin-top: 5px;'>"+
 							"<div class='col-md-4'>"+
 								"<p>Interface Date: </p>"+
 							"</div>"+
 							"<div class='col-md-8'>"+
 								"<input type='date' id='intd' class='check-3' value='"+intd+"' style='width: 100%' >"+
 							"</div>"+
+						"</div>"+
+        				"<div class='row' style='margin-top: 5px;'>"+
 							"<div class='col-md-4'>"+
 								"<p>Payment Date: </p>"+
 							"</div>"+
