@@ -57,7 +57,7 @@
                     <a id="btn-5" data-toggle="collapse" href="#collapse5"><span>Overtime Charge Type</span><i id="fas-5" class="fas fa-sort-down"></i></a>
                 </div>
             <div id="collapse5" class="panel-collapse collapse">
-                <div class="panel-body"> 
+                <div class="panel-body">
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-4">Charge Type</div><div class="col-md-8">: <b>{{$claim->charge_type}}</b></div>
@@ -83,17 +83,17 @@
                                 {{$claim->order_no}}
                             @endif</b></div>
                             <div class="col-md-4">Description</div>
-                            @if($claim->project->descr!="")
+
                                 @if($claim->charge_type=="Project")
-                                    <div class="col-md-8">: <b>{{$claim->project->descr}}</b></div>
+                                    <div class="col-md-8">: <b>{{$claim->project->descr ?? ''}}</b></div>
                                 @elseif($claim->charge_type=="Internal Order")
-                                    <div class="col-md-8">: <b>{{$claim->iorder->descr}}</b></div>
+                                    <div class="col-md-8">: <b>{{$claim->iorder->descr ?? ''}}</b></div>
+                                @elseif($claim->charge_type=="Maintenance Order")
+                                    <div class="col-md-8">: <b>{{$claim->morder->descr ?? ''}}</b></div>
                                 @else
-                                    <div class="col-md-8">: <b>{{$claim->morder->descr}}</b></div>
+                                    <div class="col-md-8">: <b>-</b></div>
                                 @endif
-                            @else
-                                <div class="col-md-8">: <b>-</b></div>
-                            @endif
+
                         @endif
                     </div>
                 </div>
@@ -118,7 +118,7 @@
                 <div class="panel-body">
                     <div class="table-responsive">
                         <table class="table table-bordered table-blue">
-                            <thead>    
+                            <thead>
                                 <tr>
                                     <th>No</th>
                                     <th>Start OT</th>
@@ -145,7 +145,7 @@
                                             <td>
                                                 @if($details->clock_in!="")
                                                     System Input
-                                                @else 
+                                                @else
                                                     Manual Input
                                                 @endif
                                             </td>
@@ -158,12 +158,12 @@
                                     @endforeach
                                     @if($nox==0)
                                     <tr>
-                                        <td colspan="7"><i>Not Available</i></td> 
+                                        <td colspan="7"><i>Not Available</i></td>
                                     </tr>
                                     @endif
                                 @else
                                     <tr>
-                                        <td colspan="7"><i>Not Available</i></td> 
+                                        <td colspan="7"><i>Not Available</i></td>
                                     </tr>
                                 @endif
                             </tbody>
@@ -177,15 +177,15 @@
                     <a id="btn-3" data-toggle="collapse" href="#collapse3"><span>Overtime Attachment</span><i id="fas-3" class="fas fa-sort-down"></i></a>
                 </div>
             <div id="collapse3" class="panel-collapse collapse">
-                <div class="panel-body"> 
-                    
+                <div class="panel-body">
+
         @if(count($claim->file)!=0)
                     @foreach($claim->file as $f=>$singlefile)
                         @php(++$f)
                         <a href="{{ asset('storage/'.$singlefile->filename)}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9; margin-bottom: 10px;"></a>
                         <!-- <a href="{{--route('ot.file', ['tid'=>$singlefile->id], false)--}}" target="_blank"><img src="{{route('ot.thumbnail', ['tid'=>$singlefile->id], false)}}" title="{{ substr($singlefile->filename, 22)}}"  class="img-fluid img-thumbnails" style="height: 100px; width: 100px; border: 1px solid #A9A9A9; margin-bottom: 10px;"></a> -->
                     @endforeach
-        @else <p>No attachment</p>            
+        @else <p>No attachment</p>
         @endif
 
                 </div>
