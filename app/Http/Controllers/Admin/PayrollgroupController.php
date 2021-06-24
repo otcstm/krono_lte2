@@ -78,7 +78,7 @@ class PayrollgroupController extends Controller
       $company = Company::all();
       $effdt = CompanyPayrollgroup::where('payrollgroup_id',$id)->first('start_date');
       $active = CompanyPayrollgroup::where('payrollgroup_id',$id)->where('end_date','9999-12-31')->get();
-      $effdt = $effdt ->start_date;
+      $effdt = $effdt->start_date;
       $effdt= $effdt->format('Y-m-d');
       $mindate = Carbon::now()->format('Y-m-d');
 

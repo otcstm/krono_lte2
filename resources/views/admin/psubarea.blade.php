@@ -285,7 +285,7 @@ function edit(i){
 					"</div>";
         var submit = true;
 		Swal.fire({
-			title: 'Edit Company',
+			title: 'Edit Subarea',
 			html: "<div class='text-left'>"+html+
 				"</div>",
 			showCancelButton: true,
