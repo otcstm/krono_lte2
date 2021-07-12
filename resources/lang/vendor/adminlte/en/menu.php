@@ -25,6 +25,8 @@ return [
     'admin_shift_planning'   => 'Shift Planning',
     'maintenance_order'   => 'Listing of Maintenance Order',
     'project_list'   => 'Listing of Project',
+    'public_hol_user'   => 'Public Holiday Entitlement',
+    'invalid_email'   => 'Unsuccessful Email Delivery',
 
 
 

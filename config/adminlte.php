@@ -308,6 +308,18 @@ return [
               'icon' => '',
               'can' => '5-user-mngmt',
           ],
+          [
+              'text' => 'public_hol_user',
+              'route' => 'dt.list',
+              'icon' => '',
+              'can' => '5-user-mngmt',
+          ],
+          [
+              'text' => 'invalid_email',
+              'route' => 'invalidemail.list',
+              'icon' => '',
+              'can' => '5-user-mngmt',
+          ],
         ]
       ],
 
