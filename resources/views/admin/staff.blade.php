@@ -3,29 +3,37 @@
 @section('title', 'Search Staff')
 
 @section('content')
-<div class="panel panel-default">
-    <div class="panel-heading panel-primary">Search for Staff</div>
+
+
+@if($auth ?? '')
+<h1>User Authorization Setting</h1>
+@endif
+
+
+<div class="panel panel-default panel-main">
+
     <div class="panel-body">
-        <!-- <h3>Search User</h3> -->
         <form action="{{ route('staff.search') }}" method="POST">
             @csrf
+            <h4><b>Search Staff</b></h4>
             <div class="form-group">
-                <input type="text" class="form-control" id="inputstaff" name="inputstaff" placeholder="{{ __('adminlte::adminlte.input_staff') }}" value="{{ old('inputstaff') }}" autofocus>
+                <input type="text" style="position: relative; z-index: 8; width: 100%" id="inputstaff" name="inputstaff" placeholder="{{ __('adminlte::adminlte.input_staff') }}" value="{{ old('inputstaff') }}" autofocus>
+                <i style="position: relative; z-index: 9; margin-left: -25px" class="fas fa-search"></i>
             </div>
             @if($auth ?? '')
             <input type="text" class="form-control hidden" id="auth" name="auth" value="auth">
             @elseif($mgmt ?? '')
             <input type="text" class="form-control hidden" id="mgmt" name="mgmt" value="mgmt">
             @endif
-            <button type="submit" class="btn btn-primary">SEARCH</button>
+            <div class="text-right">
+                <button  type="submit" class="btn-up">SEARCH</button>
+            </div>
+            <br>
         </form>
-    </div>
-</div>
-
-@if(session()->has('staffs'))
-<div class="panel panel-default">    
-    <div class="panel-heading panel-primary">List of Staff</div>
-    <div class="panel-body">
+        <div class="line2"></div>
+        <h4><b>Search Result</b></h4>
+        <br>
+        {{--@if(session()->has('staffs'))--}}
         <div class="table-responsive">
             <table id="tStaffList" class="table table-bordered">
                 <thead>
@@ -43,7 +51,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($staffs as $singleuser)
+                    @foreach($staffs as $no=> $singleuser)
                     <tr>
                         <td>{{ $singleuser->staff_no }}</td>
                         <td>{{ $singleuser->name }}</td>
@@ -51,8 +59,8 @@
                         @if($auth ?? '')
                         <td>@foreach ($singleuser->roles as $indexKey => $user)<p>{{$indexKey+1}}. {{ $user->title }}</p>@endforeach</td>
                         <td>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editRole" data-role_id="{{$singleuser['id']}}" data-role_no="{{$singleuser['staff_no']}}" data-role_name="{{$singleuser['name']}}" data-role_user="@foreach ($singleuser->roles as $user){{ $user->id }} @endforeach">
-                                <i class="fas fa-cog"></i>
+                            <button type="button" class="btn btn-np" id="edit-{{$no}}" data-role_id="{{$singleuser['id']}}" data-role_no="{{$singleuser['staff_no']}}" data-role_name="{{$singleuser['name']}}" data-role_user="@foreach ($singleuser->roles as $user){{ $user->id }} @endforeach">
+                                <i class="fas fa-edit"></i>
                             </button>
                         </td>
                         @else
@@ -60,15 +68,34 @@
                         <td>@if($singleuser->state_id ?? ''){{ $singleuser->stateid->state_descr }}@endif</td>
                             @if($mgmt ?? '')
                             <td>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editMgmt" data-role_id="{{$singleuser['id']}}" data-role_no="{{$singleuser['staff_no']}}" data-role_name="{{$singleuser['name']}}"data-role_company="{{$singleuser['company_id']}}" data-role_state="{{$singleuser['state_id']}}">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editMgmt"
+                                data-role_iddata-role_id="{{$singleuser['id']}}"
+                                data-role_no="{{$singleuser['staff_no']}}"
+                                data-role_name="{{$singleuser['name']}}"
+                                data-role_company="{{$singleuser['company_id']}}"
+                                data-role_state="{{$singleuser['state_id']}}">
                                     <i class="fas fa-pencil-alt"></i>
                                 </button>
                             </td>
                             @else
                             <td>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#info" data-role_id="{{$singleuser['id']}}" data-role_no="{{$singleuser['staff_no']}}" data-role_name="{{$singleuser['name']}}" data-role_email="{{$singleuser['email']}}" data-role_company="@if($singleuser->company_id ?? ''){{ $singleuser->companyid->company_descr }}@endif" data-role_state="@if($singleuser->state_id ?? ''){{ $singleuser->stateid->state_descr }}@endif">
+                                {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#info"
+                                data-role_id="{{$singleuser['id']}}"
+                                data-role_no="{{$singleuser['staff_no']}}"
+                                data-role_name="{{$singleuser['name']}}"
+                                data-role_email="{{$singleuser['email']}}"
+                                data-role_company="@if($singleuser->company_id ?? ''){{ $singleuser->companyid->company_descr }}@endif"
+                                data-role_state="@if($singleuser->state_id ?? ''){{ $singleuser->stateid->state_descr }}@endif">
+                                    <i class="fas fa-info"></i>
+                                </button> --}}
+
+        <form action="{{ route('staff.profile') }}" target="_blank" method="POST">
+            @csrf
+            <input type="hidden" name="getProfile" value="{{$singleuser['id']}}" />
+                                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#info">
                                     <i class="fas fa-info"></i>
                                 </button>
+        </form>
                             </td>
                             @endif
                         @endif
@@ -76,142 +103,22 @@
                     @endforeach
                 </tbody>
             </table>
-        </div>   
-    </div>
-</div>
-@endif
-<div id="editRole" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Edit Role</h4>
-            </div>
-            <div class="modal-body">
-                <form action="{{route('staff.edit.auth')}}" method="POST">
-                    @csrf
-                    <input type="text" class="form-control hidden" id="inputid" name="inputid" value="" required>
-                    <p><b>Staff No:</b></p>
-                    <p class="showno"></p>
-                    <p><b>Staff Name:</b></p>
-                    <p class="showname"></p>
-                    <input type="text" class="form-control hidden" id="inputname" name="inputname" value="" required>
-                    <input type="text" class="form-control hidden" id="inputno" name="inputno" value="" required>
-                    <p><b>Set Roles:</b></p>
-                    <div style="max-height: 210px; overflow-y: scroll">
-                    @if($roles ?? '')
-                        @foreach($roles as $singlerole)
-                        <div class="checkbox">
-                            <label><input type="checkbox" id="checkbox_{{$singlerole->id}}" name="role[]" value="{{$singlerole->id}}">{{$singlerole->title}}</label>
-                        </div>
-                        @endforeach
-                    @endif
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary">SAVE</button>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
         </div>
+        {{--@endif--}}
     </div>
 </div>
 
-<div id="editMgmt" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Edit User Info</h4>
+<form action="{{ route('staff.edit.auth') }}" method="POST" id="edit" class="hidden">
+	@csrf
+    <input type="text" class="form-control" id="inputid" name="inputid" value="" required>
+        @if($roles ?? '')
+            @foreach($roles as $no  => $singlerole)
+            <div class="checkbox">
+                <label><input type="checkbox" id="checkbox_{{$no}}" name="role[]" value="{{$singlerole->id}}">{{$singlerole->title}}</label>
             </div>
-            <div class="modal-body">
-                <form action="{{route('staff.edit.mgmt')}}" method="POST">
-                    @csrf
-                    <input type="text" class="form-control hidden" id="inputid" name="inputid" value="" required>
-                    <p><b>Staff No:</b></p>
-                    <p class="showno"><p>
-                    <p><b>Staff Name:</b></p>
-                    <p class="showname"><p>
-                    <input type="text" class="form-control hidden" id="inputname" name="inputname" value="" required>
-                    <input type="text" class="form-control hidden" id="inputno" name="inputno" value="" required>
-                    <p><b>Company:</b></p>
-                    <select name="company" id="company" required>
-                    @if($companies ?? '')
-                        @foreach($companies as $singlecompany)
-                        <option value="{{$singlecompany->id}}">{{$singlecompany->company_descr}}</option>
-                        @endforeach
-                    @endif
-                    </select>
-                    <br><br><p><b>State:</b></p>
-                    <select name="state" id="state" required>
-                    @if($states ?? '')
-                        @foreach($states as $singlestate)
-                        <option value="{{$singlestate->id}}">{{$singlestate->state_descr}}</option>
-                        @endforeach
-                    @endif
-                    </select>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary">SAVE</button>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="info" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">User Details</h4>
-            </div>
-            <div class="modal-body" style="overflow-y: scroll; max-height: 70vh">
-                <p><b>Staff No:</b></p>
-                <p class="showno"><p><br>
-                <p><b>Staff Personal No:</b></p>
-                <p class="showid"><p><br>
-                <p><b>Staff Name:</b></p>
-                <p class="showname"><p><br>
-                <p><b>Staff Email:</b></p>
-                <p class="showemail"><p><br>
-                <p><b>Company:</b></p>
-                <p class="showncompany"><p><br>
-                <p><b>State:</b></p>
-                <p class="showstate"><p>
-                </select>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-@if(session()->has('feedback'))
-<div id="feedback" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-            <div class="modal-body text-center">
-                <div class="glyphicon glyphicon-{{session()->get('feedback_icon')}}" style="color: {{session()->get('feedback_color')}}; font-size: 32px;"></div>
-                <p>{{session()->get('feedback_text')}}<p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">CLOSE</button>
-            </div>
-        </div>
-    </div>
-</div>
-@endif
-
+            @endforeach
+        @endif
+</form>
 @stop
 
 @section('js')
@@ -276,8 +183,92 @@ $('#info').on('show.bs.modal', function(e) {
     populate(e);
 });
 
+for(i = 0; i<{{count($roles)}}; i++){
+	$("#edit-"+i).on("click", edit(i));
+
+}
+
+function edit(i){
+	return function(){
+        var role_id = $("#edit-"+i).data('role_id');
+        var role_name = $("#edit-"+i).data('role_name')
+        var role_no = $("#edit-"+i).data('role_no');
+        var role_user = $("#edit-"+i).data(('role_user'));
+        var role_users = role_user.split(" ");
+        var html = "<div class='row'>"+
+					"<div class='col-md-3 col-md-offset-1'>"+
+						"<p>Staff ID</p>"+
+					"</div>"+
+					"<div class='col-md-8'>"+
+                        "<p>"+role_no+"</p>"+
+					"</div>"+
+				"</div>"+
+                "<div class='row'>"+
+					"<div class='col-md-3 col-md-offset-1'>"+
+						"<p>Role Name</p>"+
+					"</div>"+
+					"<div class='col-md-8'>"+
+                        "<p>"+role_name+"</p>"+
+					"</div>"+
+				"</div>"+
+				"<div class='row'>"+
+					"<div class='col-md-3 col-md-offset-1'>"+
+						"<p>Set Roles</p>"+
+                    "</div>";
+        var checked = "";
+        var num = 1;
+        @if($roles ?? '')
+            @foreach($roles as $no => $singlerole)
+                checked = "";
+                if({{$no}}==0){
+                    html = html +"<div class='col-md-8'>";
+                }else{
+                    html = html +"<div class='col-md-8 col-md-offset-4'>";
+                }
+
+                for(i=0; i<role_users.length; i++){
+                    if(role_users[i]=={{$singlerole->id}}){
+                        checked = "checked";
+                    }
+                }
+                html = html + "<input type='checkbox' id='checkbox-{{$no}}' name='permission[]' value='{{$singlerole->id}}' "+checked+"> {{$singlerole->title}}"+
+                "</div>";
+                num++;
+            @endforeach
+        @endif
+		Swal.fire({
+			title: 'Edit Role',
+			html: "<div class='text-left'>"+html+
+				"</div>"+
+				"</div>",
+			showCancelButton: true,
+			customClass:'test4',
+			confirmButtonColor: '#d33',
+			cancelButtonColor: '#3085d6',
+			confirmButtonText: 'SAVE',
+			cancelButtonText: 'CANCEL'
+			}).then((result) => {
+			if (result.value) {
+                $('#inputid').val(role_id);
+                for(x=0; x<num; x++){
+                    if ($('#checkbox-'+x).is(':checked')){
+                        $('#checkbox_'+x).prop('checked', true);
+                    }
+                }
+                $("#edit").submit();
+			}
+		})
+	}
+}
+
+
 @if(session()->has('feedback'))
-    $('#feedback').modal('show');   
+    Swal.fire({
+        title: "{{session()->get('feedback_title')}}",
+        html: "{{session()->get('feedback_text')}}",
+        confirmButtonText: 'DONE'
+    })
 @endif
+
 </script>
 @stop

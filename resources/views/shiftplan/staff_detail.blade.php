@@ -1,9 +1,5 @@
 @extends('adminlte::page')
 
-@section('css')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
-@stop
-
 @section('title', 'Shift Plan Details')
 
 @section('content')
@@ -16,6 +12,12 @@
     <div class="alert alert-{{ session()->get('a_type') }} alert-dismissible">
       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
       <strong>{{ session()->get('alert') }}</strong>
+    </div>
+    @endif
+    @if(session()->get('warning_msg'))
+    <div class="alert alert-warning alert-dismissible">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>{{ session()->get('warning_msg') }}</strong>
     </div>
     @endif
     @if($filled != true)
@@ -33,10 +35,22 @@
         @endif
       </div>
       <div class="form-group has-feedback {{ $errors->has('spattern_id') ? 'has-error' : '' }}">
+       
         <label for="spattern">{{ __('shift.f_shift_pattern') }}</label>
         <select class="form-control" id="spattern" name="spattern_id" required>
-          @foreach($patterns as $pt)
-          <option value="{{ $pt->id }}">{{ $pt->code }} : {{ $pt->description }} ({{ $pt->days_count }} days / {{ $pt->total_hours }} hours)</option>
+          @foreach($sps->ShiftPlan->Group->shiftpatterns as $pt)
+          @php $unique_day = []; @endphp
+          @php $unique_day_descr = []; @endphp
+            @foreach ($pt->ListDays as $item)
+                @if(!in_array($item->Day->code,$unique_day))
+                  @php array_push($unique_day,$item->Day->code); @endphp
+                  @php array_push($unique_day_descr,$item->Day->description); @endphp
+                @endif
+            @endforeach   
+
+          <option value="{{ $pt->id }}"
+          title="{{ implode( ", ", $unique_day_descr ) }}">
+            {{ $pt->code }} : {{ $pt->description }} ({{ $pt->days_count }} days / {{ $pt->total_hours }} hours)</option>
           @endforeach
         </select>
         @if ($errors->has('spattern_id'))
@@ -45,11 +59,27 @@
             </span>
         @endif
       </div>
-
       <div class="form-group text-center">
         <button type="submit" class="btn btn-primary">{{ __('shift.f_sp_append') }}</button>
       </div>
     </form>
+    @else 
+    <div class="alert alert-warning alert-dismissible">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>The shift pattern for this month already full</strong>
+    </div>
+      <div class="form-group has-feedback {{ $errors->has('sdate') ? 'has-error' : '' }}">
+        <label for="sdate">Start Date</label>
+        <input type="date" id="sdate" name="sdate" value="" disabled />
+      </div>
+      <div class="form-group has-feedback {{ $errors->has('spattern_id') ? 'has-error' : '' }}">       
+        <label for="spattern">{{ __('shift.f_shift_pattern') }}</label>
+        <select class="form-control" id="spattern" name="spattern_id" disabled>
+        </select>
+      </div>
+      <div class="form-group text-center">
+        <button type="button" class="btn btn-primary" disabled>{{ __('shift.f_sp_append') }}</button>
+      </div>
     @endif
   </div>
 </div>
@@ -77,7 +107,18 @@
          <tr>
            <td>{{ $ap->day_seq }}</td>
            <td>{{ $ap->Pattern->code }}</td>
-           <td>{{ $ap->Pattern->description }}</td>
+           <td>{{ $ap->Pattern->description }}
+            @php $unique_day = []; @endphp
+            @php $unique_day_descr = []; @endphp
+            @foreach ($ap->Pattern->ListDays as $item)
+                @if(!in_array($item->Day->code,$unique_day))
+                  @php array_push($unique_day,$item->Day->code); @endphp
+                  @php array_push($unique_day_descr,$item->Day->description); @endphp
+                @endif
+            @endforeach  
+            <br /> 
+            ({{ implode( "), (", $unique_day_descr ) }})
+          </td>
            <td>{{ $ap->Pattern->days_count }}</td>
            <td>{{ $ap->start_date }}</td>
            <td>{{ $ap->Pattern->total_hours }}</td>
@@ -104,17 +145,38 @@
 <div class="panel panel-default">
   <div class="panel-heading">{{$sps->plan_month->format('M-Y')}}'s calendar for {{ $sps->User->name }}</div>
   <div class="panel-body">
-    {!! $cal->calendar() !!}
+    <div class="table-responsive">
+      <table id="tbltwsc" class="table table-bordered table-condensed cell-border" style="white-space: nowrap;">
+        <thead>
+          <tr>
+            @foreach($header as $h)
+            <th style="border:1pt solid black !important;">{{ $h }}</th>
+            @endforeach
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($cal as $s)
+          <tr>
+            @foreach($s['data'] as $h)
+            <td style="border:1pt solid black !important; @if($h['bg'] != '') background-color:{{ $h['bg'] }}  @endif ">
+              <b>{{ $h['type'] }}</b><br />{{ $h['time'] }}
+            </td>
+            @endforeach
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="form-group text-right">
+    <a class="btn btn-primary btn-outline" href="{{route('shift.index',[],false)}}" >Return</a>
+    </div>
   </div>
 </div>
 
 @stop
 
 @section('js')
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
-{!! $cal->script() !!}
 
 <script type="text/javascript">
 $(document).ready(function() {

@@ -16,11 +16,16 @@ class CreateOvertimeEligibilitiesTable extends Migration
         Schema::create('overtime_eligibilities', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('company_id');
+            $table->string('empgroup');
+            $table->string('empsgroup');
+            $table->string('psgroup');
             $table->string('region', 25);
             $table->decimal('salary_cap',10,2)->default(0.0);
+            $table->decimal('min_salary',10,2)->default(0.0);
+            $table->decimal('max_salary',10,2)->default(0.0);
             $table->integer('hourpermonth');
-            $table->integer('hourperday');
-            $table->integer('daypermonth');
+            $table->integer('hourperday')->nullable();
+            $table->integer('daypermonth')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->integer('created_by');

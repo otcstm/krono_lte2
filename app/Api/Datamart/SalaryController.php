@@ -14,49 +14,35 @@ class SalaryController extends Controller
     public function list()
     {
         $sal = Salary::all();
-
         return $sal;
     }
-
 
     public function insert(Request $req)
     {
         $s = new Salary;
-        $s->user_id       = $req->pernr;
-        $s->upd_sap       = $req->aedtm;
-        $s->start_date    = $req->begda;
-        $s->end_date      = $req->endda;
-        $s->payscale_type = $req->trfar;
-        $s->payscale_area = $req->trfgb;
-        $s->salary        = $req->betrg;
+        $s->user_id       = $req->pers_no;
+        $s->upd_sap       = $req->change_on;
+        $s->start_date    = $req->start_date;
+        $s->end_date      = $req->end_date;
+        $s->payscale_type = $req->payscale_type;
+        $s->payscale_area = $req->payscale_area;
+        $s->salary        = $req->salary;
         $s->save();
+        $collection = ["user_id" => $s->user_id, "start_date" => $s->start_date ];
+        return $collection;
     }
-
-
-    public function insert_bak(
-        $user_id,
-        $upd_sap,
-        $start_date,
-        $end_date,
-        $payscale_type,
-        $payscale_area,
-        $salary
-    ) {
-        $s = new Salary;
-        $s->user_id = $user_id;
-
-        $s->upd_sap       = $upd_sap;
-        $s->start_date    = $start_date;
-        $s->end_date      = $end_date;
-        $s->payscale_type = $payscale_type;
-        $s->payscale_area = $payscale_area;
-        $s->salary        = $salary;
-        $s->save();
-    }
-
 
     public function returnABC()
     {
+      Salary::all();
         return "ABCDE";
+    }
+
+    public function returnMaxDate()
+    {
+        $upd_sap = Salary::max('upd_sap');
+
+        return $upd_sap;
+
     }
 }

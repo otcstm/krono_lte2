@@ -207,6 +207,25 @@ class SetupCodesTableSeeder extends Seeder
                 'created_at' => '2020-01-15 12:37:51',
                 'updated_at' => '2020-01-15 12:38:05',
             ),
+            10 => 
+            array (
+                'id' => 11,
+                'item1' => 'ot_status',
+                'item2' => 'Assign',
+                'item3' => 'Assign',
+                'item4' => NULL,
+                'item5' => NULL,
+                'item6' => NULL,
+                'item7' => NULL,
+                'item8' => NULL,
+                'item9' => NULL,
+                'item10' => NULL,
+                'start_date' => NULL,
+                'end_date' => NULL,
+                'created_by' => 53062,
+                'created_at' => '2020-05-04 14:38:51',
+                'updated_at' => '2020-05-04 14:38:52',
+            ),
         ));
         
         

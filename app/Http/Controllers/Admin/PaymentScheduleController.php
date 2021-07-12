@@ -17,23 +17,22 @@ class PaymentScheduleController extends Controller
   {
       $pygroup = Payrollgroup::all();
       // $defdate = $req ->int_date->format('M');
-      $defyear= date('Y');
-      $slctyr= $req->slctyr ? $req->slctyr : $defyear;
+      $defyear = date('Y');
+      $slctyr = $req->slctyr ? $req->slctyr : $defyear;
       $slctyr = Session('slctyr') ? Session('slctyr') : $slctyr;
 
       $list_year = PaymentSchedule::select(DB::raw('YEAR(payment_date) as year'))
       ->distinct()->orderBy('year','desc')->get()
       ->pluck('year')->toArray();
-      array_push($list_year,'all');
+      array_push($list_year,'All');
 
       // dd($slctyr);
 
-      if($slctyr=='all'){
-        $ps = PaymentSchedule::all();
+      if($slctyr=='All'){
+        $ps = PaymentSchedule::orderBy('payment_date','asc')->get();
       }else{
         $ps = PaymentSchedule::whereRaw("YEAR(payment_date)= '".$slctyr."'")->orderBy('payment_date','asc')->get();
       }
-
 
       return view('admin.paymentschedule',
       ['ps_list' => $ps, 'pygroups' =>$pygroup, 'slctyr' => $slctyr, 'list_year' => $list_year]);
@@ -46,6 +45,7 @@ class PaymentScheduleController extends Controller
       $paydate = Carbon::parse($pd);
       $pyear = $paydate->format('Y');
       $pmonth = $paydate->format('m');
+      $fmonth = $paydate->format('F');
       $group = $req->pyg;
       $check = PaymentSchedule::whereYear('payment_date',"=", $pyear)
             ->whereMonth('payment_date',"=", $pmonth)
@@ -63,31 +63,61 @@ class PaymentScheduleController extends Controller
         $new_ps-> created_by= $req->user()->id;
         $new_ps-> save();
         $execute = UserHelper::LogUserAct($req, "Payment Schedule", "Create Payment Schedule $pmonth/$pyear");
-        $a_text = "Payment Schedule $pmonth/$pyear successfully created.";
-        $a_type = "success";
+        // $a_text = "Payment Schedule $fmonth $pyear successfully created.";
+        // $a_type = "success";
+
+        return redirect(route('paymentsc.index', [], false))
+        ->with([
+          'a_text'=>"Payment Schedule $fmonth $pyear successfully created.",
+          'feedback' => true,
+          'a_icon'=>  'success'
+        ]);
+
       }else{
-        $a_text = "Payment Schedule $pmonth/$pyear already exist.";
-        $a_type = "warning";
+        // dd([$check]);
+
+        // $a_text = "Payment Schedule $fmonth $pyear already exist.";
+        // $a_type = "warning";
+
+        return redirect(route('paymentsc.index', [], false))
+        ->with([
+          'a_text'=>"Failed! Payment Schedule for $fmonth $pyear already exist.",
+          'feedback' => true,
+          'a_icon'=>  'error'
+        ]);
+
       }
-      return redirect(route('paymentsc.index', [], false))->with(['a_text'=>$a_text,'a_type'=>$a_type]);
+      // return redirect(route('paymentsc.index', [], false))
+      // ->with([
+      //   'a_text'=>$a_text,
+      //   'a_type'=>$a_type
+      // ]);
   }
 
   public function update(Request $req)
     {
-     $pd = $req ->pay_date;
+     $pd = $req ->inputpay;
      $paydate = Carbon::parse($pd);
      $pyear = $paydate->format('Y');
      $pmonth = $paydate->format('m');
+     $fmonth = $paydate->format('F');
      $inpyg = $req->inpyg;
+     // DD('PYEAR:'.$pyear.', pmonth: '.$pmonth.',inpyg: '.$inpyg );
      $check = PaymentSchedule::whereYear('payment_date',"=", $pyear)
            ->whereMonth('payment_date',"=", $pmonth)
            ->where('payrollgroup_id',$inpyg)
            ->where('id','!=',$req->inputid)
            ->get();
-           // dd([$check]);
+
      if(count($check)!=0){
-       $a_text = "Payment Schedule $pmonth/$pyear already exist.";
-       $a_type = "warning";
+       // DD('HERE');
+       return redirect(route('paymentsc.index', [], false))
+       ->with([
+         'feedback' => true,
+         'a_text'=>"Failed! Payment Schedule $fmonth $pyear already exist.",
+         'a_icon'=>"error"
+       ]);
+
      }else{
        $ps = PaymentSchedule::find($req->inputid);
        if($ps){
@@ -100,14 +130,22 @@ class PaymentScheduleController extends Controller
          $ps-> updated_by = $req->user()->id;
          $ps->save();
          $execute = UserHelper::LogUserAct($req, "Payment Schedule", "Update Payment Schedule $pmonth/$pyear " );
-         $a_text = "Payment Schedule $pmonth/$pyear updated!";
-         $a_type = "success";
+         return redirect(route('paymentsc.index', [], false))
+         ->with([
+           'feedback' => true,
+           'a_text'=>"Payment Schedule $fmonth $pyear updated!",
+           'a_icon'=>"success"
+         ]);
+
        }else{
-         $a_text = "Payment Schedule not found.";
-         $a_type = "warning";
+         return redirect(route('paymentsc.index', [], false))
+         ->with([
+           'feedback' => true,
+           'a_text'=>"Payment Schedule not found.",
+            'a_icon'=>"warning"
+          ]);
        }
     }
-    return redirect(route('paymentsc.index', [], false))->with(['a_text'=>$a_text, 'a_type'=>$a_type]);
   }
 
   public function destroy(Request $req)
@@ -118,11 +156,15 @@ class PaymentScheduleController extends Controller
       // $ps->save();
       $ps->delete();
       $a_text = "Payment Schedule deleted!";
-      $a_type = "warning";
+      $a_type = "success";
     } else {
       $a_text = "Payment Schedule not found";
-      $a_type = "danger";
+      $a_type = "error";
     }
-    return redirect(route('paymentsc.index', [], false))->with(['a_text'=>$a_text , 'a_type'=>$a_type]);
+    return redirect(route('paymentsc.index', [], false))
+    ->with([
+      'a_text'=>$a_text ,
+      'a_icon'=>$a_type,
+    'feedback' => true]);
   }
 }

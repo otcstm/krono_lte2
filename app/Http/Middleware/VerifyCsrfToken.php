@@ -19,6 +19,10 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
+        //'overtime/query',
+        //'overtime/approval',
+        'overtime/*',
+        'logout'
         //
     ];
 }
