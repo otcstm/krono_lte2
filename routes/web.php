@@ -12,7 +12,7 @@
 Route::group(['middleware' => ['noie']], function () {
   Route::redirect('/', '/login');
   Route::view('itado-raya2021','dummy/raya2021/workforce-itado-raya2021',[]);
-  
+
 
 });
 
@@ -49,7 +49,7 @@ Route::group(['middleware' => ['auth','noie']], function () {
   Route::get('/announcement/close', 'Admin\AnnouncementController@close')->name('announce.close');
   Route::get('/notification/clear', 'Admin\AnnouncementController@noticlear')->name('noti.clear');
   Route::get('/notification/list', 'ToDoController@notification')->name('noti.list');
-  
+
   // work schedule rule
   Route::get('/workschedule', 'WorkSchedRuleController@wsrPage')->name('staff.worksched');
   Route::post('/workschedule/edit', 'WorkSchedRuleController@doEditWsr')->name('staff.worksched.edit');
@@ -110,6 +110,17 @@ Route::group(['middleware' => ['auth','noie']], function () {
   Route::get('/admin/cocdsearch', 'Admin\MaintenanceOrderController@cocdsearch')->name('mo.cocdsearch');
   Route::post('/admin/maintncorder', 'Admin\MaintenanceOrderController@index')->name('mo.list');
 
+  //unsuccessful email delivery
+  Route::get('/admin/invalidemail', 'Admin\InvalidEmailController@index')->name('invalidemail.list');
+  Route::post('/admin/invalidemail', 'Admin\InvalidEmailController@index')->name('invalidemail.list');
+
+  //day tags (Public holiday)
+  Route::get('/admin/daytag', 'Admin\DayTagController@index')->name('dt.list');
+  Route::post('/admin/daytag', 'Admin\DayTagController@index')->name('dt.list');
+  Route::post('/admin/daytag/create', 'Admin\DayTagController@store')->name('dt.store');
+  Route::post('/admin/daytag/edit', 'Admin\DayTagController@update')->name('dt.edit');
+  Route::post('/admin/daytag/delete', 'Admin\DayTagController@destroy')->name('dt.delete');
+
   //User management
   Route::get('/admin/staff', 'Admin\StaffController@showMgmt')->name('staff.list.mgmt');
   Route::post('/admin/staff/edit', 'Admin\StaffController@updateMgmt')->name('staff.edit.mgmt');
@@ -148,7 +159,7 @@ Route::group(['middleware' => ['auth','noie']], function () {
   Route::get('/admin/shiftplanning', 'ShiftPlanController@showall')->name('admin.shiftplanning');
   Route::post('/admin/shiftplanning', 'ShiftPlanController@showall')->name('admin.shiftplanning');
   Route::get('/admin/dwallsp', 'ShiftPlanController@downloadAllSp')->name('admin.downloadAllSp');
-  
+
   //Route::get('/admin/shiftplanning', 'Admin\ShiftPlanController@index')->name('index');
   //Route::get('/admin/shiftplanning/detail', 'Admin\ShiftPlanController@viewDetail')->name('view');
   //Route::post('/admin/shiftplanning/edit', 'Admin\ShiftPlanController@editPlan')->name('edit');

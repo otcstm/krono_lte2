@@ -84,7 +84,7 @@ class CreateDetailsreportViews extends Migration
                 `otd`.`in_latitude` AS `otd_in_latitude`,
                 `otd`.`in_longitude` AS `otd_in_longitude`,
                 `otd`.`hour` AS `otd_hour`,
-                `otd`.`hour` AS `otd_minute`,
+                `otd`.`minute` AS `otd_minute`,
                 `otd`.`justification` AS `otd_justification`
 
             FROM

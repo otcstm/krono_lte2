@@ -30,6 +30,7 @@ use App\Project;
 use App\InternalOrder;
 use App\MaintenanceOrder;
 use App\OtIndicator;
+use App\InvalidEmail;
 use Exception;
 
 use App\Notifications\OTSubmitted;
@@ -1565,21 +1566,43 @@ class OvertimeController extends Controller
                     //send notification to verifier/approver
                     $claim = Overtime::where('id', $claim->id)->first();
                     $user = $claim->verifier;
+
+                    $touser = \App\User::orWhere('id', $user->persno)->get();
                     $ccuser = \App\User::orWhere('id', $claim->user_id)->orWhere('id', $claim->approver_id)->get();
+
                     if ($claim->verifier_id==null) {
                         $user = $claim->approver;
+                        // dd($user);
+                        $touser = \App\User::orWhere('id', $user->persno)->get();
+                        // dd($touser);
                         $ccuser = \App\User::orWhere('id', $claim->user_id)->get();
                     }
-                    $cc = $ccuser->pluck('email')->toArray();
-                    $uc = $user->pluck('email')->toArray();
 
+                    $uc = $touser->pluck('email')->toArray();//salah
+                    $cc = $ccuser->pluck('email')->toArray();
+
+                    // dd('cc','$ccuser',$ccuser,'$cc',$cc,'boss','$touser',$touser,'$uc',$uc);
                     $checkemail = URHelper::isValidEmail($uc);
                     $checkemailcc = URHelper::isValidEmail($cc);
+
                     if(($checkemail)&&($checkemailcc)){
+                      // dd('here valid',$uc,$cc);
                         $user->notify(new OTSubmitted($claim, $cc));
                     }else{
+                      //save log invalid email as record
+                        $invalid_email = new InvalidEmail;
+                        $invalid_email->refno = $claim->refno;
+                        $invalid_email->approver_id = $claim->approver_id;
+                        $invalid_email->verifier_id = $claim->verifier_id;
+                        $invalid_email->user_id = $claim->user_id;
+                        $invalid_email->approver_email = $claim->approver->email;
+                        $invalid_email->verifier_email = $claim->verifier->email;
+                        $invalid_email->user_email = $claim->name->email;
+                        $invalid_email->save();
+                      // dd('here invalid',$uc,$cc,$invalid_email);
                         $user->notify(new OTSubmittedNoti($claim, $cc));
                     }
+
                     if ($eligibility) {
 
                         //check if eligible for ot hour exception
