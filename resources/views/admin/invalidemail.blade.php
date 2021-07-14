@@ -57,6 +57,7 @@
                       <th>Verifier Email</th>
                       <th>Approver Id</th>
                       <th>Approver Email</th>
+                      <th>Desc</th>
                       <th>Submitted at</th>
                     </tr>
                 </thead>
@@ -72,6 +73,7 @@
                         <td>{{ $email_ls->verifier_email}}</td>
                         <td>{{ $email_ls->approver_id}}</td>
                         <td>{{ $email_ls->approver_email}}</td>
+                        <td>{{ $email_ls->remark}}</td>
                         <td>{{ $email_ls->created_at}}</td>
                     </tr>
                     @endforeach

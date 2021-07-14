@@ -22,6 +22,7 @@ class CreateInvalidEmailsTable extends Migration
             $table->string('verifier_email')->nullable();
             $table->integer('approver_id')->nullable();
             $table->string('approver_email')->nullable();
+            $table->string('remark')->nullable();
             $table->timestamps();
         });
     }

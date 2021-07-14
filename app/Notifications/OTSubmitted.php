@@ -16,10 +16,13 @@ class OTSubmitted extends Notification
      *
      * @return void
      */
-    public function __construct($myot, $cc_email)
+    public function __construct($myot, $cc_email,$tover,$toapp,$touser)
     {
+      // dd($myot, $cc_email,$tover,$toapp,$touser);
         $this->claim = $myot;
         $this->cc_email = $cc_email;
+        $this->toapp = $toapp;
+        $this->touser = $touser;
     }
 
     /**
@@ -43,20 +46,51 @@ class OTSubmitted extends Notification
     {
          // standardkan semua link ke email guna yg ni supaya dia 'mark as read'
             $url = route('notify.read', ['nid' => $this->id]);
+            $bccmail = 'otneo2020@gmail.com';
 
-            $subject = "Verification";
-            $type = "verification";
-            $toname = $this->claim->verifier->name;
             if($this->claim->verifier_id==NULL){
+              // dd('here1');
                 $subject = "Approval";
                 $type = "approval";
                 $toname = $this->claim->approver->name;
+
+                if ($this->touser!='') {
+                    // dd('cc user',$this->toapp,$this->touser);
+                    $ccmail = $this->touser;
+                }else{
+                  // dd('user invalid',$this->toapp,$this->touser);
+                  $ccmail = 'ot@tm.com.my';
+                }
+
+            }else{
+                // dd('here2');
+              $subject = "Verification";
+              $type = "verification";
+              $toname = $this->claim->verifier->name;
+
+              if(($this->toapp!='')&&($this->touser!='')){
+                // dd('valid both',$this->toapp,$this->touser);
+                $ccmail = $this->cc_email;
+              }elseif ($this->toapp!='') {
+                // dd('cc app',$this->toapp,$this->touser);
+              $ccmail = $this->toapp;
+              }elseif ($this->touser!='') {
+                // dd('cc user',$this->toapp,$this->touser);
+                $ccmail = $this->touser;
+              }else {
+                // dd('invalid both',$this->toapp,$this->touser);
+                $ccmail = 'ot@tm.com.my';
+              }
+
             }
             // hantar email guna blade template yg berkaitan
             // boleh guna view / markdown
+
+
             return (new MailMessage)
             ->subject('Overtime claim '.$this->claim->refno.' - Pending '.$subject)
-            ->cc($this->cc_email)
+            ->cc($ccmail)
+            ->bcc($bccmail)
             ->markdown('email.ot.otsubmittedverified', [
                 'url' => $url,
                 'type' => $type,
