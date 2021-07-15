@@ -188,7 +188,7 @@
                                     @php($query = $logs->message)
                                 @endif
                             @endforeach
-                            {{str_replace('"', '', str_replace('Queried with message: "', '', $query))}}</p>
+                            {{str_replace('"', '', str_replace('Queried with message: "', '', $query ?? ''))}}</p>
                     @endif
                     {{--<!-- <p>Estimated Amount: RM
                         @if($claim ?? '')
@@ -716,7 +716,7 @@
                                         style="display: none"
                                     @endif
                                     >
-  
+
                                         <div class="row" style="margin-bottom: 5px;">
                                             <div class="col-md-3">
                                                 <label>Network Header (Activity No):</label>

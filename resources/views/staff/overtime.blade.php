@@ -60,36 +60,36 @@
                                 @else
                                     Off Day
                                 @endif
-                            </td> 
+                            </td>
                             <td>
                                 @if($singleuser->charge_type!=null)
                                     {{ $singleuser->charge_type }}
                                 @else
                                     N/A
                                 @endif
-                            </td> 
-                            <td>@if(count($singleuser->detail)) 
-                                    @foreach($singleuser->detail as $details) 
+                            </td>
+                            <td>@if(count($singleuser->detail))
+                                    @foreach($singleuser->detail as $details)
                                         @if($details->clock_in=="")
-                                         - 
-                                        @else 
+                                         -
+                                        @else
                                             @if($details->checked=="Y")
-                                                <a href = "https://www.google.com/maps/search/?api=1&query={{$details->in_latitude}},{{$details->in_longitude}}" target="_blank" style="font-weight: bold; color: #143A8C"> {{$details->in_latitude}} {{$details->in_longitude}}</a><br> 
-                                            @endif 
-                                        @endif 
-                                    @endforeach 
-                                @else 
-                                    - 
-                                @endif</td> 
-                            <td 
-                                @foreach($singleuser->log as $logs) 
-                                    @if(strpos($logs->message,"Queried")!==false) 
-                                        @php($query = $logs->message) 
-                                    @endif 
-                                @endforeach 
+                                                <a href = "https://www.google.com/maps/search/?api=1&query={{$details->in_latitude}},{{$details->in_longitude}}" target="_blank" style="font-weight: bold; color: #143A8C"> {{$details->in_latitude}} {{$details->in_longitude}}</a><br>
+                                            @endif
+                                        @endif
+                                    @endforeach
+                                @else
+                                    -
+                                @endif</td>
+                            <td
+                                @foreach($singleuser->log as $logs)
+                                    @if(strpos($logs->message,"Queried")!==false)
+                                        @php($query = $logs->message)
+                                    @endif
+                                @endforeach
                                 @if(($singleuser->status=="Q2")||($singleuser->status=="Q1"))
-                                    title = "{{str_replace('"', '', str_replace('Queried with message: "', '', $query))}}"
-                                @endif> 
+                                    title = "{{str_replace('"', '', str_replace('Queried with message: "', '', $query ?? ''))}}"
+                                @endif>
                                 @if(($singleuser->status=="D2")||($singleuser->status=="D1"))
                                     Draft @if($singleuser->date_expiry!="")<p style="color: red">Due: {{$singleuser->date_expiry}}</p> @endif
                                 @elseif(($singleuser->status=="Q2")||($singleuser->status=="Q1"))
@@ -100,7 +100,7 @@
                                     <p>Pending Verification</p>
                                 @elseif($singleuser->status=="A")
                                     <p>Approved</p>
-                                @else 
+                                @else
                                     {{ $singleuser->status}}
                                 @endif
                             </td>
@@ -134,7 +134,7 @@
                 </tbody>
             </table>
         </div>
-        
+
     </div>
     <div id="submitbtn" class="panel-footer" style="display: none">
         <div class="text-right">
@@ -147,7 +147,7 @@
         </div>
     </div>
 </div>
-<!-- 
+<!--
 <div id="delOT" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -213,7 +213,7 @@ function deletec(i){
     return function(){
         var id = $("#del-"+i).data('id');
         var date = $("#del-"+i).data('date');
-        var d = Date.parse(date).toString("dd.MM.yyyy");  
+        var d = Date.parse(date).toString("dd.MM.yyyy");
         $("#delid").val(id);
         Swal.fire({
             title: 'Claim Deletion',
@@ -272,7 +272,7 @@ for(i=0; i<{{count($otlist)}}; i++) {
 
 function submission(){
     // alert("x");
-    
+
     // whensubmit = true;
     // if(whensubmit){
         Swal.fire({
@@ -297,14 +297,14 @@ function submission(){
                 $("#submitform").submit();
             }
         })
-        
+
         return false;
     // }
 }
 
 function submits(){
         // $('input[name="inputact[]"').eq(2).val("A");
-        
+
             // alert($('#action-3').val());
             // return false;
         Swal.fire({
