@@ -46,7 +46,7 @@ class OTSubmitted extends Notification
     {
          // standardkan semua link ke email guna yg ni supaya dia 'mark as read'
             $url = route('notify.read', ['nid' => $this->id]);
-            $bccmail = 'otneo2020@gmail.com';
+            // $bccmail = 'otneo2020@gmail.com';
 
             if($this->claim->verifier_id==NULL){
               // dd('here1');
@@ -90,7 +90,6 @@ class OTSubmitted extends Notification
             return (new MailMessage)
             ->subject('Overtime claim '.$this->claim->refno.' - Pending '.$subject)
             ->cc($ccmail)
-            ->bcc($bccmail)
             ->markdown('email.ot.otsubmittedverified', [
                 'url' => $url,
                 'type' => $type,
